@@ -1,0 +1,134 @@
+# ============================================================================
+# retry_classes.yaml — Retry classification table
+# Purpose : table-driven failure classification for harness/retry.py
+#           (~80 lines: classification + full jitter + circuit breaker + DLQ)
+# Input   : failure text (stderr tail / acceptance output / last 50 log lines)
+# Output  : action per failure: retry | dead_letter | duty_review
+# Lines   : ~140
+#
+# Semantics (spec §3.3 transitions 9, 10, 13-15):
+#   - Patterns evaluated top-to-bottom; FIRST match wins.
+#   - action=retry     -> FAILED -> RUNNING re-dispatch with full-jitter
+#                         backoff: sleep = random(0, min(backoff_cap,
+#                         backoff_base * 2^attempt)), within run-level budget.
+#   - action=duty_review -> FAILED -> DUTY_REVIEW (duty officer partition).
+#   - action=dead_letter -> FAILED -> DEAD_LETTER (never silently discarded;
+#                         dead letter always synthesizes a Sol wake summary).
+#   - NO MATCH (off-table) -> duty_review (trigger rule retry_regex_no_match);
+#     with duty_officer.enforce=false (F2 cold start) the officer only logs
+#     and the packet proceeds to DEAD_LETTER.
+#   - 2 consecutive same-type failures -> duty_review regardless of the
+#     class's own action (trigger rule consecutive_same_type_failures).
+#   - Retry budget exhausted for ANY class -> dead_letter.
+# ============================================================================
+
+version: 1
+run_level_retry_budget: 6         # total retries across all packets per run
+session_circuit_breaker: 10       # consecutive failures per session -> halt + Sol wake
+default_action: duty_review       # off-table events are never silent
+
+classes:
+
+  # ---- Transient infrastructure (retry, generous) ---------------------------
+  - name: timeout
+    pattern: '(?i)(timed?[ _-]?out|deadline exceeded|job_max_runtime|SIGALRM|ETIMEDOUT)'
+    action: retry
+    max_retries: 2
+    backoff_base: 5
+    backoff_cap: 60
+
+  - name: network_transient
+    pattern: '(?i)(connection (refused|reset|aborted)|ECONNRESET|ECONNREFUSED|EAI_AGAIN|network (is )?unreachable|TLS handshake|temporary failure in name resolution|50[234] (bad gateway|service unavailable|gateway timeout)|rate.?limit|429)'
+    action: retry
+    max_retries: 3
+    backoff_base: 2
+    backoff_cap: 30
+
+  - name: resource_contention
+    pattern: '(?i)(resource temporarily unavailable|EAGAIN|too many open files|EMFILE|lock(file)? (held|busy|timeout)|database is locked|address already in use|EADDRINUSE)'
+    action: retry
+    max_retries: 2
+    backoff_base: 3
+    backoff_cap: 30
+
+  - name: flaky_test_marker
+    pattern: '(?i)(flak(y|iness)|rerun|non.?deterministic|race condition detected|intermittent)'
+    action: retry
+    max_retries: 1
+    backoff_base: 2
+    backoff_cap: 10
+
+  # ---- Resource exhaustion (retry once, then human-adjacent review) ---------
+  - name: oom
+    pattern: '(?i)(out of memory|OOM[ -]?kill|MemoryError|Cannot allocate memory|ENOMEM|killed.*signal 9|exit code 137)'
+    action: retry
+    max_retries: 1
+    backoff_base: 10
+    backoff_cap: 60
+
+  - name: disk_full
+    pattern: '(?i)(no space left on device|ENOSPC|disk quota exceeded|EDQUOT)'
+    action: dead_letter            # retrying cannot free disk; needs adjudication
+    max_retries: 0
+    backoff_base: 0
+    backoff_cap: 0
+
+  # ---- Deterministic code failures (retry buys nothing without a fix) -------
+  - name: compilation_error
+    pattern: '(?i)(compil(e|ation) (error|failed)|syntax ?error|cannot find symbol|undefined reference|error TS\d+|error\[E\d+\]|ImportError|ModuleNotFoundError)'
+    action: duty_review            # fixable class: officer feeds fix hint back
+    max_retries: 0
+    backoff_base: 0
+    backoff_cap: 0
+
+  - name: test_assertion_failure
+    pattern: '(?i)(assert(ion)? ?(error|failed)|expect(ed)? .* (but )?(got|received|was)|FAILED tests?/|\d+ failed, \d+ passed)'
+    action: duty_review            # semantic failure: classify before burning retries
+    max_retries: 0
+    backoff_base: 0
+    backoff_cap: 0
+
+  - name: test_collection_error
+    pattern: '(?i)(error(s)? during collection|no tests ran|collected 0 items|Test suite failed to run)'
+    action: duty_review
+    max_retries: 0
+    backoff_base: 0
+    backoff_cap: 0
+
+  # ---- Permission / boundary (never retry — security relevant) --------------
+  - name: permission_denied
+    pattern: '(?i)(permission denied|EACCES|EPERM|operation not permitted|read.?only file system|sandbox (denied|violation))'
+    action: dead_letter            # boundary issue; high-risk trigger handles routing
+    max_retries: 0
+    backoff_base: 0
+    backoff_cap: 0
+
+  - name: auth_failure
+    pattern: '(?i)(401 unauthorized|403 forbidden|invalid (api )?key|authentication (failed|required)|credential)'
+    action: dead_letter
+    max_retries: 0
+    backoff_base: 0
+    backoff_cap: 0
+
+  # ---- Environment / setup (one retry after possible races) -----------------
+  - name: missing_dependency
+    pattern: '(?i)(command not found|No such file or directory.*\b(bin|node_modules|venv)\b|ENOENT.*node_modules|package .* is not installed|Could not find a version)'
+    action: retry
+    max_retries: 1
+    backoff_base: 5
+    backoff_cap: 20
+
+  - name: git_conflict
+    pattern: '(?i)(merge conflict|CONFLICT \(|cannot rebase|would be overwritten by (merge|checkout))'
+    action: dead_letter            # merge conflicts go to MERGE_CONFLICT -> Sol adjudication
+    max_retries: 0
+    backoff_base: 0
+    backoff_cap: 0
+
+  # ---- Subagent lifecycle (known platform bugs #34653 / #35541) --------------
+  - name: spawn_hang_or_lost
+    pattern: '(?i)(spawn.?agent (hang|timeout|stuck)|agent thread limit reached|wait.*(not-a-cell|dummy)|no report_agent_job_result)'
+    action: retry                  # idempotent named-task retry; watchdog enforced
+    max_retries: 1
+    backoff_base: 10
+    backoff_cap: 60

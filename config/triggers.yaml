@@ -1,0 +1,206 @@
+# ============================================================================
+# triggers.yaml — L1 trigger table (one table, two partitions)
+# Purpose : deterministic, zero-token routing of mechanical signals after L0
+# Input   : L0 mechanical-acceptance output + execution logs (consumed by
+#           harness/trigger_eval.py, ~100 lines)
+# Output  : action per packet: pass | annotated_pass | send_l2 | direct_l3
+#           | spawn_duty_officer
+# Lines   : ~230
+#
+# Semantics (spec §3.5, §10 S5 — hardcoded in trigger_eval.py, restated here):
+#   - L1 can only PASS, ANNOTATE, BLOCK, or ESCALATE. It can NEVER release
+#     an artifact to publication.
+#   - high_risk rules are deterministic direct-to-L3(+L4): NO verdict from
+#     any LLM (L2 verifier included) may override a high_risk direct_l3 hit.
+#   - Rules are evaluated in ascending `priority` (lower number = evaluated
+#     first); the highest-severity action among all hits wins:
+#       direct_l3 > send_l2 > spawn_duty_officer > annotated_pass > pass.
+#   - F2 cold start: passthrough_enabled=false means even all-pass packets
+#     still route to L3; hits are always logged to escalation_log.jsonl.
+#   - Any signal not matched by any rule is fail-visible: default action is
+#     send_l2 (never silent pass).
+# ============================================================================
+
+version: 1
+default_action: send_l2          # off-table signal -> never silent pass
+log_all_hits: true               # every hit appended to escalation_log.jsonl
+
+partitions:
+
+  # ==========================================================================
+  # PARTITION 1: EscalationKit (EK) — ~30 rules over 8 mechanical signal types
+  # ==========================================================================
+  ek:
+    rules:
+      # ---- Signal family: exit code sequence -------------------------------
+      - name: exit_clean_single_run
+        signal_pattern: "exit_codes == [0]"
+        action: pass
+        priority: 100
+      - name: exit_nonzero_then_clean
+        signal_pattern: "exit_codes matches [^0.*, 0] (recovered after retry)"
+        action: annotated_pass
+        priority: 110
+      - name: exit_flapping
+        signal_pattern: "exit_codes alternates 0/non-0 across >=3 runs"
+        action: send_l2
+        priority: 120
+      - name: exit_signal_kill
+        signal_pattern: "any exit_code in [137, 139, 143] (SIGKILL/SEGV/SIGTERM)"
+        action: send_l2
+        priority: 130
+      - name: exit_persistent_failure
+        signal_pattern: "last 2 exit_codes both non-zero, same code"
+        action: send_l2
+        priority: 140
+
+      # ---- Signal family: retry count --------------------------------------
+      - name: retry_none
+        signal_pattern: "retry_count == 0"
+        action: pass
+        priority: 200
+      - name: retry_single
+        signal_pattern: "retry_count == 1"
+        action: annotated_pass
+        priority: 210
+      - name: retry_double
+        signal_pattern: "retry_count == 2"
+        action: send_l2
+        priority: 220
+      - name: retry_exhausted
+        signal_pattern: "retry_count >= run_level_budget"
+        action: direct_l3
+        priority: 230
+
+      # ---- Signal family: diff lines vs packet budget -----------------------
+      - name: diff_within_budget
+        signal_pattern: "diff_lines <= packet.diff_budget"
+        action: pass
+        priority: 300
+      - name: diff_near_budget
+        signal_pattern: "packet.diff_budget < diff_lines <= 1.2 * packet.diff_budget"
+        action: annotated_pass
+        priority: 310
+      - name: diff_over_budget
+        signal_pattern: "1.2 * packet.diff_budget < diff_lines <= 2 * packet.diff_budget"
+        action: send_l2
+        priority: 320
+      - name: diff_runaway
+        signal_pattern: "diff_lines > 2 * packet.diff_budget"
+        action: direct_l3
+        priority: 330
+      - name: diff_empty
+        signal_pattern: "diff_lines == 0 (empty diff on an implementation packet)"
+        action: send_l2
+        priority: 340
+
+      # ---- Signal family: path boundary -------------------------------------
+      - name: path_boundary_attempt
+        signal_pattern: "any changed path not in packet.authorized_paths"
+        action: direct_l3
+        high_risk: true            # deterministic, non-overridable
+        priority: 10
+      - name: path_boundary_probe_in_log
+        signal_pattern: "log shows write/edit attempt outside authorized_paths (blocked by sandbox)"
+        action: send_l2
+        priority: 350
+
+      # ---- Signal family: test count change direction -----------------------
+      - name: test_count_increased
+        signal_pattern: "test_count_after > test_count_before"
+        action: pass
+        priority: 400
+      - name: test_count_unchanged
+        signal_pattern: "test_count_after == test_count_before and packet requires new tests"
+        action: annotated_pass
+        priority: 410
+      - name: test_count_decreased
+        signal_pattern: "test_count_after < test_count_before"
+        action: direct_l3
+        high_risk: true            # deleting tests is never releasable by L1/L2
+        priority: 20
+      - name: test_assertions_modified
+        signal_pattern: "diff touches existing assert lines in tests/ (constraint violation)"
+        action: direct_l3
+        high_risk: true
+        priority: 30
+      - name: test_below_min_count
+        signal_pattern: "test_count_after < packet.min_test_count"
+        action: send_l2
+        priority: 420
+
+      # ---- Signal family: high-risk path hit --------------------------------
+      - name: high_risk_migration_path
+        signal_pattern: "changed path matches (migrations/|schema/|.*\\.sql$)"
+        action: direct_l3
+        high_risk: true
+        priority: 40
+      - name: high_risk_credential_path
+        signal_pattern: "changed path matches (\\.env|secrets|credentials|\\.aws/|\\.ssh/|auth\\.json)"
+        action: direct_l3
+        high_risk: true
+        priority: 41
+      - name: high_risk_ci_path
+        signal_pattern: "changed path matches (\\.github/workflows/|\\.gitlab-ci|Jenkinsfile|\\.circleci/)"
+        action: direct_l3
+        high_risk: true
+        priority: 42
+      - name: high_risk_mass_deletion
+        signal_pattern: "deleted_lines > 200 or any file deletion of non-generated file"
+        action: direct_l3
+        high_risk: true
+        priority: 43
+      - name: high_risk_hook_or_config
+        signal_pattern: "changed path matches (hooks/|config/.*\\.(toml|yaml)|AGENTS\\.md)"
+        action: direct_l3
+        high_risk: true
+        priority: 44
+
+      # ---- Signal family: observation length --------------------------------
+      - name: observation_oversize
+        signal_pattern: "single observation length > 3000 chars"
+        action: annotated_pass     # annotate: recommend ipybox / file landing
+        priority: 500
+      - name: observation_oversize_repeated
+        signal_pattern: ">=3 observations in one run each > 3000 chars"
+        action: send_l2
+        priority: 510
+
+      # ---- Signal family: loop fingerprint -----------------------------------
+      - name: loop_fingerprint_warn
+        signal_pattern: "identical command repeated 3-4 times in run log"
+        action: annotated_pass
+        priority: 600
+      - name: loop_fingerprint_hit
+        signal_pattern: "identical command repeated >= 5 times in run log"
+        action: send_l2
+        priority: 610
+      - name: loop_fingerprint_hard
+        signal_pattern: "identical command repeated >= 10 times (runaway loop)"
+        action: direct_l3
+        priority: 620
+
+  # ==========================================================================
+  # PARTITION 2: Duty officer — 4 rules (F2 cold start: log-only, see
+  # duty_officer.enforce in config.toml.example; enforce=false means a hit
+  # writes escalation_log.jsonl but the packet still takes the original
+  # dead-letter path)
+  # ==========================================================================
+  duty_officer:
+    rules:
+      - name: consecutive_same_type_failures
+        signal_pattern: "2 consecutive failures with identical retry-class classification"
+        action: spawn_duty_officer
+        priority: 700
+      - name: retry_regex_no_match
+        signal_pattern: "failure text matches no pattern in retry_classes.yaml"
+        action: spawn_duty_officer
+        priority: 710
+      - name: low_confidence_ruling
+        signal_pattern: "prior duty-officer ruling confidence < 0.7 on same packet"
+        action: spawn_duty_officer
+        priority: 720
+      - name: evidence_missing
+        signal_pattern: "failure report lacks log excerpt / report file line references"
+        action: spawn_duty_officer
+        priority: 730

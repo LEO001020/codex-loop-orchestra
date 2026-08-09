@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# mock `codex` binary shim -> mock_codex_exec.sh (for PATH/CODEX_BIN overrides)
+exec "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/mock_codex_exec.sh" "$@"

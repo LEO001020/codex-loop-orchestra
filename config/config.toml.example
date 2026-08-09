@@ -1,0 +1,105 @@
+# ============================================================================
+# config.toml.example — Codex-LOOP-Build-F2 cold start configuration
+# Purpose : [agents] knobs + [features] + F2 toggles + commented ipybox block
+# Input   : merged into $CODEX_HOME/config.toml by install.sh (existing keys
+#           are never overwritten; a diff is printed for user confirmation)
+# Output  : effective Codex CLI session configuration
+# Lines   : ~110
+#
+# F2 COLD START FORM (see task spec §3.6):
+#   - EscalationKit in place, passthrough CLOSED  -> escalation.passthrough_enabled = false
+#   - Duty officer records only, does NOT route   -> duty_officer.enforce = false
+#   - ipybox NOT enabled                          -> [mcp_servers.ipybox] commented out
+# All three switch-to-production toggles are single-key flips, no code changes.
+# ============================================================================
+#:schema https://developers.openai.com/codex/config-schema.json
+
+# ----------------------------------------------------------------------------
+# Feature flags
+# ----------------------------------------------------------------------------
+[features]
+# Multi-agent collaboration tools (spawn_agent, send_input, resume_agent,
+# wait_agent, close_agent). Stable, on by default; pinned explicitly here.
+# NOTE: leave multi_agent_v2 UNSET (V1 semantics give deterministic
+# agent_type/model/effort control for scripted spawns; see research §3.3).
+multi_agent = true
+
+# ----------------------------------------------------------------------------
+# [agents] knobs — multi-agent orchestration limits
+# ----------------------------------------------------------------------------
+[agents]
+# Multi-agent tools enabled (default true; pinned for explicitness).
+enabled = true
+
+# Max concurrently open spawned-agent threads, excluding the primary thread.
+# (New canonical key name; `max_threads` is the legacy alias.)
+max_concurrent_threads_per_session = 4
+
+# Max nesting depth for spawned agent threads (root session = depth 0).
+# 1 = Sol may spawn children; children may NOT spawn grandchildren.
+max_depth = 1
+
+# Per-worker timeout in seconds for CSV batch jobs (spawn_agents_on_csv).
+job_max_runtime_seconds = 1800
+
+# Defaults for spawned subagents when the spawn call and the agent TOML
+# do not select a model/effort. Agent TOML file values take precedence.
+default_subagent_model = "gpt-5.6-luna"
+default_subagent_reasoning_effort = "low"
+
+# ----------------------------------------------------------------------------
+# F2 toggle 1/3 — EscalationKit passthrough (single-key switch)
+# ----------------------------------------------------------------------------
+[escalation]
+# false (F2 cold start): L0 all-green packets do NOT skip Sol review.
+#   Every packet still goes through L3; Sol per-packet/wave final review is
+#   not reduced; escalation_log.jsonl is still written (free calibration data).
+# true  (production): L0 all-green + no trigger hit -> straight to the serial
+#   merge queue, exempt from Sol per-packet review (mechanical acceptance and
+#   the human release gate still apply — L1/L2 can NEVER release, §3.5).
+# Unlock condition: trigger threshold calibration complete (spec §10 S5).
+passthrough_enabled = false
+
+# ----------------------------------------------------------------------------
+# F2 toggle 2/3 — Duty officer enforcement (single-key switch)
+# ----------------------------------------------------------------------------
+[duty_officer]
+# false (F2 cold start): duty-officer triggers fire and are LOGGED ONLY
+#   (escalation_log.jsonl); failures continue down the original dead-letter
+#   path to Sol adjudication.
+# true  (production): duty-officer rulings are routed through the whitelist
+#   gate (harness/duty_gate.py): retryable/fixable with confidence >= θ
+#   re-dispatch; terminal/low-confidence -> DEAD_LETTER.
+# Rollback condition: misclassification rate > 5% narrows whitelist (§10 S6).
+enforce = false
+
+# ----------------------------------------------------------------------------
+# F2 toggle 3/3 — ipybox persistent kernel (uncomment block to enable)
+# ----------------------------------------------------------------------------
+# The ipybox MCP server provides a persistent Python kernel for large-output
+# in-process digestion (>5,000 tok output) and compression-immune cross-call
+# state. DISABLED by default in the F2 cold start form.
+#
+# TO ENABLE (single action — uncomment the block below):
+#   1. Ensure Docker is installed and the image is pulled:
+#        docker pull ghcr.io/gradion-ai/ipybox:latest   # pin tag per VERSIONS.lock
+#   2. Uncomment every line of the [mcp_servers.ipybox] block.
+#   3. Restart the Codex session (config is read at session start).
+#
+# SECURITY GUARDRAILS (spec §10 S7 — do not relax):
+#   - Docker isolation; the kernel does NOT inherit Codex sandbox_mode.
+#   - Default deny egress: no network access from the kernel container.
+#   - Credential dirs (~/.aws, ~/.ssh, .env files) are NEVER mounted.
+#   - mcpygen external tool calls stay disabled in phase 1.
+#   - Cell code enters the session log and is locally readable.
+#   - Discipline: print <= 50 lines; return variable-name handles, not bodies.
+#
+# [mcp_servers.ipybox]
+# command = "docker"
+# args = [
+#   "run", "--rm", "-i",
+#   "--network", "none",
+#   "--workdir", "/workspace",
+#   "--mount", "type=bind,source=${PWD}/data,target=/workspace/data",
+#   "ghcr.io/gradion-ai/ipybox:latest",
+# ]
