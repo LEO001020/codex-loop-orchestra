@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1600" viewBox="0 0 1800 1600" role="img" aria-labelledby="title desc">
+  <title id="title">Codex LOOP Orchestra 架构</title>
+  <desc id="desc">分层展示根协调器规划有界任务、确定性生命周期控制、Codex Desktop 与 headless 双执行平面、机械证据、独立验证、串行集成、人工发布权和只读实时观察界面。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#080d14"/><stop offset="1" stop-color="#111827"/></linearGradient>
+    <linearGradient id="rootFill" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#17233a"/><stop offset="1" stop-color="#172b46"/></linearGradient>
+    <linearGradient id="execFill" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#102b27"/><stop offset="1" stop-color="#13352f"/></linearGradient>
+    <linearGradient id="reviewFill" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#251b3c"/><stop offset="1" stop-color="#33214b"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000" flood-opacity=".32"/></filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8b9bb4"/></marker>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#56d364"/></marker>
+    <marker id="arrowRed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#ff7b72"/></marker>
+    <marker id="arrowPurple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#d2a8ff"/></marker>
+    <style>
+      .title{font:700 42px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;fill:#f0f6fc;letter-spacing:-.5px}
+      .subtitle{font:400 21px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;fill:#9daec4}
+      .layer{font:700 18px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;fill:#8b9bb4;letter-spacing:1.6px}
+      .cardTitle{font:700 24px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;fill:#f0f6fc}
+      .body{font:400 18px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;fill:#c4d0df}
+      .small{font:400 16px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;fill:#9daec4}
+      .badge{font:700 15px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;letter-spacing:.4px}
+      .metric{font:700 30px Inter,Segoe UI,Arial,sans-serif;fill:#f0f6fc}
+      .metricLabel{font:400 15px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;fill:#9daec4}
+      .edge{fill:none;stroke:#8b9bb4;stroke-width:3;marker-end:url(#arrow)}
+      .edgeGreen{fill:none;stroke:#56d364;stroke-width:3;marker-end:url(#arrowGreen)}
+      .edgeRed{fill:none;stroke:#ff7b72;stroke-width:3;stroke-dasharray:10 8;marker-end:url(#arrowRed)}
+      .edgePurple{fill:none;stroke:#d2a8ff;stroke-width:3;stroke-dasharray:10 8;marker-end:url(#arrowPurple)}
+      .observe{fill:none;stroke:#6e7681;stroke-width:2;stroke-dasharray:7 8;marker-end:url(#arrow)}
+    </style>
+  </defs>
+
+  <rect width="1800" height="1600" fill="url(#bg)"/>
+  <circle cx="1600" cy="120" r="260" fill="#1f6feb" opacity=".06"/>
+  <circle cx="170" cy="1410" r="300" fill="#8957e5" opacity=".05"/>
+
+  <text x="70" y="68" class="title">Codex LOOP Orchestra</text>
+  <text x="70" y="104" class="subtitle">一个可安装的 Codex 控制层：持续补位并行执行，以独立模型验证结果，并实时观察全部任务。</text>
+
+  <g filter="url(#shadow)">
+    <rect x="70" y="132" width="380" height="84" rx="15" fill="#111b2b" stroke="#2f81f7"/>
+    <text x="94" y="168" class="metric">20</text><text x="155" y="166" class="metricLabel">活跃 Agent</text><text x="94" y="194" class="metricLabel">每个父任务的持续并发目标</text>
+    <rect x="470" y="132" width="380" height="84" rx="15" fill="#111b2b" stroke="#2f81f7"/>
+    <text x="494" y="168" class="metric">80</text><text x="555" y="166" class="metricLabel">跨平面并发包络</text><text x="494" y="194" class="metricLabel">Desktop + 受监督 headless worker</text>
+    <rect x="870" y="132" width="380" height="84" rx="15" fill="#111b2b" stroke="#d29922"/>
+    <text x="894" y="168" class="metric">≤25%</text><text x="1010" y="166" class="metricLabel">根模型 token 目标</text><text x="894" y="194" class="metricLabel">有效生产占比目标，不是保证值</text>
+    <rect x="1270" y="132" width="460" height="84" rx="15" fill="#111b2b" stroke="#6e7681"/>
+    <text x="1294" y="168" class="metric">50</text><text x="1355" y="166" class="metricLabel">已配置的单会话上限</text><text x="1294" y="194" class="metricLabel">20/80 是 LOOP 目标，不是 Codex 官方限制</text>
+  </g>
+
+  <text x="70" y="282" class="layer">任务入口</text>
+  <rect x="265" y="242" width="1270" height="78" rx="16" fill="#151b24" stroke="#475569"/>
+  <text x="900" y="274" text-anchor="middle" class="cardTitle">人类任务</text>
+  <text x="900" y="300" text-anchor="middle" class="body">一个目标进入系统；最终合并与发布仍只能由人类触发。</text>
+  <path class="edge" d="M900 320 V348"/>
+
+  <text x="70" y="394" class="layer">根协调层</text>
+  <rect x="265" y="348" width="1270" height="96" rx="16" fill="url(#rootFill)" stroke="#58a6ff" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="289" y="369" width="150" height="30" rx="15" fill="#1f6feb" opacity=".28"/>
+  <text x="364" y="390" text-anchor="middle" class="badge" fill="#79c0ff">协调模型家族</text>
+  <text x="900" y="382" text-anchor="middle" class="cardTitle">Sol 根协调器</text>
+  <text x="900" y="414" text-anchor="middle" class="body">单次规划 · 派发有界任务 · 裁决真正异常 · 综合最终结果</text>
+  <path class="edge" d="M900 444 V472"/>
+
+  <text x="70" y="518" class="layer">规划层</text>
+  <rect x="265" y="472" width="615" height="94" rx="16" fill="#171d27" stroke="#3d4b60"/>
+  <text x="572" y="506" text-anchor="middle" class="cardTitle">决策骨架</text><text x="572" y="536" text-anchor="middle" class="body">依赖关系、边界与验收证据</text>
+  <rect x="920" y="472" width="615" height="94" rx="16" fill="#171d27" stroke="#3d4b60"/>
+  <text x="1227" y="506" text-anchor="middle" class="cardTitle">Packet DAG</text><text x="1227" y="536" text-anchor="middle" class="body">自包含任务 + 显式路径所有权</text>
+  <path class="edge" d="M900 566 V594"/>
+
+  <text x="70" y="642" class="layer">控制平面</text>
+  <rect x="265" y="594" width="1270" height="112" rx="16" fill="#1f1a16" stroke="#d29922"/>
+  <text x="900" y="624" text-anchor="middle" class="cardTitle">确定性生命周期控制</text>
+  <rect x="290" y="642" width="280" height="42" rx="10" fill="#2b241a" stroke="#6f5424"/><text x="430" y="669" text-anchor="middle" class="body">状态机</text>
+  <rect x="600" y="642" width="280" height="42" rx="10" fill="#2b241a" stroke="#6f5424"/><text x="740" y="669" text-anchor="middle" class="body">预算 + 持续补位</text>
+  <rect x="910" y="642" width="280" height="42" rx="10" fill="#2b241a" stroke="#6f5424"/><text x="1050" y="669" text-anchor="middle" class="body">重试 + DEAD_LETTER</text>
+  <rect x="1220" y="642" width="290" height="42" rx="10" fill="#2b241a" stroke="#6f5424"/><text x="1365" y="669" text-anchor="middle" class="body">显式角色/模型 pin</text>
+  <path class="edge" d="M900 706 V734"/>
+
+  <text x="70" y="792" class="layer">执行层</text>
+  <rect x="265" y="734" width="605" height="120" rx="16" fill="url(#execFill)" stroke="#3fb950" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="289" y="754" width="137" height="28" rx="14" fill="#238636" opacity=".34"/><text x="357" y="774" text-anchor="middle" class="badge" fill="#7ee787">执行模型家族</text>
+  <text x="568" y="792" text-anchor="middle" class="cardTitle">Codex Desktop 平面</text><text x="568" y="822" text-anchor="middle" class="body">可见原生子任务 + 根对话↔子 Agent 通信</text>
+  <rect x="930" y="734" width="605" height="120" rx="16" fill="url(#execFill)" stroke="#3fb950" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="954" y="754" width="137" height="28" rx="14" fill="#238636" opacity=".34"/><text x="1022" y="774" text-anchor="middle" class="badge" fill="#7ee787">执行模型家族</text>
+  <text x="1233" y="792" text-anchor="middle" class="cardTitle">受监督 Headless 平面</text><text x="1233" y="822" text-anchor="middle" class="body">codex exec + 隔离 worktree + 生命周期 roster</text>
+  <path class="edge" d="M568 854 V886 H900"/><path class="edge" d="M1233 854 V886 H900"/>
+
+  <text x="70" y="932" class="layer">证据层</text>
+  <rect x="265" y="886" width="1270" height="88" rx="16" fill="#151b24" stroke="#475569"/>
+  <text x="900" y="920" text-anchor="middle" class="cardTitle">L0/L1 机械证据</text>
+  <text x="900" y="950" text-anchor="middle" class="body">产物 + 测试 + diff 边界 + schema + 生命周期证据——Agent 自报 PASS 不具备效力</text>
+  <path class="edge" d="M900 974 V1002"/>
+
+  <text x="70" y="1058" class="layer">验证层</text>
+  <rect x="510" y="1002" width="780" height="104" rx="16" fill="url(#reviewFill)" stroke="#bc8cff" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="534" y="1021" width="137" height="28" rx="14" fill="#8957e5" opacity=".35"/><text x="602" y="1041" text-anchor="middle" class="badge" fill="#d2a8ff">审查模型家族</text>
+  <text x="900" y="1042" text-anchor="middle" class="cardTitle">L2 独立验证器</text>
+  <text x="900" y="1076" text-anchor="middle" class="body">PASS → 集成 · REDO → 返回执行 · ESCALATE → L3 有界裁决</text>
+  <path class="edgeRed" d="M510 1054 H318 V794 H265"/><text x="330" y="1033" class="small" fill="#ff7b72">重做</text>
+  <rect x="1360" y="994" width="340" height="120" rx="16" fill="#2a171a" stroke="#ff7b72"/>
+  <text x="1530" y="1032" text-anchor="middle" class="cardTitle">L3 异常裁决</text><text x="1530" y="1064" text-anchor="middle" class="body">仅处理重大不确定性</text><text x="1530" y="1090" text-anchor="middle" class="small">有界返回 Sol</text>
+  <path class="edgeRed" d="M1290 1054 H1360"/><text x="1297" y="1033" class="small" fill="#ff7b72">升级</text><path class="edgeRed" d="M1700 1054 H1740 V396 H1535"/>
+  <path class="edgeGreen" d="M900 1106 V1134"/>
+
+  <text x="70" y="1182" class="layer">集成层</text>
+  <rect x="265" y="1134" width="615" height="88" rx="16" fill="#151b24" stroke="#56d364"/>
+  <text x="572" y="1168" text-anchor="middle" class="cardTitle">串行集成队列</text><text x="572" y="1198" text-anchor="middle" class="body">由单一受控写入者合并已验收产物</text>
+  <rect x="920" y="1134" width="615" height="88" rx="16" fill="url(#reviewFill)" stroke="#bc8cff"/>
+  <text x="1227" y="1168" text-anchor="middle" class="cardTitle">发布复审</text><text x="1227" y="1198" text-anchor="middle" class="body">反证式检查；没有发布权限</text>
+  <path class="edgeGreen" d="M880 1178 H920"/><path class="edgeGreen" d="M1227 1222 V1250"/>
+
+  <text x="70" y="1298" class="layer">发布层</text>
+  <rect x="510" y="1250" width="780" height="90" rx="16" fill="#20252d" stroke="#f0f6fc" stroke-width="2" filter="url(#shadow)"/>
+  <text x="900" y="1286" text-anchor="middle" class="cardTitle">L4 人类维护者</text><text x="900" y="1317" text-anchor="middle" class="body">唯一可以触发合并或发布的角色</text>
+
+  <text x="70" y="1430" class="layer">观察层</text>
+  <rect x="265" y="1370" width="620" height="112" rx="16" fill="#151b24" stroke="#6e7681"/>
+  <text x="575" y="1405" text-anchor="middle" class="cardTitle">证据存储</text><text x="575" y="1437" text-anchor="middle" class="body">events · ledgers · reports · native/exec rosters</text><text x="575" y="1463" text-anchor="middle" class="small">实际模型 + token 计量 + 语义任务映射</text>
+  <rect x="935" y="1370" width="600" height="112" rx="16" fill="#1d1a35" stroke="#8b7cf6" stroke-width="2" filter="url(#shadow)"/>
+  <text x="1235" y="1405" text-anchor="middle" class="cardTitle">只读 Observer :8765</text><text x="1235" y="1437" text-anchor="middle" class="body">任务 · 模型 · 平面 · 健康 · 补位缺口</text><text x="1235" y="1463" text-anchor="middle" class="small">不调度、不裁决、不授权发布</text>
+  <path class="edgePurple" d="M885 1426 H935"/>
+
+  <line x1="70" y1="1520" x2="1730" y2="1520" stroke="#30363d"/>
+  <text x="70" y="1554" class="small">LLM 只承担需要判断的规划、独立验证与有界异常裁决。</text>
+  <text x="70" y="1581" class="small">等待、轮询、计数、重试、补位和生命周期迁移由脚本与状态机完成。</text>
+  <g transform="translate(1175 1540)"><circle cx="0" cy="8" r="7" fill="#58a6ff"/><text x="18" y="14" class="small">协调</text><circle cx="105" cy="8" r="7" fill="#3fb950"/><text x="123" y="14" class="small">执行</text><circle cx="210" cy="8" r="7" fill="#bc8cff"/><text x="228" y="14" class="small">审查</text><circle cx="315" cy="8" r="7" fill="#f0f6fc"/><text x="333" y="14" class="small">人类发布权</text></g>
+</svg>

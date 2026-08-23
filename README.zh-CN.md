@@ -3,98 +3,70 @@
 
 # Codex LOOP Orchestra
 
-**面向高并发 Codex 智能体的多模型、双平面编排与可观测系统。**
+**把一个 Codex 任务，变成一支分工明确、并行工作的编码 Agent 团队。**
 
 [![CI](https://github.com/LEO001020/codex-loop-orchestra/actions/workflows/ci.yml/badge.svg)](https://github.com/LEO001020/codex-loop-orchestra/actions/workflows/ci.yml)
 [![MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB.svg)](https://www.python.org/)
 
-[English](README.md) · [安装说明](INSTALL.zh-CN.md) · [安全策略](SECURITY.md) · [参与贡献](CONTRIBUTING.md)
+[30 秒开始](#30-秒开始) · [工作原理](#工作原理) · [English](README.md) · [完整文档](INSTALL.zh-CN.md)
 
 </div>
 
-> [!IMPORTANT]
-> Codex LOOP Orchestra 是独立社区项目，不是 OpenAI 官方产品，也不代表 OpenAI 的隶属、赞助或背书。项目使用 Codex 已公开的配置、custom agents、生命周期 hooks 与 `codex exec`，不分发、不修改 Codex 二进制文件。
+Codex 已经很会写代码；LOOP 给它配上一支**可管理的团队**。
 
-## 为什么需要 LOOP
+把 LOOP 安装到 Codex Desktop 或 CLI 之上，只给根对话一个目标：并行 worker 负责执行，不同模型家族负责复审，空闲槽位自动补充，一个实时面板显示每个 Agent 正在做什么。
 
-Codex 已经具备子智能体和根对话—子智能体通信。LOOP 保留这些原生能力，并增加持续编排和观察层：
+## 为什么值得安装
 
-- **让根对话专注协调。** 根对话负责规划、派发、真正异常的裁决和最终综合；搜索、测试、等待、轮询、计数和常规重试由 worker 或确定性脚本完成。
-- **持续补充有效并发。** 一次性波次会随着任务完成逐渐衰减。LOOP 只要仍有真实、有界的工作，就会计算有效并发并补充空缺槽位。
-- **降低同模型错误相关性。** 执行、L2 验证和发布复审都有显式角色、模型和推理强度 pin。生产部署可以让根协调、执行池和审查层使用三个独立模型家族或供应商。
-- **提供可运营的任务身份。** LOOP 把随机英文 nickname 候选改成有序的 `task_01`–`task_50`。Codex Desktop 原生 nickname 不能展示完整委派目标，因此 Observer 再增加语义任务映射。
-- **分离控制平面和宽波次执行。** 维护者曾在自己的环境中观察到 10–20 个繁忙 Desktop 子任务附近出现对话层或应用不稳定。因此 LOOP 可以让 Desktop 保持轻量，将宽波次交给受监督的 headless worker。这是维护者观察到的设计动机，不是普遍的 Codex 产品断言。
+- **更快完成大任务。** 不再等待一条漫长的串行对话，让可配置的 Agent 池持续处理真正有用的工作。
+- **发现同模型的共同盲点。** 协调、执行和审查可以分别使用不同模型家族或供应商。
+- **让最强模型专注决策。** 根对话只规划和裁决；搜索、编码、测试、等待和计数交给 worker 与确定性脚本。
+- **看见整个系统。** 有序任务编号和实时 Observer，取代一墙随机英文名字与不可见的 headless 进程。
+- **突破 Desktop 对话层承载。** 保留可见的原生子任务，同时把更宽的波次交给受监督 headless worker。
+- **安装可检查、可撤销。** 自动备份、状态检查和完整还原；不修改 Codex 二进制文件。
 
-LOOP 的可测量控制目标是：**根模型有效生产 token 占比不超过 25%**。这是控制目标，不是对所有环境的成本、质量或速度保证。
+![Codex LOOP Observer：统一展示 Desktop/headless Agent、语义任务名、实际模型与实时容量](docs/assets/dashboard.png)
 
-## 核心能力
+<p align="center"><sub>一个界面查看原生与 headless Agent：任务、角色、模型、平面、健康状态和剩余容量。</sub></p>
 
-| 能力 | 实现方式 |
+## 30 秒开始
+
+```powershell
+git clone https://github.com/LEO001020/codex-loop-orchestra.git
+cd codex-loop-orchestra
+./launchers/Set-Codex-LOOP-Mode.ps1 -Mode Activate
+```
+
+重启 Codex Desktop，新建任务，然后要求根对话使用 LOOP。若希望让 Agent 先检查你的环境并引导安装，把 [AGENT_INSTALL.md](AGENT_INSTALL.md) 交给它。Linux/WSL 与完整手动说明见 [INSTALL.zh-CN.md](INSTALL.zh-CN.md)。
+
+> [!NOTE]
+> Codex LOOP Orchestra 是独立社区项目，不是 OpenAI 官方产品。它安装配置、custom agents、生命周期 hooks 和 `codex exec` 工具，不分发、不修改 Codex 二进制文件。
+
+## 工作原理
+
+![Codex LOOP Orchestra 架构：根协调、确定性控制、Desktop/headless 执行、独立审查、人工发布与实时观察](docs/assets/architecture-overview.zh-CN.svg)
+
+1. **一个根对话负责协调。** 把用户目标拆成有边界的 packet 和依赖图。
+2. **两个执行平面并行工作。** Codex Desktop 保留原生可见性与通信；受监督 headless worker 承接宽波次。
+3. **LOOP 持续推动真实工作。** 确定性控制器处理状态、补位、重试与死信，不让根模型把轮次浪费在轮询上。
+4. **不同模型家族检查结果。** 机械证据进入独立验证，决定通过、重做或有界升级。
+5. **人类保留发布权。** 串行集成、反证式发布复审，最终只有维护者可以合并或发布。
+
+默认控制目标是：每个父任务维持 20 个活跃 Agent、跨平面 80 个 Agent 包络、根模型有效生产 token 占比不超过 25%。这些是可配置的 LOOP 目标，不是保证值，也不是 Codex 官方限制。
+
+## LOOP 改变了什么
+
+| 普通 Codex 工作方式 | 使用 LOOP Orchestra |
 |---|---|
-| 持续高并发 | 每个父任务默认目标 20，双平面总目标 80，均可配置 |
-| Desktop + headless | 可见的原生子任务与受监督的 `codex exec` worker 并存 |
-| 实时补位 | 仍有合格任务时，完成、失败或丢失的槽位会被补充 |
-| 模型隔离 | 执行与审查显式 pin；根模型仍由用户控制 |
-| 确定性控制 | Packet DAG、状态机、重试分类、生命周期 roster、dead letter |
-| 分层验证 | L0/L1 机械检查、L2 独立验证、L3 有界裁决、L4 人工发布 |
-| 人类可读观察 | 原生有序 nickname + 8765 上的任务/模型/平面语义映射 |
-| 可逆全局模式 | Activate、Deactivate、Status 与基于备份校验的 Restore |
+| 一个对话混合规划、执行与状态工作 | 根对话协调，worker 执行，脚本管理常规生命周期 |
+| 并发波次随 Agent 完成不断萎缩 | 只要还有合格工作，就持续补充空闲槽位 |
+| 同一个模型复查自己的假设 | 执行与审查可使用独立模型家族 |
+| Desktop 子任务名称信息量很低 | `task_01`–`task_50` 有序编号 + Observer 语义任务名 |
+| 宽波次被绑定在 Desktop 对话层 | 原生 Desktop 与受监督 headless 执行协同运行 |
+| 容易过度相信 Agent 自报成功 | 机械证据与独立验证共同把关集成 |
 
-20/80 是 LOOP 的运行目标，不是 Codex 官方限制。配置中的 Codex 单会话子线程上限是 50。
-
-## 架构
-
-```mermaid
-flowchart TB
-    U["人类任务"] --> S["根协调器 / Sol<br/>规划 · 派发 · 异常裁决"]
-    S --> P["决策骨架 + Packet DAG"]
-    P --> C["确定性控制平面<br/>状态 · 预算 · 补位 · 重试"]
-
-    C --> D["Desktop 原生平面<br/>可见子任务 + 原生通信"]
-    C --> H["Headless 平面<br/>受监督 codex exec + worktree"]
-    D --> W["执行池<br/>有界并行工作"]
-    H --> W
-
-    W --> L0["L0/L1 机械证据<br/>测试 · diff 边界 · schema · trigger"]
-    L0 --> L2["L2 独立验证<br/>通过 · 重做 · 升级"]
-    L2 -->|"常规通过"| M["串行集成队列"]
-    L2 -->|"重大不确定"| L3["L3 有界裁决"]
-    L3 --> S
-    M --> R["发布复审<br/>反证式检查"]
-    R --> X["人工触发合并 / 发布"]
-
-    C --> F[("事件 · 账本 · 报告 · roster")]
-    D --> F
-    H --> F
-    F --> O["只读 Observer :8765<br/>语义任务 · 实际模型 · 平面 · 健康"]
-```
-
-模型角色形成的是“乐团”，不是同一模型的自我重复：
-
-```mermaid
-flowchart LR
-    ROOT["协调模型家族<br/>根规划与 L3 决策"]
-    EXEC["执行模型家族<br/>并行实现与探索"]
-    VERIFY["审查模型家族<br/>L2 验证与发布复审"]
-    HUMAN["人类维护者<br/>最终发布权"]
-
-    ROOT -->|"有界 packet"| EXEC
-    EXEC -->|"产物 + 机械证据"| VERIFY
-    VERIFY -->|"通过 / 重做 / 升级"| ROOT
-    ROOT -->|"发布候选"| HUMAN
-```
-
-便携默认 profile 不依赖私有网关。生产 profile 可以引用用户已经在 Codex 或网关中配置好的路由模型 ID；凭据始终留在仓库之外。
-
-## 人类可视化界面
-
-![Codex LOOP Observer：原生有序 nickname 与语义任务映射](docs/assets/dashboard.png)
-
-截图来自维护者使用 provider 路由的实际部署，因此模型芯片文字由该 profile 决定；
-公开版 Observer 会根据活动便携 profile 派生“执行/审查”标签。
-
-Desktop 显示 `task_39` 之类的原生有序 nickname。只读 Observer 将它关联到语义任务名，并显示观测到的模型、执行平面、生命周期新鲜度、配置容量和网关健康。Observer 读取生命周期与 rollout 证据，不参与调度，也不能授权发布。
+便携默认 profile 不依赖私有网关。生产 profile 可以引用用户已配置的路由模型 ID；凭据始终留在仓库之外。
 
 ## 面向 Agent 的安装方式
 

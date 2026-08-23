@@ -3,100 +3,71 @@
 
 # Codex LOOP Orchestra
 
-**Multi-model, dual-plane orchestration and observability for high-concurrency Codex agents.**
+**Turn one Codex task into a coordinated team of parallel coding agents.**
 
 [![CI](https://github.com/LEO001020/codex-loop-orchestra/actions/workflows/ci.yml/badge.svg)](https://github.com/LEO001020/codex-loop-orchestra/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB.svg)](https://www.python.org/)
 [![Codex](https://img.shields.io/badge/Codex-multi--agent-111.svg)](https://learn.chatgpt.com/docs/agent-configuration/subagents)
 
-[中文](README.zh-CN.md) · [Installation](INSTALL.md) · [Security](SECURITY.md) · [Contributing](CONTRIBUTING.md)
+[Get started](#start-in-30-seconds) · [How it works](#how-it-works) · [中文](README.zh-CN.md) · [Documentation](INSTALL.md)
 
 </div>
 
-> [!IMPORTANT]
-> Codex LOOP Orchestra is an independent community project. It is not an OpenAI product and is not affiliated with, sponsored by, or endorsed by OpenAI. It uses documented Codex configuration, custom agents, lifecycle hooks, and `codex exec`; it does not distribute or patch Codex binaries.
+Codex is already good at coding. LOOP gives it a **managed team**.
 
-## Why LOOP exists
+Install LOOP on top of Codex Desktop or CLI, give the root chat one goal, and let the system coordinate the rest: parallel workers execute, a different model family reviews, finished slots refill automatically, and one live dashboard shows what every agent is doing.
 
-Codex already provides subagents and root-to-child communication. LOOP preserves those capabilities and adds a sustained control and observation layer:
+## Why developers use LOOP
 
-- **Keep the root chat on coordination.** The root plans, dispatches, adjudicates genuine anomalies, and integrates. Workers or deterministic scripts handle searching, testing, waiting, polling, counting, and routine retries.
-- **Refill useful parallel work continuously.** A one-shot batch decays as children finish. LOOP tracks effective concurrency and refills available slots while real bounded work remains.
-- **Reduce correlated model errors.** Execution, L2 verification, and release review use explicit role/model/effort pins. Production deployments can place the root, execution pool, and review layers on three independent model families or providers.
-- **Make child identity operationally useful.** LOOP replaces random English nickname candidates with ordered `task_01`–`task_50` identifiers. The Observer adds a semantic mapping because Codex Desktop does not expose the complete delegated objective as the native nickname.
-- **Separate the control and execution planes.** The maintainers observed conversation-layer or application instability near 10–20 busy Desktop children in their environment. LOOP can keep Desktop light and move wide waves to supervised headless workers. This is a maintainer-observed motivation, not a universal Codex product claim.
+- **Finish larger tasks faster.** Keep a configurable pool of useful agents working instead of waiting for one long serial conversation.
+- **Catch same-model blind spots.** Run coordination, execution, and review on separate model families or providers.
+- **Keep the best model focused.** The root plans and decides; workers and deterministic scripts do the searching, coding, testing, waiting, and counting.
+- **See the whole system.** Ordered task IDs and a live Observer replace a wall of random child names and invisible headless processes.
+- **Scale past the Desktop UI.** Keep visible native children while supervised headless workers handle wider waves.
+- **Install without lock-in.** Activation is backed up, inspectable, reversible, and does not patch Codex binaries.
 
-LOOP measures a target of **at most 25% root-model effective production tokens**. This is a control target, not a universal cost, quality, or latency guarantee.
+![Codex LOOP Observer showing Desktop and headless agents, semantic task names, actual models, and live capacity](docs/assets/dashboard.png)
 
-## What LOOP adds
+<p align="center"><sub>One view for native and headless agents: task, role, model, plane, health, and remaining capacity.</sub></p>
 
-| Capability | Implementation |
+## Start in 30 seconds
+
+```powershell
+git clone https://github.com/LEO001020/codex-loop-orchestra.git
+cd codex-loop-orchestra
+./launchers/Set-Codex-LOOP-Mode.ps1 -Mode Activate
+```
+
+Restart Codex Desktop, open a new task, and ask the root to use LOOP. To let an agent inspect your environment and guide the installation, give it [AGENT_INSTALL.md](AGENT_INSTALL.md). Linux/WSL and full manual instructions are in [INSTALL.md](INSTALL.md).
+
+> [!NOTE]
+> Codex LOOP Orchestra is an independent community project, not an OpenAI product. It installs configuration, custom agents, lifecycle hooks, and `codex exec` tooling; it does not distribute or patch Codex binaries.
+
+## How it works
+
+![Codex LOOP Orchestra architecture: root coordination, deterministic control, Desktop and headless execution, independent review, human release, and live observation](docs/assets/architecture-overview.en.svg)
+
+1. **One root coordinates.** It turns the request into bounded packets and a dependency graph.
+2. **Two execution planes run in parallel.** Codex Desktop keeps native visibility and messaging; supervised headless workers absorb wide waves.
+3. **LOOP keeps real work moving.** A deterministic controller handles lifecycle state, refill, retry, and dead letters without spending root-model rounds on polling.
+4. **A different model family checks the result.** Mechanical evidence feeds independent verification, redo, or bounded escalation.
+5. **Humans keep release authority.** Integration is serialized, release review is adversarial, and only the maintainer can merge or publish.
+
+The default operating targets are 20 active agents per parent task, an 80-agent cross-plane envelope, and at most 25% root-model effective production tokens. They are configurable LOOP goals—not guarantees or official Codex limits.
+
+## What LOOP changes
+
+| Plain Codex workflow | With LOOP Orchestra |
 |---|---|
-| Sustained concurrency | Configurable target of 20 active workers per parent task and an 80-worker cross-plane envelope |
-| Desktop + headless | Visible native children plus supervised `codex exec` workers |
-| Continuous refill | Completed, failed, or lost slots are replaced while eligible work remains |
-| Model separation | Explicit execution and review pins; the user retains control of the root model |
-| Deterministic control | Packet DAG, state machine, retry classes, lifecycle rosters, and dead letters |
-| Layered verification | Mechanical L0/L1 checks, independent L2 verification, bounded L3 adjudication, human L4 release |
-| Human-readable operations | Ordered native nicknames plus semantic task/model/plane mapping on port 8765 |
-| Reversible global mode | Activate, deactivate, inspect status, and restore verified backups |
+| One conversation mixes planning, execution, and status work | The root coordinates; workers execute; scripts manage routine lifecycle work |
+| A parallel batch shrinks as agents finish | Eligible work continuously refills open slots |
+| One model often reviews its own assumptions | Execution and review can use independent model families |
+| Desktop children have low-information identities | Ordered `task_01`–`task_50` IDs plus semantic names in the Observer |
+| Wide work is tied to the Desktop conversation layer | Native Desktop and supervised headless execution run together |
+| Agent-reported success is easy to over-trust | Mechanical evidence and independent verification gate integration |
 
-The 20/80 values are LOOP operating targets. They are not official Codex limits. The configured Codex per-session child ceiling is 50.
-
-## Architecture
-
-```mermaid
-flowchart TB
-    U["Human request"] --> S["Root coordinator / Sol<br/>plan · dispatch · adjudicate"]
-    S --> P["Decision skeleton + packet DAG"]
-    P --> C["Deterministic control plane<br/>state · budget · refill · retry"]
-
-    C --> D["Desktop-native plane<br/>visible children + native messaging"]
-    C --> H["Headless plane<br/>supervised codex exec + worktrees"]
-    D --> W["Execution pool<br/>bounded parallel work"]
-    H --> W
-
-    W --> L0["L0/L1 mechanical evidence<br/>tests · diff boundary · schema · triggers"]
-    L0 --> L2["L2 independent verifier<br/>pass · redo · escalate"]
-    L2 -->|"routine pass"| M["Serial integration queue"]
-    L2 -->|"material uncertainty"| L3["L3 bounded adjudication"]
-    L3 --> S
-    M --> R["Release reviewer<br/>falsification pass"]
-    R --> X["Human-triggered merge / release"]
-
-    C --> F[("events · ledgers · reports · rosters")]
-    D --> F
-    H --> F
-    F --> O["Read-only Observer :8765<br/>semantic task · actual model · plane · health"]
-```
-
-The model roles are an orchestra rather than a monoculture:
-
-```mermaid
-flowchart LR
-    ROOT["Coordinator family<br/>root planning and L3 decisions"]
-    EXEC["Execution family<br/>parallel implementation and exploration"]
-    VERIFY["Review family<br/>L2 verification and release review"]
-    HUMAN["Human maintainer<br/>final release authority"]
-
-    ROOT -->|"bounded packets"| EXEC
-    EXEC -->|"artifacts + mechanical evidence"| VERIFY
-    VERIFY -->|"pass / redo / escalate"| ROOT
-    ROOT -->|"release candidate"| HUMAN
-```
-
-The portable profile works without a private gateway. A production profile can reference provider-routed model IDs that the user has already configured; credentials always remain outside this repository.
-
-## Observer
-
-![Codex LOOP Observer showing ordered native task nicknames and semantic task mapping](docs/assets/dashboard.png)
-
-The screenshot is from the maintainer's provider-routed deployment; model-chip
-labels are profile-specific. The public Observer derives execution/review labels
-from the active portable profile.
-
-The Desktop pane shows ordered native names such as `task_39`. The read-only Observer associates those identities with semantic task names and displays observed model, execution plane, lifecycle freshness, configured capacity, and gateway health. It reads lifecycle and rollout evidence; it does not schedule work or authorize releases.
+The portable profile works without a private gateway. Production profiles may reference provider-routed model IDs already configured by the user; credentials always remain outside this repository.
 
 ## Agent-first installation
 
