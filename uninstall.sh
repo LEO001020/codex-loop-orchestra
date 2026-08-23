@@ -26,6 +26,17 @@ fi
 python3 "$PKG_ROOT/harness/global_desktop_mode.py" restore \
   --root "$PKG_ROOT" --codex-home "$CODEX_HOME"
 
+STATE_ROOT="${CODEX_LOOP_STATE_DIR:-$PKG_ROOT/data/global-mode}"
+if [[ -f "$STATE_ROOT/user-config-install.json" ]]; then
+  python3 "$PKG_ROOT/harness/install_user_config.py" restore \
+    --root "$PKG_ROOT" --codex-home "$CODEX_HOME"
+  RESTORED_WITH_LEDGER=1
+else
+  RESTORED_WITH_LEDGER=0
+  echo "WARN  no user-config restore ledger found; using legacy agent backup fallback"
+fi
+
+if [[ $RESTORED_WITH_LEDGER -eq 0 ]]; then
 for source in "$PKG_ROOT"/agents/*.toml; do
   name="$(basename "$source")"
   target="$CODEX_HOME/agents/$name"
@@ -43,6 +54,7 @@ for source in "$PKG_ROOT"/agents/*.toml; do
     echo "REMOVED unchanged LOOP agent $target"
   fi
 done
+fi
 
 echo "Uninstall complete. Existing config.toml keys are intentionally preserved."
 echo "Runtime data remains under $PKG_ROOT/data and may be removed manually after review."

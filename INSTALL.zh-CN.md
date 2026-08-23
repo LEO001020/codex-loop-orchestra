@@ -103,6 +103,7 @@ python harness/headless_wave.py --root . --manifest path/to/manifest.json --wait
 
 ```bash
 sandbox="$(mktemp -d)"
+export CODEX_LOOP_STATE_DIR="$sandbox/state"
 python harness/install_user_config.py --root . --codex-home "$sandbox/.codex" --dry-run
 python harness/global_desktop_mode.py activate --root . --codex-home "$sandbox/.codex"
 python harness/global_desktop_mode.py status --root . --codex-home "$sandbox/.codex"

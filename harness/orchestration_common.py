@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""orchestration_common.py — Shared foundation for the codex-loop-s-f2 redesign.
+"""orchestration_common.py — Shared foundation for Codex LOOP Orchestra.
 
 This module is the single home for the primitives every new orchestration
 component needs:

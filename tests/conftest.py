@@ -1,4 +1,4 @@
-"""conftest.py — shared fixtures for the codex-loop-s-f2 v2 test suite.
+"""conftest.py — shared fixtures for the Codex LOOP Orchestra v2 test suite.
 
 Every test runs against an isolated LOOP root under ``tmp_path`` with the
 real config files copied in (single-source-of-truth discipline: tests read
@@ -47,6 +47,15 @@ def _clean_env(monkeypatch):
                 "LOOP_GOVERNOR_OVERRIDE", "LOOP_EXECUTION_PLANE"):
         monkeypatch.delenv(var, raising=False)
     monkeypatch.setenv("CODEX_HOME", "/nonexistent-codex-home-for-tests")
+    # Command-construction and dry-run tests must not depend on a developer's
+    # machine having the real Codex CLI installed.  POSIX integration tests
+    # can execute this checked-in shim; Windows tests only inspect the command
+    # boundary and therefore use the same stable path without spawning it.
+    monkeypatch.setenv("CODEX_HEADLESS_BIN", str(MOCK / "bin" / "codex"))
+    # GitHub's Windows runner may expose cp1252 to child Python processes.
+    # Prompts are UTF-8 data, so make subprocess I/O deterministic as well.
+    monkeypatch.setenv("PYTHONUTF8", "1")
+    monkeypatch.setenv("PYTHONIOENCODING", "utf-8")
     yield
 
 
@@ -210,7 +219,7 @@ class Loop:
     def run(self, command, check=False, timeout=120, **extra_env):
         result = subprocess.run(
             [str(item) for item in command], capture_output=True, text=True,
-            env=self.env(**extra_env), timeout=timeout)
+            encoding="utf-8", env=self.env(**extra_env), timeout=timeout)
         if check and result.returncode != 0:
             raise AssertionError(
                 "cmd %s failed rc=%d\nstdout:%s\nstderr:%s" %
@@ -356,9 +365,12 @@ def loop(tmp_path):
     # A private tmp_path copy is hermetic and avoids requiring elevation.
     shutil.copytree(HARNESS, root / "harness")
     (root / "config").mkdir()
-    for filename in ("retry_classes.yaml", "triggers.yaml",
-                     "orchestration_policy_v2.toml"):
-        shutil.copy2(CONFIG / filename, root / "config" / filename)
+    # Keep the legacy fixture aligned with the canonical v2 configuration
+    # set so a newly mandatory fail-closed policy cannot be omitted here.
+    for filename in ("retry_classes.yaml", "triggers.yaml", *CONFIG_FILES):
+        src = CONFIG / filename
+        if src.exists():
+            shutil.copy2(src, root / "config" / filename)
     shutil.copytree(PKG / "agents", root / "agents")
     state = tmp_path / "mock_state"
     state.mkdir()

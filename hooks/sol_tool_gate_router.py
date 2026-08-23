@@ -35,10 +35,9 @@ def find_root(payload: dict) -> Path | None:
     for candidate in (start, *start.parents):
         if (candidate / "config" / "orchestration_policy_v2.toml").exists():
             return candidate
-    # The saved Desktop project is the package parent (E:/codex-LOOP), while
-    # the policy-bearing implementation is its canonical codex-loop-s-f2
-    # child.  Recognize only this exact package relation; unrelated cwd values
-    # still pass through.
+    # The saved Desktop project may be the package parent while the
+    # policy-bearing implementation is its LOOP package child.  Recognize only
+    # this exact package relation; unrelated cwd values still pass through.
     package = Path(__file__).resolve().parents[1]
     if start == package.parent and (
             package / "config" / "orchestration_policy_v2.toml").exists():

@@ -299,6 +299,18 @@ def install(root: Path, codex_home: Path) -> dict[str, Any]:
     atomic_write(codex_home / "hooks.json", json_bytes(hooks))
     atomic_write(codex_home / "requirements.toml", requirements)
     atomic_write(codex_home / "AGENTS.md", NEUTRAL_AGENTS.encode("utf-8"))
+    managed = {
+        "AGENTS.md": NEUTRAL_AGENTS.encode("utf-8"),
+        "hooks.json": json_bytes(hooks),
+        "requirements.toml": requirements,
+    }
+    for name, data in managed.items():
+        record = backup.setdefault("files", {}).setdefault(name, {})
+        record["installed_sha256"] = digest(data)
+    backup["files"]["AGENTS.md"]["allowed_installed_sha256"] = sorted({
+        digest(NEUTRAL_AGENTS.encode("utf-8")), digest(active_agents(root)),
+    })
+    atomic_write(install_state, json_bytes(backup))
     return {
         "installed": True,
         "control_root": str(root),
@@ -419,9 +431,46 @@ def restore(root: Path, codex_home: Path) -> dict[str, Any]:
     if Path(str(state.get("codex_home", ""))).resolve() != codex_home:
         raise ValueError("registered CODEX_HOME does not match requested restore target")
     files = state.get("files", {})
+    restored: list[str] = []
+    skipped_modified: list[str] = []
     for name in ("AGENTS.md", "hooks.json", "requirements.toml"):
         record = files.get(name, {}) if isinstance(files, dict) else {}
         destination = codex_home / name
+        allowed = {
+            str(value) for value in record.get("allowed_installed_sha256", [])
+            if value
+        }
+        if record.get("installed_sha256"):
+            allowed.add(str(record["installed_sha256"]))
+        # Backward compatibility for ledgers written before managed hashes
+        # were recorded: derive the exact bytes this installer would own.
+        if not allowed:
+            if name == "AGENTS.md":
+                allowed.update({digest(NEUTRAL_AGENTS.encode("utf-8")),
+                                digest(active_agents(root))})
+            elif name == "requirements.toml":
+                allowed.add(digest(managed_requirements(root)))
+            else:
+                original_hooks: dict[str, Any] = {}
+                if record.get("existed"):
+                    backup = Path(str(record["backup"]))
+                    data = backup.read_bytes()
+                    if digest(data) != record.get("sha256"):
+                        raise ValueError(f"backup hash mismatch for {name}")
+                    try:
+                        parsed = json.loads(data.decode("utf-8-sig"))
+                        if isinstance(parsed, dict):
+                            original_hooks = parsed
+                    except (UnicodeError, ValueError):
+                        original_hooks = {}
+                allowed.add(digest(json_bytes(strip_managed_hooks(original_hooks))))
+        if destination.exists():
+            if not destination.is_file() or digest(destination.read_bytes()) not in allowed:
+                skipped_modified.append(name)
+                continue
+        elif record.get("existed"):
+            skipped_modified.append(name)
+            continue
         if record.get("existed"):
             backup = Path(str(record["backup"]))
             data = backup.read_bytes()
@@ -430,9 +479,17 @@ def restore(root: Path, codex_home: Path) -> dict[str, Any]:
             atomic_write(destination, data)
         else:
             destination.unlink(missing_ok=True)
+        restored.append(name)
     marker.unlink(missing_ok=True)
-    install_state.unlink(missing_ok=True)
-    return {"restored": True, "codex_home": str(codex_home), "backup_dir": state.get("backup_dir")}
+    if not skipped_modified:
+        install_state.unlink(missing_ok=True)
+    return {
+        "restored": not skipped_modified,
+        "codex_home": str(codex_home),
+        "backup_dir": state.get("backup_dir"),
+        "restored_files": restored,
+        "skipped_modified": skipped_modified,
+    }
 
 
 def main() -> int:

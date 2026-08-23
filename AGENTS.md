@@ -1,4 +1,4 @@
-<!-- AGENTS.md — Codex-LOOP-Build-F2 discipline section (~100 lines).
+<!-- AGENTS.md — Codex LOOP Orchestra discipline section (~100 lines).
      This file is a BYTE-STABLE PREFIX: it is loaded at the start of every
      session and must not change between runs of the same package version,
      so prompt caching stays effective. Do not append run-specific content,
@@ -65,7 +65,7 @@ Route work to the ipybox persistent kernel when either holds:
 - State must **survive across calls** (dataframes, parsed indexes, counters) —
   kernel state is compression-immune and lives off-heap from the context.
 
-Otherwise stay with plain tools. In this deployed F2 environment every root and
+Otherwise stay with plain tools. In this deployed LOOP environment every root and
 headless worker can see ipybox, but its Jupyter gateway and IPython kernel start
 lazily on the first kernel tool call. Workers that never use it pay no Jupyter
 process cost. Kernel discipline: print ≤50 lines, return handles.

@@ -118,6 +118,7 @@ These checks avoid the user's real Codex home:
 
 ```bash
 tmp="$(mktemp -d)"
+export CODEX_LOOP_STATE_DIR="$tmp/state"
 python harness/install_user_config.py --root . --codex-home "$tmp/.codex" --dry-run
 python harness/global_desktop_mode.py activate --root . --codex-home "$tmp/.codex"
 python harness/global_desktop_mode.py status --root . --codex-home "$tmp/.codex"

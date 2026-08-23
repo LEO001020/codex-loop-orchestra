@@ -9,7 +9,7 @@ from tests.conftest import IMPL
 
 
 def _root(tmp_path: Path) -> Path:
-    root = tmp_path / "control" / "codex-loop-s-f2"
+    root = tmp_path / "control" / "codex-loop-orchestra"
     (root / "config").mkdir(parents=True)
     (root / "hooks").mkdir()
     (root / "config" / "global_hooks.json").write_bytes(
@@ -115,6 +115,33 @@ def test_install_merges_unrelated_hooks_and_restore_is_exact(tmp_path):
     assert (codex_home / "AGENTS.md").read_bytes() == original_agents
     assert (codex_home / "hooks.json").read_bytes() == original_hook_bytes
     assert not (codex_home / "requirements.toml").exists()
+
+
+def test_restore_preserves_files_modified_after_install(tmp_path):
+    root = _root(tmp_path)
+    codex_home = tmp_path / ".codex"
+    codex_home.mkdir()
+    (codex_home / "AGENTS.md").write_text("before\n", encoding="utf-8")
+    (codex_home / "hooks.json").write_text('{"hooks": {}}\n', encoding="utf-8")
+
+    desktop_mode.install(root, codex_home)
+    modified = {
+        "AGENTS.md": b"user changed agents\n",
+        "hooks.json": b'{"user": "changed"}\n',
+        "requirements.toml": b"# user changed requirements\n",
+    }
+    for name, data in modified.items():
+        (codex_home / name).write_bytes(data)
+
+    result = desktop_mode.restore(root, codex_home)
+
+    assert result["restored"] is False
+    assert result["restored_files"] == []
+    assert result["skipped_modified"] == [
+        "AGENTS.md", "hooks.json", "requirements.toml"]
+    for name, data in modified.items():
+        assert (codex_home / name).read_bytes() == data
+    assert desktop_mode.state_paths(root)[1].exists()
 
 
 def test_install_is_idempotent_without_duplicate_managed_handlers(tmp_path):

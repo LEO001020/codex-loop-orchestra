@@ -110,7 +110,7 @@ def test_policy_declared_dirs_resolve_under_root(tmp_path):
 def test_wsl_style_root_works(tmp_path):
     """A deep POSIX path (the WSL plane shape) round-trips through every
     IO helper."""
-    root = tmp_path / "mnt-c" / "loop" / "codex-loop-s-f2"
+    root = tmp_path / "mnt-c" / "loop" / "codex-loop-orchestra"
     paths = LoopPaths.resolve(root)
     atomic_write_json(paths.ledger, {"packets": {}})
     assert read_json(paths.ledger) == {"packets": {}}

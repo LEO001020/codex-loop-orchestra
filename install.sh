@@ -145,6 +145,11 @@ PYEOF
 # ② Agent TOMLs -> $CODEX_HOME/agents/
 # ----------------------------------------------------------------------------
 step "2/5 Agent TOMLs -> $CODEX_HOME/agents/"
+# Create the immutable restore ledger before the compatibility shell steps
+# below. They then observe identical files/keys and become no-ops, while the
+# familiar per-file output remains available to existing operators.
+python3 "$PKG_ROOT/harness/install_user_config.py" install \
+  --root "$PKG_ROOT" --codex-home "$CODEX_HOME"
 mkdir -p "$CODEX_HOME/agents"
 for SRC in "$PKG_ROOT"/agents/*.toml; do
   BASE="$(basename "$SRC")"

@@ -73,7 +73,7 @@ def test_profiles_switch_execution_and_review_roles(profile_env):
 def test_wsl_user_codex_home_receives_execution_and_review_roles(profile_env, tmp_path):
     module = load_module()
     root, home = profile_env
-    wsl_root = tmp_path / "wsl-home" / "codex-loop-s-f2"
+    wsl_root = tmp_path / "wsl-home" / "codex-loop-orchestra"
     wsl_codex_home = wsl_root.parent / ".codex"
     shutil.copytree(root, wsl_root)
     (wsl_codex_home / "agents").mkdir(parents=True)

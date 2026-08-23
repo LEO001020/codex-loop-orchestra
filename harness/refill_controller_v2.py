@@ -72,6 +72,21 @@ NATIVE_RUNNING_TTL_SECONDS: Final[float] = 1800.0
 OBSERVER_URL: Final[str] = "http://127.0.0.1:8765/api/status"
 
 
+def _observer_path_forms(value: Any) -> set[str]:
+    """Return equivalent normalized Windows and WSL spellings of a root."""
+    normalized = str(value or "").replace("\\", "/").rstrip("/").casefold()
+    if not normalized:
+        return set()
+    forms = {normalized}
+    if len(normalized) >= 3 and normalized[1:3] == ":/":
+        forms.add(f"/mnt/{normalized[0]}/{normalized[3:]}")
+    elif normalized.startswith("/mnt/") and len(normalized) >= 7:
+        drive = normalized[5]
+        if normalized[6] == "/" and drive.isalpha():
+            forms.add(f"{drive}:/{normalized[7:]}")
+    return forms
+
+
 def _process_start_token(pid: Any) -> int | None:
     try:
         pid = int(pid)
@@ -375,15 +390,11 @@ class RefillControllerV2:
         except (TypeError, ValueError):
             self.observer_status = "stale"
             return None
-        local = str(self.paths.root.resolve()).replace("\\", "/").casefold()
-        advertised = {
-            str(doc.get(key) or "").replace("\\", "/").casefold()
-            for key in ("root", "windows_root")
-        }
-        same_package_wsl = (os.name != "nt" and local.endswith("/codex-loop-s-f2")
-                            and any(path.endswith("/codex-loop-s-f2")
-                                    for path in advertised))
-        if local not in advertised and not same_package_wsl:
+        local_forms = _observer_path_forms(self.paths.root.resolve())
+        advertised_forms: set[str] = set()
+        for key in ("root", "windows_root"):
+            advertised_forms.update(_observer_path_forms(doc.get(key)))
+        if local_forms.isdisjoint(advertised_forms):
             self.observer_status = "foreign_root"
             return None
         self.observer_status = "fresh"

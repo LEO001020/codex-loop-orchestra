@@ -1,4 +1,4 @@
-"""conftest.py — shared fixtures for the codex-loop-s-f2 v2 test suite.
+"""conftest.py — shared fixtures for the Codex LOOP Orchestra v2 test suite.
 
 Every test runs against an isolated LOOP root under ``tmp_path`` with the
 real config files copied in (single-source-of-truth discipline: tests read
@@ -70,6 +70,12 @@ def _clean_env(monkeypatch):
                 "LOOP_GOVERNOR_OVERRIDE", "LOOP_EXECUTION_PLANE"):
         monkeypatch.delenv(var, raising=False)
     monkeypatch.setenv("CODEX_HOME", "/nonexistent-codex-home-for-tests")
+    # This nested fixture overrides tests/conftest.py, so it must preserve the
+    # same hermetic executable and UTF-8 subprocess boundary.
+    monkeypatch.setenv(
+        "CODEX_HEADLESS_BIN", str(IMPL / "tests" / "mock_codex" / "bin" / "codex"))
+    monkeypatch.setenv("PYTHONUTF8", "1")
+    monkeypatch.setenv("PYTHONIOENCODING", "utf-8")
     yield
 
 

@@ -36,6 +36,19 @@ def test_dry_run_is_zero_write(package, tmp_path):
     assert not home.exists()
 
 
+def test_state_ledger_honors_explicit_state_dir(package, tmp_path, monkeypatch):
+    module = load_module()
+    home = tmp_path / "home"
+    state_dir = tmp_path / "isolated-state"
+    monkeypatch.setenv("CODEX_LOOP_STATE_DIR", str(state_dir))
+
+    module.install(package, home)
+
+    assert (state_dir / "user-config-install.json").is_file()
+    assert not (package / "data" / "global-mode" /
+                "user-config-install.json").exists()
+
+
 def test_install_preserves_user_keys_and_backs_up(package, tmp_path):
     module = load_module()
     home = tmp_path / "home"

@@ -18,6 +18,7 @@ from refill_controller_v2 import (
     K3_WORK_STATES,
     POOLS,
     RefillControllerV2,
+    _observer_path_forms,
     classify_pool,
     pool_for_packet,
 )
@@ -410,6 +411,15 @@ def test_observer_snapshot_is_fresh_and_exact_root_only(ctl, monkeypatch):
     monkeypatch.setattr("refill_controller_v2.urllib.request.urlopen",
                         lambda *_args, **_kwargs: Response(stale))
     assert ctl._read_observer_snapshot() is None
+
+
+def test_observer_root_forms_match_windows_and_wsl_without_package_name_pin():
+    windows = _observer_path_forms("E:/projects/custom-loop-name")
+    wsl = _observer_path_forms("/mnt/e/projects/custom-loop-name")
+    foreign = _observer_path_forms("/mnt/e/projects/another-loop")
+
+    assert not windows.isdisjoint(wsl)
+    assert windows.isdisjoint(foreign)
 
 
 def test_parent_debt_can_borrow_idle_other_pool_capacity(ctl):

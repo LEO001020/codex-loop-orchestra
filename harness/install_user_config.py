@@ -68,7 +68,10 @@ def file_digest(path: Path) -> str:
 
 
 def install_state_path(root: Path) -> Path:
-    return root / "data" / "global-mode" / "user-config-install.json"
+    explicit = os.environ.get("CODEX_LOOP_STATE_DIR")
+    state_dir = (Path(explicit).expanduser().resolve() if explicit
+                 else root / "data" / "global-mode")
+    return state_dir / "user-config-install.json"
 
 
 def has_key(doc: dict, section: str, key: str) -> bool:

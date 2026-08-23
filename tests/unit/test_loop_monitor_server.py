@@ -556,7 +556,7 @@ def test_global_mode_status_requires_marker_managed_hooks_and_active_agreement(
     monitor = load_monitor()
     home = tmp_path / "home"
     monkeypatch.setattr(monitor.Path, "home", classmethod(lambda cls: home))
-    windows_root = tmp_path / "codex-LOOP" / "codex-loop-s-f2"
+    windows_root = tmp_path / "codex-LOOP" / "codex-loop-orchestra"
     state = windows_root / "data" / "global-mode"
     state.mkdir(parents=True)
     (state / "global-loop-mode.json").write_text(json.dumps({
