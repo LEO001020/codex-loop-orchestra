@@ -1,0 +1,97 @@
+# ============================================================================
+# escalation_ladder.yaml — Conditional escalation ladder L0–L4 (EscalationKit)
+# Purpose : declarative ladder config consumed by trigger_eval.py,
+#           verdict_aggregate.py, and the state machine script
+# Input   : per-packet mechanical signals + trigger table actions
+# Output  : routing decisions between ladder levels
+# Lines   : ~120
+#
+# Power semantics (spec §3.5, §10 S5 — HARDCODED in scripts, restated here):
+#   - L1 and L2 can only BLOCK or ESCALATE. They can NEVER release to
+#     publication. An L2 "pass" only exempts the packet from Sol per-packet
+#     review and admits it to the merge queue; mechanical acceptance and the
+#     human release gate still follow.
+#   - High-risk class is deterministic direct-to-L3+L4; LLM judgment is only
+#     input, never classifier.
+#   - F2 cold start: escalation.passthrough_enabled=false closes the L0
+#     all-green passthrough; every packet still reaches L3.
+# ============================================================================
+
+version: 1
+
+power_semantics:
+  l1_l2_can_release: false        # invariant — enforced in code, not just here
+  high_risk_route: [L3, L4]       # deterministic, non-overridable
+  llm_verdict_is_input_only: true # no LLM output may act as a classifier
+  release_requires_human: true    # release merge is human-triggered only (S8)
+
+levels:
+
+  L0:
+    name: mechanical_acceptance_trio
+    bearer: "harness/diffvalidator.py + harness/acceptance_replay.sh"
+    token_cost: zero
+    mandatory: true               # every packet must pass, no exemptions
+    checks:
+      - diff_subset_assertion     # changes ⊆ packet.authorized_paths
+      - acceptance_command_replay # oracle frozen before execution
+      - min_test_count            # test count floor from packet.acceptance
+    on_all_green_no_trigger:
+      passthrough: config:escalation.passthrough_enabled   # F2: false -> L3
+      passthrough_target: serial_merge_queue
+    on_trigger_hit: L1
+
+  L1:
+    name: trigger_evaluator
+    bearer: "harness/trigger_eval.py + config/triggers.yaml"
+    token_cost: zero
+    signals:
+      - exit_code_sequence
+      - retry_count
+      - diff_lines_vs_budget
+      - path_boundary_attempt
+      - test_count_change_direction
+      - high_risk_path_hit
+      - observation_length_gt_3000
+      - loop_fingerprint_ge_5
+    actions: [pass, annotated_pass, send_l2, direct_l3, spawn_duty_officer]
+    powers: [block, escalate]     # NEVER release
+
+  L2:
+    name: cross_source_verifier
+    bearer: "agents/verifier.toml (active-profile review family; read-only L2)"
+    token_cost: free_side
+    inputs: [candidate_diff, mechanical_signals]
+    tool_checks_first: [lint, type_check, invariant_assertion]   # rule/tool gate before model
+    verdicts: [pass, redo, escalate_l2_5, escalate_l3]   # underscore form: matches verdict_aggregate.py RANK
+    powers: [block, escalate]     # "pass" = exempt from Sol per-packet review only
+    note: cross-family verifier required — same-family has correlated blind spots (§11)
+
+  L2_5:
+    name: multi_candidate_on_demand
+    bearer: "low-side parallel generation + harness/verdict_aggregate.py"
+    token_cost: free_side
+    max_candidates: 3             # N <= 3, each in its own worktree
+    sorting: l2_verifier_ranked
+    position_randomization: true  # de-bias candidate ordering before ranking
+    output: best_candidate_diff_path
+
+  L3:
+    name: sol_adjudication
+    bearer: "Sol main thread (user-selected root model) — planning and adjudication"
+    token_cost: sol_billed
+    input_budget_tokens: 1000     # desensitized packet + best candidate diff PATH
+                                  # + L1/L2 structured report, <= 1K tok total
+    input_components:
+      - desensitized_packet       # via harness/sanitize.py
+      - best_candidate_diff_path  # path handle only, never the diff body
+      - l1_l2_structured_report
+    per_packet_call_cap: 2        # over-limit -> direct to L4 (human)
+    on_cap_exceeded: L4
+
+  L4:
+    name: human_release_gate
+    bearer: human operator
+    token_cost: zero
+    scope: release gate final review + merge trigger
+    unchanged_from_baseline: true # spec §10 S8: unattended permanently out of bounds

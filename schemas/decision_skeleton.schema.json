@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Codex LOOP Sol DecisionSkeleton",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["decision_skeleton_id", "control_packet_id", "objective", "definition_of_done", "constraints", "decisions", "allowed_side_effects", "risk_class", "evidence_roots", "unresolved_choices"],
+  "properties": {
+    "decision_skeleton_id": {"type": "string", "minLength": 1},
+    "control_packet_id": {"type": "string", "minLength": 1},
+    "objective": {"type": "string", "minLength": 1},
+    "definition_of_done": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "constraints": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["id", "text"], "properties": {"id": {"type": "string", "minLength": 1}, "text": {"type": "string", "minLength": 1}}}},
+    "decisions": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["id", "text", "authority"], "properties": {"id": {"type": "string", "minLength": 1}, "text": {"type": "string", "minLength": 1}, "authority": {"enum": ["user", "sol", "policy"]}}}},
+    "allowed_side_effects": {"type": "array", "items": {"type": "string"}},
+    "risk_class": {"enum": ["low", "medium", "high", "release"]},
+    "evidence_roots": {"type": "array", "items": {"type": "string"}},
+    "unresolved_choices": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["id", "question", "blocking"], "properties": {"id": {"type": "string", "minLength": 1}, "question": {"type": "string", "minLength": 1}, "blocking": {"type": "boolean"}}}}
+  }
+}

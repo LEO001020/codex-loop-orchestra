@@ -1,0 +1,29 @@
+schema = "codex-loop-model-profiles/v1"
+active_profile = "portable"
+
+# The portable profile works with a normal Codex installation and does not
+# require a private gateway. The root model is selected by the user in Codex;
+# this file controls execution and independent review children.
+[profiles.portable]
+label = "Portable Codex defaults"
+execution_model = "gpt-5.6-terra"
+execution_reasoning = "medium"
+review_model = "gpt-5.6"
+review_reasoning = "high"
+
+[profiles.deep]
+label = "Single-family deep reasoning"
+execution_model = "gpt-5.6"
+execution_reasoning = "high"
+review_model = "gpt-5.6"
+review_reasoning = "high"
+
+# Recommended production pattern for correlated-error resistance. Replace the
+# example IDs with models exposed by your own Codex/OpenCodex configuration,
+# then select this profile. Credentials always stay outside this repository.
+[profiles.three-family-example]
+label = "Three-family orchestra (configure before use)"
+execution_model = "provider-a/fast-executor"
+execution_reasoning = "high"
+review_model = "provider-b/independent-reviewer"
+review_reasoning = "high"

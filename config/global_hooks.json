@@ -1,0 +1,59 @@
+{
+  "_comment": "global_hooks.json.example - Template for project-level hooks. Replace <LOOP_INSTALL_DIR> with your actual path. This is a supplement to config/requirements.toml (the preferred managed hooks mechanism).",
+  "hooks": {
+    "SubagentStart": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"<LOOP_INSTALL_DIR>/hooks/subagent_start_meter.sh\"",
+            "commandWindows": "py -3 \"<LOOP_INSTALL_DIR>\\hooks\\subagent_start_meter.ps1\"",
+            "timeout": 30,
+            "statusMessage": "Recording LOOP subagent route (observation only)"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"<LOOP_INSTALL_DIR>/hooks/reconcile_subagent_metering.py\"",
+            "commandWindows": "py -3 \"<LOOP_INSTALL_DIR>\\hooks\\reconcile_subagent_metering.py\"",
+            "timeout": 30,
+            "statusMessage": "Reconciling LOOP rollout metering (observation only)"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "^(shell|shell_command|bash|local_shell|exec_command|functions\\.exec|run_terminal|terminal|web_search|search|grep|glob|mcp__|read_mcp_resource|list_mcp|read_many_files|read_file|list_files|pytest|test)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"<LOOP_INSTALL_DIR>/hooks/global_loop_mode.py\" --component gate",
+            "commandWindows": "py -3 \"<LOOP_INSTALL_DIR>\\hooks\\global_loop_mode.py\" --component gate",
+            "timeout": 30,
+            "statusMessage": "LOOP Sol tool gate: dispatch L0 work to workers"
+          }
+        ]
+      },
+      {
+        "matcher": ".*(spawn_agent|create_thread|fork_thread).*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"<LOOP_INSTALL_DIR>/hooks/subagent_lifecycle.py\" --event PreToolUse",
+            "commandWindows": "py -3 \"<LOOP_INSTALL_DIR>\\hooks\\subagent_lifecycle.py\" --event PreToolUse",
+            "timeout": 10,
+            "statusMessage": "Recording semantic task name before subagent spawn"
+          }
+        ]
+      }
+    ]
+  }
+}

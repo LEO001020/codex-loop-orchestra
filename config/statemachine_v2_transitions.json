@@ -1,0 +1,28 @@
+{
+  "schema": "codex-loop-statemachine/v2",
+  "schema_version": 2,
+  "comment": "Declared transition manifest for statemachine v2 (phase2 design §7). t1-t26 retained from v1; t27-t38 are the new K3/L2/retry edges. TERMINAL no longer contains SOL_ADJUDICATE (§2.3.4). layered_gate.py checks this file for schema compatibility (gate condition 5).",
+  "terminal_states": ["MERGED", "DEAD_LETTER", "DONE"],
+  "states_added": ["EXPAND_K3", "L2_VERIFY", "L2_RANK"],
+  "transitions": {
+    "t27": {"from": "NONE", "event": "skeleton_ready", "to": "EXPAND_K3"},
+    "t28": {"from": "EXPAND_K3", "event": "expansion_valid", "to": "PLANNED"},
+    "t29": {"from": "EXPAND_K3", "event": "expansion_invalid", "to": "SOL_ADJUDICATE"},
+    "t30": {"from": "REPORTED", "event": "l2_requested", "to": "L2_VERIFY"},
+    "t31": {"from": "L2_VERIFY", "event": "verdict_pass", "to": "ACCEPTED"},
+    "t32": {"from": "L2_VERIFY", "event": "verdict_redo", "to": "FAILED"},
+    "t33": {"from": "L2_VERIFY", "event": "verdict_escalate_l2_5", "to": "L2_RANK"},
+    "t34": {"from": "L2_VERIFY", "event": "verdict_escalate_l3", "to": "SOL_ADJUDICATE"},
+    "t35": {"from": "L2_VERIFY", "event": "exec_failed", "to": "FAILED"},
+    "t36": {"from": "L2_RANK", "event": "best_candidate", "to": "L2_VERIFY"},
+    "t37": {"from": "TIMED_OUT", "event": "retry_dispatch", "to": "DISPATCHABLE"},
+    "t38": {"from": "DEAD_LETTER", "event": "duty_triage", "to": "DUTY_REVIEW"}
+  },
+  "invariants": [
+    "L2 states have no edge to MERGED/DONE (BLOCK/ESCALATE-only power)",
+    "high-risk packets never enter L2 states (router rail)",
+    "off-table events still dead-letter fail-visible",
+    "t22 replan cap (<=2) and t23 human release untouched",
+    "timeout_retry_max = 1 (second timeout dead-letters)"
+  ]
+}

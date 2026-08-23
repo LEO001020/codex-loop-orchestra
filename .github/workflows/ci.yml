@@ -1,0 +1,89 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Python ${{ matrix.python }} · ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python: ["3.11", "3.14"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+      - run: python -m pip install -r requirements-dev.txt
+      - run: python -m pytest tests -q --timeout=300
+
+  static-gates:
+    name: Configuration and release gates
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install -r requirements-dev.txt
+      - name: Parse Python, TOML, JSON, and YAML
+        shell: python
+        run: |
+          import json, pathlib, tomllib, yaml
+          root = pathlib.Path('.')
+          for path in root.rglob('*.py'):
+              compile(path.read_bytes(), str(path), 'exec')
+          for path in root.rglob('*.toml'):
+              tomllib.loads(path.read_text(encoding='utf-8-sig'))
+          for path in root.rglob('*.json'):
+              json.loads(path.read_text(encoding='utf-8-sig'))
+          for path in [*root.rglob('*.yaml'), *root.rglob('*.yml')]:
+              yaml.safe_load(path.read_text(encoding='utf-8-sig'))
+      - name: Instruction attention budget
+        run: python -m pytest tests/orchestration_v2/test_attention_budget_gate.py -q
+      - name: Installer and managed-file boundary
+        run: python -m pytest tests/orchestration_v2/test_install_v2.py -q
+
+  powershell:
+    name: PowerShell syntax
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse launchers and hooks
+        shell: pwsh
+        run: |
+          $failed = $false
+          Get-ChildItem launchers,hooks -Recurse -Filter *.ps1 | ForEach-Object {
+            $tokens = $null
+            $errors = $null
+            [System.Management.Automation.Language.Parser]::ParseFile(
+              $_.FullName, [ref]$tokens, [ref]$errors) | Out-Null
+            if ($errors.Count) {
+              $failed = $true
+              $errors | ForEach-Object { Write-Error "$($_.Extent.File): $($_.Message)" }
+            }
+          }
+          if ($failed) { exit 1 }
+
+  secrets:
+    name: Secret scan
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

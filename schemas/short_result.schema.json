@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Codex LOOP bounded child result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["packet_id", "control_packet_id", "control_packet_revision", "status", "conclusion", "artifact_paths", "finding_ids", "needs_decision"],
+  "properties": {
+    "packet_id": {"type": "string", "minLength": 1},
+    "control_packet_id": {"type": "string", "minLength": 1},
+    "control_packet_revision": {"type": "integer", "minimum": 1},
+    "status": {"enum": ["completed", "failed", "blocked", "cancelled", "stale_revision"]},
+    "conclusion": {"type": "string", "minLength": 1, "maxLength": 2000},
+    "artifact_paths": {"type": "array", "items": {"type": "string"}},
+    "finding_ids": {"type": "array", "items": {"type": "string"}, "maxItems": 8},
+    "needs_decision": {"type": ["object", "null"], "additionalProperties": false, "required": ["question", "decision_refs", "evidence_refs"], "properties": {
+      "question": {"type": "string", "minLength": 1},
+      "decision_refs": {"type": "array", "items": {"type": "string"}},
+      "evidence_refs": {"type": "array", "items": {"type": "string"}}
+    }}
+  }
+}

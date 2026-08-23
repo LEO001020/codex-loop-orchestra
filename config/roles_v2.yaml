@@ -1,0 +1,102 @@
+# ============================================================================
+# roles_v2.yaml — Role configuration quadruple table (v2)
+# ----------------------------------------------------------------------------
+# Purpose : single source of truth for (model, reasoning_effort, sandbox_mode,
+#           tier) per role. v2 adds the K3 verifier demand path roles:
+#           `verifier` (now automatically dispatched by l2_consumer, P0-2 fix)
+#           and `plan_expander` (plan pipeline, §5.3 / E1).
+# Model pins reference orchestration_policy_v2.toml [models] — the `model_ref`
+#           indirection means NO Python code and NO role row hardcodes a model
+#           string (user constraint: models come from config).
+# ipybox  : per orchestration_policy_v2.toml [ipybox] — Desktop native
+#           disabled; WSL/headless worker explicit-enabled; K3 roles disabled
+#           unless the packet carries needs_code_execution=true.
+# ============================================================================
+
+version: 2
+model_source: config/orchestration_policy_v2.toml   # [models] section
+
+roles:
+
+  sol:
+    model_ref: models.sol_model            # root only
+    reasoning_effort_ref: models.sol_reasoning
+    sandbox_mode: workspace-write
+    tier: billed                           # SOLE billed layer
+    ipybox: disabled                       # Desktop native plane
+    notes: >-
+      main thread; planning + adjudication only; governed by
+      sol_tool_gate_v2 (fail-closed, externally attested loop_state,
+      bounded planning lease).
+
+  executor:                                # agents/worker.toml
+    model_ref: models.v4_model             # configured execution family
+    reasoning_effort_ref: models.v4_reasoning
+    sandbox_mode: workspace-write
+    tier: free
+    pool: v4
+    ipybox: wsl_headless_only              # explicit enable on WSL plane only
+    notes: standing; one packet per spawn; CSV batches route through the
+      same admission primitive as single dispatch (P1-2 fix).
+
+  scout:
+    model_ref: models.v4_model             # configured execution family
+    reasoning_effort_ref: models.v4_reasoning
+    sandbox_mode: read-only
+    tier: free
+    pool: v4
+    ipybox: disabled
+    notes: built-in explorer; idempotent; lost = re-run.
+
+  reviewer:                                # agents/reviewer.toml
+    model_ref: models.k3_model
+    reasoning_effort_ref: models.k3_reasoning
+    sandbox_mode: read-only
+    tier: free
+    pool: k3
+    ipybox: disabled
+    notes: >-
+      NOT standing; release gate single spawn per wave; verdict goes in
+      report.json ONLY (reply body is never machine-parsed — P0-7 fix).
+
+  verifier:                                # agents/verifier.toml — L2 gate
+    model_ref: models.k3_model             # cross-family blind-spot hedge
+    reasoning_effort_ref: models.k3_reasoning
+    sandbox_mode: read-only
+    tier: free
+    pool: k3                               # counts as K3 demand in queue_sync
+    ipybox: disabled                       # unless needs_code_execution=true
+    dispatched_by: harness/l2_consumer.py  # AUTOMATIC (P0-2 fix): exactly-once
+    notes: >-
+      L2 verifier; BLOCK/ESCALATE power only — a 'pass' exempts the packet
+      from Sol per-packet review, never releases. Verdict enum:
+      pass | redo | escalate_l2_5 | escalate_l3, in report.json only.
+
+  plan_expander:                           # agents/plan_expander.toml — NEW
+    model_ref: models.k3_model
+    reasoning_effort_ref: models.k3_reasoning
+    sandbox_mode: read-only
+    tier: free
+    pool: k3
+    ipybox: disabled
+    dispatched_by: harness/orchestration/plan_pipeline.py
+    notes: >-
+      K3 plan expander (E1): consumes a Sol DecisionSkeleton (<=1200 new
+      tokens) and emits a schema-validated packet DAG. needs_decision
+      entries route back to Sol as bounded adjudication packets — the
+      expander never invents decisions. Output validated against
+      plan_expander.schema.json BEFORE dag_assert.
+
+  duty_officer:                            # agents/duty_officer.toml
+    model_ref: models.v4_model             # configured execution family
+    reasoning_effort_ref: models.v4_reasoning
+    sandbox_mode: read-only
+    tier: free
+    pool: v4
+    ipybox: disabled
+    enforce: true                          # v2: absorber not generator (§2.3.2)
+    notes: >-
+      trigger-based; no write tools; no spawn power; ruling is not
+      authorization. enforce=true means duty_retryable/duty_fixable
+      re-dispatch instead of dead-lettering to Sol. Ruling read from
+      report.json["ruling"] only.

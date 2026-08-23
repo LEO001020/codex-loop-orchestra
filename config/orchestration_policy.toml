@@ -1,0 +1,105 @@
+# ============================================================================
+# orchestration_policy.toml — declaration face = enforcement face (invariant 2)
+# Every key below is read by exactly one enforcing component under
+# impl/harness/.  Concurrency numbers do NOT live here (single source of
+# truth: config/refill_policy.toml — see [concurrency_ref]).
+# ============================================================================
+schema = "codex-loop-orchestration-policy/v2"
+status = "phase2-implementation"
+
+[routing]
+# cold_start | shadow | layered.  Defaults to cold_start (byte-identical to
+# legacy behavior).  agent_router.py refuses "layered" unless ALL six
+# mechanical gate guards pass (consumer heartbeat, exactly-once canary,
+# verifier pin, short-result validator, statemachine schema, rollback key).
+mode = "cold_start"
+trivial_packet_direct_to_v4 = true
+plan_expansion_min_packets = 3
+plan_expansion_on_cross_platform = true
+plan_expansion_on_release_or_audit = true
+plan_expansion_when_sol_5h_above = 0.25
+send_l2_consumer = "k3_verifier_headless"
+explicit_high_risk_route = "direct_l3"
+verify_sample_rate = 0.10
+l2_max_age_s = 900
+l2_heartbeat_max_age_s = 300
+statemachine_schema_required = "codex-loop-statemachine/v2"
+rollback_key = "routing.mode=cold_start"
+
+[models]
+# The ONLY place model ids are written.  Code reads these pins; nothing under
+# impl/harness/ contains a model string (fixes the hardcoded-model defect
+# class; current deployment values below).
+sol = "gpt-5.6"
+k3 = "gpt-5.6"
+v4 = "gpt-5.6-terra"
+
+[model_context]
+# effective ~940.5k for sol (990k window), compaction 800k; k3 1M/800k.
+sol = { context_window = 990000, compaction = 800000, reasoning = "ultra" }
+k3 = { context_window = 1000000, compaction = 800000, reasoning = "max" }
+v4 = { context_window = 1000000, compaction = 800000, reasoning = "ultra" }
+
+[ipybox]
+# Task constraint: Desktop-native ipybox stays DISABLED; WSL/headless exec
+# workers get explicit ipybox; K3 planning/verifying roles run without ipybox
+# unless the packet declares needs_code_execution=true.
+desktop_native_enabled = false
+wsl_headless_enabled = true
+k3_roles_enabled = false
+k3_enable_on_needs_code_execution = true
+
+[context]
+inherit_root_transcript = false
+control_packet_compiler = "deterministic"
+decision_skeleton_max_new_tokens = 1200
+root_control_max_new_tokens_per_wave = 2000
+ordinary_revision_max_new_tokens = 500
+adjudication_packet_max_new_tokens = 2000
+child_short_result_max_tokens = 500
+child_short_result_max_findings = 8
+
+[tokens]
+metric = "production_effective_tokens"
+primary_window_seconds = 18000
+minimum_denominator = 2000000
+sol_target_low = 0.20
+sol_target_high = 0.25
+sol_hard_cap = 0.15
+k3_floor = 0.20
+k3_total_observation_low = 0.10
+k3_total_observation_high = 0.25
+k3_verify_observation_low = 0.02
+k3_verify_observation_high = 0.08
+v4_observation_low = 0.50
+v4_observation_high = 0.75
+structural_alert_sol_above = 0.25
+structural_alert_k3_below = 0.05
+
+[hysteresis]
+enter_high_sol_share = 0.25
+enter_samples = 2
+leave_high_sol_share = 0.22
+leave_samples = 2
+critical_1h_share = 0.35
+critical_5h_share = 0.35
+
+[budget]
+# Three-tier ladder thresholds (budget_controller.py).
+throttle_at = 0.60
+degrade_at = 0.85
+break_at = 1.00
+state_cooldown_s = 60
+reclaim_on_completion = true
+allocation_headroom = 0.30
+
+[governor]
+planning_max_turns = 6
+planning_max_new_tokens = 30000
+meter_stale_after_s = 7200
+lease_renew_on_packet_creation = true
+
+[concurrency_ref]
+# Single source of truth for all concurrency numbers (invariant 3).
+# NOTE: no numbers here on purpose — refill_policy.toml is authoritative.
+refill_policy_ref = "config/refill_policy.toml"

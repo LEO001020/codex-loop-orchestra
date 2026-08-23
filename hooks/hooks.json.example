@@ -1,0 +1,61 @@
+{
+  "_comment": "Codex-LOOP production lifecycle hooks. Replace placeholders with absolute paths, then review and trust exact hashes in /hooks.",
+  "hooks": {
+    "SessionStart": [],
+    "SubagentStart": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell.exe -NoLogo -NoProfile -NonInteractive -ExecutionPolicy Bypass -File \"<HOOK_DIR_WINDOWS>\\..\\.codex\\hooks\\subagent_start_meter.ps1\"",
+            "commandWindows": "powershell.exe -NoLogo -NoProfile -NonInteractive -ExecutionPolicy Bypass -File \"<HOOK_DIR_WINDOWS>\\..\\.codex\\hooks\\subagent_start_meter.ps1\"",
+            "timeout": 30,
+            "statusMessage": "Recording subagent route (observation only)"
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [],
+    "Stop": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell.exe -NoLogo -NoProfile -NonInteractive -ExecutionPolicy Bypass -File \"<HOOK_DIR_WINDOWS>\\..\\.codex\\hooks\\reconcile_subagent_metering.ps1\"",
+            "commandWindows": "powershell.exe -NoLogo -NoProfile -NonInteractive -ExecutionPolicy Bypass -File \"<HOOK_DIR_WINDOWS>\\..\\.codex\\hooks\\reconcile_subagent_metering.ps1\"",
+            "timeout": 30,
+            "statusMessage": "Reconciling rollout metering (observation only)"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "^(shell|shell_command|bash|local_shell|exec_command|functions\\.exec|run_terminal|terminal|web_search|search|grep|glob|mcp__|read_mcp_resource|list_mcp|read_many_files|read_file|list_files|pytest|test)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 <HOOK_DIR>/sol_tool_gate_router.py",
+            "commandWindows": "py -3 \"<HOOK_DIR_WINDOWS>\\sol_tool_gate_router.py\"",
+            "timeout": 10,
+            "statusMessage": "Sol tool gate: L0 work must be dispatched"
+          }
+        ]
+      },
+      {
+        "matcher": ".*(spawn_agent|close_agent).*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 <HOOK_DIR>/subagent_lifecycle.py --event PreToolUse",
+            "commandWindows": "py -3 \"<HOOK_DIR_WINDOWS>\\subagent_lifecycle.py\" --event PreToolUse",
+            "timeout": 10,
+            "statusMessage": "Recording semantic task name before subagent spawn"
+          }
+        ]
+      }
+    ]
+  }
+}

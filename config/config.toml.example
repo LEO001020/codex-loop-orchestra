@@ -1,0 +1,24 @@
+# Codex user configuration merged by the LOOP installer.
+# Only documented Codex keys belong in this file. LOOP-specific policy lives
+# under config/ and is read by the harness, not by Codex itself.
+# Official reference: https://learn.chatgpt.com/docs/config-file/config-reference
+#:schema https://developers.openai.com/codex/config-schema.json
+
+[features]
+multi_agent = true
+
+[agents]
+enabled = true
+
+# Open spawned-agent threads, excluding the primary thread. This is a Codex
+# per-session ceiling; LOOP's 20-per-dialogue and 80-cross-plane targets live
+# separately in config/refill_policy.toml.
+max_concurrent_threads_per_session = 50
+
+# Portable defaults. Explicit spawn values and custom-agent TOMLs take
+# precedence; model_profile.py keeps these values synchronized.
+default_subagent_model = "gpt-5.6-terra"
+default_subagent_reasoning_effort = "medium"
+
+# Preserve a model-visible lifecycle record when a child is interrupted.
+interrupt_message = true

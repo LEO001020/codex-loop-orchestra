@@ -1,0 +1,76 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing signed or annotated tag to publish (for example v0.1.0)
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}-${{ inputs.tag }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ inputs.tag || github.ref }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install -r requirements-dev.txt
+      - name: Resolve and validate release tag
+        id: version
+        shell: bash
+        env:
+          INPUT_TAG: ${{ inputs.tag }}
+        run: |
+          set -euo pipefail
+          tag="${INPUT_TAG:-${GITHUB_REF_NAME}}"
+          [[ "$tag" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]
+          git rev-parse --verify "refs/tags/$tag"
+          expected="$(python -c 'import tomllib; print(tomllib.load(open("VERSIONS.lock", "rb"))["release"]["version"])')"
+          [[ "$tag" == "v$expected" ]]
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          echo "version=$expected" >> "$GITHUB_OUTPUT"
+      - name: Generate source integrity manifest
+        run: |
+          python scripts/gen_filelist.py .
+          python scripts/gen_sha256sums.py . --output SHA256SUMS
+      - name: Test release tree
+        run: python -m pytest tests -q --timeout=300
+      - name: Build reproducible archives
+        env:
+          SOURCE_DATE_EPOCH: "1787184000"
+        run: |
+          python scripts/pack_release.py \
+            --source . \
+            --output dist \
+            --allowlist scripts/allowlist.txt \
+            --name "codex-loop-orchestra-${{ steps.version.outputs.version }}"
+      - name: Verify archive boundaries
+        run: |
+          python scripts/verify_release.py dist/*.zip dist/*.tar.gz \
+            --expected-root "codex-loop-orchestra-${{ steps.version.outputs.version }}"
+      - name: Publish GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.version.outputs.tag }}
+        run: |
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" dist/* --clobber
+          else
+            gh release create "$TAG" dist/* --verify-tag --generate-notes
+          fi

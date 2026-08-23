@@ -1,0 +1,20 @@
+name: Feature request
+description: Propose a bounded improvement to the control plane
+title: "[Feature]: "
+labels: [enhancement]
+body:
+  - type: textarea
+    attributes:
+      label: Problem
+      description: Describe the operational failure or missing capability, not only a preferred implementation.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Proposed behavior
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Safety, compatibility, and rollback
+      description: Include affected hooks, state, configuration, and how the change can be disabled.

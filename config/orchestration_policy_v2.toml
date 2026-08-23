@@ -1,0 +1,194 @@
+# ============================================================================
+# orchestration_policy_v2.toml — declaration face = enforcement face
+# ----------------------------------------------------------------------------
+# Purpose : single policy source for routing modes, token bands, hysteresis,
+#           budget caps, gate-guard conditions, and model pins. Every key in
+#           this file is READ by the code that enforces it (design invariant 2,
+#           phase2_architecture_design.md §1.4).
+# Readers : harness/l2_consumer.py, harness/layered_gate.py,
+#           harness/result_reducer.py, harness/short_result_validator.py,
+#           harness/lifecycle_supervisor_v2.py, hooks/sol_tool_gate_v2.py,
+#           metering/model_token_share_v2.py
+# NOTE    : concurrency numbers live ONLY in refill_policy.toml.
+#           loop_config_v2.toml is a compatibility/documentation mirror.
+#           (fixes P0-8.3 fifth-authority defect, phase1b §7 item 8).
+# ============================================================================
+
+schema = "codex-loop-orchestration-policy/v2"
+policy_version = 2
+status = "fable-audit-implementation"
+
+# ----------------------------------------------------------------------------
+# Model pins — models are read from HERE, never hardcoded in Python
+# Role-family names v4/k3 are stable internal pool labels, not vendor names.
+# The portable profile uses documented Codex models; model_profile.py can
+# atomically rotate these pins to any models available in the user's setup.
+# ----------------------------------------------------------------------------
+[models]
+sol_model = "gpt-5.6"
+sol_reasoning = "high"
+
+k3_model = "gpt-5.6"
+k3_reasoning = "high"
+k3_context_tokens = 1000000
+k3_compaction_tokens = 800000
+
+v4_model = "gpt-5.6-terra"
+v4_reasoning = "medium"
+v4_context_tokens = 1000000
+v4_compaction_tokens = 800000
+
+# legacy aliases quarantined into their own bucket — NEVER counted as k3
+legacy_aliases = ["legacy/retired-reviewer"]
+# Every selectable ordinary-execution profile remains in the execution bucket
+# across temporary provider switches; v4_model alone is the active spawn pin.
+execution_aliases = ["gpt-5.6-terra", "gpt-5.6-luna"]
+review_aliases = ["provider-b/independent-reviewer"]
+
+# ----------------------------------------------------------------------------
+# ipybox — user constraint: do NOT re-enable Desktop ipybox
+# ----------------------------------------------------------------------------
+[ipybox]
+desktop_native_enabled = false          # Desktop native: ipybox DISABLED
+wsl_headless_worker_enabled = true      # WSL/headless worker: explicit enable
+k3_planning_verifying_enabled = false   # K3 plan/verify: disabled unless the
+k3_code_execution_exception = true      #   task explicitly needs code exec
+
+# ----------------------------------------------------------------------------
+# Routing — three-mode switch (P0-1 fix, §2.1)
+# ----------------------------------------------------------------------------
+[routing]
+mode = "cold_start"                  # cold_start | shadow | layered
+                                        # flip to layered ONLY via layered_gate
+rollback_mode = "cold_start"            # gate condition 6: rollback key
+trivial_packet_direct_to_v4 = true
+plan_expansion_min_packets = 3
+plan_expansion_on_cross_platform = true
+plan_expansion_on_release_or_audit = true
+plan_expansion_when_sol_5h_above = 0.25
+send_l2_consumer = "harness/l2_consumer.py"
+explicit_high_risk_route = "direct_l3"
+verify_sample_rate = 0.10               # deterministic hash sampling (§2.6)
+
+[l2_queue]
+dir = "data/l2_queue"                   # relative to LOOP_ROOT, cross-platform
+pending_file = "pending.ndjsonl"
+l2_max_age_s = 900                      # unclaimed record older -> fail-visible
+claim_heartbeat_interval_s = 15
+claim_stale_after_s = 120               # no heartbeat for this long -> reapable
+claim_max_reclaims = 2                  # after this the record escalates l3
+consumer_heartbeat_max_age_s = 300      # gate condition 1 freshness bound
+
+# ----------------------------------------------------------------------------
+# Context / budget caps (Tier-2 task budgets, §3)
+# ----------------------------------------------------------------------------
+[context]
+inherit_root_transcript = false
+control_packet_compiler = "deterministic"
+decision_skeleton_max_new_tokens = 1200
+root_control_max_new_tokens_per_wave = 2000
+ordinary_revision_max_new_tokens = 500
+adjudication_packet_max_new_tokens = 2000
+child_short_result_max_tokens = 500
+child_short_result_max_chars = 2000     # 4 chars/token engineering constant
+child_short_result_max_findings = 8
+
+[validator]
+enabled = true                          # gate condition 4
+schema_id = "codex-loop-short-result/v2"
+
+# ----------------------------------------------------------------------------
+# Token bands + hysteresis (meter v2, §2.4)
+# ----------------------------------------------------------------------------
+[tokens]
+metric = "production_effective_tokens"
+primary_window_seconds = 18000          # 5h
+minimum_denominator = 2000000
+refresh_debounce_s = 60                 # event-driven, NOT weekly
+stale_after_s = 7200                    # report older than 2x cadence -> STALE
+sol_target_low = 0.15
+sol_target_high = 0.25
+# Allocation envelope: new root work is budgeted at 15% so observed share can
+# converge toward the user's 20-25% operating band.  The observed emergency
+# hysteresis remains 25%; these are deliberately different control layers.
+sol_allocation_cap = 0.15
+sol_hard_cap = 0.15
+k3_floor = 0.20
+k3_total_observation_low = 0.10
+k3_total_observation_high = 0.25
+k3_verify_observation_low = 0.02
+k3_verify_observation_high = 0.08
+v4_observation_low = 0.50
+v4_observation_high = 0.75
+structural_alert_sol_above = 0.25
+structural_alert_k3_below = 0.05
+
+[hysteresis]
+enter_high_sol_share = 0.25
+enter_samples = 2
+leave_high_sol_share = 0.22
+leave_samples = 2
+critical_1h_share = 0.35
+critical_5h_share = 0.35
+
+# ----------------------------------------------------------------------------
+# Budget controller states (Tier-2/3, §5.2)
+# ----------------------------------------------------------------------------
+[budget]
+state_file = "data/budget/active.json"
+throttle_at = 0.60
+degrade_at = 0.85
+break_at = 1.00
+state_cooldown_s = 60
+reclaim_on_completion = true
+allocation_headroom = 0.30
+planning_max_turns = 6
+planning_max_new_tokens = 30000
+
+# ----------------------------------------------------------------------------
+# Governor (sol_tool_gate_v2, §2.5) — fail-closed, externally enforced
+# ----------------------------------------------------------------------------
+[governor]
+fail_mode = "closed"                    # default DENY on any sensor failure
+decision_log = "data/governor/gate_decisions.ndjsonl"
+planning_lease_file = "data/governor/planning_lease.json"
+attestation_ledger = "data/governor/state_attestations.ndjsonl"
+break_glass_env = "LOOP_GOVERNOR_OVERRIDE"
+allowed_states = ["planning", "adjudication", "release_finalize"]
+share_report = "data/usage/model_token_share_v2.json"
+
+# ----------------------------------------------------------------------------
+# Layered-mode gate guard (layered_gate.py, task item 8)
+# ----------------------------------------------------------------------------
+[gate_guard]
+log = "data/governor/layered_gate.ndjsonl"
+require_consumer_heartbeat = true
+require_exactly_once_canary = true
+require_k3_model_pinned = true
+require_validator_enabled = true
+require_statemachine_schema = true
+require_rollback_key = true
+require_default_adapter = true
+require_meter_v2_fresh = true
+require_plan_pipeline = true
+require_provider_health = true
+require_lifecycle_roster = true
+require_rollback_rehearsal = true
+require_dual_plane_hash = true
+statemachine_required_transitions = [
+    "t27", "t28", "t29", "t30", "t31", "t32",
+    "t33", "t34", "t35", "t36", "t37", "t38",
+]
+statemachine_schema_file = "config/statemachine_v2_transitions.json"
+statemachine_schema_required = "codex-loop-statemachine/v2"
+
+# ----------------------------------------------------------------------------
+# Concurrency — REFERENCE ONLY, single authority is refill_policy.toml
+# ----------------------------------------------------------------------------
+[concurrency]
+refill_policy_ref = "config/refill_policy.toml"
+
+[capabilities]
+desktop_is_control_and_observation_plane = true
+global_tool_ban = false
+mandatory_k3_review_every_packet = false

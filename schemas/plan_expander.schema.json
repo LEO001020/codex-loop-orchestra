@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Codex LOOP K3 plan expansion",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["control_packet_id", "decision_skeleton_id", "packets", "needs_decision"],
+  "properties": {
+    "control_packet_id": {"type": "string", "minLength": 1},
+    "decision_skeleton_id": {"type": "string", "minLength": 1},
+    "packets": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["packet_id", "goal", "authorized_paths", "allowed_side_effects", "dependencies", "acceptance", "artifacts", "risk_tags", "decision_refs", "evidence_refs"], "properties": {
+      "packet_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,95}$"},
+      "goal": {"type": "string", "minLength": 1},
+      "authorized_paths": {"type": "array", "items": {"type": "string"}},
+      "allowed_side_effects": {"type": "array", "items": {"type": "string"}},
+      "dependencies": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+      "acceptance": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+      "artifacts": {"type": "array", "items": {"type": "string"}},
+      "risk_tags": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+      "decision_refs": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+      "evidence_refs": {"type": "array", "items": {"type": "string"}}
+    }}},
+    "needs_decision": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["question", "blocking_packets", "evidence_refs"], "properties": {
+      "question": {"type": "string", "minLength": 1},
+      "blocking_packets": {"type": "array", "items": {"type": "string"}},
+      "evidence_refs": {"type": "array", "items": {"type": "string"}}
+    }}}
+  }
+}

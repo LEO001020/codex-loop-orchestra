@@ -1,0 +1,37 @@
+name: Bug report
+description: Report a reproducible Codex LOOP Orchestra defect
+title: "[Bug]: "
+labels: [bug, triage]
+body:
+  - type: checkboxes
+    attributes:
+      label: Safety check
+      options:
+        - label: I removed API keys, session data, private paths, and runtime ledgers.
+          required: true
+  - type: input
+    attributes:
+      label: LOOP version or commit
+    validations:
+      required: true
+  - type: dropdown
+    attributes:
+      label: Platform
+      options: [Windows Desktop, WSL, Linux, Other]
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Actual behavior and reproduction
+      description: Use paths to sanitized reports instead of pasting large logs.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Mechanical evidence
+      description: Exit codes, failing test names, status fields, and sanitized file references.

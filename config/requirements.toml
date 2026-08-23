@@ -1,0 +1,92 @@
+# requirements.toml - Codex LOOP managed hooks configuration
+# Install into: <CODEX_HOME>/requirements.toml  (typically ~/.codex/requirements.toml on Linux/macOS,
+#               %USERPROFILE%\.codex\requirements.toml on Windows)
+#
+# This file registers LOOP's managed hooks using the official managed hooks structure.
+# Do NOT set allow_managed_hooks_only = true: other user-level hooks must remain active.
+#
+# PARAMETRIZATION: Replace <LOOP_INSTALL_DIR> with the absolute path to your
+# codex-loop-open-source installation directory before installing.
+# Example (Linux/WSL):  /home/user/codex-loop-open-source
+# Example (Windows):    C:\Users\you\codex-loop-open-source
+
+[features]
+hooks = true
+
+[hooks]
+managed_dir = "<LOOP_INSTALL_DIR>/hooks"
+windows_managed_dir = '<LOOP_INSTALL_DIR>\hooks'
+
+[[hooks.SessionStart]]
+matcher = "startup|resume|clear|compact"
+[[hooks.SessionStart.hooks]]
+type = "command"
+command = "python3 <LOOP_INSTALL_DIR>/hooks/global_loop_mode.py --component context --event SessionStart"
+command_windows = 'py -3 "<LOOP_INSTALL_DIR>\hooks\global_loop_mode.py" --component context --event SessionStart'
+timeout = 30
+additionalContextLimit = 16000
+statusMessage = "Loading managed global LOOP discipline"
+[[hooks.SessionStart.hooks]]
+type = "command"
+command = "python3 <LOOP_INSTALL_DIR>/hooks/global_loop_mode.py --component lifecycle --event SessionStart"
+command_windows = 'py -3 "<LOOP_INSTALL_DIR>\hooks\global_loop_mode.py" --component lifecycle --event SessionStart'
+timeout = 30
+statusMessage = "Reconciling managed LOOP lifecycle records"
+
+[[hooks.SubagentStart]]
+matcher = ".*"
+[[hooks.SubagentStart.hooks]]
+type = "command"
+command = "python3 <LOOP_INSTALL_DIR>/hooks/global_loop_mode.py --component context --event SubagentStart"
+command_windows = 'py -3 "<LOOP_INSTALL_DIR>\hooks\global_loop_mode.py" --component context --event SubagentStart'
+timeout = 30
+additionalContextLimit = 16000
+statusMessage = "Routing child through managed LOOP profile"
+[[hooks.SubagentStart.hooks]]
+type = "command"
+command = "python3 <LOOP_INSTALL_DIR>/hooks/global_loop_mode.py --component lifecycle --event SubagentStart"
+command_windows = 'py -3 "<LOOP_INSTALL_DIR>\hooks\global_loop_mode.py" --component lifecycle --event SubagentStart'
+timeout = 30
+statusMessage = "Recording managed LOOP child start"
+
+[[hooks.SubagentStop]]
+matcher = ".*"
+[[hooks.SubagentStop.hooks]]
+type = "command"
+command = "python3 <LOOP_INSTALL_DIR>/hooks/global_loop_mode.py --component lifecycle --event SubagentStop"
+command_windows = 'py -3 "<LOOP_INSTALL_DIR>\hooks\global_loop_mode.py" --component lifecycle --event SubagentStop'
+timeout = 30
+statusMessage = "Recording managed LOOP child stop"
+
+[[hooks.PreToolUse]]
+matcher = "^(shell|shell_command|bash|local_shell|exec_command|functions\\.exec|run_terminal|terminal|web_search|search|grep|glob|mcp__|read_mcp_resource|list_mcp|read_many_files|read_file|list_files|pytest|test)"
+[[hooks.PreToolUse.hooks]]
+type = "command"
+command = "python3 <LOOP_INSTALL_DIR>/hooks/global_loop_mode.py --component gate"
+command_windows = 'py -3 "<LOOP_INSTALL_DIR>\hooks\global_loop_mode.py" --component gate'
+timeout = 30
+statusMessage = "Applying managed global LOOP Sol gate"
+
+[[hooks.PreToolUse]]
+matcher = ".*(spawn_agent|create_thread|fork_thread).*"
+[[hooks.PreToolUse.hooks]]
+type = "command"
+command = "python3 <LOOP_INSTALL_DIR>/hooks/global_loop_mode.py --component leaf-gate"
+command_windows = 'py -3 "<LOOP_INSTALL_DIR>\hooks\global_loop_mode.py" --component leaf-gate'
+timeout = 10
+statusMessage = "Preventing recursive managed LOOP births"
+[[hooks.PreToolUse.hooks]]
+type = "command"
+command = "python3 <LOOP_INSTALL_DIR>/hooks/global_loop_mode.py --component spawn-gate"
+command_windows = 'py -3 "<LOOP_INSTALL_DIR>\hooks\global_loop_mode.py" --component spawn-gate'
+timeout = 10
+statusMessage = "Validating managed LOOP root birth arguments"
+
+[[hooks.Stop]]
+matcher = ".*"
+[[hooks.Stop.hooks]]
+type = "command"
+command = "python3 <LOOP_INSTALL_DIR>/hooks/global_loop_mode.py --component lifecycle --event Stop"
+command_windows = 'py -3 "<LOOP_INSTALL_DIR>\hooks\global_loop_mode.py" --component lifecycle --event Stop'
+timeout = 30
+statusMessage = "Closing managed global LOOP lifecycle records"

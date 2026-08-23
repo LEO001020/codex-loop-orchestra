@@ -1,0 +1,37 @@
+# Codex LOOP Orchestra tested runtime baseline.
+# This file records portable compatibility expectations. It contains no
+# provider endpoints, account identifiers, credentials, or private model IDs.
+
+[runtime]
+python_min = "3.11.0"
+node_min = "22.0.0"
+git_min = "2.40.0"
+
+[cli]
+# Re-run the smoke gate after upgrading Codex. The installer warns on drift
+# instead of silently treating an untested version as verified.
+codex_cli = "0.147.0"
+codex_cli_version = "0.147.0"
+
+[models]
+# Portable defaults. The root model remains selected by the user.
+execution = "gpt-5.6-terra"
+review = "gpt-5.6"
+execution_reasoning = "medium"
+review_reasoning = "high"
+
+[loop]
+schema = "codex-loop-lifecycle/v2"
+max_concurrent_threads_per_session = 50
+parent_target = 20
+cross_plane_target = 80
+root_effective_token_target_percent = 25
+
+[optional_ipybox]
+version = "0.9.2"
+mcp_constraint = "mcp<2"
+install = "pip install ipybox \"mcp<2\""
+
+[release]
+version = "0.1.0"
+license = "MIT"

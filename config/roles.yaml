@@ -1,0 +1,74 @@
+# ============================================================================
+# roles.yaml — Role configuration quadruple table
+# Purpose : single source of truth for (model, reasoning_effort, sandbox_mode,
+#           tier) per role; agent TOMLs must agree with this table and
+#           smoke_gate.sh cross-checks them
+# Input   : read by dispatch.py (spawn parameters) and smoke_gate.sh
+# Output  : role -> quadruple lookup
+# Lines   : ~70
+#
+# Model pinning rationale (spec §11):
+#   - Sol uses the model selected by the user in the root Codex session
+#   - worker / scout / duty_officer follow the active execution profile
+#   - verifier/reviewer follow the active review profile; same-family
+#     verifier has correlated blind spots; Sol-generate + Sol-final-review
+#     structural risk must be hedged by a cross-source verifier
+#   - TOML model/effort fields have highest priority (official semantics)
+# Tier legend:
+#   billed = counts against Sol billed budget (main thread)
+#   free   = in-subscription subagent, token cost zero to the Sol budget
+#            (reviewer remains a separate metering bucket)
+# ============================================================================
+
+version: 1
+
+roles:
+
+  sol:
+    model: gpt-5.6                # portable policy reference; root is user-selected
+    reasoning_effort: high
+    sandbox_mode: workspace-write # main thread; write scope governed by repo
+    tier: billed                  # SOLE billed layer
+    notes: main thread; planning + adjudication events only; zero private files
+
+  executor:                       # spawned from agents/worker.toml
+    model: gpt-5.6-terra
+    reasoning_effort: medium
+    sandbox_mode: workspace-write # write limited to the packet worktree
+    tier: free
+    notes: standing; one packet per spawn; homogeneous batches via spawn_agents_on_csv
+
+  scout:
+    model: gpt-5.6-terra
+    reasoning_effort: medium
+    sandbox_mode: read-only
+    tier: free
+    notes: built-in explorer; idempotent; lost = re-run; zero private files
+
+  reviewer:                       # spawned from agents/reviewer.toml
+    model: gpt-5.6
+    reasoning_effort: high
+    sandbox_mode: read-only
+    tier: free                    # review is metered separately from execution
+    notes: NOT standing; release gate single spawn; falsification-style review
+
+  verifier:                       # spawned from agents/verifier.toml
+    model: gpt-5.6 # active-profile review pin
+    reasoning_effort: high
+    sandbox_mode: read-only
+    tier: free
+    notes: L2 gate; may be replaced by external low-price API script (same verdict enum)
+
+  plan_expander:                  # conditional K3 plan expansion
+    model: gpt-5.6
+    reasoning_effort: high
+    sandbox_mode: read-only
+    tier: free
+    notes: expands bounded Sol decision skeletons; cannot change decisions or authorize execution
+
+  duty_officer:                   # spawned from agents/duty_officer.toml
+    model: gpt-5.6-terra
+    reasoning_effort: medium
+    sandbox_mode: read-only
+    tier: free
+    notes: trigger-based; no write tools; no spawn power; ruling is not authorization (§10 S6)

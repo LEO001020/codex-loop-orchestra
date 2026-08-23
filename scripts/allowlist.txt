@@ -1,0 +1,28 @@
+# allowlist.txt -- Glob patterns for files to include in the release archive
+# One pattern per line; lines starting with # are comments.
+# Uses fnmatch semantics: * matches within a single path component.
+#
+# Source and documentation files
+*.py
+*.md
+*.txt
+*.json
+*.yaml
+*.yml
+*.toml
+*.cfg
+*.ini
+*.sh
+*.ps1
+*.example
+*.png
+LICENSE*
+NOTICE*
+VERSIONS.lock
+VERSIONS*
+.gitignore
+.gitattributes
+SHA256SUMS
+FILELIST.txt
+# Extensionless executables (mock binary shim)
+tests/mock_codex/bin/codex
