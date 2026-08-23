@@ -16,6 +16,8 @@
 
 Give LOOP one goal. It keeps a parallel team working, sends results to independent reviewers, and shows progress live until the job is done.
 
+**Set the concurrency target; LOOP keeps refilling toward it.** While useful work and real capacity remain, finished or failed slots are replaced automatically—without repeated user prompts.
+
 Codex LOOP Orchestra is an installable runtime for Codex Desktop and CLI—not another chat UI. Give it one goal and it runs a controlled team around that goal across native Desktop agents and supervised WSL/headless workers.
 
 ![Codex LOOP live dashboard in English, showing active agents, execution planes, observed models, and semantic task names](docs/assets/dashboard.en.png)
@@ -39,7 +41,7 @@ Prefer to install manually? Jump to [Installation details](#installation-details
 
 | | |
 |---|---|
-| **Finish more of the task at once** | A configurable agent team keeps working and fills open slots while useful work remains. |
+| **Keep high concurrency running** | Set the target once; LOOP counts real Desktop/headless workers and automatically refills open slots while useful work and capacity remain. |
 | **Catch model blind spots** | Execution and review can use different model families instead of one model checking itself. |
 | **Scale beyond the Desktop UI** | Keep visible native agents while supervised WSL/headless workers handle wider parallel work. |
 | **Keep working state between calls** | The optional IPybox layer gives WSL/headless workers a persistent Python workbench for files, data, and computation. |
@@ -142,7 +144,7 @@ python harness/model_profile.py list --root .
 python harness/model_profile.py set portable --root . --no-global --no-wsl
 ```
 
-The `three-family-example` profile is intentionally inactive. Replace its placeholders with model IDs already available in your Codex or gateway setup, keep the root on a third independent family, and then activate it. The profile switcher never edits provider catalogs or credentials.
+Root, executor, and auditor models do not have to be GPT models: keep the user-selected root on any model exposed by Codex/OpenCodex, then pin execution and review to any other available model IDs through the profile. The `three-family-example` profile is intentionally inactive; the switcher never edits provider catalogs or credentials.
 
 ## Control loop
 

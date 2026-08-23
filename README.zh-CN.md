@@ -15,6 +15,8 @@
 
 只给 LOOP 一个目标：它会维持一支并行工作的 Agent 团队，把结果交给独立模型复审，并实时展示进度，直到任务完成。
 
+**设定并发目标后，LOOP 会持续向目标值补位。** 只要仍有真实任务和可用容量，完成或失败的槽位就会被自动补上，无需用户反复催促。
+
 Codex LOOP Orchestra 是安装在 Codex Desktop 与 CLI 之上的多 Agent 运行层，不是另一个聊天界面。只给它一个目标，它就会围绕这个目标组织一支受控团队，让原生 Desktop Agent 与受监督的 WSL/headless worker 协同工作。
 
 ![Codex LOOP 实时面板：活跃 Agent、执行平面、实际模型和语义任务名](docs/assets/dashboard.png)
@@ -37,7 +39,7 @@ Codex LOOP Orchestra 是安装在 Codex Desktop 与 CLI 之上的多 Agent 运�
 
 | | |
 |---|---|
-| **同时推进更多工作** | 只要还有有用任务，可配置 Agent 团队就会持续工作并补充空闲槽位。 |
+| **让高并发持续运行** | 只需设定一次目标；有任务和容量时，LOOP 会统计 Desktop/headless 的真实运行数并自动补足空位。 |
 | **发现模型共同盲点** | 执行与复审可使用不同模型家族，避免同一个模型检查自己。 |
 | **突破 Desktop 界面承载** | 保留可见的原生 Agent，同时让受监督 WSL/headless worker 承接更宽的并发。 |
 | **跨调用保留工作状态** | 可选 IPybox 层为 WSL/headless worker 提供持久 Python 工作台，处理文件、数据与计算。 |
@@ -140,7 +142,7 @@ python harness/model_profile.py list --root .
 python harness/model_profile.py set portable --root . --no-global --no-wsl
 ```
 
-`three-family-example` 默认不激活。先把占位符替换成当前 Codex 或网关已经提供的模型 ID，让根对话使用第三个独立家族，再启用该 profile。切换器不会改写 provider catalog 或凭据。
+根对话、执行者和审计者都不必使用 GPT 模型：根对话保留用户在 Codex/OpenCodex 中选择的模型，执行与复审则可由 profile 固定到网关已提供的其他模型 ID。`three-family-example` 默认不激活；切换器不会改写 provider catalog 或凭据。
 
 ## 控制循环
 
