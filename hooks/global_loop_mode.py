@@ -35,8 +35,12 @@ def _resolved(path: Path) -> Path:
 
 def marker_path(root: Path) -> Path:
     override = os.environ.get("CODEX_LOOP_MODE_MARKER")
-    return (_resolved(Path(override)) if override else
-            root / "data" / "global-mode" / "global-loop-mode.json")
+    if override:
+        return _resolved(Path(override))
+    state_dir = os.environ.get("CODEX_LOOP_STATE_DIR")
+    if state_dir:
+        return _resolved(Path(state_dir)) / "global-loop-mode.json"
+    return root / "data" / "global-mode" / "global-loop-mode.json"
 
 
 def load_active_marker(root: Path) -> dict[str, Any] | None:
