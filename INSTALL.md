@@ -18,12 +18,6 @@ manual installation.
 The default profile uses `gpt-5.6-terra` for execution and `gpt-5.6` for
 independent review. The root model remains selected by the user in Codex.
 
-The coordinator, executor, and reviewer do not have to use Codex GPT models.
-Select the root in your Codex/OpenCodex-compatible runtime, and put any model
-IDs already exposed by that runtime into the execution/review profile. The
-three roles may use different vendors; gateway registration and credentials
-remain outside this repository.
-
 Preview profiles:
 
 ```bash

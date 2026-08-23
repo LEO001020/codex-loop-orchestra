@@ -16,10 +16,6 @@
 默认使用 `gpt-5.6-terra` 执行、`gpt-5.6` 独立审查；根模型由用户在 Codex
 中选择。
 
-根协调器、执行者和审计/复审者都不要求使用 Codex GPT 模型。根模型在你的
-Codex 或兼容 OpenCodex 的运行环境中选择；执行与复审可以填写该环境已经提供
-的任意模型 ID，三种角色可以来自不同厂商。网关注册与凭据始终留在仓库之外。
-
 ```bash
 python harness/model_profile.py list --root .
 ```
