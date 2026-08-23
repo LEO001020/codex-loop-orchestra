@@ -3,26 +3,39 @@
 
 # Codex LOOP Orchestra
 
-**Turn one Codex agent into an orchestrated engineering team.**
+**The control loop that keeps a high-concurrency Codex team running.**
 
 [![CI](https://github.com/LEO001020/codex-loop-orchestra/actions/workflows/ci.yml/badge.svg)](https://github.com/LEO001020/codex-loop-orchestra/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB.svg)](https://www.python.org/)
 [![Codex](https://img.shields.io/badge/Codex-multi--agent-111.svg)](https://learn.chatgpt.com/docs/agent-configuration/subagents)
 
-[Get started](#quickstart) · [How it works](#how-loop-works) · [中文](README.zh-CN.md) · [Documentation](INSTALL.md)
+[Control loop](#the-control-loop-is-the-product) · [Quickstart](#quickstart) · [Why LOOP](#why-loop-exists) · [Architecture](#how-loop-works) · [中文](README.zh-CN.md) · [Docs](INSTALL.md)
 
 </div>
 
-Give LOOP one goal. It keeps a parallel team working, sends results to independent reviewers, and shows progress live until the job is done.
+Codex can launch parallel subagents. LOOP turns them into a continuously refilled engineering system.
 
-**Set the concurrency target; LOOP keeps refilling toward it.** While useful work and real capacity remain, finished or failed slots are replaced automatically—without repeated user prompts.
-
-Codex LOOP Orchestra is an installable runtime for Codex Desktop and CLI—not another chat UI. Give it one goal and it runs a controlled team around that goal across native Desktop agents and supervised WSL/headless workers.
+The root decides; workers execute across Desktop and supervised WSL/headless planes; independent models review; scripts own routine state; the Observer shows what is actually running.
 
 ![Codex LOOP live dashboard in English, showing active agents, execution planes, observed models, and semantic task names](docs/assets/dashboard.en.png)
 
 <p align="center"><sub>One live view for every native and headless agent: task, model, execution plane, health, and capacity.</sub></p>
+
+## The control loop is the product
+
+Many harnesses can start agents. LOOP's product is the bounded control loop that keeps a wide team replenished while useful work and capacity remain, with isolated writes, reproducible acceptance, and human release authority:
+
+1. The root emits a bounded decision skeleton instead of doing bulk work.
+2. Every work packet (`packet`) declares its goal, authorized paths, acceptance commands, and constraints.
+3. The dependency-graph (DAG) gate rejects cycles and overlapping write scopes before dispatch.
+4. Desktop or headless workers run in isolated Git worktrees with explicit role, model, and reasoning-effort pins.
+5. Scripts replay acceptance, validate diff boundaries, and emit typed lifecycle events.
+6. L2 independent review may pass, request a redo, rank alternatives, or escalate; it cannot release.
+7. Only genuine anomalies return to the root. Final merge and release remain human-triggered.
+8. Waiting, polling, tallying, ordinary retries, and state transitions stay in scripts or the state machine—not extra root-model turns.
+
+**Models make judgments. Code owns state. Independent reviewers challenge results. Humans release.**
 
 ## Quickstart
 
@@ -37,22 +50,28 @@ Never read, print, or change my API credentials.
 
 Prefer to install manually? Jump to [Installation details](#installation-details), or read the complete [Windows/Linux/WSL guide](INSTALL.md).
 
-## What you get
+## Why LOOP exists
 
-| | |
-|---|---|
-| **Keep high concurrency running** | Set the target once; LOOP counts real Desktop/headless workers and automatically refills open slots while useful work and capacity remain. |
-| **Catch model blind spots** | Execution and review can use different model families instead of one model checking itself. |
-| **Scale beyond the Desktop UI** | Keep visible native agents while supervised WSL/headless workers handle wider parallel work. |
-| **Keep working state between calls** | The optional IPybox layer gives WSL/headless workers a persistent Python workbench for files, data, and computation. |
-| **Spend the best model on decisions** | The coordinator plans and decides while scripts handle routine lifecycle work. |
-| **See every agent live** | The dashboard shows each task, model, execution plane, health state, and remaining capacity. |
+The goal is not merely to start more agents. LOOP addresses the failure modes that appear when a native agent harness is pushed into sustained, wide, multi-model engineering work:
+
+| Codex / harness gap | LOOP design | Advantage |
+|---|---|---|
+| A launched wave drains as agents finish; a prompt is not a refill policy. | Count real Desktop/headless workers and refill from a bounded backlog. | **Keep high concurrency running** without repeated user prompts. |
+| Execution and self-review by one model family can share blind spots. | Keep the root user-selected; pin executor and auditor roles to different Codex/OpenCodex models. | **Catch correlated mistakes** with independent model families. |
+| A wide native wave shares Desktop's conversation transport. | Keep visible native agents; move wider execution to supervised WSL/headless workers. | **Gain parallel headroom** without losing root-child messaging. |
+| Tool calls repeatedly rebuild parsed data and intermediate computation. | Give headless workers an optional, lazy, session-scoped IPybox Python kernel. | **Continue across calls** with files, dataframes, indexes, and counters intact. |
+| The coordinator can waste high-tier turns on search, tests, polling, and retries. | Let the root plan and adjudicate while scripts own deterministic lifecycle work. | **Spend the best model on decisions** and govern root production-token share toward ≤25%. |
+| Native nicknames and separate headless processes do not form one operational view. | Use ordered numeric IDs and map them to semantic tasks, models, planes, health, and capacity. | **See every agent live** and diagnose refill deficits from one Observer. |
+
+Default LOOP policy targets 20 active agents per parent task and 80 across one machine. These are configurable targets bounded by useful work, provider capacity, and hardware—not official Codex limits or performance guarantees.
+
+The dual-plane design came from maintainer-observed Desktop conversation instability around 10–20 busy children in one environment. That is a design origin, not a published benchmark or an official Codex limit.
 
 ## How LOOP works
 
 ![Codex LOOP Orchestra architecture: root coordination, deterministic control, Desktop and headless execution, independent review, human release, and live observation](docs/assets/architecture-overview.en.svg)
 
-Defaults are tuned for sustained parallel work—about 20 active agents per task—and remain configurable. Human maintainers retain final merge and release authority.
+The architecture separates decision, execution, review, deterministic control, and release authority across two observable execution planes.
 
 ### A persistent Python workbench for the harness
 
@@ -145,18 +164,6 @@ python harness/model_profile.py set portable --root . --no-global --no-wsl
 ```
 
 Root, executor, and auditor models do not have to be GPT models: keep the user-selected root on any model exposed by Codex/OpenCodex, then pin execution and review to any other available model IDs through the profile. The `three-family-example` profile is intentionally inactive; the switcher never edits provider catalogs or credentials.
-
-## Control loop
-
-1. The root emits a bounded decision skeleton instead of doing bulk work.
-2. Packets declare goal, authorized paths, acceptance commands, and constraints.
-3. The DAG gate rejects cycles and overlapping write scopes before dispatch.
-4. Desktop or headless workers run in isolated worktrees with explicit role/model/effort pins.
-5. Scripts replay acceptance, validate diff boundaries, and emit typed lifecycle events.
-6. L2 can pass, request a redo, rank alternatives, or escalate; it cannot release.
-7. Only genuine anomalies return to the root. Final merge and release remain human-triggered.
-
-Waiting, polling, tallying, ordinary retries, and state transitions are handled by scripts or the state machine, not by extra root-model turns.
 
 ## Repository layout
 

@@ -3,25 +3,38 @@
 
 # Codex LOOP Orchestra
 
-**把一个 Codex Agent，变成一支会分工、并行和复核的工程团队。**
+**让 Codex 超高并发团队持续运行的控制回路。**
 
 [![CI](https://github.com/LEO001020/codex-loop-orchestra/actions/workflows/ci.yml/badge.svg)](https://github.com/LEO001020/codex-loop-orchestra/actions/workflows/ci.yml)
 [![MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB.svg)](https://www.python.org/)
 
-[快速开始](#快速开始) · [工作原理](#loop-如何工作) · [English](README.md) · [完整文档](INSTALL.zh-CN.md)
+[控制回路](#控制回路就是产品) · [快速开始](#快速开始) · [为什么需要 LOOP](#loop-为什么存在) · [架构](#loop-如何工作) · [English](README.md) · [文档](INSTALL.zh-CN.md)
 
 </div>
 
-只给 LOOP 一个目标：它会维持一支并行工作的 Agent 团队，把结果交给独立模型复审，并实时展示进度，直到任务完成。
+Codex 原生能并行派出子 Agent；LOOP 把它们变成一套持续补位的工程系统。
 
-**设定并发目标后，LOOP 会持续向目标值补位。** 只要仍有真实任务和可用容量，完成或失败的槽位就会被自动补上，无需用户反复催促。
-
-Codex LOOP Orchestra 是安装在 Codex Desktop 与 CLI 之上的多 Agent 运行层，不是另一个聊天界面。只给它一个目标，它就会围绕这个目标组织一支受控团队，让原生 Desktop Agent 与受监督的 WSL/headless worker 协同工作。
+根对话负责决策；worker 在 Desktop 与受监督的 WSL/headless 双平面执行；独立模型负责复审；脚本维护常规状态；Observer 展示真正正在运行的任务。
 
 ![Codex LOOP 实时面板：活跃 Agent、执行平面、实际模型和语义任务名](docs/assets/dashboard.png)
 
 <p align="center"><sub>一个界面查看全部原生与 headless Agent：任务、模型、执行平面、健康状态和容量。</sub></p>
+
+## 控制回路就是产品
+
+很多 harness 都能启动 Agent。LOOP 的产品特点，是用一条有界控制回路在有任务和容量时持续补位，同时隔离写入、机械验收，并把最终发布权留给人：
+
+1. 根对话输出有界决策骨架，不亲自做批量工作。
+2. 每个任务包（packet）声明目标、授权路径、验收命令和约束。
+3. DAG（任务依赖图）门禁在派发前拒绝循环依赖和重叠写入范围。
+4. Desktop 或 headless worker 在隔离 Git worktree 中运行，并显式固定角色、模型和推理强度。
+5. 脚本重放验收命令、核对 diff 边界，并写入类型化生命周期事件。
+6. L2 独立复审层可以放行、要求重做、排序候选或升级，但不能发布。
+7. 只有真正异常回到根对话；最终合并和发布始终由人触发。
+8. 等待、轮询、计数、常规重试和状态迁移由脚本或状态机处理，不额外消耗根模型轮次。
+
+**模型负责判断，代码负责状态，独立模型负责复审，人类负责发布。**
 
 ## 快速开始
 
@@ -35,22 +48,28 @@ Codex LOOP Orchestra 是安装在 Codex Desktop 与 CLI 之上的多 Agent 运�
 
 希望手动安装？直接跳到[完整安装说明](#完整安装说明)，或阅读完整的 [Windows/Linux/WSL 指南](INSTALL.zh-CN.md)。
 
-## 你会得到什么
+## LOOP 为什么存在
 
-| | |
-|---|---|
-| **让高并发持续运行** | 只需设定一次目标；有任务和容量时，LOOP 会统计 Desktop/headless 的真实运行数并自动补足空位。 |
-| **发现模型共同盲点** | 执行与复审可使用不同模型家族，避免同一个模型检查自己。 |
-| **突破 Desktop 界面承载** | 保留可见的原生 Agent，同时让受监督 WSL/headless worker 承接更宽的并发。 |
-| **跨调用保留工作状态** | 可选 IPybox 层为 WSL/headless worker 提供持久 Python 工作台，处理文件、数据与计算。 |
-| **把最强模型用在决策上** | 协调模型负责规划和裁决，脚本负责常规生命周期工作。 |
-| **实时看见每个 Agent** | 面板显示每项任务、模型、执行平面、健康状态与剩余容量。 |
+目的不只是“启动更多 Agent”。当 Codex 这类原生 harness 被推向持续、超高并发、多模型工程时，会暴露一组具体失败模式；LOOP 的每项设计都直接对应其中一个问题：
+
+| Codex / harness 的缺口 | LOOP 的设计 | 设计带来的优点 |
+|---|---|---|
+| 一次派出的 Agent 会随任务完成而减少；提示词不是补位策略。 | 统计 Desktop/headless 的真实运行数，从有界任务池自动补位。 | **让高并发持续运行**，不需要用户反复催促。 |
+| 同一个模型家族执行又自查，可能共享同一盲点。 | 根模型由用户选择；执行者与审计者可固定到不同的 Codex/OpenCodex 模型。 | **发现相关性错误**，让另一个模型家族独立挑战结果。 |
+| 大批原生 Agent 共用 Desktop 的对话传输层。 | 保留可见的原生 Agent，把更宽执行交给受监督 WSL/headless worker。 | **获得更大的并发空间**，同时保留根对话与子 Agent 通信。 |
+| 普通工具调用会反复解析文件、数据与中间计算。 | 为 headless worker 提供可选、按需启动、会话内持久的 IPybox Python kernel。 | **跨调用继续工作**，保留 dataframe、索引与计数器。 |
+| 协调模型可能把高阶轮次浪费在搜索、测试、轮询和重试上。 | 根对话只规划和裁决，确定性生命周期工作交给脚本。 | **把最好的模型用在决策上**，并把根生产 token 占比治理到 ≤25%。 |
+| 原生 nickname 与独立 headless 进程不能形成统一运行视图。 | 用有序数字 ID，并映射到任务名、模型、平面、健康状态和容量。 | **实时看见每个 Agent**，在一个 Observer 中定位补位缺口。 |
+
+LOOP 默认以每个父任务 20 个活跃 Agent、单机双平面合计 80 个 Agent 为目标。它们是可配置策略，受真实任务、provider 容量与硬件约束，不是 Codex 官方限制或性能保证。
+
+双平面设计源自维护者在一个实际环境中观察到的现象：Desktop 对话层在约 10–20 个繁忙子任务附近出现不稳定。这是设计起因，不是公开基准或 Codex 官方限制。
 
 ## LOOP 如何工作
 
 ![Codex LOOP Orchestra 架构：根协调、确定性控制、Desktop/headless 执行、独立审查、人工发布与实时观察](docs/assets/architecture-overview.zh-CN.svg)
 
-默认配置面向持续并行工作——每个任务约 20 个活跃 Agent——并且可以调整。最终合并与发布权始终保留在人类维护者手中。
+这套架构把决策、执行、复审、确定性控制和发布权限分开，并让两个执行平面的真实状态进入同一个观察层。
 
 ### 面向 Harness 的持久 Python 工作台
 
@@ -143,18 +162,6 @@ python harness/model_profile.py set portable --root . --no-global --no-wsl
 ```
 
 根对话、执行者和审计者都不必使用 GPT 模型：根对话保留用户在 Codex/OpenCodex 中选择的模型，执行与复审则可由 profile 固定到网关已提供的其他模型 ID。`three-family-example` 默认不激活；切换器不会改写 provider catalog 或凭据。
-
-## 控制循环
-
-1. 根对话输出有界决策骨架，不亲自做批量工作。
-2. 每个 packet 声明目标、授权路径、验收命令和约束。
-3. DAG 门在派发前拒绝循环依赖和波次内写路径冲突。
-4. Desktop 或 headless worker 在独立 worktree 中运行，并显式 pin 角色、模型和推理强度。
-5. 脚本回放验收、检查 diff 边界并写入类型化生命周期事件。
-6. L2 可以通过、要求重做、排序候选或升级，但不能发布。
-7. 只有真正异常回到根对话；最终合并和发布始终由人触发。
-
-等待、轮询、计数、常规重试和状态迁移由脚本或状态机处理，不额外消耗根模型轮次。
 
 ## 目录结构
 
