@@ -3,83 +3,63 @@
 
 # Codex LOOP Orchestra
 
-**把一个 Codex 任务，变成一支分工明确、并行工作的编码 Agent 团队。**
+**把一个 Codex Agent，变成一支会分工、并行和复核的工程团队。**
 
 [![CI](https://github.com/LEO001020/codex-loop-orchestra/actions/workflows/ci.yml/badge.svg)](https://github.com/LEO001020/codex-loop-orchestra/actions/workflows/ci.yml)
 [![MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB.svg)](https://www.python.org/)
 
-[30 秒开始](#30-秒开始) · [工作原理](#工作原理) · [English](README.md) · [完整文档](INSTALL.zh-CN.md)
+[快速开始](#快速开始) · [工作原理](#loop-如何工作) · [English](README.md) · [完整文档](INSTALL.zh-CN.md)
 
 </div>
 
-Codex 已经很会写代码；LOOP 给它配上一支**可管理的团队**。
+只给 LOOP 一个目标：它会维持一支并行工作的 Agent 团队，把结果交给独立模型复审，并实时展示进度，直到任务完成。
 
-把 LOOP 安装到 Codex Desktop 或 CLI 之上，只给根对话一个目标：并行 worker 负责执行，不同模型家族负责复审，空闲槽位自动补充，一个实时面板显示每个 Agent 正在做什么。
+Codex LOOP Orchestra 是安装在 Codex Desktop 与 CLI 之上的多 Agent 运行层，不是另一个聊天界面。只给它一个目标，它就会围绕这个目标组织一支受控团队，让原生 Desktop Agent 与受监督的 WSL/headless worker 协同工作。
 
-## 为什么值得安装
+![Codex LOOP 实时面板：活跃 Agent、执行平面、实际模型和语义任务名](docs/assets/dashboard.png)
 
-- **更快完成大任务。** 不再等待一条漫长的串行对话，让可配置的 Agent 池持续处理真正有用的工作。
-- **发现同模型的共同盲点。** 协调、执行和审查可以分别使用不同模型家族或供应商。
-- **让最强模型专注决策。** 根对话只规划和裁决；搜索、编码、测试、等待和计数交给 worker 与确定性脚本。
-- **看见整个系统。** 有序任务编号和实时 Observer，取代一墙随机英文名字与不可见的 headless 进程。
-- **突破 Desktop 对话层承载。** 保留可见的原生子任务，同时把更宽的波次交给受监督 headless worker。
-- **安装可检查、可撤销。** 自动备份、状态检查和完整还原；不修改 Codex 二进制文件。
+<p align="center"><sub>一个界面查看全部原生与 headless Agent：任务、模型、执行平面、健康状态和容量。</sub></p>
 
-![Codex LOOP Observer：统一展示 Desktop/headless Agent、语义任务名、实际模型与实时容量](docs/assets/dashboard.png)
+## 快速开始
 
-<p align="center"><sub>一个界面查看原生与 headless Agent：任务、角色、模型、平面、健康状态和剩余容量。</sub></p>
+把这个仓库交给 Codex 或其他编码 Agent，并粘贴：
 
-## 30 秒开始
-
-```powershell
-git clone https://github.com/LEO001020/codex-loop-orchestra.git
-cd codex-loop-orchestra
-./launchers/Set-Codex-LOOP-Mode.ps1 -Mode Activate
+```text
+从 https://github.com/LEO001020/codex-loop-orchestra 安装 Codex LOOP Orchestra。
+先阅读 AGENT_INSTALL.md；检查我的环境，展示 dry-run 与备份方案，等待我确认后再
+启用 LOOP 并验证安装。不要读取、输出或修改我的任何 API 凭据。
 ```
 
-重启 Codex Desktop，新建任务，然后要求根对话使用 LOOP。若希望让 Agent 先检查你的环境并引导安装，把 [AGENT_INSTALL.md](AGENT_INSTALL.md) 交给它。Linux/WSL 与完整手动说明见 [INSTALL.zh-CN.md](INSTALL.zh-CN.md)。
+希望手动安装？直接跳到[完整安装说明](#完整安装说明)，或阅读完整的 [Windows/Linux/WSL 指南](INSTALL.zh-CN.md)。
 
-> [!NOTE]
-> Codex LOOP Orchestra 是独立社区项目，不是 OpenAI 官方产品。它安装配置、custom agents、生命周期 hooks 和 `codex exec` 工具，不分发、不修改 Codex 二进制文件。
+## 你会得到什么
 
-## 工作原理
+| | |
+|---|---|
+| **同时推进更多工作** | 只要还有有用任务，可配置 Agent 团队就会持续工作并补充空闲槽位。 |
+| **发现模型共同盲点** | 执行与复审可使用不同模型家族，避免同一个模型检查自己。 |
+| **突破 Desktop 界面承载** | 保留可见的原生 Agent，同时让受监督 WSL/headless worker 承接更宽的并发。 |
+| **跨调用保留工作状态** | 可选 IPybox 层为 WSL/headless worker 提供持久 Python 工作台，处理文件、数据与计算。 |
+| **把最强模型用在决策上** | 协调模型负责规划和裁决，脚本负责常规生命周期工作。 |
+| **实时看见每个 Agent** | 面板显示每项任务、模型、执行平面、健康状态与剩余容量。 |
+
+## LOOP 如何工作
 
 ![Codex LOOP Orchestra 架构：根协调、确定性控制、Desktop/headless 执行、独立审查、人工发布与实时观察](docs/assets/architecture-overview.zh-CN.svg)
 
-1. **一个根对话负责协调。** 把用户目标拆成有边界的 packet 和依赖图。
-2. **两个执行平面并行工作。** Codex Desktop 保留原生可见性与通信；受监督 headless worker 承接宽波次。
-3. **LOOP 持续推动真实工作。** 确定性控制器处理状态、补位、重试与死信，不让根模型把轮次浪费在轮询上。
-4. **不同模型家族检查结果。** 机械证据进入独立验证，决定通过、重做或有界升级。
-5. **人类保留发布权。** 串行集成、反证式发布复审，最终只有维护者可以合并或发布。
+默认配置面向持续并行工作——每个任务约 20 个活跃 Agent——并且可以调整。最终合并与发布权始终保留在人类维护者手中。
 
-默认控制目标是：每个父任务维持 20 个活跃 Agent、跨平面 80 个 Agent 包络、根模型有效生产 token 占比不超过 25%。这些是可配置的 LOOP 目标，不是保证值，也不是 Codex 官方限制。
+### 面向 Harness 的持久 Python 工作台
 
-## LOOP 改变了什么
+WSL 同时也是 LOOP 的持久工具平面。公开包包含按需启动的 IPybox 服务、沙箱策略和 WSL/headless 路由规则；注册可选的上游 MCP 后，执行 worker 可以跨调用保留 dataframe、解析索引、计数器等 Python 状态，在模型上下文之外消化大输出，并让 Desktop 保持轻量控制平面。
 
-| 普通 Codex 工作方式 | 使用 LOOP Orchestra |
-|---|---|
-| 一个对话混合规划、执行与状态工作 | 根对话协调，worker 执行，脚本管理常规生命周期 |
-| 并发波次随 Agent 完成不断萎缩 | 只要还有合格工作，就持续补充空闲槽位 |
-| 同一个模型复查自己的假设 | 执行与审查可使用独立模型家族 |
-| Desktop 子任务名称信息量很低 | `task_01`–`task_50` 有序编号 + Observer 语义任务名 |
-| 宽波次被绑定在 Desktop 对话层 | 原生 Desktop 与受监督 headless 执行协同运行 |
-| 容易过度相信 Agent 自报成功 | 机械证据与独立验证共同把关集成 |
+> [!NOTE]
+> Codex LOOP Orchestra 是独立社区项目，不是 OpenAI 官方产品。它安装配置、custom agents、生命周期 hooks 和 `codex exec` 工具，不分发、不修改 Codex 二进制文件。便携 profile 不需要私有网关，凭据始终留在仓库之外。
 
-便携默认 profile 不依赖私有网关。生产 profile 可以引用用户已配置的路由模型 ID；凭据始终留在仓库之外。
+## 完整安装说明
 
-## 面向 Agent 的安装方式
-
-推荐方式是：**由 Agent 引导，但由确定性脚本执行。** 把仓库交给 Codex 或其他编码 Agent，并要求它遵循 [AGENT_INSTALL.md](AGENT_INSTALL.md)：
-
-```text
-请阅读 AGENT_INSTALL.md，先询问我选择中文还是 English。
-只读检查我的环境，运行仓库支持的 dry-run，解释所有计划修改和备份；
-得到我确认后，只调用仓库提供的确定性安装器并机械验证结果。
-不要读取、输出或修改任何 API 凭据。
-```
-
-Agent 负责识别真实环境并解释操作；PowerShell、Python 和 Bash 脚本负责实际安装与还原。用户也可以完全手工执行相同入口。
+推荐方式是：**由 Agent 引导，但由确定性脚本执行。** [AGENT_INSTALL.md](AGENT_INSTALL.md) 要求 Agent 先识别环境、展示 dry-run 与备份方案、等待确认，再调用下方同一个确定性安装器；实际安装与还原由 PowerShell、Python 和 Bash 完成。
 
 ### 前置条件
 

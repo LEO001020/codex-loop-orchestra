@@ -3,85 +3,65 @@
 
 # Codex LOOP Orchestra
 
-**Turn one Codex task into a coordinated team of parallel coding agents.**
+**Turn one Codex agent into an orchestrated engineering team.**
 
 [![CI](https://github.com/LEO001020/codex-loop-orchestra/actions/workflows/ci.yml/badge.svg)](https://github.com/LEO001020/codex-loop-orchestra/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB.svg)](https://www.python.org/)
 [![Codex](https://img.shields.io/badge/Codex-multi--agent-111.svg)](https://learn.chatgpt.com/docs/agent-configuration/subagents)
 
-[Get started](#start-in-30-seconds) · [How it works](#how-it-works) · [中文](README.zh-CN.md) · [Documentation](INSTALL.md)
+[Get started](#quickstart) · [How it works](#how-loop-works) · [中文](README.zh-CN.md) · [Documentation](INSTALL.md)
 
 </div>
 
-Codex is already good at coding. LOOP gives it a **managed team**.
+Give LOOP one goal. It keeps a parallel team working, sends results to independent reviewers, and shows progress live until the job is done.
 
-Install LOOP on top of Codex Desktop or CLI, give the root chat one goal, and let the system coordinate the rest: parallel workers execute, a different model family reviews, finished slots refill automatically, and one live dashboard shows what every agent is doing.
+Codex LOOP Orchestra is an installable runtime for Codex Desktop and CLI—not another chat UI. Give it one goal and it runs a controlled team around that goal across native Desktop agents and supervised WSL/headless workers.
 
-## Why developers use LOOP
+![Codex LOOP live dashboard in English, showing active agents, execution planes, observed models, and semantic task names](docs/assets/dashboard.en.png)
 
-- **Finish larger tasks faster.** Keep a configurable pool of useful agents working instead of waiting for one long serial conversation.
-- **Catch same-model blind spots.** Run coordination, execution, and review on separate model families or providers.
-- **Keep the best model focused.** The root plans and decides; workers and deterministic scripts do the searching, coding, testing, waiting, and counting.
-- **See the whole system.** Ordered task IDs and a live Observer replace a wall of random child names and invisible headless processes.
-- **Scale past the Desktop UI.** Keep visible native children while supervised headless workers handle wider waves.
-- **Install without lock-in.** Activation is backed up, inspectable, reversible, and does not patch Codex binaries.
+<p align="center"><sub>One live view for every native and headless agent: task, model, execution plane, health, and capacity.</sub></p>
 
-![Codex LOOP Observer showing Desktop and headless agents, semantic task names, actual models, and live capacity](docs/assets/dashboard.png)
+## Quickstart
 
-<p align="center"><sub>One view for native and headless agents: task, role, model, plane, health, and remaining capacity.</sub></p>
+Give this repository to Codex or another coding agent and paste:
 
-## Start in 30 seconds
-
-```powershell
-git clone https://github.com/LEO001020/codex-loop-orchestra.git
-cd codex-loop-orchestra
-./launchers/Set-Codex-LOOP-Mode.ps1 -Mode Activate
+```text
+Install Codex LOOP Orchestra from https://github.com/LEO001020/codex-loop-orchestra.
+Read AGENT_INSTALL.md first. Inspect my environment, show the dry-run and backups,
+wait for my approval, then activate LOOP and verify the installation.
+Never read, print, or change my API credentials.
 ```
 
-Restart Codex Desktop, open a new task, and ask the root to use LOOP. To let an agent inspect your environment and guide the installation, give it [AGENT_INSTALL.md](AGENT_INSTALL.md). Linux/WSL and full manual instructions are in [INSTALL.md](INSTALL.md).
+Prefer to install manually? Jump to [Installation details](#installation-details), or read the complete [Windows/Linux/WSL guide](INSTALL.md).
 
-> [!NOTE]
-> Codex LOOP Orchestra is an independent community project, not an OpenAI product. It installs configuration, custom agents, lifecycle hooks, and `codex exec` tooling; it does not distribute or patch Codex binaries.
+## What you get
 
-## How it works
+| | |
+|---|---|
+| **Finish more of the task at once** | A configurable agent team keeps working and fills open slots while useful work remains. |
+| **Catch model blind spots** | Execution and review can use different model families instead of one model checking itself. |
+| **Scale beyond the Desktop UI** | Keep visible native agents while supervised WSL/headless workers handle wider parallel work. |
+| **Keep working state between calls** | The optional IPybox layer gives WSL/headless workers a persistent Python workbench for files, data, and computation. |
+| **Spend the best model on decisions** | The coordinator plans and decides while scripts handle routine lifecycle work. |
+| **See every agent live** | The dashboard shows each task, model, execution plane, health state, and remaining capacity. |
+
+## How LOOP works
 
 ![Codex LOOP Orchestra architecture: root coordination, deterministic control, Desktop and headless execution, independent review, human release, and live observation](docs/assets/architecture-overview.en.svg)
 
-1. **One root coordinates.** It turns the request into bounded packets and a dependency graph.
-2. **Two execution planes run in parallel.** Codex Desktop keeps native visibility and messaging; supervised headless workers absorb wide waves.
-3. **LOOP keeps real work moving.** A deterministic controller handles lifecycle state, refill, retry, and dead letters without spending root-model rounds on polling.
-4. **A different model family checks the result.** Mechanical evidence feeds independent verification, redo, or bounded escalation.
-5. **Humans keep release authority.** Integration is serialized, release review is adversarial, and only the maintainer can merge or publish.
+Defaults are tuned for sustained parallel work—about 20 active agents per task—and remain configurable. Human maintainers retain final merge and release authority.
 
-The default operating targets are 20 active agents per parent task, an 80-agent cross-plane envelope, and at most 25% root-model effective production tokens. They are configurable LOOP goals—not guarantees or official Codex limits.
+### A persistent Python workbench for the harness
 
-## What LOOP changes
+WSL is also LOOP's persistent tool plane. The public package includes a lazy IPybox server, sandbox policy, and WSL/headless routing rules; once the optional upstream MCP is registered, execution workers can keep dataframes, parsed indexes, counters, and other Python state across calls, digest large output outside the model context, and leave Desktop as the light control plane.
 
-| Plain Codex workflow | With LOOP Orchestra |
-|---|---|
-| One conversation mixes planning, execution, and status work | The root coordinates; workers execute; scripts manage routine lifecycle work |
-| A parallel batch shrinks as agents finish | Eligible work continuously refills open slots |
-| One model often reviews its own assumptions | Execution and review can use independent model families |
-| Desktop children have low-information identities | Ordered `task_01`–`task_50` IDs plus semantic names in the Observer |
-| Wide work is tied to the Desktop conversation layer | Native Desktop and supervised headless execution run together |
-| Agent-reported success is easy to over-trust | Mechanical evidence and independent verification gate integration |
+> [!NOTE]
+> Codex LOOP Orchestra is an independent community project, not an OpenAI product. It installs configuration, custom agents, lifecycle hooks, and `codex exec` tooling; it does not distribute or patch Codex binaries. The portable profile needs no private gateway, and credentials remain outside the repository.
 
-The portable profile works without a private gateway. Production profiles may reference provider-routed model IDs already configured by the user; credentials always remain outside this repository.
+## Installation details
 
-## Agent-first installation
-
-The recommended installation is **agent-assisted but script-controlled**. Give the repository to Codex or another coding agent and ask it to follow [AGENT_INSTALL.md](AGENT_INSTALL.md):
-
-```text
-Read AGENT_INSTALL.md. Ask whether I want 中文 or English first.
-Inspect my environment without writing, run the supported dry-run, and explain
-every planned change and backup. Wait for my confirmation, then call only the
-repository's deterministic installer and verify the result. Do not read,
-print, or modify API credentials.
-```
-
-The agent discovers the actual environment and explains the operation. Deterministic PowerShell, Python, and Bash code performs installation and restoration. Manual commands remain available.
+The recommended path is **agent-assisted but script-controlled**. [AGENT_INSTALL.md](AGENT_INSTALL.md) makes the agent inventory the environment, show a dry-run and backup plan, wait for approval, and then call the same deterministic installer used below. PowerShell, Python, and Bash perform the actual installation and restoration.
 
 ### Requirements
 
