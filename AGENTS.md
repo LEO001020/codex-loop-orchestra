@@ -65,10 +65,10 @@ Route work to the ipybox persistent kernel when either holds:
 - State must **survive across calls** (dataframes, parsed indexes, counters) —
   kernel state is compression-immune and lives off-heap from the context.
 
-Otherwise stay with plain tools. In this deployed LOOP environment every root and
-headless worker can see ipybox, but its Jupyter gateway and IPython kernel start
-lazily on the first kernel tool call. Workers that never use it pay no Jupyter
-process cost. Kernel discipline: print ≤50 lines, return handles.
+Otherwise stay with plain tools. Where ipybox is registered, root and headless
+workers can see it, but its Jupyter gateway and IPython kernel start lazily on
+the first kernel tool call. Workers that never use it pay no Jupyter process
+cost. Kernel discipline: print ≤50 lines, return handles.
 
 ## 6. Spawn scale heuristics
 

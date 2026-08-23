@@ -85,7 +85,7 @@ projects. Unless explicitly stated, they are not bundled in release archives.
 
 - **Source:** https://github.com/gradion-ai/ipybox
 - **License:** Apache 2.0
-- **Version pin:** 0.9.2 with `mcp<2` (see `VERSIONS.lock` and `config/config.toml.example`)
+- **Version pin:** 0.9.2 with `mcp<2` (see `VERSIONS.lock`)
 - **Use:** Optional persistent Python kernel for large-output in-process
   digestion. Optional and not bundled.
 
