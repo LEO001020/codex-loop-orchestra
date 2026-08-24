@@ -1,80 +1,193 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1280" viewBox="0 0 1800 1280" role="img" aria-labelledby="title desc">
-  <title id="title">Codex LOOP Orchestra 简化结构图</title>
-  <desc id="desc">简化展示用户任务、根智能体、DAG 与状态机控制、Desktop 和 WSL 无界面执行、分层验收、人工发布以及 Agent 监测 Web UI。</desc>
-  <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#171817"/><stop offset="1" stop-color="#171817"/></linearGradient>
-    <linearGradient id="root" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#30353a"/><stop offset="1" stop-color="#30353a"/></linearGradient>
-    <linearGradient id="exec" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#29372e"/><stop offset="1" stop-color="#29372e"/></linearGradient>
-    <linearGradient id="audit" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3a3038"/><stop offset="1" stop-color="#3a3038"/></linearGradient>
-    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 10 5 0 10Z" fill="#8f8b87"/></marker>
-    <style>
-      .title{font:700 42px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;fill:#f3f0e8;letter-spacing:-.5px}
-      .subtitle{font:400 20px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;fill:#9b9897}
-      .lane{font:700 18px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;fill:#8f8b87;letter-spacing:1.4px}
-      .cardTitle{font:700 26px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;fill:#f3f0e8}
-      .body{font:400 19px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;fill:#b7b2ae}
-      .flow{font:500 18px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;fill:#9b9897}
-      .principle{font:500 19px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;fill:#b7b2ae}
-      .edge{fill:none;stroke:#8f8b87;stroke-width:2;marker-end:url(#arrow)}
-    </style>
-  </defs>
-  <rect width="1800" height="1280" fill="url(#bg)"/>
+<svg width="1600" height="1220" id="architecture" class="theme-light" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1220" role="img" aria-labelledby="title desc">
+        <title id="title">Codex LOOP Orchestra simplified architecture</title>
+        <desc id="desc">采用发布会视觉风格的 Codex LOOP Orchestra 简化架构图，展示任务入口、控制、执行、验收与发布，以及 Agent 监测 Web UI。</desc>
+        <defs>
+          <linearGradient id="pageGlow" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="var(--glow-a)"/>
+            <stop offset="1" stop-color="var(--glow-b)"/>
+          </linearGradient>
+          <linearGradient id="blueWash" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="var(--blue-wash-a)"/>
+            <stop offset="1" stop-color="var(--blue-wash-b)"/>
+          </linearGradient>
+          <linearGradient id="violetWash" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="var(--violet-wash-a)"/>
+            <stop offset="1" stop-color="var(--violet-wash-b)"/>
+          </linearGradient>
+          <filter id="shadow" x="-20%" y="-20%" width="140%" height="160%">
+            <feDropShadow dx="0" dy="14" stdDeviation="22" flood-color="var(--shadow)" flood-opacity="0.16"/>
+          </filter>
+          <filter id="shadowSoft" x="-20%" y="-20%" width="140%" height="150%">
+            <feDropShadow dx="0" dy="8" stdDeviation="14" flood-color="var(--shadow)" flood-opacity="0.10"/>
+          </filter>
+          <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L10,5 L0,10 z" fill="var(--line-strong)"/>
+          </marker>
+        </defs>
+        <style>
+          #architecture{
+            --bg:#f7f7f5;--surface:#ffffff;--surface-2:#f0f1ef;--ink:#151619;--muted:#666a73;--faint:#989da6;
+            --line:#d9dce1;--line-strong:#8f98a5;--shadow:#7a8492;
+            --blue:#3e7df2;--blue-soft:#dfeafe;--blue-stroke:#b6c9ea;--blue-wash-a:#dfeafe;--blue-wash-b:#dfeafe;
+            --green:#3f8a67;--green-soft:#d7e8de;--green-stroke:#b7cfbf;
+            --violet:#8d6cb1;--violet-soft:#e6ddf1;--violet-stroke:#cab8de;--violet-wash-a:#e6ddf1;--violet-wash-b:#e6ddf1;
+            --amber:#9b7346;--amber-soft:#ecdfd1;--amber-stroke:#d7bda1;
+            --entry-fill:#dce8fb;--entry-stroke:#b8cae7;
+            --control-fill:#ecdfd1;--control-stroke:#d6bca3;
+            --execute-fill:#d9e9df;--execute-stroke:#b7cfbf;
+            --verify-fill:#e7def0;--verify-stroke:#cbb8df;
+            --observe-fill:#dfe6f2;--observe-stroke:#c0cbe0;
+            --glow-a:#ffffff;--glow-b:#eef1f5;
+            font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text",Inter,"Microsoft YaHei","Noto Sans CJK SC","Segoe UI",Roboto,Arial,sans-serif;
+          }
+          #architecture.theme-dark{
+            --bg:#08090b;--surface:#111317;--surface-2:#171a1f;--ink:#f6f7f8;--muted:#a8aeb8;--faint:#737a86;
+            --line:#2a2f37;--line-strong:#737e8e;--shadow:#000000;
+            --blue:#86b1ea;--blue-soft:#1a2434;--blue-stroke:#425a7f;--blue-wash-a:#1a2434;--blue-wash-b:#1a2434;
+            --green:#7db995;--green-soft:#1b2b22;--green-stroke:#3b644b;
+            --violet:#b89ad6;--violet-soft:#2a2130;--violet-stroke:#664f79;--violet-wash-a:#2a2130;--violet-wash-b:#2a2130;
+            --amber:#d0ae82;--amber-soft:#2d241b;--amber-stroke:#6a543e;
+            --entry-fill:#1e2939;--entry-stroke:#445c82;
+            --control-fill:#31261d;--control-stroke:#73583d;
+            --execute-fill:#1d2b23;--execute-stroke:#426a52;
+            --verify-fill:#2b2231;--verify-stroke:#6a537a;
+            --observe-fill:#222837;--observe-stroke:#4d5d78;
+            --glow-a:#0d1118;--glow-b:#090a0c;
+          }
+          .page{fill:var(--bg)} .decor{fill:url(#pageGlow)}
+          .title{fill:var(--ink);font-size:42px;font-weight:710;letter-spacing:-1.3px}
+          .subtitle{fill:var(--muted);font-size:17px;font-weight:430;letter-spacing:-0.15px}
+          .eyebrow{fill:var(--faint);font-size:12px;font-weight:700;letter-spacing:1.8px}
+          .stage{fill:var(--faint);font-size:14px;font-weight:760;letter-spacing:1.5px}
+          .node-title{fill:var(--ink);font-size:18px;font-weight:690;letter-spacing:-0.3px}
+          .node-sub{fill:var(--muted);font-size:12.2px;font-weight:460}
+          .node-note{fill:var(--faint);font-size:11px;font-weight:520}
+          .section-note{fill:var(--muted);font-size:14px;font-weight:650;letter-spacing:-0.2px}
+          .foot{fill:var(--faint);font-size:10.8px;font-weight:500}
+          .box{fill:var(--surface);stroke:var(--line);stroke-width:1}
+          .entry-card{fill:var(--entry-fill);stroke:var(--entry-stroke);stroke-width:1.1}
+          .control-card{fill:var(--control-fill);stroke:var(--control-stroke);stroke-width:1.1}
+          .execute-card{fill:var(--execute-fill);stroke:var(--execute-stroke);stroke-width:1.1}
+          .verify-card{fill:var(--verify-fill);stroke:var(--verify-stroke);stroke-width:1.1}
+          .observe-card{fill:var(--observe-fill);stroke:var(--observe-stroke);stroke-width:1.1}
+          .blue-card{fill:var(--entry-fill);stroke:var(--entry-stroke);stroke-width:1.1}
+          .green-card{fill:var(--execute-fill);stroke:var(--execute-stroke);stroke-width:1.1}
+          .violet-card{fill:var(--verify-fill);stroke:var(--verify-stroke);stroke-width:1.1}
+          .amber-card{fill:var(--control-fill);stroke:var(--control-stroke);stroke-width:1.1}
+          .flow-pill{fill:var(--bg);stroke:var(--line);stroke-width:1}
+          .connector{fill:none;stroke:var(--line-strong);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;marker-end:url(#arrow)}
+          .connector-soft{fill:none;stroke:var(--line);stroke-width:1.25;stroke-linecap:round;stroke-linejoin:round}
+          .hairline{stroke:var(--line);stroke-width:1}
+          .chip{font-size:10px;font-weight:760;letter-spacing:.35px}
+          .raised{filter:url(#shadowSoft)} .hero{filter:url(#shadow)}
+        </style>
 
-  <text x="70" y="68" class="title">Codex LOOP Orchestra · 一图看懂</text>
-  <text x="70" y="103" class="subtitle">根智能体负责判断，程序负责状态，异构模型负责审计，人类负责发布。</text>
+        <rect class="page" width="1600" height="1220"/>
+        <circle class="decor" cx="1502" cy="22" r="252" opacity=".65"/>
+        <circle class="decor" cx="110" cy="1160" r="210" opacity=".45"/>
 
-  <text x="72" y="192" class="lane">入口</text>
-  <rect x="300" y="140" width="630" height="116" rx="20" fill="#30353a" stroke="#30353a"/>
-  <text x="335" y="184" class="cardTitle">用户任务</text>
-  <text x="335" y="220" class="body">目标、工作区、约束与验收标准</text>
-  <rect x="965" y="140" width="765" height="116" rx="20" fill="url(#root)" stroke="#30353a"/>
-  <text x="1000" y="184" class="cardTitle">Sol 根智能体</text>
-  <text x="1000" y="220" class="body">只负责规划、异常裁决与最终整合</text>
+        <text class="eyebrow" x="72" y="54">SYSTEM ARCHITECTURE / SIMPLIFIED VIEW</text>
+        <text class="title" x="72" y="96">Codex LOOP Orchestra</text>
+        <text class="subtitle" x="72" y="127">简化架构图 · 与完整发布会风格保持一致的精简视图。</text>
 
-  <path class="edge" d="M1015 278 H900 V324"/>
-  <text x="900" y="303" text-anchor="middle" class="flow">单次规划 → 形成可独立执行的任务包</text>
+        <rect x="228" y="154" width="1144" height="120" rx="32" fill="var(--entry-fill)" opacity=".18"/>
+        <rect x="228" y="341" width="1144" height="146" rx="32" fill="var(--control-fill)" opacity=".16"/>
+        <rect x="228" y="559" width="1144" height="138" rx="32" fill="var(--execute-fill)" opacity=".16"/>
+        <rect x="228" y="767" width="1144" height="154" rx="32" fill="var(--verify-fill)" opacity=".14"/>
+        <rect x="228" y="978" width="1144" height="154" rx="32" fill="var(--observe-fill)" opacity=".18"/>
 
-  <text x="72" y="423" class="lane">控制层</text>
-  <rect x="300" y="340" width="450" height="164" rx="20" fill="#3a3029" stroke="#3a3029"/>
-  <text x="335" y="389" class="cardTitle">Packet DAG</text>
-  <text x="335" y="427" class="body">任务包、依赖关系</text><text x="335" y="457" class="body">与允许修改的路径</text>
-  <rect x="790" y="340" width="450" height="164" rx="20" fill="#3a3029" stroke="#3a3029"/>
-  <text x="825" y="389" class="cardTitle">状态机</text>
-  <text x="825" y="427" class="body">规划、派发、报告</text><text x="825" y="457" class="body">审计、完成与异常</text>
-  <rect x="1280" y="340" width="450" height="164" rx="20" fill="#3a3029" stroke="#3a3029"/>
-  <text x="1315" y="389" class="cardTitle">派发与自动补位</text>
-  <text x="1315" y="427" class="body">持续维持设定并发</text><text x="1315" y="457" class="body">失败按规则重试</text>
+        <line class="hairline" x1="165" y1="198" x2="165" y2="1116" opacity=".9"/>
+        <circle cx="165" cy="212" r="5" fill="var(--blue)"/>
+        <circle cx="165" cy="399" r="5" fill="var(--amber)"/>
+        <circle cx="165" cy="618" r="5" fill="var(--green)"/>
+        <circle cx="165" cy="841" r="5" fill="var(--violet)"/>
+        <circle cx="165" cy="1050" r="5" fill="#8a96b0"/>
+        <text class="stage" x="78" y="218" fill="var(--blue)">入口</text>
+        <text class="stage" x="78" y="405" fill="var(--amber)">控制层</text>
+        <text class="stage" x="78" y="624" fill="var(--green)">执行层</text>
+        <text class="stage" x="78" y="847" fill="var(--violet)">证据与发布</text>
+        <text class="stage" x="78" y="1056" fill="#8a96b0">监测层</text>
 
-  <path class="edge" d="M1015 526 V586"/>
-  <text x="1015" y="556" text-anchor="middle" class="flow">明确模型、角色和推理强度；禁止继承根模型</text>
+        <g class="hero">
+          <rect class="entry-card" x="250" y="168" rx="24" ry="24" width="575" height="92"/>
+          <text class="node-title" x="278" y="210">用户任务</text>
+          <text class="node-sub" x="278" y="238">目标、工作区、约束与验收标准</text>
+        </g>
+        <g class="hero">
+          <rect class="entry-card" x="858" y="168" rx="24" ry="24" width="492" height="92"/>
+          <text class="node-title" x="886" y="210">Sol 根对话</text>
+          <text class="node-sub" x="886" y="238">只负责规划、异常裁决与最终整合</text>
+        </g>
 
-  <text x="72" y="675" class="lane">执行层</text>
-  <rect x="300" y="600" width="630" height="146" rx="20" fill="url(#exec)" stroke="#29372e"/>
-  <text x="335" y="650" class="cardTitle">Desktop 原生执行</text>
-  <text x="335" y="690" class="body">少量可见子智能体，适合交互与短任务</text>
-  <rect x="965" y="600" width="765" height="146" rx="20" fill="url(#exec)" stroke="#29372e"/>
-  <text x="1000" y="650" class="cardTitle">WSL / CLI 无界面执行</text>
-  <text x="1000" y="690" class="body">承接大批并发，由生命周期系统统一登记和监管</text>
+        <g class="raised">
+          <rect class="flow-pill" x="500" y="282" rx="16" ry="16" width="600" height="34"/>
+          <text class="section-note" x="800" y="304" text-anchor="middle">单次规划，形成可独立执行的任务包</text>
+        </g>
+        <path class="connector" d="M800 320 V342"/>
 
-  <path class="edge" d="M1015 768 V828"/>
-  <text x="1015" y="798" text-anchor="middle" class="flow">执行智能体产生报告与改动；审计智能体只读核验</text>
+        <g class="raised">
+          <rect class="control-card" x="250" y="355" rx="24" ry="24" width="350" height="118"/>
+          <text class="node-title" x="278" y="405">Packet DAG</text>
+          <text class="node-sub" x="278" y="434">任务包、依赖与授权路径</text>
+        </g>
+        <g class="raised">
+          <rect class="control-card" x="625" y="355" rx="24" ry="24" width="350" height="118"/>
+          <text class="node-title" x="653" y="405">状态机</text>
+          <text class="node-sub" x="653" y="434">计划、派发、报告、审查、完成</text>
+        </g>
+        <g class="raised">
+          <rect class="control-card" x="1000" y="355" rx="24" ry="24" width="350" height="118"/>
+          <text class="node-title" x="1028" y="405">派发与补位</text>
+          <text class="node-sub" x="1028" y="434">保持并发，失败按规则重试</text>
+        </g>
 
-  <text x="72" y="920" class="lane">验收与发布</text>
-  <rect x="300" y="842" width="450" height="158" rx="20" fill="url(#audit)" stroke="#3a3038"/>
-  <text x="335" y="891" class="cardTitle">机械验收 L0/L1</text>
-  <text x="335" y="929" class="body">测试、哈希、路径</text><text x="335" y="959" class="body">数据结构与差异检查</text>
-  <rect x="790" y="842" width="450" height="158" rx="20" fill="url(#audit)" stroke="#3a3038"/>
-  <text x="825" y="891" class="cardTitle">交叉审计 L2/L3</text>
-  <text x="825" y="929" class="body">异构模型阻止、退回</text><text x="825" y="959" class="body">比较方案或上报异常</text>
-  <rect x="1280" y="842" width="450" height="158" rx="20" fill="#3a3038" stroke="#3a3038"/>
-  <text x="1315" y="891" class="cardTitle">人工发布 L4</text>
-  <text x="1315" y="929" class="body">最终合并与发布</text><text x="1315" y="959" class="body">始终由人触发</text>
+        <g class="raised">
+          <rect class="flow-pill" x="440" y="498" rx="16" ry="16" width="720" height="34"/>
+          <text class="section-note" x="800" y="520" text-anchor="middle">明确模型、角色、推理强度；禁止继承根模型</text>
+        </g>
+        <path class="connector" d="M800 536 V560"/>
 
-  <text x="72" y="1094" class="lane">监测层</text>
-  <rect x="300" y="1030" width="1430" height="132" rx="20" fill="#303039" stroke="#303039"/>
-  <text x="335" y="1078" class="cardTitle">Agent 监测 Web UI · 127.0.0.1:8765</text>
-  <text x="335" y="1118" class="body">只读汇总 Desktop 与 CLI 任务、模型、健康状态、进度、token 计量和补位缺口；不参与调度与裁决</text>
+        <g class="hero">
+          <rect class="execute-card" x="250" y="573" rx="24" ry="24" width="538" height="110"/>
+          <text class="node-title" x="278" y="623">Desktop 原生执行</text>
+          <text class="node-sub" x="278" y="652">少量可见子智能体；适合交互和短任务</text>
+        </g>
+        <g class="hero">
+          <rect class="execute-card" x="812" y="573" rx="24" ry="24" width="538" height="110"/>
+          <text class="node-title" x="840" y="623">WSL / CLI 无界面执行</text>
+          <text class="node-sub" x="840" y="652">大批量执行；由生命周期系统统一登记和监管</text>
+        </g>
 
-  <line x1="70" y1="1210" x2="1730" y2="1210" stroke="#3a3d39"/>
-  <text x="70" y="1248" class="principle">核心原则：LLM 只处理需要判断的规划、审计与异常；等待、轮询、计数、重试和状态迁移全部交给程序。</text>
-</svg>
+        <g class="raised">
+          <rect class="flow-pill" x="430" y="706" rx="16" ry="16" width="740" height="34"/>
+          <text class="section-note" x="800" y="728" text-anchor="middle">执行智能体产出报告与改动；审计智能体只读核验</text>
+        </g>
+        <path class="connector" d="M800 744 V768"/>
+
+        <g class="raised">
+          <rect class="verify-card" x="250" y="781" rx="24" ry="24" width="350" height="126"/>
+          <text class="node-title" x="278" y="831">机械验收 L0/L1</text>
+          <text class="node-sub" x="278" y="860">测试、哈希、路径、Schema、差异</text>
+        </g>
+        <g class="raised">
+          <rect class="verify-card" x="625" y="781" rx="24" ry="24" width="350" height="126"/>
+          <text class="node-title" x="653" y="831">交叉核验 L2/L3</text>
+          <text class="node-sub" x="653" y="860">可阻止或升级；异常才返回 Sol</text>
+        </g>
+        <g class="raised">
+          <rect class="verify-card" x="1000" y="781" rx="24" ry="24" width="350" height="126"/>
+          <text class="node-title" x="1028" y="831">人工发布 L4</text>
+          <text class="node-sub" x="1028" y="860">最终合并始终由人触发</text>
+        </g>
+
+        <path class="connector" d="M800 924 V974"/>
+
+        <g class="hero">
+          <rect class="blue-card" x="250" y="992" rx="26" ry="26" width="1100" height="126"/>
+          <text class="node-title" x="280" y="1042">Agent 监测 Web UI · 127.0.0.1:8765</text>
+          <text class="node-sub" x="280" y="1071">只读汇总 Desktop 与 CLI 任务、模型、健康状态、进度、token 计量和 20/80 补位缺口；不参与调度与裁决。</text>
+        </g>
+
+        <line class="hairline" x1="72" y1="1158" x2="1528" y2="1158" opacity=".75"/>
+        <text class="foot" x="72" y="1186">核心原则：LLM 只做需要判断的规划与裁决；等待、轮询、计数、重试和状态迁移尽量由脚本与状态机完成。</text>
+      </svg>
