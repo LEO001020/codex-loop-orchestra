@@ -3,62 +3,64 @@
   <desc id="desc">A layered architecture showing one root coordinator planning bounded packets, deterministic lifecycle control, parallel Codex Desktop and headless workers, mechanical evidence, independent verification, serial integration, human release authority, and a read-only Agent Monitoring Web UI.</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#171817"/>
-      <stop offset="1" stop-color="#171817"/>
+      <stop offset="0" stop-color="#161713"/>
+      <stop offset="1" stop-color="#1c1b17"/>
+    </linearGradient>
+    <linearGradient id="neutralFill" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#292f2c"/>
+      <stop offset="1" stop-color="#33312b"/>
     </linearGradient>
     <linearGradient id="rootFill" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#30353a"/>
-      <stop offset="1" stop-color="#30353a"/>
+      <stop offset="0" stop-color="#304136"/>
+      <stop offset="1" stop-color="#55432d"/>
     </linearGradient>
     <linearGradient id="execFill" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#29372e"/>
-      <stop offset="1" stop-color="#29372e"/>
+      <stop offset="0" stop-color="#2c3a30"/>
+      <stop offset="1" stop-color="#3f503c"/>
     </linearGradient>
     <linearGradient id="reviewFill" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#3a3038"/>
-      <stop offset="1" stop-color="#3a3038"/>
+      <stop offset="0" stop-color="#403526"/>
+      <stop offset="1" stop-color="#5a452b"/>
     </linearGradient>
     <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#000" flood-opacity=".08"/>
+      <feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#000" flood-opacity=".10"/>
     </filter>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#8d918c"/>
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#9a958d"/>
     </marker>
     <marker id="arrowGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#8f8b87"/>
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#6eb187"/>
     </marker>
     <marker id="arrowRed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#9a6f6a"/>
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#c4776d"/>
     </marker>
     <marker id="arrowPurple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#8f8b87"/>
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#d0a45e"/>
     </marker>
     <style>
-      .title{font:700 42px Inter,Segoe UI,Arial,sans-serif;fill:#f3f0e8;letter-spacing:-.5px}
-      .subtitle{font:400 21px Inter,Segoe UI,Arial,sans-serif;fill:#aaa79f}
-      .layer{font:700 18px Inter,Segoe UI,Arial,sans-serif;fill:#8d918c;letter-spacing:1.6px}
-      .cardTitle{font:700 24px Inter,Segoe UI,Arial,sans-serif;fill:#f3f0e8}
-      .body{font:400 18px Inter,Segoe UI,Arial,sans-serif;fill:#d3d0c8}
-      .small{font:400 16px Inter,Segoe UI,Arial,sans-serif;fill:#aaa79f}
-      .badge{font:700 15px Inter,Segoe UI,Arial,sans-serif;letter-spacing:.4px}
-      .metric{font:700 30px Inter,Segoe UI,Arial,sans-serif;fill:#f3f0e8}
-      .metricLabel{font:400 15px Inter,Segoe UI,Arial,sans-serif;fill:#aaa79f}
-      .edge{fill:none;stroke:#8d918c;stroke-width:3;marker-end:url(#arrow)}
-      .edgeGreen{fill:none;stroke:#8f8b87;stroke-width:3;marker-end:url(#arrowGreen)}
-      .edgeRed{fill:none;stroke:#9a6f6a;stroke-width:3;stroke-dasharray:10 8;marker-end:url(#arrowRed)}
-      .edgePurple{fill:none;stroke:#8f8b87;stroke-width:2;stroke-dasharray:7 8;marker-end:url(#arrowPurple)}
+      .title{font:700 42px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;fill:#f1e9dc;letter-spacing:-.5px}
+      .subtitle{font:400 21px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;fill:#9b9897}
+      .layer{font:700 18px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;fill:#8f8b87;letter-spacing:1.4px}
+      .cardTitle{font:700 24px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;fill:#f1e9dc}
+      .body{font:400 18px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;fill:#bfb5a5}
+      .small{font:400 16px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;fill:#9f978b}
+      .badge{font:700 15px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;letter-spacing:.4px}
+      .metric{font:700 30px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;fill:#f1e9dc}
+      .metricLabel{font:400 15px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;fill:#a9a39a}
+      .edge{fill:none;stroke:#9a958d;stroke-width:3;marker-end:url(#arrow)}
+      .edgeGreen{fill:none;stroke:#6eb187;stroke-width:3;marker-end:url(#arrowGreen)}
+      .edgeRed{fill:none;stroke:#c4776d;stroke-width:3;stroke-dasharray:10 8;marker-end:url(#arrowRed)}
+      .edgePurple{fill:none;stroke:#d0a45e;stroke-width:2;stroke-dasharray:7 8;marker-end:url(#arrowPurple)}
       .observe{fill:none;stroke:#686d68;stroke-width:2;stroke-dasharray:7 8;marker-end:url(#arrow)}
-      [fill="#111b2b"]{fill:#30353a}[fill="#151b24"]{fill:#30353a}[fill="#171d27"]{fill:#3a3029}
-      [fill="#1f1a16"]{fill:#3a3029}[fill="#2b241a"]{fill:#312a25}[fill="#20252d"]{fill:#303039}
-      [fill="#2a171a"]{fill:#382f31}[fill="#1d1a35"]{fill:#303039}[fill="#1f6feb"]{fill:#3b4146}
-      [fill="#238636"]{fill:#33453a}[fill="#8957e5"]{fill:#493d47}
-      [stroke="#2f81f7"],[stroke="#58a6ff"]{stroke:#30353a}[stroke="#475569"]{stroke:#30353a}
-      [stroke="#3d4b60"]{stroke:#3a3029}[stroke="#d29922"]{stroke:#3a3029}[stroke="#6f5424"]{stroke:#312a25}
-      [stroke="#3fb950"],[stroke="#56d364"]{stroke:#29372e}[stroke="#bc8cff"],[stroke="#8b7cf6"]{stroke:#3a3038}
-      [stroke="#ff7b72"]{stroke:#9a6f6a}[stroke="#6e7681"]{stroke:#303039}[stroke="#30363d"]{stroke:#3a3d39}
-      [stroke="#f0f6fc"]{stroke:#303039}
-      [fill="#79c0ff"],[fill="#7ee787"],[fill="#bc8cff"],[fill="#d2a8ff"]{fill:#d8d3cb}
-      [fill="#ff7b72"]{fill:#b48882}
+      [fill="#111b2b"],[fill="#151b24"],[fill="#171d27"],[fill="#1f1a16"],[fill="#2b241a"],[fill="#20252d"],[fill="#1d1a35"]{fill:#2d322f}
+      [fill="#2a171a"]{fill:#593733}[fill="#1f6feb"],[fill="#238636"],[fill="#8957e5"]{fill:#806033}
+      [stroke="#2f81f7"],[stroke="#58a6ff"],[stroke="#475569"],[stroke="#3d4b60"]{stroke:#596158}
+      [stroke="#d29922"]{stroke:#b18442}[stroke="#6f5424"]{stroke:#6d5835}
+      [stroke="#3fb950"],[stroke="#56d364"]{stroke:#4f9c70}[stroke="#bc8cff"],[stroke="#8b7cf6"]{stroke:#c79a50}
+      [stroke="#ff7b72"]{stroke:#c4776d}[stroke="#6e7681"]{stroke:#596168}[stroke="#30363d"]{stroke:#3a3d39}
+      [stroke="#f0f6fc"]{stroke:#686a70}
+      [fill="#79c0ff"]{fill:#d9edf2}[fill="#7ee787"]{fill:#d9f0e1}[fill="#bc8cff"],[fill="#d2a8ff"]{fill:#f1dfbb}
+      [fill="#ff7b72"]{fill:#efb1a9}
     </style>
   </defs>
 
@@ -68,22 +70,22 @@
   <text x="70" y="104" class="subtitle">An installable control layer that turns Codex into a continuously refilled, independently verified multi-agent system.</text>
 
   <g filter="url(#shadow)">
-    <rect x="70" y="132" width="380" height="84" rx="15" fill="#111b2b" stroke="#2f81f7"/>
+    <rect x="70" y="132" width="380" height="84" rx="15" fill="url(#execFill)" stroke="#4f9c70"/>
     <text x="94" y="168" class="metric">100+</text><text x="185" y="166" class="metricLabel">tested concurrency</text>
     <text x="94" y="194" class="metricLabel">Desktop + WSL / CLI agents</text>
-    <rect x="470" y="132" width="380" height="84" rx="15" fill="#111b2b" stroke="#2f81f7"/>
+    <rect x="470" y="132" width="380" height="84" rx="15" fill="url(#neutralFill)" stroke="#596158"/>
     <text x="494" y="168" class="metric">20</text><text x="555" y="166" class="metricLabel">default per parent task</text>
     <text x="494" y="194" class="metricLabel">conservative sustained-refill policy</text>
-    <rect x="870" y="132" width="380" height="84" rx="15" fill="#111b2b" stroke="#d29922"/>
+    <rect x="870" y="132" width="380" height="84" rx="15" fill="url(#reviewFill)" stroke="#b18442"/>
     <text x="894" y="168" class="metric">≈75%</text><text x="1010" y="166" class="metricLabel">lower root-agent token use</text>
     <text x="894" y="194" class="metricLabel">root model plans and adjudicates</text>
-    <rect x="1270" y="132" width="460" height="84" rx="15" fill="#111b2b" stroke="#6e7681"/>
+    <rect x="1270" y="132" width="460" height="84" rx="15" fill="url(#neutralFill)" stroke="#596158"/>
     <text x="1294" y="168" class="metric">80</text><text x="1355" y="166" class="metricLabel">default machine-wide target</text>
     <text x="1294" y="194" class="metricLabel">Desktop and WSL / CLI combined</text>
   </g>
 
   <text x="70" y="282" class="layer">INTENT</text>
-  <rect x="265" y="242" width="1270" height="78" rx="16" fill="#151b24" stroke="#475569"/>
+  <rect x="265" y="242" width="1270" height="78" rx="16" fill="url(#neutralFill)" stroke="#596158"/>
   <text x="900" y="274" text-anchor="middle" class="cardTitle">Human task</text>
   <text x="900" y="300" text-anchor="middle" class="body">One objective enters the system; final merge and release remain human-triggered.</text>
   <path class="edge" d="M900 320 V348"/>
@@ -97,32 +99,32 @@
   <path class="edge" d="M900 444 V472"/>
 
   <text x="70" y="518" class="layer">PLAN</text>
-  <rect x="265" y="472" width="615" height="94" rx="16" fill="#171d27" stroke="#3d4b60"/>
+  <rect x="265" y="472" width="615" height="94" rx="16" fill="url(#execFill)" stroke="#4f9c70"/>
   <text x="572" y="506" text-anchor="middle" class="cardTitle">Decision skeleton</text>
   <text x="572" y="536" text-anchor="middle" class="body">Dependencies, boundaries and acceptance evidence</text>
-  <rect x="920" y="472" width="615" height="94" rx="16" fill="#171d27" stroke="#3d4b60"/>
+  <rect x="920" y="472" width="615" height="94" rx="16" fill="url(#reviewFill)" stroke="#b18442"/>
   <text x="1227" y="506" text-anchor="middle" class="cardTitle">Packet DAG</text>
   <text x="1227" y="536" text-anchor="middle" class="body">Self-contained tasks with explicit path ownership</text>
   <path class="edge" d="M900 566 V594"/>
 
   <text x="70" y="642" class="layer">CONTROL</text>
-  <rect x="265" y="594" width="1270" height="112" rx="16" fill="#1f1a16" stroke="#d29922"/>
+  <rect x="265" y="594" width="1270" height="112" rx="16" fill="url(#neutralFill)" stroke="#7c765f"/>
   <text x="900" y="624" text-anchor="middle" class="cardTitle">Deterministic lifecycle control</text>
   <g>
-    <rect x="290" y="642" width="280" height="42" rx="10" fill="#2b241a" stroke="#6f5424"/><text x="430" y="669" text-anchor="middle" class="body">state machine</text>
-    <rect x="600" y="642" width="280" height="42" rx="10" fill="#2b241a" stroke="#6f5424"/><text x="740" y="669" text-anchor="middle" class="body">budget + continuous refill</text>
-    <rect x="910" y="642" width="280" height="42" rx="10" fill="#2b241a" stroke="#6f5424"/><text x="1050" y="669" text-anchor="middle" class="body">retry + DEAD_LETTER</text>
-    <rect x="1220" y="642" width="290" height="42" rx="10" fill="#2b241a" stroke="#6f5424"/><text x="1365" y="669" text-anchor="middle" class="body">explicit role/model pins</text>
+    <rect x="290" y="642" width="280" height="42" rx="10" fill="url(#execFill)" stroke="#4f9c70"/><text x="430" y="669" text-anchor="middle" class="body">state machine</text>
+    <rect x="600" y="642" width="280" height="42" rx="10" fill="url(#reviewFill)" stroke="#b18442"/><text x="740" y="669" text-anchor="middle" class="body">budget + continuous refill</text>
+    <rect x="910" y="642" width="280" height="42" rx="10" fill="url(#execFill)" stroke="#4f9c70"/><text x="1050" y="669" text-anchor="middle" class="body">retry + DEAD_LETTER</text>
+    <rect x="1220" y="642" width="290" height="42" rx="10" fill="url(#reviewFill)" stroke="#b18442"/><text x="1365" y="669" text-anchor="middle" class="body">explicit role/model pins</text>
   </g>
   <path class="edge" d="M900 706 V734"/>
 
   <text x="70" y="792" class="layer">EXECUTE</text>
-  <rect x="265" y="734" width="605" height="120" rx="16" fill="url(#execFill)" stroke="#3fb950" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="265" y="734" width="605" height="120" rx="16" fill="url(#reviewFill)" stroke="#b18442" stroke-width="2" filter="url(#shadow)"/>
   <rect x="289" y="754" width="159" height="28" rx="14" fill="#238636" opacity=".34"/>
   <text x="368" y="774" text-anchor="middle" class="badge" fill="#7ee787">EXECUTION FAMILY</text>
   <text x="568" y="792" text-anchor="middle" class="cardTitle">Codex Desktop plane</text>
   <text x="568" y="822" text-anchor="middle" class="body">Visible native children + root↔child messaging</text>
-  <rect x="930" y="734" width="605" height="120" rx="16" fill="url(#execFill)" stroke="#3fb950" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="930" y="734" width="605" height="120" rx="16" fill="url(#execFill)" stroke="#4f9c70" stroke-width="2" filter="url(#shadow)"/>
   <rect x="954" y="754" width="159" height="28" rx="14" fill="#238636" opacity=".34"/>
   <text x="1033" y="774" text-anchor="middle" class="badge" fill="#7ee787">EXECUTION FAMILY</text>
   <text x="1233" y="792" text-anchor="middle" class="cardTitle">Supervised headless plane</text>
@@ -131,13 +133,13 @@
   <path class="edge" d="M1233 854 V886 H900"/>
 
   <text x="70" y="932" class="layer">EVIDENCE</text>
-  <rect x="265" y="886" width="1270" height="88" rx="16" fill="#151b24" stroke="#475569"/>
+  <rect x="265" y="886" width="1270" height="88" rx="16" fill="url(#neutralFill)" stroke="#596158"/>
   <text x="900" y="920" text-anchor="middle" class="cardTitle">L0/L1 mechanical evidence</text>
   <text x="900" y="950" text-anchor="middle" class="body">Artifacts + tests + diff boundaries + schemas + lifecycle evidence — self-reported PASS has no authority</text>
   <path class="edge" d="M900 974 V1002"/>
 
   <text x="70" y="1058" class="layer">VERIFY</text>
-  <rect x="510" y="1002" width="780" height="104" rx="16" fill="url(#reviewFill)" stroke="#bc8cff" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="510" y="1002" width="780" height="104" rx="16" fill="url(#rootFill)" stroke="#a39459" stroke-width="2" filter="url(#shadow)"/>
   <rect x="534" y="1021" width="142" height="28" rx="14" fill="#8957e5" opacity=".35"/>
   <text x="605" y="1041" text-anchor="middle" class="badge" fill="#d2a8ff">REVIEW FAMILY</text>
   <text x="900" y="1042" text-anchor="middle" class="cardTitle">L2 independent verifier</text>
@@ -154,26 +156,26 @@
   <path class="edgeGreen" d="M900 1106 V1134"/>
 
   <text x="70" y="1182" class="layer">INTEGRATE</text>
-  <rect x="265" y="1134" width="615" height="88" rx="16" fill="#151b24" stroke="#56d364"/>
+  <rect x="265" y="1134" width="615" height="88" rx="16" fill="url(#execFill)" stroke="#4f9c70"/>
   <text x="572" y="1168" text-anchor="middle" class="cardTitle">Serial integration queue</text>
   <text x="572" y="1198" text-anchor="middle" class="body">One controlled writer merges accepted artifacts</text>
-  <rect x="920" y="1134" width="615" height="88" rx="16" fill="url(#reviewFill)" stroke="#bc8cff"/>
+  <rect x="920" y="1134" width="615" height="88" rx="16" fill="url(#reviewFill)" stroke="#b18442"/>
   <text x="1227" y="1168" text-anchor="middle" class="cardTitle">Release reviewer</text>
   <text x="1227" y="1198" text-anchor="middle" class="body">Adversarial falsification; no publication authority</text>
   <path class="edgeGreen" d="M880 1178 H920"/>
   <path class="edgeGreen" d="M1227 1222 V1250"/>
 
   <text x="70" y="1298" class="layer">RELEASE</text>
-  <rect x="510" y="1250" width="780" height="90" rx="16" fill="#20252d" stroke="#f0f6fc" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="510" y="1250" width="780" height="90" rx="16" fill="url(#neutralFill)" stroke="#a39459" stroke-width="2" filter="url(#shadow)"/>
   <text x="900" y="1286" text-anchor="middle" class="cardTitle">L4 human maintainer</text>
   <text x="900" y="1317" text-anchor="middle" class="body">The only authority that can trigger merge or release</text>
 
   <text x="70" y="1430" class="layer">OBSERVE</text>
-  <rect x="265" y="1370" width="620" height="112" rx="16" fill="#151b24" stroke="#6e7681"/>
+  <rect x="265" y="1370" width="620" height="112" rx="16" fill="url(#execFill)" stroke="#4f9c70"/>
   <text x="575" y="1405" text-anchor="middle" class="cardTitle">Evidence stores</text>
   <text x="575" y="1437" text-anchor="middle" class="body">events · ledgers · reports · native/exec rosters</text>
   <text x="575" y="1463" text-anchor="middle" class="small">observed model + token metering + semantic name map</text>
-  <rect x="935" y="1370" width="600" height="112" rx="16" fill="#1d1a35" stroke="#8b7cf6" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="935" y="1370" width="600" height="112" rx="16" fill="url(#reviewFill)" stroke="#b18442" stroke-width="2" filter="url(#shadow)"/>
   <text x="1235" y="1405" text-anchor="middle" class="cardTitle">Agent Monitoring Web UI :8765</text>
   <text x="1235" y="1437" text-anchor="middle" class="body">Task · model · plane · health · refill deficit</text>
   <text x="1235" y="1463" text-anchor="middle" class="small">does not schedule, adjudicate, or authorize release</text>
@@ -182,10 +184,4 @@
   <line x1="70" y1="1520" x2="1730" y2="1520" stroke="#30363d"/>
   <text x="70" y="1554" class="small">LLMs handle judgment: planning, independent review and bounded adjudication.</text>
   <text x="70" y="1581" class="small">Scripts and state machines handle waiting, polling, counting, retry, refill and lifecycle transitions.</text>
-  <g transform="translate(1175 1540)">
-    <circle cx="0" cy="8" r="7" fill="#62686d"/><text x="18" y="14" class="small">coordinate</text>
-    <circle cx="145" cy="8" r="7" fill="#5a6b60"/><text x="163" y="14" class="small">execute</text>
-    <circle cx="270" cy="8" r="7" fill="#6b6068"/><text x="288" y="14" class="small">review</text>
-    <circle cx="385" cy="8" r="7" fill="#8f8b87"/><text x="403" y="14" class="small">human authority</text>
-  </g>
 </svg>
