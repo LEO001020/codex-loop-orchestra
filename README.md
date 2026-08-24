@@ -29,13 +29,13 @@ Give LOOP a goal and a concurrency target. It breaks the work into tasks, dispat
 - **Desktop launches and supervises CLI concurrency:** Keep the root conversation and a small visible agent set in Desktop while supervised `codex exec` processes expand larger execution waves into the WSL headless runtime.
 - **Agent Monitoring Web UI:** See every Desktop and CLI agent in one browser view, including its task name, observed model, runtime, health, refill deficit, and remaining capacity.
 
-![Codex LOOP Orchestra simplified architecture: human task, root agent, DAG and state machine, Desktop and WSL execution, layered acceptance, human release, and Agent Monitoring Web UI](docs/assets/architecture-simplified.en.svg)
-
-<p align="center"><sub>At a glance: the root agent judges, code sustains concurrency and state, independent models audit, and humans release.</sub></p>
-
 ![Codex LOOP live dashboard in English, showing active agents, runtimes, observed models, and task names](docs/assets/dashboard.en.png)
 
 <p align="center"><sub>One live view of every Desktop and headless agent: task, model, runtime, health, and available capacity.</sub></p>
+
+![Codex LOOP Orchestra simplified architecture: human task, root agent, DAG and state machine, Desktop and WSL execution, layered acceptance, human release, and Agent Monitoring Web UI](docs/assets/architecture-simplified.en.svg)
+
+<p align="center"><sub>At a glance: the root agent judges, code sustains concurrency and state, independent models audit, and humans release.</sub></p>
 
 ## The control loop is the product
 

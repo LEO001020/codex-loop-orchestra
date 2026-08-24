@@ -28,13 +28,13 @@ Codex 可以并行启动子智能体，但一次并发不等于一支能够持�
 - **Desktop 拉起并监管 CLI 并发：** Desktop 保留根对话和少量可见子智能体，同时通过受监督的 `codex exec` 进程将大批执行任务扩展到 WSL 无界面环境。
 - **Agent 监测 Web UI：** 在一个网页中查看所有 Desktop 与 CLI 智能体的任务名称、实际模型、执行环境、健康状态、补位缺口和剩余容量。
 
-![Codex LOOP Orchestra 简化结构：用户任务、根智能体、DAG 与状态机、Desktop 和 WSL 执行、分层验收、人工发布以及 Agent 监测 Web UI](docs/assets/architecture-simplified.zh-CN.svg)
-
-<p align="center"><sub>简化结构：根智能体做判断，程序维持并发与状态，异构模型做审计，人类决定发布。</sub></p>
-
 ![Codex LOOP 实时面板：活跃智能体、执行环境、实际模型和任务名称](docs/assets/dashboard.png)
 
 <p align="center"><sub>在一个界面中查看所有 Desktop 与无界面智能体的任务、模型、执行环境、运行状态和剩余容量。</sub></p>
+
+![Codex LOOP Orchestra 简化结构：用户任务、根智能体、DAG 与状态机、Desktop 和 WSL 执行、分层验收、人工发布以及 Agent 监测 Web UI](docs/assets/architecture-simplified.zh-CN.svg)
+
+<p align="center"><sub>简化结构：根智能体做判断，程序维持并发与状态，异构模型做审计，人类决定发布。</sub></p>
 
 ## 控制回路就是产品
 
