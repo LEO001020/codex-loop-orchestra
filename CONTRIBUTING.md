@@ -30,7 +30,7 @@ why the current behaviour is insufficient.
 ### Pull Requests
 
 1. **Fork** the repository and create a feature branch from `main`.
-2. **Write tests** for any new harness logic (see `tests/` for patterns).
+2. **Write tests** for any new harness logic, using existing patterns under `tests/`.
 3. **Run the full test suite** before submitting:
    ```bash
    python3 -m pytest tests/ -q

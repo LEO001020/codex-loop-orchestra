@@ -16,7 +16,7 @@
 
 Codex can launch parallel subagents. LOOP turns them into a continuously refilled engineering system.
 
-The root decides; workers execute across Desktop and supervised WSL/headless planes; independent models review; scripts own routine state; the Observer shows what is actually running.
+Tell LOOP what to finish and how many agents you want working at once. It splits and dispatches the work automatically; when one agent finishes, another fills the slot until no useful work remains. Tasks can run in Codex Desktop or supervised WSL/headless workers, execution and review can use models from different providers, and one web dashboard shows what every agent is doing. You do not have to keep prompting “continue,” and the final merge remains your decision.
 
 ![Codex LOOP live dashboard in English, showing active agents, execution planes, observed models, and semantic task names](docs/assets/dashboard.en.png)
 
@@ -25,6 +25,12 @@ The root decides; workers execute across Desktop and supervised WSL/headless pla
 ## The control loop is the product
 
 Many harnesses can start agents. LOOP's product is the bounded control loop that keeps a wide team replenished while useful work and capacity remain, with isolated writes, reproducible acceptance, and human release authority:
+
+> **In plain language:** Tell LOOP your goal and desired concurrency once. LOOP turns the job into a safe queue, replaces agents as they finish, and can move the wider wave from Desktop to supervised headless workers. Each agent works separately, another model reviews the result, and scripts handle waiting and ordinary retries. The root is called back only for genuine exceptions; nothing is merged or released until you approve it.
+>
+> **What that means for you:** No more repeatedly typing “continue” or “start more agents.” The team keeps working, parallel execution shortens completion time, and isolated work plus independent review reduces overwritten changes and repeated model mistakes.
+
+The exact control contract is:
 
 1. The root emits a bounded decision skeleton instead of doing bulk work.
 2. Every task packet declares its goal, authorized paths, acceptance commands, and constraints.
@@ -58,14 +64,14 @@ The goal is not merely to start more agents. LOOP addresses the failure modes th
 |---|---|---|
 | A launched wave drains as agents finish; a prompt is not a refill policy. | Count real Desktop/headless workers and refill from a bounded backlog. | **Keep high concurrency running** without repeated user prompts. |
 | Execution and self-review by one model family can share blind spots. | Keep the root user-selected; pin executor and auditor roles to different Codex/OpenCodex models. | **Catch correlated mistakes** with independent model families. |
-| A wide native wave shares Desktop's conversation transport. | Keep visible native agents; move wider execution to supervised WSL/headless workers. | **Gain parallel headroom** without losing root-child messaging. |
+| In maintainer testing, Codex Desktop's conversation layer became prone to instability or crashes around 10–20 busy native child agents. | Keep visible native agents; move wider execution to supervised WSL/headless workers. | **Bypass the Desktop conversation-layer bottleneck** without losing root-child messaging. |
 | Tool calls repeatedly rebuild parsed data and intermediate computation. | Give headless workers an optional, lazy, session-scoped IPybox Python kernel. | **Continue across calls** with files, dataframes, indexes, and counters intact. |
-| The coordinator can waste high-tier turns on search, tests, polling, and retries. | Let the root plan and adjudicate while scripts own deterministic lifecycle work. | **Spend the best model on decisions** and govern root production-token share toward ≤25%. |
+| The coordinator can waste high-tier turns on search, tests, polling, and retries. | Let the root plan and adjudicate while scripts own deterministic lifecycle work. | **Spend the best model on decisions and cut wall-clock time**: dozens of concurrent executors raise aggregate throughput—especially with Flash or diffusion/draft-accelerated worker models—while root production-token share is governed toward ≤25%. |
 | Native nicknames and separate headless processes do not form one operational view. | Use ordered numeric IDs and map them to semantic tasks, models, planes, health, and capacity. | **See every agent live** and diagnose refill deficits from one Observer. |
 
 Default LOOP policy targets 20 active agents per parent task and 80 across one machine. These are configurable targets bounded by useful work, provider capacity, and hardware—not official Codex limits or performance guarantees.
 
-The dual-plane design came from maintainer-observed Desktop conversation instability around 10–20 busy children in one environment. That is a design origin, not a published benchmark or an official Codex limit.
+The 10–20 range is a maintainer observation from one environment that motivated the dual-plane design, not a published benchmark or an official Codex limit.
 
 ## How LOOP works
 

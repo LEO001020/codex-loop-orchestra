@@ -31,8 +31,8 @@ level agreement.
 
 ### In scope
 
-- Vulnerabilities in LOOP harness scripts (`harness/`, `hooks/`, `metering/`)
-- Credential leak or path-traversal in the installer (`install.sh`, PowerShell launchers)
+- Vulnerabilities in LOOP harness scripts such as `harness/`, `hooks/`, and `metering/`
+- Credential leak or path-traversal in the installer, including `install.sh` and the PowerShell launchers
 - Privilege escalation in hook execution
 - Unauthorized file access beyond declared `authorized_paths`
 
@@ -71,7 +71,7 @@ calls, never execute arbitrary commands on behalf of a subagent.
 
 Each executor packet runs in an isolated git worktree. The `diffvalidator.py`
 L0 gate enforces that diffs are strictly within the packet's `authorized_paths`
-and rejects any path-escape attempt (absolute paths, `..` traversals).
+and rejects path-escape attempts, including absolute paths and `..` traversals.
 
 ### Supply chain
 
