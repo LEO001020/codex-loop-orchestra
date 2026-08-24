@@ -1,8 +1,9 @@
 # Installation
 
-The recommended path is to ask a local Codex agent to follow
-`AGENT_INSTALL.md`. The same deterministic commands are available below for
-manual installation.
+The recommended approach is to ask a local Codex agent to follow
+`AGENT_INSTALL.md`. It will inspect the environment, present the proposed
+changes and backup plan, and wait for approval before invoking the deterministic
+installer. The same scripts are documented below for manual installation.
 
 ## Before you start
 
@@ -13,20 +14,20 @@ manual installation.
 - Provider credentials belong to your Codex or gateway configuration, never in
   this repository.
 
-## Portable model profile
+## Model profiles
 
 The default profile uses `gpt-5.6-terra` for execution and `gpt-5.6` for
-independent review. The root model remains selected by the user in Codex.
+independent audit. The user continues to select the root model in Codex.
 
-Preview profiles:
+List the available profiles:
 
 ```bash
 python harness/model_profile.py list --root .
 ```
 
-The `three-family-example` profile is intentionally not active. Replace its
-example model IDs with models available in your own environment before using
-it. Never add provider tokens to `model_profiles.toml`.
+The `three-family-example` profile is intentionally inactive. Before enabling
+it, replace the example model IDs with models that are available in your own
+environment. Never add provider tokens to `model_profiles.toml`.
 
 ## Windows
 
@@ -36,14 +37,14 @@ Open PowerShell in the repository:
 ./launchers/Set-Codex-LOOP-Mode.ps1 -Mode Activate
 ```
 
-Activation performs two reversible phases:
+Activation has two reversible phases:
 
 1. Install portable custom-agent TOMLs and merge missing documented
    `[features]`/`[agents]` keys into `%USERPROFILE%\.codex\config.toml`.
    Existing keys are preserved and changed files are backed up.
-2. Install managed requirements and the active LOOP agreement, then write the
-   global-mode marker. Pre-existing `AGENTS.md`, `hooks.json`, and
-   `requirements.toml` are recorded in a verified restore ledger.
+2. Install the managed requirements and active LOOP working agreement, then
+   write the global-mode marker. Pre-existing `AGENTS.md`, `hooks.json`, and
+   `requirements.toml` files are recorded in a hash-verified restore manifest.
 
 Fully exit and restart Codex Desktop. Start a new task; existing tasks do not
 retroactively reload all configuration layers.
@@ -77,13 +78,13 @@ Use `-CodexHome <path>` when `CODEX_HOME` is not the standard user directory.
 ./install.sh --repo "$PWD"
 ```
 
-The installer validates Python, Node, Git, Codex, TOML inputs, installs custom
-agents, merges only missing documented Codex keys, initializes the package-local
-control state, activates managed global hooks, and runs the smoke gate.
+The installer validates Python, Node.js, Git, Codex, and the TOML inputs. It
+then installs the custom agents, merges only missing documented Codex keys,
+initializes the package-local control state, enables the managed global hooks,
+and runs the smoke-test gate.
 
-Use `--skip-smoke` only when the real provider route is intentionally not
-available yet. Before production use, run the smoke gate after configuring the
-models:
+Use `--skip-smoke` only when the model-provider route has not been configured
+yet. Before production use, configure the models and run the smoke-test gate:
 
 ```bash
 ./harness/smoke_gate.sh "$(pwd)"
@@ -95,22 +96,22 @@ Restore the managed global files and remove unchanged LOOP agent TOMLs:
 ./uninstall.sh
 ```
 
-## Headless plane
+## Headless runtime
 
-Headless workers require a working `codex` executable on the Linux/WSL PATH or
-`CODEX_HEADLESS_BIN`. A third-party OpenCodex gateway is optional; when used,
-its health endpoint and model IDs must be configured by the operator. LOOP does
-not bundle gateway credentials.
+Headless workers require a working `codex` executable on the Linux/WSL `PATH`,
+or an explicit path in `CODEX_HEADLESS_BIN`. A third-party gateway such as
+OpenCodex is optional. If one is used, the operator must configure its health
+endpoint and model IDs. LOOP does not bundle or store gateway credentials.
 
-A lifecycle-visible wave uses:
+Start a headless batch that is registered with LOOP's lifecycle system:
 
 ```bash
 python harness/headless_wave.py --root . --manifest path/to/manifest.json --wait-all
 ```
 
-For sustained parent-task refill, import a bounded parent manifest once and let
-the existing refill consumer own births. Do not launch the same packets through
-a second path.
+For sustained refill of a parent task, import one bounded parent manifest and
+let the existing refill service start all workers. Do not launch the same task
+packets through a second path.
 
 ## Isolated verification
 
@@ -135,13 +136,14 @@ sha256sum -c SHA256SUMS
 
 ## Troubleshooting
 
-- **Spawn denied:** the requested role/model/effort does not match the active
-  profile, or `fork_context=true` was used.
-- **Dashboard has no semantic task:** the lifecycle roster is stale or the
+- **Subagent launch denied:** the requested role, model, or reasoning effort does
+  not match the active profile, or the request used `fork_context=true`.
+- **Dashboard does not show a task name:** the lifecycle roster is stale, or the
   task prompt did not begin with `任务名：...`.
-- **Headless deficit remains:** verify `codex`/gateway health and check
-  `data/lifecycle/exec_roster.json` rather than counting process starts.
-- **Hooks do not run:** verify global mode Status, absolute managed-hook paths,
-  hook trust, and that Codex was fully restarted.
-- **Restore refuses:** do not bypass a backup hash mismatch. Inspect the backup
-  and install-state ledger before proceeding.
+- **Headless worker deficit does not fall:** verify the health of `codex` or the
+  gateway and inspect `data/lifecycle/exec_roster.json`. An operating-system
+  process starting does not by itself mean that LOOP has registered the worker.
+- **Lifecycle hooks do not run:** verify global-mode status, the absolute managed
+  hook paths, hook trust, and that Codex was fully restarted.
+- **Restore is refused:** do not bypass a backup hash mismatch. Inspect the
+  backup and installation-state manifest before proceeding.
