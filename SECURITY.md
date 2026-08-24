@@ -48,7 +48,7 @@ level agreement.
 
 This package never stores API keys, OAuth tokens, session cookies, or any
 credentials in source files. All authentication is delegated to the Codex CLI
-(`codex login`).
+through `codex login`.
 
 ### gitignore guardrails
 

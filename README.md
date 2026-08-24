@@ -27,7 +27,7 @@ The root decides; workers execute across Desktop and supervised WSL/headless pla
 Many harnesses can start agents. LOOP's product is the bounded control loop that keeps a wide team replenished while useful work and capacity remain, with isolated writes, reproducible acceptance, and human release authority:
 
 1. The root emits a bounded decision skeleton instead of doing bulk work.
-2. Every work packet (`packet`) declares its goal, authorized paths, acceptance commands, and constraints.
+2. Every task packet declares its goal, authorized paths, acceptance commands, and constraints.
 3. The dependency-graph (DAG) gate rejects cycles and overlapping write scopes before dispatch.
 4. Desktop or headless workers run in isolated Git worktrees with explicit role, model, and reasoning-effort pins.
 5. Scripts replay acceptance, validate diff boundaries, and emit typed lifecycle events.

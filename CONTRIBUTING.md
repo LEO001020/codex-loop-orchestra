@@ -13,9 +13,9 @@ constructive.
 
 1. Check existing issues to avoid duplicates.
 2. Open a GitHub issue with:
-   - Codex CLI version (`codex --version`)
-   - Python version (`python3 --version`)
-   - Node version (`node --version`)
+   - Codex CLI version from `codex --version`
+   - Python version from `python3 --version`
+   - Node version from `node --version`
    - Operating system
    - Steps to reproduce
    - Expected vs actual behaviour
