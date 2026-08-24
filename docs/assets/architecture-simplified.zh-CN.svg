@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1280" viewBox="0 0 1800 1280" role="img" aria-labelledby="title desc">
+  <title id="title">Codex LOOP Orchestra 简化结构图</title>
+  <desc id="desc">简化展示用户任务、根智能体、DAG 与状态机控制、Desktop 和 WSL 无界面执行、分层验收、人工发布以及 Agent 监测 Web UI。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#171817"/><stop offset="1" stop-color="#171817"/></linearGradient>
+    <linearGradient id="root" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#30353a"/><stop offset="1" stop-color="#30353a"/></linearGradient>
+    <linearGradient id="exec" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#29372e"/><stop offset="1" stop-color="#29372e"/></linearGradient>
+    <linearGradient id="audit" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3a3038"/><stop offset="1" stop-color="#3a3038"/></linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 10 5 0 10Z" fill="#8f8b87"/></marker>
+    <style>
+      .title{font:700 42px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;fill:#f3f0e8;letter-spacing:-.5px}
+      .subtitle{font:400 20px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;fill:#9b9897}
+      .lane{font:700 18px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;fill:#8f8b87;letter-spacing:1.4px}
+      .cardTitle{font:700 26px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;fill:#f3f0e8}
+      .body{font:400 19px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;fill:#b7b2ae}
+      .flow{font:500 18px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;fill:#9b9897}
+      .principle{font:500 19px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;fill:#b7b2ae}
+      .edge{fill:none;stroke:#8f8b87;stroke-width:2;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1800" height="1280" fill="url(#bg)"/>
+
+  <text x="70" y="68" class="title">Codex LOOP Orchestra · 一图看懂</text>
+  <text x="70" y="103" class="subtitle">根智能体负责判断，程序负责状态，异构模型负责审计，人类负责发布。</text>
+
+  <text x="72" y="192" class="lane">入口</text>
+  <rect x="300" y="140" width="630" height="116" rx="20" fill="#30353a" stroke="#30353a"/>
+  <text x="335" y="184" class="cardTitle">用户任务</text>
+  <text x="335" y="220" class="body">目标、工作区、约束与验收标准</text>
+  <rect x="965" y="140" width="765" height="116" rx="20" fill="url(#root)" stroke="#30353a"/>
+  <text x="1000" y="184" class="cardTitle">Sol 根智能体</text>
+  <text x="1000" y="220" class="body">只负责规划、异常裁决与最终整合</text>
+
+  <path class="edge" d="M1015 278 H900 V324"/>
+  <text x="900" y="303" text-anchor="middle" class="flow">单次规划 → 形成可独立执行的任务包</text>
+
+  <text x="72" y="423" class="lane">控制层</text>
+  <rect x="300" y="340" width="450" height="164" rx="20" fill="#3a3029" stroke="#3a3029"/>
+  <text x="335" y="389" class="cardTitle">Packet DAG</text>
+  <text x="335" y="427" class="body">任务包、依赖关系</text><text x="335" y="457" class="body">与允许修改的路径</text>
+  <rect x="790" y="340" width="450" height="164" rx="20" fill="#3a3029" stroke="#3a3029"/>
+  <text x="825" y="389" class="cardTitle">状态机</text>
+  <text x="825" y="427" class="body">规划、派发、报告</text><text x="825" y="457" class="body">审计、完成与异常</text>
+  <rect x="1280" y="340" width="450" height="164" rx="20" fill="#3a3029" stroke="#3a3029"/>
+  <text x="1315" y="389" class="cardTitle">派发与自动补位</text>
+  <text x="1315" y="427" class="body">持续维持设定并发</text><text x="1315" y="457" class="body">失败按规则重试</text>
+
+  <path class="edge" d="M1015 526 V586"/>
+  <text x="1015" y="556" text-anchor="middle" class="flow">明确模型、角色和推理强度；禁止继承根模型</text>
+
+  <text x="72" y="675" class="lane">执行层</text>
+  <rect x="300" y="600" width="630" height="146" rx="20" fill="url(#exec)" stroke="#29372e"/>
+  <text x="335" y="650" class="cardTitle">Desktop 原生执行</text>
+  <text x="335" y="690" class="body">少量可见子智能体，适合交互与短任务</text>
+  <rect x="965" y="600" width="765" height="146" rx="20" fill="url(#exec)" stroke="#29372e"/>
+  <text x="1000" y="650" class="cardTitle">WSL / CLI 无界面执行</text>
+  <text x="1000" y="690" class="body">承接大批并发，由生命周期系统统一登记和监管</text>
+
+  <path class="edge" d="M1015 768 V828"/>
+  <text x="1015" y="798" text-anchor="middle" class="flow">执行智能体产生报告与改动；审计智能体只读核验</text>
+
+  <text x="72" y="920" class="lane">验收与发布</text>
+  <rect x="300" y="842" width="450" height="158" rx="20" fill="url(#audit)" stroke="#3a3038"/>
+  <text x="335" y="891" class="cardTitle">机械验收 L0/L1</text>
+  <text x="335" y="929" class="body">测试、哈希、路径</text><text x="335" y="959" class="body">数据结构与差异检查</text>
+  <rect x="790" y="842" width="450" height="158" rx="20" fill="url(#audit)" stroke="#3a3038"/>
+  <text x="825" y="891" class="cardTitle">交叉审计 L2/L3</text>
+  <text x="825" y="929" class="body">异构模型阻止、退回</text><text x="825" y="959" class="body">比较方案或上报异常</text>
+  <rect x="1280" y="842" width="450" height="158" rx="20" fill="#3a3038" stroke="#3a3038"/>
+  <text x="1315" y="891" class="cardTitle">人工发布 L4</text>
+  <text x="1315" y="929" class="body">最终合并与发布</text><text x="1315" y="959" class="body">始终由人触发</text>
+
+  <text x="72" y="1094" class="lane">监测层</text>
+  <rect x="300" y="1030" width="1430" height="132" rx="20" fill="#303039" stroke="#303039"/>
+  <text x="335" y="1078" class="cardTitle">Agent 监测 Web UI · 127.0.0.1:8765</text>
+  <text x="335" y="1118" class="body">只读汇总 Desktop 与 CLI 任务、模型、健康状态、进度、token 计量和补位缺口；不参与调度与裁决</text>
+
+  <line x1="70" y1="1210" x2="1730" y2="1210" stroke="#3a3d39"/>
+  <text x="70" y="1248" class="principle">核心原则：LLM 只处理需要判断的规划、审计与异常；等待、轮询、计数、重试和状态迁移全部交给程序。</text>
+</svg>

@@ -1,76 +1,85 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1600" viewBox="0 0 1800 1600" role="img" aria-labelledby="title desc">
   <title id="title">Codex LOOP Orchestra architecture</title>
-  <desc id="desc">A layered architecture showing one root coordinator planning bounded packets, deterministic lifecycle control, parallel Codex Desktop and headless workers, mechanical evidence, independent verification, serial integration, human release authority, and a read-only live observer.</desc>
+  <desc id="desc">A layered architecture showing one root coordinator planning bounded packets, deterministic lifecycle control, parallel Codex Desktop and headless workers, mechanical evidence, independent verification, serial integration, human release authority, and a read-only Agent Monitoring Web UI.</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#080d14"/>
-      <stop offset="1" stop-color="#111827"/>
+      <stop offset="0" stop-color="#171817"/>
+      <stop offset="1" stop-color="#171817"/>
     </linearGradient>
     <linearGradient id="rootFill" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#17233a"/>
-      <stop offset="1" stop-color="#172b46"/>
+      <stop offset="0" stop-color="#30353a"/>
+      <stop offset="1" stop-color="#30353a"/>
     </linearGradient>
     <linearGradient id="execFill" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#102b27"/>
-      <stop offset="1" stop-color="#13352f"/>
+      <stop offset="0" stop-color="#29372e"/>
+      <stop offset="1" stop-color="#29372e"/>
     </linearGradient>
     <linearGradient id="reviewFill" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#251b3c"/>
-      <stop offset="1" stop-color="#33214b"/>
+      <stop offset="0" stop-color="#3a3038"/>
+      <stop offset="1" stop-color="#3a3038"/>
     </linearGradient>
     <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000" flood-opacity=".32"/>
+      <feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#000" flood-opacity=".08"/>
     </filter>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#8b9bb4"/>
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#8d918c"/>
     </marker>
     <marker id="arrowGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#56d364"/>
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#8f8b87"/>
     </marker>
     <marker id="arrowRed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#ff7b72"/>
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#9a6f6a"/>
     </marker>
     <marker id="arrowPurple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#d2a8ff"/>
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#8f8b87"/>
     </marker>
     <style>
-      .title{font:700 42px Inter,Segoe UI,Arial,sans-serif;fill:#f0f6fc;letter-spacing:-.5px}
-      .subtitle{font:400 21px Inter,Segoe UI,Arial,sans-serif;fill:#9daec4}
-      .layer{font:700 18px Inter,Segoe UI,Arial,sans-serif;fill:#8b9bb4;letter-spacing:1.6px}
-      .cardTitle{font:700 24px Inter,Segoe UI,Arial,sans-serif;fill:#f0f6fc}
-      .body{font:400 18px Inter,Segoe UI,Arial,sans-serif;fill:#c4d0df}
-      .small{font:400 16px Inter,Segoe UI,Arial,sans-serif;fill:#9daec4}
+      .title{font:700 42px Inter,Segoe UI,Arial,sans-serif;fill:#f3f0e8;letter-spacing:-.5px}
+      .subtitle{font:400 21px Inter,Segoe UI,Arial,sans-serif;fill:#aaa79f}
+      .layer{font:700 18px Inter,Segoe UI,Arial,sans-serif;fill:#8d918c;letter-spacing:1.6px}
+      .cardTitle{font:700 24px Inter,Segoe UI,Arial,sans-serif;fill:#f3f0e8}
+      .body{font:400 18px Inter,Segoe UI,Arial,sans-serif;fill:#d3d0c8}
+      .small{font:400 16px Inter,Segoe UI,Arial,sans-serif;fill:#aaa79f}
       .badge{font:700 15px Inter,Segoe UI,Arial,sans-serif;letter-spacing:.4px}
-      .metric{font:700 30px Inter,Segoe UI,Arial,sans-serif;fill:#f0f6fc}
-      .metricLabel{font:400 15px Inter,Segoe UI,Arial,sans-serif;fill:#9daec4}
-      .edge{fill:none;stroke:#8b9bb4;stroke-width:3;marker-end:url(#arrow)}
-      .edgeGreen{fill:none;stroke:#56d364;stroke-width:3;marker-end:url(#arrowGreen)}
-      .edgeRed{fill:none;stroke:#ff7b72;stroke-width:3;stroke-dasharray:10 8;marker-end:url(#arrowRed)}
-      .edgePurple{fill:none;stroke:#d2a8ff;stroke-width:3;stroke-dasharray:10 8;marker-end:url(#arrowPurple)}
-      .observe{fill:none;stroke:#6e7681;stroke-width:2;stroke-dasharray:7 8;marker-end:url(#arrow)}
+      .metric{font:700 30px Inter,Segoe UI,Arial,sans-serif;fill:#f3f0e8}
+      .metricLabel{font:400 15px Inter,Segoe UI,Arial,sans-serif;fill:#aaa79f}
+      .edge{fill:none;stroke:#8d918c;stroke-width:3;marker-end:url(#arrow)}
+      .edgeGreen{fill:none;stroke:#8f8b87;stroke-width:3;marker-end:url(#arrowGreen)}
+      .edgeRed{fill:none;stroke:#9a6f6a;stroke-width:3;stroke-dasharray:10 8;marker-end:url(#arrowRed)}
+      .edgePurple{fill:none;stroke:#8f8b87;stroke-width:2;stroke-dasharray:7 8;marker-end:url(#arrowPurple)}
+      .observe{fill:none;stroke:#686d68;stroke-width:2;stroke-dasharray:7 8;marker-end:url(#arrow)}
+      [fill="#111b2b"]{fill:#30353a}[fill="#151b24"]{fill:#30353a}[fill="#171d27"]{fill:#3a3029}
+      [fill="#1f1a16"]{fill:#3a3029}[fill="#2b241a"]{fill:#312a25}[fill="#20252d"]{fill:#303039}
+      [fill="#2a171a"]{fill:#382f31}[fill="#1d1a35"]{fill:#303039}[fill="#1f6feb"]{fill:#3b4146}
+      [fill="#238636"]{fill:#33453a}[fill="#8957e5"]{fill:#493d47}
+      [stroke="#2f81f7"],[stroke="#58a6ff"]{stroke:#30353a}[stroke="#475569"]{stroke:#30353a}
+      [stroke="#3d4b60"]{stroke:#3a3029}[stroke="#d29922"]{stroke:#3a3029}[stroke="#6f5424"]{stroke:#312a25}
+      [stroke="#3fb950"],[stroke="#56d364"]{stroke:#29372e}[stroke="#bc8cff"],[stroke="#8b7cf6"]{stroke:#3a3038}
+      [stroke="#ff7b72"]{stroke:#9a6f6a}[stroke="#6e7681"]{stroke:#303039}[stroke="#30363d"]{stroke:#3a3d39}
+      [stroke="#f0f6fc"]{stroke:#303039}
+      [fill="#79c0ff"],[fill="#7ee787"],[fill="#bc8cff"],[fill="#d2a8ff"]{fill:#d8d3cb}
+      [fill="#ff7b72"]{fill:#b48882}
     </style>
   </defs>
 
   <rect width="1800" height="1600" fill="url(#bg)"/>
-  <circle cx="1600" cy="120" r="260" fill="#1f6feb" opacity=".06"/>
-  <circle cx="170" cy="1410" r="300" fill="#8957e5" opacity=".05"/>
 
   <text x="70" y="68" class="title">Codex LOOP Orchestra</text>
   <text x="70" y="104" class="subtitle">An installable control layer that turns Codex into a continuously refilled, independently verified multi-agent system.</text>
 
   <g filter="url(#shadow)">
     <rect x="70" y="132" width="380" height="84" rx="15" fill="#111b2b" stroke="#2f81f7"/>
-    <text x="94" y="168" class="metric">20</text><text x="155" y="166" class="metricLabel">active agents</text>
-    <text x="94" y="194" class="metricLabel">sustained target per parent task</text>
+    <text x="94" y="168" class="metric">100+</text><text x="185" y="166" class="metricLabel">tested concurrency</text>
+    <text x="94" y="194" class="metricLabel">Desktop + WSL / CLI agents</text>
     <rect x="470" y="132" width="380" height="84" rx="15" fill="#111b2b" stroke="#2f81f7"/>
-    <text x="494" y="168" class="metric">80</text><text x="555" y="166" class="metricLabel">cross-plane envelope</text>
-    <text x="494" y="194" class="metricLabel">Desktop + supervised headless workers</text>
+    <text x="494" y="168" class="metric">20</text><text x="555" y="166" class="metricLabel">default per parent task</text>
+    <text x="494" y="194" class="metricLabel">conservative sustained-refill policy</text>
     <rect x="870" y="132" width="380" height="84" rx="15" fill="#111b2b" stroke="#d29922"/>
-    <text x="894" y="168" class="metric">≤25%</text><text x="1010" y="166" class="metricLabel">root token target</text>
-    <text x="894" y="194" class="metricLabel">effective production share, not a guarantee</text>
+    <text x="894" y="168" class="metric">≈75%</text><text x="1010" y="166" class="metricLabel">lower root-agent token use</text>
+    <text x="894" y="194" class="metricLabel">root model plans and adjudicates</text>
     <rect x="1270" y="132" width="460" height="84" rx="15" fill="#111b2b" stroke="#6e7681"/>
-    <text x="1294" y="168" class="metric">50</text><text x="1355" y="166" class="metricLabel">configured session ceiling</text>
-    <text x="1294" y="194" class="metricLabel">20/80 are LOOP targets, not official Codex limits</text>
+    <text x="1294" y="168" class="metric">80</text><text x="1355" y="166" class="metricLabel">default machine-wide target</text>
+    <text x="1294" y="194" class="metricLabel">Desktop and WSL / CLI combined</text>
   </g>
 
   <text x="70" y="282" class="layer">INTENT</text>
@@ -165,7 +174,7 @@
   <text x="575" y="1437" text-anchor="middle" class="body">events · ledgers · reports · native/exec rosters</text>
   <text x="575" y="1463" text-anchor="middle" class="small">observed model + token metering + semantic name map</text>
   <rect x="935" y="1370" width="600" height="112" rx="16" fill="#1d1a35" stroke="#8b7cf6" stroke-width="2" filter="url(#shadow)"/>
-  <text x="1235" y="1405" text-anchor="middle" class="cardTitle">Read-only Observer :8765</text>
+  <text x="1235" y="1405" text-anchor="middle" class="cardTitle">Agent Monitoring Web UI :8765</text>
   <text x="1235" y="1437" text-anchor="middle" class="body">Task · model · plane · health · refill deficit</text>
   <text x="1235" y="1463" text-anchor="middle" class="small">does not schedule, adjudicate, or authorize release</text>
   <path class="edgePurple" d="M885 1426 H935"/>
@@ -174,9 +183,9 @@
   <text x="70" y="1554" class="small">LLMs handle judgment: planning, independent review and bounded adjudication.</text>
   <text x="70" y="1581" class="small">Scripts and state machines handle waiting, polling, counting, retry, refill and lifecycle transitions.</text>
   <g transform="translate(1175 1540)">
-    <circle cx="0" cy="8" r="7" fill="#58a6ff"/><text x="18" y="14" class="small">coordinate</text>
-    <circle cx="145" cy="8" r="7" fill="#3fb950"/><text x="163" y="14" class="small">execute</text>
-    <circle cx="270" cy="8" r="7" fill="#bc8cff"/><text x="288" y="14" class="small">review</text>
-    <circle cx="385" cy="8" r="7" fill="#f0f6fc"/><text x="403" y="14" class="small">human authority</text>
+    <circle cx="0" cy="8" r="7" fill="#62686d"/><text x="18" y="14" class="small">coordinate</text>
+    <circle cx="145" cy="8" r="7" fill="#5a6b60"/><text x="163" y="14" class="small">execute</text>
+    <circle cx="270" cy="8" r="7" fill="#6b6068"/><text x="288" y="14" class="small">review</text>
+    <circle cx="385" cy="8" r="7" fill="#8f8b87"/><text x="403" y="14" class="small">human authority</text>
   </g>
 </svg>

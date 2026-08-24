@@ -13,5 +13,5 @@ uses semantic versioning where practical.
 - Agent-assisted bilingual installation protocol.
 - Portable model profile without private provider dependencies.
 - Reversible global-mode activation for Windows and Linux/WSL.
-- Ordered native task nicknames plus semantic Observer mapping.
+- Ordered native task nicknames plus semantic Agent Monitoring Web UI mapping.
 - Dual-plane concurrency, continuous refill, layered review, and CI gates.

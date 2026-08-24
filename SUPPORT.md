@@ -1,6 +1,6 @@
 # Support
 
-Use GitHub Issues for reproducible installation, lifecycle, routing, Observer,
+Use GitHub Issues for reproducible installation, lifecycle, routing, Agent Monitoring Web UI,
 or state-machine defects. Start with `AGENT_INSTALL.md`, include the platform,
 Codex version, LOOP commit, sanitized status fields, and the smallest failing
 command. Do not paste credentials, session files, full ledgers, or raw logs.

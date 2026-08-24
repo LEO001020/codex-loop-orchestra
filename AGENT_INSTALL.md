@@ -56,7 +56,7 @@ The installing agent MUST follow this order:
    - `Status` reports active on Windows, or the global mode marker reports
      active on Linux/WSL;
    - the package-local Python/TOML syntax checks pass;
-   - port 8765 can start when the user requests the Observer.
+   - port 8765 can start when the user requests the Agent Monitoring Web UI.
 9. Tell the user to fully restart Codex Desktop/CLI and open a new task.
 10. End with the exact rollback command for the detected platform.
 

@@ -27,7 +27,11 @@ Give LOOP a goal and a concurrency target. It breaks the work into tasks, dispat
 - **About 75% lower root-agent token use:** The root model no longer performs search, bulk execution, waiting, or routine retries. It spends its tokens on planning and adjudication instead.
 - **WSL with an IPython/IPybox-style persistent compute container:** An on-demand Python kernel preserves DataFrames, indexes, and counters across calls and processes large files, datasets, and intermediate results outside the model context.
 - **Desktop launches and supervises CLI concurrency:** Keep the root conversation and a small visible agent set in Desktop while supervised `codex exec` processes expand larger execution waves into the WSL headless runtime.
-- **Observer Web UI:** See every Desktop and CLI agent in one browser view, including its task name, observed model, runtime, health, refill deficit, and remaining capacity.
+- **Agent Monitoring Web UI:** See every Desktop and CLI agent in one browser view, including its task name, observed model, runtime, health, refill deficit, and remaining capacity.
+
+![Codex LOOP Orchestra simplified architecture: human task, root agent, DAG and state machine, Desktop and WSL execution, layered acceptance, human release, and Agent Monitoring Web UI](docs/assets/architecture-simplified.en.svg)
+
+<p align="center"><sub>At a glance: the root agent judges, code sustains concurrency and state, independent models audit, and humans release.</sub></p>
 
 ![Codex LOOP live dashboard in English, showing active agents, runtimes, observed models, and task names](docs/assets/dashboard.en.png)
 
@@ -78,7 +82,7 @@ LOOP is not simply a way to start more agents. Each part of the system addresses
 | In the maintainer's environment, the Codex Desktop conversation layer became unstable and sometimes crashed with roughly 10–20 busy native subagents. | Keep a smaller visible set of Desktop agents and send larger execution waves to supervised WSL headless workers. | **Avoid the Desktop conversation-layer bottleneck** while preserving native root-to-subagent messaging. |
 | Ordinary tool calls repeatedly reload files, parse data, and rebuild intermediate results. | Give headless workers an optional IPybox-backed Python kernel that starts on demand and persists for the session. | **Preserve computation across calls**, including DataFrames, indexes, and counters. |
 | A high-capability coordinator can waste expensive turns on search, tests, waiting, polling, and retries. | Let the root agent plan and adjudicate while scripts handle deterministic lifecycle operations. | **Reserve the strongest model for decisions and reduce elapsed time.** Dozens of execution agents can raise aggregate throughput, particularly with Flash or diffusion- and draft-accelerated worker models, while policy keeps the root model's production-token share at or below 25%. |
-| Native random nicknames and separate headless processes provide no unified operational view. | Assign ordered numeric IDs and map them to task names, models, runtimes, health, and remaining capacity. | **See every agent in real time** and diagnose refill gaps from one Observer dashboard. |
+| Native random nicknames and separate headless processes provide no unified operational view. | Assign ordered numeric IDs and map them to task names, models, runtimes, health, and remaining capacity. | **See every agent in real time** and diagnose refill gaps from the Agent Monitoring Web UI. |
 
 LOOP has been tested with more than 100 concurrent agents. The public package ships with a more conservative default of 20 active agents per parent task and 80 across the Desktop and headless runtimes on one machine; users can raise those values to match the workload, model-provider capacity, and local hardware.
 
@@ -88,7 +92,7 @@ The 10–20 range is a maintainer observation from one environment that motivate
 
 ![Codex LOOP Orchestra architecture: root coordination, deterministic control, Desktop and headless execution, independent audit, human release, and live observation](docs/assets/architecture-overview.en.svg)
 
-LOOP separates planning, execution, audit, state management, and release authority. The root agent plans and adjudicates; execution agents work in Desktop or WSL headless environments; audit agents review the results independently; scripts and state machines manage routine lifecycle state; and the Observer combines both runtimes into one operational view. No agent can publish a release by itself.
+LOOP separates planning, execution, audit, state management, and release authority. The root agent plans and adjudicates; execution agents work in Desktop or WSL headless environments; audit agents review the results independently; scripts and state machines manage routine lifecycle state; and the Agent Monitoring Web UI combines both runtimes into one operational view. No agent can publish a release by itself.
 
 ### Persistent Python compute for headless workers
 
@@ -120,7 +124,7 @@ cd codex-loop-orchestra
 Activation installs the portable custom agents, merges only supported Codex multi-agent settings, backs up managed files, renders absolute hook paths, and activates global LOOP mode. Fully restart Codex Desktop and create a new task.
 
 ```powershell
-# Optional: start a workspace and the Observer
+# Optional: start a workspace and the Agent Monitoring Web UI
 ./launchers/Start-Codex-LOOP-Desktop.ps1 -TargetWorkspace C:\path\to\repo
 ./launchers/Start-Codex-LOOP-Monitor.ps1
 
@@ -189,7 +193,7 @@ agents/      custom Codex roles and ordered nickname candidates
 config/      routing, concurrency, retry, trigger, and managed-hook policy
 harness/     dispatch, state machine, refill, lifecycle, gates, and recovery
 hooks/       Codex lifecycle enforcement and context injection
-launchers/   Windows activation, Desktop startup, and Observer
+launchers/   Windows activation, Desktop startup, and Agent Monitoring Web UI
 metering/    per-role/model token attribution and budget signals
 schemas/     packet and report contracts
 scripts/     release packaging and integrity helpers

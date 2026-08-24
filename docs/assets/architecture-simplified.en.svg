@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1280" viewBox="0 0 1800 1280" role="img" aria-labelledby="title desc">
+  <title id="title">Codex LOOP Orchestra simplified architecture</title>
+  <desc id="desc">A simplified view of the human task, root agent, DAG and state-machine control, Desktop and WSL headless execution, layered acceptance, human release, and Agent Monitoring Web UI.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#171817"/><stop offset="1" stop-color="#171817"/></linearGradient>
+    <linearGradient id="root" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#30353a"/><stop offset="1" stop-color="#30353a"/></linearGradient>
+    <linearGradient id="exec" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#29372e"/><stop offset="1" stop-color="#29372e"/></linearGradient>
+    <linearGradient id="audit" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3a3038"/><stop offset="1" stop-color="#3a3038"/></linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 10 5 0 10Z" fill="#8f8b87"/></marker>
+    <style>
+      .title{font:700 42px Inter,Segoe UI,Arial,sans-serif;fill:#f3f0e8;letter-spacing:-.5px}
+      .subtitle{font:400 20px Inter,Segoe UI,Arial,sans-serif;fill:#9b9897}
+      .lane{font:700 18px Inter,Segoe UI,Arial,sans-serif;fill:#8f8b87;letter-spacing:1.4px}
+      .cardTitle{font:700 26px Inter,Segoe UI,Arial,sans-serif;fill:#f3f0e8}
+      .body{font:400 19px Inter,Segoe UI,Arial,sans-serif;fill:#b7b2ae}
+      .flow{font:500 18px Inter,Segoe UI,Arial,sans-serif;fill:#9b9897}
+      .principle{font:500 19px Inter,Segoe UI,Arial,sans-serif;fill:#b7b2ae}
+      .edge{fill:none;stroke:#8f8b87;stroke-width:2;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1800" height="1280" fill="url(#bg)"/>
+
+  <text x="70" y="68" class="title">Codex LOOP Orchestra · At a glance</text>
+  <text x="70" y="103" class="subtitle">The root agent judges. Code manages state. Independent models audit. Humans release.</text>
+
+  <text x="72" y="192" class="lane">INPUT</text>
+  <rect x="300" y="140" width="630" height="116" rx="20" fill="#30353a" stroke="#30353a"/>
+  <text x="335" y="184" class="cardTitle">Human task</text>
+  <text x="335" y="220" class="body">Objective, workspace, constraints, and acceptance criteria</text>
+  <rect x="965" y="140" width="765" height="116" rx="20" fill="url(#root)" stroke="#30353a"/>
+  <text x="1000" y="184" class="cardTitle">Sol root agent</text>
+  <text x="1000" y="220" class="body">Plans, adjudicates exceptions, and integrates the final result</text>
+
+  <path class="edge" d="M1015 278 H900 V324"/>
+  <text x="900" y="303" text-anchor="middle" class="flow">Plan once → produce self-contained task packets</text>
+
+  <text x="72" y="423" class="lane">CONTROL</text>
+  <rect x="300" y="340" width="450" height="164" rx="20" fill="#3a3029" stroke="#3a3029"/>
+  <text x="335" y="389" class="cardTitle">Packet DAG</text>
+  <text x="335" y="427" class="body">Task packets, dependencies,</text><text x="335" y="457" class="body">and authorized paths</text>
+  <rect x="790" y="340" width="450" height="164" rx="20" fill="#3a3029" stroke="#3a3029"/>
+  <text x="825" y="389" class="cardTitle">State machine</text>
+  <text x="825" y="427" class="body">Plan, dispatch, report,</text><text x="825" y="457" class="body">audit, complete, and escalate</text>
+  <rect x="1280" y="340" width="450" height="164" rx="20" fill="#3a3029" stroke="#3a3029"/>
+  <text x="1315" y="389" class="cardTitle">Dispatch and refill</text>
+  <text x="1315" y="427" class="body">Sustain the requested concurrency;</text><text x="1315" y="457" class="body">retry failures by policy</text>
+
+  <path class="edge" d="M1015 526 V586"/>
+  <text x="1015" y="556" text-anchor="middle" class="flow">Pin model, role, and reasoning effort; never inherit the root model</text>
+
+  <text x="72" y="675" class="lane">EXECUTE</text>
+  <rect x="300" y="600" width="630" height="146" rx="20" fill="url(#exec)" stroke="#29372e"/>
+  <text x="335" y="650" class="cardTitle">Native Desktop execution</text>
+  <text x="335" y="690" class="body">A small visible agent set for interaction and short tasks</text>
+  <rect x="965" y="600" width="765" height="146" rx="20" fill="url(#exec)" stroke="#29372e"/>
+  <text x="1000" y="650" class="cardTitle">WSL / CLI headless execution</text>
+  <text x="1000" y="690" class="body">Wide execution waves registered and supervised by lifecycle control</text>
+
+  <path class="edge" d="M1015 768 V828"/>
+  <text x="1015" y="798" text-anchor="middle" class="flow">Execution agents write reports and diffs; audit agents verify read-only</text>
+
+  <text x="72" y="920" class="lane">ACCEPT &amp; RELEASE</text>
+  <rect x="300" y="842" width="450" height="158" rx="20" fill="url(#audit)" stroke="#3a3038"/>
+  <text x="335" y="891" class="cardTitle">Mechanical acceptance L0/L1</text>
+  <text x="335" y="929" class="body">Tests, hashes, paths,</text><text x="335" y="959" class="body">schemas, and diff checks</text>
+  <rect x="790" y="842" width="450" height="158" rx="20" fill="url(#audit)" stroke="#3a3038"/>
+  <text x="825" y="891" class="cardTitle">Cross-model audit L2/L3</text>
+  <text x="825" y="929" class="body">Block, request rework, rank,</text><text x="825" y="959" class="body">or escalate genuine exceptions</text>
+  <rect x="1280" y="842" width="450" height="158" rx="20" fill="#3a3038" stroke="#3a3038"/>
+  <text x="1315" y="891" class="cardTitle">Human release L4</text>
+  <text x="1315" y="929" class="body">Final merge and publication</text><text x="1315" y="959" class="body">always remain human-triggered</text>
+
+  <text x="72" y="1094" class="lane">MONITOR</text>
+  <rect x="300" y="1030" width="1430" height="132" rx="20" fill="#303039" stroke="#303039"/>
+  <text x="335" y="1078" class="cardTitle">Agent Monitoring Web UI · 127.0.0.1:8765</text>
+  <text x="335" y="1118" class="body">Read-only view of Desktop and CLI tasks, models, health, progress, token usage, and refill gaps; never schedules or adjudicates</text>
+
+  <line x1="70" y1="1210" x2="1730" y2="1210" stroke="#3a3d39"/>
+  <text x="70" y="1248" class="principle">Core rule: LLMs handle judgment; code handles waiting, polling, counting, retries, refill, and state transitions.</text>
+</svg>

@@ -40,7 +40,7 @@ preference, never an effective-concurrency cap.  A native birth may be blocked
 only after the same task has been durably submitted headless and stably
 observed as `running`.  A denied or merely intended birth never clears refill debt;
 if atomic handoff is unavailable, do not hard-deny solely because 8 native
-children are active.  The 8765 observer must aggregate both planes and keep
+children are active.  The 8765 Agent Monitoring Web UI must aggregate both planes and keep
 showing any unfilled deficit against 20/80.
 For lifecycle-visible headless waves, use
 `<LOOP_INSTALL_DIR>\harness\headless_wave.py` with a bounded task

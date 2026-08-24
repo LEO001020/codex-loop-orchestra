@@ -2,49 +2,58 @@
   <title id="title">Codex LOOP Orchestra 架构</title>
   <desc id="desc">分层展示根协调器规划有界任务、确定性生命周期控制、Codex Desktop 与 headless 双执行平面、机械证据、独立验证、串行集成、人工发布权和只读实时观察界面。</desc>
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#080d14"/><stop offset="1" stop-color="#111827"/></linearGradient>
-    <linearGradient id="rootFill" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#17233a"/><stop offset="1" stop-color="#172b46"/></linearGradient>
-    <linearGradient id="execFill" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#102b27"/><stop offset="1" stop-color="#13352f"/></linearGradient>
-    <linearGradient id="reviewFill" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#251b3c"/><stop offset="1" stop-color="#33214b"/></linearGradient>
-    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000" flood-opacity=".32"/></filter>
-    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8b9bb4"/></marker>
-    <marker id="arrowGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#56d364"/></marker>
-    <marker id="arrowRed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#ff7b72"/></marker>
-    <marker id="arrowPurple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#d2a8ff"/></marker>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#171817"/><stop offset="1" stop-color="#171817"/></linearGradient>
+    <linearGradient id="rootFill" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#30353a"/><stop offset="1" stop-color="#30353a"/></linearGradient>
+    <linearGradient id="execFill" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#29372e"/><stop offset="1" stop-color="#29372e"/></linearGradient>
+    <linearGradient id="reviewFill" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3a3038"/><stop offset="1" stop-color="#3a3038"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#000" flood-opacity=".08"/></filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8d918c"/></marker>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8f8b87"/></marker>
+    <marker id="arrowRed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#9a6f6a"/></marker>
+    <marker id="arrowPurple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8f8b87"/></marker>
     <style>
-      .title{font:700 42px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;fill:#f0f6fc;letter-spacing:-.5px}
-      .subtitle{font:400 21px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;fill:#9daec4}
-      .layer{font:700 18px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;fill:#8b9bb4;letter-spacing:1.6px}
-      .cardTitle{font:700 24px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;fill:#f0f6fc}
-      .body{font:400 18px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;fill:#c4d0df}
-      .small{font:400 16px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;fill:#9daec4}
+      .title{font:700 42px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;fill:#f3f0e8;letter-spacing:-.5px}
+      .subtitle{font:400 21px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;fill:#aaa79f}
+      .layer{font:700 18px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;fill:#8d918c;letter-spacing:1.6px}
+      .cardTitle{font:700 24px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;fill:#f3f0e8}
+      .body{font:400 18px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;fill:#d3d0c8}
+      .small{font:400 16px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;fill:#aaa79f}
       .badge{font:700 15px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;letter-spacing:.4px}
-      .metric{font:700 30px Inter,Segoe UI,Arial,sans-serif;fill:#f0f6fc}
-      .metricLabel{font:400 15px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;fill:#9daec4}
-      .edge{fill:none;stroke:#8b9bb4;stroke-width:3;marker-end:url(#arrow)}
-      .edgeGreen{fill:none;stroke:#56d364;stroke-width:3;marker-end:url(#arrowGreen)}
-      .edgeRed{fill:none;stroke:#ff7b72;stroke-width:3;stroke-dasharray:10 8;marker-end:url(#arrowRed)}
-      .edgePurple{fill:none;stroke:#d2a8ff;stroke-width:3;stroke-dasharray:10 8;marker-end:url(#arrowPurple)}
-      .observe{fill:none;stroke:#6e7681;stroke-width:2;stroke-dasharray:7 8;marker-end:url(#arrow)}
+      .metric{font:700 30px Inter,Segoe UI,Arial,sans-serif;fill:#f3f0e8}
+      .metricLabel{font:400 15px "Microsoft YaHei","Noto Sans CJK SC",Segoe UI,Arial,sans-serif;fill:#aaa79f}
+      .edge{fill:none;stroke:#8d918c;stroke-width:3;marker-end:url(#arrow)}
+      .edgeGreen{fill:none;stroke:#8f8b87;stroke-width:3;marker-end:url(#arrowGreen)}
+      .edgeRed{fill:none;stroke:#9a6f6a;stroke-width:3;stroke-dasharray:10 8;marker-end:url(#arrowRed)}
+      .edgePurple{fill:none;stroke:#8f8b87;stroke-width:2;stroke-dasharray:7 8;marker-end:url(#arrowPurple)}
+      .observe{fill:none;stroke:#686d68;stroke-width:2;stroke-dasharray:7 8;marker-end:url(#arrow)}
+      [fill="#111b2b"]{fill:#30353a}[fill="#151b24"]{fill:#30353a}[fill="#171d27"]{fill:#3a3029}
+      [fill="#1f1a16"]{fill:#3a3029}[fill="#2b241a"]{fill:#312a25}[fill="#20252d"]{fill:#303039}
+      [fill="#2a171a"]{fill:#382f31}[fill="#1d1a35"]{fill:#303039}[fill="#1f6feb"]{fill:#3b4146}
+      [fill="#238636"]{fill:#33453a}[fill="#8957e5"]{fill:#493d47}
+      [stroke="#2f81f7"],[stroke="#58a6ff"]{stroke:#30353a}[stroke="#475569"]{stroke:#30353a}
+      [stroke="#3d4b60"]{stroke:#3a3029}[stroke="#d29922"]{stroke:#3a3029}[stroke="#6f5424"]{stroke:#312a25}
+      [stroke="#3fb950"],[stroke="#56d364"]{stroke:#29372e}[stroke="#bc8cff"],[stroke="#8b7cf6"]{stroke:#3a3038}
+      [stroke="#ff7b72"]{stroke:#9a6f6a}[stroke="#6e7681"]{stroke:#303039}[stroke="#30363d"]{stroke:#3a3d39}
+      [stroke="#f0f6fc"]{stroke:#303039}
+      [fill="#79c0ff"],[fill="#7ee787"],[fill="#bc8cff"],[fill="#d2a8ff"]{fill:#d8d3cb}
+      [fill="#ff7b72"]{fill:#b48882}
     </style>
   </defs>
 
   <rect width="1800" height="1600" fill="url(#bg)"/>
-  <circle cx="1600" cy="120" r="260" fill="#1f6feb" opacity=".06"/>
-  <circle cx="170" cy="1410" r="300" fill="#8957e5" opacity=".05"/>
 
   <text x="70" y="68" class="title">Codex LOOP Orchestra</text>
   <text x="70" y="104" class="subtitle">一个可安装的 Codex 控制层：持续补位并行执行，以独立模型验证结果，并实时观察全部任务。</text>
 
   <g filter="url(#shadow)">
     <rect x="70" y="132" width="380" height="84" rx="15" fill="#111b2b" stroke="#2f81f7"/>
-    <text x="94" y="168" class="metric">20</text><text x="155" y="166" class="metricLabel">活跃 Agent</text><text x="94" y="194" class="metricLabel">每个父任务的持续并发目标</text>
+    <text x="94" y="168" class="metric">100+</text><text x="185" y="166" class="metricLabel">已测试并发</text><text x="94" y="194" class="metricLabel">Desktop + WSL / CLI 智能体</text>
     <rect x="470" y="132" width="380" height="84" rx="15" fill="#111b2b" stroke="#2f81f7"/>
-    <text x="494" y="168" class="metric">80</text><text x="555" y="166" class="metricLabel">跨平面并发包络</text><text x="494" y="194" class="metricLabel">Desktop + 受监督 headless worker</text>
+    <text x="494" y="168" class="metric">20</text><text x="555" y="166" class="metricLabel">单父任务默认值</text><text x="494" y="194" class="metricLabel">持续补位的保守公开配置</text>
     <rect x="870" y="132" width="380" height="84" rx="15" fill="#111b2b" stroke="#d29922"/>
-    <text x="894" y="168" class="metric">≤25%</text><text x="1010" y="166" class="metricLabel">根模型 token 目标</text><text x="894" y="194" class="metricLabel">有效生产占比目标，不是保证值</text>
+    <text x="894" y="168" class="metric">≈75%</text><text x="1010" y="166" class="metricLabel">根对话 token 降幅</text><text x="894" y="194" class="metricLabel">根模型只承担规划与裁决</text>
     <rect x="1270" y="132" width="460" height="84" rx="15" fill="#111b2b" stroke="#6e7681"/>
-    <text x="1294" y="168" class="metric">50</text><text x="1355" y="166" class="metricLabel">已配置的单会话上限</text><text x="1294" y="194" class="metricLabel">20/80 是 LOOP 目标，不是 Codex 官方限制</text>
+    <text x="1294" y="168" class="metric">80</text><text x="1355" y="166" class="metricLabel">单机默认总目标</text><text x="1294" y="194" class="metricLabel">Desktop 与 WSL / CLI 双环境合计</text>
   </g>
 
   <text x="70" y="282" class="layer">任务入口</text>
@@ -118,11 +127,11 @@
   <rect x="265" y="1370" width="620" height="112" rx="16" fill="#151b24" stroke="#6e7681"/>
   <text x="575" y="1405" text-anchor="middle" class="cardTitle">证据存储</text><text x="575" y="1437" text-anchor="middle" class="body">events · ledgers · reports · native/exec rosters</text><text x="575" y="1463" text-anchor="middle" class="small">实际模型 + token 计量 + 语义任务映射</text>
   <rect x="935" y="1370" width="600" height="112" rx="16" fill="#1d1a35" stroke="#8b7cf6" stroke-width="2" filter="url(#shadow)"/>
-  <text x="1235" y="1405" text-anchor="middle" class="cardTitle">只读 Observer :8765</text><text x="1235" y="1437" text-anchor="middle" class="body">任务 · 模型 · 平面 · 健康 · 补位缺口</text><text x="1235" y="1463" text-anchor="middle" class="small">不调度、不裁决、不授权发布</text>
+  <text x="1235" y="1405" text-anchor="middle" class="cardTitle">Agent 监测 Web UI :8765</text><text x="1235" y="1437" text-anchor="middle" class="body">任务 · 模型 · 平面 · 健康 · 补位缺口</text><text x="1235" y="1463" text-anchor="middle" class="small">只读 · 不调度 · 不裁决 · 不授权发布</text>
   <path class="edgePurple" d="M885 1426 H935"/>
 
   <line x1="70" y1="1520" x2="1730" y2="1520" stroke="#30363d"/>
   <text x="70" y="1554" class="small">LLM 只承担需要判断的规划、独立验证与有界异常裁决。</text>
   <text x="70" y="1581" class="small">等待、轮询、计数、重试、补位和生命周期迁移由脚本与状态机完成。</text>
-  <g transform="translate(1175 1540)"><circle cx="0" cy="8" r="7" fill="#58a6ff"/><text x="18" y="14" class="small">协调</text><circle cx="105" cy="8" r="7" fill="#3fb950"/><text x="123" y="14" class="small">执行</text><circle cx="210" cy="8" r="7" fill="#bc8cff"/><text x="228" y="14" class="small">审查</text><circle cx="315" cy="8" r="7" fill="#f0f6fc"/><text x="333" y="14" class="small">人类发布权</text></g>
+  <g transform="translate(1175 1540)"><circle cx="0" cy="8" r="7" fill="#62686d"/><text x="18" y="14" class="small">协调</text><circle cx="105" cy="8" r="7" fill="#5a6b60"/><text x="123" y="14" class="small">执行</text><circle cx="210" cy="8" r="7" fill="#6b6068"/><text x="228" y="14" class="small">审查</text><circle cx="315" cy="8" r="7" fill="#8f8b87"/><text x="333" y="14" class="small">人类发布权</text></g>
 </svg>

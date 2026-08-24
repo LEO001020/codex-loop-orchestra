@@ -40,7 +40,7 @@ python harness/model_profile.py list --root .
 # 查看当前状态
 ./launchers/Set-Codex-LOOP-Mode.ps1 -Mode Status
 
-# 启动只读的 Observer 监控面板
+# 启动只读的 Agent 监测 Web UI
 ./launchers/Start-Codex-LOOP-Monitor.ps1
 
 # 在指定工作区中启动 LOOP
