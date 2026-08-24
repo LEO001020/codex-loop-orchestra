@@ -58,7 +58,7 @@ Codex 原生能并行派出子 Agent；LOOP 把它们变成一套持续补位的
 
 目的不只是“启动更多 Agent”。当 Codex 这类原生 harness 被推向持续、超高并发、多模型工程时，会暴露一组具体失败模式；LOOP 的每项设计都直接对应其中一个问题：
 
-| Codex / harness 的缺口 | LOOP 的设计 | 设计带来的优点 |
+| Codex/harness 的缺口 | LOOP 的设计 | 设计带来的优点 |
 |---|---|---|
 | 一次派出的 Agent 会随任务完成而减少；提示词不是补位策略。 | 统计 Desktop/headless 的真实运行数，从有界任务池自动补位。 | **让高并发持续运行**，不需要用户反复催促。 |
 | 同一个模型家族执行又自查，可能共享同一盲点。 | 根模型、执行者与审计者构成三个独立阶段，每个阶段都可分别指定模型；第三方模型通过 Codex 兼容网关接入，例如 OpenCodex。 | **发现相关性错误**，让另一个模型家族独立挑战结果。 |
@@ -118,7 +118,7 @@ Activate 会安装便携 custom agents、合并受支持的 Codex 多智能体�
 ./launchers/Set-Codex-LOOP-Mode.ps1 -Mode Restore
 ```
 
-### Linux / WSL
+### Linux/WSL
 
 ```bash
 git clone https://github.com/LEO001020/codex-loop-orchestra.git

@@ -63,7 +63,7 @@ python harness/model_profile.py list --root .
 
 非标准 Codex 主目录使用 `-CodexHome <path>`。
 
-## Linux / WSL
+## Linux/WSL
 
 ```bash
 ./install.sh --repo "$PWD"
