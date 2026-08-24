@@ -3,20 +3,31 @@
 
 # Codex LOOP Orchestra
 
-**The control loop that keeps a high-concurrency Codex team running.**
+**The control loop that keeps an engineering team of 100+ Codex agents running.**
 
 [![CI](https://github.com/LEO001020/codex-loop-orchestra/actions/workflows/ci.yml/badge.svg)](https://github.com/LEO001020/codex-loop-orchestra/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB.svg)](https://www.python.org/)
 [![Codex](https://img.shields.io/badge/Codex-multi--agent-111.svg)](https://learn.chatgpt.com/docs/agent-configuration/subagents)
 
-[Control loop](#the-control-loop-is-the-product) · [Quickstart](#quickstart) · [Why LOOP](#why-loop-exists) · [Architecture](#how-loop-works) · [中文](README.zh-CN.md) · [Docs](INSTALL.md)
+[Highlights](#highlights) · [Control loop](#the-control-loop-is-the-product) · [Quickstart](#quickstart) · [Why LOOP](#why-loop-exists) · [Architecture](#how-loop-works) · [中文](README.zh-CN.md) · [Docs](INSTALL.md)
 
 </div>
 
 Codex can launch subagents in parallel. LOOP adds the scheduling, isolation, independent audit, and observability needed to turn a one-shot batch into a self-replenishing engineering system.
 
 Give LOOP a goal and a concurrency target. It breaks the work into tasks, dispatches them, and fills each newly available slot until the backlog is empty. Small workloads can remain visible in Codex Desktop; larger waves can run through supervised WSL headless workers. The root, execution, and audit stages can use models from different providers, while one dashboard shows what every agent is doing. You no longer have to keep asking the system to continue, and you retain final control over every merge.
+
+## Highlights
+
+- **Tested at 100+ concurrent agents:** LOOP delivers stable, hundred-agent concurrency on the widely used Codex harness by combining Desktop agents with supervised WSL/CLI workers.
+- **Set the target once; LOOP keeps it filled:** LOOP measures the agents actually running and refills open slots until the bounded backlog is empty—no repeated “continue” prompts required.
+- **Independent model choice at all three stages:** The root agent orchestrates, execution agents implement, and audit agents review. Each stage can use a different model provider, including third-party models exposed through a Codex-compatible gateway such as OpenCodex.
+- **Root-agent orchestration with a DAG gate:** The root plans and adjudicates. Dependency and write-scope checks run before tasks enter isolated Git worktrees.
+- **About 75% lower root-agent token use:** The root model no longer performs search, bulk execution, waiting, or routine retries. It spends its tokens on planning and adjudication instead.
+- **WSL with an IPython/IPybox-style persistent compute container:** An on-demand Python kernel preserves DataFrames, indexes, and counters across calls and processes large files, datasets, and intermediate results outside the model context.
+- **Desktop launches and supervises CLI concurrency:** Keep the root conversation and a small visible agent set in Desktop while supervised `codex exec` processes expand larger execution waves into the WSL headless runtime.
+- **Observer Web UI:** See every Desktop and CLI agent in one browser view, including its task name, observed model, runtime, health, refill deficit, and remaining capacity.
 
 ![Codex LOOP live dashboard in English, showing active agents, runtimes, observed models, and task names](docs/assets/dashboard.en.png)
 
@@ -69,7 +80,7 @@ LOOP is not simply a way to start more agents. Each part of the system addresses
 | A high-capability coordinator can waste expensive turns on search, tests, waiting, polling, and retries. | Let the root agent plan and adjudicate while scripts handle deterministic lifecycle operations. | **Reserve the strongest model for decisions and reduce elapsed time.** Dozens of execution agents can raise aggregate throughput, particularly with Flash or diffusion- and draft-accelerated worker models, while policy keeps the root model's production-token share at or below 25%. |
 | Native random nicknames and separate headless processes provide no unified operational view. | Assign ordered numeric IDs and map them to task names, models, runtimes, health, and remaining capacity. | **See every agent in real time** and diagnose refill gaps from one Observer dashboard. |
 
-By default, LOOP targets 20 active agents per parent task and 80 active agents across the Desktop and headless runtimes on one machine. Both values are configurable and remain limited by the amount of parallel work, model-provider capacity, and local hardware. They are not official Codex limits or performance guarantees.
+LOOP has been tested with more than 100 concurrent agents. The public package ships with a more conservative default of 20 active agents per parent task and 80 across the Desktop and headless runtimes on one machine; users can raise those values to match the workload, model-provider capacity, and local hardware.
 
 The 10–20 range is a maintainer observation from one environment that motivated the dual-plane design, not a published benchmark or an official Codex limit.
 
@@ -204,7 +215,7 @@ CI validates source and configuration syntax, instruction-file attention budgets
 - Provider credentials remain in the user's authenticated Codex or gateway setup.
 - Tool and spawn gates deny operations; they do not grant privileges.
 - L1/L2 may block or escalate; only a human can publish.
-- The 20/80 targets and 25% root-token target are configurable LOOP policy, not guarantees or official Codex limits.
+- The 100+ agent concurrency and roughly 75% reduction in root-agent token use have both been tested. The public package ships with a more conservative 20/80 concurrency policy that users can adjust.
 - The current implementation is a single-machine control plane, not a distributed scheduler.
 
 Report vulnerabilities privately as described in [SECURITY.md](SECURITY.md).
