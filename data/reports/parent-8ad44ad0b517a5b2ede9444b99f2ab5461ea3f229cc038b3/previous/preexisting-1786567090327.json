@@ -1,0 +1,18 @@
+PASS — ipybox 承载边界复验通过：headless worker 按策略显式启用、K3 与 Desktop 按角色/plane 关闭、本次补位修复未触碰 cleanup/lazy 本体，LOOP 的 ipybox 能力未被关闭。
+
+决策证据（策略层，与补位前快照逐字节一致）：
+- [orchestration_policy_v2.toml](E:/codex-LOOP/codex-loop-s-f2/config/orchestration_policy_v2.toml:49) `[ipybox]`：`desktop_native_enabled=false`、`wsl_headless_worker_enabled=true`、`k3_planning_verifying_enabled=false`、`k3_code_execution_exception=true`；该文件与 backup-20260813-012318 快照 Compare-Object 零差异。
+- [roles_v2.yaml](E:/codex-LOOP/codex-loop-s-f2/config/roles_v2.yaml:26)：仅 executor 为 `wsl_headless_only`，sol/scout/reviewer/verifier/plan_expander/duty_officer 全部 `disabled`；与快照零差异。
+- [dispatch_v2.py](E:/codex-LOOP/codex-loop-s-f2/harness/dispatch_v2.py:224) `ipybox_enabled_for`：DESKTOP_NATIVE→false（L234-235）；K3_ROLES{verifier,reviewer,plan_expander}（L102）默认 false、仅 `needs_code_execution=true` 且策略允许才开（L236-241）；worker 于 WSL/headless→`wsl_headless_worker_enabled`=true（L242-245）；命令按布尔值注入 `mcp_servers.ipybox.enabled`（L432-438）。该函数与备份（01:23 补位前）逐字节相同。
+- [headless_wave.py](E:/codex-LOOP/codex-loop-s-f2/harness/headless_wave.py:271)：对每个任务强制以 `ExecutionPlane.WSL_HEADLESS` 走 `ipybox_enabled_for` 并注入开关；mtime 00:23，早于补位窗口且不在补位备份变更集内。
+- hooks/ 目录全文无任何 ipybox 引用（仅 subagent_lifecycle 的 kernel32 API 调用），不存在 hook 层关闭/改写路径。
+
+运行时观测（data/lifecycle/exec_roster.json，141 个 job）：
+- worker+headless CLI：全部 `mcp_servers.ipybox.enabled=true`（31 completed、10 running、24 timed_out、7 spawn_failed、4 failed、1 lost、1 cancelled），当前 10 个 headless worker 正在以 ipybox 启用状态运行——LOOP 能力未关闭。
+- worker+Desktop 父包波（当前 wave 0-15）：data/events.ndjson 的 `dispatched` 记录 `ipybox_enabled:false`，12 个 running 命令均注入 `enabled=false`——Desktop 按策略关闭。
+- K3 角色（verifier/reviewer/plan_expander，47 个 job，含 3 个 running verifier）：全部 `enabled=false`，无例外失控。
+
+cleanup/lazy 未改证据：
+- [ipybox_cleanup.py](E:/codex-LOOP/codex-loop-s-f2/harness/ipybox_cleanup.py) mtime 2026-08-10 22:28、[ipybox_lazy.py](E:/codex-LOOP/codex-loop-s-f2/harness/ipybox_lazy.py) mtime 2026-08-10 21:59，均早于 8/13 补位修复约 3 天。
+- backup-20260813-012318（补位快照）变更集不含这两个文件；全部 backup-* 递归搜索均无二者副本——它们从未进入任何修复变更集。
+- dispatch_v2.py 补位 diff 仅涉及 K3 provider-backoff 可用性/债务保留、parent 只读准入、sandbox 强制与 capture_report/parent 覆盖；`ipybox_enabled_for`、`detect_plane`、K3_ROLES 与注入行均未出现在 diff 中；修复文件也无任何对 cleanup/lazy 的引用。

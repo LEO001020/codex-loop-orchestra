@@ -1,0 +1,71 @@
+两处处方句已定位：08-29 STATUS L62 与 FIX L34；08-30 STATUS 已改口。沙箱只读，报告全文如下。
+
+# hy4 STATUS/FIX 过时句：仍写应保留 dockBar=1
+
+只读。未 `settings put` / `pm` / appops / rollback / kill-server。
+范围：`outputs/HONOR_AI_SIDEBAR_STATUS_20260829.md`、`outputs/HONOR_AI_SIDEBAR_FIX_20260829.md`；对照 `outputs/HONOR_AI_SIDEBAR_STATUS_20260830.md`。
+行号来自本机 `Get-Content` 1-based。
+
+**一句话：** 仍把 `secure honor.globalWindow.dockBar=1` 写成「真用户（总）开关，应保留」的句子只有两处，都在 08-29 STATUS/FIX 误伤表；08-30 STATUS 已改口为空闲显示态，不再要求保留 1。
+
+---
+
+## 1. 过时处方句（应保留 dockBar=1）
+
+| # | 文件 | 行 | 原文 | 为何过时 |
+|---|---|---:|---|---|
+| A | [HONOR_AI_SIDEBAR_STATUS_20260829.md](C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/outputs/HONOR_AI_SIDEBAR_STATUS_20260829.md) | 62 | `` `secure honor.globalWindow.dockBar=1` `` \| **真用户总开关，应保留** \| 仍为 1 | 把显示态冻成目标值。该键由 `DockViewModel.setDockWindowShowing(Z)` 唯一 `putInt`：收起=0 / 左开=1 / 右开=-1。SystemUI 不读此键；OTA 门闩是 `is_ota_finished`。空闲现场会回到 0，右缘成功展开是 -1，不是 1。 |
+| B | [HONOR_AI_SIDEBAR_FIX_20260829.md](C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/outputs/HONOR_AI_SIDEBAR_FIX_20260829.md) | 34 | `` `secure honor.globalWindow.dockBar=1` `` \| **真用户开关，应保留** \| 未改回 0 | 与 A 同义，只少一个「总」字。「未改回 0」把「本轮没写这个键」说成「必须维持 1」，会诱导后续 agent 在空闲 0 时再 `settings put ... 1`。 |
+
+同表相邻列「仍为 1 / 未改回 0」是同一处方的现场注脚，不是独立第三句。
+
+---
+
+## 2. 不要算进「应保留 dockBar=1」的句子
+
+这些也出现 `dockBar` 或「保留」，但不是「应保持 =1」的处方：
+
+| 文件 | 行 | 原文摘要 | 判定 |
+|---|---:|---|---|
+| STATUS_20260829 | 8 | 走错对象含「dockBar shell 写」 | 历史误诊，未要求保留 1 |
+| STATUS_20260829 | 29 | 8-24 写成 1 之后栏仍出不来 | 证伪「写 1 能开门闩」，不是应保留 |
+| STATUS_20260829 | 38 | 未动：… dockBar … | 写入范围声明，不是目标值 |
+| STATUS_20260829 | 46 | 现场表 `honor.globalWindow.dockBar` = 1 | 23:04 快照（当时 owner 仍是 shell），不是「应保持」 |
+| STATUS_20260829 | 63–64 | tooltip / 网易云「保留 / 应保留」 | 别的对象 |
+| FIX_20260829 | 33, 35–36 | tooltip / 网易云 / B站「保留 / 应保留」 | 别的对象 |
+| FIX_20260829 | 51 | 未动：… dockBar … | 同 STATUS L38 |
+| STATUS_20260830 | 8, 17, 28, 36 | 空闲 0 不是关开关；总开关不是 dockBar；写成 1 是碰巧栏开着 | **已纠正**，见下节 |
+
+---
+
+## 3. 08-30 STATUS 已改口（不再要求保留 1）
+
+[HONOR_AI_SIDEBAR_STATUS_20260830.md](C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/outputs/HONOR_AI_SIDEBAR_STATUS_20260830.md)
+
+- L8：空闲 `honor.globalWindow.dockBar=0` **不是关了开关**，是栏收起后的显示状态。
+- L28：用户总开关 **不是** `honor.globalWindow.dockBar`（那是显示状态）。
+- L36：`` `secure honor.globalWindow.dockBar=1` `` \| 当时碰巧栏开着；把它当总开关是错的。空闲会变 0，展开右缘变 -1。
+
+因此：过时句只活在 08-29 两份文档；下一任若只读 08-29 STATUS/FIX 仍会被「应保留 =1」带偏。
+
+---
+
+## 4. 语义证据（已有审计，本包未再 adb）
+
+| 主张 | 路径 |
+|---|---|
+| 否决「应保留 dockBar=1」 | [04_dockbar_semantics.md](C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/outputs/audit_20260830/04_dockbar_semantics.md) §1 / §6 |
+| 0 / 1 / -1 编码 | 同文件 §3；`outputs/audit_20260830/_dockbar_decode.txt` |
+| SystemUI 不读该键 | `reports/SystemUI不读dockBar/`；04 §4 |
+| 00:15 右缘展开 `0→-1` | STATUS_20260830 L10/L19；`work/sidebar_fix/now_swipe2/dockBar_after.txt` |
+| freeze JSON 仍 desired=1 | [05_stale_desired_state.md](C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/outputs/audit_20260830/05_stale_desired_state.md) S1 |
+| 08-29「真用户总开关」相对 08-30 已过时 | [19_status_crosscheck.md](C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/outputs/audit_20260830/19_status_crosscheck.md) |
+
+---
+
+## 5. 对后续 agent
+
+不要按 08-29 STATUS L62 / FIX L34 去冻结或重放 `settings put secure honor.globalWindow.dockBar 1`。
+不要把空闲 `0` 理解成开关被关。真门闩仍是 `secure is_ota_finished=1`。
+
+本包未能写入 `outputs/audit_20260830/41_hy4_status_stale.md`（沙箱只读）。

@@ -1,0 +1,37 @@
+对于 R8 规格的审计与核验结论如下：
+
+R8 规格旨在闭合 ZCode-Loop 系统的逻辑本体，通过彻底的“去数据库化”与“去 Agent 重复运行期化”，将系统架构根植于 Git 物理层与 ZCode 原生生命周期之上。这是一次彻底的减法工程，核心在于确立以 `Run`（全局集成态）和 `Job`（独立 Git 隔离的计算世界）为唯一持久业务实体。
+
+### 一、 R8 最高影响宿主与运行时 (Host/Runtime)
+
+1.  **事件循环调整：** R8 的最大运行时变更在于明确“拒绝”对 Windows 环境使用 `WindowsSelectorEventLoopPolicy`，理由是该设置会破坏 ProactorEventLoop 对 stdio MCP 子进程的稳定支持。这直接改变了与旧方案 `zmq.asyncio` 的协作模型，转而采取父子进程严格解耦的阻塞式 KernelClient 机制。
+2.  **信任层级：** 系统彻底放弃“沙箱”伪装。R8 明确 zloop-code 是与 ZCode 同宿主权限运行的受信任计算基 (Trusted Computation Substrate)，不再试图通过 cwd allowlist、文件权限门禁或策略限制来实现安全。这简化了执行层面，将资源正确性归类为“物理 cleanup”，而非权限治理。 
+
+### 二、 R8 Git 架构演进 (Git Architecture)
+
+1.  **物理隔离并发：**  Git 架构从“索引锁争抢”转向“1 Job = 1 独立 Git Repository”。这种范式彻底消除了 linked-worktree 在高并发下的 lock contention 风险。
+2.  **事务性 fan-in：** 摈弃了 `cherry-pick` 或合并多父 commit 的复杂逻辑，改为 `merge-tree` 先行构造、host-only 执行 checks、最后单父整合提交。该设计实现了“计算、验证、发布”的原子性，保证了 `Run` 主拓扑的清洁度。
+3.  **缓存优化：** 引入可随时废弃的 `clone-seed` 作为物理加速缓存层，而非领域实体，确立了 Git 物理传输性能优于存储语义层抽象的工程原则。
+
+### 三、 Jupyter/IPython 定义 (Jupyter/MCP)
+
+1.  **版本演进：** 拒绝了旧方案对 `ipykernel < 7` 的保守锁定。采用 `latest-tested 7.3.x` 作为基线，确立了 conformance gate（符合性检查）而非版本号锁定作为策略逻辑，只有在确证 reproducable failure 时才 fallback 至 6.31。
+2.  **通讯模式：** 明确采用 `KernelManager` + `BlockingKernelClient`，避开了多进程/多线程的 async 耦合，从而在 Windows Native 环境下获得了更干净的 Kernel 归属控制。
+3.  **MCP 定义：** 放弃了动态生成 Pydantic 类型 Stub，回归到“原始 JSON Schema + 极短索引”的按需读取模式，减少了语义层重复定义导致的信息与模型 context 污染。
+
+### 四、 测试前提 (Prerequisites)
+
+1.  **Clean Base 要求：** `zloop start` 显式要求当前 Root 仓库的 non-ignored 修改必须为零，否则中断执行。这意味着 R8 施工逻辑严格依赖 Git 作为单一真实来源，不允许进行任何未经显式 Commit 的隐式读取。
+2.  **认知重归一：** 彻底剥离任何与 ZCode 原生 Agent 系统并行的第二套 Agent 运行时（如 Supervisor、Controller 等概念）。所有的 Agent 生命周期与结果整合归属于 Root 的原生能力，ZLoop 不再参与 Agent 的调度或状态持久化。
+
+### 五、 文本截断审计 (Trancation Audit)
+
+经过对文本末尾的核验，该文件存在**严重的文本截断**：
+
+*   **断点位置：** 文本止于 `26. Windows K runtime：不要全局 SelectorEventLoop ... zloop-code parent 在 Windows 保持 Python 默认 asyncio event loop。即：ProactorEventLoop 原因：parent 需要可靠支持 stdio MCP subprocess。Jupyter Z`
+*   **截断影响：**
+    1.  缺失了对 ProactorEventLoop 架构合理性的完整论证结论。
+    2.  缺失了可能存在的 27 节以后的后续定义（如清理逻辑、错误处理或退出策略）。
+    3.  缺失了文档的总结陈词或施工签名。
+
+**审计结论：** 该段规格文本已处于“不可执行”状态，主要缺失了运行时配置的完整逻辑闭环与可能的最后章节。建议补全上述截断部分后再行实施重建。

@@ -8,17 +8,16 @@
 # Lines   : ~70
 #
 # Model pinning rationale (spec §11):
-#   - Sol main thread and reviewer pinned high tier (gpt-5.6, alias gpt-5.6-sol)
-#   - worker / duty_officer pinned low tier (gpt-5.6-luna)
-#   - verifier pinned cross-family mid tier (gpt-5.6-terra) — same-family
+#   - Sol main thread pinned gpt-5.6-sol; reviewer follows the active profile
+#   - worker / scout / duty_officer pinned DeepSeek V4 Flash ultra
+#   - verifier follows the active profile review pin; same-family
 #     verifier has correlated blind spots; Sol-generate + Sol-final-review
 #     structural risk must be hedged by a cross-source verifier
 #   - TOML model/effort fields have highest priority (official semantics)
 # Tier legend:
 #   billed = counts against Sol billed budget (main thread)
 #   free   = in-subscription subagent, token cost zero to the Sol budget
-#            (reviewer runs high tier — quota non-zero; E0 meters it in a
-#             separate reviewer bucket)
+#            (reviewer remains a separate metering bucket)
 # ============================================================================
 
 version: 1
@@ -26,43 +25,50 @@ version: 1
 roles:
 
   sol:
-    model: gpt-5.6                # alias of gpt-5.6-sol, high tier
+    model: snaillmou/grok-4.6     # temporary root pin
     reasoning_effort: high
     sandbox_mode: workspace-write # main thread; write scope governed by repo
     tier: billed                  # SOLE billed layer
     notes: main thread; planning + adjudication events only; zero private files
 
   executor:                       # spawned from agents/worker.toml
-    model: gpt-5.6-luna
-    reasoning_effort: low
+    model: antigravity/gemini3.8flash
+    reasoning_effort: max
     sandbox_mode: workspace-write # write limited to the packet worktree
     tier: free
     notes: standing; one packet per spawn; homogeneous batches via spawn_agents_on_csv
 
   scout:
-    model: gpt-5.6-luna           # built-in explorer profile, low tier
-    reasoning_effort: low
+    model: antigravity/gemini3.8flash
+    reasoning_effort: max
     sandbox_mode: read-only
     tier: free
     notes: built-in explorer; idempotent; lost = re-run; zero private files
 
   reviewer:                       # spawned from agents/reviewer.toml
-    model: gpt-5.6
-    reasoning_effort: high
+    model: hax/glm-5.3-flash
+    reasoning_effort: max
     sandbox_mode: read-only
-    tier: free                    # high-tier quota non-zero — E0 separate metering bucket
+    tier: free                    # review is metered separately from execution
     notes: NOT standing; release gate single spawn; falsification-style review
 
   verifier:                       # spawned from agents/verifier.toml
-    model: gpt-5.6-terra          # cross-family mid tier (§11 blind-spot hedge)
-    reasoning_effort: medium
+    model: hax/glm-5.3-flash # active-profile review pin
+    reasoning_effort: max
     sandbox_mode: read-only
     tier: free
     notes: L2 gate; may be replaced by external low-price API script (same verdict enum)
 
+  plan_expander:                  # conditional K3 plan expansion
+    model: hax/glm-5.3-flash
+    reasoning_effort: max
+    sandbox_mode: read-only
+    tier: free
+    notes: expands bounded Sol decision skeletons; cannot change decisions or authorize execution
+
   duty_officer:                   # spawned from agents/duty_officer.toml
-    model: gpt-5.6-luna
-    reasoning_effort: low
+    model: antigravity/gemini3.8flash
+    reasoning_effort: max
     sandbox_mode: read-only
     tier: free
     notes: trigger-based; no write tools; no spawn power; ruling is not authorization (§10 S6)

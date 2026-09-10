@@ -1,0 +1,1 @@
+{"packet_id":"ZA06","goal":"任务名：Worktree 锁审计\n审计 workspace.py 的 worktree 创建/删除、index.lock 重试、路径边界和 Windows 句柄语义。","authorized_paths":"E:/zcode/zloop-gen8/src/zloop/workspace.py; E:/codex-LOOP/codex-loop-s-f2/reports/zloop-audit-20260903/ZA06/","acceptance":"判断四次退避是否覆盖真实失败类，列出路径/清理/并发缺陷与行号。","constraints":"只读；不得创建或删除 worktree；报告写入授权报告目录。"}

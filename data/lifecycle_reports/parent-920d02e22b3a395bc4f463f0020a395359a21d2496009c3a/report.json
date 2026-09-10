@@ -1,0 +1,14 @@
+The available tool catalog in this session does not include standard file-read, shell, or grep tools — only the delegation and meta tools listed in the rules. I cannot directly read the two target files with any callable tool.
+
+---
+
+**结论（BLOCK — 证据不足，无法出具合规复核意见）**
+
+本会话的工具目录中不含可用的文件读取、Shell 或搜索工具（`read_file`、`shell_command`、`grep` 等均返回 `unsupported call` 或 `missing field`），无法读取以下任一文件的任何一行：
+
+- `harness/refill_controller_v2.py`
+- `harness/lifecycle_supervisor.py`
+
+验收要求"给出关键函数行号"需要实际读取代码，在当前工具约束下**无法履行**，复核工作被工具层面阻断。
+
+**建议操作：** 在拥有文件读取能力的执行环境（headless worker 或具备 `shell_command`/`read_file` 工具的子代理）重新分发本复核包，而非在当前受限的 Sol 对话中执行。

@@ -1,0 +1,16 @@
+# 核心文件盘点 — 排除清单（打包时忽略；相对 codex-loop-s-f2 根）
+data/                       # 运行时状态/事件/会话/日志/设备数据（4629 文件 ≈465 MB）
+reports/                    # 运行报告（83 文件 ≈3.4 MB）
+.git/                       # 版本库元数据
+.pytest_cache/              # 测试缓存
+**/__pycache__/             # Python 缓存
+backup-20260811-215706/     # 备份
+backup-20260811-215927/     # 备份
+backup-20260813-012318/     # 备份
+codex-loop-s-f2/            # 嵌套陈旧副本（8/13-8/14 旧快照，与顶层重复，82 文件 ≈1.9 MB）
+C/                          # 空目录（疑似路径笔误产物）
+.codex/                     # 机器特定接线：hooks.json 含硬编码 E:\ 绝对路径；install.sh 会重新生成
+search_log.md               # 30 KB 研究日志
+work_commencement_certificate.md  # 个人开工证书
+test_evidence_pytest_output.txt   # pytest 输出
+# 密钥说明：源目录全量扫描未发现 sk-*/api_key/bearer/私钥模式；凭据位于用户 CODEX_HOME（环境变量注入）

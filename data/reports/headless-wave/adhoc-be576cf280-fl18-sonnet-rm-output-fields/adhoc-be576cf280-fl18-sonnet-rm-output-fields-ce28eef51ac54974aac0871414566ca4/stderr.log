@@ -1,0 +1,163 @@
+Reading additional input from stdin...
+2026-08-14T09:04:30.222414Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T09:04:35.444498Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T09:04:53.303852Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.9 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后再试一次。
+所在位置 行:2 字符: 61
++ rg --files E:\VPS\reports\fl18-rm-output-review-workspace | head -60
++                                                             ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T09:05:35.689042Z ERROR codex_core::tools::router: error=unsupported call: read
+2026-08-14T09:10:12.931536Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+# researchctl 娉ㄥ唽璇硶锛歅5-EMPIRICAL-FOUNDATION-V1 涓嬮潪璇佹嵁 engineering 璁板綍
+
+鏃ユ湡锛?026-08-12锛圲TC锛夛綔瀹¤鏂瑰紡锛氫弗鏍?SSH 鍙锛坘3@136.85.49.91锛夛紝鍏ㄧ▼鏈墽琛屼换浣曟垚鍔熷啓鍏ャ€?
+## 1. 瀹¤瀵硅薄涓庤瘉鎹潵婧?
+- CLI锛歚/usr/local/bin/researchctl`锛坵rapper 鈫?`/data/k3/research/app-v1-20260811T024500Z/p5_infra/researchctl.py`锛屾ā鍧?`p5_infra.researchctl`锛?- 鍐欑綉鍏筹細`researchctld` 瀹堟姢杩涚▼锛圲nix socket `/run/researchctl/control.sock`锛孫WNER_ID=`k3-research-owner`锛?- Schema锛歚research_schema.sql`锛坈ontract_version=1锛? `research_db.py` 涓?`ENTITY_SPECS` 涓?`record()`
+- 瀹炴祴锛歚researchctl --help` 鍙婂叏閮ㄥ瓙鍛戒护 help锛沗as-of` 蹇収锛圥5-EMPIRICAL-FOUNDATION-V1锛?10 鏉¤褰曪級
+- 璐熷悜鍐欏叆楠岃瘉锛氱己瀛楁 payload 鍦ㄥ啓搴撳墠 `FAIL_CLOSED`锛坄missing=['title']`锛夛紝鍓嶅悗 `record_count` 鍧囦负 210锛岄浂鍐欏叆
+
+## 2. 閫氱敤鍛戒护褰㈡€?
+```bash
+researchctl record \
+  --entity-type <agent_run|work|version|location> \
+  --operation-id <鍞竴骞傜瓑鎿嶄綔ID> \
+  --actor-owner-id k3-research-owner \
+  --payload '<JSON 瀵硅薄>'
+```
+
+锛坄--payload` 涔熸敮鎸?`-` 浠?stdin 璇伙紝鎴?`@/path/to/file.json` 浠庢枃浠惰銆傦級
+
+鍏抽敭璇箟锛?
+- `--actor-owner-id` 蹇呴』鎭板ソ鏄?`k3-research-owner`锛堝畧鎶よ繘绋嬫牎楠岋紝鍚﹀垯 `AUTHENTICATED_OWNER_MISMATCH`锛夈€?- 闈?campaign 瀹炰綋鐨?payload **涓嶅緱鍖呭惈 `owner_id`**锛堜笉鍦ㄥ厑璁稿瓧娈甸泦鍚堝唴锛屼細鎶?`unknown=[...]`锛夛紱owner 鐢辩綉鍏冲己鍒朵负 `k3-research-owner`銆?- `--operation-id` 鏄箓绛夐敭锛坄infrastructure_operations` 琛紝UNIQUE(owner_id, research_campaign_id, operation_id)锛夛細鍚?ID+鍚?payload 閲嶆斁杩斿洖 `replayed: true`锛涘悓 ID+涓嶅悓 payload 鎶?`OPERATION_ID_CONFLICT`銆?- 鎵€鏈夎褰曞己鍒?workload=`NON_STATISTICAL_INFRA_CANARY`銆乻tatistical_trial_authority/alpha_discovery_authority=`NONE`锛坋ngineer/infra 璇箟锛屼笌"璇佹嵁"瀹炰綋 claim/contradiction/hypothesis 绛夊畬鍏ㄦ棤鍏筹級銆?- contract v1 涓?append-only锛歳evision 鎭掍负 1銆乪vent_type 鎭掍负 `CREATED`锛?*娌℃湁鏇存柊閫氶亾**锛泂tatus 绛夌姸鎬佸瓧娈靛繀椤诲湪娉ㄥ唽鏃朵竴娆℃€у畾绋裤€?- 鐩爣 campaign `P5-EMPIRICAL-FOUNDATION-V1` 蹇呴』宸插瓨鍦ㄤ笖 owner 涓?`k3-research-owner`锛堝凡纭瀛樺湪锛夛紱鍚﹀垯 `CROSS_OWNER_WRITE_DENIED: campaign is absent or belongs to another owner`銆?- 鏃堕棿鎴冲繀椤?RFC3339 UTC 涓斾互 `Z` 缁撳熬锛涘彲閫夌殑 `known_at` 鎻愪緵鍒?`known_at_source=AUTHORITATIVE`锛岀渷鐣ュ垯鍥為€€ `INGESTED_AT_FALLBACK`銆?- 鍙€?`backfilled`(bool)/`backfill_source` 蹇呴』鎴愬鍑虹幇锛坱rue 褰撲笖浠呭綋 source 瀛樺湪锛夈€?- 鎴愬姛杩斿洖 `status=CREATED`锛堟垨閲嶅閿?`DEDUPLICATED`锛夛紱澶辫触缁熶竴 `status=FAIL_CLOSED`锛岄€€鍑虹爜 2銆?
+## 3. 鍥涚被瀹炰綋鐨勫繀濉?鍙€夊瓧娈碉紙鏉ヨ嚜 ENTITY_SPECS + record() 榛樿鍊?+ SQL CHECK锛?
+### agent_run
+
+蹇呭～锛歚agent_run_id`銆乣research_campaign_id`銆乣task_name`
+鍙€夛細`status`锛堥粯璁?`CREATED`锛涙灇涓?`CREATED|RUNNING|SUCCEEDED|FAILED|CANCELLED|BLOCKED`锛?鑷姩娉ㄥ叆锛歚workload`銆乣statistical_trial_authority`銆乣alpha_discovery_authority`
+
+```bash
+researchctl record --entity-type agent_run \
+  --operation-id "<鍞竴ID>:agent_run:<agent_run_id>" \
+  --actor-owner-id k3-research-owner \
+  --payload '{
+    "agent_run_id": "<agent_run_id>",
+    "research_campaign_id": "P5-EMPIRICAL-FOUNDATION-V1",
+    "task_name": "<浠诲姟鍚? run_class=ENGINEERING; <鑼冨洿璇存槑>; NON_STATISTICAL",
+    "status": "RUNNING",
+    "known_at": "2026-08-12T15:00:00.000000Z"
+  }'
+```
+
+### work锛堝厛浜?version/location锛?
+蹇呭～锛歚work_id`銆乣research_campaign_id`銆乣canonical_key`銆乣title`
+鍙€夛細`work_type`锛堥粯璁?`OTHER`锛涙灇涓?`ARTICLE|BOOK|DATASET|REPORT|STANDARD|SOFTWARE|OTHER`锛?鍘婚噸锛歎NIQUE(research_campaign_id, canonical_key)鈥斺€斿悓 campaign 涓?canonical_key 閲嶅鍒欒繑鍥?`DEDUPLICATED`锛堣繑鍥炲凡瀛樺湪 work_id锛?
+```bash
+researchctl record --entity-type work \
+  --operation-id "<鍞竴ID>:work:<work_id>" \
+  --actor-owner-id k3-research-owner \
+  --payload '{
+    "work_id": "<work_id>",
+    "research_campaign_id": "P5-EMPIRICAL-FOUNDATION-V1",
+    "canonical_key": "<domain>:<canonical-key>",
+    "title": "<鏍囬>",
+    "work_type": "OTHER"
+  }'
+```
+
+### version锛堝繀椤诲厛娉ㄥ唽瀵瑰簲 work锛?
+蹇呭～锛歚version_id`銆乣research_campaign_id`銆乣work_id`銆乣version_key`銆乣version_label`
+鍙€夛細`content_sha256`锛?4 浣嶅皬鍐欏崄鍏繘鍒舵垨鐪佺暐锛?绾︽潫锛歎NIQUE(work_id, version_key)锛汧K 瑕佹眰 work 宸插湪鍚?campaign+owner 涓嬪瓨鍦?
+```bash
+researchctl record --entity-type version \
+  --operation-id "<鍞竴ID>:version:<version_id>" \
+  --actor-owner-id k3-research-owner \
+  --payload '{
+    "version_id": "<version_id>",
+    "research_campaign_id": "P5-EMPIRICAL-FOUNDATION-V1",
+    "work_id": "<work_id>",
+    "version_key": "v1",
+    "version_label": "<鐗堟湰鏍囩璇存槑>",
+    "content_sha256": "<64浣嶅皬鍐檋ex>" 
+  }'
+```
+
+### location锛堝繀椤诲厛娉ㄥ唽瀵瑰簲 version锛?
+蹇呭～锛歚location_id`銆乣research_campaign_id`銆乣version_id`銆乣source_kind`銆乣source_key`銆乣locator`
+鍙€夛細`content_sha256`锛?4 浣嶅皬鍐欏崄鍏繘鍒舵垨鐪佺暐锛?鏋氫妇锛歚source_kind` 鈭?`DOI|HTTPS|GS|S3|REPOSITORY|FILE_MANIFEST|SOURCE_NATIVE|OTHER`
+鍘婚噸锛歚dedup_key` 鑷姩璁＄畻 = sha256(canonical_json{research_campaign_id, version_id, source_kind, source_key, locator, content_sha256})锛涘悓 (campaign, dedup_key) 閲嶅杩斿洖 `DEDUPLICATED`
+
+```bash
+researchctl record --entity-type location \
+  --operation-id "<鍞竴ID>:location:<location_id>" \
+  --actor-owner-id k3-research-owner \
+  --payload '{
+    "location_id": "<location_id>",
+    "research_campaign_id": "P5-EMPIRICAL-FOUNDATION-V1",
+    "version_id": "<version_id>",
+    "source_kind": "FILE_MANIFEST",
+    "source_key": "<鏉ユ簮閿?",
+    "locator": "<瀹氫綅涓?",
+    "content_sha256": "<64浣嶅皬鍐檋ex>"
+  }'
+```
+
+## 4. 鐜板満宸查獙璇佺殑鐪熷疄鏍蜂緥锛圥5-EMPIRICAL-FOUNDATION-V1锛?
+- work锛歚work_id=DATA-GAP-P5-001-MARK-INDEX-8TO53`锛宍canonical_key=data_gap:DATA-GAP-P5-001-MARK-INDEX-8TO53`锛宍title=DATA_GAP: mark/index price 8->53 symbol extension (nine-field record; no procurement)`锛宍work_type=OTHER`
+- version锛歚version_id=DATA-GAP-P5-001-V1`锛宍work_id=DATA-GAP-P5-001-MARK-INDEX-8TO53`锛宍version_key=v1`锛宍version_label=v1 initial nine-field DATA_GAP_ID record`锛宍content_sha256=af5619cc鈥
+- location锛歚location_id=DATA-GAP-P5-001-V1-LOC1`锛宍version_id=DATA-GAP-P5-001-V1`锛宍source_kind=FILE_MANIFEST`锛宍source_key=vps-data-disk`锛宍locator=/data/k3/artifacts/p5_empirical_foundation_v1/DATA_GAP_P5_001_mark_index_53symbol.json`
+- agent_run锛歚agent_run_id=p5-emp-found-step0-3-exec-001`锛宍status=RUNNING`锛宍task_name=鈥un_semantics=ENGINEERING; 鈥
+
+## 5. 鍙鏍稿鍛戒护
+
+```bash
+researchctl as-of --research-campaign-id P5-EMPIRICAL-FOUNDATION-V1 --as-of 9999-12-31T23:59:59Z
+researchctl as-of --research-campaign-id P5-EMPIRICAL-FOUNDATION-V1 --as-of 9999-12-31T23:59:59Z --entity-type work
+researchctl verify
+```
+
+## 6. 鏈湴璇佹嵁鏂囦欢
+
+- `app-src/unpacked/research_db.py`锛圗NTITY_SPECS 绗?201-211 琛岋紱record() 绗?327-455 琛岋級
+- `app-src/unpacked/research_schema.sql`锛坵orks/versions/locations/agent_runs CHECK 涓?UNIQUE 绾︽潫锛?- `app-src/unpacked/researchctl.py` / `researchctld.py`
+
+2026-08-14T09:14:37.098656Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1 seconds
+Output:
+E:\VPS\reports\authority-db-boundary-audit\probe4_out.txt
+E:\VPS\reports\authority-store-transaction-review-20260813\report.md
+E:\VPS\reports\codex-fl13-headless-wave-20260814.json
+E:\VPS\reports\codex-fl17-final-20-wave-20260814.json
+E:\VPS\reports\codex-fl17-final-headless-wave-20260814.json
+E:\VPS\reports\codex-fl13-handoff-extracted-20260814\P5_CURSOR_TO_CODEX_FL13_HANDOFF_V1\01_LATEST_OWNER_PROVIDED_CURSOR_RESULT.md
+E:\VPS\reports\codex-fl17-refill4-headless-wave-20260814.json
+E:\VPS\reports\codex-fl13-handoff-extracted-20260814\P5_CURSOR_TO_CODEX_FL13_HANDOFF_V1\03_CODEX_CONTINUATION_PROMPT.txt
+E:\VPS\reports\codex-fl13-handoff-extracted-20260814\P5_CURSOR_TO_CODEX_FL13_HANDOFF_V1\05_SOURCE_PRECEDENCE.md
+E:\VPS\reports\current-production-snapshot-20260813\probe_followup_out.txt
+E:\VPS\reports\current-production-snapshot-20260813\report.md
+E:\VPS\reports\current-production-snapshot-20260813\probe_out.txt
+E:\VPS\reports\codex-fl14-qa-isolated-20260814-0450\owner-admin-cutover-final-20260814-recovery-v1\P5_AUTONOMOUS_ALPHA_LAUNCH_RESUME_HANDOFF_V3.json
+E:\VPS\reports\codex-fl13-qa-isolated-20260814-0445\owner-admin-cutover-final-20260814-recovery-v1\P5_AUTONOMOUS_ALPHA_LAUNCH_RESUME_HANDOFF_V3.json
+E:\VPS\reports\codex-fl13-handoff-extracted-20260814\P5_CURSOR_TO_CODEX_FL13_HANDOFF_V1\SOURCES\AUDIT_DOSSIER.md
+E:\VPS\reports\delegation-resource-binding-design-20260813\REPORT.md
+E:\VPS\reports\cursor-fable-takeover-20260813\AUDIT_DOSSIER.md
+E:\VPS\reports\codex-fl13-handoff-extracted-20260814\P5_CURSOR_TO_CODEX_FL13_HANDOFF_V1\SOURCES\DETAILED_WORK_REPORT.md
+E:\VPS\reports\codex-fl13-handoff-extracted-20260814\P5_CURSOR_TO_CODEX_FL13_HANDOFF_V1\SOURCES\TASK_REPORT_20260813.md
+E:\VPS\reports\cursor-fable-takeover-20260813\DETAILED_WORK_REPORT.md
+
+2026-08-14T09:16:39.788609Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)

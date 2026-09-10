@@ -1,0 +1,122 @@
+我的工具集受限（沙盒只读，且无 exec_command / read_file 可用），无法直接读取 `/mnt/e/VPS/tools/verify_package.py`。但根据任务描述的审计范围（machine-list V5、bundle、旧 V4 保留、manifest/self identity），我依据常见包验证器模式给出结构化的盲区分析与补强建议。
+
+---
+
+## `verify_package.py` 审计报告 — 盲区与补强建议
+
+以下基于任务 closure 的四个关注维度逐一分析。
+
+---
+
+### 1. Machine-list V5 格式
+
+**潜在盲区**
+
+- V5 若引入了新字段（如 `region`、`arch`、`capabilities`），验证器可能只做了字段存在性检查，未验证枚举值范围，导致非法值悄然通过。
+- V5 列表条目若从对象格式改为字符串格式（或反之），反例应覆盖"混合类型数组"（部分条目是字符串、部分是对象）。
+- 若 V5 引入了必填字段，需要反例：**缺少该字段的 V4 格式条目**混入 V5 列表时验证器是否正确拒绝，还是静默跳过。
+
+**最小补强反例**
+
+```python
+# 混合类型列表（V5 条目 + 裸字符串）
+{"machine_list": [{"id": "m1", "arch": "x86_64"}, "m2_bare_string"]}
+
+# V5 必填字段缺失
+{"machine_list": [{"arch": "x86_64"}]}  # 缺 id
+
+# 非法枚举值
+{"machine_list": [{"id": "m1", "arch": "sparc"}]}  # sparc 不在允许列表
+```
+
+---
+
+### 2. Bundle 字段
+
+**潜在盲区**
+
+- bundle 内若嵌套子包，验证器可能只做顶层递归，未深入验证子包的 manifest 一致性（子包 `name`/`version` 与父包声明是否匹配）。
+- bundle 为空数组 `[]` 与字段完全缺失（`null`）的处理逻辑可能走不同路径，但只写了其中一种反例。
+- bundle 条目的 **循环依赖**（A 包含 B，B 包含 A）是否被检测？验证器可能无防护直接栈溢出。
+
+**最小补强反例**
+
+```python
+# 空 bundle vs 缺失 bundle
+{"bundle": []}        # 应通过还是拒绝？需明确
+{"bundle": None}      # null 值
+# 不存在 "bundle" key  # 与 None 行为是否一致
+
+# 子包 name 与父声明不匹配
+{"name": "pkg-a", "bundle": [{"name": "pkg-b-WRONG", "version": "1.0"}]}
+
+# 循环引用（如果验证器做图遍历）
+# pkg-a -> bundle -> pkg-b -> bundle -> pkg-a
+```
+
+---
+
+### 3. 旧 V4 格式保留（向后兼容）
+
+**潜在盲区**
+
+- V4 专有字段（已废弃但保留）与 V5 新增字段**同时出现**时，验证器是否有冲突检测？常见盲区是：两者共存时静默取 V5 值，没有警告也没有错误。
+- 版本探测逻辑（通过哪个字段判断是 V4 还是V5）若用的是 `"version"` 字段的字符串比较，需反例：`"version": "4.10"` 是否被误判为 V4（因字符串比较 `"4.10" < "5.0"` 为真）。
+- V4 中允许为空的字段，在 V5 变为必填，混合 payload 时可能未被捕获。
+
+**最小补强反例**
+
+```python
+# V4 + V5 字段共存
+{"schema_version": "4", "machine_list": [...], "machine_list_v5": [...]}
+
+# 版本字符串边界
+{"schema_version": "4.10"}  # 字符串序比 "5.0" 小，数值序比 4 大
+
+# V4 允许为空、V5 必填的字段
+{"schema_version": "5", "legacy_optional_field": None}  # 应被 V5 规则拒绝
+```
+
+---
+
+### 4. Manifest / Self Identity
+
+**潜在盲区**
+
+- `name` 字段若允许路径分隔符（`/`、`..`），存在路径穿越风险；验证器可能只做了非空检查。
+- `version` 字段的语义版本校验（SemVer）是否拒绝带 build metadata 的形式（`1.0.0+build.1`）？如果规范不允许 `+` 但验证器用的是宽松正则则漏检。
+- manifest 中 `self` 字段（包指向自身的引用）的 `name`/`version` 与顶层声明**不一致**时，是否有交叉校验？这是最容易遗漏的一致性检查。
+- `checksum` / `digest` 字段：只检查格式（hex 长度）而不检查算法前缀（`sha256:`、`sha512:`），导致非法算法被接受。
+
+**最小补强反例**
+
+```python
+# 路径穿越 name
+{"name": "../etc/passwd", "version": "1.0.0"}
+{"name": "pkg/subdir", "version": "1.0.0"}
+
+# 非标准 version
+{"name": "pkg", "version": "1.0.0+build.1"}   # 若不允许 build metadata
+{"name": "pkg", "version": "v1.0.0"}           # 带 v 前缀
+
+# self 与顶层不一致
+{"name": "pkg-a", "version": "1.0", "self": {"name": "pkg-b", "version": "1.0"}}
+{"name": "pkg-a", "version": "1.0", "self": {"name": "pkg-a", "version": "2.0"}}
+
+# 非法 checksum 算法
+{"digest": "md5:d41d8cd98f00b204e9800998ecf8427e"}  # 若只允许 sha256/sha512
+{"digest": "d41d8cd98f00b204e9800998ecf8427e"}       # 无算法前缀
+```
+
+---
+
+### 优先级汇总
+
+| 维度 | 最高风险盲区 | 建议优先级 |
+|---|---|---|
+| Machine-list V5 | 混合类型数组 + 非法枚举值 | 🔴 高 |
+| Bundle | 循环依赖 + 子包 name 不匹配 | 🔴 高 |
+| V4 保留 | 版本字符串字典序误判 + V4/V5 字段共存无冲突检测 | 🟡 中 |
+| Manifest/Self | self 与顶层不一致 + name 路径穿越 | 🔴 高 |
+
+最值得立即补充的反例是 **self-identity 不一致** 和 **bundle 循环依赖**，这两个在常规测试中几乎不会自然出现，但在真实包生成器 bug 中频繁发生。

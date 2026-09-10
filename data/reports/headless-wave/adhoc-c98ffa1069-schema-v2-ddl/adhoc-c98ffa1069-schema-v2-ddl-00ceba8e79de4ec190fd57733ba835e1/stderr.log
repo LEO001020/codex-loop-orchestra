@@ -1,0 +1,32 @@
+Reading additional input from stdin...
+2026-08-13T04:44:50.223820Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-13T04:44:54.421527Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-13T04:46:01.469748Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 8.7 seconds
+Output:
+
+2026-08-13T04:47:17.612554Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.6 seconds
+Output:
+
+2026-08-13T04:53:34.128008Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.3 seconds
+Output:
+
+2026-08-13T04:54:13.552528Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

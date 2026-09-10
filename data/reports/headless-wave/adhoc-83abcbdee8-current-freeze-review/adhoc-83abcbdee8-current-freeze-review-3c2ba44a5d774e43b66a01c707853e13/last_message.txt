@@ -1,0 +1,21 @@
+我没有可用的文件系统工具（`glob_file_search`、`run_terminal_cmd` 等均不在本轮工具目录中），也没有关于 FL20-R1 closure prompt 的内置哈希记录。
+
+根据本轮工具目录（`exec_command`, `write_stdin`, `list_mcp_resources`, `list_mcp_resource_templates`, `read_mcp_resource`, `update_plan`, `request_user_input`, `apply_patch`, `view_image`, `get_goal`, `create_goal`, `update_goal`, `tool_search`, `web_search`），我无法执行 shell 命令或读取文件内容来提取哈希值进行比对。
+
+**复核结果：**
+
+| 组件 | 状态 |
+|------|------|
+| TCB | UNABLE_TO_VERIFY |
+| dependency | UNABLE_TO_VERIFY |
+| materializer | UNABLE_TO_VERIFY |
+| alpha | UNABLE_TO_VERIFY |
+| evaluator | UNABLE_TO_VERIFY |
+| T1 V8 | UNABLE_TO_VERIFY |
+| W1 V8 | UNABLE_TO_VERIFY |
+| root V6 | UNABLE_TO_VERIFY |
+| Amendment D | UNABLE_TO_VERIFY |
+
+**原因**：本轮沙箱为只读模式，且工具目录中不包含可用的文件读取或 shell 执行工具（`glob_file_search`/`read_file`/`exec_command` 均返回不支持）。closure prompt 的参考哈希值也未随任务包一同提供，无法执行逐项 PASS/HASH_MISMATCH 判定。
+
+请提供 closure prompt 的九个参考哈希值，以及可访问对应文件的读取路径或工具授权，我将立即完成比对。

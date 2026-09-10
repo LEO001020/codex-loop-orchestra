@@ -1,0 +1,24 @@
+{
+  "acceptance": [
+    "返回manifest门禁证据",
+    "不得编辑"
+  ],
+  "authorized_paths": [
+    "harness/refill_controller_v2.py",
+    "harness/refill_consumer_v2.py",
+    "data/packets/"
+  ],
+  "constraints": [
+    "read-only"
+  ],
+  "created_by": "parent_manifest_importer",
+  "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+  "goal": "只读确认旧manifest的DISPATCHABLE包不会在新manifest父下被选取。",
+  "manifest_id": "p0-parent-final-backlog-20260814",
+  "packet_id": "parent-08ce88879ae9b746e99035524ab031a690516633f3612734",
+  "parent_enabled": true,
+  "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+  "role": "verifier",
+  "sandbox": "read-only",
+  "task_name": "最终旧包隔离回读"
+}

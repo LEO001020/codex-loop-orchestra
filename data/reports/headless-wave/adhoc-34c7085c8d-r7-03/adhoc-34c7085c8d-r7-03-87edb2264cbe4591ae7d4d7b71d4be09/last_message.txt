@@ -1,0 +1,74 @@
+Now I have a complete picture. Let me compile the findings:
+
+---
+
+## 复核结论
+
+**当前权威并发值**（来自 `config/refill_policy.toml`，策略版本 `2026-08-13.dialogue-20-global-80`）：
+- `target_total = 80`，`v4_target = 60`，`k3_target = 20`
+- `v4_low_water = 45`，`k3_low_water = 15`
+
+---
+
+### 发现的过期断言（active tests，非历史快照）
+
+**1. `tests/test_refill_controller_v2.py`（根目录级，非 orchestration_v2 子目录）**
+
+该文件是 **活跃测试文件**，由 `conftest.make_root()` 复制真实 `refill_policy.toml`（现为 80/60/20），但其断言仍硬编码旧值：
+
+| 行号 | 硬编码断言 | 正确值 |
+|------|-----------|--------|
+| 95 | `assert ctl.targets() == {"v4": 36, "k3": 12}` | `{"v4": 60, "k3": 20}` |
+| 96 | `assert ctl.target_total() == 48` | `80` |
+| 112 | `assert state["deficit"]["k3"] == 12` | `20` |
+| 113 | `assert state["deficit"]["v4"] == 36` | `60` |
+| 114 | `assert state["target"] == {"v4": 36, "k3": 12}` | `{"v4": 60, "k3": 20}` |
+| 152 | `assert state["target"] == {"v4": 48, "k3": 0}` | `{"v4": 80, "k3": 0}` |
+| 154 | `assert state["deficit"]["v4"] == 48` | `80` |
+| 155 | `assert state["preferred_target"] == {"v4": 36, "k3": 12}` | `{"v4": 60, "k3": 20}` |
+| 162 | `assert state["target"] == {"v4": 0, "k3": 48}` | `{"v4": 0, "k3": 80}` |
+| 163 | `assert state["deficit"]["k3"] == 48` | `80` |
+| 167 | 注释中写 `36/12 split` | 应为 `60/20 split` |
+| 172 | `assert state["target"] == {"v4": 36, "k3": 12}` | `{"v4": 60, "k3": 20}` |
+
+**根本原因**：该文件是 `tests/orchestration_v2/test_refill_controller_v2.py` 的旧版本副本——后者已正确更新到 80/60/20，但根目录版本滞后未同步。
+
+---
+
+**2. `tests/unit/test_subagent_lifecycle_hook.py`，第 457、463 行**
+
+`write_refill_config` helper 的默认参数使用旧值：
+```python
+def write_refill_config(root, target=48, low=36, cap=50):
+    ...
+    "target_total = %d\nv4_target = 36\nk3_target = 12\n"
+```
+- `target=48` 默认值过期（现为 80）
+- `v4_target = 36`、`k3_target = 12` 硬编码过期（现为 60/20）
+- `low=36` 默认值过期（现为 v4_low_water=45）
+- 该 helper 被多个 `SubagentStop/Start` 测试调用；fixture 写入的配置与真实策略不一致，可能掩盖回归
+
+---
+
+**3. `tests/orchestration_v2/test_refill_controller_v2.py`，第 116 行（section 注释）**
+
+注释仍写 `k3_target = 12 demand matching`，实际断言已正确改为 20。注释过期（低风险，不影响测试逻辑，但会误导阅读）。
+
+---
+
+### 不构成问题的情况（排除）
+
+- `tests/unit/test_loop_monitor_server.py` 第 264、395 行：`"target_total": 48` 是**输入 fixture 数据**（模拟一个可能过期的 Windows 端 refill_state.json），该测试断言的是 `freshness`/`age_seconds`，不是 `target_total` 是否正确——属于合法的"旧值探测"场景。
+- `tests/unit/test_refill_controller.py`：使用 `target=16, low=12` 是自定义配置传参，不依赖全局 policy 文件，测试内部自洽。
+- `tests/test_statemachine_v2.py` 第 64 行：`(36, "L2_RANK", ...)` 是状态机转移 ID 参数化元组的第一元素，是 packet 数量/测试用例 ID，非并发目标值。
+- `tests/statemachine_paths/test_all_transitions.py` 第 31 行：`(12, RUN + ...)` 是转移路径枚举 ID，非并发值。
+
+---
+
+### 报告路径
+
+本报告为内存内直接返回，无磁盘 artifact。
+
+**结论**：发现 **2 处活跃测试中存在过期硬编码并发断言**：
+1. `tests/test_refill_controller_v2.py`（根目录版本）—— 12 处断言仍硬编码旧 `36/12/48` 值，应更新为 `60/20/80`。
+2. `tests/unit/test_subagent_lifecycle_hook.py` `write_refill_config` helper —— 默认参数 `target=48, low=36` 及内嵌字符串 `v4_target=36, k3_target=12` 均过期，应更新为 `80/45/60/20`。

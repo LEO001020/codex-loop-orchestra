@@ -1,0 +1,29 @@
+Reading additional input from stdin...
+2026-08-14T06:13:24.832179Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T06:13:33.011412Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T06:13:50.014882Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-14T06:14:00.076278Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T06:14:11.006013Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T06:14:37.470654Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T06:14:52.759361Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.4 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 79
++ ... E:\codex-LOOP\codex-loop-s-f2" -Recurse -Name -Depth 3 | head -100 |  ...
++                                                              ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T06:16:03.668489Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-14T06:16:18.377942Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`

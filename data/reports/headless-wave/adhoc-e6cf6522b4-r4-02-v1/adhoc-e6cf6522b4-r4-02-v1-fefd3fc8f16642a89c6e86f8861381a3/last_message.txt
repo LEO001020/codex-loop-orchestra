@@ -1,0 +1,99 @@
+Now I have all the facts needed. Let me write up the regression review.
+
+---
+
+## 审查结论
+
+### 总体结论
+
+三项修复均已正确实现，代码逻辑、配置清单 (`statemachine_v2_transitions.json`) 与架构意图一致。但存在**一处已知的测试/代码不匹配**，以及一处**小的隐性风险**需关注。
+
+---
+
+### 1. 无效 packet-id 拒绝（invalid packet-id fix）
+
+**代码位置：** `harness/statemachine_v2.py` 第 70、248–254 行
+
+**实现正确。**
+
+- `PACKET_ID_RE = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]{0,95}\Z")` 明确限制 1–96 ASCII 字符，首字符必须是字母或数字，防止路径穿越（如 `../escape`）。
+- `safe_pid_filename()` 对任何违规 pid 直接 `raise SystemExit(1)` ——失败可见，写操作前立即终止。
+- 所有写 pid 到磁盘的路径（`to_dead_letter`、`sol_wake`、`l4_summary`）均调用此校验函数。
+
+**测试覆盖：** `test_invalid_packet_id_refused` 仅验证了 `../escape` 这一经典路径穿越场景，覆盖合格。
+
+**隐性风险（非阻塞）：** 当 `apply_event` 处理格式错误的行时，合成的 `packet_id = "malformed"` 字符串本身**通过** `PACKET_ID_RE` 校验（纯字母），因此 `"malformed"` 这个虚假 pid 会被当成真实 packet 写入 ledger。这是已知设计取舍（使格式错误的行"失败可见"而非静默跳过），但它意味着一个持续产生格式错误行的事件文件最终会在 ledger 里积累 `"malformed"` 状态条目。测试无覆盖此副作用。
+
+---
+
+### 2. 格式错误行处理（malformed-line fix）
+
+**代码位置：** `harness/statemachine_v2.py` 第 682–688 行
+
+**实现正确。**
+
+```python
+try:
+    ev = json.loads(stripped)
+except ValueError:
+    ev = {"packet_id": "malformed",
+          "event": "unparseable", "raw": stripped[:200]}
+self.apply_event(led, ev)
+```
+
+- 格式错误的行不会引发异常崩溃，也不会静默跳过（它仍会调用 `apply_event`，产生 off-table dead-letter，触发 SOL 唤醒）。
+- `apply_event` 对 `("NONE", "unparseable")` 是 off-table 事件，会路由到 `to_dead_letter`，再调用 `safe_pid_filename("malformed")`——该字符串合法，可写入磁盘，失败路径可见。
+- `raw: stripped[:200]` 截断限制防止了超长行写入。
+- 游标推进发生在 `consumed = handle.tell()` 之后（格式错误行被消费后依然推进游标），格式错误行不会导致重放死循环。
+
+**测试覆盖：** 测试文件**缺少**对格式错误行在 `step()` 中端到端处理的专用测试。当前只有 `test_cursor_advances_only_to_consumed_offset` 间接测了游标行为，但未覆盖"格式错误行进入 dead-letter" 这条路径。
+
+---
+
+### 3. t37 超时预算修复（timeout budget fix）
+
+**代码位置：** 表格第 140 行，`apply_event` 第 543–550 行，`TIMEOUT_RETRY_MAX = 1`
+
+**代码逻辑正确，配置清单与代码一致，但测试存在明确的不匹配。**
+
+**t37 表格条目（当前生产代码）：**
+```python
+("TIMED_OUT", "retry_dispatch"): ("DISPATCHABLE", 37)
+```
+
+**配置清单 `config/statemachine_v2_transitions.json`** 也明确写：
+```json
+"t37": {"from": "TIMED_OUT", "event": "retry_dispatch", "to": "DISPATCHABLE"}
+```
+
+附带注释说明："Retry admission is not a physical birth. It returns the packet to the actuator-owned queue; only a later `dispatched(run_id)` may claim RUNNING."——这是刻意将"重试准入"与"物理派发"解耦，语义上正确且更严谨。
+
+**问题：测试期望值错误。**
+
+`test_statemachine_v2.py` 第 65 行：
+```python
+(37, "TIMED_OUT", "retry_dispatch", "RUNNING"),  # ← 错误，实际应是 "DISPATCHABLE"
+```
+
+`test_t37_timeout_retry_capped` 第 91 行：
+```python
+assert sm.apply_event(...) == "RUNNING"  # ← 错误，实际返回 "DISPATCHABLE"
+```
+
+备份版本（`backup-20260813-012318`）中 t37 和 t9 目标状态均为 `RUNNING`，说明这是在某次设计迭代中将两者改为 `DISPATCHABLE` 后，测试文件未同步更新的遗留不匹配。
+
+`num in (9, 37)` 的 `attempts` 计数逻辑保持不变，语义正确。
+
+---
+
+### 汇总
+
+| 修复项 | 代码实现 | 配置一致性 | 测试覆盖 |
+|---|---|---|---|
+| 无效 packet-id | ✅ 正确 | N/A | ✅ 覆盖（`../escape`） |
+| 格式错误行 | ✅ 正确 | N/A | ⚠️ 缺少端到端测试 |
+| t37 超时预算 | ✅ 正确（→ DISPATCHABLE） | ✅ 清单一致 | ❌ 测试期望值仍是旧的 `RUNNING` |
+
+**需要修复的事项：**
+1. **必修（高优先）：** `codex-loop-s-f2/tests/test_statemachine_v2.py` 第 65 行参数和第 91 行断言，将期望值从 `"RUNNING"` 改为 `"DISPATCHABLE"`，以匹配当前代码和配置清单中 t37 的实际目标状态。
+2. **建议（低优先）：** 为 `step()` 中的格式错误行路径补充一个集成测试，验证格式错误行触发 dead-letter + SOL 唤醒的完整流程。

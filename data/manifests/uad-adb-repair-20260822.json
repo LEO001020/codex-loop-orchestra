@@ -1,0 +1,11 @@
+{
+  "tasks": [
+    {
+      "task_id": "uad-adb-path-repair",
+      "task_name": "修复UAD的ADB发现",
+      "role": "worker",
+      "cwd": "C:\\Users\\hzq00\\Downloads",
+      "prompt": "用户明确授权把 UAD-NG 修到可用。目标登录用户是 hzq00；UAD 为 C:\\Users\\hzq00\\Downloads\\uad-ng-windows.exe；官方 ADB 目录为 C:\\Users\\hzq00\\Downloads\\platform-tools-latest-windows\\platform-tools。先验证 adb.exe、AdbWinApi.dll、AdbWinUsbApi.dll 均存在。查找 ProfileImagePath=C:\\Users\\hzq00 对应 SID 和已加载的 HKEY_USERS\\<SID>\\Environment。把该用户原 Path 完整备份到 E:\\codex-LOOP\\codex-loop-s-f2\\data\\reports\\uad-adb-repair\\original-user-path.txt；仅当精确目录尚不存在时，用注册表 API/PowerShell Registry Provider 幂等追加，不得使用可能截断的 setx，不得覆盖其他条目。成功后广播 WM_SETTINGCHANGE Environment。另在 C:\\Users\\hzq00\\Downloads\\Start-UAD-NG-with-ADB.cmd 创建可回滚启动器，内容只应设置当前进程 PATH 以该 platform-tools 目录优先、设置 ANDROID_USER_HOME=%USERPROFILE%\\.android，然后 start uad-ng-windows.exe；不得复制或混合 ADB 文件。文件写入优先使用 apply_patch。验证：目标用户注册表 Path 含精确目录；在显式同环境的新 cmd 中 where adb 和 adb version 成功；检查 adb devices -l，允许启动 adb server，但不得卸载应用、改手机设置或运行任何 UAD 去臃肿操作。如果能保证在交互登录用户 hzq00 会话下启动，则关闭旧 UAD 后通过启动器重启；若当前执行身份是 codexsandboxoffline、不能保证用户会话身份，则不要以沙箱身份启动 GUI，只完成持久 PATH 和启动器并明确要求用户双击启动器。完整记录命令、变更前后值、验证结果和回滚方法。"
+    }
+  ]
+}

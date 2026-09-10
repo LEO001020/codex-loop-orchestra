@@ -1,0 +1,87 @@
+Reading additional input from stdin...
+2026-08-16T16:14:45.061512Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-16T16:14:49.907058Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-16T16:15:00.776665Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 73
++ ... E:\codex-LOOP | rg -i "global_loop_mode|deactivat|restore" | head -30
++                                                                  ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-16T16:15:11.271967Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.1 seconds
+Output:
+E:\codex-LOOP\codex-loop-s-f2\hooks\global_loop_mode.py
+E:\codex-LOOP\codex-loop-s-f2\reports\baseline-restore-final-audit\FINAL_AUDIT_REPORT.md
+E:\codex-LOOP\venv\Scripts\deactivate.bat
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-24ff188ea5-deactivate-boundary\adhoc-24ff188ea5-deactivate-boundary-120f05ecdb2448d4a3fe27fdab708052\supervisor.log
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-24ff188ea5-deactivate-boundary\adhoc-24ff188ea5-deactivate-boundary-120f05ecdb2448d4a3fe27fdab708052\stderr.log
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-24ff188ea5-deactivate-boundary\adhoc-24ff188ea5-deactivate-boundary-120f05ecdb2448d4a3fe27fdab708052\events.jsonl
+E:\codex-LOOP\venv\Lib\site-packages\win32\Demos\__pycache__\RegRestoreKey.cpython-312.pyc
+E:\codex-LOOP\venv\Lib\site-packages\win32\Demos\RegRestoreKey.py
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-d799ec5bd3-fl18-sustain-rollback-restore\adhoc-d799ec5bd3-fl18-sustain-rollback-restore-4918cd360c0042b6bcf89dfa852c695b\supervisor.log
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-d799ec5bd3-fl18-sustain-rollback-restore\adhoc-d799ec5bd3-fl18-sustain-rollback-restore-4918cd360c0042b6bcf89dfa852c695b\stderr.log
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-d799ec5bd3-fl18-sustain-rollback-restore\adhoc-d799ec5bd3-fl18-sustain-rollback-restore-4918cd360c0042b6bcf89dfa852c695b\events.jsonl
+rg: E:\codex-LOOP\hl-loop-v3\deploy\codex-home: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\PRE-07-gate: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\PRE-06: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\PRE-05: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\PRE-04: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\PRE-00: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M5-04: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M5-02: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M5-01: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-full: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-08-mutants: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-08-e2e: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-08: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-07-regression: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-07: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-06-regression: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-05: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-04-regression: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-04: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-03-regression: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-03: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-02: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-01: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M3-06: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M3-05: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M3-03: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M3-02: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M3-01: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M1-06: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M1-05: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M1-04: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M1-03: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M1-02: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M1-01: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M0-12: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M0-08: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M0-06: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M0-02: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M0-01: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\cache-quarantine\95fb6fc2506f435196cf88727c2b4458-.pytest_cache: 拒绝访问。 (os error 5)
+
+2026-08-16T16:18:40.992937Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

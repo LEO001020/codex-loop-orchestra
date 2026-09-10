@@ -1,0 +1,53 @@
+I now have a complete picture for the audit. Let me compile the full findings.
+
+---
+
+**native hook 可见性审计报告**
+
+**一、本 agent 在各 roster 中的登记状态**
+
+- `exec_roster.json`：`adhoc-945efa1f37-v03-native-hook`，状态 `running`，心跳 `1786688496`（约14:14 今日），登记正常。
+- `native_roster.json`：**不存在**此 agent，也不存在当前 Desktop 父会话 `019feacd-*` 下的任何条目。
+- `data/lifecycle/events.ndjson`（native 事件流）：最后一条记录时间戳 `1786550122`（2026-08-12 23:55），**比当前时间早约 37 小时**，此后无任何 SubagentStart / SubagentStop / hook_degraded 条目。
+
+---
+
+**二、关键发现：native hook 自 2026-08-12 23:55 起完全停止写入**
+
+| 检查项 | 结论 |
+|---|---|
+| `native_roster.json` 最后更新 | `2026-08-12 23:55:22`（37小时前） |
+| 今日 `events.ndjson`（exec层）中的 SubagentStop 事件 | 大量（parent-系列 wave 1-9 均有记录） |
+| `data/lifecycle/events.ndjson`（native hook 层）中对应记录 | **零条** |
+| `pending: []` | 空，无悬挂条目 |
+| `native_roster.json` 中 `running` 状态的 agent | 47 条，全部来自 2026-08-12 波次，实际早已结束 |
+
+**结论：native hook（`subagent_lifecycle.py`）在 2026-08-12 23:55 之后完全停止被触发。**
+
+---
+
+**三、根因分类**
+
+1. **Hook 未热加载（最可能主因）**：`hooks.json` 最后修改时间 `2026-08-13 01:52`，而 native events 在 `2026-08-12 23:55` 就已停止。这说明 Desktop 父会话在 23:55 附近结束，**后续所有 agent 均由 headless `codex exec` 启动（exec_roster 平面），完全绕过 Desktop native hook 管道**。Desktop 的 `SessionStart/SubagentStart/SubagentStop` hook 仅在 Desktop 本地父进程生命期内生效；headless worker 的整个生命周期不经过 Desktop hook。
+
+2. **终态未写入（次要）**：`native_roster.json` 中存留 47 条 `status: running` 的陈旧条目（全为 2026-08-12 23:55 的波次，其 exec 层早已 `subagent_stop`），终态从未被 `subagent_stop` hook 写回，因为该 Desktop 父会话已退出。
+
+3. **Observer 漏读（非 observer 缺陷）**：`events.ndjson`（exec 层，路径 `data/lifecycle/events.ndjson`）中存在今日完整的 `dispatched / exec_spawned / subagent_stop` 链。8765 observer 从 `exec_roster.json` 读数据，无信息丢失；native_roster 的漏读是 hook 层本身停写的镜像，不是 observer 侧的消费缺陷。
+
+4. **hook_degraded 已有先兆**：native events 中 `2026-08-12 23:55` 前最后数分钟存在多条 `hook_degraded: JSONDecodeError`，为 Desktop 接收大批量并发 spawn 时 stdin 截断，提示 hook 本身当时已在降级运行。
+
+---
+
+**四、TTL 检查**
+
+`PENDING_TTL_SECONDS = 600`。`native_roster.json` 中 `pending: []`，无超 TTL 悬挂条目，TTL 机制本身无问题。
+
+---
+
+**五、本次任务本身的 Desktop 审计 agent 登记**
+
+本 agent 为 headless exec 路径，无 Desktop native agent ID，**native_roster 中无对应条目是预期行为**（非漏登记）。exec_roster 正确记录状态 `running`，心跳正常。
+
+---
+
+**结论摘要**：native hook 可见性中断的单一根因是 **Desktop 父会话在 2026-08-12 23:55 自然结束，此后所有 agent 仅走 headless exec 平面，Desktop hook 不再触发**。native_roster 停写、47 条 running 残留、今日 agent 全部缺失均为同一原因的下游表现。不存在 hook 脚本 bug、TTL 溢出或 observer 消费缺陷问题。修复路径是：下次 Desktop 父会话 `SessionStart` 触发时，`cold_reconcile_exec` 会自动将 exec_roster 中 `lost` 状态的条目同步；若需主动修复 native_roster 的 running 残留，需在 Desktop 会话内执行 SessionStart 事件或手动触发 cold reconcile（超出本次只读审计范围）。

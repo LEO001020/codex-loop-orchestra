@@ -1,0 +1,134 @@
+Reading additional input from stdin...
+2026-08-12T20:05:23.857853Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-12T20:05:24.693800Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:05:27.734020Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-12T20:06:31.798000Z ERROR codex_core::tools::router: error=Exit code: 124
+Wall time: 11.2 seconds
+Output:
+command timed out after 11217 milliseconds
+
+
+2026-08-12T20:06:31.902672Z ERROR codex_core::tools::router: error=Exit code: 124
+Wall time: 11.3 seconds
+Output:
+command timed out after 11320 milliseconds
+
+
+2026-08-12T20:06:58.371157Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 9.1 seconds
+Output:
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json
+
+2026-08-12T20:07:44.115564Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.9 seconds
+Output:
+E:\codex-LOOP\codex-loop-s-f2\reports\exec-roster-concurrency-audit-20260812\report.md
+E:\codex-LOOP\codex-loop-s-f2\reports\fable-audit\CONTROL_PACKET.md
+E:\codex-LOOP\codex-loop-s-f2\reports\fable-audit\GATEWAY_INCIDENT_20260811.md
+E:\codex-LOOP\codex-loop-s-f2\reports\fable-audit\INTEGRATED_AUDIT_FINDINGS.md
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-285d0b57b6-visible-headless-1\adhoc-285d0b57b6-visible-headless-1-c6d5ee1f3b264ebfb22432c2be0f05e1\last_message.txt
+
+2026-08-12T20:07:53.721771Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.9 seconds
+Output:
+E:\codex-LOOP\codex-loop-s-f2\data\escalation_log.jsonl
+E:\codex-LOOP\codex-loop-s-f2\data\events.ndjson
+E:\codex-LOOP\codex-loop-s-f2\data\progress_ledger.json
+E:\codex-LOOP\codex-loop-s-f2\data\orchestration\epilogue_status.json
+E:\codex-LOOP\codex-loop-s-f2\data\orchestration\terminal_epilogue.log
+E:\codex-LOOP\codex-loop-s-f2\data\sol_wake\1786565240_adhoc-f6c22ba355-pc7-headless-test-inventory.md
+E:\codex-LOOP\codex-loop-s-f2\data\dead_letters\adhoc-f6c22ba355-pc7-headless-test-inventory.json
+
+2026-08-12T20:08:33.786834Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.1 seconds
+Output:
+
+2026-08-12T20:08:43.397669Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.7 seconds
+Output:
+
+2026-08-12T20:08:56.073958Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 4.9 seconds
+Output:
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json
+E:\VPS\pc7-headless-wave-manifest-2.json
+E:\VPS\pc7-headless-wave-manifest.json
+
+2026-08-12T20:13:18.872377Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 180ms)... turn_id=019ff794-5f8a-78b0-9f55-0ecf9bd3b794 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: upstream stream ended without a terminal signal ([DONE] or finish_reason) — possible truncation
+2026-08-12T20:13:51.365413Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 21.1 seconds
+Output:
+
+2026-08-12T20:14:20.775813Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 10.7 seconds
+Output:
+
+2026-08-12T20:15:15.440927Z  WARN codex_sandboxing::violation: recorded sandbox violation: resource=filesystem backend=windows_sandbox reason=policy_denied path=unknown
+2026-08-12T20:15:15.441250Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.7 seconds
+Output:
+git : fatal: detected dubious ownership in repository at 'E:/codex-LOOP/codex-loop-s-f2'
+所在位置 行:2 字符: 1
++ git -C 'E:\codex-LOOP\codex-loop-s-f2' rev-parse HEAD 2>&1; git -C 'E ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (fatal: detected...odex-loop-s-f2':String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+'E:/codex-LOOP/codex-loop-s-f2' is owned by:
+	DESKTOP-3L9C649/hzq00 (S-1-5-21-2299765140-2670231981-1235975754-1001)
+but the current user is:
+	DESKTOP-3L9C649/CodexSandboxOffline (S-1-5-21-2299765140-2670231981-1235975754-1004)
+To add an exception for this directory, call:
+	git config --global --add safe.directory E:/codex-LOOP/codex-loop-s-f2
+git : fatal: detected dubious ownership in repository at 'E:/codex-LOOP/codex-loop-s-f2'
+所在位置 行:2 字符: 61
++ ...  HEAD 2>&1; git -C 'E:\codex-LOOP\codex-loop-s-f2' branch --show-curr ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (fatal: detected...odex-loop-s-f2':String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+'E:/codex-LOOP/codex-loop-s-f2' is owned by:
+	DESKTOP-3L9C649/hzq00 (S-1-5-21-2299765140-2670231981-1235975754-1001)
+but the current user is:
+	DESKTOP-3L9C649/CodexSandboxOffline (S-1-5-21-2299765140-2670231981-1235975754-1004)
+To add an exception for this directory, call:
+	git config --global --add safe.directory E:/codex-LOOP/codex-loop-s-f2
+git : fatal: detected dubious ownership in repository at 'E:/codex-LOOP/codex-loop-s-f2'
+所在位置 行:2 字符: 128
++ ... rrent 2>&1; git -C 'E:\codex-LOOP\codex-loop-s-f2' status --porcelain ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (fatal: detected...odex-loop-s-f2':String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+'E:/codex-LOOP/codex-loop-s-f2' is owned by:
+	DESKTOP-3L9C649/hzq00 (S-1-5-21-2299765140-2670231981-1235975754-1001)
+but the current user is:
+	DESKTOP-3L9C649/CodexSandboxOffline (S-1-5-21-2299765140-2670231981-1235975754-1004)
+To add an exception for this directory, call:
+	git config --global --add safe.directory E:/codex-LOOP/codex-loop-s-f2
+
+2026-08-12T20:16:30.343052Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

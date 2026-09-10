@@ -1,0 +1,115 @@
+Reading additional input from stdin...
+2026-08-12T11:35:48.421660Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-12T11:35:54.157131Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T11:36:05.950430Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T11:36:48.654035Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T11:37:03.120104Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T11:37:07.813904Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T11:37:20.208028Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T11:37:59.601207Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T11:38:04.996872Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T11:38:55.131068Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.5 seconds
+Output:
+Get-CimInstance : 拒绝访问 
+所在位置 行:2 字符: 1
++ Get-CimInstance Win32_Process -Filter "name='python.exe' or name='pyt ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (:) [Get-CimInstance], CimException
+    + FullyQualifiedErrorId : HRESULT 0x80041003,Microsoft.Management.Infrastructure.CimCmdlets.GetCimInstanceCommand
+ 
+
+2026-08-12T11:38:56.469900Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.8 seconds
+Output:
+SchTasks.exe : 错误: 系统找不到指定的路径。
+所在位置 行:2 字符: 138
++ ... ingProcess; SchTasks.exe /Query /TN 'Codex-LOOP-Monitor' 2>&1 | Out-S ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (错误: 系统找不到指定的路径。:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+
+
+2026-08-12T11:39:00.742563Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T11:39:08.142085Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 209ms)... turn_id=019ff5c1-d429-7971-ab8b-449301f37bb5 retries=1 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502, url: http://127.0.0.1:10100/v1/responses
+2026-08-12T11:39:10.751134Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T11:39:17.011960Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 438ms)... turn_id=019ff5c1-d429-7971-ab8b-449301f37bb5 retries=2 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502, url: http://127.0.0.1:10100/v1/responses
+2026-08-12T11:39:20.768008Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T11:39:23.696881Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 787ms)... turn_id=019ff5c1-d429-7971-ab8b-449301f37bb5 retries=3 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502, url: http://127.0.0.1:10100/v1/responses
+2026-08-12T11:39:32.262308Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.576s)... turn_id=019ff5c1-d429-7971-ab8b-449301f37bb5 retries=4 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502, url: http://127.0.0.1:10100/v1/responses
+2026-08-12T11:39:40.266425Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 3.46s)... turn_id=019ff5c1-d429-7971-ab8b-449301f37bb5 retries=5 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502, url: http://127.0.0.1:10100/v1/responses
+2026-08-12T11:39:58.709710Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

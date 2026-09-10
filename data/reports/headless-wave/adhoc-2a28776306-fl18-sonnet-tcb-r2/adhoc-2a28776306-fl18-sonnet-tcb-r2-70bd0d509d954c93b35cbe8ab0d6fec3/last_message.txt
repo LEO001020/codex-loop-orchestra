@@ -1,0 +1,62 @@
+## FL18 Owner TCB 完整性终审报告
+
+**日期：2026-08-14 | 裁定依据：I3/I6**
+
+---
+
+### 审计结论：TCB 完整性全部通过，无任何反证
+
+所有维度均基于当前磁盘字节实时计算，未采用任何预生成哈希。
+
+---
+
+### 逐项结果
+
+**1. Bundle 成员（18/18）**
+全部 18 个 bundle 文件的 SHA256 与 `P5_OWNER_PINNED_AUTHORITY_TCB_MANIFEST_V1.json` 中声明值完全一致，文件大小亦匹配。无缺失、无替换、无篡改。
+
+**2. 跨清单哈希链**
+- `dependency_manifest_sha256`（TCB 引用 → 磁盘实测）：**一致**
+- `platform_manifest_sha256`（TCB 引用 → 磁盘实测）：**一致**
+- dep 清单内 `platform_manifest_sha256`（→ 磁盘实测）：**一致**
+
+三层清单形成完整哈希链，无断裂。
+
+**3. Python 3.12 解释器绑定**
+`dep.interpreter.sha256 = 1643dacd...`，与 platform 清单中 `/usr/bin/python3.12` 条目完全一致。解释器通过依赖清单→平台清单双层绑定，非 bundle 成员（正确——OS 层级文件）。
+
+**4. APSW 3.53.4.0 wheel**
+- TCB bundle 与 dep 清单的 wheel SHA256 一致：`6c47c64c...`
+- wheel 内成员声明数 92 = 实际记录数 92（含两枚 cpython-312 `.so` dylib、全套 sqlite_extra_binaries）
+
+**5. Platform 精确集（/usr/lib/python3.12 + dylib）**
+- stdlib 树：1197 条文件+symlink 条目
+- dylib（`/usr/lib/x86_64-linux-gnu/`）：6 条（ld, libc, libexpat, libm, libpthread, libz）
+- 总条目 1204 = dep 清单声明值 1204：**一致**
+- `exact_set_roots = ["/usr/lib/python3.12"]`，正确——dylib 条目属 individual_path 类，无目录通配符信任。
+
+**6. 核心运行时 6 项身份（core_runtime_identities）**
+authority_runtime、authority_store、conditional_delegation、t1_wave1_evaluator、research_db、schema_migration 的 sha256 均与对应 bundle_member sha256 交叉吻合：**全部匹配**。`core_runtime_identity_changed = true`（符合预期，V3 新核心集）。
+
+**7. Pre-reload 门控（daemon_reload_gate）**
+三条受控路径（`researchctld.service`、`10-p5-owner.conf`、`researchctl` wrapper）全部覆盖在 bundle 成员中；`unverified_daemon_reload_forbidden = true` 标志已置位。
+
+**8. 精确集无额外文件**
+磁盘 `bundle/` 目录下所有文件（18 个）与清单成员一一对应，无任何未登记文件。
+
+**9. TCB 状态**
+```
+status: PREPARED_OWNER_SIGNATURE_REQUIRED_UNEXECUTED
+scientific_rule_changes: 0
+```
+冻结状态正确，等待 Owner 签名，未执行，无科学规则更改。
+
+---
+
+### I3/I6 裁定
+
+**I3（反证检验）**：无任何哈希不一致、无额外文件、无缺失成员、无跨清单链断裂——零反证。
+
+**I6（根钉 / V6 工程重钉）**：三层清单哈希链（TCB → dep → platform）完整闭合，Python 3.12 解释器、APSW wheel、stdlib/dylib 精确集均通过双层或三层哈希绑定落地，满足 root pinning 要求。
+
+**裁定：PASS（完整性确认）**

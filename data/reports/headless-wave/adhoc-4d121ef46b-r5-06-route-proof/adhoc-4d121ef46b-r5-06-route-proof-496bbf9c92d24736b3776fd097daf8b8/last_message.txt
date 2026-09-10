@@ -1,0 +1,37 @@
+所有来源均已核查完毕。以下是本次只读审计的完整结论：
+
+---
+
+## 实际模型路由反证报告
+
+### 活跃配置文件
+
+| 字段 | 值 |
+|------|---|
+| 活跃 profile | `v4f-sonnet-review` |
+| 执行模型 | `weiwu/deepseek-v4-flash` |
+| 执行 effort | `ultra` |
+| 审查模型 | `weiwu/aws.claude-sonnet-4.6` |
+| 审查 effort | `ultra` |
+| 状态标记时间戳 | `1786697786` (最近一次原子切换) |
+| 更新文件数 | 35 个文件原子同步 |
+
+证据来源（全部一致）：
+- `config/model_profiles.toml` → `active_profile = "v4f-sonnet-review"`
+- `data/governor/model_profile.json` → 最后一次 `model_profile.py set` 写入的状态标记
+- `agents/worker.toml` → `model = "weiwu/deepseek-v4-flash"`, `model_reasoning_effort = "ultra"`
+- `agents/reviewer.toml` + `agents/verifier.toml` → `model = "weiwu/aws.claude-sonnet-4.6"`, `model_reasoning_effort = "ultra"`
+- `.codex/config.toml` → `default_subagent_model = "weiwu/deepseek-v4-flash"`, `default_subagent_reasoning_effort = "ultra"`
+- `config/roles.yaml` → 所有角色均有显式 model 字段，无任何角色缺少 model 指定
+
+### 无继承 Sol/默认子代理的证明
+
+`roles.yaml` 中每个角色均已显式声明 `model`：
+
+- `sol` → `gpt-5.6-sol`（主线程，唯一计费层）
+- `executor` / `scout` / `duty_officer` → `weiwu/deepseek-v4-flash`（执行族）
+- `reviewer` / `verifier` / `plan_expander` → `weiwu/aws.claude-sonnet-4.6`（审查族）
+
+`model_profile.py` 的 `project_updates()` 函数在每次 profile 切换时原子地写入全部 35 个文件，包括 `worker.toml`、`reviewer.toml`、`verifier.toml`、`plan_expander.toml`、`.codex/config.toml`、`roles.yaml`，并通过 `validate_updates()` 做切换后一致性校验。不存在任何角色依赖 `default_subagent_model` 作为隐式继承路径，所有子代理都在 TOML 层明确钉住了模型，`default_subagent_model` 仅作兜底保护层而非路由路径。
+
+**结论：当前路由满足 AGENTS.md 要求，不存在继承 Sol 的默认子代理。**

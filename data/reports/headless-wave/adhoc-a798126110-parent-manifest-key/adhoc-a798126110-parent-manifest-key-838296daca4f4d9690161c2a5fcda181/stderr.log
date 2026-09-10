@@ -1,0 +1,156 @@
+Reading additional input from stdin...
+2026-08-14T08:08:18.815853Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T08:08:23.790568Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T08:13:57.364545Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 184ms)... turn_id=019fff50-94df-7072-812f-3a46b3dd646d retries=1 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T08:18:50.967542Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 363ms)... turn_id=019fff50-94df-7072-812f-3a46b3dd646d retries=2 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T08:20:56.046942Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.4 seconds
+Output:
+E:\codex-LOOP\.tmp-global-hook-test-20260810\lifecycle\native_roster.json
+E:\codex-LOOP\.tmp-global-hook-test-20260810\lifecycle\name_map.jsonl
+E:\codex-LOOP\.tmp-global-hook-test-20260810\lifecycle\events.ndjson
+E:\codex-LOOP\.tmp-global-hook-test-20260810\lifecycle\close_requests.ndjson
+E:\codex-LOOP\audit_manifests\baseline-regression-wave-20260814.json
+E:\codex-LOOP\audit_manifests\root-thread-history-k3-wave3-20260814.json
+E:\codex-LOOP\audit_manifests\root-thread-history-wave-20260814.json
+E:\codex-LOOP\audit_manifests\root-thread-history-wave-k3-20260814.json
+E:\codex-LOOP\codex-loop-s-f2\hooks\subagent_lifecycle.py
+E:\codex-LOOP\codex-loop-s-f2\hooks\leaf_agent_spawn_gate.py
+E:\codex-LOOP\codex-loop-s-f2\metering\model_token_share_bridge.py
+E:\codex-LOOP\codex-loop-s-f2\metering\model_token_share.py
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_headless_wave.py
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_lifecycle_supervisor.py
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_loop_monitor_server.py
+E:\codex-LOOP\archives\final-f2-success-20260810T082053Z\evidence\four-role-smoke-success.json
+E:\codex-LOOP\codex-loop-s-f2\harness\refill_controller_v2.py
+E:\codex-LOOP\codex-loop-s-f2\harness\refill_consumer_v2.py
+E:\codex-LOOP\codex-loop-s-f2\harness\parent_manifest_importer.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_refill_controller_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_refill_consumer_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_production_bridges.py
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_subagent_lifecycle_hook.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_parent_manifest_importer.py
+E:\codex-LOOP\codex-loop-s-f2\harness\lifecycle_supervisor.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_dispatch_v2.py
+E:\codex-LOOP\codex-loop-s-f2\harness\headless_wave.py
+E:\codex-LOOP\codex-loop-s-f2\harness\dispatch_v2.py
+E:\codex-LOOP\codex-loop-s-f2\harness\dispatch.py
+E:\codex-LOOP\deliveries\fable-audit-20260810\stage\codex-loop-s-f2-fable-audit-20260810\source\codex-loop-s-f2\tests\unit\test_subagent_lifecycle_hook.py
+
+2026-08-14T08:20:57.402420Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.8 seconds
+Output:
+E:\codex-LOOP\audit_manifests\root-thread-history-wave-k3-20260814.json
+E:\codex-LOOP\audit_manifests\root-thread-history-wave-20260814.json
+E:\codex-LOOP\audit_manifests\root-thread-history-k3-wave3-20260814.json
+E:\codex-LOOP\audit_manifests\baseline-regression-wave-20260814.json
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_refill_controller_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_refill_consumer_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_parent_manifest_importer.py
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_loop_monitor_server.py
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_headless_wave.py
+E:\codex-LOOP\codex-loop-s-f2\harness\dispatch.py
+E:\codex-LOOP\codex-loop-s-f2\harness\lifecycle_supervisor.py
+E:\codex-LOOP\codex-loop-s-f2\harness\headless_wave.py
+E:\codex-LOOP\codex-loop-s-f2\harness\repair_plain_parent_reports.py
+E:\codex-LOOP\codex-loop-s-f2\harness\repair_parent_ledger_schema.py
+E:\codex-LOOP\codex-loop-s-f2\harness\recover_parent_replay_incident.py
+E:\codex-LOOP\codex-loop-s-f2\harness\refill_controller_v2.py
+E:\codex-LOOP\codex-loop-s-f2\harness\refill_consumer_v2.py
+E:\codex-LOOP\codex-loop-s-f2\harness\parent_manifest_importer.py
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle_reports\parent-fba913768f151ba5239c34e256214a242b09ffbc5c53ba48\report.json
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle_reports\parent-fa453673e7ff83ec2fc8324408c92cde2ab1503bf47bbc09\report.json
+E:\codex-LOOP\launchers\loop_monitor_server.py
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle_reports\parent-b465863d62d814dd779568ba9964b364a842ac60d5e0a472\report.json
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle_reports\parent-2ed1187bc8f3a38fe0588a42b6a97aefd4d73f4a21b11c46\report.json
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle_reports\parent-2dc2ec6016a4479f121e2d84d250ee9da942153fe09d46bd\report.json
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle_reports\parent-08ce88879ae9b746e99035524ab031a690516633f3612734\report.json
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json
+E:\codex-LOOP\codex-loop-s-f2\data\events.ndjson
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle_reports\parent-7a103429d908faf6532b0c3a64db8f6a86c9747aec21ad34\report.json
+E:\codex-LOOP\codex-loop-s-f2\data\reports\parent-0b3a3a485fbea9ac6c4869ff7d96cddc34d308d1766a11ee\events.jsonl
+E:\codex-LOOP\codex-loop-s-f2\data\reports\parent-fba913768f151ba5239c34e256214a242b09ffbc5c53ba48\report.json
+
+2026-08-14T08:20:57.551176Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.9 seconds
+Output:
+E:\codex-LOOP\audit_manifests\root-thread-history-k3-wave3-20260814.json
+E:\codex-LOOP\launchers\loop_monitor_server.py
+E:\codex-LOOP\codex-loop-s-f2\harness\refill_controller_v2.py
+E:\codex-LOOP\codex-loop-s-f2\data\reports\parent-08ce88879ae9b746e99035524ab031a690516633f3612734\events.jsonl
+E:\codex-LOOP\codex-loop-s-f2\data\reports\parent-c36169cc8f0b6dd50fb27a2dddc1e173075b2804d5c8d1af\events.jsonl
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json
+E:\codex-LOOP\codex-loop-s-f2\data\reports\parent-c0f4413dd820b1ef5ca022cbafb72769b42dd9de9c23dd86\events.jsonl
+E:\codex-LOOP\codex-loop-s-f2\data\reports\parent-c098efe054ffc07b2adb0cce1dec7eba6f3ebe56cf10d694\stderr.log
+E:\codex-LOOP\codex-loop-s-f2\data\reports\parent-c098efe054ffc07b2adb0cce1dec7eba6f3ebe56cf10d694\events.jsonl
+E:\codex-LOOP\codex-loop-s-f2\data\reports\parent-b3f312fdcbeba0b9ff7477aaf9e38f80239d9b5644e89290\events.jsonl
+E:\codex-LOOP\codex-loop-s-f2\data\reports\parent-a4abfe36a67065292657b318a522c55577aae37a7de425da\events.jsonl
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-265a90f5c4-p0-b08\adhoc-265a90f5c4-p0-b08-5738c9ac94a14ea5ac2ea646d61c21b3\last_message.txt
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-265a90f5c4-p0-b08\adhoc-265a90f5c4-p0-b08-5738c9ac94a14ea5ac2ea646d61c21b3\events.jsonl
+E:\codex-LOOP\codex-loop-s-f2\data\reports\parent-8d0a3b3bea01134cbfd223055dc4d67a30c56eedf7939a93\events.jsonl
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-265a90f5c4-p0-b06\adhoc-265a90f5c4-p0-b06-95edfe5d82644e4c93713436a04d10ba\events.jsonl
+E:\codex-LOOP\codex-loop-s-f2\data\reports\parent-890ad8d4e7f2a8b1d3108a73a2c5f531fb49d48a37f1aedf\events.jsonl
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-265a90f5c4-p0-b05\adhoc-265a90f5c4-p0-b05-5e4a339658344a4683b5b4b38fd329ac\events.jsonl
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-265a90f5c4-p0-b04\adhoc-265a90f5c4-p0-b04-ca5c3fd56abb4f1cbadbd5af6022a611\events.jsonl
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-265a90f5c4-p0-b03\adhoc-265a90f5c4-p0-b03-bbcbf2dca828402bb94f6b6085bd5c07\events.jsonl
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-265a90f5c4-p0-b02\adhoc-265a90f5c4-p0-b02-3a5d82e6cb48451aa07c3789cf39540b\stderr.log
+
+2026-08-14T08:20:57.653782Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 3 seconds
+Output:
+E:\codex-LOOP\.bootstrap\run-glm-migration-audit.py
+E:\codex-LOOP\launchers\loop_monitor_server.py
+E:\codex-LOOP\recovery-staging\prepatch-20260814-1318-candidate\tests\unit\test_loop_monitor_server.py
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_loop_monitor_server.py
+E:\codex-LOOP\recovery-staging\prepatch-20260814-1318-candidate\harness\headless_wave.py
+E:\codex-LOOP\deliveries\fable-audit-20260810\stage\codex-loop-s-f2-fable-audit-20260810\host-overlay\launchers\loop_monitor_server.py
+E:\codex-LOOP\codex-loop-s-f2\harness\refill_controller_v2.py
+E:\codex-LOOP\codex-loop-s-f2\harness\headless_wave.py
+E:\codex-LOOP\venv\Lib\site-packages\win32comext\propsys\pscon.py
+E:\codex-LOOP\venv\Lib\site-packages\win32com\test\testPyComTest.py
+E:\codex-LOOP\test-runs\installer-validation-20260808-050353\codex-loop\.venv\Lib\site-packages\pygments\lexers\ul4.py
+E:\codex-LOOP\venv\Lib\site-packages\adodbapi\examples\xls_write.py
+E:\codex-LOOP\test-runs\opencodex-validation-20260808-052856\codex-loop\.venv\Lib\site-packages\pygments\lexers\ul4.py
+E:\codex-LOOP\venv\Lib\site-packages\websocket\tests\test_url.py
+E:\codex-LOOP\venv\Lib\site-packages\websocket\tests\echo-server.py
+E:\codex-LOOP\venv\Lib\site-packages\tornado\test\websocket_test.py
+E:\codex-LOOP\venv\Lib\site-packages\pygments\lexers\ul4.py
+
+2026-08-14T08:22:02.025147Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 184ms)... turn_id=019fff50-94df-7072-812f-3a46b3dd646d retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+2026-08-14T08:22:53.588961Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.3 seconds
+Output:
+E:\codex-LOOP\audit_manifests\root-thread-history-k3-wave3-20260814.json
+E:\codex-LOOP\audit_manifests\baseline-regression-wave-20260814.json
+E:\codex-LOOP\audit_manifests\root-thread-history-k3-wave4-20260814.json
+E:\codex-LOOP\audit_manifests\root-thread-history-wave-20260814.json
+E:\codex-LOOP\audit_manifests\root-thread-history-wave-k3-20260814.json
+E:\codex-LOOP\codex-loop-s-f2\hooks\subagent_lifecycle.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_parent_manifest_importer.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_refill_controller_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_refill_consumer_v2.py
+E:\codex-LOOP\codex-loop-s-f2\harness\refill_controller_v2.py
+E:\codex-LOOP\codex-loop-s-f2\harness\refill_consumer_v2.py
+E:\codex-LOOP\codex-loop-s-f2\harness\parent_manifest_importer.py
+E:\codex-LOOP\codex-loop-s-f2\data\packets\parent-fba913768f151ba5239c34e256214a242b09ffbc5c53ba48.json
+E:\codex-LOOP\codex-loop-s-f2\data\packets\parent-27bb0f1c73dd82b71270c14d9a2b471316d023496df9a4c7.json
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle_reports\parent-fba913768f151ba5239c34e256214a242b09ffbc5c53ba48\report.json
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle_reports\parent-7a103429d908faf6532b0c3a64db8f6a86c9747aec21ad34\report.json
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle_reports\parent-2dc2ec6016a4479f121e2d84d250ee9da942153fe09d46bd\report.json
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle_reports\parent-b465863d62d814dd779568ba9964b364a842ac60d5e0a472\report.json
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle_reports\parent-08ce88879ae9b746e99035524ab031a690516633f3612734\report.json
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle_reports\parent-073b8e0554753b449481e532b02a6301b3e5b3346d63aec1\report.json
+
+2026-08-14T08:26:51.425387Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 188ms)... turn_id=019fff50-94df-7072-812f-3a46b3dd646d retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+2026-08-14T08:32:21.613126Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 432ms)... turn_id=019fff50-94df-7072-812f-3a46b3dd646d retries=2 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+2026-08-14T08:38:51.854128Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 789ms)... turn_id=019fff50-94df-7072-812f-3a46b3dd646d retries=3 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T08:43:12.889164Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.625s)... turn_id=019fff50-94df-7072-812f-3a46b3dd646d retries=4 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T08:48:03.170944Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 3.017s)... turn_id=019fff50-94df-7072-812f-3a46b3dd646d retries=5 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses

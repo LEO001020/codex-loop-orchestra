@@ -1,0 +1,3 @@
+两个交付文件均已生成且校验完毕：report.md 无残留乱码，game_stack.md 结论与证据一致。
+
+结论：三个组件均已安装且启用——gameassistant（com.hihonor.gameassistant 18.0.34.305）无运行中服务；game.kitserver（com.hihonor.game.kitserver 12.0.0.017）有 GameService 与 GameKitService 两个服务运行于进程 com.hihonor.iaware(pid 4713)；gamecenter.overlay（com.hihonor.gamecenter.overlay 1.0）无服务且 overlay 管理器状态为 STATE_MISSING_TARGET（目标包 com.hihonor.gamecenter 未安装，未生效）；完整证据见 report.md，摘要见 game_stack.md（均为 cwd 下最新重跑结果）：C:\Users\hzq00\Documents\Codex\2026-08-23\ni-j\work\stage3_exec\T11_game_stack\report.md 与 C:\Users\hzq00\Documents\Codex\2026-08-23\ni-j\work\stage3_exec\T11_game_stack\game_stack.md

@@ -1,0 +1,24 @@
+{
+  "acceptance": [
+    "列finally证据",
+    "不得编辑"
+  ],
+  "authorized_paths": [
+    "harness/lifecycle_supervisor.py",
+    "harness/refill_consumer_v2.py",
+    "harness/orchestration_epilogue.py"
+  ],
+  "constraints": [
+    "read-only"
+  ],
+  "created_by": "parent_manifest_importer",
+  "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+  "goal": "只读复核completed/failed/timed_out/cancelled终态都能唤醒现有actuator且无第二scheduler。",
+  "manifest_id": "p0-sustained-final-review-20260814",
+  "packet_id": "parent-3de85804c3824e463e8a6d31f5d40f059881cfafac7b4376",
+  "parent_enabled": true,
+  "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+  "role": "worker",
+  "sandbox": "read-only",
+  "task_name": "Terminal唤醒复核"
+}

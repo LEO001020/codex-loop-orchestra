@@ -1,0 +1,14 @@
+两个备份文件的 SHA-256 与注册值完全一致。最后确认 `control_root` 与 `codex_home` 在两个文件中是否严格一致：
+
+| 字段 | global-loop-mode.json | global-loop-mode-install.json | 一致 |
+|---|---|---|---|
+| `active` | `true` | — | ✓ |
+| `control_root` | `E:\codex-LOOP\codex-loop-s-f2` | `E:\codex-LOOP\codex-loop-s-f2` | ✓ |
+| `codex_home` | `C:\Users\hzq00\.codex` | `C:\Users\hzq00\.codex` | ✓ |
+| 目录实际存在 | ✓ | ✓ | ✓ |
+| 备份文件存在 | — | AGENTS.md ✓ / hooks.json ✓ | ✓ |
+| SHA-256 注册与实测 | — | 两文件完全吻合 | ✓ |
+
+**OK**
+
+所有检查项均通过：`active=true`，`control_root` 与 `codex_home` 在模式文件与安装记录中完全一致，备份文件均存在且 SHA-256 与注册值精确匹配。

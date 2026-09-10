@@ -1,0 +1,24 @@
+{
+  "acceptance": [
+    "验证 canonical admission 边界",
+    "验证合法 off-table packet 仍 fail-visible"
+  ],
+  "authorized_paths": [
+    "harness/statemachine.py",
+    "harness/statemachine_v2.py",
+    "tests/"
+  ],
+  "constraints": [
+    "read-only"
+  ],
+  "created_by": "parent_manifest_importer",
+  "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+  "goal": "只读复验 adhoc transport 事件不会再创建 canonical packet 或触发 off-table dead letter。不得修改文件。",
+  "manifest_id": "loop-recovery-audit-20260813",
+  "packet_id": "parent-3d18f03a13d3aac738ad892d6e6b89b249ddd7b297987bc2",
+  "parent_enabled": true,
+  "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+  "role": "worker",
+  "sandbox": "read-only",
+  "task_name": "事件命名空间复验"
+}

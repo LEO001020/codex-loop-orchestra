@@ -1,0 +1,94 @@
+两个文件均已完整读取。现在逐项对照复核：
+
+---
+
+## 复核结论
+
+### 1. Observer 时效性（freshness 标记）
+
+**`loop_monitor_server.py`（快照文件）** 中 `snapshot()` 函数：
+
+```python
+elif age is not None and age > 30:
+    freshness = "STALE"
+else:
+    freshness = "LIVE"
+```
+
+`age` 是 `time.time() - newest`，`newest` 是所有 roster/refill/exec_roster `updated_at` 字段的最大值。超过 30 秒后状态标记为 `STALE`，否则为 `LIVE`（另有 `IDLE`、`ESTIMATED`、`UNINITIALIZED`）。
+
+**`refill_controller_v2.py`** 中 `_read_observer_snapshot()` 接受的 freshness 值：
+
+```python
+if not isinstance(doc, dict) or doc.get("freshness") not in {
+        "LIVE", "QUIET", "ESTIMATED"}:
+    return None
+```
+
+注意：`refill_controller_v2` 接受的合法 freshness 集合是 `{"LIVE", "QUIET", "ESTIMATED"}`，而 monitor server 实际上**不会产生 `"QUIET"` 标签**（该标签在代码中并不存在），它能产生的值是 `LIVE / STALE / IDLE / ESTIMATED / UNINITIALIZED`。因此：
+
+- `STALE`（age > 30s）→ 被 refill controller **拒绝**（正常降级，observer 快照不参与 running 计数）
+- `IDLE`、`UNINITIALIZED` → 同样被**拒绝**（正常降级）
+- `ESTIMATED` → 会被**接受**——这是一种降级但非完全拒绝路径
+
+**离线降级行为**：当 observer 离线（HTTP 请求 OSError/TimeoutError）或返回非法 freshness（包括 `STALE`），`_read_observer_snapshot()` 返回 `None`，`_read_roster_state()` 则回退到单独读取本地 native_roster + exec_roster，不引用 observer 数据。**降级正常、无静默失效**。
+
+---
+
+### 2. Timestamp 5 秒门禁
+
+`_read_observer_snapshot()` 中：
+
+```python
+try:
+    if time.time() - float(doc.get("timestamp", 0) or 0) > 5.0:
+        return None
+except (TypeError, ValueError):
+    return None
+```
+
+- Observer 响应体必须包含 `timestamp`（Unix 秒），与 `time.time()` 之差超过 **5.0 秒**时返回 `None`。
+- `loop_monitor_server.py` 的 `snapshot()` 确实将 `"timestamp": time.time()` 写入每次 `/api/status` 响应。
+- HTTP timeout 设为 `0.35` 秒，若请求耗时超标将抛出 `OSError`/`TimeoutError` 并返回 `None`，亦属正确降级。
+- **5 秒门禁逻辑正确，与 monitor 端 timestamp 字段对齐，无缺陷**。
+
+---
+
+### 3. Exact Root 门禁
+
+```python
+local = str(self.paths.root.resolve()).replace("\\", "/").casefold()
+advertised = {
+    str(doc.get(key) or "").replace("\\", "/").casefold()
+    for key in ("root", "windows_root")
+}
+if local not in advertised:
+    return None
+```
+
+Monitor server 响应体中包含：
+```python
+"root": str(root),          # WSL 路径，如 /home/codexloop/codex-loop-s-f2
+"windows_root": str(windows_root),  # Windows 路径，如 E:/codex-LOOP/codex-loop-s-f2
+```
+
+- refill controller 将本地 `self.paths.root.resolve()` 与 `root` / `windows_root` 两个字段取 casefold + 正斜杠归一化后做集合查找。
+- **跨平台路径归一化正确**（反斜杠→正斜杠 + casefold），能同时覆盖 WSL 和 Windows 路径，防止误将其他 LOOP 实例的 observer 快照用于本实例的计数。
+- **Root 门禁逻辑正确，exact match 实现无漏洞**。
+
+---
+
+### 综合离线降级结论
+
+| 故障场景 | 降级行为 |
+|---|---|
+| Observer 服务不可达（网络/未启动） | `OSError` → 返回 `None` → 回退本地 roster，**不崩溃** |
+| Observer 返回 `STALE`（age > 30s） | freshness 不在白名单 → 返回 `None` → 同上降级 |
+| Observer 返回 `IDLE` / `UNINITIALIZED` | 同上 |
+| Observer timestamp 超过 5 秒 | 显式返回 `None` → 同上降级 |
+| Observer root 不匹配 | 返回 `None` → 同上降级 |
+| Observer 返回 `ESTIMATED` | **被接受**（设计意图：partially-known 状态仍可参与 overlay） |
+
+**无静默失效路径**。降级策略一致：所有非正常情况均返回 `None`，`_read_roster_state()` 保守地仅依赖本地文件，running 计数不会因 observer 异常而被错误抬高或降低。
+
+**唯一值得注意的点**：`QUIET` 在 refill controller 白名单中列出，但 monitor server 代码中不会产生此标签——这是一个死代码条目，无实际影响，但若未来 monitor 不实现 `QUIET` 而 controller 依赖它，会出现意外降级。当前版本中**两者未对齐，但无运行时副作用**。

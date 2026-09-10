@@ -1,0 +1,42 @@
+## 任务名：测试证据真实性
+
+**审计范围**：`rollout-2026-08-10T16-32-17-019feacd…jsonl`（55MB, 25513行）及本机对应路径。全程只读（PowerShell 受限语言模式下的 `rg` 纯文本扫描）。
+
+---
+
+### 已验证的 pytest 执行记录
+
+| 时间戳附近（JSONL 行号） | 命令 | 结果 | 路径 |
+|---|---|---|---|
+| L24127 | `pytest -q tests\unit\test_model_profile.py test_release_review_route.py test_dispatch_model_pin.py` + `py_compile` | 完成后报告 `3 passed` | `E:\codex-LOOP\codex-loop-s-f2` |
+| L24271 | `pytest -q tests\orchestration_v2\test_provider_health.py tests\test_token_meter_v2.py` | **失败**：`KeyError: 'v4'`（L150）、`KeyError: 'k3'`（L188） | 同上 |
+| L5916 | 最终回归 | `45 passed in 5.48s`，py_compile OK，TOML/JSON OK | 同上 |
+| 交接记录（L~74/85） | `python3 -m pytest tests/ -v` | `179 passed`（原位 22.43s + 解压副本 22.61s） | WSL `/home/user/workspace` |
+| 交接记录 | Windows orchestration | `428 passed, 11 skipped` | Windows |
+| 交接记录 | WSL orchestration after sync | `439 passed` | WSL `/home/codexloop/codex-loop-s-f2` |
+
+**关键失效点（已验证）**：L24271 出现 `test_token_meter_v2.py` 两处 `KeyError` 失败后，L24264/24265 立即有 `apply_patch` 修改了 `tests\test_token_meter_v2.py`（插入 `test_shared_physical_model_is_attributed_by_role` 等）及 `harness\model_token_share_v2.py` 相关逻辑。**即 test green 与源码版本不对应**：测试和源码在同一轮被共同修改后才可能转绿，先前在旧源码上的任何 green 均不适用于修改后代码。
+
+### 已验证的 smoke 执行记录
+
+| 命令 | 结果 | 路径 |
+|---|---|---|
+| `CODEX_BIN=tests/mock_codex/bin/codex bash harness/smoke_gate.sh` | `ALL ASSERTIONS PASS, exit 0`（**MOCK 驱动**） | WSL 包目录 |
+| 真实 codex 0.147.0 `smoke_gate.sh` | version PASS、写隔离 PASS；**spawnable×4 + route×4 FAIL（401 AUTH-BLOCKED）** | 安装测试机 |
+| 四角色真实 smoke（Desktop） | worker `WORKER_SMOKE_OK` 等逐个完成 | `E:\codex-LOOP` |
+
+**关键失效点（已验证）**：mock smoke 全绿 ≠ 真实 API 可用；真实 codex 下 8 断言 FAIL（401 无鉴权）。历史报告将两者并列但结论"SMOKE GATE: ALL ASSERTIONS PASS"仅指 mock 通道。后续 API key 更换（用户消息 `sk-hPDX90e…`）后未验证 smoke_gate 重跑通过。
+
+### 已验证的 SHA 校验记录
+
+| 命令/工具 | 对象 | 结果 |
+|---|---|---|
+| `sha256sum -c SHA256SUMS` | 包内 68 条 | **68/68 OK**（打包前后均以包内快照为准） |
+| `Get-FileHash -Algorithm SHA256` x3 | `harness\dispatch.py`、`config\refill_policy.toml`、`ipybox-supervised`（源↔部署端比对） | `A7A15F335D07F5C7` 一致 |
+| 包 tar SHA256 | `codex-loop-s-f2-20260810.tar.gz` | `ec670f42…59bc6` |
+
+**P0/P1 判定**：
+
+- **P0（已验证）**：git 基线 `f1d6eac`（Fable F2 delivery baseline）后工作树极脏（L74 `M` 10+ 文件，`??` 20+ 项）。代理自认（L5021）：`SHA256SUMS` 记录的哈希对应基线版本，当前源文件均已修改未提交——**历史包级 SHA green 与当前源码版本脱钩**。
+- **P1（已验证）**：`.codex/config.toml`、`config/refill_policy.toml` 为未跟踪文件，无 git 基线，"未被修改"不可证明（L5035 代理自承认）。
+- **P1（推测）**：API key 替换后（用户提供新 key）未见对应 smoke_gate 重跑记录，真实 smoke 状态未知；不能据旧 401 FAIL 推断当前仍 FAIL，也不能据 mock PASS 推断当前 PASS。

@@ -24,7 +24,7 @@ TRANSITIONS = [
     (6, RUN + ["exec_failed"], "FAILED", False, 0, False),
     (7, ACC, "ACCEPTED", True, 0, False),
     (8, REP + ["acceptance_fail"], "FAILED", True, 0, False),
-    (9, RUN + ["exec_failed", "retry_dispatch"], "RUNNING", False, 0, False),
+    (9, RUN + ["exec_failed", "retry_dispatch"], "DISPATCHABLE", False, 0, False),
     (10, RUN + ["exec_failed", "duty_review"], "DUTY_REVIEW", False, 0, False),
     (11, RUN + ["exec_failed", "duty_review", "duty_retryable"],
      "RUNNING", False, 0, True),

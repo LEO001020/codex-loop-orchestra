@@ -1,0 +1,137 @@
+Reading additional input from stdin...
+2026-08-14T08:07:07.725907Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T08:07:12.376689Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T08:07:27.830923Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T08:07:51.621926Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T08:08:04.691155Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T08:08:19.281938Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T08:09:12.906406Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T08:09:26.177622Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T08:09:34.024881Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T08:09:49.623110Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T08:10:03.523970Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T08:13:34.420502Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T08:13:53.554510Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T08:14:10.627377Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.9 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 96
++ ... PS" -ErrorAction SilentlyContinue | Select-Object FullName | head -80
++                                                                  ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T08:14:48.081448Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 8.3 seconds
+Output:
+
+FullName                                                                                                               
+--------                                                                                                               
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18                                             
+E:\VPS\reports\P5_FL18_ACTIVE20_REFILL1.json                                                                           
+E:\VPS\reports\P5_FL18_ACTIVE20_REFILL2.json                                                                           
+E:\VPS\reports\P5_FL18_ACTIVE20_WAVE1.json                                                                             
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\audit                                       
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\ceremony                                    
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\lib                                         
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\proposals                                   
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tcb                                         
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tests                                       
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tools                                       
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\00_READ_ME_FIRST.md                         
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\01_PRE_CUTOVER_READONLY_PREFLIGHT.sh        
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\02_ADMIN_RECOVERY_STAGE.sh                  
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\03_AGENT_PRIVILEGE_CUTOVER.sh               
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\04_TERMINATE_AND_REBOOT_GATE.sh             
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\05_FRESH_K3_PRETRUST_VERIFY.sh              
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\06_OWNER_AUTHORITY_AND_V3_DEPLOY.sh         
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\07_POST_DEPLOY_ADMIN_VERIFY.sh              
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\08_FRESH_K3_FINAL_VERIFY.sh                 
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\09_OWNER_CEREMONY_RUNBOOK.md                
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\09_ROLLBACK_PRE_AUTHORITY.sh                
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\10_MANIFEST.json                            
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\11_SHA256SUMS                               
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\P5_AUTONOMOUS_ALPHA_LAUNCH_RESUME_HANDOFF...
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\ceremony\owner_ceremony.py                  
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\ceremony\owner_ceremony_display_and_verif...
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\ceremony\P5_OWNER_CEREMONY_O1_O12_MACHINE...
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\ceremony\P5_ROOT_DELEGATION_FROZEN_TEMPLA...
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\ceremony\P5_ROOT_DELEGATION_FROZEN_TEMPLA...
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\lib\common.sh                               
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\proposals\P5_P3_H0_WAVE1_STATISTICAL_AUTH...
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\proposals\P5_P3_H0_WAVE1_STATISTICAL_AUTH...
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\proposals\P5_T1_STATISTICAL_AUTHORITY_PRO...
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\proposals\P5_T1_STATISTICAL_AUTHORITY_PRO...
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tcb\bundle                                  
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tcb\platform                                
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tcb\P5_AUTHORITY_DEPENDENCY_MANIFEST_V2.json
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tcb\P5_OWNER_PINNED_AUTHORITY_TCB_MANIFES...
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tcb\P5_TCB_BOUNDARY_V1.md                   
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tcb\bundle\app                              
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tcb\bundle\bin                              
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tcb\bundle\migrations                       
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tcb\bundle\quant                            
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tcb\bundle\systemd                          
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tcb\bundle\wheels                           
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tcb\bundle\P5_AMENDMENT_D_AUTONOMOUS_AUTH...
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tcb\bundle\app\p5_infra                     
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tcb\bundle\app\p5_infra\__pycache__         
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tcb\bundle\app\p5_infra\authority_runtime.py
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tcb\bundle\app\p5_infra\authority_schema_...
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tcb\bundle\app\p5_infra\authority_store.py  
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tcb\bundle\app\p5_infra\conditional_deleg...
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tcb\bundle\app\p5_infra\researchctl.py      
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tcb\bundle\app\p5_infra\researchctld.py     
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tcb\bundle\app\p5_infra\research_db.py      
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tcb\bundle\app\p5_infra\research_schema.sql 
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tcb\bundle\app\p5_infra\__init__.py         
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tcb\bundle\bin\researchctl                  
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tcb\bundle\bin\researchctld_entry.py        
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tcb\bundle\bin\researchctl_entry.py         
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tcb\bundle\migrations\P5_AUTHORITY_SCHEMA...
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tcb\bundle\quant\p5_track3                  
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tcb\bundle\quant\p5_track3\t1_wave1_evalu...
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tcb\bundle\systemd\10-p5-owner.conf         
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tcb\bundle\systemd\researchctld.service     
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tcb\bundle\wheels\apsw-3.53.4.0-cp312-cp3...
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tcb\platform\P5_PLATFORM_RUNTIME_MANIFEST...
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tests\functional_fixtures.sh                
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tests\test_static_invariants.py             
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tests\test_targeted_security_regressions.py 
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tools\__pycache__                           
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tools\build_tcb_manifest.py                 
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tools\capture_platform_tcb.py               
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tools\generate_package_identity.py          
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tools\generate_proposals_v6.py              
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tools\generate_root_template_v4.py          
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tools\sanitize_authorized_keys.py           
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tools\verify_package.py                     
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tools\verify_tcb.py                         
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tools\__pycache__\sanitize_authorized_key...
+
+
+
+2026-08-14T08:15:23.723306Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-14T08:15:40.800251Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-14T08:16:41.689865Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 203ms)... turn_id=019fff4f-7f32-7553-acc9-5c18369001e4 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+2026-08-14T08:23:52.778314Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 211ms)... turn_id=019fff4f-7f32-7553-acc9-5c18369001e4 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+2026-08-14T08:24:50.819032Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

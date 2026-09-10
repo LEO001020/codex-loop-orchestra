@@ -1,0 +1,53 @@
+I have all the evidence needed. Here is the complete, evidence-backed conclusion:
+
+---
+
+**复核结论：三条规则均正确实现，三类场景均有测试覆盖。**
+
+### 规则一：`deficit` 只由 `running` 清债，`initializing` 不清债
+
+**实现位置（`recompute`，约第460-465行）：**
+```python
+running = {p: counts[p]["running"] for p in POOLS}
+initializing = {p: counts[p]["initializing"] for p in POOLS}
+raw_debt = {p: (...  targets[p] - running[p] ...) ...}          # 仅用 running
+raw_spawn = {p: max(0, raw_debt[p] - initializing[p]) for p in POOLS}  # initializing 仅缩减 spawn
+```
+`raw_debt`（debt 可见值）只依赖 `running`；`initializing` 仅压缩本轮可生成数（`raw_spawn`），但 `unfulfilled_demand` / `deficit` 不减少。文档明确注释：**"Starting generations reserve a birth slot but do not clear the visible debt."**
+
+`_read_roster_state` 的 docstring 也明确："Only `running` counts as effective concurrency (v1 contract)"。exec_roster 中 `starting` 状态映射为 `initializing`，`running` 状态需同时验证 supervisor 和 worker 两个进程 generation，均满足才算 running。
+
+**测试覆盖：**
+- `test_initializing_births_never_clear_debt`（场景20）：3 个 `starting` exec job + 20 k3 pending → `unfulfilled_demand["k3"] > deficit["k3"]`，债务可见不减。✅
+- `test_parent_starting_reserves_birth_but_does_not_clear_debt`（场景29）：11 running + 9 starting，`parent["deficit"] == 9`，`parent["spawnable"]["total"] == 0`，原因 `parent_initializing`。✅
+
+---
+
+### 规则二：`pending` 上限约束 `raw_debt`（deficit 不超过 pending）
+
+**实现位置（第462行）：**
+```python
+raw_debt = {p: (max(min(pending[p], max(0, targets[p] - running[p])), parent_demand[p])
+                if required[p] else 0)
+            for p in POOLS}
+```
+`min(pending[p], ...)` 确保 debt 不超过实际待调度量。全局 `deficit_total = min(sum(raw_spawn.values()), capacity)`，再次 cap 到可用容量。
+
+**测试覆盖：**
+- `test_deficit_capped_by_pending`（场景11）：`queue_set(2, "k3")`，0 running，target=20 → `deficit["k3"] == 2`，绝不超发。✅
+
+---
+
+### 规则三：inactive 父会话的 backlog 归零，不贡献全局或 parent 债务
+
+**实现位置：**
+
+1. `queue_sync_ledger`（约第250行）：parent 包若 `active is not True` → `continue`，直接跳过，不计入全局 `ready[pool]`。
+2. `recompute` parent 循环（约第493行）：`parent_debt = (min(queued_total, ...) if active else 0)` — inactive 时强制为 0，并设 `parent_reason = "parent_inactive"`。
+
+**测试覆盖：**
+- `test_inactive_parent_backlog_is_not_global_or_parent_demand`（场景29 inactive 分支）：`active=False` + 20 pending → `state["pending"]["total"] == 0`，`parent["deficit"] == 0`，`parent["reason"] == "parent_inactive"`。✅
+
+---
+
+**总结：** 所有三条规则在源码中均有明确的机械实现，场景11（pending 上限）、场景20（initializing 不清债）、场景29（running 清债 + inactive 归零）均有直接对应的测试用例覆盖，逻辑自洽，无矛盾或遗漏。

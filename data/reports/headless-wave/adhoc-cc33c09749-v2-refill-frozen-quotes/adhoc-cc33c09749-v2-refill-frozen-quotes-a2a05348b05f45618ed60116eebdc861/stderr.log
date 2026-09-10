@@ -1,0 +1,47 @@
+Reading additional input from stdin...
+2026-08-15T07:17:03.462817Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-15T07:17:09.990555Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-15T07:17:17.182108Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T07:17:29.276553Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 3.9 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 73
++ ... "E:\VPS\P5_FAST_PATH_WORK\v2_classification_evidence" 2>&1 | head -60
++                                                                  ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-15T07:17:47.866548Z ERROR codex_core::tools::router: error=unsupported call: read
+2026-08-15T07:19:15.774930Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-15T07:21:04.075851Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 206ms)... turn_id=01a00448-03dc-7222-8be8-e0cf59e97230 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T07:21:50.050126Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 432ms)... turn_id=01a00448-03dc-7222-8be8-e0cf59e97230 retries=2 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T07:22:42.184543Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 776ms)... turn_id=01a00448-03dc-7222-8be8-e0cf59e97230 retries=3 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T07:23:35.531875Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.636s)... turn_id=01a00448-03dc-7222-8be8-e0cf59e97230 retries=4 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T07:24:29.325463Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 3.271s)... turn_id=01a00448-03dc-7222-8be8-e0cf59e97230 retries=5 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T07:25:31.777125Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

@@ -1,0 +1,109 @@
+Reading additional input from stdin...
+2026-08-14T14:13:13.129682Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T14:13:14.916183Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T14:13:42.179822Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 4.7 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 169
++ ... ml" --include="*.json" -l "k3|kimi.k3|weiwu.k3|K3" 2>$null | head -40
++                                                                  ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T14:13:58.948211Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 3.4 seconds
+Output:
+
+2026-08-14T14:14:14.502319Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.2 seconds
+Output:
+rg : rg: unrecognized flag --include
+所在位置 行:2 字符: 1
++ rg "k3|kimi-k3|weiwu-k3" "E:\codex-LOOP\codex-loop-s-f2" -l --include ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (rg: unrecognized flag --include:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+similar flags that are available: --include-zero
+
+2026-08-14T14:14:31.798741Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.3 seconds
+Output:
+E:\codex-LOOP\codex-loop-s-f2\backup-20260811-215927\tests\orchestration_v2\test_agent_router.py
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\metering\model_token_share_v2.py
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\hooks\sol_tool_gate_v2.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\hooks\sol_tool_gate_v2.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\test_layered_gate.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\test_token_meter_v2.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\test_smoke_all.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\test_layered_e2e.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\test_root_turn_governor.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\test_l2_consumer.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\test_result_reducer.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\test_sol_tool_gate_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\test_l2_consumer.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\test_short_result_validator.py
+E:\codex-LOOP\codex-loop-s-f2\tests\test_agent_router.py
+E:\codex-LOOP\codex-loop-s-f2\tests\test_dispatch_v2.py
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\harness\root_turn_governor.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\root_turn_governor.py
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\harness\refill_controller_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\test_budget_controller.py
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\harness\dispatch_v2.py
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\harness\orchestration_common.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\refill_controller_v2.py
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\harness\agent_router.py
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\harness\budget_controller.py
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\harness\layered_gate.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\orchestration_common.py
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\harness\l2_consumer.py
+E:\codex-LOOP\codex-loop-s-f2\tests\test_sol_tool_gate_v2.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\test_refill_controller_v2.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\layered_gate.py
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_headless_wave.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\l2_consumer.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\test_dispatch_v2.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\dispatch_v2.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\budget_controller.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\agent_router.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\test_budget_controller.py
+E:\codex-LOOP\codex-loop-s-f2\tests\test_token_meter_v2.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\test_agent_router.py
+
+2026-08-14T14:17:17.094510Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+
+2026-08-14T14:19:43.979951Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+rg : rg: E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\unit\test_release_review_route.py: IO error for operation 
+on E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\unit\test_release_review_route.py: 绯荤粺鎵句笉鍒版寚瀹氱殑璺緞
+銆?(os error 3)
+所在位置 行:2 字符: 1
++ rg "weiwu-k3/kimi-k3" "E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\ ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (rg: E:\codex-LO...緞銆?(os error 3):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+2026-08-14T14:20:35.268091Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

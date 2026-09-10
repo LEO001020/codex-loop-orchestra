@@ -1,0 +1,17 @@
+Reading additional input from stdin...
+2026-08-14T08:26:07.074976Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T08:26:17.171415Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-14T08:28:46.772864Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 200ms)... turn_id=019fff60-e1c0-76f2-94bc-5f49632d3b92 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+2026-08-14T08:32:22.385776Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 386ms)... turn_id=019fff60-e1c0-76f2-94bc-5f49632d3b92 retries=2 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+2026-08-14T08:36:28.103803Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 792ms)... turn_id=019fff60-e1c0-76f2-94bc-5f49632d3b92 retries=3 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+2026-08-14T08:38:57.430117Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.714s)... turn_id=019fff60-e1c0-76f2-94bc-5f49632d3b92 retries=4 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+2026-08-14T08:44:10.278836Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 3.438s)... turn_id=019fff60-e1c0-76f2-94bc-5f49632d3b92 retries=5 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T08:49:03.439265Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

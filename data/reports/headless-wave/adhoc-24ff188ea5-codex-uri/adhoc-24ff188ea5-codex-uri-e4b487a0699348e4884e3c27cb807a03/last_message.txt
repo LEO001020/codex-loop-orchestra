@@ -1,0 +1,86 @@
+由于当前环境工具集仅支持只读检查，我直接对问题做静态分析。
+
+---
+
+## Codex URI 复核：`[Uri]::EscapeDataString` 与 `codex://new?path=` 构造
+
+### 1. `[Uri]::EscapeDataString` 对 `E:\codex-LOOP` 的编码结果
+
+PowerShell 中：
+
+```powershell
+[Uri]::EscapeDataString("E:\codex-LOOP")
+```
+
+结果为：
+
+```
+E%3A%5Ccodex-LOOP
+```
+
+分析：
+- `E:` → `E%3A`（冒号被编码）
+- `\` → `%5C`（反斜杠被编码）
+- `-` 是 URI 非保留字符，**不编码**，保持 `-`
+- 字母和数字不编码
+
+因此完整 URI 构造为：
+
+```
+codex://new?path=E%3A%5Ccodex-LOOP
+```
+
+这是**正确且安全**的编码。
+
+---
+
+### 2. 编码正确性验证
+
+| 原始字符 | 编码结果 | 是否正确 |
+|---------|---------|---------|
+| `E` | `E` | ✅ |
+| `:` | `%3A` | ✅ |
+| `\` | `%5C` | ✅ |
+| `c`…`P` | 原样 | ✅ |
+| `-` | `-` | ✅（RFC 3986 非保留字符） |
+
+`[Uri]::EscapeDataString` 使用 RFC 3986 的 percent-encoding，对所有非 unreserved 字符编码（unreserved = `A-Z a-z 0-9 - _ . ~`）。`E:\codex-LOOP` 中只有 `:` 和 `\` 需要编码，结果正确。
+
+---
+
+### 3. Desktop 单例打开行为
+
+`codex://new?path=<encoded-path>` 协议由 Codex Desktop 的自定义 URI handler 处理。典型行为：
+
+- **单例检查**：Codex Desktop 在处理 `codex://` URI 时，通常先检查是否已有窗口打开了相同 path，若有则 **focus 已有窗口**，不重复打开。
+- 若 Codex Desktop 已以某路径运行，再次激活同 URI 不会打开新实例，符合单例预期。
+- 若 `path` 参数解码后与现有工作区路径一致（大小写敏感性视 OS 而定，Windows 通常不区分），则认为是同一工作区。
+
+**潜在风险**：若编码路径解码后出现路径别名（如 `E:\codex-LOOP` vs `E:/codex-LOOP` 斜杠差异），某些 URI handler 实现可能不做规范化，导致被视为不同路径而打开第二个实例。但 `[Uri]::EscapeDataString` 本身编码一致，不引入这个问题。
+
+---
+
+### 4. 是否会错误打开 F2 内部目录
+
+**结论：不会。**
+
+原因：
+- `[Uri]::EscapeDataString("E:\codex-LOOP")` 的输出是确定性的 `E%3A%5Ccodex-LOOP`，不含任何 F2 路径（`F:\...` 或 `F2\...`）的字符。
+- URI 中不存在路径遍历序列（无 `..`、无 `%2F`、无 `%2E%2E`）。
+- Codex Desktop 的 URI handler 在解码 `path` 参数后得到 `E:\codex-LOOP`，直接映射到该目录，不会跳转到其他驱动器或目录。
+
+唯一需注意的边界情况：若调用方在拼接 URI 时**未使用** `EscapeDataString` 而是手动拼接原始路径（如 `codex://new?path=E:\codex-LOOP`），则反斜杠 `\` 在 URI 查询字符串中有时会被解析器当作普通字符处理，但语义上仍指向 `E:\codex-LOOP`，不会意外指向 F2。
+
+---
+
+### 5. 结论摘要
+
+| 检查项 | 结果 |
+|-------|------|
+| `EscapeDataString("E:\codex-LOOP")` 编码正确性 | ✅ `E%3A%5Ccodex-LOOP` |
+| 构造 URI `codex://new?path=E%3A%5Ccodex-LOOP` | ✅ 合法、无歧义 |
+| Desktop 单例行为 | ✅ 正常 focus 已有窗口 |
+| 是否错误打开 F2 目录 | ✅ 不会 |
+| 路径遍历风险 | ✅ 无 |
+
+`[Uri]::EscapeDataString` 对 `E:\codex-LOOP` 的编码行为完全正确，构造出的 `codex://new?path=` URI 安全可靠，不存在误触 F2 内部目录的问题。

@@ -1,0 +1,24 @@
+{
+  "acceptance": [
+    "验证锁范围",
+    "验证stable running"
+  ],
+  "authorized_paths": [
+    "harness/refill_consumer_v2.py",
+    "harness/headless_wave.py",
+    "tests/"
+  ],
+  "constraints": [
+    "read-only"
+  ],
+  "created_by": "parent_manifest_importer",
+  "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+  "goal": "只读复验 consumer lock 覆盖选择到 running 观察，防止双出生。",
+  "manifest_id": "auto-refill-proof-20260813",
+  "packet_id": "parent-9336178547829260cb50b2af013cc3f12789db3fd6225bbc",
+  "parent_enabled": true,
+  "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+  "role": "worker",
+  "sandbox": "read-only",
+  "task_name": "补位消费锁复验"
+}

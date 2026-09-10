@@ -1,0 +1,93 @@
+# Managed Codex LOOP hooks.
+# Official Codex loads requirements.toml from system/MDM/cloud layers, not
+# from the user home copy. On Windows the install path is
+# %ProgramData%\OpenAI\Codex\requirements.toml (override:
+# CODEX_LOOP_REQUIREMENTS_TOML). A user-home copy is kept as a mirror only.
+# Do not set allow_managed_hooks_only: unrelated hooks must remain available.
+
+[features]
+hooks = true
+
+[hooks]
+managed_dir = "/home/codexloop/codex-loop-s-f2/hooks"
+windows_managed_dir = 'E:\codex-LOOP\codex-loop-s-f2\hooks'
+
+[[hooks.SessionStart]]
+matcher = "startup|resume|clear|compact"
+[[hooks.SessionStart.hooks]]
+type = "command"
+command = "python3 /home/codexloop/codex-loop-s-f2/hooks/global_loop_mode.py --component context --event SessionStart"
+command_windows = 'py -3 "E:\codex-LOOP\codex-loop-s-f2\hooks\global_loop_mode.py" --component context --event SessionStart'
+timeout = 30
+additionalContextLimit = 65536
+statusMessage = "Loading managed global LOOP discipline"
+[[hooks.SessionStart.hooks]]
+type = "command"
+command = "python3 /home/codexloop/codex-loop-s-f2/hooks/global_loop_mode.py --component lifecycle --event SessionStart"
+command_windows = 'py -3 "E:\codex-LOOP\codex-loop-s-f2\hooks\global_loop_mode.py" --component lifecycle --event SessionStart'
+timeout = 30
+statusMessage = "Reconciling managed LOOP lifecycle records"
+
+[[hooks.SubagentStart]]
+matcher = ".*"
+[[hooks.SubagentStart.hooks]]
+type = "command"
+command = "python3 /home/codexloop/codex-loop-s-f2/hooks/global_loop_mode.py --component context --event SubagentStart"
+command_windows = 'py -3 "E:\codex-LOOP\codex-loop-s-f2\hooks\global_loop_mode.py" --component context --event SubagentStart'
+timeout = 30
+additionalContextLimit = 65536
+statusMessage = "Routing child through managed LOOP profile"
+[[hooks.SubagentStart.hooks]]
+type = "command"
+command = "python3 /home/codexloop/codex-loop-s-f2/hooks/global_loop_mode.py --component lifecycle --event SubagentStart"
+command_windows = 'py -3 "E:\codex-LOOP\codex-loop-s-f2\hooks\global_loop_mode.py" --component lifecycle --event SubagentStart'
+timeout = 30
+statusMessage = "Recording managed LOOP child start"
+
+[[hooks.SubagentStop]]
+matcher = ".*"
+[[hooks.SubagentStop.hooks]]
+type = "command"
+command = "python3 /home/codexloop/codex-loop-s-f2/hooks/global_loop_mode.py --component lifecycle --event SubagentStop"
+command_windows = 'py -3 "E:\codex-LOOP\codex-loop-s-f2\hooks\global_loop_mode.py" --component lifecycle --event SubagentStop'
+timeout = 30
+statusMessage = "Recording managed LOOP child stop"
+
+[[hooks.PreToolUse]]
+matcher = "^(Bash|shell|shell_command|bash|local_shell|exec_command|functions\\.exec|run_terminal|terminal|web_search|search|grep|glob|mcp__|read_mcp_resource|list_mcp|read_many_files|read_file|list_files|pytest|test)"
+[[hooks.PreToolUse.hooks]]
+type = "command"
+command = "python3 /home/codexloop/codex-loop-s-f2/hooks/global_loop_mode.py --component gate"
+command_windows = 'py -3 "E:\codex-LOOP\codex-loop-s-f2\hooks\global_loop_mode.py" --component gate'
+timeout = 30
+statusMessage = "Applying managed global LOOP Sol gate"
+
+[[hooks.PreToolUse]]
+matcher = "^(Agent|spawnAgent|closeAgent)$|spawn_agent|close_agent|create_thread|fork_thread"
+[[hooks.PreToolUse.hooks]]
+type = "command"
+command = "python3 /home/codexloop/codex-loop-s-f2/hooks/global_loop_mode.py --component leaf-gate"
+command_windows = 'py -3 "E:\codex-LOOP\codex-loop-s-f2\hooks\global_loop_mode.py" --component leaf-gate'
+timeout = 10
+statusMessage = "Preventing recursive managed LOOP births"
+[[hooks.PreToolUse.hooks]]
+type = "command"
+command = "python3 /home/codexloop/codex-loop-s-f2/hooks/global_loop_mode.py --component spawn-gate"
+command_windows = 'py -3 "E:\codex-LOOP\codex-loop-s-f2\hooks\global_loop_mode.py" --component spawn-gate'
+timeout = 10
+statusMessage = "Validating managed LOOP root birth arguments"
+[[hooks.PreToolUse.hooks]]
+type = "command"
+command = "python3 /home/codexloop/codex-loop-s-f2/hooks/global_loop_mode.py --component lifecycle --event PreToolUse"
+command_windows = 'py -3 "E:\codex-LOOP\codex-loop-s-f2\hooks\global_loop_mode.py" --component lifecycle --event PreToolUse'
+timeout = 10
+statusMessage = "Recording managed LOOP spawn pending"
+
+[[hooks.Stop]]
+matcher = ".*"
+[[hooks.Stop.hooks]]
+type = "command"
+command = "python3 /home/codexloop/codex-loop-s-f2/hooks/global_loop_mode.py --component lifecycle --event Stop"
+command_windows = 'py -3 "E:\codex-LOOP\codex-loop-s-f2\hooks\global_loop_mode.py" --component lifecycle --event Stop'
+timeout = 30
+statusMessage = "Closing managed global LOOP lifecycle records"

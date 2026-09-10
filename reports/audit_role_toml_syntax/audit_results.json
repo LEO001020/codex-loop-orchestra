@@ -1,0 +1,666 @@
+{
+ "audit_time_utc": "2026-08-22T15:10:10.887748+00:00",
+ "files": [
+  {
+   "path": "E:\\codex-LOOP\\codex-loop-s-f2\\agents\\worker.toml",
+   "mtime_utc": "2026-08-22T15:08:18.740863+00:00",
+   "sha256": "c72bf53ac244be7d4f8e0773f34495c21a5c3d68cc03819b00efd9a4fe56f88e",
+   "parse": "ok",
+   "di_str_multiline": true,
+   "di_key_count": 1,
+   "di_span": [
+    30,
+    51
+   ],
+   "meta_lines": [
+    43,
+    44,
+    46,
+    48
+   ],
+   "meta_all_in_span": true,
+   "meta_in_comment_outside_span": [],
+   "tail_after_close": [],
+   "model_line": 12,
+   "effort_line": 13,
+   "name": "worker",
+   "model": "weiwu/deepseek-v4-flash",
+   "effort": "ultra",
+   "sandbox_mode": "workspace-write",
+   "pin_expected": [
+    "weiwu/deepseek-v4-flash",
+    "ultra"
+   ],
+   "pin_ok": true,
+   "all_checks_pass": true
+  },
+  {
+   "path": "E:\\codex-LOOP\\codex-loop-s-f2\\agents\\verifier.toml",
+   "mtime_utc": "2026-08-22T15:08:18.743864+00:00",
+   "sha256": "9c790573eb82fe2ee633f36c15a4b52480c1d966ec3c5b8ac82874a489f0d6fa",
+   "parse": "ok",
+   "di_str_multiline": true,
+   "di_key_count": 1,
+   "di_span": [
+    30,
+    52
+   ],
+   "meta_lines": [
+    44,
+    45,
+    47,
+    49
+   ],
+   "meta_all_in_span": true,
+   "meta_in_comment_outside_span": [],
+   "tail_after_close": [],
+   "model_line": 12,
+   "effort_line": 13,
+   "name": "verifier",
+   "model": "weiwu/deepseek-v4-pro",
+   "effort": "ultra",
+   "sandbox_mode": "read-only",
+   "pin_expected": [
+    "weiwu/deepseek-v4-pro",
+    "ultra"
+   ],
+   "pin_ok": true,
+   "all_checks_pass": true
+  },
+  {
+   "path": "E:\\codex-LOOP\\codex-loop-s-f2\\agents\\reviewer.toml",
+   "mtime_utc": "2026-08-22T15:08:18.742862+00:00",
+   "sha256": "7cdec7985b44a9b45ef981aeb3b95eb3fd0b1633094e1c66e6b23530192e2186",
+   "parse": "ok",
+   "di_str_multiline": true,
+   "di_key_count": 1,
+   "di_span": [
+    31,
+    53
+   ],
+   "meta_lines": [
+    45,
+    46,
+    48,
+    50
+   ],
+   "meta_all_in_span": true,
+   "meta_in_comment_outside_span": [],
+   "tail_after_close": [],
+   "model_line": 13,
+   "effort_line": 14,
+   "name": "reviewer",
+   "model": "weiwu/deepseek-v4-pro",
+   "effort": "ultra",
+   "sandbox_mode": "read-only",
+   "pin_expected": [
+    "weiwu/deepseek-v4-pro",
+    "ultra"
+   ],
+   "pin_ok": true,
+   "all_checks_pass": true
+  },
+  {
+   "path": "E:\\codex-LOOP\\codex-loop-s-f2\\agents\\plan_expander.toml",
+   "mtime_utc": "2026-08-22T15:08:18.744862+00:00",
+   "sha256": "c49b8202bc646b51336f8b24efdd0317e7eab1654556d86b8e94973089c0f321",
+   "parse": "ok",
+   "di_str_multiline": true,
+   "di_key_count": 1,
+   "di_span": [
+    9,
+    30
+   ],
+   "meta_lines": [
+    22,
+    23,
+    25,
+    27
+   ],
+   "meta_all_in_span": true,
+   "meta_in_comment_outside_span": [],
+   "tail_after_close": [],
+   "model_line": 3,
+   "effort_line": 4,
+   "name": "plan_expander",
+   "model": "weiwu/deepseek-v4-pro",
+   "effort": "ultra",
+   "sandbox_mode": "read-only",
+   "pin_expected": [
+    "weiwu/deepseek-v4-pro",
+    "ultra"
+   ],
+   "pin_ok": true,
+   "all_checks_pass": true
+  },
+  {
+   "path": "E:\\codex-LOOP\\codex-loop-s-f2\\agents\\duty_officer.toml",
+   "mtime_utc": "2026-08-22T15:08:18.741865+00:00",
+   "sha256": "c609517c819273bbef3949b0b650c68ec1e47049f3dbe0fe0bd0669810f21e8e",
+   "parse": "ok",
+   "di_str_multiline": true,
+   "di_key_count": 1,
+   "di_span": [
+    33,
+    56
+   ],
+   "meta_lines": [
+    48,
+    49,
+    51,
+    53
+   ],
+   "meta_all_in_span": true,
+   "meta_in_comment_outside_span": [],
+   "tail_after_close": [],
+   "model_line": 15,
+   "effort_line": 16,
+   "name": "duty_officer",
+   "model": "weiwu/deepseek-v4-flash",
+   "effort": "ultra",
+   "sandbox_mode": "read-only",
+   "pin_expected": [
+    "weiwu/deepseek-v4-flash",
+    "ultra"
+   ],
+   "pin_ok": true,
+   "all_checks_pass": true
+  },
+  {
+   "path": "C:\\Users\\hzq00\\.codex\\agents\\worker.toml",
+   "mtime_utc": "2026-08-22T15:08:18.751409+00:00",
+   "sha256": "c72bf53ac244be7d4f8e0773f34495c21a5c3d68cc03819b00efd9a4fe56f88e",
+   "parse": "ok",
+   "di_str_multiline": true,
+   "di_key_count": 1,
+   "di_span": [
+    30,
+    51
+   ],
+   "meta_lines": [
+    43,
+    44,
+    46,
+    48
+   ],
+   "meta_all_in_span": true,
+   "meta_in_comment_outside_span": [],
+   "tail_after_close": [],
+   "model_line": 12,
+   "effort_line": 13,
+   "name": "worker",
+   "model": "weiwu/deepseek-v4-flash",
+   "effort": "ultra",
+   "sandbox_mode": "workspace-write",
+   "pin_expected": [
+    "weiwu/deepseek-v4-flash",
+    "ultra"
+   ],
+   "pin_ok": true,
+   "all_checks_pass": true
+  },
+  {
+   "path": "C:\\Users\\hzq00\\.codex\\agents\\verifier.toml",
+   "mtime_utc": "2026-08-22T15:08:18.756958+00:00",
+   "sha256": "9c790573eb82fe2ee633f36c15a4b52480c1d966ec3c5b8ac82874a489f0d6fa",
+   "parse": "ok",
+   "di_str_multiline": true,
+   "di_key_count": 1,
+   "di_span": [
+    30,
+    52
+   ],
+   "meta_lines": [
+    44,
+    45,
+    47,
+    49
+   ],
+   "meta_all_in_span": true,
+   "meta_in_comment_outside_span": [],
+   "tail_after_close": [],
+   "model_line": 12,
+   "effort_line": 13,
+   "name": "verifier",
+   "model": "weiwu/deepseek-v4-pro",
+   "effort": "ultra",
+   "sandbox_mode": "read-only",
+   "pin_expected": [
+    "weiwu/deepseek-v4-pro",
+    "ultra"
+   ],
+   "pin_ok": true,
+   "all_checks_pass": true
+  },
+  {
+   "path": "C:\\Users\\hzq00\\.codex\\agents\\reviewer.toml",
+   "mtime_utc": "2026-08-22T15:08:18.755409+00:00",
+   "sha256": "7cdec7985b44a9b45ef981aeb3b95eb3fd0b1633094e1c66e6b23530192e2186",
+   "parse": "ok",
+   "di_str_multiline": true,
+   "di_key_count": 1,
+   "di_span": [
+    31,
+    53
+   ],
+   "meta_lines": [
+    45,
+    46,
+    48,
+    50
+   ],
+   "meta_all_in_span": true,
+   "meta_in_comment_outside_span": [],
+   "tail_after_close": [],
+   "model_line": 13,
+   "effort_line": 14,
+   "name": "reviewer",
+   "model": "weiwu/deepseek-v4-pro",
+   "effort": "ultra",
+   "sandbox_mode": "read-only",
+   "pin_expected": [
+    "weiwu/deepseek-v4-pro",
+    "ultra"
+   ],
+   "pin_ok": true,
+   "all_checks_pass": true
+  },
+  {
+   "path": "C:\\Users\\hzq00\\.codex\\agents\\plan_expander.toml",
+   "mtime_utc": "2026-08-22T15:08:18.759202+00:00",
+   "sha256": "c49b8202bc646b51336f8b24efdd0317e7eab1654556d86b8e94973089c0f321",
+   "parse": "ok",
+   "di_str_multiline": true,
+   "di_key_count": 1,
+   "di_span": [
+    9,
+    30
+   ],
+   "meta_lines": [
+    22,
+    23,
+    25,
+    27
+   ],
+   "meta_all_in_span": true,
+   "meta_in_comment_outside_span": [],
+   "tail_after_close": [],
+   "model_line": 3,
+   "effort_line": 4,
+   "name": "plan_expander",
+   "model": "weiwu/deepseek-v4-pro",
+   "effort": "ultra",
+   "sandbox_mode": "read-only",
+   "pin_expected": [
+    "weiwu/deepseek-v4-pro",
+    "ultra"
+   ],
+   "pin_ok": true,
+   "all_checks_pass": true
+  },
+  {
+   "path": "C:\\Users\\hzq00\\.codex\\agents\\duty_officer.toml",
+   "mtime_utc": "2026-08-22T15:08:18.754409+00:00",
+   "sha256": "c609517c819273bbef3949b0b650c68ec1e47049f3dbe0fe0bd0669810f21e8e",
+   "parse": "ok",
+   "di_str_multiline": true,
+   "di_key_count": 1,
+   "di_span": [
+    33,
+    56
+   ],
+   "meta_lines": [
+    48,
+    49,
+    51,
+    53
+   ],
+   "meta_all_in_span": true,
+   "meta_in_comment_outside_span": [],
+   "tail_after_close": [],
+   "model_line": 15,
+   "effort_line": 16,
+   "name": "duty_officer",
+   "model": "weiwu/deepseek-v4-flash",
+   "effort": "ultra",
+   "sandbox_mode": "read-only",
+   "pin_expected": [
+    "weiwu/deepseek-v4-flash",
+    "ultra"
+   ],
+   "pin_ok": true,
+   "all_checks_pass": true
+  },
+  {
+   "path": "\\\\wsl.localhost\\Ubuntu\\home\\codexloop\\codex-loop-s-f2\\agents\\worker.toml",
+   "mtime_utc": "2026-08-22T15:08:18.781554+00:00",
+   "sha256": "c72bf53ac244be7d4f8e0773f34495c21a5c3d68cc03819b00efd9a4fe56f88e",
+   "parse": "ok",
+   "di_str_multiline": true,
+   "di_key_count": 1,
+   "di_span": [
+    30,
+    51
+   ],
+   "meta_lines": [
+    43,
+    44,
+    46,
+    48
+   ],
+   "meta_all_in_span": true,
+   "meta_in_comment_outside_span": [],
+   "tail_after_close": [],
+   "model_line": 12,
+   "effort_line": 13,
+   "name": "worker",
+   "model": "weiwu/deepseek-v4-flash",
+   "effort": "ultra",
+   "sandbox_mode": "workspace-write",
+   "pin_expected": [
+    "weiwu/deepseek-v4-flash",
+    "ultra"
+   ],
+   "pin_ok": true,
+   "all_checks_pass": true
+  },
+  {
+   "path": "\\\\wsl.localhost\\Ubuntu\\home\\codexloop\\codex-loop-s-f2\\agents\\verifier.toml",
+   "mtime_utc": "2026-08-22T15:08:18.802441+00:00",
+   "sha256": "9c790573eb82fe2ee633f36c15a4b52480c1d966ec3c5b8ac82874a489f0d6fa",
+   "parse": "ok",
+   "di_str_multiline": true,
+   "di_key_count": 1,
+   "di_span": [
+    30,
+    52
+   ],
+   "meta_lines": [
+    44,
+    45,
+    47,
+    49
+   ],
+   "meta_all_in_span": true,
+   "meta_in_comment_outside_span": [],
+   "tail_after_close": [],
+   "model_line": 12,
+   "effort_line": 13,
+   "name": "verifier",
+   "model": "weiwu/deepseek-v4-pro",
+   "effort": "ultra",
+   "sandbox_mode": "read-only",
+   "pin_expected": [
+    "weiwu/deepseek-v4-pro",
+    "ultra"
+   ],
+   "pin_ok": true,
+   "all_checks_pass": true
+  },
+  {
+   "path": "\\\\wsl.localhost\\Ubuntu\\home\\codexloop\\codex-loop-s-f2\\agents\\reviewer.toml",
+   "mtime_utc": "2026-08-22T15:08:18.796077+00:00",
+   "sha256": "7cdec7985b44a9b45ef981aeb3b95eb3fd0b1633094e1c66e6b23530192e2186",
+   "parse": "ok",
+   "di_str_multiline": true,
+   "di_key_count": 1,
+   "di_span": [
+    31,
+    53
+   ],
+   "meta_lines": [
+    45,
+    46,
+    48,
+    50
+   ],
+   "meta_all_in_span": true,
+   "meta_in_comment_outside_span": [],
+   "tail_after_close": [],
+   "model_line": 13,
+   "effort_line": 14,
+   "name": "reviewer",
+   "model": "weiwu/deepseek-v4-pro",
+   "effort": "ultra",
+   "sandbox_mode": "read-only",
+   "pin_expected": [
+    "weiwu/deepseek-v4-pro",
+    "ultra"
+   ],
+   "pin_ok": true,
+   "all_checks_pass": true
+  },
+  {
+   "path": "\\\\wsl.localhost\\Ubuntu\\home\\codexloop\\codex-loop-s-f2\\agents\\plan_expander.toml",
+   "mtime_utc": "2026-08-22T15:08:18.809285+00:00",
+   "sha256": "c49b8202bc646b51336f8b24efdd0317e7eab1654556d86b8e94973089c0f321",
+   "parse": "ok",
+   "di_str_multiline": true,
+   "di_key_count": 1,
+   "di_span": [
+    9,
+    30
+   ],
+   "meta_lines": [
+    22,
+    23,
+    25,
+    27
+   ],
+   "meta_all_in_span": true,
+   "meta_in_comment_outside_span": [],
+   "tail_after_close": [],
+   "model_line": 3,
+   "effort_line": 4,
+   "name": "plan_expander",
+   "model": "weiwu/deepseek-v4-pro",
+   "effort": "ultra",
+   "sandbox_mode": "read-only",
+   "pin_expected": [
+    "weiwu/deepseek-v4-pro",
+    "ultra"
+   ],
+   "pin_ok": true,
+   "all_checks_pass": true
+  },
+  {
+   "path": "\\\\wsl.localhost\\Ubuntu\\home\\codexloop\\codex-loop-s-f2\\agents\\duty_officer.toml",
+   "mtime_utc": "2026-08-22T15:08:18.789011+00:00",
+   "sha256": "c609517c819273bbef3949b0b650c68ec1e47049f3dbe0fe0bd0669810f21e8e",
+   "parse": "ok",
+   "di_str_multiline": true,
+   "di_key_count": 1,
+   "di_span": [
+    33,
+    56
+   ],
+   "meta_lines": [
+    48,
+    49,
+    51,
+    53
+   ],
+   "meta_all_in_span": true,
+   "meta_in_comment_outside_span": [],
+   "tail_after_close": [],
+   "model_line": 15,
+   "effort_line": 16,
+   "name": "duty_officer",
+   "model": "weiwu/deepseek-v4-flash",
+   "effort": "ultra",
+   "sandbox_mode": "read-only",
+   "pin_expected": [
+    "weiwu/deepseek-v4-flash",
+    "ultra"
+   ],
+   "pin_ok": true,
+   "all_checks_pass": true
+  },
+  {
+   "path": "\\\\wsl.localhost\\Ubuntu\\home\\codexloop\\.codex\\agents\\worker.toml",
+   "mtime_utc": "2026-08-22T15:08:18.843188+00:00",
+   "sha256": "c72bf53ac244be7d4f8e0773f34495c21a5c3d68cc03819b00efd9a4fe56f88e",
+   "parse": "ok",
+   "di_str_multiline": true,
+   "di_key_count": 1,
+   "di_span": [
+    30,
+    51
+   ],
+   "meta_lines": [
+    43,
+    44,
+    46,
+    48
+   ],
+   "meta_all_in_span": true,
+   "meta_in_comment_outside_span": [],
+   "tail_after_close": [],
+   "model_line": 12,
+   "effort_line": 13,
+   "name": "worker",
+   "model": "weiwu/deepseek-v4-flash",
+   "effort": "ultra",
+   "sandbox_mode": "workspace-write",
+   "pin_expected": [
+    "weiwu/deepseek-v4-flash",
+    "ultra"
+   ],
+   "pin_ok": true,
+   "all_checks_pass": true
+  },
+  {
+   "path": "\\\\wsl.localhost\\Ubuntu\\home\\codexloop\\.codex\\agents\\verifier.toml",
+   "mtime_utc": "2026-08-22T15:08:18.867071+00:00",
+   "sha256": "9c790573eb82fe2ee633f36c15a4b52480c1d966ec3c5b8ac82874a489f0d6fa",
+   "parse": "ok",
+   "di_str_multiline": true,
+   "di_key_count": 1,
+   "di_span": [
+    30,
+    52
+   ],
+   "meta_lines": [
+    44,
+    45,
+    47,
+    49
+   ],
+   "meta_all_in_span": true,
+   "meta_in_comment_outside_span": [],
+   "tail_after_close": [],
+   "model_line": 12,
+   "effort_line": 13,
+   "name": "verifier",
+   "model": "weiwu/deepseek-v4-pro",
+   "effort": "ultra",
+   "sandbox_mode": "read-only",
+   "pin_expected": [
+    "weiwu/deepseek-v4-pro",
+    "ultra"
+   ],
+   "pin_ok": true,
+   "all_checks_pass": true
+  },
+  {
+   "path": "\\\\wsl.localhost\\Ubuntu\\home\\codexloop\\.codex\\agents\\reviewer.toml",
+   "mtime_utc": "2026-08-22T15:08:18.858500+00:00",
+   "sha256": "7cdec7985b44a9b45ef981aeb3b95eb3fd0b1633094e1c66e6b23530192e2186",
+   "parse": "ok",
+   "di_str_multiline": true,
+   "di_key_count": 1,
+   "di_span": [
+    31,
+    53
+   ],
+   "meta_lines": [
+    45,
+    46,
+    48,
+    50
+   ],
+   "meta_all_in_span": true,
+   "meta_in_comment_outside_span": [],
+   "tail_after_close": [],
+   "model_line": 13,
+   "effort_line": 14,
+   "name": "reviewer",
+   "model": "weiwu/deepseek-v4-pro",
+   "effort": "ultra",
+   "sandbox_mode": "read-only",
+   "pin_expected": [
+    "weiwu/deepseek-v4-pro",
+    "ultra"
+   ],
+   "pin_ok": true,
+   "all_checks_pass": true
+  },
+  {
+   "path": "\\\\wsl.localhost\\Ubuntu\\home\\codexloop\\.codex\\agents\\plan_expander.toml",
+   "mtime_utc": "2026-08-22T15:08:18.876777+00:00",
+   "sha256": "c49b8202bc646b51336f8b24efdd0317e7eab1654556d86b8e94973089c0f321",
+   "parse": "ok",
+   "di_str_multiline": true,
+   "di_key_count": 1,
+   "di_span": [
+    9,
+    30
+   ],
+   "meta_lines": [
+    22,
+    23,
+    25,
+    27
+   ],
+   "meta_all_in_span": true,
+   "meta_in_comment_outside_span": [],
+   "tail_after_close": [],
+   "model_line": 3,
+   "effort_line": 4,
+   "name": "plan_expander",
+   "model": "weiwu/deepseek-v4-pro",
+   "effort": "ultra",
+   "sandbox_mode": "read-only",
+   "pin_expected": [
+    "weiwu/deepseek-v4-pro",
+    "ultra"
+   ],
+   "pin_ok": true,
+   "all_checks_pass": true
+  },
+  {
+   "path": "\\\\wsl.localhost\\Ubuntu\\home\\codexloop\\.codex\\agents\\duty_officer.toml",
+   "mtime_utc": "2026-08-22T15:08:18.849662+00:00",
+   "sha256": "c609517c819273bbef3949b0b650c68ec1e47049f3dbe0fe0bd0669810f21e8e",
+   "parse": "ok",
+   "di_str_multiline": true,
+   "di_key_count": 1,
+   "di_span": [
+    33,
+    56
+   ],
+   "meta_lines": [
+    48,
+    49,
+    51,
+    53
+   ],
+   "meta_all_in_span": true,
+   "meta_in_comment_outside_span": [],
+   "tail_after_close": [],
+   "model_line": 15,
+   "effort_line": 16,
+   "name": "duty_officer",
+   "model": "weiwu/deepseek-v4-flash",
+   "effort": "ultra",
+   "sandbox_mode": "read-only",
+   "pin_expected": [
+    "weiwu/deepseek-v4-flash",
+    "ultra"
+   ],
+   "pin_ok": true,
+   "all_checks_pass": true
+  }
+ ],
+ "all_files_pass": true
+}

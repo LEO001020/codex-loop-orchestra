@@ -1,0 +1,274 @@
+{
+  "probe_id": "P-SQL2",
+  "question": "authority placement (VOL-07 §2): do all processes that touch S (ZCode app, zloop CLI, zloop-hook, future supervisor) run on one host with a local-FS data root?",
+  "executed_at": "2026-09-02T12:07:38.515235+00:00",
+  "status": {
+    "s1_host_identity": "PASS",
+    "s2_process_inventory": "PASS",
+    "s3_drive_mappings": "PASS",
+    "s4_data_root_locality": "PASS",
+    "overall": "PASS"
+  },
+  "environment": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "host": "DESKTOP-3L9C649",
+    "python": "3.14.3",
+    "cwd": "E:\\zcode\\zloop-gen8",
+    "wrote_anything_outside_artifact": false
+  },
+  "results": {
+    "s1_host_identity": {
+      "question": "which host/OS do the S-touching processes actually run on? (expect: one Windows host, no WSL/Remote markers)",
+      "hostname": "DESKTOP-3L9C649",
+      "hostname_env_computername": "DESKTOP-3L9C649",
+      "hostname_env_match": true,
+      "userdomain_env": "DESKTOP-3L9C649",
+      "whoami": "desktop-3l9c649\\hzq00",
+      "os": {
+        "system": "Windows",
+        "release": "11",
+        "version": "10.0.26200",
+        "machine": "AMD64"
+      },
+      "python": "3.14.3",
+      "cwd": "E:\\zcode\\zloop-gen8",
+      "wsl_indicators": {},
+      "sessionname_env": "Console",
+      "zcode_env": {
+        "ZCODE_APP_VERSION": "3.10.2",
+        "ZCODE_BASE_URL": "https://zcode.z.ai",
+        "ZCODE_BUILD_COMMIT_ID": "35824adf",
+        "ZCODE_CUA_GRAY_ENABLED": "1",
+        "ZCODE_DESKTOP_CONTEXT_PROMPT_ENABLED": "1",
+        "ZCODE_ENV": "production",
+        "ZCODE_PROCESS_LABEL": "local-1",
+        "ZCODE_RG_BINARY": "E:\\Program Files\\ZCode\\resources\\tools\\ripgrep\\rg.exe",
+        "ZCODE_RUNTIME_ENV": "production",
+        "ZCODE_UGREP_BINARY": "E:\\Program Files\\ZCode\\resources\\tools\\ugrep\\ugrep.exe",
+        "ZCODE_WINDOWS_APP_INSTALL_DIR": "E:\\Program Files\\ZCode"
+      },
+      "zloop_data_env": null,
+      "note": "SESSIONNAME=RDP-Tcp#x would mean an RDP session — still the same Windows host, but Remote-SSH/WSL style split of hook vs supervisor would violate VOL-07 §2"
+    },
+    "s2_process_inventory": {
+      "question": "enumerate every process/host that will touch S and verify they share one host",
+      "process_inventory": [
+        {
+          "process": "ZCode desktop app (UI + Bash tool + hook spawner)",
+          "host": "DESKTOP-3L9C649",
+          "evidence": {
+            "zcode_process_in_probe_ancestry": true,
+            "zcode_processes_running": [
+              {
+                "image": "ZCode.exe",
+                "line": "\"ZCode.exe\",\"27456\",\"Console\",\"1\",\"243,788 K\""
+              },
+              {
+                "image": "ZCode.exe",
+                "line": "\"ZCode.exe\",\"22300\",\"Console\",\"1\",\"37,124 K\""
+              },
+              {
+                "image": "ZCode.exe",
+                "line": "\"ZCode.exe\",\"24640\",\"Console\",\"1\",\"174,512 K\""
+              },
+              {
+                "image": "ZCode.exe",
+                "line": "\"ZCode.exe\",\"16576\",\"Console\",\"1\",\"55,884 K\""
+              },
+              {
+                "image": "ZCode.exe",
+                "line": "\"ZCode.exe\",\"12740\",\"Console\",\"1\",\"60,292 K\""
+              },
+              {
+                "image": "ZCode.exe",
+                "line": "\"ZCode.exe\",\"16648\",\"Console\",\"1\",\"412,440 K\""
+              },
+              {
+                "image": "ZCode.exe",
+                "line": "\"ZCode.exe\",\"24148\",\"Console\",\"1\",\"164,332 K\""
+              },
+              {
+                "image": "ZCode.exe",
+                "line": "\"ZCode.exe\",\"9144\",\"Console\",\"1\",\"90,616 K\""
+              }
+            ],
+            "zcode_install_dir_env": "E:\\Program Files\\ZCode"
+          }
+        },
+        {
+          "process": "zloop CLI (child of ZCode Bash tool)",
+          "host": "DESKTOP-3L9C649",
+          "evidence": {
+            "note": "this probe itself is exactly that spawn path; its ancestor chain is recorded below",
+            "ancestor_chain": [
+              {
+                "procid": 47892,
+                "ppid": 47200,
+                "name": "python.exe",
+                "exe": "C:\\Users\\hzq00\\AppData\\Local\\Programs\\Python\\Python314\\python.exe"
+              },
+              {
+                "procid": 47200,
+                "ppid": 31020,
+                "name": "python.exe",
+                "exe": "E:\\zcode\\zloop-gen8\\.venv\\Scripts\\python.exe"
+              },
+              {
+                "procid": 31020,
+                "ppid": 45092,
+                "name": "bash.exe",
+                "exe": "C:\\Program Files\\Git\\bin\\..\\usr\\bin\\bash.exe"
+              },
+              {
+                "procid": 45092,
+                "ppid": 43152,
+                "name": "bash.exe",
+                "exe": "C:\\Program Files\\Git\\bin\\..\\usr\\bin\\bash.exe"
+              },
+              {
+                "procid": 43152,
+                "ppid": 4280,
+                "name": "bash.exe",
+                "exe": "C:\\Program Files\\Git\\bin\\bash.exe"
+              },
+              {
+                "procid": 4280,
+                "ppid": 24148,
+                "name": "ZCode.exe",
+                "exe": "E:\\Program Files\\ZCode\\ZCode.exe"
+              },
+              {
+                "procid": 24148,
+                "ppid": 27456,
+                "name": "ZCode.exe",
+                "exe": "E:\\Program Files\\ZCode\\ZCode.exe"
+              },
+              {
+                "procid": 27456,
+                "ppid": 10660,
+                "name": "ZCode.exe",
+                "exe": "E:\\Program Files\\ZCode\\ZCode.exe"
+              },
+              {
+                "procid": 10660,
+                "ppid": 10340,
+                "name": "explorer.exe",
+                "exe": "C:\\WINDOWS\\Explorer.EXE"
+              }
+            ]
+          }
+        },
+        {
+          "process": "zloop-hook (spawned by ZCode on hook events)",
+          "host": "DESKTOP-3L9C649",
+          "evidence": {
+            "note": "hooks are local child processes of the ZCode app on this host; user-level registration surface:",
+            "zcode_home_exists": true,
+            "zcode_home_top_level": [
+              "cli",
+              "plugin-workspace",
+              "tmp",
+              "v2",
+              "workspace"
+            ]
+          }
+        },
+        {
+          "process": "supervisor / wave-runner (future)",
+          "host": "DESKTOP-3L9C649",
+          "evidence": {
+            "note": "not yet implemented; VOL-07 §2 mandates it runs on the same host as the hooks (or the feature degrades); never a different host while sharing S"
+          }
+        }
+      ],
+      "ancestor_chain_raw": "[{\"procid\":47892,\"ppid\":47200,\"name\":\"python.exe\",\"exe\":\"C:\\\\Users\\\\hzq00\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python314\\\\python.exe\"},{\"procid\":47200,\"ppid\":31020,\"name\":\"python.exe\",\"exe\":\"E:\\\\zcode\\\\zloop-gen8\\\\.venv\\\\Scripts\\\\python.exe\"},{\"procid\":31020,\"ppid\":45092,\"name\":\"bash.exe\",\"exe\":\"C:\\\\Program Files\\\\Git\\\\bin\\\\..\\\\usr\\\\bin\\\\bash.exe\"},{\"procid\":45092,\"ppid\":43152,\"name\":\"bash.exe\",\"exe\":\"C:\\\\Program Files\\\\Git\\\\bin\\\\..\\\\usr\\\\bin\\\\bash.exe\"},{\"procid\":43152,\"ppid\":4280,\"name\":\"bash.exe\",\"exe\":\"C:\\\\Program Files\\\\Git\\\\bin\\\\bash.exe\"},{\"procid\":4280,\"ppid\":24148,\"name\":\"ZCode.exe\",\"exe\":\"E:\\\\Program Files\\\\ZCode\\\\ZCode.exe\"},{\"procid\":24148,\"ppid\":27456,\"name\":\"ZCode.exe\",\"exe\":\"E:\\\\Program Files\\\\ZCode\\\\ZCode.exe\"},{\"procid\":27456,\"ppid\":10660,\"name\":\"ZCode.exe\",\"exe\":\"E:\\\\Program Files\\\\ZCode\\\\ZCode.exe\"},{\"procid\":10660,\"ppid\":10340,\"name\":\"explorer.exe\",\"exe\":\"C:\\\\WINDOWS\\\\Explorer.EXE\"}]",
+      "zcode_in_ancestry": true
+    },
+    "s3_drive_mappings": {
+      "question": "are there network drive mappings or drive substitutions that could violate the single-host/local-FS rule for S?",
+      "net_use": {
+        "rc": 0,
+        "output": "会记录新的网络连接。\r\n\r\n列表是空的。",
+        "error": ""
+      },
+      "subst": {
+        "rc": 0,
+        "output": "",
+        "error": ""
+      },
+      "mapped_drives_parsed": [],
+      "drive_substitutions_parsed": [],
+      "logical_disks": [
+        {
+          "DeviceID": "C:",
+          "DriveType": 3,
+          "ProviderName": null,
+          "VolumeName": "系统",
+          "drive_type_name": "local_disk"
+        },
+        {
+          "DeviceID": "D:",
+          "DriveType": 3,
+          "ProviderName": null,
+          "VolumeName": "文档",
+          "drive_type_name": "local_disk"
+        },
+        {
+          "DeviceID": "E:",
+          "DriveType": 3,
+          "ProviderName": null,
+          "VolumeName": "数据",
+          "drive_type_name": "local_disk"
+        },
+        {
+          "DeviceID": "G:",
+          "DriveType": 3,
+          "ProviderName": null,
+          "VolumeName": "软件",
+          "drive_type_name": "local_disk"
+        }
+      ],
+      "network_disks": []
+    },
+    "s4_data_root_locality": {
+      "question": "does the data root default (~/.zloop) resolve to a local (non-network, non-synced) filesystem path?",
+      "home": "C:\\Users\\hzq00",
+      "home_drive": "C:",
+      "home_drive_type": {
+        "code": 3,
+        "name": "local_disk"
+      },
+      "home_on_network_drive": false,
+      "psdrive_of_home": {
+        "Name": "C",
+        "DisplayRoot": null,
+        "CurrentLocation": ""
+      },
+      "zloop_data_env": null,
+      "default_data_root": "C:\\Users\\hzq00\\.zloop",
+      "default_data_root_exists": true,
+      "default_data_root_top_level": [
+        "hygiene-backup"
+      ],
+      "onedrive_env": "C:\\Users\\hzq00\\OneDrive",
+      "home_under_onedrive": false,
+      "note": "DriveType 3 = local disk, 4 = network drive; PSDrive.DisplayRoot non-null would also indicate a network mapping"
+    }
+  },
+  "fallback_triggered": null,
+  "conclusion": {
+    "single_authority_host": "YES",
+    "host": "DESKTOP-3L9C649",
+    "same_host_processes": [
+      "ZCode desktop app (UI + Bash tool + hook spawner)",
+      "zloop CLI (child of ZCode Bash tool)",
+      "zloop-hook (spawned by ZCode on hook events)",
+      "supervisor / wave-runner (future)"
+    ],
+    "data_root_local": true,
+    "all_processes_share_host": true,
+    "risks": [
+      "ZCode Remote or WSL usage would split the hook host from the supervisor host — must follow VOL-07 §2 (move the supervisor to the hook host or degrade features); never move S to a network FS"
+    ]
+  }
+}

@@ -1,0 +1,240 @@
+Reading additional input from stdin...
+2026-08-14T20:18:47.002743Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T20:18:47.853840Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T20:18:49.553336Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-14T20:18:58.870122Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.4 seconds
+Output:
+所在位置 行:2 字符: 32
++ cd G:\VPS-K3\extracted\k3\repo && rg --files | head -60
++                                ~~
+标记“&&”不是此版本中的有效语句分隔符。
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : InvalidEndOfLine
+ 
+
+2026-08-14T20:19:09.279727Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+tsconfig.json
+tsconfig.base.json
+g2_data_plan.md
+README.md
+eng2_architecture.md
+eng1_architecture.md
+p4_search_log.jsonl
+tools\paper_trading_daemon.py
+tools\p4_e2e_check.py
+tools\p4_audit_self_check.py
+tools\k3_to_lean.py
+tools\k3-paper-trading.service
+tools\k3-cryptofeed.service
+tools\infra_check.py
+tools\g2_universe_select.py
+tools\g2_universe.json
+tools\g10_run_all_targets.sh
+tools\data_smoke.py
+tools\cryptofeed_to_hftbt.py
+tools\cryptofeed_collector.py
+tools\catalog_manager.py
+tools\binance_backfill.py
+test.sh
+reviews\review_validation.md
+reviews\review_strategy.md
+reviews\review_risk.md
+reviews\review_portfolio.md
+reviews\review_metrics.md
+reviews\review_margin.md
+reviews\review_funding.md
+reviews\review_execution.md
+reviews\review_event_bus.md
+reviews\review_data.md
+reviews\review_costs.md
+reviews\review_clock.md
+prime-agent-runtime\uv.lock
+mlruns\413401193493425814\meta.yaml
+p4_gates\paper_trading_dryrun_evidence.txt
+p4_gates\p4_final_delivery_report.md
+p4_gates\g10_make_matrix.tsv
+runs\p4_mrp\vectorbt_mrp.txt
+runs\p4_mrp\riskfolio_mrp_weights.csv
+runs\p4_mrp\quantstats_mrp.json
+runs\p4_mrp\gplearn_mrp.txt
+runs\p4_mrp\cvxportfolio_mrp.txt
+runs\p4_mrp\binance_futures_mrp.json
+runs\p4_mrp\basana_mrp.txt
+runs\p4_mrp\alphalens_mrp_ic.csv
+prime-agent-runtime\test\test_subagent_registry.py
+prime-agent-runtime\test\test_mcp_base.py
+prime-agent-runtime\test\test_harness.py
+prime-agent-runtime\test\test_agent_message_skill.py
+runs\g6_qlib\weights_valid.json
+runs\g6_qlib\weights_test.json
+runs\g6_qlib\trial_matrix.json
+runs\g6_qlib\trial_counter.jsonl
+runs\g6_qlib\qlib_report.json
+runs\g6_qlib\g6_validation_report.json
+quant_engine\__init__.py
+survey\search_batch5_stats.json
+survey\reading_notes_summary.json
+survey\reading_notes_p4_direction6_defi_economics.md
+survey\reading_notes_p4_direction5_microstructure.md
+survey\reading_notes_p4_direction4_risk_economics.md
+survey\reading_notes_p4_direction3_market_making_economics.md
+survey\reading_notes_p4_direction2_statistical_arbitrage.md
+survey\reading_notes_p4_direction1_derivatives_economics.md
+runs\p4\portfolio_weights_cvar.csv
+runs\p4\perf_report.json
+runs\p4\gp_factors.txt
+runs\p4\funding_btcusdt.csv
+p4_gates\G10_evidence.md
+k3\golden\run.mjs
+packages\tui\vitest.config.ts
+p4_gates\g10_container_matrix.tsv
+p4_gates\g10_container_clone_head.txt
+p4_gates\g10_audit_report.md
+p4_gates\audit_self_check.md
+packages\tui\CHANGELOG.md
+packages\tui\tsconfig.build.json
+
+2026-08-14T20:19:28.660692Z ERROR codex_core::tools::router: error=unsupported call: read
+2026-08-14T20:22:11.173348Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 187ms)... turn_id=01a001ed-58b9-7ac3-ad84-35de1b1868f3 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T20:23:21.045800Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+rg: unrecognized flag --include
+
+similar flags that are available: --include-zero
+
+2026-08-14T20:24:08.827860Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+
+2026-08-14T20:24:59.409328Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.7 seconds
+Output:
+
+2026-08-14T20:25:09.276007Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.7 seconds
+Output:
+
+2026-08-14T20:25:56.065442Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+
+2026-08-14T20:26:05.405747Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.7 seconds
+Output:
+
+2026-08-14T20:26:25.979592Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.7 seconds
+Output:
+
+2026-08-14T20:26:37.034831Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.7 seconds
+Output:
+
+2026-08-14T20:27:09.074286Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+
+2026-08-14T20:27:46.659029Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+
+2026-08-14T20:28:08.469868Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.7 seconds
+Output:
+
+2026-08-14T20:29:29.063967Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.7 seconds
+Output:
+
+2026-08-14T20:29:52.034735Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+
+2026-08-14T20:30:05.651448Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+
+2026-08-14T20:30:35.117974Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+
+2026-08-14T20:31:23.935829Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+
+2026-08-14T20:31:52.066017Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+
+2026-08-14T20:32:19.799497Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+
+2026-08-14T20:32:30.326102Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+
+2026-08-14T20:32:41.554068Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+
+2026-08-14T20:33:35.830885Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+
+2026-08-14T20:33:46.627636Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+
+2026-08-14T20:33:55.749244Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+
+2026-08-14T20:34:04.787627Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+
+2026-08-14T20:34:14.147679Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+
+2026-08-14T20:36:15.160829Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+
+2026-08-14T20:36:28.046012Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+
+2026-08-14T20:36:41.579155Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+
+2026-08-14T20:37:58.457854Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

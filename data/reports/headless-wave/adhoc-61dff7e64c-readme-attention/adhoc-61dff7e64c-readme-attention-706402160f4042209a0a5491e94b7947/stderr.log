@@ -1,0 +1,135 @@
+2026-08-20T05:38:11.918094Z  WARN sqlx::query: slow statement: execution time exceeded alert threshold summary="DELETE FROM logs WHERE …" db.statement="\n\nDELETE FROM logs WHERE ts < ?\n" rows_affected=80066 rows_returned=0 elapsed=15.8138939s elapsed_secs=15.8138939 slow_threshold=1s
+2026-08-20T05:38:21.339751Z  WARN sqlx::query: slow statement: execution time exceeded alert threshold summary="PRAGMA auto_vacuum = INCREMENTAL; …" db.statement="\n\nPRAGMA auto_vacuum = INCREMENTAL; PRAGMA journal_mode = WAL; PRAGMA foreign_keys = ON; PRAGMA synchronous = NORMAL; \n" rows_affected=0 rows_returned=1 elapsed=9.4205035s elapsed_secs=9.4205035 slow_threshold=1s
+2026-08-20T05:38:21.339911Z  WARN sqlx::pool::acquire: acquired connection, but time to acquire exceeded slow threshold acquired_after_secs=9.42146 slow_acquire_threshold_secs=2.0
+Reading additional input from stdin...
+2026-08-20T05:38:22.402722Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-20T05:38:22.402784Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:38:22.418929Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-20T05:38:22.543657Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:38:22.545429Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:38:22.545968Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:38:22.546524Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:38:22.561502Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:38:22.639959Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:38:23.352157Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Provided authentication token is expired. Please try signing in again.",
+    "type": null,
+    "code": "token_expired",
+    "param": null
+  },
+  "status": 401,
+  "detail": {
+    "code": "token_expired",
+    "message": "Provided authentication token is expired. Please try signing in again."
+  }
+}
+2026-08-20T05:38:23.352316Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:38:23.957795Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:38:23.958263Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:38:23.958693Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:38:33.806717Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:38:33.807292Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:38:33.807803Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:38:41.258422Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:38:41.258946Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:38:41.259349Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:38:50.956380Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:38:50.956834Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:38:50.957276Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:39:05.229914Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:39:05.230574Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:39:05.231083Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:39:41.455711Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:39:41.456195Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:39:41.456620Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:41:57.544610Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:41:57.545084Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:41:57.545544Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:42:12.346225Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:42:12.346679Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:42:12.347217Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:43:41.029483Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:43:41.030061Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:43:41.030796Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:45:10.225874Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:45:10.226306Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:45:10.226731Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:45:28.804615Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:45:28.805130Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:45:28.805590Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:45:49.782388Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:45:49.782823Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:45:49.783225Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:49:11.702528Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:49:11.702980Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:49:11.703420Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:50:30.113847Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:50:30.114268Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:50:30.114803Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:51:03.618271Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:51:03.618764Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:51:03.619201Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:51:33.505456Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:51:33.505954Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:51:33.506388Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:52:55.143349Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:55:00.318052Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:55:00.318482Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:55:00.318903Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:55:44.094523Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:55:44.095014Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:55:44.095421Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:56:25.023247Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:56:25.023845Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:56:25.024342Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:57:08.062745Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:57:08.063161Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:57:08.063553Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:57:56.683682Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:57:56.684087Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:57:56.684475Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:58:13.863909Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:58:13.864531Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:58:13.865137Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:58:22.703638Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 187ms)... turn_id=01a01dad-76f4-77e1-980a-8b846fcf3686 retries=1 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider unreachable: unknown certificate verification error, url: http://127.0.0.1:10100/v1/responses
+2026-08-20T05:58:22.908576Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:58:22.909099Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:58:22.909554Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:58:30.462674Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 370ms)... turn_id=01a01dad-76f4-77e1-980a-8b846fcf3686 retries=2 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider unreachable: unknown certificate verification error, url: http://127.0.0.1:10100/v1/responses
+2026-08-20T05:58:30.836549Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:58:30.836998Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:58:30.837558Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:59:23.317441Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 830ms)... turn_id=01a01dad-76f4-77e1-980a-8b846fcf3686 retries=3 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider unreachable: unknown certificate verification error, url: http://127.0.0.1:10100/v1/responses
+2026-08-20T05:59:24.155733Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:59:24.156332Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:59:24.156749Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:59:52.094850Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.581s)... turn_id=01a01dad-76f4-77e1-980a-8b846fcf3686 retries=4 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider unreachable: unknown certificate verification error, url: http://127.0.0.1:10100/v1/responses
+2026-08-20T05:59:53.680812Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:59:53.681310Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T05:59:53.681758Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T06:00:09.363076Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 3.152s)... turn_id=01a01dad-76f4-77e1-980a-8b846fcf3686 retries=5 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider unreachable: unknown certificate verification error, url: http://127.0.0.1:10100/v1/responses
+2026-08-20T06:00:12.523085Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T06:00:12.523578Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T06:00:12.524048Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T06:00:39.234452Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T06:00:40.365566Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Provided authentication token is expired. Please try signing in again.",
+    "type": null,
+    "code": "token_expired",
+    "param": null
+  },
+  "status": 401,
+  "detail": {
+    "code": "token_expired",
+    "message": "Provided authentication token is expired. Please try signing in again."
+  }
+}

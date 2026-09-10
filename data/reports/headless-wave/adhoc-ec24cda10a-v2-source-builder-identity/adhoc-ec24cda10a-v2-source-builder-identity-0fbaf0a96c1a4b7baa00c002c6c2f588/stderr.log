@@ -1,0 +1,337 @@
+Reading additional input from stdin...
+2026-08-15T07:12:37.113467Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-15T07:12:40.962490Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-15T07:12:54.002395Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T07:13:09.744496Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 3.9 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 25
++ dir E:\VPS /b /s 2>&1 | head -80
++                         ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-15T07:13:50.395197Z ERROR codex_core::tools::router: error=unsupported call: read
+2026-08-15T07:14:40.597150Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-15T07:15:00.877099Z ERROR codex_core::tools::router: error=Exit code: 124
+Wall time: 10.6 seconds
+Total output lines: 1484
+Output:
+command timed out after 10634 milliseconds
+E:\VPS\p5-alpha-execution-headless-wave-20260814.err.log
+E:\VPS\p5-alpha-execution-headless-wave-20260814.json
+E:\VPS\p5-alpha-execution-headless-wave-20260814.out.log
+E:\VPS\p5-alpha-execution-headless-wave-sonnet-20260814.err.log
+E:\VPS\p5-alpha-execution-headless-wave-sonnet-20260814.out.log
+E:\VPS\p5-alpha-execution-headless-wave2-20260814.json
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\command_lib\agent_identity\authprovider_v1alpha_resources.yaml
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\command_lib\agent_identity\v1alpha_resources.yaml
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\command_lib\agent_registry\v1alpha_resources.yaml
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\command_lib\blockchain_validator\v1alpha_resources.yaml
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\command_lib\cloudlocationfinder\v1alpha_resources.yaml
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\command_lib\dataproc_gdc\v1alpha1_resources.yaml
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\command_lib\deployment_manager\alpha_flags.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\command_lib\deployment_manager\__pycache__\alpha_flags.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\command_lib\design_center\v1alpha_resources.yaml
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\command_lib\fault_testing\v1alpha_resources.yaml
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\command_lib\firebase_data_connect\v1alpha_resources.yaml
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\command_lib\gemini\v1alpha_resources.yaml
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\command_lib\iam\v3alpha_resources.yaml
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\command_lib\lustre\v1alpha_resources.yaml
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\command_lib\memorystore\v1alpha_resources.yaml
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\command_lib\mldiagnostics\machine_learning_run\v1alpha_resources.yaml
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\command_lib\model_armor\v1alpha_resources.yaml
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\command_lib\network_management\v1alpha1_resources.yaml
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\command_lib\network_security\v1alpha1_resources.yaml
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\command_lib\number_registry\v1alpha_resources.yaml
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\command_lib\oracle_database\v1alpha_resources.yaml
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\command_lib\parallelstore\v1alpha_resources.yaml
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\command_lib\parametermanager\v1alpha_resources.yaml
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\accesscontextmanager\v1alpha\accesscontextmanager_v1alpha_client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\accesscontextmanager\v1alpha\accesscontextmanager_v1alpha_messages.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\accesscontextmanager\v1alpha\__pycache__\accesscontextmanager_v1alpha_client.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\accesscontextmanager\v1alpha\__pycache__\accesscontextmanager_v1alpha_messages.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\agenticapplications\v1alpha\agenticapplications_v1alpha_client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\agenticapplications\v1alpha\agenticapplications_v1alpha_messages.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\agenticapplications\v1alpha\__pycache__\agenticapplications_v1alpha_client.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\agenticapplications\v1alpha\__pycache__\agenticapplications_v1alpha_messages.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\agentidentity\v1alpha\agentidentity_v1alpha_client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\agentidentity\v1alpha\agentidentity_v1alpha_messages.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\agentidentity\v1alpha\__pycache__\agentidentity_v1alpha_client.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\agentidentity\v1alpha\__pycache__\agentidentity_v1alpha_messages.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\agentregistry\v1alpha\agentregistry_v1alpha_client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\agentregistry\v1alpha\agentregistry_v1alpha_messages.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\agentregistry\v1alpha\__pycache__\agentregistry_v1alpha_client.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\agentregistry\v1alpha\__pycache__\agentregistry_v1alpha_messages.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\alloydb\v1alpha\alloydb_v1alpha_client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\alloydb\v1alpha\alloydb_v1alpha_messages.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\alloydb\v1alpha\__pycache__\alloydb_v1alpha_client.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\alloydb\v1alpha\__pycache__\alloydb_v1alpha_messages.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\anthosevents\v1alpha1\anthosevents_v1alpha1_client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\anthosevents\v1alpha1\anthosevents_v1alpha1_messages.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\anthosevents\v1alpha1\__pycache__\anthosevents_v1alpha1_client.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\anthosevents\v1alpha1\__pycache__\anthosevents_v1alpha1_messages.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\anthospolicycontrollerstatus_pa\v1alpha\anthospolicycontrollerstatus_pa_v1alpha_client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\anthospolicycontrollerstatus_pa\v1alpha\anthospolicycontrollerstatus_pa_v1alpha_messages.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\anthospolicycontrollerstatus_pa\v1alpha\__pycache__\anthospolicycontrollerstatus_pa_v1alpha_client.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\anthospolicycontrollerstatus_pa\v1alpha\__pycache__\anthospolicycontrollerstatus_pa_v1alpha_messages.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\apigateway\v1alpha1\apigateway_v1alpha1_client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\apigateway\v1alpha1\apigateway_v1alpha1_messages.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\apigateway\v1alpha1\__pycache__\apigateway_v1alpha1_client.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\apigateway\v1alpha1\__pycache__\apigateway_v1alpha1_messages.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\apigee\v2alpha\apigee_v2alpha_client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\apigee\v2alpha\apigee_v2alpha_messages.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\apigee\v2alpha\__pycache__\apigee_v2alpha_client.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\apigee\v2alpha\__pycache__\apigee_v2alpha_messages.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\appengine\v1alpha\appengine_v1alpha_client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\appengine\v1alpha\appengine_v1alpha_messages.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\appengine\v1alpha\__pycache__\appengine_v1alpha_client.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\appengine\v1alpha\__pycache__\appengine_v1alpha_messages.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\apphub\v1alpha\apphub_v1alpha_client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\apphub\v1alpha\apphub_v1alpha_messages.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\apphub\v1alpha\__pycache__\apphub_v1alpha_client.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\apphub\v1alpha\__pycache__\apphub_v1alpha_messages.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\artifactscanguard\v1alpha\artifactscanguard_v1alpha_client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\artifactscanguard\v1alpha\artifactscanguard_v1alpha_messages.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\artifactscanguard\v1alpha\__pycache__\artifactscanguard_v1alpha_client.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\artifactscanguard\v1alpha\__pycache__\artifactscanguard_v1alpha_messages.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\auditmanager\v1alpha\auditmanager_v1alpha_client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\auditmanager\v1alpha\auditmanager_v1alpha_messages.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\auditmanager\v1alpha\__pycache__\auditmanager_v1alpha_client.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\auditmanager\v1alpha\__pycache__\auditmanager_v1alpha_messages.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\authztoolkit\v1alpha\authztoolkit_v1alpha_client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\authztoolkit\v1alpha\authztoolkit_v1alpha_messages.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\authztoolkit\v1alpha\__pycache__\authztoolkit_v1alpha_client.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\authztoolkit\v1alpha\__pycache__\authztoolkit_v1alpha_messages.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\backupdr\v1alpha\backupdr_v1alpha_client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\backupdr\v1alpha\backupdr_v1alpha_messages.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\backupdr\v1alpha\__pycache__\backupdr_v1alpha_client.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\backupdr\v1alpha\__pycache__\backupdr_v1alpha_messages.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\batch\v1alpha\batch_v1alpha_client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\batch\v1alpha\batch_v1alpha_messages.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\batch\v1alpha\__pycache__\batch_v1alpha_client.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\batch\v1alpha\__pycache__\batch_v1alpha_messages.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\batch\v1alpha1\batch_v1alpha1_client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\batch\v1alpha1\batch_v1alpha1_messages.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\batch\v1alpha1\__pycache__\batch_v1alpha1_client.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\batch\v1alpha1\__pycache__\batch_v1alpha1_messages.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\beyondcorp\v1alpha\beyondcorp_v1alpha_client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\beyondcorp\v1alpha\beyondcorp_v1alpha_messages.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\beyondcorp\v1alpha\__pycache__\beyondcorp_v1alpha_client.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\beyondcorp\v1alpha\__pycache__\beyondcorp_v1alpha_messages.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\biglake\data_product_sharing_v1alpha\biglake_data_product_sharing_v1alpha_client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\biglake\data_product_sharing_v1alpha\biglake_data_product_sharing_v1alpha_messages.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\biglake\data_product_sharing_v1alpha\__pycache__\biglake_data_product_sharing_v1alpha_client.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\biglake\data_product_sharing_v1alpha\__pycache__\biglake_data_product_sharing_v1alpha_messages.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\biglake\delta_v1alpha\biglake_delta_v1alpha_client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\biglake\delta_v1alpha\biglake_delta_v1alpha_messages.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\biglake\delta_v1alpha\__pycache__\biglake_delta_v1alpha_client.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\biglake\delta_v1alpha\__pycache__\biglake_delta_v1alpha_messages.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\binaryauthorization\v1alpha2\binaryauthorization_v1alpha2_client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\binaryauthorization\v1alpha2\binaryauthorization_v1alpha2_messages.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\binaryauthorization\v1alpha2\__pycache__\binaryauthorization_v1alpha2_client.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\binaryauthorization\v1alpha2\__pycache__\binaryauthorization_v1alpha2_messages.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\blockchainvalidatormanager\v1alpha\blockchainvalidatormanager_v1alpha_client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\blockchainvalidatormanager\v1alpha\blockchainvalidatormanager_v1alpha_messages.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\blockchainvalidatormanager\v1alpha\__pycache__\blockchainvalidatormanager_v1alpha_client.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\blockchainvalidatormanager\v1alpha\__pycache__\blockchainvalidatormanager_v1alpha_messages.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\cloudaicompanion\v1alpha\cloudaicompanion_v1alpha_client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\cloudaicompanion\v1alpha\cloudaicompanion_v1alpha_messages.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\cloudaicompanion\v1alpha\__pycache__\cloudaicompanion_v1alpha_client.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\cloudaicompanion\v1alpha\__pycache__\cloudaicompanion_v1alpha_messages.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\cloudapiregistry\v1alpha\cloudapiregistry_v1alpha_client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\cloudapiregistry\v1alpha\cloudapiregistry_v1alpha_messages.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\cloudapiregistry\v1alpha\__pycache__\cloudapiregistry_v1alpha_client.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\cloudapiregistry\v1alpha\__pycache__\cloudapiregistry_v1alpha_messages.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\cloudasset\v1p4alpha1\cloudasset_v1p4alpha1_client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\cloudasset\v1p4alpha1\cloudasset_v1p4alpha1_messages.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\cloudasset\v1p4alpha1\__pycache__\cloudasset_v1p4alpha1_client.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\cloudasset\v1p4alpha1\__pycache__\cloudasset_v1p4alpha1_messages.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\cloudbuild\v1alpha1\cloudbuild_v1alpha1_client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\cloudbuild\v1alpha1\cloudbuild_v1alpha1_messages.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\cloudbuild\v1alpha1\__pycache__\cloudbuild_v1alpha1_client.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\cloudbuild\v1alpha1\__pycache__\cloudbuild_v1alpha1_messages.cpython-312.pyc
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\cloudbuild\v1alpha2\cloudbuild_v1alpha2_client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\cloudbuild\v1alpha2\cloudbuild_v1alpha2_messages.py
+E:\VPS\.tools\gcloud…39806 tokens truncated…ig\v1alpha1\config_v1alpha1_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\config\v1alpha2\config_v1alpha2_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\config\v1alpha2\config_v1alpha2_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\configdelivery\v1alpha\configdelivery_v1alpha_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\configdelivery\v1alpha\configdelivery_v1alpha_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\connectgateway\v1alpha1\connectgateway_v1alpha1_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\connectgateway\v1alpha1\connectgateway_v1alpha1_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\container\v1alpha1\container_v1alpha1_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\container\v1alpha1\container_v1alpha1_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\containeranalysis\v1alpha1\containeranalysis_v1alpha1_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\containeranalysis\v1alpha1\containeranalysis_v1alpha1_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\datacatalog\v1alpha3\datacatalog_v1alpha3_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\datacatalog\v1alpha3\datacatalog_v1alpha3_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\datamigration\v1alpha2\datamigration_v1alpha2_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\datamigration\v1alpha2\datamigration_v1alpha2_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\dataprocgdc\v1alpha1\dataprocgdc_v1alpha1_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\dataprocgdc\v1alpha1\dataprocgdc_v1alpha1_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\datastream\v1alpha1\datastream_v1alpha1_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\datastream\v1alpha1\datastream_v1alpha1_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\deploymentmanager\alpha\deploymentmanager_alpha_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\deploymentmanager\alpha\deploymentmanager_alpha_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\designcenter\v1alpha\designcenter_v1alpha_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\designcenter\v1alpha\designcenter_v1alpha_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\developerconnect\v1alpha\developerconnect_v1alpha_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\developerconnect\v1alpha\developerconnect_v1alpha_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\devicerun\v1alpha\devicerun_v1alpha_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\devicerun\v1alpha\devicerun_v1alpha_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\dns\v1alpha2\dns_v1alpha2_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\dns\v1alpha2\dns_v1alpha2_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\domains\v1alpha2\domains_v1alpha2_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\domains\v1alpha2\domains_v1alpha2_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\edgecontainer\v1alpha\edgecontainer_v1alpha_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\edgecontainer\v1alpha\edgecontainer_v1alpha_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\edgenetwork\v1alpha1\edgenetwork_v1alpha1_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\edgenetwork\v1alpha1\edgenetwork_v1alpha1_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\essentialcontacts\v1alpha1\essentialcontacts_v1alpha1_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\essentialcontacts\v1alpha1\essentialcontacts_v1alpha1_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\externalexposure\v1alpha\externalexposure_v1alpha_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\externalexposure\v1alpha\externalexposure_v1alpha_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\faultinjectiontesting\v1alpha1\faultinjectiontesting_v1alpha1_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\faultinjectiontesting\v1alpha1\faultinjectiontesting_v1alpha1_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\faulttesting\v1alpha\faulttesting_v1alpha_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\faulttesting\v1alpha\faulttesting_v1alpha_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\file\v1alpha1\file_v1alpha1_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\file\v1alpha1\file_v1alpha1_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\file\v1p1alpha1\file_v1p1alpha1_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\file\v1p1alpha1\file_v1p1alpha1_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\firebasedataconnect\v1alpha\firebasedataconnect_v1alpha_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\firebasedataconnect\v1alpha\firebasedataconnect_v1alpha_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\ftp\v1alpha\ftp_v1alpha_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\ftp\v1alpha\ftp_v1alpha_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\geminicloudassist\v1alpha\geminicloudassist_v1alpha_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\geminicloudassist\v1alpha\geminicloudassist_v1alpha_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\genomics\v1alpha2\genomics_v1alpha2_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\genomics\v1alpha2\genomics_v1alpha2_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\genomics\v2alpha1\genomics_v2alpha1_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\genomics\v2alpha1\genomics_v2alpha1_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\gkehub\v1alpha\gkehub_v1alpha_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\gkehub\v1alpha\gkehub_v1alpha_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\gkehub\v1alpha1\gkehub_v1alpha1_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\gkehub\v1alpha1\gkehub_v1alpha1_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\gkehub\v1alpha2\gkehub_v1alpha2_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\gkehub\v1alpha2\gkehub_v1alpha2_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\gkehub\v2alpha\gkehub_v2alpha_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\gkehub\v2alpha\gkehub_v2alpha_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\gkerecommender\v1alpha1\gkerecommender_v1alpha1_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\gkerecommender\v1alpha1\gkerecommender_v1alpha1_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\healthcare\v1alpha2\healthcare_v1alpha2_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\healthcare\v1alpha2\healthcare_v1alpha2_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\hypercomputecluster\v1alpha\hypercomputecluster_v1alpha_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\hypercomputecluster\v1alpha\hypercomputecluster_v1alpha_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\iam\v2alpha\iam_v2alpha_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\iam\v2alpha\iam_v2alpha_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\iam\v3alpha\iam_v3alpha_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\iam\v3alpha\iam_v3alpha_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\iamconnectors\v1alpha\iamconnectors_v1alpha_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\iamconnectors\v1alpha\iamconnectors_v1alpha_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\krmapihosting\v1alpha1\krmapihosting_v1alpha1_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\krmapihosting\v1alpha1\krmapihosting_v1alpha1_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\looker\v1alpha1\looker_v1alpha1_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\looker\v1alpha1\looker_v1alpha1_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\looker\v1alpha2\looker_v1alpha2_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\looker\v1alpha2\looker_v1alpha2_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\lustre\v1alpha\lustre_v1alpha_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\lustre\v1alpha\lustre_v1alpha_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\managedflink\v1alpha\managedflink_v1alpha_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\managedflink\v1alpha\managedflink_v1alpha_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\managedidentities\v1alpha1\managedidentities_v1alpha1_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\managedidentities\v1alpha1\managedidentities_v1alpha1_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\marketplacesolutions\v1alpha1\marketplacesolutions_v1alpha1_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\marketplacesolutions\v1alpha1\marketplacesolutions_v1alpha1_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\mediaasset\v1alpha\mediaasset_v1alpha_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\mediaasset\v1alpha\mediaasset_v1alpha_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\memorystore\v1alpha\memorystore_v1alpha_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\memorystore\v1alpha\memorystore_v1alpha_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\metastore\v1alpha\metastore_v1alpha_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\metastore\v1alpha\metastore_v1alpha_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\microservices\v1alpha1\microservices_v1alpha1_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\microservices\v1alpha1\microservices_v1alpha1_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\modelarmor\v1alpha\modelarmor_v1alpha_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\modelarmor\v1alpha\modelarmor_v1alpha_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\netapp\v1alpha1\netapp_v1alpha1_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\netapp\v1alpha1\netapp_v1alpha1_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\networkconnectivity\v1alpha1\networkconnectivity_v1alpha1_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\networkconnectivity\v1alpha1\networkconnectivity_v1alpha1_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\networkmanagement\v1alpha1\networkmanagement_v1alpha1_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\networkmanagement\v1alpha1\networkmanagement_v1alpha1_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\networksecurity\v1alpha1\networksecurity_v1alpha1_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\networksecurity\v1alpha1\networksecurity_v1alpha1_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\networkservices\v1alpha1\networkservices_v1alpha1_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\networkservices\v1alpha1\networkservices_v1alpha1_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\oracledatabase\v1alpha\oracledatabase_v1alpha_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\oracledatabase\v1alpha\oracledatabase_v1alpha_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\osconfig\v1alpha\osconfig_v1alpha_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\osconfig\v1alpha\osconfig_v1alpha_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\osconfig\v1alpha1\osconfig_v1alpha1_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\osconfig\v1alpha1\osconfig_v1alpha1_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\osconfig\v2alpha\osconfig_v2alpha_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\osconfig\v2alpha\osconfig_v2alpha_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\oslogin\v1alpha\oslogin_v1alpha_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\oslogin\v1alpha\oslogin_v1alpha_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\parallelstore\v1alpha\parallelstore_v1alpha_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\parallelstore\v1alpha\parallelstore_v1alpha_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\policysimulator\v1alpha\policysimulator_v1alpha_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\policysimulator\v1alpha\policysimulator_v1alpha_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\policytroubleshooter\v2alpha1\policytroubleshooter_v2alpha1_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\policytroubleshooter\v2alpha1\policytroubleshooter_v2alpha1_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\policytroubleshooter\v3alpha\policytroubleshooter_v3alpha_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\policytroubleshooter\v3alpha\policytroubleshooter_v3alpha_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\privilegedaccessmanager\v1alpha\privilegedaccessmanager_v1alpha_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\privilegedaccessmanager\v1alpha\privilegedaccessmanager_v1alpha_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\publicca\v1alpha1\publicca_v1alpha1_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\publicca\v1alpha1\publicca_v1alpha1_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\recommender\v1alpha2\recommender_v1alpha2_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\recommender\v1alpha2\recommender_v1alpha2_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\redis\v1alpha1\redis_v1alpha1_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\redis\v1alpha1\redis_v1alpha1_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\remotebuildexecution\v1alpha\remotebuildexecution_v1alpha_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\remotebuildexecution\v1alpha\remotebuildexecution_v1alpha_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\run\v1alpha1\run_v1alpha1_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\run\v1alpha1\run_v1alpha1_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\saasservicemgmt\v1alpha1\saasservicemgmt_v1alpha1_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\saasservicemgmt\v1alpha1\saasservicemgmt_v1alpha1_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\sasportal\v1alpha1\sasportal_v1alpha1_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\sasportal\v1alpha1\sasportal_v1alpha1_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\sddc\v1alpha1\sddc_v1alpha1_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\sddc\v1alpha1\sddc_v1alpha1_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\seclm\v1alpha\seclm_v1alpha_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\seclm\v1alpha\seclm_v1alpha_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\securityposture\v1alpha\securityposture_v1alpha_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\securityposture\v1alpha\securityposture_v1alpha_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\serviceusage\v1alpha\serviceusage_v1alpha_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\serviceusage\v1alpha\serviceusage_v1alpha_messages.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\serviceusage\v2alpha\serviceusage_v2alpha_client.py
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\serviceusage\v2alpha\serviceusage_v2alpha_messages.py
+Get-ChildItem : 对路径“E:\VPS\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem E:\VPS -Recurse -File | Where-Object { $_.Name -match " ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\VPS\.pytest_cache:String) [Get-ChildItem], UnauthorizedAccessExcep 
+   tion
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+

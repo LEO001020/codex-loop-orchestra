@@ -1,0 +1,21 @@
+Looking at this question carefully.
+
+The core question is: does an adapter that (1) excludes `source_sha` from staged commits, (2) enables synthetic mode, or (3) replaces `PC6ExecutionAdapter` remain within the mission scope?
+
+**Verdict: No — all three variants are out of scope.**
+
+Here's the reasoning:
+
+**On excluding `source_sha` from staged:**
+The mission requires "exact frozen source/evaluator/T1/W1 machinery." `source_sha` is the integrity anchor that proves the staged artifact matches the frozen source. Omitting it breaks the chain of custody. An adapter that drops it is not bypassing a governance dependency — it is undermining the core frozen-source guarantee the mission exists to enforce.
+
+**On enabling synthetic mode:**
+Synthetic mode substitutes fabricated signals for real execution results. The mission explicitly requires the "exact frozen... evaluator" and real T1/W1 machinery. Synthetic mode is not a bypass of a waived dependency; it replaces real evidence with simulated evidence. This directly contradicts the mission's evidentiary requirements.
+
+**On replacing `PC6ExecutionAdapter`:**
+The adapter's permitted scope is narrow: bypass waived governance/security dependencies that sit *outside* the core machinery. `PC6ExecutionAdapter` *is* part of the named core machinery (the "exact... adapter" the mission calls out by implication in the T1/W1 execution path). Replacing it — rather than wrapping or routing around an external blocker — is a substitution of core machinery, not a bypass of a peripheral dependency.
+
+**The general principle:**
+The "bypass waived governance/security dependencies" permission is a narrow carve-out for external blockers (e.g., approval gates, credential checks, policy enforcement hooks) that are explicitly waived. It does not authorize modifications to the frozen source integrity chain, the evaluator, T1/W1 execution, or the named adapter itself. Any adapter that touches those components exceeds the permitted scope.
+
+**Conclusion:** All three described adapter behaviors are out of scope. The orchestrator should reject them and require the adapter to be confined strictly to routing around explicitly waived external governance/security blockers, leaving the frozen source, `source_sha`, evaluator, T1/W1 machinery, and `PC6ExecutionAdapter` untouched.

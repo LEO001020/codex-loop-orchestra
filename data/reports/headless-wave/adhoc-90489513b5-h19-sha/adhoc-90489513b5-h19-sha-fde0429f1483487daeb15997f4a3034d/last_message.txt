@@ -1,0 +1,83 @@
+I now have all the evidence needed to produce a complete audit report. Here is the full finding:
+
+---
+
+## Release Checksum Timing Audit — Final Report
+
+**Verdict: SHA256SUMS IS STALE. Rebuild has NOT occurred once after stabilization; it has not occurred at all since 13:47 UTC on 2026-08-14, while 26 managed files were modified afterward.**
+
+---
+
+### 1. SHA256SUMS anchor timestamp
+
+SHA256SUMS was last written at **2026-08-14 13:47:15 UTC+8** (local time). This is the single baseline for all comparisons below.
+
+---
+
+### 2. Mechanical drift recomputation
+
+Full `Get-FileHash SHA256` comparison of all 103 entries against their disk counterparts (excluding `SHA256SUMS` itself, which cannot self-reference by design). The managed manifest has **104 entries** (103 payload + 1 self-reference to SHA256SUMS). All 103 non-self entries are present on disk; none are missing.
+
+**Result: 26 files have drifted.** Ordered by first-modified time after the SHA256SUMS anchor:
+
+| # | File | SHA256SUMS (first 8 hex) | Actual (first 8 hex) | Modified |
+|---|------|--------------------------|----------------------|----------|
+| 1 | `harness/lifecycle_supervisor.py` | `587d49c9` | `695aae26` | 15:53 |
+| 2 | `agents/worker.toml` | `ad593ed2` | `93a4e2ea` | 16:56 |
+| 3 | `agents/duty_officer.toml` | `edc3de6e` | `a244e1d8` | 16:56 |
+| 4 | `agents/plan_expander.toml` | `04a6b82f` | `206211cb` | 16:56 |
+| 5 | `config/config.toml.example` | `7048a010` | `46841e83` | 16:56 |
+| 6 | `config/model_profiles.toml` | `ea3ae371` | `044d08b2` | 16:56 |
+| 7 | `config/orchestration_policy_v2.toml` | `49b1dfc8` | `7e181701` | 16:56 |
+| 8 | `harness/refill_controller_v2.py` | `a1ed2de7` | `3e420567` | 17:40 |
+| 9 | `harness/refill_consumer_v2.py` | `d693efe0` | `5ec17813` | 17:40 |
+| 10 | `tests/orchestration_v2/test_refill_controller_v2.py` | `f37251fb` | `15aab50e` | 17:41 |
+| 11 | `tests/orchestration_v2/test_refill_consumer_v2.py` | `17dd7301` | `8f1a45af` | 17:41 |
+| 12 | `harness/statemachine_v2.py` | `05e83c4f` | `db000895` | 18:02 |
+| 13 | `tests/orchestration_v2/test_statemachine_v2.py` | `3530f34f` | `85615072` | 18:02 |
+| 14 | `harness/model_profile.py` | `3e1e907a` | `6743d34f` | 18:06 |
+| 15 | `tests/unit/test_model_profile.py` | `809de8b6` | `69bdc738` | 18:06 |
+| 16 | `tests/unit/test_loop_monitor_server.py` | `3a74e99f` | `829bdd5a` | 18:09 |
+| 17 | `config/triggers_v2.yaml` | `108872ec` | `a98aa267` | 18:17 |
+| 18 | `harness/parent_manifest_importer.py` | `e236c758` | `943021f2` | 18:20 |
+| 19 | `tests/orchestration_v2/test_parent_manifest_importer.py` | `77b510eb` | `dc1a09eb` | 18:20 |
+| 20 | `tests/conftest.py` | `fb44fe1f` | `82b8463e` | 18:32 |
+| 21 | `agents/reviewer.toml` | `c8df9a02` | `41697123` | 18:33 |
+| 22 | `agents/verifier.toml` | `32c14a47` | `c13b7cb6` | 18:33 |
+| 23 | `config/roles.yaml` | `1bc0ca2e` | `722f13ad` | 18:33 |
+| 24 | `harness/dispatch.py` | `1dfc5937` | `af92b5ce` | 18:54 |
+| 25 | `tests/unit/test_dispatch_model_pin.py` | `7d5ee8b5` | `e9a9063f` | 18:57 |
+| 26 | `harness/statemachine.py` | `335dcf15` | `10eb1cd3` | 19:01 |
+
+**77 files match exactly.** These include `install.sh`, `install_v2.sh`, `VERSIONS.lock`, `harness/headless_wave.py`, all metering/, hooks/, schemas/, and most test files.
+
+---
+
+### 3. Rebuild timing analysis
+
+The packet task requires: "verify that SHA256SUMS is rebuilt **only once** after code and tests stabilize."
+
+**Observation: SHA256SUMS has been rebuilt zero times since the 13:47 anchor, while code changes continued for 5h 14min beyond that point.** The most recent managed-file modification is `harness/statemachine.py` at 19:01. Code and tests have not yet stabilized (changes are still accumulating in this session). Therefore the constraint "rebuilt only once after stabilization" cannot be tested yet — stabilization has not occurred.
+
+**The audit_report.json from the prior wave (written 18:45) already flagged the first two drifted files** (`lifecycle_supervisor.py` and `refill_controller_v2.py`) as P1-SHA256SUMS-STALE with evidence `"SHA256SUMS updated 4.8h ago; lifecycle_supervisor.py modified 2.8h ago; refill_controller_v2.py modified 0.9h ago"`. Since then, **24 additional files** have drifted, and SHA256SUMS has still not been rebuilt.
+
+---
+
+### 4. Self-reference design correctness
+
+`SHA256SUMS` appears in `config/managed_files_v2.txt` (line 7) but is correctly absent from the SHA256SUMS file itself. The file cannot self-hash. The count relationship `managed_files = 104, SHA256SUMS_entries = 103 = 104 − 1` is correct by design. The regression test `test_release_checksums_cover_exact_managed_boundary` (line 82–85 of `test_install_v2.py`) enforces this invariant: `set(rows) == managed - {"SHA256SUMS"}` and also verifies each recorded digest against the live disk bytes — meaning this test currently **fails** for all 26 drifted files.
+
+---
+
+### 5. Rebuild-once requirement assessment
+
+The LOOP discipline requires SHA256SUMS to be rebuilt exactly once, at the end, after all code modifications and tests are confirmed stable. The present state violates this in two ways:
+
+- **Not rebuilt at all** after the 13:47 anchor despite 26 managed-file changes across 5+ hours.
+- **Work is still in progress** (latest change 19:01; this audit ran at ~19:06), so the "stabilization" precondition for the single permitted rebuild has not been reached.
+
+The correct rebuild trigger is: all code changes complete, all relevant tests (excluding ipybox and K3) pass on the final committed bytes, then a single atomic `sha256sum` pass over all 103 non-self files rebuilds SHA256SUMS.
+
+---
+
+**Conclusion: FAIL — SHA256SUMS not rebuilt (0 rebuilds since 13:47), 26 of 103 entries stale, stabilization precondition not met. Rebuild must not happen until work completes.**

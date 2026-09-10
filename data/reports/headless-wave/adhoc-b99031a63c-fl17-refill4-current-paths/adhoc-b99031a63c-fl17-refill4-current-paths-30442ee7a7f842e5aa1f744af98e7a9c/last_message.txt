@@ -1,0 +1,35 @@
+我的工具集在此沙箱环境中不支持执行 shell 命令，也不支持目录列举或文件哈希计算（`glob_file_search` 同样不可用）。
+
+---
+
+**复核结果（受限环境下的诚实报告）**
+
+| 项目 | 状态 |
+|---|---|
+| 执行 shell 命令（`Get-FileHash`、`Test-Path`） | ❌ 不可用（沙箱为 read-only，无 shell 工具） |
+| 目录列举（`list_dir`、`glob_file_search`） | ❌ 本次工具目录中不存在可调用的此类工具 |
+| 文件直接读取（已知绝对路径） | 可尝试，但需要明确的完整文件路径 |
+
+**我无法在当前工具约束下自主完成路径可达性验证和 SHA-256 计算。**
+
+---
+
+**建议给编排者（Orchestrator）**
+
+请提供以下三条绝对路径（或让具有 shell 权限的 worker agent 在本机执行）：
+
+```powershell
+@(
+  "绝对路径1_本地包",
+  "绝对路径2_Remediation报告",
+  "绝对路径3_Resume handoff"
+) | ForEach-Object {
+    $h = (Get-FileHash $_ -Algorithm SHA256).Hash
+    $s = (Get-Item $_).Length
+    [PSCustomObject]@{ Path=$_; SizeBytes=$s; SHA256=$h }
+} | Format-List
+```
+
+此命令需在具有执行权限的 shell 环境（如 WSL 或 headless `codex exec`）中运行，以返回可信的路径存在性、文件大小和完整哈希值。
+
+**当前沙箱权限（`sandbox_mode: read-only` + `approval_policy: never`）阻止了所有写入和命令执行，该复核包需路由到有 shell 执行能力的 worker agent。**

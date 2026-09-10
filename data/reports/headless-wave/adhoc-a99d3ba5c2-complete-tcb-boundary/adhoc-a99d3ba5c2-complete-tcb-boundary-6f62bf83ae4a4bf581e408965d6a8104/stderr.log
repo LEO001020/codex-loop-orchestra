@@ -1,0 +1,20 @@
+Reading additional input from stdin...
+2026-08-14T07:07:56.983794Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T07:08:07.103465Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-14T07:08:13.161337Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `command` at line 1 column 122
+2026-08-14T07:08:24.670010Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T07:08:45.272924Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T07:09:05.062370Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T07:09:16.257687Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T07:09:27.277194Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T07:09:44.271571Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T07:10:00.863891Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-14T07:10:08.992974Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T07:10:24.078922Z ERROR codex_core::tools::router: error=unsupported call: codebase_search
+2026-08-14T07:10:38.801208Z ERROR codex_core::tools::router: error=unsupported call: grep
+2026-08-14T07:10:51.048232Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T07:11:06.829839Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T07:11:17.498650Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T07:11:27.621473Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T07:11:44.020463Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T07:21:31.886405Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 194ms)... turn_id=019fff19-511f-7291-acfb-f77bc5e34c44 retries=1 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游 SSE 读取超时, url: http://127.0.0.1:10100/v1/responses

@@ -1,0 +1,14 @@
+PASS
+
+复核 refill_consumer_v2.py 与 refill_controller_v2.py，源码与证据包声明一致，未发现可复现 P0/P1：
+
+- consumer 是薄 actuator：`.consumer.lock` 跨进程覆盖 sync→select→dispatch→observe（refill_consumer_v2.py:133-149）
+- 只消费有真实 packet 文件的 `DISPATCHABLE + explicit role`，缺显式 role 直接拒（:59-67, :70-87, :48-56）
+- 跳过 release_review 与 K3 专用状态，拒 pool/role 冲突（:82-101）
+- 不生成 prompt，仅产出 packet manifest 交给 headless_wave（:8-9, :113-124, :140-146）
+- controller 是 pool-aware 总账同步，K3 work states 计入 k3（refill_controller_v2.py:150-169）
+- sustained refill 补到 target、capacity 封顶、low-water 只做紧急度（:216-255, :240-243）
+- 空队列/finalized 零出生（:244-246, :257-260）
+- 仅 `running` 计有效并发、fail-closed policy、stale state 强制重算（:172-204, :96, :328-341）
+
+注：下游 headless_wave.py:302-314 在出生前强制重查 ledger `DISPATCHABLE`，且非后台并行派发；证据 MD 第 23 行的 `ModuleNotFoundError: mcp` 属后续 WSL 验证项，本轮不据此判 REDO。

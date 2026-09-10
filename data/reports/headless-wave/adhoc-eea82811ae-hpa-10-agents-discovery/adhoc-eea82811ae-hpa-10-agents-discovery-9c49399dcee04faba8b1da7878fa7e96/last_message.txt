@@ -1,0 +1,44 @@
+---
+
+## 审计结果
+
+### 路径证据
+
+| 路径 | 类型 | 说明 |
+|------|------|------|
+| `G:\VPS-K3\extracted\k3\repo\AGENTS.md` | 唯一根文件 | 全仓库唯一 AGENTS.md |
+
+递归搜索（`rg --files -g "AGENTS.md"` + PowerShell `Get-ChildItem -Recurse`）结果一致：**整个仓库只有一个 AGENTS.md，位于根目录**，不存在任何嵌套的子级 AGENTS.md。
+
+### 根文件覆盖分析
+
+根 AGENTS.md 已涵盖以下跨目录规则：
+
+- `packages/ai/src/models.generated.ts` — 禁止直接修改，需改 `generate-models.ts`（明确文件路径约束）
+- `packages/coding-agent/test/suite/` — 必须使用 `harness.ts` + faux provider，禁用真实 API key
+- `packages/coding-agent/test/suite/regressions/` — 命名约定 `<issue-number>-<short-slug>.test.ts`
+- `packages/*/CHANGELOG.md` — 格式约束
+- 并行 agent 的 git 操作安全规则（全局适用）
+
+### 目录特殊性评估
+
+| 目录 | 语言/生态 | 现有约束 | 是否需要嵌套 AGENTS.md |
+|------|-----------|----------|----------------------|
+| `packages/{ai,agent,tui,coding-agent}` | TypeScript / npm | 根文件已覆盖 | **否** |
+| `prime-agent-runtime/` | Python (pyproject.toml + uv) | 根文件无 Python 特定规则 | **可选** |
+| `quant_engine/` | Python（量化引擎，含 `tests/`） | 根文件无 Python 特定规则 | **可选** |
+| `pipelines/` | Python（数据管道，含 artifacts/runs 目录） | 无 | **可选** |
+| `quant/p4_integrations/qlib/data/` | 数据文件（嵌套副本） | 无 | **否**（数据目录，非代码） |
+| `packages/ai/src/models.generated.ts` | 生成文件 | 根文件已明确禁止直接修改 | **否** |
+
+### 最小建议
+
+**当前状态是健康的**：根文件唯一、无冗余嵌套、无冲突层级。
+
+如需增加约束，仅以下两处有实际价值：
+
+1. `prime-agent-runtime/AGENTS.md`（可选）— 该目录是独立 Python 项目（`pyproject.toml` + `uv.lock`），与 npm 生态完全分离。若 agent 在此目录工作，根文件的 `npm run check` 等命令不适用，可加一个简短的 Python 专用 AGENTS.md 说明：使用 `uv` 而非 `npm`，测试命令为 `pytest`，不在此运行 `npm run check`。
+
+2. `quant_engine/AGENTS.md`（可选）— 同为纯 Python 量化引擎，有独立的 `tests/` 目录。若需要约束测试隔离（如禁止直接调用真实交易所 API），可在此添加。
+
+**两处均非必须**，根文件已足够，仅当发生实际误操作（如 agent 在 Python 子项目中误跑 `npm run check`）时再添加。

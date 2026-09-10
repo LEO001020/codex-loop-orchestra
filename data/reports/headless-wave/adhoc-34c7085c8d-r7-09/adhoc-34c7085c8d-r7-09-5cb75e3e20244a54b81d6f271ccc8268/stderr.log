@@ -1,0 +1,404 @@
+Reading additional input from stdin...
+2026-08-14T14:12:39.552896Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T14:12:43.568915Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T14:18:16.480203Z ERROR codex_core::tools::router: error=Exit code: 124
+Wall time: 10.8 seconds
+Total output lines: 407
+Output:
+command timed out after 10757 milliseconds
+
+codex-loop-s-f2\data\reports\headless-wave\adhoc-08bf8bc078-installer-transaction-edge\adhoc-08bf8bc078-installer-trans
+action-edge-dd80fb25d12746778ed5cb4b2ae3a7e1\stderr.log:254:E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\ad
+hoc-08bf8bc078-k3-provider-failure-attribution\adhoc-08bf8bc078-k3-provider-failure-attribution-1474af5924fa4ece950608b
+49f6a5c42\events.jsonl
+codex-loop-s-f2\data\reports\headless-wave\adhoc-08bf8bc078-installer-transaction-edge\adhoc-08bf8bc078-installer-trans
+action-edge-dd80fb25d12746778ed5cb4b2ae3a7e1\stderr.log:255:E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\ad
+hoc-08bf8bc078-k3-provider-failure-attribution\adhoc-08bf8bc078-k3-provider-failure-attribution-1474af5924fa4ece950608b
+49f6a5c42\stderr.log
+codex-loop-s-f2\data\reports\headless-wave\adhoc-08bf8bc078-installer-transaction-edge\adhoc-08bf8bc078-installer-trans
+action-edge-dd80fb25d12746778ed5cb4b2ae3a7e1\stderr.log:256:E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\ad
+hoc-08bf8bc078-k3-provider-failure-attribution\adhoc-08bf8bc078-k3-provider-failure-attribution-1474af5924fa4ece950608b
+49f6a5c42\supervisor.log
+codex-loop-s-f2\data\reports\headless-wave\adhoc-08bf8bc078-monitor-freshness-root-cause\adhoc-08bf8bc078-monitor-fresh
+ness-root-cause-8a94db95bef747d8b852318cf0c1d31d\stderr.log:299:    "adhoc-08bf8bc078-k3-provider-failure-attribution":
+ {
+codex-loop-s-f2\data\reports\headless-wave\adhoc-08bf8bc078-monitor-freshness-root-cause\adhoc-08bf8bc078-monitor-fresh
+ness-root-cause-8a94db95bef747d8b852318cf0c1d31d\stderr.log:328:        "E:\\codex-LOOP\\codex-loop-s-f2\\data\\reports
+\\headless-wave\\adhoc-08bf8bc078-k3-provider-failure-attributio
+codex-loop-s-f2\data\reports\headless-wave\adhoc-08bf8bc078-monitor-freshness-root-cause\adhoc-08bf8bc078-monitor-fresh
+ness-root-cause-8a94db95bef747d8b852318cf0c1d31d\stderr.log:329:n\\adhoc-08bf8bc078-k3-provider-failure-attribution-147
+4af5924fa4ece950608b49f6a5c42\\last_message.txt",
+codex-loop-s-f2\data\reports\headless-wave\adhoc-0ce6fe0373-ceremony-order\adhoc-0ce6fe0373-ceremony-order-544c986b4c02
+41bcb3a0e5b148ef1303\stderr.log:3:2026-08-14T07:41:21.450363Z  WARN codex_analytics::client: events failed with status 
+401 Unauthorized: {
+codex-loop-s-f2\data\reports\headless-wave\adhoc-0ce6fe0373-rm-plan\adhoc-0ce6fe0373-rm-plan-b4f160b42da047a495d8ba1f7b
+76b055\stderr.log:63:E:\VPS\p5-gcp-prechange-20260810T125030Z.tar.gz                                                   
+                                                   -a----
+codex-loop-s-f2\data\reports\headless-wave\adhoc-0f5426ee3c-consumer\adhoc-0f5426ee3c-consumer-5fd5322016934a8b9bba6c0e
+e742a162\stderr.log:62:.\data\reports\headless-wave\adhoc-08bf8bc078-k3-provider-failure-attribution\adhoc-08bf8bc078-k
+3-provider-failure-attribution-1474af5924fa4ece950608b49f6a5c42\events.jsonl:37:{"type":"item.completed","item":{"id":"
+item_18","type":"command_execution","command":"\"C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.e
+xe\" -Command \"rg -n -i \\\"opencodex|health\\\" harness --glob '*.py' --glob '*.ps1' -l\"","aggregated_output":"harne
+ss\\dispatch.py\nharness\\headless_wave.py\nharness\\layered_gate.py\nharness\\model_profile.py\nharness\\orchestration
+\\plan_pipeline.py\nharness\\refill_controller.py\nharness\\refill_consumer_v2.py\nharness\\trigger_eval_v2.py\n","exit
+_code":0,"status":"completed"}}
+codex-loop-s-f2\data\reports\headless-wave\adhoc-0f5426ee3c-consumer\adhoc-0f5426ee3c-consumer-5fd5322016934a8b9bba6c0e
+e742a162\stderr.log:63:.\data\reports\headless-wave\adhoc-08bf8bc078-k3-provider-failure-attribution\adhoc-08bf8bc078-k
+3-provider-failure-attribution-1474af5924fa4ece950608b49f6a5c42\events.jsonl:41:{"type":"item.completed","item":{"id":"
+item_21","type":"command_execution","command":"\"C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.e
+xe\" -Command 'Get-ChildItem -File harness | Select-Object -ExpandProperty Name; Get-ChildItem -File config | Select-Ob
+ject -ExpandProperty Name'","aggregated_output":"acceptance_replay.sh\r\nagent_router.py\r\nbudget_controller.py\r\ncsv
+_reconcile.py\r\ndag_assert.py\r\ndesktop_edge_reconcile.py\r\ndiffvalidator.py\r\ndispatch.py\r\ndispatch_v2.py\r\ndua
+l_plane_hash.py\r\nduty_driver.py\r\nduty_gate.py\r\nduty_route.py\r\nheadless_wave.py\r\nipybox_cleanup.py\r\nipybox_l
+azy.py\r\nl2_consumer.py\r\nlayered_gate.py\r\nlifecycle_supervisor.py\r\nlifecycle_supervisor_v2.py\r\nloop_config.py\
+r\nmissing_check.sh\r\nmodel_profile.py\r\norchestration_common.py\r\norchestration_epilogue.py\r\nrefill_consumer_v2.p
+y\r\nrefill_controller.py\r\nrefill_controller_v2.py\r\nresult_reducer.py\r\nretry.py\r\nroot_turn_governor.py\r\nrouti
+ng_mode.py\r\nsanitize.py\r\nshort_result_validator.py\r\nsignals_collect.py\r\nsmoke_gate.sh\r\nstatemachine.py\r\nsta
+temachine_v2.py\r\nsummary_synth.py\r\ntrigger_eval.py\r\ntrigger_eval_v2.py\r\nverdict_aggregate.py\r\nverdict_check.p
+y\r\nworktree_pool.sh\r\nconfig.toml.example\r\nescalation_ladder.yaml\r\nipybox_sandbox.json\r\nloop_config_v2.toml\r\
+nmanaged_files_v2.txt\r\nmodel_profiles.toml\r\norchestration_policy_v2.toml\r\nrefill_policy.toml\r\nretry_classes.yam
+l\r\nroles.yaml\r\nroles_v2.yaml\r\nstatemachine_v2_transitions.json\r\ntriggers.yaml\r\ntriggers_v2.yaml\r\n","exit_co
+de":0,"status":"completed"}}
+codex-loop-s-f2\data\reports\headless-wave\adhoc-0f5426ee3c-consumer\adhoc-0f5426ee3c-consumer-5fd5322016934a8b9bba6c0e
+e742a162\stderr.log:64:.\data\reports\headless-wave\adhoc-08bf8bc078-installer-transaction-edge\adhoc-08bf8bc078-instal
+ler-transactбн252144 tokens truncatedбнclaim_on_completion|explicit_high_risk_route|plan_expansion|trivial_packet|child_s
+hort_result|decision_skeleton|root_control_max|ordinary_revision|adjudication_packet|inherit_root_transcript|control_pa
+cket_compiler|tokens.*metric|metric.*tokens|refresh_debounce|lease_renew|state_cooldown|allocation_headroom\\\\\\\" -g 
+\\\\\\\"*.py\\\\\\\" --glob \\\\\\\"!.pytest_cache/**\\\\\\\" --glob \\\\\\\"!backup-*/**\\\\\\\" harness hooks meterin
+g | Select-Object -First 80'\\\",\\\"aggregated_output\\\":\\\"metering\\\\\\\\model_token_share_bridge.py:124:    debo
+unce = float(policy.get(\\\\\\\"tokens\\\\\\\", {}).get(\\\\\\\"refresh_debounce_s\\\\\\\", 60))\\\\r\\\\nharness\\\\\\
+\\agent_router.py:96:    PLAN_EXPANSION_CRITERIA = \\\\\\\"plan_expansion_criteria\\\\\\\"\\\\r\\\\nmetering\\\\\\\\mod
+el_token_share_v2.py:363:        self.refresh_debounce_s = float(tokens.get(\\\\\\\"refresh_debounce_s\\\\\\\", 60))\\\
+\r\\\\nmetering\\\\\\\\model_token_share_v2.py:490:                    < self.refresh_debounce_s):\\\\r\\\\nharness\\\\
+\\\\budget_controller.py:138:        self.cooldown_s = float(self.policy.value(\\\\\\\"budget\\\\\\\", \\\\\\\"state_co
+oldown_s\\\\\\\", 60))\\\\r\\\\nharness\\\\\\\\budget_controller.py:139:        self.headroom = float(self.policy.value
+(\\\\\\\"budget\\\\\\\", \\\\\\\"allocation_headroom\\\\\\\", 0.30))\\\\r\\\\nharness\\\\\\\\l2_consumer.py:450:       
+     max_tokens=int(ctx.get(\\\\\\\"child_short_result_max_tokens\\\\\\\", 500)),\\\\r\\\\nharness\\\\\\\\l2_consumer.p
+y:451:            max_findings=int(ctx.get(\\\\\\\"child_short_result_max_findings\\\\\\\", 8)),\\\\r\\\\nharness\\\\\\
+\\lifecycle_supervisor_v2.py:172:            ``[context].child_short_result_max_tokens``; default 500).\\\\r\\\\nharnes
+s\\\\\\\\orchestration\\\\\\\\plan_pipeline.py:27:DECISION_SCHEMA = ROOT / \\\\\\\"schemas\\\\\\\" / \\\\\\\"decision_s
+keleton.schema.json\\\\\\\"\\\\r\\\\nharness\\\\\\\\orchestration\\\\\\\\plan_pipeline.py:29:TOP_LEVEL_KEYS = {\\\\\\\"
+control_packet_id\\\\\\\", \\\\\\\"decision_skeleton_id\\\\\\\", \\\\\\\"packets\\\\\\\", \\\\\\\"needs_decision\\\\\\\
+"}\\\\r\\\\nharness\\\\\\\\orchestration\\\\\\\\plan_pipeline.py:178:           \\\\\\\"decision_skeleton_id\\\\\\\": r
+esult[\\\\\\\"decision_skeleton_id\\\\\\\"],\\\\r\\\\nharness\\\\\\\\orchestration\\\\\\\\plan_pipeline.py:282:    deci
+sion = args.decision_skeleton.resolve()\\\\r\\\\nharness\\\\\\\\orchestration\\\\\\\\plan_pipeline.py:314:    if result
+.get(\\\\\\\"decision_skeleton_id\\\\\\\") != validate(decision, DECISION_SCHEMA)[\\\\\\\"decision_skeleton_id\\\\\\\"]
+:\\\\r\\\\nharness\\\\\\\\orchestration\\\\\\\\plan_pipeline.py:315:        raise ValueError(\\\\\\\"output decision_sk
+eleton_id does not match input\\\\\\\")\\\\r\\\\nharness\\\\\\\\result_reducer.py:176:            ``[context].adjudicat
+ion_packet_max_new_tokens``).\\\\r\\\\nharness\\\\\\\\result_reducer.py:372:    def render_adjudication_packet(\\\\r\\\
+\nharness\\\\\\\\result_reducer.py:484:    packet = reducer.render_adjudication_packet(args.question, wave=args.wave)\\
+\\r\\\\n\\\",\\\"exit_code\\\":0,\\\"status\\\":\\\"completed\\\"}}\\r\\n.\\\\data\\\\reports\\\\headless-wave\\\\adhoc
+-20516a9185-policy-schema-union\\\\adhoc-20516a9185-policy-schema-union-1d330e3fc0d74c06a6037dd20745997b\\\\events.json
+l:49:{\\\"type\\\":\\\"item.completed\\\",\\\"item\\\":{\\\"id\\\":\\\"item_24\\\",\\\"type\\\":\\\"command_execution\\
+\",\\\"command\\\":\\\"\\\\\\\"C:\\\\\\\\\\\\\\\\WINDOWS\\\\\\\\\\\\\\\\System32\\\\\\\\\\\\\\\\WindowsPowerShell\\\\\\
+\\\\\\\\\\v1.0\\\\\\\\\\\\\\\\powershell.exe\\\\\\\" -Command '$v1 = Get-Content -Raw -LiteralPath \\\\\\\"E:'\\\\\\\"\
+\\\\\\\\\\\\\\\codex-LOOP\\\\\\\\\\\\\\\\codex-loop-s-f2\\\\\\\\\\\\\\\\config\\\\\\\\\\\\\\\\orchestration_policy.toml
+\\\\\\\\\\\\\\\"; \\\\\\\"'$v2 = Get-Content -Raw -LiteralPath \\\\\\\"E:'\\\\\\\"\\\\\\\\\\\\\\\\codex-LOOP\\\\\\\\\\\
+\\\\\codex-loop-s-f2\\\\\\\\\\\\\\\\config\\\\\\\\\\\\\\\\orchestration_policy_v2.toml\\\\\\\\\\\\\\\"; function Get-Ke
+ys(\\\\\\\"'$text) { $sections = @{}; $cur = '\\\\\\\"'TOP'; foreach (\\\\\\\"'$line in ($text -split \\\\\\\"`r?`n\\\\
+\\\")) { $t = $line.Trim(); if ($t -match '\\\\\\\"'\\\\\\\"'^'\\\\\\\"\\\\\\\\\\\\\\\\[(.+)\\\\\\\\\\\\\\\\]\\\\\\\"'$
+'\\\\\\\"') { \\\\\\\"'$cur = $matches[1]; if (-not $sections.ContainsKey($cur)) { $sections[$cur] = @() } } elseif ($t
+ -match '\\\\\\\"'\\\\\\\"'^([A-Za-z0-9_]+)'\\\\\\\"\\\\\\\\\\\\\\\\s*=' -and -not \\\\\\\"'$t.StartsWith('\\\\\\\"'#')
+) { \\\\\\\"'$sections[$cur] += $matches[1] } }; return $sections }; $k1 = Get-Keys $v1; $k2 = Get-Keys $v2; '\\\\\\\"'
+=== V1 ==='; \\\\\\\"'$k1.GetEnumerator() | Sort-Object Name | ForEach-Object { \\\\\\\"{0}: {1}\\\\\\\" -f $_.Name, ($
+_.Value -join '\\\\\\\"', ') }; '=== V2 ==='; \\\\\\\"'$k2.GetEnumerator() | Sort-Object Name | ForEach-Object { \\\\\\
+\"{0}: {1}\\\\\\\" -f $_.Name, ($_.Value -join '\\\\\\\"', ') }\\\\\\\"\\\",\\\"aggregated_output\\\":\\\"=== V1 ===\\\
+\r\\\\nbudget: throttle_at, degrade_at, break_at, state_cooldown_s, reclaim_on_completion, allocation_headroom\\\\r\\\\
+nconcurrency_ref: refill_policy_ref\\\\r\\\\ncontext: inherit_root_transcript, control_packet_compiler, decision_skelet
+on_max_new_tokens, root_control_max_new_tokens_per_wave, ordinary_revision_max_new_tokens, adjudication_packet_max_new_
+tokens, child_short_result_max_tokens, child_short_result_max_findings\\\\r\\\\ngovernor: planning_max_turns, planning_
+max_new_tokens, meter_stale_after_s, lease_renew_on_packet_creation\\\\r\\\\nhysteresis: enter_high_sol_share, enter_sa
+mples, leave_high_sol_share, leave_samples, critical_1h_share, critical_5h_share\\\\r\\\\nipybox: desktop_native_enable
+d, wsl_headless_worker_enabled, k3_planning_verifying_enabled, k3_code_execution_exception\\\\r\\\\nmodel_context: sol,
+ k3, v4\\\\r\\\\nmodels: sol, k3, v4\\\\r\\\\nrouting: mode, trivial_packet_direct_to_v4, plan_expansion_min_packets, p
+lan_expansion_on_cross_platform, plan_expansion_on_release_or_audit, plan_expansion_when_sol_5h_above, send_l2_consumer
+, explicit_high_risk_route, verify_sample_rate, l2_max_age_s, l2_heartbeat_max_age_s, statemachine_schema_required, rol
+lback_key\\\\r\\\\ntokens: metric, primary_window_seconds, minimum_denominator, sol_target_low, sol_target_high, sol_ha
+rd_cap, k3_floor, k3_total_observation_low, k3_total_observation_high, k3_verify_observation_low, k3_verify_observation
+_high, v4_observation_low, v4_observation_high, structural_alert_sol_above, structural_alert_k3_below\\\\r\\\\nTOP: sch
+emastatus\\\\r\\\\n=== V2 ===\\\\r\\\\nbudget: state_file, throttle_at, degrade_at, break_at, planning_max_turns, plann
+ing_max_new_tokens\\\\r\\\\ncapabilities: desktop_is_control_and_observation_plane, global_tool_ban, mandatory_k3_revie
+w_every_packet\\\\r\\\\nconcurrency: refill_policy_ref\\\\r\\\\ncontext: inherit_root_transcript, control_packet_compil
+er, decision_skeleton_max_new_tokens, root_control_max_new_tokens_per_wave, ordinary_revision_max_new_tokens, adjudicat
+ion_packet_max_new_tokens, child_short_result_max_tokens, child_short_result_max_chars, child_short_result_max_findings
+\\\\r\\\\ngate_guard: log, require_consumer_heartbeat, require_exactly_once_canary, require_k3_model_pinned, require_va
+lidator_enabled, require_statemachine_schema, require_rollback_key, require_default_adapter, require_meter_v2_fresh, re
+quire_plan_pipeline, require_provider_health, require_lifecycle_roster, require_rollback_rehearsal, require_dual_plane_
+hash, statemachine_required_transitions, statemachine_schema_file\\\\r\\\\ngovernor: fail_mode, decision_log, planning_
+lease_file, attestation_ledger, break_glass_env, allowed_states, share_report\\\\r\\\\nhysteresis: enter_high_sol_share
+, enter_samples, leave_high_sol_share, leave_samples, critical_1h_share, critical_5h_share\\\\r\\\\nipybox: desktop_nat
+ive_enabled, wsl_headless_worker_enabled, k3_planning_verifying_enabled, k3_code_execution_exception\\\\r\\\\nl2_queue:
+ dir, pending_file, l2_max_age_s, claim_heartbeat_interval_s, claim_stale_after_s, claim_max_reclaims, consumer_heartbe
+at_max_age_s\\\\r\\\\nmodels: sol_model, sol_reasoning, k3_model, k3_reasoning, k3_context_tokens, k3_compaction_tokens
+, v4_model, v4_reasoning, v4_context_tokens, v4_compaction_tokens, legacy_aliases\\\\r\\\\nrouting: mode, rollback_mode
+, trivial_packet_direct_to_v4, plan_expansion_min_packets, plan_expansion_on_cross_platform, plan_expansion_on_release_
+or_audit, plan_expansion_when_sol_5h_above, send_l2_consumer, explicit_high_risk_route, verify_sample_rate\\\\r\\\\ntok
+ens: metric, primary_window_seconds, minimum_denominator, refresh_debounce_s, stale_after_s, sol_target_low, sol_target
+_high, sol_allocation_cap, sol_hard_cap, k3_floor, k3_total_observation_low, k3_total_observation_high, k3_verify_obser
+vation_low, k3_verify_observation_high, v4_observation_low, v4_observation_high, structural_alert_sol_above, structural
+_alert_k3_below\\\\r\\\\nTOP: schemapolicy_versionstatus\\\\r\\\\nvalidator: enabled, schema_id\\\\r\\\\n\\\",\\\"exit_
+code\\\":0,\\\"status\\\":\\\"completed\\\"}}\\r\\n.\\\\data\\\\reports\\\\headless-wave\\\\adhoc-20516a9185-policy-env
+-override\\\\adhoc-20516a9185-policy-env-override-d95f0d96a2ed4d95a61cb7dc83665ed5\\\\events.jsonl:49:{\\\"type\\\":\\\
+"item.completed\\\",\\\"item\\\":{\\\"id\\\":\\\"item_25\\\",\\\"type\\\":\\\"collab_tool_call\\\",\\\"tool\\\":\\\"wai
+t\\\",\\\"sender_thread_id\\\":\\\"019ff555-532f-7710-a765-04f5928a14f0\\\",\\\"receiver_thread_ids\\\":[\\\"019ff557-4
+2c9-7d60-85f5-60a7361f6f18\\\"],\\\"prompt\\\":null,\\\"agents_states\\\":{\\\"019ff557-42c9-7d60-85f5-60a7361f6f18\\\"
+:{\\\"status\\\":\\\"completed\\\",\\\"message\\\":\\\"**?бь??aА??бз???o?бе??* LOOP_ORCH_POLICY ?гд?б░?бз?|?б░???бш??aА??гд?oaА?
+?гд???a?|?б░aАбу?бш??a???бш???a?бьaАo?бф?|???гд?бз?бе???гд??aАб░?бьaА??1?бе????`harness/orchestration_common.py:331`?бе??aАбу?бе???бп?бь??
+`OrchestrationPolicy.load` ?бз?????гд?буaА?6 ?бш???v2 ?бь??aА??бш?????бе??aАohooks/metering/statemachine ?бь?-aАбу?бш??a???гд??aА1
+?бь?????бь??aАб░?бь????`orchestration_policy_v2.toml`?бъa?????гд???бп?гдaА|?бз?бш?????бз???бш?бз?бе?гд?гд??????aА????бе???бп?гд???бщ?|????\
+\\\\\\"?бь???бе?гд?бщ?бп?бз?|aА??бьaАoaАб░?гд???a?гд?бе??v2 ?гд?????|aАб▒???бьaА????|aАбщ??\\\\\\\"?бь??aА??гд???бп?бз???бз?бъa??aА?\\\\n\\\
+\n**?бз?бе???гд??aАб░?бьaА??1?|??aА|?гд??*\\\\n\\\\n1. `harness/orchestration_common.py:331`?бе???б░`os.environ.get(\\\\\\\"LOO
+P_ORCH_POLICY\\\\\\\")`?бе???б░?|?б░?a?бз????бь???o?бш???2?бщaА?aА??гдaАo???бз??`config/orchestration_policy.toml`?бе?????бз?бе?гд?|
+aАб░aА??бш?????гд?бш?бф?бзaА??a?|??\\\\\\\"DEPRECATED?бщa???|NOT READ BY PRODUCTION\\\\\\\"?бе???бп?бш?????бз?бьaА??бз?бп?бп?|aАб░aА??бш
+????`_v2.toml` ?бш?????гд???бп?|?o???бе??aАбу?бе??aАo?гдa?????|?бпaА??гд??aА??бь???o?гд???|?????гд?????|aАб░aА??бш?????бщaА?aА?`_load_
+toml`(:303-311) ?|???`PolicyError` fail-closed?бе??aАo?гдa?????гд???? NUL ?бь?-aАбу???????|?3aАбщ?бз?бд?бе?гд??aА??бщaА?aА?`Path.r
+esolve()` ?|???`ValueError` ?|?б░?a?|??aАбщ?бз???бд?гд???3?гд?бф???бе??aАo?бьaАo???гд?бе?1?бз?бд?бе?гд??aА??|?бпaАбу?бз??aАo?бь??CWD ?бз?бь?
+бъ?|?????бе?????????? LOOP_ROOT?бе??aАбу?бе???б░?|?ж╠???гдaА|??`OrchestrationPolicy` ?гд?бе?1?бз?б└???бе???бп?бш??aА?`model_pin`(:370)
+/`routing_mode`(:350)/ipybox/budget ?гдaА??3?бь?-aАб░?бъa??aА?\\\\n\\\\n2. ??aАб▒?бф?|???гд?бз?бе???гд??aАб░?бе?????бь????`Orchestra
+tionPolicy.load`?бе??aАбу?бе????`harness/dispatch_v2.py:309`?бъa????`harness/agent_router.py:346`?бъa????`harness/budget_con
+troller.py:130`?бъa????`harness/root_turn_governor.py:290`?бъa????`harness/trigger_eval_v2.py:385`?бъa????`harness/headles
+s_wave.py:261`?бе???б░?гд???бп?бш?????бе???б░?бш?????бш??a???гд?бшaА??гд?????бз?????гд?бш?б└?бз?бф?гд?бщaА?aА??бз?бе?гд?бь??aА??бш?????гд???бе?гд??
+?бз?гд???3?бш???-?|?-?бщ?бе????fail-closed?бе???бп?|aАб▒??????a?бщ?????????????бз???бш?бе??aАбу?бе???б░?|?бз???гд??aА?pin?бщaА?aА??|?бф???
+гд??`-m`?бе??aАorouting_mode?бщaА?aА?AgentRouter.effective_mode?бе??aАosol_hard_cap/hysteresis?бщaА?aА????бщaА??бь??aАб▒?бш????S
+ol ???????|aАб░?-?бъa??aА?\\\\n\\\\n3. ?гд?-???бз??aАo?бь?бзaА1??a?????бш?????бе????`harness/lifecycle_supervisor.py:334` `_env
+_block(dict(os.environ))` + `CreateProcessW(CREATE_UNICODE_ENVIRONMENT)`?бе???б░?|aАбщ?бф?бь???бе?гд?бщ?бп?гд?бш???гд?????бе?????гд??
+??LOOP_ORCH_POLICY?бе???бп?бзaА1?гд?бь?????бз??aАo?бь?бзaА1?|?б░aАбу?бе??aАбу?бе???б░?|aАб▒?????????бз???бш?бе??aАoheadless_wave.py:208 P
+open ?бш?o?|?бь???бь?|aАбу???бь?????бь???бе?гд?бщ?бп?бе???б░?гд?-??codex exec ?бзaА1?гд?гдaА????бз??harness ?бзaА????|?б░???бш?????гдaА????|
+?????бз?бе???гд???бу?бз?бе?гд?гд??????aА????бъa??aА?\\\\n\\\\n4. ?|aАб▒???бз?бд?бе?бе?????бь?????бь??aАб░?бь????v2 ?бз?бд?бе?гд??aА??бе???бп?бь?
+??бе?гд?бщ?бп?гд??????aА????|aАб▒???|aАбщ???бе??aАбу?бе????`hooks/sol_tool_gate_v2.py:135`?бъa????`hooks/sol_tool_gate_router.py:3
+7`?бъa????`metering/model_token_share_v2.py:604-605`?бе?????бш??aА?`--policy` ?гд??aА??|aАбщ?бу?бе??aАбу?бъa????`metering/model_
+token_share_bridge.py:123`?бъa????`metering/usage_reconcile.py:41`?бъa????`harness/l2_consumer.py:431`?бъa????`harness/lay
+ered_gate.py:110/362/384`?бъa????`harness/orchestration_epilogue.py:41`?бъa????`harness/orc…2445 tokens truncated…---------------------------------------------------\\\\r\\\\n 
+   def evaluate(self, tool_name: str, model: str | None = None,\\\\r\\\\n                 estimated_new_tokens: int = 0
+) -> GovernorDecision:\\\\r\\\\n        \\\\\\\"\\\\\\\"\\\\\\\"Evaluate one root-session tool call.  Deterministic, ze
+ro-model.\\\\\\\"\\\\\\\"\\\\\\\"\\\\r\\\\n        tool = (tool_name or \\\\\\\"\\\\\\\").lower()\\\\r\\\\n        if n
+ot tool.startswith(GATED_TOOLS):\\\\r\\\\n            return GovernorDecision(Verdict.ALLOW, \\\\\\\"tool not gated\\\\
+\\\", \\\\\\\"-\\\\\\\")\\\\r\\\\n\\\\r\\\\n        # Model-family screen: dispatch-target families are never gated; an
+\\\\r\\\\n        # unknown/absent model cannot bypass by omitting the field.\\\\r\\\\n        family = self._model_fam
+ily(model)\\\\r\\\\n        if family in (\\\\\\\"v4\\\\\\\", \\\\\\\"k3\\\\\\\"):\\\\r\\\\n            return Governor
+Decision(Verdict.ALLOW, \\\\\\\"dispatch-target family\\\\\\\", \\\\\\\"-\\\\\\\")\\\\r\\\\n        if family != \\\\\\
+\"sol\\\\\\\":\\\\r\\\\n            return self._deny(\\\\r\\\\n                \\\\\\\"PreToolUse payload.model is mis
+sing or unknown (%r); a gated \\\\\\\"\\\\r\\\\n                \\\\\\\"operation cannot bypass the Sol policy by omitt
+ing model\\\\\\\"\\\\r\\\\n                % (model,), \\\\\\\"-\\\\\\\", (\\\\\\\"governor.fail_closed\\\\\\\",))\\\\r
+\\\\n\\\\r\\\\n        state, trusted = self.loop_state()\\\\r\\\\n\\\\r\\\\n        # Break-glass: observable, audited
+, never silent.\\\\r\\\\n        override = os.environ.get(BREAK_GLASS_ENV)\\\\r\\\\n        if override:\\\\r\\\\n    
+        self._event(\\\\\\\"governor.break_glass\\\\\\\",\\\\r\\\\n                        {\\\\\\\"tool\\\\\\\": tool,
+ \\\\\\\"reason\\\\\\\": override, \\\\\\\"loop_state\\\\\\\": state})\\\\r\\\\n            return GovernorDecision(Ver
+dict.ALLOW,\\\\r\\\\n                                    f\\\\\\\"break-glass override: {override}\\\\\\\", state,\\\\r
+\\\\n                                    (\\\\\\\"governor.break_glass\\\\\\\",))\\\\r\\\\n\\\\r\\\\n        # Fail-clo
+sed on unreadable ledger for anything but a fresh root.\\\\r\\\\n        if not trusted:\\\\r\\\\n            self._eve
+nt(\\\\\\\"governor.fail_closed\\\\\\\",\\\\r\\\\n                        {\\\\\\\"tool\\\\\\\": tool, \\\\\\\"why\\\\\
+\\": \\\\\\\"ledger_unreadable\\\\\\\"})\\\\r\\\\n            return self._deny(\\\\r\\\\n                \\\\\\\"progr
+ess ledger unreadable ??D??failing closed. Gated tools deny \\\\\\\"\\\\r\\\\n                \\\\\\\"until the ledger 
+is restored; packet/dispatch tools remain \\\\\\\"\\\\r\\\\n                \\\\\\\"available (decompose and dispatch).
+\\\\\\\", state,\\\\r\\\\n                (\\\\\\\"governor.fail_closed\\\\\\\",))\\\\r\\\\n\\\\r\\\\n        # Budget 
+ladder (Tier 2/3 integration): DEGRADE/BREAK deny gated tools.\\\\r\\\\n        budget = self.budget_state()\\\\r\\\\n 
+       if budget in (\\\\\\\"DEGRADE\\\\\\\", \\\\\\\"BREAK\\\\\\\"):\\\\r\\\\n            self._event(\\\\\\\"governor
+.fail_closed\\\\\\\",\\\\r\\\\n                        {\\\\\\\"tool\\\\\\\": tool, \\\\\\\"why\\\\\\\": f\\\\\\\"budge
+t_{budget.lower()}\\\\\\\"})\\\\r\\\\n            return self._deny(\\\\r\\\\n                \\\\\\\"task budget state
+ is %s: only adjudication/dispatch tools are \\\\\\\"\\\\r\\\\n                \\\\\\\"allowed. Delegate: dispatch.py -
+-role worker --packet <id> \\\\\\\"\\\\r\\\\n                \\\\\\\"(or open a bounded adjudication packet).\\\\\\\" %
+ budget, state,\\\\r\\\\n                (\\\\\\\"governor.fail_closed\\\\\\\",))\\\\r\\\\n\\\\r\\\\n        # Planning
+ lease (the P0-5.2 fix): bounded, renewable exemption.\\\\r\\\\n        if state == \\\\\\\"planning\\\\\\\":\\\\r\\\\n
+            lease = PlanningLease.load(self.paths)\\\\r\\\\n            max_turns = self.policy.planning_max_turns()\\\
+\r\\\\n            max_tokens = self.policy.planning_max_new_tokens()\\\\r\\\\n            if lease.exhausted(max_turns
+, max_tokens):\\\\r\\\\n                self._event(\\\\\\\"governor.lease_denied\\\\\\\",\\\\r\\\\n                   
+         {\\\\\\\"tool\\\\\\\": tool, \\\\\\\"turns_used\\\\\\\": lease.turns_used,\\\\r\\\\n                          
+   \\\\\\\"new_tokens_used\\\\\\\": lease.new_tokens_used})\\\\r\\\\n                return self._deny(\\\\r\\\\n      
+              \\\\\\\"decompose or dispatch: planning lease exhausted \\\\\\\"\\\\r\\\\n                    \\\\\\\"(%d
+/%d turns, %d/%d new tokens) ??D??emit packets/*.json + \\\\\\\"\\\\r\\\\n                    \\\\\\\"dag.json or open 
+an adjudication packet; packet creation \\\\\\\"\\\\r\\\\n                    \\\\\\\"renews the lease.\\\\\\\"\\\\r\\\
+\n                    % (lease.turns_used, max_turns,\\\\r\\\\n                       lease.new_tokens_used, max_tokens
+), state)\\\\r\\\\n            lease.consume_turn(self.paths, estimated_new_tokens)\\\\r\\\\n            return Governo
+rDecision(Verdict.ALLOW, \\\\\\\"planning lease\\\\\\\", state)\\\\r\\\\n\\\\r\\\\n        if state in (\\\\\\\"adjudic
+ation\\\\\\\", \\\\\\\"release_finalize\\\\\\\"):\\\\r\\\\n            return GovernorDecision(Verdict.ALLOW, f\\\\\\\"
+{state} state\\\\\\\", state)\\\\r\\\\n\\\\r\\\\n        # Execution (incl. K3 work states): meter-driven share enforce
+ment.\\\\r\\\\n        share, status = self.meter_status()\\\\r\\\\n        if status in (\\\\\\\"MISSING\\\\\\\", \\\\
+\\\"MALFORMED\\\\\\\", \\\\\\\"STALE\\\\\\\"):\\\\r\\\\n            self._event(\\\\\\\"governor.fail_closed\\\\\\\",\\
+\\r\\\\n                        {\\\\\\\"tool\\\\\\\": tool, \\\\\\\"why\\\\\\\": f\\\\\\\"meter_{status.lower()}\\\\\\
+\"})\\\\r\\\\n            return self._deny(\\\\r\\\\n                \\\\\\\"token meter is %s ??D??failing closed for
+ non-planning Sol \\\\\\\"\\\\r\\\\n                \\\\\\\"turns. Delegate: dispatch as a packet, or restore the meter
+.\\\\\\\"\\\\r\\\\n                % status, state, (\\\\\\\"governor.fail_closed\\\\\\\",))\\\\r\\\\n        if status
+ == \\\\\\\"OK\\\\\\\" and share is not None:\\\\r\\\\n            band = self.hysteresis.observe(\\\\r\\\\n           
+     share, sample_id=f\\\\\\\"{self.paths.meter_report}:{share:.6f}\\\\\\\")\\\\r\\\\n            if band == \\\\\\\"H
+IGH\\\\\\\":\\\\r\\\\n                self._event(\\\\\\\"governor.share_denied\\\\\\\",\\\\r\\\\n                     
+       {\\\\\\\"tool\\\\\\\": tool, \\\\\\\"share_5h\\\\\\\": share})\\\\r\\\\n                return self._deny(\\\\r\
+\\\n                    \\\\\\\"Sol 5h effective share %.2f%% is in the HIGH band ??D??\\\\\\\"\\\\r\\\\n              
+      \\\\\\\"delegate: route to k3 verifier \\\\\\\"\\\\r\\\\n                    \\\\\\\"(dispatch.py --role verifier
+ --packet <id>) or dispatch \\\\\\\"\\\\r\\\\n                    \\\\\\\"the work as a V4 packet. Auto-delegation is t
+he \\\\\\\"\\\\r\\\\n                    \\\\\\\"reward-optimal action; this turn is refused.\\\\\\\"\\\\r\\\\n\\\",\\\
+"exit_code\\\":0,\\\"status\\\":\\\"completed\\\"}}\\r\\n.\\\\data\\\\reports\\\\headless-wave\\\\adhoc-20516a9185-poli
+cy-consumer-contracts\\\\adhoc-20516a9185-policy-consumer-contracts-b7a15dc4c0234820b15dd26965edf155\\\\events.jsonl:10
+:{\\\"type\\\":\\\"item.completed\\\",\\\"item\\\":{\\\"id\\\":\\\"item_2\\\",\\\"type\\\":\\\"command_execution\\\",\\
+\"command\\\":\\\"\\\\\\\"C:\\\\\\\\\\\\\\\\WINDOWS\\\\\\\\\\\\\\\\System32\\\\\\\\\\\\\\\\WindowsPowerShell\\\\\\\\\\\
+\\\\\v1.0\\\\\\\\\\\\\\\\powershell.exe\\\\\\\" -Command \\\\\\\"Get-Content config\\\\\\\\\\\\\\\\orchestration_policy
+_v2.toml -Raw\\\\\\\"\\\",\\\"aggregated_output\\\":\\\"# =============================================================
+===============\\\\n# orchestration_policy_v2.toml иж??declaration face = enforcement face\\\\n# -----------------------
+-----------------------------------------------------\\\\n# Purpose : single policy source for routing modes, token ban
+ds, hysteresis,\\\\n#           budget caps, gate-guard conditions, and model pins. Every key in\\\\n#           this f
+ile is READ by the code that enforces it (design invariant 2,\\\\n#           phase2_architecture_design.md ???.4).\\\\
+n# Readers : harness/l2_consumer.py, harness/layered_gate.py,\\\\n#           harness/result_reducer.py, harness/short_
+result_validator.py,\\\\n#           harness/lifecycle_supervisor_v2.py, hooks/sol_tool_gate_v2.py,\\\\n#           met
+ering/model_token_share_v2.py\\\\n# NOTE    : concurrency numbers live ONLY in refill_policy.toml.\\\\n#           loop
+_config_v2.toml is a compatibility/documentation mirror.\\\\n#           (fixes P0-8.3 fifth-authority defect, phase1b 
+??? item 8).\\\\n# ============================================================================\\\\n\\\\nschema = \\\\\
+\\"codex-loop-orchestration-policy/v2\\\\\\\"\\\\npolicy_version = 2\\\\nstatus = \\\\\\\"fable-audit-implementation\\\
+\\\\"\\\\n\\\\n# ----------------------------------------------------------------------------\\\\n# Model pins иж??model
+s are read from HERE, never hardcoded in Python\\\\n# Root Sol remains the Desktop frontier model. Ordinary execution u
+ses\\\\n# DeepSeek V4 Flash ultra; verification/review remains on Kimi K3 max.\\\\n# ----------------------------------
+------------------------------------------\\\\n[models]\\\\nsol_model = \\\\\\\"gpt-5.6-sol\\\\\\\"\\\\nsol_reasoning =
+ \\\\\\\"high\\\\\\\"\\\\n\\\\nk3_model = \\\\\\\"weiwu-k3/kimi-k3\\\\\\\"\\\\nk3_reasoning = \\\\\\\"max\\\\\\\"\\\\nk
+3_context_tokens = 1000000\\\\nk3_compaction_tokens = 800000\\\\n\\\\nv4_model = \\\\\\\"weiwu/deepseek-v4-flash\\\\\\\
+"\\\\nv4_reasoning = \\\\\\\"ultra\\\\\\\"\\\\nv4_context_tokens = 1000000\\\\nv4_compaction_tokens = 800000\\\\n\\\\n#
+ legacy aliases quarantined into their own bucket иж??NEVER counted as k3\\\\nlegacy_aliases = [\\\\\\\"gpt-5.6-terra\\\
+\\\\", \\\\\\\"gpt-5.6-luna\\\\\\\", \\\\\\\"gpt-5.6\\\\\\\"]\\\\n\\\\n# ----------------------------------------------
+------------------------------\\\\n# ipybox иж??user constraint: do NOT re-enable Desktop ipybox\\\\n# -----------------
+-----------------------------------------------------------\\\\n[ipybox]\\\\ndesktop_native_enabled = false          # 
+Desktop native: ipybox DISABLED\\\\nwsl_headless_worker_enabled = true      # WSL/headless worker: explicit enable\\\\n
+k3_planning_verifying_enabled = false   # K3 plan/verify: disabled unless the\\\\nk3_code_execution_exception = true   
+   #   task explicitly needs code exec\\\\n\\\\n# ---------------------------------------------------------------------
+-------\\\\n# Routing иж??three-mode switch (P0-1 fix, ???.1)\\\\n# ----------------------------------------------------
+------------------------\\\\n[routing]\\\\nmode = \\\\\\\"layered\\\\\\\"                     # cold_start | shadow | l
+ayered\\\\n                                        # flip to layered ONLY via layered_gate\\\\nrollback_mode = \\\\\\\"
+cold_start\\\\\\\"            # gate condition 6: rollback key\\\\ntrivial_packet_direct_to_v4 = true\\\\nplan_expansio
+n_min_packets = 3\\\\nplan_expansion_on_cross_platform = true\\\\nplan_expansion_on_release_or_audit = true\\\\nplan_ex
+pansion_when_sol_5h_above = 0.25\\\\nsend_l2_consumer = \\\\\\\"harness/l2_consumer.py\\\\\\\"\\\\nexplicit_high_risk_r
+oute = \\\\\\\"direct_l3\\\\\\\"\\\\nverify_sample_rate = 0.10               # deterministic hash sampling (???.6)\\\\n
+\\\\n[l2_queue]\\\\ndir = \\\\\\\"data/l2_queue\\\\\\\"                   # relative to LOOP_ROOT, cross-platform\\\\np
+ending_file = \\\\\\\"pending.ndjsonl\\\\\\\"\\\\nl2_max_age_s = 900                      # unclaimed record older -> f
+ail-visible\\\\nclaim_heartbeat_interval_s = 15\\\\nclaim_stale_after_s = 120               # no heartbeat for this lon
+g -> reapable\\\\nclaim_max_reclaims = 2                  # after this the record escalates l3\\\\nconsumer_heartbeat_m
+ax_age_s = 300      # gate condition 1 freshness bound\\\\n\\\\n# -----------------------------------------------------
+-----------------------\\\\n# Context / budget caps (Tier-2 task budgets, ???)\\\\n# ----------------------------------
+------------------------------------------\\\\n[context]\\\\ninherit_root_transcript = false\\\\ncontrol_packet_compile
+r = \\\\\\\"deterministic\\\\\\\"\\\\ndecision_skeleton_max_new_tokens = 1200\\\\nroot_control_max_new_tokens_per_wave 
+= 2000\\\\nordinary_revision_max_new_tokens = 500\\\\nadjudication_packet_max_new_tokens = 2000\\\\nchild_short_result_
+max_tokens = 500\\\\nchild_short_result_max_chars = 2000     # 4 chars/token engineering constant\\\\nchild_short_resul
+t_max_findings = 8\\\\n\\\\n[validator]\\\\nenabled = true                          # gate condition 4\\\\nschema_id = 
+\\\\\\\"codex-loop-short-result/v2\\\\\\\"\\\\n\\\\n# -----------------------------------------------------------------
+-----------\\\\n# Token bands + hysteresis (meter v2, ???.4)\\\\n# ----------------------------------------------------
+------------------------\\\\n[tokens]\\\\nmetric = \\\\\\\"production_effective_tokens\\\\\\\"\\\\nprimary_window_secon
+ds = 18000          # 5h\\\\nminimum_denominator = 2000000\\\\nrefresh_debounce_s = 60                 # event-driven, 
+NOT weekly\\\\nstale_after_s = 7200                    # report older than 2x cadence -> STALE\\\\nsol_target_low = 0.1
+5\\\\nsol_target_high = 0.25\\\\n# Allocation envelope: new root work is budgeted at 15% so observed share can\\\\n# co
+nverge toward the user's 20-25% operating band.  The observed emergency\\\\n# hysteresis remains 25%; these are deliber
+ately different control layers.\\\\nsol_allocation_cap = 0.15\\\\nsol_hard_cap = 0.15\\\\nk3_floor = 0.20\\\\nk3_total_
+observation_low = 0.10\\\\nk3_total_observation_high = 0.25\\\\nk3_verify_observation_low = 0.02\\\\nk3_verify_observat
+ion_high = 0.08\\\\nv4_observation_low = 0.50\\\\nv4_observation_high = 0.75\\\\nstructural_alert_sol_above = 0.25\\\\n
+structural_alert_k3_below = 0.05\\\\n\\\\n[hysteresis]\\\\nenter_high_sol_share = 0.25\\\\nenter_samples = 2\\\\nleave_
+high_sol_share = 0.22\\\\nleave_samples = 2\\\\ncritical_1h_share = 0.35\\\\ncritical_5h_share = 0.35\\\\n\\\\n# ------
+----------------------------------------------------------------------\\\\n# Budget controller states (Tier-2/3, ???.2)
+\\\\n# ----------------------------------------------------------------------------\\\\n[budget]\\\\nstate_file = \\\\\
+\\"data/budget/active.json\\\\\\\"\\\\nthrottle_at = 0.60\\\\ndegrade_at = 0.85\\\\nbreak_at = 1.00\\\\nplanning_max_tu
+rns = 6\\\\nplanning_max_new_tokens = 30000\\\\n\\\\n# ----------------------------------------------------------------
+------------\\\\n# Governor (sol_tool_gate_v2, ???.5) иж??fail-closed, externally enforced\\\\n# -----------------------
+-----------------------------------------------------\\\\n[governor]\\\\nfail_mode = \\\\\\\"closed\\\\\\\"            
+        # default DENY on any sensor failure\\\\ndecision_log = \\\\\\\"data/governor/gate_decisions.ndjsonl\\\\\\\"\\\
+\nplanning_lease_file = \\\\\\\"data/governor/planning_lease.json\\\\\\\"\\\\nattestation_ledger = \\\\\\\"data/governo
+r/state_attestations.ndjsonl\\\\\\\"\\\\nbreak_glass_env = \\\\\\\"LOOP_GOVERNOR_OVERRIDE\\\\\\\"\\\\nallowed_states = 
+[\\\\\\\"planning\\\\\\\", \\\\\\\"adjudication\\\\\\\", \\\\\\\"release_finalize\\\\\\\"]\\\\nshare_report = \\\\\\\"d
+ata/usage/model_token_share_v2.json\\\\\\\"\\\\n\\\\n# ----------------------------------------------------------------
+------------\\\\n# Layered-mode gate guard (layered_gate.py, task item 8)\\\\n# ---------------------------------------
+-------------------------------------\\\\n[gate_guard]\\\\nlog = \\\\\\\"data/governor/layered_gate.ndjsonl\\\\\\\"\\\\
+nrequire_consumer_heartbeat = true\\\\nrequire_exactly_once_canary = true\\\\nrequire_k3_model_pinned = true\\\\nrequir
+e_validator_enabled = true\\\\nrequire_statemachine_schema = true\\\\nrequire_rollback_key = true\\\\nrequire_default_a
+dapter = true\\\\nrequire_meter_v2_fresh = true\\\\nrequire_plan_pipeline = true\\\\nrequire_provider_health = true\\\\
+nrequire_lifecycle_rosrg: .\.pytest_cache: ╛▄╛°╖├╬╩бг (os error 5)
+codex-loop-s-f2\data\reports\headless-wave\adhoc-0f5426ee3c-manifest-schema\adhoc-0f5426ee3c-manifest-schema-73d0302725
+974cd092bff49533dd2b63\stderr.log:966:.\data\reports\headless-wave\adhoc-08bf8bc078-k3-provider-failure-attribution\adh
+oc-08bf8bc078-k3-provider-failure-attribution-1474af5924fa4ece950608b49f6a5c42\stderr.log
+codex-loop-s-f2\data\reports\headless-wave\adhoc-0f5426ee3c-manifest-schema\adhoc-0f5426ee3c-manifest-schema-73d0302725
+974cd092bff49533dd2b63\stderr.log:967:.\data\reports\headless-wave\adhoc-08bf8bc078-k3-provider-failure-attribution\adh
+oc-08bf8bc078-k3-provider-failure-attribution-1474af5924fa4ece950608b49f6a5c42\events.jsonl
+codex-loop-s-f2\data\reports\headless-wave\adhoc-0f5426ee3c-observer\adhoc-0f5426ee3c-observer-f71bf81b33c44354b4b2f9fa
+bbc8cb26\stderr.log:117:E:\codex-LOOP\test-runs\installer-validation-20260808-050338\codex-loop\harness\hlloop\roster.p
+y                                               6326 2026/8/4 6:05:14  
+codex-loop-s-f2\data\reports\headless-wave\adhoc-0f5426ee3c-observer\adhoc-0f5426ee3c-observer-f71bf81b33c44354b4b2f9fa
+bbc8cb26\stderr.log:118:E:\codex-LOOP\test-runs\installer-validation-20260808-050338\codex-loop\tests\test_roster.py   
+                                                2578 2026/8/4 7:14:58  
+codex-loop-s-f2\data\reports\headless-wave\adhoc-0f5426ee3c-observer\adhoc-0f5426ee3c-observer-f71bf81b33c44354b4b2f9fa
+bbc8cb26\stderr.log:119:E:\codex-LOOP\test-runs\installer-validation-20260808-050353\codex-loop\harness\hlloop\roster.p
+y                                               6326 2026/8/4 6:05:14  
+codex-loop-s-f2\data\reports\headless-wave\adhoc-0f5426ee3c-tests\adhoc-0f5426ee3c-tests-a07132ec06a8467b95981af445fd10
+7a\stderr.log:191:.\data\reports\headless-wave\adhoc-08bf8bc078-k3-provider-failure-attribution\adhoc-08bf8bc078-k3-pro
+vider-failure-attribution-1474af5924fa4ece950608b49f6a5c42\stderr.log
+codex-loop-s-f2\data\reports\headless-wave\adhoc-0f5426ee3c-tests\adhoc-0f5426ee3c-tests-a07132ec06a8467b95981af445fd10
+7a\stderr.log:192:.\data\reports\headless-wave\adhoc-08bf8bc078-k3-provider-failure-attribution\adhoc-08bf8bc078-k3-pro
+vider-failure-attribution-1474af5924fa4ece950608b49f6a5c42\events.jsonl
+codex-loop-s-f2\data\reports\headless-wave\adhoc-0f5426ee3c-tests\adhoc-0f5426ee3c-tests-a07132ec06a8467b95981af445fd10
+7a\stderr.log:249:2026-08-12T15:54:52.488503Z  WARN codex_analytics::client: dropping analytics events: queue is full
+codex-loop-s-f2\data\reports\headless-wave\adhoc-10a9f01c4d-pc7-h3-candidates\adhoc-10a9f01c4d-pc7-h3-candidates-ade898
+acee754179aca584117f34142d\stderr.log:392:2026-08-12T20:17:44.503250Z ERROR codex_core::tools::router: error=Exit code:
+ 1
+codex-loop-s-f2\data\reports\headless-wave\adhoc-10a9f01c4d-pc7-h3-enumerator-order\adhoc-10a9f01c4d-pc7-h3-enumerator-
+order-0c5a5d2ba63f422ebcbf2e8d348c2d6b\stderr.log:189:E:\codex-LOOP\test-runs\installer-validation-20260808-050353\code
+x-loop\.venv\Scripts\python.exe 
+codex-loop-s-f2\data\reports\headless-wave\adhoc-10a9f01c4d-pc7-h3-enumerator-order\adhoc-10a9f01c4d-pc7-h3-enumerator-
+order-0c5a5d2ba63f422ebcbf2e8d348c2d6b\stderr.log:190:E:\codex-LOOP\test-runs\installer-validation-20260808-050353\code
+x-loop\.venv\Scripts\pythonw.exe
+codex-loop-s-f2\data\reports\headless-wave\adhoc-10a9f01c4d-pc7-h3-enumerator-order\adhoc-10a9f01c4d-pc7-h3-enumerator-
+order-0c5a5d2ba63f422ebcbf2e8d348c2d6b\stderr.log:217:command = C:\Users\hzq00\AppData\Local\Programs\Python\Python314\
+python.exe -m venv E:\codex-LOOP\test-runs\installer-validation-20260808-050353\codex-loop\.venv
+
+2026-08-14T14:24:45.789030Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1 seconds
+Output:
+Get-Content : 找不到路径“E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-90489513b5-h08-provider-gates\a
+dhoc-90489513b5-h08-provider-gates-adhoc-90489513b5-h08-provider-gates-a3f471ff42d345bda0a8bb875115b542\events.jsonl”，
+因为该路径不存在。
+所在位置 行:2 字符: 1
++ Get-Content "E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (E:\codex-LOOP\c...42\events.jsonl:String) [Get-Content], ItemNotFoundEx 
+   ception
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+
+2026-08-14T14:26:01.433479Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 188ms)... turn_id=01a0009e-266d-7f02-ad99-6e206682de5d retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T14:26:50.424461Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 371ms)... turn_id=01a0009e-266d-7f02-ad99-6e206682de5d retries=2 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T14:28:31.332898Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.9 seconds
+Output:
+python3 : 无法将“python3”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确
+，然后再试一次。
+所在位置 行:2 字符: 1
++ python3 -c "import time; now=time.time(); backoff=1786698370.1; k3_ts ...
++ ~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (python3:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T14:29:24.821569Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 3.2 seconds
+Output:
+python : 无法将“python”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，
+然后再试一次。
+所在位置 行:2 字符: 1
++ python -c "import time; now=time.time(); backoff=1786698370.1; k3_ts= ...
++ ~~~~~~
+    + CategoryInfo          : ObjectNotFound: (python:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T14:30:55.531821Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 192ms)... turn_id=01a0009e-266d-7f02-ad99-6e206682de5d retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T14:31:02.577351Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 406ms)... turn_id=01a0009e-266d-7f02-ad99-6e206682de5d retries=2 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T14:31:13.643526Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 805ms)... turn_id=01a0009e-266d-7f02-ad99-6e206682de5d retries=3 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T14:31:27.771512Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.597s)... turn_id=01a0009e-266d-7f02-ad99-6e206682de5d retries=4 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T14:31:37.400499Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 3.172s)... turn_id=01a0009e-266d-7f02-ad99-6e206682de5d retries=5 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T14:31:56.432002Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

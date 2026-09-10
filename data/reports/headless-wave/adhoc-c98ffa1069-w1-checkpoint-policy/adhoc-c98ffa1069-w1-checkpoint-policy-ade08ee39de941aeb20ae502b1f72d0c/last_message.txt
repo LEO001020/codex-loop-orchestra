@@ -1,0 +1,132 @@
+设计已完成，仅基于只读勘查，未读取任何标签文本，未运行任何 wave。以下是交付内容。
+
+## 结论摘要
+
+为 LOOP-F2 设计一套与现有记账体系同构的**时间账本 + 密封检查点**：
+
+- **活跃尝试墙钟时间**：以 `run_id` 为粒度的半开区间 `[start, end)`，起点/终点均从机械字段（spawn_times、ledger history、exec_roster、events.ndjson、run_role_map）按固定优先级推导；**永远不解析任务名/角色标签文本**。
+- **累计值** = 已闭合区间时长之和 + 当前 open 区间 `(now - start)`；按 packet / pool / family / role 汇总，并镜像 token meter 的窗口结构（rolling_1h/5h/24h/7d + cumulative）。
+- **密封检查点**：append-only 区间账本是唯一事实源；检查点文件写一次（write-once）、带 seq/prev_hash/self-hash/冻结输入清单，恢复时先校验链、再从游标重放增量、最后用确定性 reaper 强制闭合失活 open 区间。恢复永不改写已密封文件，天然防重放双计。
+
+## 现状锚点（已核实）
+
+- `data/progress_ledger.json`：packet 记录含 `attempts`（重试准入时 +1，见 [statemachine_v2.py](E:/codex-LOOP/codex-loop-s-f2/harness/statemachine_v2.py) `apply_event` 的 t9/t37 分支）、`current_run_id`、`history[]`（`{ts, to, via, t, run_id, event_run_id, attempt}`）。
+- `data/spawn_times.json`：`pid -> {ts, mode, run_id, attempt}`，watchdog 已用它算 `elapsed`；每次 spawn 覆盖旧值（上一代的 ts 会丢失，必须由 ledger/roster 历史补回）。
+- `data/lifecycle/exec_roster.json`：每 job 有 `started_at / deadline_at / heartbeat_at / updated_at` 与 `history[]`（`{ts, state, run_id, attempt}`，state ∈ generation_started/starting/running/completed/...）。
+- `data/events.ndjson`：终局事件 `subagent_stop / exec_failed / timeout` 均带 `run_id + attempt`；`detail.phase=pre_spawn` 表示从未出生，不得计活跃时间。
+- `data/usage/run_role_map.json`：`run_id -> {role, model, packet_id}`——归因的机械来源，替代标签。
+- [model_token_share_v2.py](E:/codex-LOOP/codex-loop-s-f2/metering/model_token_share_v2.py)：append-only ledger + 语义幂等键 + 冻结输入清单 + 窗口报告，是本设计的直接模板。
+- `refill_controller_v2.resume()` 只翻转 `finalized` 标志；时间账本恢复与之正交，但恢复顺序应在 refill 前（先 reap 失活 open 区间再补位）。
+
+## 语义定义
+
+1. **活跃区间**（attempt interval）：一次物理 generation 从 spawn 到终局。起点/终点优先级（固定，全机械）：
+
+| 优先级 | 起点 start | 终点 end |
+|---|---|---|
+| 1 | exec_roster `history state=running` 的 ts | events.ndjson 匹配 `run_id` 的 `subagent_stop` |
+| 2 | exec_roster `started_at` | `exec_failed` |
+| 3 | `spawn_times.json[pid].ts`（须 `run_id` 匹配） | `timeout` / `exec_killed` |
+| 4 | ledger history `to=RUNNING` 且 `run_id` 匹配 | exec_roster 终局 state 的 history ts |
+| 5 | `dispatched` 事件 ts | 恢复时 reaper 强制闭合 |
+
+   无任何起点证据 → 记 `start_source=none`，恢复时按 0 秒闭合（`start_missing=true`），不虚构起点。
+2. **不活跃/不计时**：`pre_spawn` 失败、`stale_run_id_ignored`/`stale_generation_ignored` 的旧代事件、`timeout_confirmed_idempotent`、`dispatch_refused`、`dispatch_dry_run`——一律不产生区间行。
+3. **时钟**：记账用 wall ts（跨进程唯一公共时钟）；同一进程内累计增量用 `time.monotonic()` 交叉校验；`end < start`（时钟回拨）→ 秒数钳 0 并标 `clamped`。
+4. **密封**：检查点捕获"此刻已闭合累计 + 此刻 open 区间起点清单 + 账本游标 + 输入文件清单哈希"；恢复只重放游标之后的增量，靠区间行幂等键（`idem_key`）防重放双计。
+
+## 结构字段
+
+### A. 区间账本 `data/time/attempts.ndjson`（append-only，事实源）
+
+每行两类：`opened`（spawn 时写）、`closed`（终局时写，携带完整 start+end）。
+
+```json
+{"schema":"codex-loop-time-accounting/v1","kind":"opened",
+ "idem_key":"ti:<sha256(packet_id|run_id)[:24]>",
+ "packet_id":"parent-…","run_id":"parent-…-a0-…","attempt":0,
+ "role":"worker","model":"weiwu/deepseek-v4-flash","family":"v4","pool":"v4","plane":"Windows CLI",
+ "start":{"wall_ts":1786567127.794,"source":"roster_running|roster_started|spawn_times|ledger_running|event_dispatched|none"},
+ "status":"open","recorded_ts":…}
+```
+
+```json
+{"schema":"codex-loop-time-accounting/v1","kind":"closed",
+ "idem_key":"<同上>",
+ "packet_id":"…","run_id":"…","attempt":0,
+ "role":"worker","model":"…","family":"v4","pool":"v4",
+ "start":{"wall_ts":…,"source":"spawn_times"},
+ "end":{"wall_ts":…,"source":"event_subagent_stop|event_exec_failed|event_timeout|event_exec_killed|roster_terminal|resume_reaper",
+        "kind":"completed|failed|timed_out|killed|force_closed"},
+ "closed_seconds":123.4,
+ "clamped":false,"start_missing":false,"attempt_mismatch":false,
+ "closed_by":"seal:seq=7|resume:<run_id>|direct","recorded_ts":…}
+```
+
+不变式：`idem_key` 行内唯一（重复 append 丢弃）；`attempt` 必须等于 `run_id` 的 `-aN-` 段与事件 `attempt`，不一致标 `attempt_mismatch` 且以事件值为准；`closed_seconds = max(0, end-start)`。
+
+### B. 累计状态 `data/time/state.json`（缓存 + 恢复入口，可从账本全量重算）
+
+```json
+{"schema":"codex-loop-time-accounting/v1","updated_ts":…,
+ "last_seal_seq":7,"base_ts":…,"ledger_cursor":12345,
+ "totals":{"global":{"closed_seconds":…,"open_seconds":…,"active_attempts":N,"closed_attempts":M},
+           "by_packet":{"<pid>":{…}},"by_pool":{"v4":{…},"k3":{…},"other":{…}},
+           "by_family":{"v4":{…},"k3":{…}},"by_role":{"worker":{…}}},
+ "open_intervals":[{"run_id":"…","packet_id":"…","attempt":0,"start_wall_ts":…,"start_source":"…"}],
+ "windows":{"rolling_1h":{…},"rolling_5h":{…},"rolling_24h":{…},"rolling_7d":{…},"cumulative":{…}}}
+```
+
+### C. 密封检查点 `data/time/checkpoints/seq-00000007.json`（write-once）
+
+```json
+{"schema":"codex-loop-time-checkpoint/v1","seq":7,"sealed_ts":…,
+ "sealed_by":"periodic|shutdown|resume_reaper|manual",
+ "prev_hash":"sha256(seq-00000006.json 规范化内容)",
+ "hash":"sha256(本文件除 hash 字段外的规范化内容)",
+ "base":{"events_cursor":421981,"spawn_times_mtime":…,"roster_mtime":…,"ledger_mtime":…,
+         "input_manifest":[{"path":"data/time/attempts.ndjson","sha256":"…"},…]},
+ "cumulative":{"global":{…},"by_packet":{…},"by_pool":{…},"by_family":{…},"by_role":{…}},
+ "open_intervals":[…同 B…],
+ "stats":{"closed_attempts":N,"open_attempts":M,"force_closed":K,"rejected_stale":L},
+ "writer":{"pid":…,"host":…}}
+```
+
+密封规则：同 seq 同内容 → 幂等接受；同 seq 异内容 → 硬错误拒绝（绝不覆盖）；`seq` 单调 +1；`closed_seconds` 各维度跨密封单调不减。
+
+### D. 恢复协议（`resume`）
+
+1. 校验整条链（首块无 prev、`prev_hash` 连续、`hash` 自洽、seq 无空洞、totals 单调）→ 失败即 fail-closed 拒绝恢复。
+2. 载入最后密封：`base` 游标 + `open_intervals`。
+3. 从账本游标重放新行（幂等键去重），只影响 `> base` 的增量。
+4. Reaper：open 区间满足 `now - last_heartbeat > stale_after_s`（默认 `job_max_runtime_seconds + grace_s + 60`）→ 以 `min(deadline_at, last_heartbeat_at + grace_s, start + job_max_runtime + grace)` 确定性闭合，`end.source=resume_reaper, end.kind=force_closed`；心跳新鲜或未超 deadline 的保持 open。
+5. 重算窗口 → 原子写 `state.json` → 若本次恢复闭合了任何区间，追加一个 `sealed_by=resume_reaper` 的新检查点。
+
+## 机械测试（全部纯单元级，注入双时钟，不 spawn、不跑 wave）
+
+1. **跨恢复不丢起点**：t0 open、t1 密封、t2 恢复 → open_seconds = t2−t0（起点从检查点携带，不重置为 t1）。
+2. **跨密封边界全额计一次**：t0 起、t1 密封、t2 闭合 → closed_seconds = t2−t0；密封快照时计 0；幂等键保证不双计。
+3. **幂等去重**：同 `idem_key` opened/closed 各写两次 → totals 只计一次。
+4. **累计=各 attempt 之和**：同一 packet 三个区间 30/60/90s → cumulative=180s，`-aN-` 段与 `attempt` 对齐。
+5. **旧代事件不计时**：`stale_run_id_ignored`、`stale_generation_ignored`、`timeout_confirmed_idempotent` 不产生区间行。
+6. **pre_spawn 不计时**：`detail.phase=pre_spawn` 的 `exec_failed` 不产生 opened 行（从未出生）。
+7. **Reaper 确定性闭合**：心跳过期、有 `deadline_at` → 闭合点恰为 `min(deadline_at, heartbeat+grace)`；kind/source 正确。
+8. **新鲜心跳存活**：心跳在 `stale_after_s` 内 → 保持 open，不被 reap。
+9. **密封 write-once**：同 seq 同内容幂等接受；同 seq 异内容拒绝且原文件字节不变。
+10. **链完整性**：篡改前块 / 截断 / seq 空洞 → 恢复拒绝（fail-closed）。
+11. **冻结清单校验**：密封后修改账本中 base 之前的行 → 清单哈希不匹配、恢复拒绝；base 后追加行 → 正常增量。
+12. **totals 单调**：连续两密封间各维度 closed_seconds 非减；open_seconds 可降（闭合）但 closed+open 同 attempt 恒非负。
+13. **时钟回拨钳零**：end < start → seconds=0 且 `clamped=true`。
+14. **归因只用机械记录**：标签文本含 "verifier/K3" 而 dispatch 记录 role=worker、model=v4 → family/pool 归 v4/worker，绝不读标签。
+15. **增量==全量重算**：`seal totals + 游标后增量` 与从账本全量重算在浮点容差内逐字段相等。
+16. **Schema 校验 fail-visible**：负秒数、缺 run_id、未知 kind、非数值 ts → 该行拒绝并告警，账本其余行照常。
+17. **并发密封单赢**：两写者同 seq 竞争 → 恰一个成功，败者收到 `seq_exists`，链完整。
+18. **无密封崩溃恢复**：opened 行无 closed 行且心跳全失 → reaper 按规则闭合，早先 closed totals 不丢不重。
+19. **终点优先级**：事件终局 ts 优先于 roster 终局 ts；两者皆缺 → reaper 兜底。
+20. **汇总桶完备**：混合 v4/k3/未知 role → by_pool+by_family+by_role 各桶之和等于 global；未知 role 落 `other` 桶，不丢数据。
+
+## 假设与边界
+
+- `stale_after_s`、`job_max_runtime_seconds`、`grace_s` 从现有 policy/config 读取（`agents.job_max_runtime_seconds`、`lifecycle.stop_grace_seconds`），设计不新增硬编码常量。
+- 检查点文件建议放 `data/time/checkpoints/`；实现建议 `harness/time_accounting.py` + `tests/unit/test_time_accounting.py`（沿用现有测试布局）。若需要窗口 WARNING/BLOCK 门禁，可复用 token share 的 hysteresis 模式，但本轮未设计阈值。
+- 未覆盖：跨主机关机时刻的精确判定（reaper 用 deadline/heartbeat 上限近似，属已知有界误差）；Desktop native 与 headless 两平面时间源不一致时的对齐（由 `plane` 字段保留原始证据，不做换算）。

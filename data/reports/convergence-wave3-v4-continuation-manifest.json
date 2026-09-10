@@ -1,0 +1,36 @@
+{
+  "tasks": [
+    {
+      "task_id": "monitor-freshness-root-cause",
+      "task_name": "8765新鲜度根因",
+      "prompt": "任务名：8765新鲜度根因\n只读定位http://127.0.0.1:8765/api/status中freshness=STALE的计算与刷新链。检查Windows overlay、WSL root、计划任务、状态文件mtime；给出最小修复建议和准确文件/行号。不得修改文件或派生子agent，<=700字。",
+      "cwd": "E:/codex-LOOP/codex-loop-s-f2",
+      "role": "worker",
+      "sandbox": "read-only"
+    },
+    {
+      "task_id": "installer-transaction-edge",
+      "task_name": "安装器事务边界复核",
+      "prompt": "任务名：安装器事务边界复核\n只读复核install_v2.sh/install.sh及test_install_v2.py最新状态。重点找同秒备份碰撞、tmp残留、部分复制失败、源目标相同、hooks配置损坏时的P0/P1。不得改文件，输出PASS/REDO与行号，<=700字。",
+      "cwd": "E:/codex-LOOP/codex-loop-s-f2",
+      "role": "worker",
+      "sandbox": "read-only"
+    },
+    {
+      "task_id": "wsl-config-route-check",
+      "task_name": "WSL路由配置复核",
+      "prompt": "任务名：WSL路由配置复核\n只读核验/home/codexloop/.codex/config.toml、/home/codexloop/codex-loop-s-f2/.codex/hooks.json与config/model_profiles.toml。确认默认V4、显式K3 role、ipybox默认关闭及worker按需开启、无Windows绝对路径。输出PASS/REDO证据，<=600字。",
+      "cwd": "E:/codex-LOOP/codex-loop-s-f2",
+      "role": "worker",
+      "sandbox": "read-only"
+    },
+    {
+      "task_id": "k3-provider-failure-attribution",
+      "task_name": "K3故障归因复核",
+      "prompt": "任务名：K3故障归因复核\n只读检查OpenCodex health/status/logs和本轮adhoc-ae4185dded-*、adhoc-11e226* stderr。区分网关进程崩溃、K3上游502/504、analytics 401及本地并发过载；给出可证实结论和安全重试条件。不得重启或修改服务，<=700字。",
+      "cwd": "E:/codex-LOOP/codex-loop-s-f2",
+      "role": "worker",
+      "sandbox": "read-only"
+    }
+  ]
+}

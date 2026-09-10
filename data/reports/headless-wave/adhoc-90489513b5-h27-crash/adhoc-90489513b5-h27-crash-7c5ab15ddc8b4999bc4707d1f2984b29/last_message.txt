@@ -1,0 +1,110 @@
+I now have comprehensive evidence. Let me compile the final attribution audit.
+
+---
+
+## Crash Attribution Boundary Audit — 2026-08-14
+
+### Summary
+
+This is a read-only audit of all failure/crash evidence in `E:\codex-LOOP`. The findings are organized by what is **directly evidenced** versus what would be **unproven causal speculation** about LOOP concurrency being responsible.
+
+---
+
+## A. Directly Evidenced Events
+
+### A1. Desktop (codex CLI) — `codex_core` process failures
+
+**Source:** `data/reports/headless-wave/*/stderr.log`, `data/events.ndjson`
+
+All headless agent stderr logs show a uniform pattern of **application-level failures**, not OS or power events:
+
+| Evidence | Source | Category |
+|---|---|---|
+| `Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell` | All h27-crash and multiple other stderr.log files | Known codex limitation on Windows PowerShell — not a crash |
+| `events failed with status 401 Unauthorized: token_invalidated` | h27-crash stderr, k3-provider-failure-attribution stderr | Auth token invalidation — an **API-layer event**, not a Desktop or OS crash |
+| `stream disconnected - retrying sampling request (1–3/5)... unexpected status 502 Bad Gateway: Provider error 502: 上游网络连接失败` | h27-crash stderr (10:49) | **Upstream proxy (127.0.0.1:10100) connection failure** — network/proxy event, not a process crash |
+| `codex_core::tools::router: error=Exit code: 1` | h27-crash stderr | Child shell command returned non-zero — **normal tool failure**, not crash |
+
+**Conclusion:** The h27-crash agent did not crash. It ran to completion, encountered a 502 from the local proxy, retried 3/5 times, and the session ended via token invalidation. The task name "h27-crash" refers to the subject it was *auditing*, not to a crash it experienced.
+
+---
+
+### A2. `exec_failed` Events — Categorized by Actual Cause
+
+**Source:** `data/events.ndjson` — 93 total `exec_failed` events
+
+| `why` value | Count (approx) | Actual cause | OS/power related? |
+|---|---|---|---|
+| `supervisor_error` + `CreateProcessW failed (5): 拒绝访问` | 4 (adhoc-285d0b57b6 wave) | **Windows ACCESS_DENIED** on `CreateProcessW` — a Windows security/permissions event, not a crash | Yes — Windows OS permission event |
+| `supervisor_error` + `PermissionError: [WinError 5] ... exec_roster.json.*.tmp → exec_roster.json` | ~7 (adhoc-20516a9185 wave) | **Windows file lock contention** — race on atomic rename of `exec_roster.json`. Concurrent supervisors tried to rename the same temp file. | No — application race condition |
+| `supervisor_lost` + `cancelled:false, cold_start:true` | ~5 | Supervisor process exited before the lifecycle lock was acquired; `cold_start:true` means no rollout was ever written. Cause: likely the `CreateProcessW (5)` wave above; follow-on retries found the worker already gone | No — logical consequence of prior denied birth |
+| `nonzero_exit` + `exit_code:1` + `stderr_tail` containing `401 token_invalidated` | ~20 (ae4185dded, 08bf8bc078, others) | **API auth token invalidated mid-session** — all agents in the same wave were sharing a session whose token was revoked. `codex` process then exited 1. | No — API/auth event |
+| `nonzero_exit` + `exit_code:1` + `stderr_tail` containing `502 Bad Gateway` / `stream disconnected` | ~5 | **Upstream proxy 10100 unavailable** — `opencodex` gateway not yet ready or restarting | No — infrastructure/proxy startup state |
+| `supervisor_error` + `phase:post_spawn` + `lifecycle lock remained busy for 10.000s: [Errno 13] Permission denied` | ~8 (adhoc-10a9f01c4d, adhoc-5e2f87e03f, adhoc-f6c22ba355 at ts~1786565420–1786565680) | **Lifecycle lock held by concurrent wave** — a burst of simultaneous spawns all racing on the same `.lifecycle.lock` file. This is a **file contention event**, not a crash. Permission denied on the lock file under load | No — concurrency/locking |
+| `spawn_failed` + `effective+initializing concurrency reached target 60` | ~15 (parent-* packets) | **Concurrency cap enforcement** — `BirthThrottleError` from `dispatch_v2.py:530-570`; rejected at the gate before any process was created | No — policy enforcement, not crash |
+| `obsolete_after_mechanical_verification` + `cancelled:true` | 1 (adhoc-08bf8bc078-k3-provider) | Deliberate cancellation of a long-running agent by orchestrator | No — intentional |
+| `supervisor_error` + `phase:pre_spawn` + `LifecycleError: CreateProcessW failed (5)` | 1 (v2job-plan-20925ac7b87bdf7e71d8 at ts~1786536487) | Same OS permission issue, correctly tagged `phase:pre_spawn` | Yes — Windows OS permission event |
+
+---
+
+### A3. Windows OS Events — What Is Actually Evidenced
+
+The only **OS-level events** with direct evidence in this workspace are:
+
+1. **`CreateProcessW failed (5): 拒绝访问`** — Windows error 5 = `ERROR_ACCESS_DENIED`. This occurred in two waves (adhoc-285d0b57b6 at ~2026-08-10T04:x UTC, and v2job at ~2026-08-12T12:x UTC). This is a Windows **security policy** event: the codex process attempted to `CreateProcessW` and was denied. Likely cause: the process was not running with sufficient privilege to spawn child processes at that moment (no Developer Mode, UAC configuration, or AppContainer restriction). **No Windows Event Log, WER, minidump, or system crash dump is present in the workspace to further classify this.**
+
+2. **`PermissionError: [WinError 5]` on `exec_roster.json` rename** — atomic rename blocked by Windows file locking. Direct evidence in `data/events.ndjson`.
+
+**There is no evidence in this workspace of:**
+- Windows BSOD / kernel panic / system crash
+- Machine power cycle, sleep, or hibernate event
+- Out-of-memory kill (no OOM strings found)
+- Process killed by OS memory pressure
+- Windows Error Reporting (WER) fault entries
+- SIGKILL or unexpected process termination from outside the LOOP
+
+---
+
+### A4. Python-Level Errors
+
+**Source:** `birth-failure-event-audit/audit_report.md` + source code inspection
+
+Two Python-level bug sources are directly evidenced:
+
+1. **`dispatch_v2.py:562-564` and `dispatch.py:571-573`** — `exec_failed` events emitted without `phase=pre_spawn`, causing `statemachine_v2` to route birth-before-physical-process failures to `DEAD_LETTER` instead of `DISPATCHABLE` (retry). Evidenced by 15 `why=spawn_failed` events in `data/events.ndjson` landing in `DEAD_LETTER`.
+
+2. **`PermissionError` on `exec_roster.json` atomic rename** — concurrent supervisors racing on the same file path. 7 events evidenced.
+
+---
+
+## B. Unproven / Speculative LOOP Concurrency Causality
+
+The following claims would **not be supported** by direct evidence and should not be stated as established fact:
+
+| Speculative claim | Why it is unproven |
+|---|---|
+| "LOOP concurrency caused Desktop to crash" | No Desktop crash is evidenced anywhere; all `exec_failed` events trace to specific, documented causes (access denied, lock contention, auth token, 502 proxy) |
+| "High agent count caused the OS/machine to crash or power cycle" | No power/OS crash event exists in any log; the `native_roster.json` shows 154 stale rows from 47+ hours ago — normal historical debris, not crash evidence |
+| "The 502 upstream errors were caused by concurrency overload" | The 502s from `127.0.0.1:10100` are from the local `opencodex` proxy; they are consistent with the proxy not yet being ready (cold start / restart), not with load-induced failure |
+| "The lifecycle lock contention ([Errno 13]) was caused by too many concurrent agents" | The lock contention burst (~8 events in ~2 seconds, ts 1786565420–1786565680) occurred when a wave attempted simultaneous spawns against a single lock file. This is a **sequencing/locking defect** (no backoff/retry on lock acquisition), not evidence that the count itself caused a crash |
+| "The `CreateProcessW (5)` failures were caused by LOOP spawning too many processes" | The error is a permission check, not a resource exhaustion. Windows denies `CreateProcessW` when the calling process lacks elevation or is in a restricted context — unrelated to concurrency count |
+| "The supervisor_lost cold_start events indicate the Desktop app crashed" | `supervisor_lost + cold_start:true` means the lifecycle supervisor process exited before writing its first rollout line. This is the expected follow-on from an immediately prior `CreateProcessW (5)` denial in the same wave — not a Desktop app crash |
+
+---
+
+## C. Boundary Summary
+
+| Category | Directly evidenced | Concurrency as cause proven? |
+|---|---|---|
+| Windows ACCESS_DENIED on `CreateProcessW` | ✅ (events.ndjson, 5 instances) | ❌ No |
+| Windows file lock race on `exec_roster.json` | ✅ (events.ndjson, 7 instances) | Partially — concurrent writes are the mechanism, but this is a locking defect, not a crash |
+| Auth token invalidation → nonzero exit | ✅ (stderr.log, events.ndjson, ~20 instances) | ❌ No — API event |
+| 502 proxy unavailable → nonzero exit | ✅ (stderr.log, events.ndjson, ~5 instances) | ❌ No — infrastructure state |
+| Concurrency cap enforcement (throttle) | ✅ (events.ndjson, ~15 instances, `spawn_failed`) | N/A — by design |
+| Lifecycle lock contention (Errno 13) | ✅ (events.ndjson, ~8 instances) | Partially — concurrent spawns triggered it, but it is a locking defect |
+| Python `phase=pre_spawn` missing bug | ✅ (audit report + events) | ❌ Not a crash |
+| Desktop app crash | ❌ No evidence | N/A |
+| OS/machine power or kernel crash | ❌ No evidence | N/A |
+| OOM / memory-pressure kill | ❌ No evidence | N/A |
+
+**The workspace contains no evidence of any Desktop application crash, OS crash, or power event. All observed `exec_failed` events are attributable to specific, identified application-level causes: Windows permission/lock events, API auth revocation, proxy unavailability, and concurrency cap enforcement. None of these have proven LOOP concurrency as a root cause.**

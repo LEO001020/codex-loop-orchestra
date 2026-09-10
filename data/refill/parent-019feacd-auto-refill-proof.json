@@ -1,0 +1,28 @@
+{
+  "schema": "codex-loop-parent-refill/v1",
+  "manifest_id": "auto-refill-proof-20260813",
+  "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+  "parent_state": "active",
+  "enabled": true,
+  "target_active": 16,
+  "cwd": "E:/codex-LOOP/codex-loop-s-f2",
+  "mode": "read-only",
+  "tasks": [
+    {"task_id":"v4-terminal-tests","task_name":"终态轻事务测试复验","goal":"只读复验 terminal_packet_epilogue 的单元测试、锁与状态输出，不得修改文件。","authorized_paths":["harness/terminal_packet_epilogue.py","tests/orchestration_v2/"],"acceptance":["列出覆盖与缺口","给出文件行号"],"role":"worker","sandbox":"read-only"},
+    {"task_id":"v4-report-envelope","task_name":"报告封装契约复验","goal":"只读复验普通 parent final 到机器 report 的封装与 legacy 兼容，不得修改文件。","authorized_paths":["harness/lifecycle_supervisor.py","harness/terminal_packet_epilogue.py","tests/"],"acceptance":["确认 packet_id/run_id 约束","确认 L2 不被改写"],"role":"worker","sandbox":"read-only"},
+    {"task_id":"v4-pid-liveness","task_name":"Windows PID存活复验","goal":"只读复验 terminal/refill actuator 在 Windows 上使用 GetExitCodeProcess 判活，查 PID reuse 风险。","authorized_paths":["harness/lifecycle_supervisor.py","harness/refill_consumer_v2.py","tests/"],"acceptance":["给出判活证据","列出剩余风险"],"role":"worker","sandbox":"read-only"},
+    {"task_id":"v4-event-info","task_name":"容量拒绝事件复验","goal":"只读复验 dispatch_refused 与 spawn health 只作审计，不污染 canonical 状态。","authorized_paths":["harness/statemachine_v2.py","tests/orchestration_v2/"],"acceptance":["验证状态不变","验证真实 off-table 仍可见"],"role":"worker","sandbox":"read-only"},
+    {"task_id":"v4-pre-spawn","task_name":"出生前失败债务复验","goal":"只读复验 pre_spawn exec_failed 返回 DISPATCHABLE 且不误清 debt。","authorized_paths":["harness/statemachine_v2.py","harness/lifecycle_supervisor.py","tests/"],"acceptance":["给出转移证据","验证不会转 Sol"],"role":"worker","sandbox":"read-only"},
+    {"task_id":"v4-run-id","task_name":"权威代际复验","goal":"只读复验 current_run_id 对重复出生和迟到终态的抑制语义。","authorized_paths":["harness/statemachine_v2.py","tests/orchestration_v2/"],"acceptance":["验证重复代际不改状态","验证当前代际仍能终止"],"role":"worker","sandbox":"read-only"},
+    {"task_id":"v4-import-schema","task_name":"Importer schema复验","goal":"只读复验新 imported ledger entry 含 history/attempts 且幂等碰撞安全。","authorized_paths":["harness/parent_manifest_importer.py","tests/orchestration_v2/"],"acceptance":["验证schema","验证幂等"],"role":"worker","sandbox":"read-only"},
+    {"task_id":"v4-controller-truth","task_name":"控制器真值复验","goal":"只读复验 controller 只计 live headless 和新鲜 native，不使用 UI estimated。","authorized_paths":["harness/refill_controller_v2.py","tests/orchestration_v2/"],"acceptance":["验证PID与TTL","验证estimated隔离"],"role":"worker","sandbox":"read-only"},
+    {"task_id":"v4-consumer-lock","task_name":"补位消费锁复验","goal":"只读复验 consumer lock 覆盖选择到 running 观察，防止双出生。","authorized_paths":["harness/refill_consumer_v2.py","harness/headless_wave.py","tests/"],"acceptance":["验证锁范围","验证stable running"],"role":"worker","sandbox":"read-only"},
+    {"task_id":"v4-ui-semantics","task_name":"UI余量债务复验","goal":"只读复验 8765 区分 headroom 与 demand-backed deficit。","authorized_paths":["tests/unit/test_loop_monitor_server.py","data/refill/"],"acceptance":["验证字段语义","验证页面文案"],"role":"worker","sandbox":"read-only"},
+    {"task_id":"v4-repair-evidence","task_name":"事故恢复证据复验","goal":"只读复验本次 repair 目录 before/after/quarantine 完整可恢复。","authorized_paths":["data/repairs/","harness/recover_parent_replay_incident.py","harness/repair_plain_parent_reports.py"],"acceptance":["列出证据目录","确认无删除"],"role":"worker","sandbox":"read-only"},
+    {"task_id":"v4-regression-suite","task_name":"回归套件结果复验","goal":"只读核对本次 520+15 与后续定向测试结果、测试范围和跳过项。","authorized_paths":["tests/","test_evidence_pytest_output.txt"],"acceptance":["列出通过数","标明未覆盖项"],"role":"worker","sandbox":"read-only"},
+    {"task_id":"k3-adversarial","task_name":"K3重复出生对抗审计","goal":"对 current_run_id 与 terminal refill 做只读对抗审计，寻找同 packet 重复出生反例。","authorized_paths":["harness/","tests/","data/refill/"],"acceptance":["返回PASS或REDO","给出最高风险反例"],"role":"verifier","sandbox":"read-only"},
+    {"task_id":"k3-sustained","task_name":"K3持续补位链审计","goal":"只读审计 terminal edge 到 StateMachine 再到 packet refill 的持续补位闭环。","authorized_paths":["hooks/","harness/","tests/"],"acceptance":["给出端到端证据","指出丢唤醒风险"],"role":"verifier","sandbox":"read-only"},
+    {"task_id":"k3-baseline","task_name":"K3基线偏差审核","goal":"只读对照成功/Fable基线报告，判断本次改动是否恢复机制或继续堆补丁。","authorized_paths":["reports/","harness/","hooks/"],"acceptance":["区分必要修复与漂移","返回PASS或REDO"],"role":"verifier","sandbox":"read-only"},
+    {"task_id":"k3-release","task_name":"K3自动补位发布门","goal":"只读发布审核：只有真实 terminal 自动启动本 manifest 才可 PASS，不接受手工 actuator 冒充。","authorized_paths":["data/refill/","data/lifecycle/","data/orchestration/","harness/","tests/"],"acceptance":["验证terminal时间序列","验证模型显式路由"],"role":"reviewer","sandbox":"read-only"}
+  ]
+}

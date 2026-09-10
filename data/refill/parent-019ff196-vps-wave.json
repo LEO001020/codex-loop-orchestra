@@ -1,0 +1,30 @@
+{
+  "schema": "codex-loop-parent-refill/v1",
+  "parent_session_id": "019ff196-c08c-76a2-8c1f-64b7b4a093ef",
+  "target_active": 16,
+  "enabled": true,
+  "cwd": "E:/VPS",
+  "mode": "read-only",
+  "tasks": [
+    {"task_id":"artifact-hash","task_name":"PC6产物哈希复算","role":"worker","sandbox":"read-only","prompt":"只读复算当前 PC6 official Binance materialization 关键 artifacts 与 manifest 的 SHA256，核对内部引用；输出已验证差异与路径，不修改文件。"},
+    {"task_id":"listing-physical","task_name":"Listing实物复验","role":"worker","sandbox":"read-only","prompt":"只读复验最新 listing episode ledger 与实际 immutable raw observations 的边界、冲突、relisting证据；输出可证伪结论和路径，不修改文件。"},
+    {"task_id":"edu-conflict","task_name":"EDU冲突传播复验","role":"worker","sandbox":"read-only","prompt":"只读审计 EDU 官方重复档/冲突从 raw revision 到 normalized manifest、gap report、readiness 的传播是否 fail-closed；不修改文件。"},
+    {"task_id":"t1-window","task_name":"T1完整窗口复验","role":"worker","sandbox":"read-only","prompt":"只读复验 P3_T1_BASE_LOG_BASIS 从 2023-07-02 至工程最大完整月的 perp/spot/funding/identity 覆盖，不计算收益；列出机械缺口，不修改文件。"},
+    {"task_id":"h0-pv","task_name":"H0价格成交量复验","role":"worker","sandbox":"read-only","prompt":"只读复验 H0 log-basis/change/persistence/price-volume 分支的 PIT causal inputs、prior-day volume和EW readiness，不运行统计试验，不修改文件。"},
+    {"task_id":"view-a","task_name":"固定8小时View复验","role":"worker","sandbox":"read-only","prompt":"只读复验 FIXED_COMMON_CLOCK_8H view spec、input/normalized/code hash和funding event interval语义；不修改文件。"},
+    {"task_id":"view-b","task_name":"实际结算View复验","role":"worker","sandbox":"read-only","prompt":"只读复验 ACTUAL_SETTLEMENT_TO_SETTLEMENT view spec、动态间隔、hash引用和边界；不修改文件。"},
+    {"task_id":"tests-review","task_name":"PC6测试覆盖复验","role":"worker","sandbox":"read-only","prompt":"只读审阅 PC6 materialization/normalize/identity/listing/manifest 测试是否覆盖真实缺陷路径，指出漏测，不运行写盘构建，不修改文件。"},
+    {"task_id":"memory-plan","task_name":"Research Memory发布计划复验","role":"worker","sandbox":"read-only","prompt":"只读审阅 Research Memory 待发布对象、event类型、hash/provenance与verify/rebuild计划，确保无scientific rights或HOME越权；不修改文件。"},
+    {"task_id":"release-gate","task_name":"PC6只读发布门复验","role":"verifier","sandbox":"read-only","prompt":"作为K3只读验证者，对当前 PC6 minimum executable subset 做反证式 release-gate审阅；核对 readiness、checksum、lineage、listing、identity、views、tests 和 Research Memory，不修改文件。"},
+    {"task_id":"checksum-sample-2","task_name":"官方Checksum二次抽样","role":"worker","sandbox":"read-only","prompt":"只读独立抽样 official CHECKSUM 与 raw SHA256、对象身份和revision引用，优先覆盖不同市场与月份；不修改文件。"},
+    {"task_id":"identity-sample-2","task_name":"PerpSpot身份二次抽样","role":"worker","sandbox":"read-only","prompt":"只读独立抽样 perp↔spot identity 与 price_unit_multiplier证据，检查非平凡映射和fail-closed状态；不修改文件。"},
+    {"task_id":"manifest-closure-2","task_name":"Manifest闭包二次复验","role":"worker","sandbox":"read-only","prompt":"只读从 executable manifest 反向遍历 raw/normalized/identity/listing/view/code hash，找悬空或不一致引用；不修改文件。"},
+    {"task_id":"gap-boundary-2","task_name":"Gap边界二次复验","role":"worker","sandbox":"read-only","prompt":"只读检查 symbol-month gap/duplicate/conflict 对PIT eligibility与分支readiness的边界传播，确认未全局误冻结也未静默放行；不修改文件。"},
+    {"task_id":"funding-cashflow-2","task_name":"Funding现金流二次复验","role":"worker","sandbox":"read-only","prompt":"只读核对 historical funding 仅作为holding-period cashflow时的event-time选择、interval边界与2026 provenance保留；不修改文件。"},
+    {"task_id":"temporal-epoch-2","task_name":"时间戳Epoch二次复验","role":"worker","sandbox":"read-only","prompt":"只读抽样spot 2025微秒切换、futures毫秒和canonical epoch_us，核对源epoch规则与对齐；不修改文件。"},
+    {"task_id":"storage-lineage-2","task_name":"存储与Lineage二次复验","role":"worker","sandbox":"read-only","prompt":"只读审查immutable raw/normalized路径、parent revision、同pathname异字节冲突和存储边界证据；不修改文件。"},
+    {"task_id":"home-zero-2","task_name":"HOME零变更二次复验","role":"worker","sandbox":"read-only","prompt":"只读复验本任务对HOME/GCP job handlers与支持job types保持零变更，不执行云端写操作；不修改文件。"},
+    {"task_id":"research-memory-2","task_name":"Research Memory闭包二次复验","role":"verifier","sandbox":"read-only","prompt":"K3只读复验待发布Research Memory事件的类型、hash、location/version链接与verify/rebuild闭包，拒绝scientific-rights越权；不修改文件。"},
+    {"task_id":"final-adversarial-2","task_name":"PC6最终对抗复验","role":"verifier","sandbox":"read-only","prompt":"K3只读对抗审计当前PC6工程完成声明，寻找会使minimum executable subset不成立的单点反例；不修改文件。"}
+  ]
+}

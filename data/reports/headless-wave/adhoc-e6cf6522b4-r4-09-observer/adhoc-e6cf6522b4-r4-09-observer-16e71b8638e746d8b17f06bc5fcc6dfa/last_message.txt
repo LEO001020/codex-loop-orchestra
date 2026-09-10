@@ -1,0 +1,132 @@
+现在我有足够的材料进行完整分析。以下是完整的审查结论：
+
+---
+
+## 结论：ESTIMATED 模式快照能否抑制真实 refill debt
+
+**结论：可以，且在特定条件下确实会错误抑制。需要额外的接受规则来防止这种情况。**
+
+---
+
+### ESTIMATED 的定义（来自 `loop_monitor_server.py:797-798`）
+
+```python
+elif counts["estimated"] and authoritative_running == 0 and counts["initializing"] == 0:
+    freshness = "ESTIMATED"
+```
+
+其中：
+- `authoritative_running = counts["running"] - counts["estimated"]`
+- `counts["estimated"]` 是**仅来自 rollout 文件回退路径**的 Desktop 计数——未出现在 `native_roster` 的 Desktop 代理，由 `scan_rollout_subagents()` 补充
+
+这意味着 ESTIMATED 快照的完整语义是：**所有被统计为 `running` 的代理都来自 rollout 文件推断，没有任何一条来自权威的 native_roster 或 exec_roster 行**。
+
+---
+
+### 核心问题：refill_controller 如何消费 ESTIMATED 快照
+
+`refill_controller_v2.py:_read_observer_snapshot()` 对 ESTIMATED 快照的处理和 LIVE/QUIET 完全一致（第369行）：
+
+```python
+if not isinstance(doc, dict) or doc.get("freshness") not in {
+        "LIVE", "QUIET", "ESTIMATED"}:
+    return None  # 被拒绝，本地 roster 计数生效
+```
+
+然后在 `_read_roster_state()` 中（第341-357行）：
+
+```python
+if observer is not None:
+    observed_pools = observer.get("pools", {})
+    for pool in POOLS:
+        # 这里是覆盖（override），而不是叠加（overlay）
+        counts[pool]["running"] = max(0, int((observed_pools or {}).get(pool, 0) or 0))
+```
+
+**关键点**：observer 快照是 `running` 计数的**权威覆盖**——它**替换**（而非叠加）本地 roster 的 running 计数。
+
+---
+
+### ESTIMATED 快照如何抑制真实 refill debt
+
+**场景 A：ESTIMATED 计数虚高**
+
+考虑这种情况：
+1. Desktop 代理 X 已完成（native_roster 中状态变为 terminal/completed）
+2. 但其 rollout 文件由于 `rollout_terminal()` 读取延迟或文件系统同步滞后，暂时仍显示为 non-terminal
+3. 此时 `counts["estimated"]` 为 1，`authoritative_running` = 0，freshness = ESTIMATED
+4. observer 快照的 `pools["v4"]` = 1
+5. refill_controller 将 `running["v4"]` 覆盖为 1（而实际为 0）
+6. 若 target_total = 20 且 low_water_v4 = 16，此时实际 running = 0，应该触发 refill，但被压制
+
+**场景 B：rollout 文件中存在崩溃遗留**
+
+`scan_rollout_subagents()` 在以下情况存在风险：
+- Desktop 进程在 Codex app-server 重启后（epoch fence 之前）留下 rollout 文件
+- epoch fence 依赖 `desktop_app_server_started_at()` 探测 codex.exe 进程；若 psutil 不可用或探测失败（返回 None），epoch fence 失效
+- 此时上一轮所有的完成代理，只要 rollout 文件的 parent 没有最新的 terminal 标记，就可能被算入 `estimated`
+
+**场景 C：时间窗口竞态**
+
+`_read_observer_snapshot()` 要求 `time.time() - timestamp <= 5.0`。一个 ESTIMATED 快照：
+- 在生成时刻 t=0，有 N 个 estimated（推断中的）代理
+- 在 t=4.9 秒时被 refill_controller 消费
+- 此时这 N 个代理可能已经正常完成（native_roster 已更新为 terminal），但 rollout 快照缓存（`_rollout_cache` 有一定 TTL）可能仍持有旧值
+- 结果：refill debt 仍被过期的 estimated 计数抑制
+
+---
+
+### 风险等级评估
+
+| 场景 | 发生概率 | 后果 |
+|------|---------|------|
+| rollout 终态延迟（场景 A） | 中（rollout flush 有时间差） | 短暂抑制 refill，最多数十秒 |
+| epoch fence 失效（场景 B） | 低（psutil 通常可用） | 历史遗留代理持续误算，可能数小时 |
+| 时间窗口竞态（场景 C） | 低-中（5秒窗口内） | 短暂抑制 |
+| ESTIMATED 快照作为权威覆盖（核心） | 确定性（设计如此） | 任何 ESTIMATED 快照都会覆盖本地 roster 计数 |
+
+---
+
+### 安全接受规则
+
+**规则 1：ESTIMATED 快照禁止将 pools 计数作为权威覆盖使用**
+
+`_read_observer_snapshot()` 应当在返回的 doc 上标记 freshness，由 `_read_roster_state()` 针对 ESTIMATED 使用"取最大值"策略，而非"覆盖"策略：
+
+```
+if observer_freshness == "ESTIMATED":
+    counts[pool]["running"] = max(counts[pool]["running"],
+                                   int(observed_pools.get(pool, 0)))
+else:  # LIVE / QUIET
+    counts[pool]["running"] = max(0, int(observed_pools.get(pool, 0)))
+```
+
+这样 ESTIMATED 快照只能让计数更高（防止漏计），不能让计数更低（防止误抑制 debt）。
+
+**规则 2：ESTIMATED 快照只能用于上界保护（over-spawn guard），不得用于下界抑制（debt suppression）**
+
+- over-spawn guard：若 observer ESTIMATED pools["v4"] = 15，本地 roster 只看到 10，则不应在 refill 中再生成 5 个新代理（防止超目标）。这是 ESTIMATED 的合法用途。
+- debt suppression：若 observer ESTIMATED pools["v4"] = 15，而实际只有 0-5 个，则不应用这个数字来声称"no debt"。
+
+**规则 3：ESTIMATED 快照的 `pools` 字段中的计数只计入 `estimated` 子分类，不直接赋值给 `running`**
+
+refill_controller 在计算 deficit 时：
+- `effective_running = authoritative_running + min(estimated_running, local_roster_running)`
+- 其中 `authoritative_running` = LIVE/QUIET 快照的 running
+- `estimated_running` = ESTIMATED 快照的 pools 计数
+
+**规则 4：ESTIMATED 快照的时间戳要求应更严格（建议 ≤ 2 秒，而非当前的 ≤ 5 秒）**
+
+rollout 缓存 TTL 与 observer 时间戳窗口的组合决定了"误算窗口"的最大长度。若两者都取上限，一个已完成代理最多被误算：rollout_cache_ttl + observer_timestamp_window = 最长数十秒。
+
+**规则 5：接受测试的最低要求**
+
+一个 ESTIMATED 快照被 refill_controller 接受的充分条件应为：
+1. `timestamp` 距当前 ≤ 2 秒（不是 5 秒）
+2. `counts["estimated"] > 0` 且 `authoritative_running == 0`（即没有任何来自 native/exec roster 的权威依据）
+3. **refill_controller 在消费此快照时，应只使用它的计数作为 cap（上限）**，而不是作为赋值（覆盖）
+4. 若 ESTIMATED 快照的 `pools["v4"]` 低于本地 roster 的 `running["v4"]`，应忽略 ESTIMATED 快照中该 pool 的值（即取 `max`，而不是直接替换）
+
+---
+
+**一句话结论**：ESTIMATED 模式快照在当前代码中与 LIVE/QUIET 被无差别地作为"权威覆盖"使用（第 341-345 行），但 ESTIMATED 的唯一证据来源是 rollout 文件推断（非权威数据），这使它既有可能虚高（抑制真实 debt），也有可能漏计（under-count）。安全接受规则是：ESTIMATED 快照应只参与 `max(local, observer)` 的上界保护，绝不能作为单向覆盖替换本地 running 计数。

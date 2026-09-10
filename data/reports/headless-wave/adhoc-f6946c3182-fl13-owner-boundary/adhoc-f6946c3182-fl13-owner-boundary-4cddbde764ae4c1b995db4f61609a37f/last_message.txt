@@ -1,0 +1,60 @@
+I now have comprehensive coverage. Here is the complete audit report:
+
+---
+
+## Owner边界泄漏核验 — 审计报告
+
+**审计范围**: `E:\VPS`（全量文件，约300+文件）  
+**审计日期**: 2026-08-14  
+**审计方法**: 只读 — 无写入、无执行
+
+---
+
+### 一、否定证明范围（已核查、未发现泄漏）
+
+**1. owner/admin 真实私钥**
+- 全库未发现任何 `-----BEGIN ... PRIVATE KEY-----` 格式的真实私钥内容。唯一出现该格式的地方均为：测试夹具中的合成虚假私钥（`functional_fixtures.sh` 中的 `printf -- '-----BEGIN OPENSSH PRIVATE KEY-----\nb3BlbnNzaAAAA...'`，是专门测试"拒绝私钥输入"逻辑用的），以及审计报告和分析文档中的描述性引用。
+- `p5_cold_ssh_keys.txt` / `p5_cold_ssh_keys_k3.txt` 仅包含 SSH **公钥**（`ssh-rsa AAAA...` 格式，`root:` / `k3:` 前缀），用于 GCP 元数据注入，不含私钥。
+- `reports/app-v3-manifest-generator/probe-keys/p5_infra/id_ed25519`：文件仅 6 字节，内容为字面量 `SECRET`，是负面测试用例（探测清单生成器的 `PRIVATE_KEY_PATH_FORBIDDEN` 检查），工具已如预期拒绝并输出 `build_app_v3_manifest: PRIVATE_KEY_PATH_FORBIDDEN: p5_infra/id_ed25519`。
+
+**2. 假签名 / 伪造 owner 权威**
+- `build_final_artifacts.py` 中 schema 字段 `agent_private_key_access: False`，全库无处将其设为 `True`。
+- `conditional_delegation.py`（所有副本）中 `verify_ed25519()` 仅做**验证**，无签名路径；`refuse_if_private()` 在 display 模式下同样触发私钥拒绝。
+- `rehearsal-delegation.json` 中确实存在一个有效 Ed25519 签名 (`owner_signature: "STwAB..."`)，但这是由 `make_rehearsal_payloads.py` 使用 `Ed25519PrivateKey.generate()` 运行时生成的**一次性合成密钥**签发，对应公钥存于 `rehearsal-owner-pub.raw`（32 字节，正好是 Ed25519 原始公钥），整套密钥对均为 rehearsal 测试专用，与生产 owner 密钥完全隔离。
+
+**3. agent key 充当 owner authority**
+- `authority_store.py` 中 `register_amendment()` 路径硬编码了 `if amendment_id not in {"A","B"}: raise FailClosed("ROOT_CANNOT_REGISTER_C_OR_D")`——agent/root 无法通过委托路径注册 C 或 D。
+- 所有 `assert_agent_key_absent_from` 检查已在 preflight 脚本中覆盖 root/admin/owner 的全部有效 authorized_keys 路径。
+- 最新 handoff JSON 明确：`owner_private_key_unknown_to_agent: true`，`owner_public_key_configured: false`，`root_delegation_registered: false`，`root_delegation_signature_valid: false`，`human_owner_signed_new: 0`。
+
+**4. 自动注册 C/D/root**
+- 权威状态快照（`P5_PC7_AUTONOMOUS_ALPHA_ENTRY_HANDOFF_V2.json`）：`amendments_registered_new: 0`，`authority_applied_new: 0`。
+- Resume handoff gate G13 (`ZERO_MUTATION_SINCE_ENTRY`)：**PASS**。
+- `build_terminalization_v2.py` 明确声明该包 "does not ... register Amendments C/A/B"，且脚本末尾 `raise SystemExit("PRODUCTION_ACTIVATION_BLOCKED_BY_AGENT_MUTABLE_TRUST_ANCHOR")` 阻止激活。
+
+**5. 生产 deploy/restart**
+- `p5_deploy_home_e2e_cli_remote.sh` 含有 `systemctl restart k3-p5-queue.service`——这**是**一个已执行过的生产服务重启（hub_cli 补丁部署），但其范围是 hub 队列服务，非 owner 权威服务（researchctld）。该操作明显在 owner trust domain 建立之前，属于基础设施维护范围。
+- 报告中 `03_DEPLOY_APP_V3_AND_MIGRATE.sh` 的 `systemctl restart/start researchctld` 均在 **template/future command** 状态（owner-admin-cutover 包尚未执行，`owner_trust_domain_cutover: "NOT_EXECUTED"`）。
+- Binance 数据 URL 均为公开数据档案（`https://data.binance.vision/...`），不涉及交易 API 密钥，无 live orders 路径。
+
+**6. 真实标签读取路径**
+- `real_p5_return_labels_read: false`（所有 handoff 快照一致）。
+- `fable_may_open_real_label_gate: false`。
+- Resume handoff gate G14 (`REAL_LABEL_GATE_DEFAULT_NO`)：**PASS**。
+- `LabelGate` 类有 `I6` 完整性保护，label gate 未被打开。
+
+---
+
+### 二、已确认的 Binding Finding（非泄漏、但须纳入持续追踪）
+
+| 编号 | 类型 | 描述 | 当前状态 |
+|------|------|------|----------|
+| BF-1 | **agent 可变 trust anchor**（已知、已记录） | k3 执行主体拥有 `NOPASSWD:ALL` sudo 及 Docker 控制，可替换 owner trust anchor/verifier/service/DB。字段 `owner_public_key_trust_anchor_agent_mutable: true`、`authority_db_directly_agent_mutable: true`。 | 系统自知；blocking gate G10 **FAIL**；owner trust domain cutover 未执行，系统处于 `BLOCKED_OWNER_TRUST_DOMAIN` 状态。**未发生实际利用。** |
+| BF-2 | **`p5-root-temp` 临时 SSH 密钥** | 多个 shell 脚本引用 `/home/codexloop/.ssh/p5-root-temp` 用于以 `root@` 身份 SSH 到 GCP 实例。该密钥文件不在 VPS 工作区内（仅 WSL 路径引用），已被用于合法 fastpath/recreate 操作。 | 操作性基础设施密钥，范围限于 GCP 实例管理；非 owner authority 泄漏。 |
+| BF-3 | **rehearsal 私钥已运行并持久化公钥** | `make_rehearsal_payloads.py` 曾在本机生成 Ed25519 密钥对，私钥为运行时临时对象（未持久化），公钥持久化为 `rehearsal-owner-pub.raw`（32 bytes）。签名数据仅作用于 synthetic rehearsal payload，与生产权威域完全隔离。 | 低风险；纯测试场景，无生产映射。 |
+
+---
+
+### 三、结论
+
+**无 owner/admin 真实私钥泄漏**，无假签名充当 owner authority，无 agent key 安装到 owner/root/admin 的 authorized_keys，无 Amendment C/D/root delegation 自动注册（计数均为 0），无真实标签读取，生产 deploy 操作（hub_cli 补丁）范围仅限队列服务且早于 owner 域建立。系统当前整体状态为 `BLOCKED_OWNER_TRUST_DOMAIN` — 已自我认知并 fail-closed，未发生边界突破。

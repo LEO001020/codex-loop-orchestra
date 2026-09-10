@@ -1,0 +1,23 @@
+{
+  "acceptance": [
+    "验证PID与TTL",
+    "验证estimated隔离"
+  ],
+  "authorized_paths": [
+    "harness/refill_controller_v2.py",
+    "tests/orchestration_v2/"
+  ],
+  "constraints": [
+    "read-only"
+  ],
+  "created_by": "parent_manifest_importer",
+  "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+  "goal": "只读复验 controller 只计 live headless 和新鲜 native，不使用 UI estimated。",
+  "manifest_id": "auto-refill-proof-20260813",
+  "packet_id": "parent-3bb45433bd1465aadf071475ff598a902536239764871cbd",
+  "parent_enabled": true,
+  "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+  "role": "worker",
+  "sandbox": "read-only",
+  "task_name": "控制器真值复验"
+}

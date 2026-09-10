@@ -1,0 +1,423 @@
+Reading additional input from stdin...
+2026-08-14T10:46:32.569648Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T10:46:36.524540Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T10:47:09.288112Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.6 seconds
+Output:
+
+FullName                                                                                       
+--------                                                                                       
+E:\codex-LOOP\codex-loop-s-f2\backup-20260811-215706                                           
+E:\codex-LOOP\codex-loop-s-f2\backup-20260811-215927                                           
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318                                           
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-4d231a2f66-root-backups         
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-90489513b5-h25-recovery         
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-9bcc906dfb-backup-pollution     
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-a3fae3fb02-fl17-fix-history     
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-a798126110-minimal-recovery-plan
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-a856eb62c8-h12-history-replay   
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-f60e0cbded-root-backups         
+
+
+Get-ChildItem : 对路径“E:\codex-LOOP\codex-loop-s-f2\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem -Path "E:\codex-LOOP\codex-loop-s-f2" -Recurse -Depth 3 ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\codex-LOOP\c...2\.pytest_cache:String) [Get-ChildItem], Unauthoriz 
+   edAccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+Get-ChildItem : 对路径“E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem -Path "E:\codex-LOOP\codex-loop-s-f2" -Recurse -Depth 3 ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\codex-LOOP\c...2\.pytest_cache:String) [Get-ChildItem], Unauthoriz 
+   edAccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+Get-ChildItem : 对路径“E:\codex-LOOP\codex-loop-s-f2\tests\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem -Path "E:\codex-LOOP\codex-loop-s-f2" -Recurse -Depth 3 ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\codex-LOOP\c...s\.pytest_cache:String) [Get-ChildItem], Unauthoriz 
+   edAccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-14T10:48:33.464575Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.2 seconds
+Output:
+
+Name                             PSIsContainer
+----                             -------------
+.pytest_cache                             True
+config                                    True
+data                                      True
+harness                                   True
+hooks                                     True
+metering                                  True
+tests                                     True
+loop_config_v2.toml                      False
+orchestration_policy.toml                False
+orchestration_policy_v2.toml             False
+refill_policy.toml                       False
+roles_v2.yaml                            False
+statemachine_v2_transitions.json         False
+triggers_v2.yaml                         False
+__pycache__                               True
+agent_router.py                          False
+budget_controller.py                     False
+dispatch_v2.py                           False
+l2_consumer.py                           False
+layered_gate.py                          False
+lifecycle_supervisor_v2.py               False
+orchestration_common.py                  False
+refill_controller_v2.py                  False
+result_reducer.py                        False
+root_turn_governor.py                    False
+short_result_validator.py                False
+statemachine_v2.py                       False
+trigger_eval_v2.py                       False
+__pycache__                               True
+sol_tool_gate_v2.py                      False
+__pycache__                               True
+model_token_share_v2.py                  False
+__pycache__                               True
+conftest.py                              False
+test_agent_router.py                     False
+test_budget_controller.py                False
+test_cold_start_rollback.py              False
+test_dispatch_v2.py                      False
+test_governor_hysteresis.py              False
+test_l2_consumer.py                      False
+test_layered_e2e.py                      False
+test_layered_gate.py                     False
+test_lifecycle_supervisor_v2.py          False
+test_refill_controller_v2.py             False
+test_result_reducer.py                   False
+test_root_turn_governor.py               False
+test_short_result_validator.py           False
+test_smoke_all.py                        False
+test_sol_tool_gate_v2.py                 False
+test_statemachine_v2.py                  False
+test_token_meter_v2.py                   False
+test_trigger_eval_v2.py                  False
+test_windows_wsl_paths.py                False
+
+
+Get-ChildItem : 对路径“E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem -Path "E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2" - ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\codex-LOOP\c...2\.pytest_cache:String) [Get-ChildItem], Unauthoriz 
+   edAccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-14T10:49:03.115081Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 187ms)... turn_id=019fffe1-71eb-7412-8e02-96add53eebeb retries=1 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游网络连接失败, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T10:49:10.571917Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 410ms)... turn_id=019fffe1-71eb-7412-8e02-96add53eebeb retries=2 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游网络连接失败, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T10:49:19.519708Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 777ms)... turn_id=019fffe1-71eb-7412-8e02-96add53eebeb retries=3 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游网络连接失败, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T10:49:41.269205Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 3.6 seconds
+Output:
+
+2026-08-14T10:50:51.902661Z  WARN codex_sandboxing::violation: recorded sandbox violation: resource=filesystem backend=windows_sandbox reason=policy_denied path=unknown
+2026-08-14T10:50:51.903038Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.2 seconds
+Output:
+
+FullName                                                                                              
+--------                                                                                              
+E:\codex-LOOP\codex-loop-s-f2\config\ipybox_sandbox.json                                              
+E:\codex-LOOP\codex-loop-s-f2\harness\ipybox_cleanup.py                                               
+E:\codex-LOOP\codex-loop-s-f2\harness\ipybox_lazy.py                                                  
+E:\codex-LOOP\codex-loop-s-f2\harness\__pycache__\ipybox_cleanup.cpython-314.pyc                      
+E:\codex-LOOP\codex-loop-s-f2\harness\__pycache__\ipybox_lazy.cpython-314.pyc                         
+E:\codex-LOOP\codex-loop-s-f2\reports\ipybox-final-lifecycle-audit                                    
+E:\codex-LOOP\codex-loop-s-f2\reports\ipybox-headless-stability-20260810.md                           
+E:\codex-LOOP\codex-loop-s-f2\tests\ipybox_parent_death_smoke.py                                      
+E:\codex-LOOP\codex-loop-s-f2\tests\ipybox_supervisor_smoke.py                                        
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\ipybox_parent_death_smoke.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\ipybox_supervisor_smoke.cpython-314-pytest-9.1.1.pyc  
+
+
+
+2026-08-14T10:55:40.946823Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 3.7 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 184
++ ... Continue | Select-Object FullName | Format-Table -AutoSize | head -20
++                                                                  ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T10:56:02.360243Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.3 seconds
+Output:
+
+FullName                                                                        
+--------                                                                        
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\agent_router.py           
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\budget_controller.py      
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\dispatch_v2.py            
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\l2_consumer.py            
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\layered_gate.py           
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\lifecycle_supervisor_v2.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\orchestration_common.py   
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\refill_controller_v2.py   
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\result_reducer.py         
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\root_turn_governor.py     
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\short_result_validator.py 
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\statemachine_v2.py        
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\trigger_eval_v2.py        
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\hooks\sol_tool_gate_v2.py         
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\metering\model_token_share_v2.py  
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\conftest.py                 
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\test_agent_router.py        
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\test_budget_controller.py   
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\test_cold_start_rollback.py 
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\test_dispatch_v2.py         
+
+
+
+2026-08-14T10:56:45.304920Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-14T10:57:32.829100Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+False
+
+2026-08-14T10:58:16.201633Z  WARN codex_sandboxing::violation: recorded sandbox violation: resource=filesystem backend=windows_sandbox reason=permission_denied path=unknown
+2026-08-14T10:58:16.201949Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.6 seconds
+Output:
+ M AGENTS.md
+ M README.md
+ M SHA256SUMS
+ M VERSIONS.lock
+ M agents/duty_officer.toml
+ M agents/reviewer.toml
+ M agents/verifier.toml
+ M agents/worker.toml
+ M config/config.toml.example
+ M config/escalation_ladder.yaml
+ M config/roles.yaml
+ M data/escalation_log.jsonl
+ M data/events.ndjson
+ M data/progress_ledger.json
+ M harness/dispatch.py
+ M harness/duty_gate.py
+ M harness/retry.py
+ M harness/sanitize.py
+ M harness/smoke_gate.sh
+ M harness/statemachine.py
+ M harness/trigger_eval.py
+ M harness/verdict_check.py
+ M harness/worktree_pool.sh
+ M install.sh
+ M metering/e0_annotate.py
+ M metering/usage_reconcile.py
+ M test_evidence_pytest_output.txt
+git : warning: could not open directory '.pytest_cache/': Permission denied
+所在位置 行:3 字符: 1
++ git status --short 2>&1 | Select-Object -First 30
++ ~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (warning: could ...rmission denied:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+warning: could not open directory 'codex-loop-s-f2/.pytest_cache/': Permission denied
+warning: could not open directory 'tests/.pytest_cache/': Permission denied
+
+2026-08-14T10:58:30.488613Z  WARN codex_sandboxing::violation: recorded sandbox violation: resource=filesystem backend=windows_sandbox reason=permission_denied path=unknown
+2026-08-14T10:58:30.488788Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2 seconds
+Output:
+.codex/config.toml
+.codex/hooks.json
+.codex/hooks/__pycache__/reconcile_subagent_metering.cpython-312.pyc
+.codex/hooks/__pycache__/reconcile_subagent_metering.cpython-314.pyc
+.codex/hooks/reconcile_subagent_metering.ps1
+.codex/hooks/reconcile_subagent_metering.py
+.codex/hooks/subagent_start_meter.ps1
+"C\357\200\272/Users/hzq00/AppData/Local/Temp/codex-loop-repo-check/"
+agents/plan_expander.toml
+backup-20260811-215706/config/orchestration_policy.toml
+backup-20260811-215706/config/refill_policy.toml
+backup-20260811-215927/tests/orchestration_v2/__pycache__/conftest.cpython-314-pytest-9.1.1.pyc
+backup-20260811-215927/tests/orchestration_v2/__pycache__/test_agent_router.cpython-314-pytest-9.1.1.pyc
+backup-20260811-215927/tests/orchestration_v2/__pycache__/test_windows_wsl_paths.cpython-314-pytest-9.1.1.pyc
+backup-20260811-215927/tests/orchestration_v2/conftest.py
+backup-20260811-215927/tests/orchestration_v2/test_agent_router.py
+backup-20260811-215927/tests/orchestration_v2/test_windows_wsl_paths.py
+backup-20260813-012318/config/loop_config_v2.toml
+backup-20260813-012318/config/orchestration_policy_v2.toml
+backup-20260813-012318/config/refill_policy.toml
+backup-20260813-012318/config/roles_v2.yaml
+backup-20260813-012318/harness/agent_router.py
+backup-20260813-012318/harness/budget_controller.py
+backup-20260813-012318/harness/dispatch_v2.py
+backup-20260813-012318/harness/l2_consumer.py
+backup-20260813-012318/harness/layered_gate.py
+backup-20260813-012318/harness/orchestration_common.py
+backup-20260813-012318/harness/refill_controller_v2.py
+backup-20260813-012318/harness/root_turn_governor.py
+backup-20260813-012318/harness/statemachine_v2.py
+backup-20260813-012318/harness/trigger_eval_v2.py
+backup-20260813-012318/hooks/sol_tool_gate_v2.py
+backup-20260813-012318/metering/model_token_share_v2.py
+codex-loop-s-f2/config/loop_config_v2.toml
+codex-loop-s-f2/config/orchestration_policy.toml
+codex-loop-s-f2/config/orchestration_policy_v2.toml
+codex-loop-s-f2/config/refill_policy.toml
+git : warning: could not open directory '.pytest_cache/': Permission denied
+所在位置 行:3 字符: 1
++ git ls-files --others --exclude-standard 2>&1 | Select-Object -First  ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (warning: could ...rmission denied:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+warning: could not open directory 'codex-loop-s-f2/.pytest_cache/': Permission denied
+warning: could not open directory 'tests/.pytest_cache/': Permission denied
+
+2026-08-14T10:59:03.817798Z  WARN codex_sandboxing::violation: recorded sandbox violation: resource=filesystem backend=windows_sandbox reason=policy_denied path=unknown
+2026-08-14T10:59:03.818249Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.9 seconds
+Output:
+backup-20260811-215706/config/orchestration_policy.toml
+backup-20260811-215706/config/refill_policy.toml
+backup-20260811-215927/tests/orchestration_v2/__pycache__/conftest.cpython-314-pytest-9.1.1.pyc
+backup-20260811-215927/tests/orchestration_v2/__pycache__/test_agent_router.cpython-314-pytest-9.1.1.pyc
+backup-20260811-215927/tests/orchestration_v2/__pycache__/test_windows_wsl_paths.cpython-314-pytest-9.1.1.pyc
+backup-20260811-215927/tests/orchestration_v2/conftest.py
+backup-20260811-215927/tests/orchestration_v2/test_agent_router.py
+backup-20260811-215927/tests/orchestration_v2/test_windows_wsl_paths.py
+backup-20260813-012318/config/loop_config_v2.toml
+backup-20260813-012318/config/orchestration_policy_v2.toml
+backup-20260813-012318/config/refill_policy.toml
+backup-20260813-012318/config/roles_v2.yaml
+backup-20260813-012318/harness/agent_router.py
+backup-20260813-012318/harness/budget_controller.py
+backup-20260813-012318/harness/dispatch_v2.py
+backup-20260813-012318/harness/l2_consumer.py
+backup-20260813-012318/harness/layered_gate.py
+backup-20260813-012318/harness/orchestration_common.py
+backup-20260813-012318/harness/refill_controller_v2.py
+backup-20260813-012318/harness/root_turn_governor.py
+backup-20260813-012318/harness/statemachine_v2.py
+backup-20260813-012318/harness/trigger_eval_v2.py
+backup-20260813-012318/hooks/sol_tool_gate_v2.py
+backup-20260813-012318/metering/model_token_share_v2.py
+codex-loop-s-f2/config/loop_config_v2.toml
+codex-loop-s-f2/config/orchestration_policy.toml
+codex-loop-s-f2/config/orchestration_policy_v2.toml
+codex-loop-s-f2/config/refill_policy.toml
+codex-loop-s-f2/config/roles_v2.yaml
+codex-loop-s-f2/config/statemachine_v2_transitions.json
+codex-loop-s-f2/config/triggers_v2.yaml
+codex-loop-s-f2/harness/__pycache__/agent_router.cpython-314.pyc
+codex-loop-s-f2/harness/__pycache__/budget_controller.cpython-314.pyc
+codex-loop-s-f2/harness/__pycache__/dispatch_v2.cpython-314.pyc
+codex-loop-s-f2/harness/__pycache__/l2_consumer.cpython-314.pyc
+codex-loop-s-f2/harness/__pycache__/layered_gate.cpython-314.pyc
+codex-loop-s-f2/harness/__pycache__/lifecycle_supervisor_v2.cpython-314.pyc
+codex-loop-s-f2/harness/__pycache__/orchestration_common.cpython-314.pyc
+codex-loop-s-f2/harness/__pycache__/refill_controller_v2.cpython-314.pyc
+codex-loop-s-f2/harness/__pycache__/result_reducer.cpython-314.pyc
+codex-loop-s-f2/harness/__pycache__/root_turn_governor.cpython-314.pyc
+codex-loop-s-f2/harness/__pycache__/short_result_validator.cpython-314.pyc
+codex-loop-s-f2/harness/__pycache__/statemachine_v2.cpython-314.pyc
+codex-loop-s-f2/harness/__pycache__/trigger_eval_v2.cpython-314.pyc
+codex-loop-s-f2/harness/agent_router.py
+codex-loop-s-f2/harness/budget_controller.py
+codex-loop-s-f2/harness/dispatch_v2.py
+codex-loop-s-f2/harness/l2_consumer.py
+codex-loop-s-f2/harness/layered_gate.py
+codex-loop-s-f2/harness/lifecycle_supervisor_v2.py
+codex-loop-s-f2/harness/orchestration_common.py
+codex-loop-s-f2/harness/refill_controller_v2.py
+codex-loop-s-f2/harness/result_reducer.py
+codex-loop-s-f2/harness/root_turn_governor.py
+codex-loop-s-f2/harness/short_result_validator.py
+codex-loop-s-f2/harness/statemachine_v2.py
+codex-loop-s-f2/harness/trigger_eval_v2.py
+codex-loop-s-f2/hooks/__pycache__/sol_tool_gate_v2.cpython-314.pyc
+codex-loop-s-f2/hooks/sol_tool_gate_v2.py
+codex-loop-s-f2/metering/__pycache__/model_token_share_v2.cpython-314.pyc
+codex-loop-s-f2/metering/model_token_share_v2.py
+codex-loop-s-f2/tests/__pycache__/conftest.cpython-314-pytest-9.1.1.pyc
+codex-loop-s-f2/tests/__pycache__/test_agent_router.cpython-314-pytest-9.1.1.pyc
+codex-loop-s-f2/tests/__pycache__/test_budget_controller.cpython-314-pytest-9.1.1.pyc
+codex-loop-s-f2/tests/__pycache__/test_cold_start_rollback.cpython-314-pytest-9.1.1.pyc
+codex-loop-s-f2/tests/__pycache__/test_dispatch_v2.cpython-314-pytest-9.1.1.pyc
+codex-loop-s-f2/tests/__pycache__/test_governor_hysteresis.cpython-314-pytest-9.1.1.pyc
+codex-loop-s-f2/tests/__pycache__/test_l2_consumer.cpython-314-pytest-9.1.1.pyc
+codex-loop-s-f2/tests/__pycache__/test_layered_e2e.cpython-314-pytest-9.1.1.pyc
+codex-loop-s-f2/tests/__pycache__/test_layered_gate.cpython-314-pytest-9.1.1.pyc
+codex-loop-s-f2/tests/__pycache__/test_lifecycle_supervisor_v2.cpython-314-pytest-9.1.1.pyc
+codex-loop-s-f2/tests/__pycache__/test_refill_controller_v2.cpython-314-pytest-9.1.1.pyc
+codex-loop-s-f2/tests/__pycache__/test_result_reducer.cpython-314-pytest-9.1.1.pyc
+codex-loop-s-f2/tests/__pycache__/test_root_turn_governor.cpython-314-pytest-9.1.1.pyc
+codex-loop-s-f2/tests/__pycache__/test_short_result_validator.cpython-314-pytest-9.1.1.pyc
+codex-loop-s-f2/tests/__pycache__/test_smoke_all.cpython-314-pytest-9.1.1.pyc
+codex-loop-s-f2/tests/__pycache__/test_sol_tool_gate_v2.cpython-314-pytest-9.1.1.pyc
+codex-loop-s-f2/tests/__pycache__/test_statemachine_v2.cpython-314-pytest-9.1.1.pyc
+codex-loop-s-f2/tests/__pycache__/test_token_meter_v2.cpython-314-pytest-9.1.1.pyc
+codex-loop-s-f2/tests/__pycache__/test_trigger_eval_v2.cpython-314-pytest-9.1.1.pyc
+codex-loop-s-f2/tests/__pycache__/test_windows_wsl_paths.cpython-314-pytest-9.1.1.pyc
+codex-loop-s-f2/tests/conftest.py
+codex-loop-s-f2/tests/test_agent_router.py
+codex-loop-s-f2/tests/test_budget_controller.py
+codex-loop-s-f2/tests/test_cold_start_rollback.py
+codex-loop-s-f2/tests/test_dispatch_v2.py
+codex-loop-s-f2/tests/test_governor_hysteresis.py
+codex-loop-s-f2/tests/test_l2_consumer.py
+codex-loop-s-f2/tests/test_layered_e2e.py
+codex-loop-s-f2/tests/test_layered_gate.py
+codex-loop-s-f2/tests/test_lifecycle_supervisor_v2.py
+codex-loop-s-f2/tests/test_refill_controller_v2.py
+codex-loop-s-f2/tests/test_result_reducer.py
+codex-loop-s-f2/tests/test_root_turn_governor.py
+codex-loop-s-f2/tests/test_short_result_validator.py
+codex-loop-s-f2/tests/test_smoke_all.py
+codex-loop-s-f2/tests/test_sol_tool_gate_v2.py
+codex-loop-s-f2/tests/test_statemachine_v2.py
+codex-loop-s-f2/tests/test_token_meter_v2.py
+codex-loop-s-f2/tests/test_trigger_eval_v2.py
+codex-loop-s-f2/tests/test_windows_wsl_paths.py
+config/ipybox_sandbox.json
+config/loop_config_v2.toml
+config/managed_files_v2.txt
+config/model_profiles.toml
+config/orchestration_policy.toml
+config/orchestration_policy_v2.toml
+config/refill_policy.toml
+config/roles_v2.yaml
+config/statemachine_v2_transitions.json
+config/triggers_v2.yaml
+
+2026-08-14T11:00:47.938199Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

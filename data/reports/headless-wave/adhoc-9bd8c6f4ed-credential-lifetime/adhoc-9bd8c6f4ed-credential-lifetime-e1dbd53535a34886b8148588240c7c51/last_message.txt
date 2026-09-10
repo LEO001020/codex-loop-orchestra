@@ -1,0 +1,73 @@
+在当前叶代理约束下，**所有本地文件访问工具均不可用**（`glob_file_search`、`grep_search`、`codebase_search`、`file_search`、`read_file`、`list_dir` 全部返回 `unsupported call` 或参数不匹配）。沙盒为 `read-only` 且 MCP 服务器列表为空。
+
+---
+
+## 审计报告：通道凭据寿命（静态分析限制说明）
+
+### 环境约束
+
+本次叶代理运行于严格只读沙盒，工具契约中的有效工具为：`exec_command`（需 `cmd` 参数，但实际未载入）、`web_search`、`update_plan`、`request_user_input`、`view_image` 等，**不包含任何本地文件读取工具**。`/mnt/e/VPS` 目录下的 tunnel/SSH 脚本和 gcloud 配置**无法在本 turn 读取**。
+
+### 基于架构知识的通用分析
+
+尽管无法读取具体文件，以下是针对"k3 deprivilege/reboot 对通道影响"的通用分析框架：
+
+#### 1. SSH 通道凭据类型及寿命
+
+| 凭据类型 | 存储位置 | reboot 后状态 | deprivilege 后状态 |
+|---------|---------|--------------|------------------|
+| ED25519/RSA 私钥（文件） | `~/.ssh/id_*` 或指定路径 | **存活**（磁盘持久） | 若 key 属于被降权用户，权限位可能变化 |
+| `authorized_keys` 条目 | `~root/.ssh/` 或目标用户 | **存活** | 若 root 被禁，对应条目失效 |
+| SSH agent socket | 内存/tmpfs | **消失**（reboot 清除） | deprivilege 可能 kill agent |
+| Google OS Login 临时证书 | `/var/lib/google/` | **消失**（需重新 activate） | 与 IAM 绑定，权限降低即失效 |
+
+#### 2. gcloud / GCP 凭据类型
+
+| 凭据类型 | 寿命 | activation cutover 影响 |
+|---------|------|------------------------|
+| Service Account JSON Key | 永久（手动轮换） | 不受 reboot 影响，但若 SA 被撤权则立即失效 |
+| `gcloud auth` user 凭据 | 1h access token，refresh token 长期 | token cache 在 reboot 后需重新 activate |
+| Application Default Credentials | 同上 | 同上 |
+| Workload Identity / Metadata server token | 短暂（~1h），自动刷新 | **reboot 后 metadata server 重新可用**，自动续签 |
+
+#### 3. k3 deprivilege/reboot 对通道的具体影响路径
+
+**reboot 影响：**
+- 所有运行中的 SSH 隧道进程（`ssh -L`/`-R`/`-D` 或 `autossh`）**全部终止**，需要重启脚本或 systemd unit 重拉起
+- 如果 tunnel 脚本用 `ssh-agent`，agent socket 消失，需重新 `ssh-add`
+- 若使用 gcloud OS Login 或短期证书，需重新 `gcloud compute ssh` 认证
+
+**deprivilege 影响（用户从 root/sudo 降权）：**
+- 若 tunnel 脚本依赖 `root` 执行（绑定 `< 1024` 端口如 443/80），**将因权限不足失败**
+- 若 `IdentityFile` 权限为 `0600` 属于 root，普通用户无法读取
+- 若 gcloud 配置在 `/root/.config/gcloud/`，普通用户访问被拒
+- `authorized_keys` 若在 `root` 目录，通过原有 root 凭据的 SSH 登录仍有效，但脚本中 `User root` 的连接将失败（若 root 登录被禁）
+
+#### 4. Activation Cutover 后的关键检查点
+
+activation cutover（推测为系统迁移/切换事件）后需验证：
+
+1. **tunnel 用的 IdentityFile 路径**是否在新用户 home 下可读
+2. **目标端 `authorized_keys`** 是否包含隧道所用公钥
+3. **gcloud 配置目录**（`CLOUDSDK_CONFIG` 或默认 `~/.config/gcloud`）是否跟随用户
+4. **systemd unit 或 crontab** 中的 `User=` 字段是否已更新为降权后用户
+5. **端口绑定**：低端口需 `CAP_NET_BIND_SERVICE` 或 `authbind`，deprivilege 后需补授权
+
+### 建议后续动作
+
+要完成具体审计，需要在有文件访问权限的环境中运行：
+
+```bash
+# 找到所有 tunnel 相关脚本
+grep -r "ssh.*-[LRD]\|autossh\|tunnel" /mnt/e/VPS --include="*.sh" -l
+
+# 找到 IdentityFile 引用
+grep -r "IdentityFile\|identity_file\|-i .*\.pem\|-i .*id_" /mnt/e/VPS -l
+
+# 找到 gcloud 配置
+grep -r "gcloud\|CLOUDSDK\|service.*account\|\.json" /mnt/e/VPS --include="*.sh" -l
+```
+
+---
+
+**结论**：本次任务因叶代理沙盒不支持任何本地文件读取工具，**无法完成对 `/mnt/e/VPS` 下实际脚本的直接审计**。上述分析基于通用 SSH/gcloud 凭据架构知识。需要在具备文件访问权限的完整代理环境中重新执行此任务。

@@ -1,0 +1,13 @@
+# 通道全审计报告 (Research Plane: Broker & Lanes)
+
+## 综述
+审计 `src/zloop/research` 下四个核心组件。
+
+## 发现
+1. **安全性**：所有 research 任务在独立 `temp` 目录运行。
+2. **健壮性**：Broker 实现了 PER-QUESTION 隔离，不 raise。
+3. **环境**：`KimiServerLane` 依赖 live probe, `KimiCliLane` 作为 fallback，设计合理。
+4. **风险**：大量依赖 `os.name == "nt"` 和 Windows 的 `creationflags`。
+
+## 结论
+设计符合 VOL-15 和 D-18，无严重阻塞发现。

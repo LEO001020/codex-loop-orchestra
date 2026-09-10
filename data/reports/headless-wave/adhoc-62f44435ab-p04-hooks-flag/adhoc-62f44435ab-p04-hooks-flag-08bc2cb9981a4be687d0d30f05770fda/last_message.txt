@@ -1,0 +1,3 @@
+任务名：核对hooks_trusted_or_managed
+`hooks_trusted_or_managed` 来自 `Path.home()/.codex/requirements.toml` 三 AND（`windows_root/hooks` 子串、`--component spawn-gate`、`hooks = true`）；`effective_active = declared and managed and agreement_active`；该路径与官方 `%ProgramData%\OpenAI\Codex\requirements.toml` 不一致（本机官方文件缺失、home 文件存在）。指定报告因只读沙箱未能写入。
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-8765-desktop-hooktrust\p04.md（未创建；无失败日志文件，工具拒绝：`writing is blocked by read-only sandbox`）

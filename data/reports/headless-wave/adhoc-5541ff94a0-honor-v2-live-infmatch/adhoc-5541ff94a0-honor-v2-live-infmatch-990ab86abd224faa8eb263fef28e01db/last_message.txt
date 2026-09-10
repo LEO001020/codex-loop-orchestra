@@ -1,0 +1,66 @@
+任务完成。以下是驱动 INF 实时匹配检查结果：
+
+## HonorSuite 版本信息
+
+- **版本**: 11.0.0.724
+- **安装路径**: `C:\Program Files (x86)\HonorSuite`
+- **驱动信息文件**: `C:\Program Files (x86)\HonorSuite\driver\driverinfo.xml`
+
+---
+
+## 当前 Present 的 USB 设备
+
+| 设备类型 | VID | PID | MI | 硬件 ID (HardwareID) | 当前驱动 |
+|---------|-----|-----|----|---------------------|---------|
+| Android Composite ADB Interface | 18D1 | 4EE2 | MI_01 | `USB\VID_18D1&PID_4EE2&MI_01` | oem125.inf (WINUSB) |
+| Android Composite ADB Interface | 18D1 | 4EE7 | - | `USB\VID_18D1&PID_4EE7` | oem125.inf (WINUSB) |
+| Honor HDB Interface | 339B | 107D | MI_03 | `USB\VID_339B&PID_107D&MI_03` | oem126.inf (WinUSB) |
+| Honor HDB Interface | 339B | 107D | MI_02 | `USB\VID_339B&PID_107D&MI_02` | oem126.inf (WinUSB) |
+| Android Composite ADB Interface | 339B | 107D | MI_02 | `USB\VID_339B&PID_107D&MI_02` | oem125.inf (WINUSB) |
+
+---
+
+## INF 驱动文件解析汇总
+
+| INF 文件 | Provider | DriverVer | CatalogFile | Manufacturer | 平台修饰符 | 包含 VID |
+|---------|---------|-----------|-------------|-------------|-----------|---------|
+| `oem106.inf` | Xiaomi Technology, Inc. | 2016-11-03, 16.0.0.0 | xiaomiwinusb86.cat / xiaomiwinusba64.cat | Google | NTx86, NTamd64 | 18D1, 2717, 05C6 |
+| `oem107.inf` | Honor Incorporated | 2025-09-01, 1.0.2.0 | hn_quser.cat | HONOR | NTamd64 | 339B, 05C6 |
+| `oem113.inf` | Huawei Incorporated | 2016-11-28, 2.0.6.725 | hw_quser.cat | HUAWEI | NTamd64 | 12D1 |
+| `oem114.inf` | Huawei Incorporated | 2016-05-18, 2.0.6.725 | hw_qumdm.cat | HUAWEI | NTamd64 | 12D1 |
+| `oem115.inf` | Google, Inc. | 2016-07-11, 2.00.03.00 | androidwinusb.cat | Google | NTx86, NTamd64 | 18D1, 339B, 12D1, 05C6, 0BB4, 22B8 |
+| `oem116.inf` | Google, Inc. | 2025-09-01, 1.0.2.0 | androidwinusb.cat | Google | NTx86, NTamd64 | 18D1, 339B, 05C6, 0BB4, 22B8 |
+| `oem117.inf` | Google, Inc. | 2021-01-01, 1.0.0.0 | hn_gohdb.cat | Google | NTx86, NTamd64 | 339B |
+| `oem118.inf` | Honor Incorporated | 2021-01-01, 1.0.0.0 | hn_quusbnet.cat | HONOR | NTia64, NTamd64 | 339B |
+| `oem120.inf` | HUAWEI | 2016-05-18, 1.0.9.0 | ew_ccgpfilter.cat | Standard | NTamd64 | 12D1 |
+| `oem121.inf` | Huawei Incorporated | 2016-05-18, 1.0.26.0 | hw_cdcacm.cat | Standard | NTx86, NTamd64 | 12D1 |
+| `oem122.inf` | Huawei Incorporated | 2016-11-28, 1.0.26.0 | hw_cdcacm.cat | Standard | NTx86, NTamd64 | 12D1 |
+| `oem124.inf` | HONOR | 2025-09-01, 1.0.2.0 | ew_ccgpfilter.cat | Standard | NTamd64 | 339B |
+| `oem125.inf` | Microsoft | 2021-01-01, 1.0.0.0 | hn_mtp86.cat / hn_mtp64.cat | Generic | NTx86, NTamd64 | 339B |
+| `oem145.inf` | Honor | 2021-09-02, 1.0.0.4 | VDisplayDriver.cat | Standard | NTamd64 | - |
+
+---
+
+## 匹配判断结果
+
+| 设备硬件 ID | 匹配状态 | 匹配 INF | 说明 |
+|------------|---------|---------|------|
+| `USB\VID_18D1&PID_4EE2&MI_01` | **完全匹配** | `oem115.inf` / `oem116.inf` | Google ADB 驱动，VID_18D1 明确列出 |
+| `USB\VID_18D1&PID_4EE7` | **完全匹配** | `oem115.inf` / `oem116.inf` | Google ADB 驱动，VID_18D1 明确列出 |
+| `USB\VID_339B&PID_107D&MI_03` | **完全匹配** | `oem117.inf` | HDB 驱动，`USB\VID_339B&Subclass_48&Prot_01` 匹配（Subclass_48 对应 MI_03 HDB 接口） |
+| `USB\VID_339B&PID_107D&MI_02` | **完全匹配** | `oem115.inf` / `oem116.inf` | ADB 驱动，`USB\VID_339B&Subclass_WI&Prot_` 匹配（WI = Wireless Interface / ADB） |
+| `USB\VID_339B&PID_107D&MI_02` | **完全匹配** | `oem117.inf` | HDB 驱动也包含 `USB\VID_339B&Subclass_48&Prot_01`，但当前实际绑定的是 ADB 驱动 |
+
+---
+
+## 关键发现
+
+1. **HonorSuite 安装目录内无原生 `.inf` 文件**：`C:\Program Files (x86)\HonorSuite\driver\` 下仅有 `driverinfo.xml`，实际驱动 INF 均位于 `C:\Windows\INF\`（以 `oem*.inf` 形式存在）。
+
+2. **当前设备均为 HONOR 品牌（VID=339B）和 Android 通用（VID=18D1）**：
+   - VID 339B 是 HONOR 独立后的新 USB Vendor ID
+   - VID 18D1 是 Google/Android 通用 ID
+
+3. **所有当前 Present 设备均能在已安装 INF 中找到完全匹配**，无兼容匹配或无匹配情况。
+
+4. **驱动版本较新**：`oem116.inf` 和 `oem107.inf` 的 DriverVer 为 2025-09-01，说明 HonorSuite 近期有驱动更新。

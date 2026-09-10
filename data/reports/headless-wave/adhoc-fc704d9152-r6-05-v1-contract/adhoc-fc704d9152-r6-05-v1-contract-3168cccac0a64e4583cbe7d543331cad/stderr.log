@@ -1,0 +1,158 @@
+Reading additional input from stdin...
+2026-08-14T14:08:50.518718Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T14:08:55.755052Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T14:09:38.499719Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.1 seconds
+Output:
+所在位置 行:2 字符: 34
++ cd E:\codex-LOOP\codex-loop-s-f2 && rg --files | head -80
++                                  ~~
+标记“&&”不是此版本中的有效语句分隔符。
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : InvalidEndOfLine
+ 
+
+2026-08-14T14:09:57.177810Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.8 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 48
++ cd E:\codex-LOOP\codex-loop-s-f2; rg --files | head -80
++                                                ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T14:10:28.045600Z  WARN codex_sandboxing::violation: recorded sandbox violation: resource=filesystem backend=windows_sandbox reason=policy_denied path=unknown
+2026-08-14T14:10:28.045799Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.1 seconds
+Output:
+work_commencement_certificate.md
+VERSIONS.lock
+test_evidence_pytest_output.txt
+tests\__pycache__\test_windows_wsl_paths.cpython-314-pytest-9.1.1.pyc
+tests\__pycache__\test_trigger_eval_v2.cpython-314-pytest-9.1.1.pyc
+tests\__pycache__\test_token_meter_v2.cpython-314-pytest-9.1.1.pyc
+tests\__pycache__\test_statemachine_v2.cpython-314-pytest-9.1.1.pyc
+tests\__pycache__\test_sol_tool_gate_v2.cpython-314-pytest-9.1.1.pyc
+tests\__pycache__\test_smoke_all.cpython-314-pytest-9.1.1.pyc
+tests\__pycache__\test_short_result_validator.cpython-314-pytest-9.1.1.pyc
+tests\__pycache__\test_root_turn_governor.cpython-314-pytest-9.1.1.pyc
+tests\__pycache__\test_result_reducer.cpython-314-pytest-9.1.1.pyc
+tests\__pycache__\test_refill_controller_v2.cpython-314-pytest-9.1.1.pyc
+tests\__pycache__\test_lifecycle_supervisor_v2.cpython-314-pytest-9.1.1.pyc
+tests\__pycache__\test_layered_gate.cpython-314-pytest-9.1.1.pyc
+tests\__pycache__\test_layered_e2e.cpython-314-pytest-9.1.1.pyc
+tests\__pycache__\test_l2_consumer.cpython-314-pytest-9.1.1.pyc
+tests\__pycache__\test_governor_hysteresis.cpython-314-pytest-9.1.1.pyc
+tests\__pycache__\test_dispatch_v2.cpython-314-pytest-9.1.1.pyc
+tests\__pycache__\test_cold_start_rollback.cpython-314-pytest-9.1.1.pyc
+tests\__pycache__\test_budget_controller.cpython-314-pytest-9.1.1.pyc
+tests\__pycache__\test_agent_router.cpython-314-pytest-9.1.1.pyc
+tests\__pycache__\ipybox_supervisor_smoke.cpython-314-pytest-9.1.1.pyc
+tests\__pycache__\ipybox_parent_death_smoke.cpython-314-pytest-9.1.1.pyc
+tests\__pycache__\conftest.cpython-314.pyc
+tests\__pycache__\conftest.cpython-314-pytest-9.1.1.pyc
+tests\__pycache__\conftest.cpython-312-pytest-8.4.1.pyc
+AGENTS.md
+tests\test_lifecycle_supervisor_v2.py
+install_v2.sh
+install.sh
+search_log.md
+tests\test_cold_start_rollback.py
+tests\test_layered_gate.py
+tests\test_budget_controller.py
+tests\test_layered_e2e.py
+tests\test_agent_router.py
+tests\test_l2_consumer.py
+tests\test_dispatch_v2.py
+tests\test_governor_hysteresis.py
+tests\test_smoke_all.py
+tests\test_short_result_validator.py
+tests\test_root_turn_governor.py
+tests\test_result_reducer.py
+tests\test_refill_controller_v2.py
+README.md
+tests\test_token_meter_v2.py
+tests\test_statemachine_v2.py
+tests\test_sol_tool_gate_v2.py
+tests\test_trigger_eval_v2.py
+tests\test_windows_wsl_paths.py
+tests\mock_codex\setup_test_repo.sh
+tests\mock_codex\scenario_control.sh
+tests\mock_codex\mock_spawn.sh
+tests\mock_codex\mock_codex_exec.sh
+schemas\short_result.schema.json
+schemas\plan_expander.schema.json
+schemas\decision_skeleton.schema.json
+hooks\__pycache__\subagent_lifecycle.cpython-314.pyc
+hooks\__pycache__\subagent_lifecycle.cpython-312.pyc
+hooks\__pycache__\sol_tool_gate_v2.cpython-314.pyc
+hooks\__pycache__\sol_tool_gate_router.cpython-314.pyc
+hooks\__pycache__\sol_tool_gate.cpython-314.pyc
+hooks\__pycache__\sol_tool_gate.cpython-312.pyc
+hooks\__pycache__\leaf_agent_spawn_gate.cpython-314.pyc
+hooks\__pycache__\desktop_spawn_guard.cpython-314.pyc
+config\triggers_v2.yaml
+config\triggers.yaml
+config\statemachine_v2_transitions.json
+config\roles_v2.yaml
+config\roles.yaml
+config\retry_classes.yaml
+config\refill_policy.toml
+config\orchestration_policy_v2.toml
+config\orchestration_policy.toml
+config\model_profiles.toml
+config\managed_files_v2.txt
+config\loop_config_v2.toml
+config\ipybox_sandbox.json
+config\escalation_ladder.yaml
+
+2026-08-14T14:11:13.061547Z ERROR codex_core::tools::router: error=unsupported call: read
+2026-08-14T14:16:34.366931Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1 seconds
+Output:
+Get-Content : 找不到路径“E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_dispatch_v2.py”，因为该路径不存在。
+所在位置 行:2 字符: 1
++ Get-Content "E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_dispatch_v ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (E:\codex-LOOP\c..._dispatch_v2.py:String) [Get-Content], ItemNotFoundEx 
+   ception
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+
+2026-08-14T14:22:15.821899Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+
+2026-08-14T14:23:26.979280Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+
+2026-08-14T14:26:45.357441Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.6 seconds
+Output:
+
+2026-08-14T14:30:22.169823Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 205ms)... turn_id=01a0009a-a7ac-7a21-98a9-1292e2da487f retries=1 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T14:30:29.991347Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 416ms)... turn_id=01a0009a-a7ac-7a21-98a9-1292e2da487f retries=2 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T14:30:39.015135Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 862ms)... turn_id=01a0009a-a7ac-7a21-98a9-1292e2da487f retries=3 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T14:30:48.102879Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.475s)... turn_id=01a0009a-a7ac-7a21-98a9-1292e2da487f retries=4 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T14:31:04.899556Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 3.034s)... turn_id=01a0009a-a7ac-7a21-98a9-1292e2da487f retries=5 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T14:31:24.998503Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

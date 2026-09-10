@@ -1,0 +1,89 @@
+I now have comprehensive evidence. Here is the complete analysis:
+
+---
+
+## 裁决：最小安全写集
+
+### 背景说明
+
+本仓库是 **K3-on-Prime Harness fork**，不是原始 Prime Agent。根目录 `AGENTS.md` 是 K3 专属指令（与 `<INSTRUCTIONS>` 中注入的上游 Prime Agent AGENTS.md 完全不同）。
+
+---
+
+### Blocker（必须修复，否则文档误导用户）
+
+**1. `packages/coding-agent/docs/providers.md` — providers 表缺 `moonshotai` / `moonshotai-cn`**
+
+证据：
+- `packages/ai/src/env-api-keys.ts` 明确定义 `moonshotai → MOONSHOT_API_KEY`，`moonshotai-cn → MOONSHOT_API_KEY`
+- `packages/ai/src/types.ts` 的 `KnownProvider` 包含 `moonshotai` 和 `moonshotai-cn`
+- `packages/coding-agent/src/core/provider-display-names.ts` 有 `moonshotai: "Moonshot AI"`, `"moonshotai-cn": "Moonshot AI (China)"`
+- `packages/coding-agent/src/core/model-resolver.ts` 有 `moonshotai: "kimi-k2.6"`, `"moonshotai-cn": "kimi-k2.6"` 默认模型
+- providers.md 表中完全没有这两行；用户无法通过文档得知 `MOONSHOT_API_KEY` env var 或 `moonshotai` auth key
+- `packages/ai/CHANGELOG.md` 记载：「Added Moonshot AI as a built-in OpenAI-compatible provider...」—— 功能已发布，文档未跟进
+
+缺失行（参照现有格式）：
+```
+| Moonshot AI | `MOONSHOT_API_KEY` | `moonshotai` |
+| Moonshot AI (China) | `MOONSHOT_API_KEY` | `moonshotai-cn` |
+```
+需加在 MiniMax (China) 行之后或 Xiaomi 系列之前（与 `env-api-keys.ts` 中的顺序对齐）。
+
+**2. `packages/coding-agent/README.md` — API keys 列表缺 `Moonshot AI` 和 `Moonshot AI (China)`**
+
+证据：第 78–103 行的「API keys:」列表包含 ZAI、OpenCode Zen/Go、Hugging Face、Fireworks、Kimi For Coding、MiniMax、Xiaomi 系列，但无 Moonshot AI 两项。用户在 README 无法发现该提供商存在。
+
+缺失项：
+```
+- Moonshot AI
+- Moonshot AI (China)
+```
+位置：MiniMax 之后、Xiaomi 之前（与 providers.md 表顺序一致）。
+
+---
+
+### Required（需修复，但不立即中断用户操作）
+
+**3. `packages/ai/README.md` — Supported Providers 列表 + env vars 表均缺 `Moonshot AI`、`Hugging Face`、`MiniMax (China)`**
+
+证据：
+- Supported Providers 列表（~第 63–87 行）：没有 Moonshot AI（直连提供商）和 Hugging Face；仅有「Kimi For Coding (Moonshot AI, ...)」
+- env vars 表（~第 1046–1072 行）：有 MiniMax 但无 `MiniMax (China) / MINIMAX_CN_API_KEY`；无 `Moonshot AI / MOONSHOT_API_KEY`；无 `Hugging Face / HF_TOKEN`
+
+三项缺失一一有代码对应：
+- `moonshotai` / `MOONSHOT_API_KEY` → `env-api-keys.ts` + `KnownProvider`
+- `minimax-cn` / `MINIMAX_CN_API_KEY` → `env-api-keys.ts` + `KnownProvider`
+- `huggingface` / `HF_TOKEN` → `env-api-keys.ts` + `KnownProvider`
+
+这是 library README，次于 user-facing 的 coding-agent docs，但同样是公开文档，属于 **required** 修复。
+
+---
+
+### Follow-up（非紧急，后续跟进）
+
+**4. `packages/ai/README.md` Supported Providers 列表 — `ZAI` 只在表格中以「zAI」出现，未作为一级提供商列出**
+
+证据：Supported Providers 项目列表没有 ZAI 单独条目（只在 compat 说明里出现）。`zai` 是 `KnownProvider`，有模型目录。对用户影响较小（已在表中有 env var），但列表完整性存在欠缺。
+
+**5. `packages/coding-agent/CHANGELOG.md` — 无对应 `Moonshot AI` 提供商新增条目**
+
+证据：`packages/ai/CHANGELOG.md` 有该条目，但 `packages/coding-agent/CHANGELOG.md` 未同步。按 AGENTS.md（上游）规则，coding-agent 的 `[Unreleased]` 应记录 user-visible change。这是补录遗漏，不是紧急修复。
+
+---
+
+### 结论：写集范围
+
+| 范围 | 文件 | 优先级 |
+|------|------|--------|
+| ✅ 必须 | `packages/coding-agent/docs/providers.md` | Blocker |
+| ✅ 必须 | `packages/coding-agent/README.md` | Blocker |
+| ✅ 需要 | `packages/ai/README.md` | Required |
+| ⏭ 后续 | `packages/coding-agent/CHANGELOG.md` (Unreleased 补录) | Follow-up |
+| ⏭ 后续 | `packages/ai/README.md` ZAI 列表项 | Follow-up |
+
+**不需要改动的文件（证据）：**
+- **根 `AGENTS.md`**：K3 fork 专属指令，无提供商列表，内容正确
+- **根 `README.md`**：正确描述 K3 fork 身份，不维护提供商列表
+- **Runtime prompts**（`src/core/prompts/rlm.ts` 等）：不包含提供商列表，无需改动
+- **Tests**：`moonshotai` 已覆盖全套测试（`stream.test.ts`、`tokens.test.ts`、`cross-provider-handoff.test.ts` 等 10 个文件），无缺口
+- **`src/core/model-resolver.ts`**、**`provider-display-names.ts`**：已正确包含 `moonshotai`/`moonshotai-cn`，无缺口

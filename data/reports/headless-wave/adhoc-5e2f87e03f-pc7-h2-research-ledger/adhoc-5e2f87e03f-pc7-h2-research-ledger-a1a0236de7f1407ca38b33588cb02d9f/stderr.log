@@ -1,0 +1,90 @@
+Reading additional input from stdin...
+2026-08-12T20:05:24.435257Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-12T20:05:25.318625Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:06:05.809691Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-12T20:06:47.062148Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 27.9 seconds
+Output:
+
+FullName                                                                  Length LastWriteTime     
+--------                                                                  ------ -------------     
+E:\VPS\reports\researchctl-syntax                                                2026/8/12 23:25:04
+E:\VPS\reports\release-research-registration-review\probe1_researchctl.sh 1644   2026/8/13 0:20:27 
+E:\VPS\reports\researchctl-syntax\app-src\unpacked\researchctl.py         6450   2026/8/11 2:40:16 
+E:\VPS\reports\researchctl-syntax\app-src\unpacked\researchctld.py        4195   2026/8/11 2:41:06 
+
+
+
+2026-08-12T20:08:01.394049Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 17.8 seconds
+Output:
+
+FullName                                                          Length LastWriteTime    
+--------                                                          ------ -------------    
+E:\VPS\reports\researchctl-syntax\app-src\unpacked\research_db.py  40440 2026/8/11 2:38:47
+
+
+---researchctl in codex-loop---
+
+2026-08-12T20:13:37.890833Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 9.1 seconds
+Output:
+=== asof_alpha_entry hypothesis/claim/trial check ===
+
+Name          Count
+----          -----
+trial            12
+result           10
+hypothesis        2
+claim             2
+contradiction     1
+
+
+=== entity types in file ===
+ConvertFrom-Json : 无效的 JSON 基元: 。
+所在位置 行:2 字符: 520
++ ... udit\asof_alpha_entry_by_entity.json' -Raw | ConvertFrom-Json).result ...
++                                                  ~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [ConvertFrom-Json], ArgumentException
+    + FullyQualifiedErrorId : System.ArgumentException,Microsoft.PowerShell.Commands.ConvertFromJsonCommand
+ 
+
+2026-08-12T20:14:14.882298Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 8 seconds
+Output:
+python : 无法将“python”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，
+然后再试一次。
+所在位置 行:27 字符: 6
++ '@ | python -
++      ~~~~~~
+    + CategoryInfo          : ObjectNotFound: (python:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-12T20:14:15.161247Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 8.3 seconds
+Output:
+python : 无法将“python”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，
+然后再试一次。
+所在位置 行:34 字符: 6
++ '@ | python -
++      ~~~~~~
+    + CategoryInfo          : ObjectNotFound: (python:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+

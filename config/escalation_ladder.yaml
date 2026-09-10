@@ -59,7 +59,7 @@ levels:
 
   L2:
     name: cross_source_verifier
-    bearer: "agents/verifier.toml (gpt-5.6-terra, cross-family) or external low-price API script"
+    bearer: "agents/verifier.toml (weiwu-k3/kimi-k3, cross-family L2, max reasoning)"
     token_cost: free_side
     inputs: [candidate_diff, mechanical_signals]
     tool_checks_first: [lint, type_check, invariant_assertion]   # rule/tool gate before model
@@ -78,7 +78,7 @@ levels:
 
   L3:
     name: sol_adjudication
-    bearer: "Sol main thread (gpt-5.6, high) — sole billed layer"
+    bearer: "Sol main thread (gpt-5.6-sol, high) — sole billed layer"
     token_cost: sol_billed
     input_budget_tokens: 1000     # desensitized packet + best candidate diff PATH
                                   # + L1/L2 structured report, <= 1K tok total

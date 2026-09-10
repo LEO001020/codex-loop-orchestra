@@ -1,0 +1,120 @@
+Reading additional input from stdin...
+2026-08-15T07:29:27.865681Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-15T07:29:31.376057Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-15T07:29:47.250120Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 3.7 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 148
++ ... st|materializer|alpha_exec|pc6" } | Select-Object FullName | head -40
++                                                                  ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-15T07:29:58.076670Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.3 seconds
+Output:
+
+FullName                                                                                                               
+--------                                                                                                               
+E:\VPS\P5_CODEX_ALPHA_EXECUTION_LAYER_COMPLETION_V1                                                                    
+E:\VPS\p5_manifest_diag_remote.sh                                                                                      
+E:\VPS\p5_pc6_remote_code_inventory.sh                                                                                 
+E:\VPS\p5_pc6_remote_commit_final_artifacts.sh                                                                         
+E:\VPS\p5_pc6_remote_create_materialization_worktree.sh                                                                
+E:\VPS\p5_pc6_remote_deploy_code.sh                                                                                    
+E:\VPS\p5_pc6_remote_deploy_tests.sh                                                                                   
+E:\VPS\p5_pc6_remote_duplicate_detail.sh                                                                               
+E:\VPS\p5_pc6_remote_final_gate.sh                                                                                     
+E:\VPS\p5_pc6_remote_identity_gate.sh                                                                                  
+E:\VPS\p5_pc6_remote_materialization_preflight.sh                                                                      
+E:\VPS\p5_pc6_remote_missing_normalization.sh                                                                          
+E:\VPS\p5_pc6_remote_normalization_failure.sh                                                                          
+E:\VPS\p5_pc6_remote_permissions_and_help.sh                                                                           
+E:\VPS\p5_pc6_remote_progress.sh                                                                                       
+E:\VPS\p5_pc6_remote_register_agent_run.sh                                                                             
+E:\VPS\p5_pc6_remote_research_schema.sh                                                                                
+E:\VPS\p5_pc6_remote_runtime_check.sh                                                                                  
+E:\VPS\p5_pc6_remote_run_materializer.sh                                                                               
+E:\VPS\p5_pc6_remote_run_tests.sh                                                                                      
+E:\VPS\p5_pc6_remote_schema_samples.sh                                                                                 
+E:\VPS\pc6_binance_materializer.py                                                                                     
+E:\VPS\pc7-headless-wave-manifest-2.json                                                                               
+E:\VPS\pc7-headless-wave-manifest-3.json                                                                               
+E:\VPS\pc7-headless-wave-manifest.json                                                                                 
+E:\VPS\test_pc6_binance_materializer.py                                                                                
+E:\VPS\.tools\google-cloud-sdk\.install\core.manifest                                                                  
+E:\VPS\.tools\google-cloud-sdk\.install\gcloud-deps.manifest                                                           
+E:\VPS\.work\pc6-edit                                                                                                  
+E:\VPS\.work\fl20_activation_closure_v1\owner-admin-cutover-final-20260815-alpha-data-plane-v1-fl20\10_MANIFEST.json   
+E:\VPS\.work\fl20_activation_closure_v1\owner-admin-cutover-final-20260815-alpha-data-plane-v1-fl20-r1\10_MANIFEST.json
+E:\VPS\.work\p5-codex-p3-s2a-data-eng-v1\p5_track3\d0_manifest.py                                                      
+E:\VPS\.work\pc6-edit\artifacts\pc6_temporal_closure_v2                                                                
+E:\VPS\P5_CODEX_ALPHA_EXECUTION_LAYER_COMPLETION_V1\01_CODEX_ALPHA_EXECUTION_LAYER_COMPLETION_PROMPT_V1.md             
+E:\VPS\P5_CODEX_ALPHA_EXECUTION_LAYER_COMPLETION_V1\MANIFEST.json                                                      
+E:\VPS\P5_CODEX_ALPHA_EXECUTION_LAYER_COMPLETION_V1\SOURCES\P5_ALPHA_EXECUTION_WIRING_AUDIT_V1.md                      
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\10_POST_ROOT_ALPHA_EXECUTION_MASTER_PROMPT_V2.md           
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\PACKAGE_MANIFEST.json                                      
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\EVIDENCE_HISTORY\P5_ALPHA_EXECUTION_WIRING_AUDIT_V1.md     
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\FROZEN_REFERENCE\AUTHORITY_CORE\P5_SPEC_MANIFEST.json      
+
+
+Get-ChildItem : 对路径“E:\VPS\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem -Path "E:\VPS" -Recurse -Depth 3 | Where-Object { $_.Na ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\VPS\.pytest_cache:String) [Get-ChildItem], UnauthorizedAccessExcep 
+   tion
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+Get-ChildItem : 对路径“E:\VPS\direct_repair_stage\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem -Path "E:\VPS" -Recurse -Depth 3 | Where-Object { $_.Na ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\VPS\direct_repair_stage\.pytest_cache:String) [Get-ChildItem], Una 
+   uthorizedAccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-15T07:30:05.189688Z ERROR codex_core::tools::router: error=unsupported call: read
+2026-08-15T07:41:15.388496Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 201ms)... turn_id=01a00453-5fe5-7751-b03d-051dad39645e retries=1 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-15T07:41:29.274624Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 369ms)... turn_id=01a00453-5fe5-7751-b03d-051dad39645e retries=2 max_retries=5 sampling_error=stream disconnected before completion: error sending request for url (http://127.0.0.1:10100/v1/responses)
+2026-08-15T07:41:39.617615Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 835ms)... turn_id=01a00453-5fe5-7751-b03d-051dad39645e retries=3 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-15T07:41:48.295677Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.503s)... turn_id=01a00453-5fe5-7751-b03d-051dad39645e retries=4 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-15T07:41:57.731241Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 3.206s)... turn_id=01a00453-5fe5-7751-b03d-051dad39645e retries=5 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-15T07:44:17.880520Z ERROR codex_core::tools::router: error=Exit code: 124
+Wall time: 12.5 seconds
+Output:
+command timed out after 12490 milliseconds
+
+2026-08-15T07:49:43.082738Z ERROR codex_core::tools::router: error=Exit code: 124
+Wall time: 10.8 seconds
+Output:
+command timed out after 10780 milliseconds
+
+
+2026-08-15T07:50:49.351064Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 187ms)... turn_id=01a00453-5fe5-7751-b03d-051dad39645e retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T07:51:58.633033Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 186ms)... turn_id=01a00453-5fe5-7751-b03d-051dad39645e retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T07:52:44.435686Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 390ms)... turn_id=01a00453-5fe5-7751-b03d-051dad39645e retries=2 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T07:53:30.962199Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 839ms)... turn_id=01a00453-5fe5-7751-b03d-051dad39645e retries=3 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T07:54:17.570225Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.442s)... turn_id=01a00453-5fe5-7751-b03d-051dad39645e retries=4 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T07:55:10.920301Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 3.149s)... turn_id=01a00453-5fe5-7751-b03d-051dad39645e retries=5 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T07:56:07.189300Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

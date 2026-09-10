@@ -1,0 +1,6 @@
+{
+  "packet_id": "parent-b3f312fdcbeba0b9ff7477aaf9e38f80239d9b5644e89290",
+  "status": "done",
+  "run_id": "parent-b3f312fdcbeba0b9ff7477aaf9e38f80239d9b5644e89290-a0-b6ad6535b74e449881ae0f97587a3751",
+  "summary": "已找到所需的数字证据。\n\n从 `events.ndjson` 中可以精确读取到关键场景——**K3 已满（running=20）且父有 K3 待处理债务**时的 `global k3 deficit`：\n\n---\n\n## 数字证据\n\n`ts=1786686035` 时刻的事件记录：\n\n```json\n{\"ts\":1786686035.6531086,\"event\":\"refill_required\",\n \"deficit\":{\"v4\":10,\"k3\":0},\n \"pending\":{\"v4\":10,\"k3\":10},\n \"running\":{\"v4\":6,\"k3\":21}}\n```\n\n| 字段 | 值 |\n|---|---|\n| `running.k3` | **21**（≥ target 20，K3 满载甚至超目标） |\n| `pending.k3` | **10**（父方有 10 个 K3 待处理债务） |\n| `deficit.k3` | **0** |\n\n**结论（1 条数字证据）：**\nK3 已满（running=21 ≥ target=20）、父方仍有 pending.k3=10 的 K3 债务时，`global k3 deficit = 0`。\n\n这正是借位规则已生效的体现：`recompute()` 中计算 `raw_debt[k3] = max(min(pending_k3, max(0, target_k3 - running_k3)), parent_demand_k3)` 且 `targets[k3]` 在 K3 满载时对应不足 `running`，导致 K3 池 deficit 为 0；父方 K3 债务通过 `parent_demand` 路径归入 V4 借位容量，而非独立追加到全局 K3 deficit，从而防止 K3 超载、同时让 V4 空闲容量接管父方剩余 K3 任务的补位。"
+}

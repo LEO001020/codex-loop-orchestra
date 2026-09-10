@@ -1,0 +1,32 @@
+{
+  "tasks": [
+    {
+      "task_id": "honor-v2-live-device",
+      "task_name": "实时设备识别",
+      "role": "worker",
+      "cwd": "C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite",
+      "prompt": "用户确认 HONOR Magic V2 此刻通过 USB 连接。只读、限时诊断，不得安装、卸载、改设置、重启服务。使用 Get-PnpDevice、Get-PnpDeviceProperty、CIM 或 pnputil 枚举当前 Present 的 HONOR/Huawei/Android/USB/MTP/ADB/Portable/Unknown 候选设备。记录 FriendlyName、Class、Status、Problem/ConfigManagerErrorCode、InstanceId、HardwareIds、CompatibleIds、Service、驱动 INF/版本。输出必须直接包含可复核命令、关键证据和明确结论：Windows 是否枚举到手机、当前模式、错误码。"
+    },
+    {
+      "task_id": "honor-v2-live-setupapi",
+      "task_name": "实时SetupAPI截取",
+      "role": "worker",
+      "cwd": "C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite",
+      "prompt": "只读、限时分析 C:\\Windows\\INF\\setupapi.dev.log 的尾部和与当前 HONOR Magic V2 USB 会话相关的最近段落。通过 HONOR/Huawei/Android/USB VID/PID 或设备实例匹配，只提取相关时间、>>>/<<< 段、!!! 错误、驱动候选、INF、错误码与拒绝原因。不得整份复制大日志，不得修改系统。输出命令、证据和最可能失败点。"
+    },
+    {
+      "task_id": "honor-v2-live-infmatch",
+      "task_name": "驱动INF实时匹配",
+      "role": "worker",
+      "cwd": "C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite",
+      "prompt": "只读、限时检查 C:\\Program Files (x86)\\HonorSuite 内 *.inf，解析 Provider、DriverVer、CatalogFile、Manufacturer/Models、NTamd64/NTx86 修饰符、USB 硬件 ID；再获取当前 Present 的 HONOR/Huawei/Android USB 设备 HardwareIds，判断完全匹配、兼容匹配或无匹配。记录 HonorSuite 版本及关键文件路径。不得执行安装器或修改驱动。"
+    },
+    {
+      "task_id": "honor-v2-live-adb",
+      "task_name": "ADB与助手日志快检",
+      "role": "worker",
+      "cwd": "C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite",
+      "prompt": "只读、限时定位 HonorSuite 版本、自带 adb.exe 和最近的 HonorSuite 驱动安装日志。允许运行 adb devices -l，但不得 kill-server、启动停止服务或修改设备。报告 adb 版本、当前设备状态（device/unauthorized/offline/空）、助手日志中的驱动安装命令或退出码。命令若卡住立即中止并记录。"
+    }
+  ]
+}

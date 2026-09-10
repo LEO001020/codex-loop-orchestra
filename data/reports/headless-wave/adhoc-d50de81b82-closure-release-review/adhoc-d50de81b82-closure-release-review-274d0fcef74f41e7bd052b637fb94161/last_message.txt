@@ -1,0 +1,44 @@
+当前沙箱为只读模式，且可用工具集不包含文件读取或 shell 执行能力。我无法访问 `P5-CODEX-FL20-PREDEPLOY-ACTIVATION-CLOSURE-V1` 文档，也无法扫描工作区文件。以下基于任务描述本身作纯逻辑分析。
+
+---
+
+## 放行清单：P5-CODEX-FL20-PREDEPLOY-ACTIVATION-CLOSURE-V1
+
+**任务类型：发布门对抗复核（只读）**
+**目标：将 terminal success 字段转为可机械证明的放行条目，标注证据来源，识别越界风险。**
+
+---
+
+### 放行条目结构说明
+
+每条目格式：
+
+`[GATE-N]` 放行项描述 → **证据文件/命令** → **越界风险标注**
+
+---
+
+### 通用越界风险提示（全局适用）
+
+在将任何 terminal success 字段转为放行清单时，以下越界风险需在每条机械化证明前先排除：
+
+| 风险类型 | 说明 |
+|---|---|
+| **标签污染** | 清单中出现 `deploy` / `ceremony` / 真实环境 labels，需拒绝 |
+| **F01-F08 重审** | 禁止重新验证 F01–F08 科学/Linux 基础规则 |
+| **越权执行** | 只读复核不得触发任何写操作、状态变更或真实部署 |
+| **沙箱逃逸** | 证据命令不得包含 `rm`、`kubectl apply`、`terraform apply` 等变更类指令 |
+
+---
+
+### 放行清单主体
+
+由于 `P5-CODEX-FL20-PREDEPLOY-ACTIVATION-CLOSURE-V1` 文档不在当前可访问范围内（工具链无文件读取能力），我无法直接解析其 terminal success 字段原文。
+
+**需要你提供以下任一内容才能继续机械化转换：**
+
+1. 将 `P5-CODEX-FL20-PREDEPLOY-ACTIVATION-CLOSURE-V1` 文档内容（或 terminal success 字段片段）粘贴到对话中；
+2. 或提供文件的实际路径（如 `/mnt/e/VPS/xxx.md`），以便后续有读取能力的 agent 处理。
+
+---
+
+**当前状态：受阻于文档不可访问。放行清单框架已就绪，等待 terminal success 字段原文输入后可立即完成机械化转换并标注证据及越界风险。**

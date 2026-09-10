@@ -1,0 +1,68 @@
+Reading additional input from stdin...
+2026-08-20T14:46:57.864547Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-20T14:46:57.864712Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T14:46:57.873961Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-20T14:46:57.988230Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T14:46:57.990338Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T14:46:57.990892Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T14:46:57.991442Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T14:46:58.007043Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T14:46:58.086915Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T14:46:58.511041Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Provided authentication token is expired. Please try signing in again.",
+    "type": null,
+    "code": "token_expired",
+    "param": null
+  },
+  "status": 401,
+  "detail": {
+    "code": "token_expired",
+    "message": "Provided authentication token is expired. Please try signing in again."
+  }
+}
+2026-08-20T14:47:00.011451Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T14:47:02.347909Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T14:47:02.348406Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T14:47:02.348898Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T14:47:26.455065Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 214ms)... turn_id=01a01fa3-b6ed-7480-bd61-91d42d08240a retries=1 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游服务暂时不可用（HTTP 519）, url: http://127.0.0.1:10100/v1/responses
+2026-08-20T14:47:26.687004Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T14:47:26.687771Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T14:47:26.688790Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T14:47:42.275943Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 375ms)... turn_id=01a01fa3-b6ed-7480-bd61-91d42d08240a retries=2 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游服务暂时不可用（HTTP 519）, url: http://127.0.0.1:10100/v1/responses
+2026-08-20T14:47:42.661336Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T14:47:42.661852Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T14:47:42.662298Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T14:47:49.448909Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 805ms)... turn_id=01a01fa3-b6ed-7480-bd61-91d42d08240a retries=3 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游服务暂时不可用（HTTP 519）, url: http://127.0.0.1:10100/v1/responses
+2026-08-20T14:47:50.256009Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T14:47:50.256506Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T14:47:50.257084Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T14:47:56.274376Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.553s)... turn_id=01a01fa3-b6ed-7480-bd61-91d42d08240a retries=4 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游服务暂时不可用（HTTP 519）, url: http://127.0.0.1:10100/v1/responses
+2026-08-20T14:47:57.840124Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T14:47:57.840624Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T14:47:57.841097Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T14:48:04.170029Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 3.429s)... turn_id=01a01fa3-b6ed-7480-bd61-91d42d08240a retries=5 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游服务暂时不可用（HTTP 519）, url: http://127.0.0.1:10100/v1/responses
+2026-08-20T14:48:07.605287Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T14:48:07.605778Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T14:48:07.606190Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T14:48:13.803033Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-20T14:48:14.306338Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Provided authentication token is expired. Please try signing in again.",
+    "type": null,
+    "code": "token_expired",
+    "param": null
+  },
+  "status": 401,
+  "detail": {
+    "code": "token_expired",
+    "message": "Provided authentication token is expired. Please try signing in again."
+  }
+}

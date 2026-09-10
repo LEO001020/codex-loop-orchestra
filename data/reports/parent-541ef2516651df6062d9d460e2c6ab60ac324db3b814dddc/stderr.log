@@ -1,0 +1,414 @@
+Reading additional input from stdin...
+2026-08-12T21:05:02.001376Z  WARN codex_skills::interface: ignoring interface.icon_small: icon path with '..' must resolve under plugin assets/
+2026-08-12T21:05:02.001506Z  WARN codex_skills::interface: ignoring interface.icon_large: icon path with '..' must resolve under plugin assets/
+2026-08-12T21:05:02.077325Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-12T21:05:02.538635Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T21:05:02.541424Z  WARN codex_core_plugins::manager: failed to warm featured plugin ids cache error=remote featured plugin request to https://chatgpt.com/backend-api/plugins/featured?platform=codex failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T21:05:02.565509Z  WARN codex_core_plugins::remote::remote_installed_plugin_sync: remote installed plugin bundle sync failed error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/installed?scope=GLOBAL&includeDownloadUrls=true failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T21:05:02.565630Z  WARN codex_core_plugins::manager: failed to refresh remote installed plugins cache error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/installed?scope=WORKSPACE failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+} materialized_remote_plugin_count=0
+2026-08-12T21:05:02.771194Z  WARN codex_core_plugins::manager: failed to refresh cached remote plugin catalog error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/list?scope=GLOBAL&limit=200 failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+} scope=Global
+2026-08-12T21:05:02.808764Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-12T21:05:02.847047Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T21:05:02.996700Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-12T21:05:02.996773Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=1000
+2026-08-12T21:05:04.843644Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-12T21:05:05.657911Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T21:05:18.863625Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-12T21:05:18.863736Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=2000
+2026-08-12T21:05:19.230994Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T21:05:26.307402Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-12T21:05:26.307493Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=4000
+2026-08-12T21:05:26.770909Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T21:05:34.370448Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-12T21:05:34.370545Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=8000
+2026-08-12T21:05:34.765324Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T21:06:03.282841Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-12T21:06:03.282931Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=16000
+2026-08-12T21:06:03.720338Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T21:06:09.005694Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T21:06:19.941963Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-12T21:06:19.942051Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=30000
+2026-08-12T21:06:20.394188Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T21:06:44.299567Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 4.2 seconds
+Output:
+python : 无法将“python”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，
+然后再试一次。
+所在位置 行:2 字符: 35
++ $env:PYTHONDONTWRITEBYTECODE='1'; python -m pytest tests/orchestratio ...
++                                   ~~~~~~
+    + CategoryInfo          : ObjectNotFound: (python:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-12T21:06:44.696325Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 4.6 seconds
+Output:
+python : 无法将“python”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，
+然后再试一次。
+所在位置 行:2 字符: 35
++ $env:PYTHONDONTWRITEBYTECODE='1'; python -m pytest tests/orchestratio ...
++                                   ~~~~~~
+    + CategoryInfo          : ObjectNotFound: (python:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-12T21:06:45.437885Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T21:06:56.153694Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 5.2 seconds
+Output:
+py : 无法将“py”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后再试
+一次。
+所在位置 行:2 字符: 93
++ ... ErrorAction SilentlyContinue | Select-Object Name, Source; py -0p 2>$ ...
++                                                                ~~
+    + CategoryInfo          : ObjectNotFound: (py:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-12T21:06:56.491225Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-12T21:06:56.491378Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=30000
+2026-08-12T21:06:56.881205Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T21:07:03.243969Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.7 seconds
+Output:
+Òbİ~¿‹î•0   
+ •ï‹ãNx:   W s l / S e r v i c e / C r e a t e I n s t a n c e / E _ A C C E S S D E N I E D  
+ 
+2026-08-12T21:07:04.026510Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T21:07:10.952085Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.1 seconds
+Output:
+
+2026-08-12T21:07:11.911476Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T21:07:18.569810Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T21:07:27.923856Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.3 seconds
+Output:
+
+FullName          
+--------          
+E:\codex-LOOP\venv
+
+
+
+2026-08-12T21:07:28.245923Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-12T21:07:28.246015Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=30000
+2026-08-12T21:07:28.693855Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T21:07:34.040244Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.1 seconds
+Output:
+
+FullName                              
+--------                              
+E:\codex-LOOP\venv\Scripts\python.exe 
+E:\codex-LOOP\venv\Scripts\pythonw.exe
+
+
+No Python at '"C:\Users\hzq00\AppData\Local\Programs\Python\Python312\python.exe'
+
+2026-08-12T21:07:34.753289Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T21:07:39.756479Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.2 seconds
+Output:
+home = C:\Users\hzq00\AppData\Local\Programs\Python\Python312
+include-system-site-packages = false
+version = 3.12.10
+executable = C:\Users\hzq00\AppData\Local\Programs\Python\Python312\python.exe
+command = C:\Users\hzq00\AppData\Local\Programs\Python\Python312\python.exe -m venv E:\codex-LOOP\venv
+
+2026-08-12T21:07:40.609838Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T21:07:58.090126Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T21:08:06.480697Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-12T21:08:06.480785Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=30000
+2026-08-12T21:08:06.814082Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T21:08:12.051830Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T21:08:46.819984Z  WARN codex_mcp::rmcp_client: failed to initialize MCP client during shutdown: MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request
+2026-08-12T21:08:47.698329Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

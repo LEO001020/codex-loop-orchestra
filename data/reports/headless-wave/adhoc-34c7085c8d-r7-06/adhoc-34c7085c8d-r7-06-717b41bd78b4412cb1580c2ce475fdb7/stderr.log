@@ -1,0 +1,1074 @@
+Reading additional input from stdin...
+2026-08-14T14:12:34.188440Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T14:12:37.756251Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T14:13:04.823617Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+所在位置 行:2 字符: 34
++ cd E:\codex-LOOP\codex-loop-s-f2 && git log --oneline -10
++                                  ~~
+标记“&&”不是此版本中的有效语句分隔符。
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : InvalidEndOfLine
+ 
+
+2026-08-14T14:15:35.014482Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 5.4 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 58
++ cd E:\codex-LOOP\codex-loop-s-f2; git diff -- harness/ | head -300
++                                                          ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T14:15:58.039226Z  WARN codex_sandboxing::violation: recorded sandbox violation: resource=filesystem backend=windows_sandbox reason=policy_denied path=unknown
+2026-08-14T14:15:58.039523Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.9 seconds
+Output:
+diff --git a/harness/dispatch.py b/harness/dispatch.py
+index 5bc7704..f736bd9 100644
+--- a/harness/dispatch.py
++++ b/harness/dispatch.py
+@@ -6,24 +6,287 @@
+ #           packet worktree, or (b) homogeneous batch via a spawn_agents_on_csv
+ #           instruction pack (CSV + instruction template + output_schema) that
+ #           Sol's session invokes as a tool. No LLM calls inside this script.
+-# Input   : data/packets/<pid>.json (4-field), dag.json wave index, config.
++# Input   : data/packets/<pid>.json (4-field), dag.json wave index, config,
++#           agents/<role>.toml (single source of truth for model pinning).
+ # Output  : 'dispatched' events appended to events.ndjson; per-packet worktree;
+-#           CSV mode: data/dispatch/batch_<wave>.csv + instruction + schema.
++#           single mode: `codex exec` runs with -m <model> -c
++#           model_reasoning_effort=<effort> read from the role TOML (P0-1:
++#           exec top-level processes do NOT load agents/*.toml, so without
++#           the explicit override every packet would run on the root Sol
++#           model); --json stdout is landed to data/reports/<pid>/events.jsonl
++#           (turn.completed.usage = per-packet token consumption, no hook
++#           dependency); spawn wall-clock ts recorded to data/spawn_times.json
++#           (consumed by statemachine.py watchdog, transition 5 producer);
++#           re-dispatch (attempts>0): one previous-attempt handle line is
++#           appended to the spawn prompt тА?PATH + retry class (+ duty officer
++#           fix_hint when a gated fixable ruling exists), never file content
++#           (axiom 5: path + summary; bytes never enter Sol).
++#           CSV mode: data/dispatch/batch_<wave>.csv + instruction + schema +
++#           agent_type (in-session spawn_agents_on_csv loads the agent TOML;
++#           [agents] default_subagent_model/_reasoning_effort is the fallback).
+ #           Exit 0 = all dispatched, 1 = error, 2 = nothing dispatchable.
+-# Lines   : ~110 (excluding this header)
++# Lines   : ~175 (excluding this header)
+ # ============================================================================
+-import argparse, csv, json, os, subprocess, sys, time
++import argparse, csv, json, os, re, shutil, subprocess, sys, time, tomllib, urllib.request, uuid
++from loop_config import config_value, policy_int
++from lifecycle_supervisor import locked
++from pathlib import Path
+ 
+ ROOT = os.environ.get("LOOP_ROOT", os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+ DATA = os.path.join(ROOT, "data")
+ HARN = os.path.join(ROOT, "harness")
++SOL_MODELS = {"gpt-5.6-sol", "gpt-5.6"}
++SOL_BUDGET_EXEMPT_STATES = {"planning", "adjudication", "release_finalize"}
++ADJUDICATION_STATES = {"SOL_ADJUDICATE", "DEAD_LETTER", "MERGE_CONFLICT",
++                       "WAVE_DONE", "WAVE_DONE_READY", "SOL_WAKE"}
++TERMINAL_STATES = {"MERGED", "DONE"}
++PACKET_ID_RE = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]{0,95}\Z")
++RELEASE_REVIEW_ROLE = "reviewer"
++RELEASE_REVIEW_SANDBOX = "read-only"
++RELEASE_REVIEW_DIR = os.path.join(DATA, "release_review")
++THROTTLE_STATE = os.path.join(DATA, "refill", "spawn_throttle_state.json")
++THROTTLE_LOCK = Path(DATA) / "refill" / ".spawn_throttle.lock"
++
++
++class BirthThrottleError(RuntimeError):
++    pass
++
++def validate_packet_id(pid):
++    if not isinstance(pid, str) or not PACKET_ID_RE.fullmatch(pid):
++        sys.stderr.write("invalid packet id %r (allowed: 1-96 ASCII letters/digits/._-)\n" % pid)
++        raise SystemExit(1)
++    return pid
++
++def agent_toml_path(role):
++    """Locate agents/<role>.toml: LOOP_ROOT first (test override), then
++    $CODEX_HOME, then the package dir this script really lives in."""
++    pkg = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
++    candidates = [os.path.join(ROOT, "agents", role + ".toml"),
++                  os.path.join(os.environ.get("CODEX_HOME", os.path.expanduser("~/.codex")),
++                               "agents", role + ".toml"),
++                  os.path.join(pkg, "agents", role + ".toml")]
++    for c in candidates:
++        if os.path.exists(c):
++            return c
++    sys.stderr.write("agent TOML not found for role %s (searched: %s)\n"
++                     % (role, ", ".join(candidates)))
++    sys.exit(1)
++
++def agent_overrides(role):
++    """P0-1 root-cause fix: read the role TOML (single source of truth тА?never
++    hand-copy model names) and return ([-m model, -c effort], sandbox, model,
++    effort). `codex exec` top-level processes do NOT load agents/*.toml
++    (research ┬з5), so without these overrides every dispatched packet runs on
++    the root Sol model. Fail-visible: missing model/effort fields exit 1 тА?+    silently falling back to Sol is exactly the defect being fixed."""
++    path = agent_toml_path(role)
++    try:
++        with open(path, "rb") as f:
++            t = tomllib.load(f)
++    except (OSError, tomllib.TOMLDecodeError) as e:
++        sys.stderr.write("agent TOML %s unreadable: %s\n" % (path, e)); sys.exit(1)
++    model = t.get("model")
++    effort = t.get("model_reasoning_effort")
++    if not model or not effort:
++        sys.stderr.write("agent TOML %s missing model/model_reasoning_effort тА?"
++                         "refusing to dispatch on the root model (P0-1 fail-visible)\n" % path)
++        sys.exit(1)
++    ov = ["-m", model, "-c", "model_reasoning_effort=%s" % effort]
++    ov.extend(context_overrides(t, path))
++    return ov, t.get("sandbox_mode", "workspace-write"), model, effort
++
++
++def context_overrides(agent_toml, path):
++    """Carry role-local context sizing into top-level ``codex exec``.
++
++    Native spawned agents load the role TOML directly; headless exec workers do
++    not, so both context keys must ride on the CLI just like model/effort.
++    """
++    overrides = []
++    for key in ("model_context_window", "model_auto_compact_token_limit"):
++        value = agent_toml.get(key)
++        if value is None:
++            continue
++        if not isinstance(value, int) or isinstance(value, bool) or value <= 0:
++            sys.stderr.write("agent TOML %s has invalid %s=%r\n" % (path, key, value))
++            sys.exit(1)
++        overrides.extend(["-c", "%s=%d" % (key, value)])
++    return overrides
++
++
++def ipybox_enabled_for(role, packet=None):
++    """Resolve ipybox from the v2 policy without a model-name shortcut.
++
++    Desktop is the control/observation plane and never hosts ipybox.  On the
++    WSL/headless plane only ordinary workers enable it by default.  K3 roles
++    remain disabled unless the packet explicitly needs code execution and the
++    policy permits that exception; the duty officer is always zero-tool.
++    """
++    if os.environ.get("LOOP_EXECUTION_PLANE") == "desktop_native" or os.name == "nt":
++        return False
++    policy_path = os.path.join(ROOT, "config", "orchestration_policy_v2.toml")
++    try:
++        with open(policy_path, "rb") as handle:
++            policy = tomllib.load(handle).get("ipybox", {})
++    except (OSError, tomllib.TOMLDecodeError):
++        policy = {}
++    if role == "worker":
++        return bool(policy.get("wsl_headless_worker_enabled", True))
++    if role in ("verifier", "reviewer", "plan_expander"):
++        if bool(policy.get("k3_planning_verifying_enabled", False)):
++            return True
++        return (bool((packet or {}).get("needs_code_execution"))
++                and bool(policy.get("k3_code_execution_exception", True)))
++    return False
+ 
+ def append_event(pid, event, detail=None):
+-    with open(os.path.join(DATA, "events.ndjson"), "a", encoding="utf-8") as f:
+-        f.write(json.dumps({"ts": time.time(), "packet_id": pid, "event": event,
+-                            "detail": detail or {}}, separators=(",", ":")) + "\n")
++    with locked(Path(DATA) / "lifecycle" / ".events.lock"):
++        with open(os.path.join(DATA, "events.ndjson"), "a", encoding="utf-8") as f:
++            f.write(json.dumps({"ts": time.time(), "packet_id": pid, "event": event,
++                                "detail": detail or {}}, separators=(",", ":")) + "\n")
++
++
++def read_json(path, default):
++    try:
++        with open(path, encoding="utf-8") as handle:
++            return json.load(handle)
++    except (OSError, ValueError):
++        return default
++
++
++def resolve_codex_binary():
++    """Resolve the real executable for the native supervisor boundary."""
++    explicit = os.environ.get("CODEX_HEADLESS_BIN")
++    if explicit:
++        path = Path(explicit).resolve()
++        if path.is_file():
++            return str(path)
++        raise OSError("CODEX_HEADLESS_BIN is not a file: %s" % path)
++    if os.name == "nt":
++        vendor = (Path.home() / "AppData" / "Roaming" / "npm" / "node_modules"
++                  / "@openai" / "codex" / "node_modules" / "@openai"
++                  / "codex-win32-x64" / "vendor" / "x86_64-pc-windows-msvc"
++                  / "bin" / "codex.exe")
++        if vendor.is_file():
++            return str(vendor)
++        candidate = shutil.which("codex.exe")
++    else:
++        candidate = shutil.which("codex")
++    if not candidate:
++        raise OSError("headless codex executable not found")
++    return candidate
++
++
++def update_throttle_state(**fields):
++    os.makedirs(os.path.dirname(THROTTLE_STATE), exist_ok=True)
++    with locked(THROTTLE_LOCK):
++        state = read_json(THROTTLE_STATE, {"schema": "codex-loop-spawn-throttle/v1"})
++        state.update(fields)
++        state["updated_at"] = time.time()
++        tmp = THROTTLE_STATE + ".%d.tmp" % os.getpid()
++        with open(tmp, "w", encoding="utf-8", newline="\n") as handle:
++            json.dump(state, handle, ensure_ascii=False, indent=2, sort_keys=True)
++            handle.write("\n")
++            handle.flush()
++            os.fsync(handle.fileno())
++        os.replace(tmp, THROTTLE_STATE)
++        return state
++
++
++def observed_birth_counts():
++    # Keep the physical birth gate on exactly the same lifecycle truth as the
++    # canonical refill controller.  The old duplicate parser counted stale
++    # native ``running`` rows forever and ignored headless PID generations,
++    # so dispatch could refuse at 60 while refill correctly observed 23.
++    try:
++        sys.path.insert(0, str(Path(ROOT) / "harness"))
++        from orchestration_common import LoopPaths
++        from refill_controller_v2 import RefillControllerV2
++        counts = RefillControllerV2(LoopPaths.resolve(Path(ROOT))).read_roster_counts()
++        initializing = sum(counts[pool]["initializing"] for pool in ("v4", "k3"))
++        running = sum(counts[pool]["running"] for pool in ("v4", "k3"))
++        return initializing, running
++    except Exception as exc:
++        # Capacity is a safety gate: if the canonical truth source is
++        # unavailable, fail closed instead of falling back to stale text rows.
++        raise BirthThrottleError(
++            "canonical lifecycle counts unavailable: %s: %s" %
++            (type(exc).__name__, exc)) from exc
++
++
++def health_gate(pid):
++    timeout = max(0.1, policy_int("spawn_throttle", "health_timeout_ms", 2000,
++                                  Path(ROOT)) / 1000.0)
++    backoff = max(1, policy_int("spawn_throttle", "failure_backoff_seconds", 30,
++                                Path(ROOT)))
++    url = os.environ.get("LOOP_OPENCODEX_HEALTH_URL", "http://127.0.0.1:10100/healthz")
++    try:
++        with urllib.request.urlopen(url, timeout=timeout) as response:
++            body = json.loads(response.read(65536).decode("utf-8"))
++        if response.status != 200 or body.get("status") != "ok":
++            raise RuntimeError("unhealthy response status=%s body_status=%s" %
++                               (response.status, body.get("status")))
++    except Exception as exc:
++        now = time.time()
++        detail = {"status": "failed", "checked_at": now,
++                  "error": "%s: %s" % (type(exc).__name__, exc)}
++        update_throttle_state(last_health=detail, last_error=detail["error"],
++                              blocked_until=now + backoff)
++        append_event(pid, "spawn_health_gate_failed",
++                     {**detail, "backoff_seconds": backoff})
++        raise BirthThrottleError("OpenCodex health gate failed; births blocked for %ss" % backoff)
++    detail = {"status": "ok", "checked_at": time.time(),
++              "pid": body.get("pid"), "uptime": body.get("uptime")}
++    update_throttle_state(last_health=detail, last_error=None,
++                          blocked_until=0, births_since_health=0)
++    append_event(pid, "spawn_health_gate_passed", detail)
++
++
++def before_spawn(pid):
++    interval = max(0, policy_int("spawn_throttle", "spawn_interval_ms", 1000,
++                                 Path(ROOT))) / 1000.0
++    max_initializing = max(1, policy_int("spawn_throttle", "max_initializing", 8,
++                                         Path(ROOT)))
++    backoff = max(1, policy_int("spawn_throttle", "failure_backoff_seconds", 30,
++                                Path(ROOT)))
++    target_total = max(1, policy_int("concurrency", "target_total", 80, Path(ROOT)))
++    deadline = time.monotonic() + backoff
++    while True:
++        state = read_json(THROTTLE_STATE, {})
++        blocked_until = float(state.get("blocked_until", 0) or 0)
++        if blocked_until > time.time():
++            raise BirthThrottleError("spawn backoff active until %.3f" % blocked_until)
++        initializing, running = observed_birth_counts()
++        if initializing + running >= target_total:
++            raise BirthThrottleError("effective+initializing concurrency reached target %d" % target_total)
++        if initializing < max_initializing:
++            break
++        if time.monotonic() >= deadline:
++            now = time.time()
++            error = "initializing cap %d did not drain within %ss" % (max_initializing, backoff)
++            update_throttle_state(last_error=error, blocked_until=now + backoff)
++            append_event(pid, "spawn_initializing_timeout",
++                         {"max_initializing": max_initializing, "backoff_seconds": backoff})
++            raise BirthThrottleError(error)
++        time.sleep(0.2)
++    last_spawn = float(state.get("last_spawn_at", 0) or 0)
++    remaining = interval - (time.time() - last_spawn)
++    if remaining > 0:
++        time.sleep(remaining)
++
++
++def record_spawn_and_gate(pid, role, model):
++    gate_every = max(1, policy_int("spawn_throttle", "health_gate_every", 8,
++                                   Path(ROOT)))
++    state = read_json(THROTTLE_STATE, {})
++    count = int(state.get("births_since_health", 0) or 0) + 1
++    update_throttle_state(last_spawn_at=time.time(), births_since_health=count,
++                          last_role=role, last_model=model)
++    if count >= gate_every:
++        health_gate(pid)
+ 
+ def load_packet(pid):
++    validate_packet_id(pid)
+     p = json.load(open(os.path.join(DATA, "packets", pid + ".json"), encoding="utf-8"))
+     for k in ("packet_id", "goal", "authorized_paths", "acceptance"):
+         if k not in p:
+@@ -43,16 +306,129 @@ def dispatchable(pids):
+     return [p for p in pids
+
+2026-08-14T14:16:16.335798Z  WARN codex_sandboxing::violation: recorded sandbox violation: resource=filesystem backend=windows_sandbox reason=policy_denied path=unknown
+2026-08-14T14:16:16.336193Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.6 seconds
+Output:
+             if led["packets"].get(p, {}).get("state") == "DISPATCHABLE"]
+ 
++def current_loop_state():
++    path = os.path.join(DATA, "progress_ledger.json")
++    led = json.load(open(path, encoding="utf-8")) if os.path.exists(path) else {"packets": {}}
++    explicit = led.get("loop_state")
++    if isinstance(explicit, str) and explicit:
++        return explicit
++    states = [p.get("state") for p in led.get("packets", {}).values()]
++    if not states:
++        return "planning"
++    if any(state in ADJUDICATION_STATES for state in states):
++        return "adjudication"
++    if all(state in TERMINAL_STATES for state in states):
++        return "release_finalize"
++    return "execution"
++
++def sol_budget_block(model):
++    """Return a persisted >25% BLOCK decision for new Sol-model work.
++    V4/K3 dispatch stays available so it can reduce the Sol share. Missing
++    reports preserve cold-start behavior; malformed present reports fail
++    closed for Sol work."""
++    if model not in SOL_MODELS or current_loop_state() in SOL_BUDGET_EXEMPT_STATES:
++        return None
++    path = os.path.join(DATA, "usage", "model_token_share.json")
++    if not os.path.exists(path):
++        return None
++    try:
++        report = json.load(open(path, encoding="utf-8"))
++        windows = report.get("windows", {})
++        blocked = [name for name, value in windows.items()
++                   if isinstance(value, dict) and value.get("status") == "BLOCK"]
++    except (OSError, ValueError, AttributeError):
++        return {"reason": "malformed Sol token-share report", "report": path}
++    if not blocked:
++        return None
++    return {"reason": "Sol token-share hard cap", "report": path,
++            "blocked_windows": blocked}
++
++def previous_attempt_line(pid):
++    """H-03 hedge: on re-dispatch (attempts>0) hand the worker a HANDLE to its
++    previous failure â€?report path + retry class (+ gated duty fix_hint, H-01)
++    â€?never the content itself (axiom 5: path + summary, free-side disk read
++    costs zero Sol tokens). First dispatch returns '' (byte-identical prompt)."""
++    led_path = os.path.join(DATA, "progress_ledger.json")
++    try:
++        led = json.load(open(led_path, encoding="utf-8")) if os.path.exists(led_path) else {"packets": {}}
++        pk = led.get("packets", {}).get(pid, {})
++    except (OSError, ValueError):
++        pk = {}  # unreadable ledger: behave like first dispatch, never crash
++    attempts = int(pk.get("attempts", 0) or 0)
++    if attempts <= 0:
++        return ""
++    retry_class = pk.get("last_fail_class") or "unclassified"
++    previous_path = "data/reports/%s/previous/attempt-%d.json" % (pid, max(0, attempts - 1))
++    line = ("previous_attempt: %s (failed: %s, attempts: %d)"
++            % (previous_path, retry_class, attempts))
++    hint_path = os.path.join(DATA, "duty_rulings", pid + ".json")
++    try:  # H-01 wiring: gate-validated fixable ruling's fix_hint joins the handle line
++        if os.path.exists(hint_path):
++            ruling = json.load(open(hint_path, encoding="utf-8"))
++            hint = ruling.get("fix_hint", "")
++            if ruling.get("class") == "fixable" and isinstance(hint, str) and 0 < len(hint) <= 200:
++                line += "; fix_hint: %s" % hint
++    except (OSError, ValueError):
++        pass  # unreadable ruling: drop the hint, keep the handle â€?never crash
++    return line + "\n"
++
++def packet_attempt(pid):
++    try:
++        led = json.load(open(os.path.join(DATA, "progress_ledger.json"), encoding="utf-8"))
++        return int(led.get("packets", {}).get(pid, {}).get("attempts", 0) or 0)
++    except (OSError, ValueError, TypeError):
++        return 0
++
++def new_run_id(pid, attempt):
++    return "%s-a%d-%s" % (pid, attempt, uuid.uuid4().hex)
++
++def task_name(pkt):
++    explicit = pkt.get("task_name")
++    if isinstance(explicit, str) and explicit.strip():
++        return explicit.strip()[:160]
++    prefix = "æ‰§è¡Œæ•°æ®åŒ?%s â€?" % pkt["packet_id"]
++    return (prefix + str(pkt["goal"]))[:160]
++
+ def spawn_prompt(pkt, worktree):
+-    """Four-field spawn prompt (spec Â§4.3) â€?goal/authorized_paths/acceptance/constraints."""
+-    return ("You are an Executor. Work ONLY inside %s.\n"
++    """Four-field spawn prompt (spec Â§4.3) â€?goal/authorized_paths/acceptance/constraints.
++    Re-dispatch appends ONE previous-attempt handle line (path + class, H-03)."""
++    return ("ä»»åŠ¡åï¼š%s\n"
++            "You are an Executor. Work ONLY inside %s.\n"
+             "goal: %s\nauthorized_paths: %s\nacceptance: %s\nconstraints: %s\n"
++            "%s"
+             "On completion write data/reports/%s/report.json with fields "
+             '{"packet_id","status":"done|failed","summary"(<=500 tokens),"diff_stat"} '
+             "and return 1 line conclusion + artifact path."
+-            % (worktree, pkt["goal"], json.dumps(pkt["authorized_paths"]),
++            % (task_name(pkt), worktree,
++               pkt["goal"], json.dumps(pkt["authorized_paths"]),
+                json.dumps(pkt["acceptance"]), json.dumps(pkt.get("constraints", [])),
+-               pkt["packet_id"]))
++               previous_attempt_line(pkt["packet_id"]), pkt["packet_id"]))
++
++def record_spawn_time(pid, mode, run_id, attempt):
++    """H-02 hedge: persist the spawn wall-clock so statemachine.py's watchdog
++    can emit transition-5 'timeout' for overdue RUNNING packets (zero token)."""
++    path = os.path.join(DATA, "spawn_times.json")
++    try:
++        times = json.load(open(path, encoding="utf-8")) if os.path.exists(path) else {}
++    except (OSError, ValueError):
++        times = {}  # corrupt state: rebuild â€?watchdog degrades, dispatch never blocks
++    times[pid] = {"ts": time.time(), "mode": mode, "run_id": run_id,
++                  "attempt": attempt}
++    tmp = path + ".tmp"
++    json.dump(times, open(tmp, "w", encoding="utf-8"))
++    os.replace(tmp, path)
++
++def prepare_report_slot(pid, attempt, local_report=None):
++    """Archive the prior generation before a new physical dispatch."""
++    current = os.path.join(DATA, "reports", pid, "report.json")
++    if os.path.exists(current):
++        history = os.path.join(DATA, "reports", pid, "previous")
++        os.makedirs(history, exist_ok=True)
++        name = ("attempt-%d.json" % max(0, attempt - 1) if attempt > 0
++                else "preexisting-%d.json" % int(time.time() * 1000))
++        os.replace(current, os.path.join(history, name))
++    if local_report and os.path.exists(local_report):
++        os.remove(local_report)
+ 
+ def allocate_worktree(pid):
+     out = subprocess.run(["bash", os.path.join(HARN, "worktree_pool.sh"), "allocate", pid],
+@@ -61,66 +437,499 @@ def allocate_worktree(pid):
+         sys.stderr.write("worktree allocate failed for %s: %s\n" % (pid, out.stderr)); sys.exit(1)
+     return out.stdout.strip().splitlines()[-1]
+ 
+-def dispatch_single(pids, dry_run):
++def supervisor_command(pid, pkt, wt, rdir, local_report, run_id, attempt,
++                       parent_session_id, manifest_id, worker_cmd, role="worker",
++                       model=None, completion=None):
++    if not model:
++        raise ValueError("lifecycle supervisor requires an explicit model pin")
++    timeout = float(config_value("agents", "job_max_runtime_seconds", 1800))
++    grace = float(config_value("lifecycle", "stop_grace_seconds", 10))
++    command = [sys.executable, os.path.join(HARN, "lifecycle_supervisor.py"),
++            "--data-dir", DATA, "--packet", pid, "--run-id", run_id,
++            "--attempt", str(attempt),
++            *(["--parent-session-id", parent_session_id] if parent_session_id else []),
++            *(["--manifest-id", manifest_id] if manifest_id else []),
++            "--task-name", task_name(pkt), "--role", role, "--model", model,
++            "--cwd", wt, "--stdout", os.path.join(rdir, "events.jsonl"),
++            "--stderr", os.path.join(rdir, "stderr.log"),
++            "--report", local_report,
++            "--publish-report", os.path.join(rdir, "report.json"),
++            "--timeout", str(timeout), "--grace", str(grace)]
++    if completion:
++        command += ["--l2-idem-key", str(completion["idem_key"])]
++        if completion.get("revision") is not None:
++            command += ["--l2-revision", str(completion["revision"])]
++    return [*command, "--", *worker_cmd]
++
++def launch_supervisor(pid, pkt, wt, rdir, local_report, run_id, attempt,
++                       parent_session_id, manifest_id, worker_cmd, role="worker",
++                       model=None, completion=None):
++    command = supervisor_command(pid, pkt, wt, rdir, local_report, run_id,
++                                 attempt, parent_session_id, manifest_id,
++                                 worker_cmd, role,
++                                 model, completion)
++    log = open(os.path.join(rdir, "supervisor.log"), "ab")
++    kwargs = {"cwd": ROOT, "stdin": subprocess.DEVNULL, "stdout": log,
++              "stderr": subprocess.STDOUT, "close_fds": True}
++    if os.name == "nt":
++        kwargs["creationflags"] = (getattr(subprocess, "CREATE_NO_WINDOW", 0) |
++                                   getattr(subprocess, "CREATE_NEW_PROCESS_GROUP", 0))
++    else:
++        kwargs["start_new_session"] = True
++    try:
++        proc = subprocess.Popen(command, **kwargs)
++    finally:
++        log.close()
++    return proc.pid
++
++def dispatch_single(pids, dry_run, role="worker", wave_idx=0,
++                     pinned=None, mode=None, prompt_builder=None,
++                     capture_report=False, completion=None,
++                     detail_extra=None, run_id_overrides=None,
++                     parent_session_id_overrides=None,
++                     readonly_cwd_overrides=None):
++    # P0-1: model/effort/sandbox come from the role TOML â€?the exec top-level
++    # process never loads agents/*.toml, so the pin MUST ride on the CLI.
++    if pinned is not None:
++        overrides, sandbox, model, effort = pinned  # hard route: caller pins
++    else:
++        overrides, sandbox, model, effort = agent_overrides(role)
++    dispatch_mode = mode or "single"
++    last_run_id = None
+     for pid in pids:
+         pkt = load_packet(pid)
+-        wt = allocate_worktree(pid) if not dry_run else "<worktree>"
+-        os.makedirs(os.path.join(DATA, "reports", pid), exist_ok=True)
+-        cmd = ["codex", "exec", "--skip-git-repo-check", "--sandbox", "workspace-write",
+-               "-o", os.path.join(DATA, "reports", pid, "last_message.txt"), spawn_prompt(pkt, wt)]
++        attempt = packet_attempt(pid)
++        run_id = ((run_id_overrides or {}).get(pid)
++                  if isinstance(run_id_overrides, dict) else None)
++        run_id = str(run_id or new_run_id(pid, attempt))
++        parent_session_id = ((parent_session_id_overrides or {}).get(pid)
++                             if isinstance(parent_session_id_overrides, dict)
++                             else None) or (os.environ.get("LOOP_PARENT_SESSION_ID") or
++                             os.environ.get("CODEX_THREAD_ID") or
++                             os.environ.get("CODEX_SESSION_ID"))
++        manifest_id = str(pkt.get("manifest_id") or "") or None
++        if not dry_run:
++            try:
++                before_spawn(pid)
++            except BirthThrottleError as exc:
++                # Refuse before allocating a worktree or creating report
++                # slots.  A throttled packet remains DISPATCHABLE and the
++                # refusal is still durable and machine-readable.
++                try:
++                    append_event(pid, "spawn_throttled", {
++                        "phase": "pre_spawn", "error": str(exc),
++                        "role": role, "model": model, "run_id": run_id,
++                        "attempt": attempt,
++                    })
++                except Exception as event_exc:
++                    sys.stderr.write(
++                        "spawn throttle event degraded for %s: %s\n" %
++                        (pid, event_exc))
++                raise
++        # K3 verifier output captured via ``codex exec -o`` is a read-only,
++        # detached job: it neither needs nor may mutate a Git worktree.  This
++        # also lets the WSL deployment root consume a mounted source repo
++        # without pretending ``$LOOP_ROOT/repo`` exists.  Ordinary workers
++        # still require the physical worktree pool.
++        readonly_cwd = ((readonly_cwd_overrides or {}).get(pid)
++                        if isinstance(readonly_cwd_overrides, dict) else None)
++        detached_readonly = bool(readonly_cwd) or (capture_report and role in (
++            "verifier", "reviewer", "plan_expander"))
++        detached_root = os.path.realpath(readonly_cwd or ROOT)
++        wt = (detached_root if detached_readonly and not dry_run else
++              "<read-only-root>" if detached_readonly else
++              allocate_worktree(pid) if not dry_run else "<worktree>")
++        rdir = os.path.join(DATA, "reports", pid)
++        os.makedirs(rdir, exist_ok=True)
++        local_report = (os.path.join(DATA, "lifecycle_reports", pid,
++                                     "report.json")
++                        if detached_readonly else
++                        os.path.join(wt, "data", "reports", pid, "report.json")
++                        if not dry_run else
++                        os.path.join("<worktree>", "data", "reports", pid,
++                                     "report.json"))
++        if not dry_run:
++            os.makedirs(os.path.dirname(local_report), exist_ok=True)
++            prepare_report_slot(pid, attempt, local_report)
++        prompt = (spawn_prompt(pkt, wt) if prompt_builder is None
++                  else prompt_builder(pkt, wt, run_id))
++        ipybox = ipybox_enabled_for(role, pkt)
++        output_path = local_report if capture_report else os.path.join(rdir, "last_message.txt")
++        cmd = [resolve_codex_binary(), "exec", "--skip-git-repo-check", "--sandbox", sandbox,
++               *overrides, "-c", "mcp_servers.ipybox.enabled=%s" %
++               ("true" if ipybox else "false")]
++        if os.name == "nt":
++            cmd += ["-c", "mcp_servers.node_repl.enabled=false"]
++        cmd += ["--json", "-o", output_path, prompt]
++        detail = {"mode": dispatch_mode, "worktree": wt, "dry_run": dry_run,
++                  "role": role, "model": model, "reasoning_effort": effort,
++                   "wave": wave_idx, "attempt": attempt, "run_id": run_id,
++                   "parent_session_id": parent_session_id,
++                   "manifest_id": manifest_id,
++                  "ipybox_enabled": ipybox,
++                  "local_report": local_report}
++        if detail_extra:
++            detail.update(detail_extra)
+         if dry_run:
+-            print("DRY-RUN %s: %s" % (pid, " ".join(cmd[:6]) + " ..."))
++            print("DRY-RUN %s: %s" % (pid, json.dumps(cmd)))
++            append_event(pid, "dispatch_dry_run", detail)
+         else:
+             # Fire the worker in its own worktree; wait-all happens natively at
+             # the caller (blocking produces no Sol rounds â€?axiom 2, no polling).
+-            subprocess.Popen(cmd, cwd=wt, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+-        append_event(pid, "dispatched", {"mode": "single", "worktree": wt, "dry_run": dry_run})
++            # --json stdout lands in events.jsonl: turn.completed.usage gives
++            # this packet's token consumption without any hook dependency.
++            record_spawn_time(pid, dispatch_mode, run_id, attempt)
++            # Persist transition 3 before the supervisor can emit a terminal
++            # event. This removes the fast-failure race (exec_failed before
++            # dispatched would otherwise be an off-table NONE transition).
++            append_event(pid, "dispatched", detail)
++            try:
++                supervisor_pid = launch_supervisor(pid, pkt, wt, rdir, local_report,
++                                                   run_id, attempt, parent_session_id,
++                                                   manifest_id, cmd,
++                                                   role, model, completion)
++            except OSError as exc:
++                append_event(pid, "exec_failed", {"why": "supervisor_launch_failed",
++                                                   "phase": "pre_spawn",
++                                                   "error": str(exc), "run_id": run_id,
++                                                   "attempt": attempt})
++                raise
++            # Popen is the physical birth boundary.  Failures after this point
++            # must remain visible but may not bubble up as spawn failures: the
++            # supervisor already owns a live child and its budget reservation.
++            try:
++                append_event(pid, "exec_supervisor_started", {
++                    "supervisor_pid": supervisor_pid,
++                    "run_id": run_id, "attempt": attempt})
++                record_spawn_and_gate(pid, role, model)
++            except Exception as exc:
++                sys.stderr.write("post-spawn accounting degraded for %s: %s\n"
++                                 % (pid, exc))
++                try:
++                    append_event(pid, "post_spawn_accounting_degraded", {
++                        "error": str(exc), "supervisor_pid": supervisor_pid,
++                        "run_id": run_id, "attempt": attempt})
++                except Exception:
++                    pass
++            last_run_id = run_id
++    return last_run_id
+ 
+-def dispatch_csv(pids, wave_idx, dry_run):
++def dispatch_csv(pids, wave_idx, dry_run, role="worker"):
+     """Homogeneous batch: emit spawn_agents_on_csv inputs (tool is invoked from
+-    the Codex session, not the CLI). One row per packet, {column} placeholders."""
++    the Codex session, not the CLI). One row per packet, {column} placeholders.
++    P0-1: the call pack pins agent_type=<role> so the in-session spawn loads
++    agents/<role>.toml; agent_overrides() is still consulted so a missing/
++    unpinned TOML fails HERE (fail-visible), and the pinned model is recorded
++    in every dispatched event. [agents] default_subagent_model/_reasoning_effort
++    in config.toml is the documented fallback layer."""
++    _, _, model, effort = agent_overrides(role)  # fail-visible TOML validation
+     ddir = os.path.join(DATA, "dispatch"); os.makedirs(ddir, exist_ok=True)
+     csv_path = os.path.join(ddir, "batch_w%d.csv" % wave_idx)
++    results_path = os.path.join(ddir, "results_w%d.csv" % wave_idx)
++    stamp_path = os.path.join(ddir, "reconcile_w%d.json" % wave_idx)
+     with open(csv_path, "w", newline="", encoding="utf-8") as f:
+         w = csv.writer(f)
+-        w.writerow(["packet_id", "goal", "authorized_paths", "acceptance", "constraints", "worktree"])
++        w.writerow(["packet_id", "task_name", "goal", "authorized_paths", "acceptance",
++                    "constraints", "worktree", "local_report", "attempt", "run_id"])
+         for pid in pids:
+             pkt = load_packet(pid)
++            attempt = packet_attempt(pid)
++            run_id = new_run_id(pid, attempt)
+             wt = allocate_worktree(pid) if not dry_run else "<worktree>"
+             os.makedirs(os.path.join(DATA, "reports", pid), exist_ok=True)
+-            w.writerow([pid, pkt["goal"], json.dumps(pkt["authorized_paths"]),
+-                        json.dumps(pkt["acceptance"]), json.dumps(pkt.get("constraints", [])), wt])
+-            append_event(pid, "dispatched", {"mode": "csv", "worktree": wt, "dry_run": dry_run})
+-    instruction = ("Work ONLY inside {worktree}. goal: {goal}. authorized_paths: {authorized_paths}. "
++            local_report = os.path.join(wt, "data", "reports", pid, "report.json")
++            w.writerow([pid, task_name(pkt), pkt["goal"], json.dumps(pkt["authorized_paths"]),
++                        json.dumps(pkt["acceptance"]), json.dumps(pkt.get("constraints", [])),
++                        wt, local_report, attempt, run_id])
++            detail = {"mode": "csv", "worktree": wt, "dry_run": dry_run,
++                                             "role": role, "model": model,
++                                             "reasoning_effort": effort, "wave": wave_idx,
++                                             "attempt": attempt, "run_id": run_id,
++                                             "local_report": local_report,
++                                             "reconcile_required": not dry_run,
++                                             "results_csv": results_path,
++                                             "reconcile_stamp": stamp_path}
++            if dry_run:
++                append_event(pid, "dispatch_dry_run", detail)
++            else:
++                os.makedirs(os.path.dirname(local_report), exist_ok=True)
++                prepare_report_slot(pid, attempt, local_report)
++                record_spawn_time(pid, "csv", run_id, attempt)
++                append_event(pid, "dispatched", detail)
++    instruction = ("ä»»åŠ¡åï¼š{task_name}\nWork ONLY inside {worktree}. goal: {goal}. authorized_paths: {authorized_paths}. "
+                    "acceptance: {acceptance}. constraints: {constraints}. Write "
+-                   "data/reports/{packet_id}/report.json when done; return 1-line conclusion + path.")
+-    call = {"tool": "spawn_agents_on_csv",
++                   "{local_report} when done; return 1-line conclusion + path.")
++    reconcile_argv = [sys.executable, os.path.join(ROOT, "harness", "csv_reconcile.py"),
++                      "--batch-csv", csv_path, "--results-csv", results_path,
++                      "--data-dir", DATA, "--stamp", stamp_path]
++    state_argv = [sys.executable, os.path.join(ROOT, "harness", "statemachine.py"),
++                  "reconcile"]
++    call = {"tool": "spawn_agents_on_csv", "agent_type": role,
+             "csv_path": csv_path, "instruction": instruction, "id_column": "packet_id",
+             "output_schema": {"status": "string", "summary": "string", "report_path": "string"},
+-            "output_csv_path": os.path.join(ddir, "results_w%d.csv" % wave_idx),
+-            "max_concurrency": 4, "max_runtime_seconds": 1800}
++            "output_csv_path": results_path,
++            # Per-parent/dialogue target comes from the same scheduling
++            # authority as the global capacity. Model profiles never alter it.
++            "max_concurrency": int(policy_int(
++                "concurrency", "dialogue_target", 20, Path(ROOT))),
++            "max_runtime_seconds": int(config_value("agents", "job_max_runtime_seconds", 1800)),
++            "required_postprocess": {
++                "enabled": not dry_run,
++                "when": "after spawn_agents_on_csv returns and output_csv_path exists",
++                "argv": reconcile_argv,
++                "then_argv": state_argv,
++                "stamp": stamp_path,
++                "failure_policy": "nonzero is visible and must stop wave advancement"}}
+     json.dump(call, open(os.path.join(ddir, "batch_w%d.call.json" % wave_idx), "w",
+                          encoding="utf-8"), indent=1)
+
+2026-08-14T14:17:04.629261Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.8 seconds
+Output:
+diff --git a/harness/statemachine.py b/harness/statemachine.py
+index 9c396c2..33069b1 100644
+--- a/harness/statemachine.py
++++ b/harness/statemachine.py
+@@ -4,19 +4,47 @@
+ # Purpose : Consume data/events.ndjson (fast path) + reports/ (second truth
+ #           source), drive packet lifecycle deterministically. No LLM calls.
+ #           Off-table events -> DEAD_LETTER + Sol wake summary (fail-visible).
++#           Watchdog (H-02): each step, RUNNING packets whose dispatch spawn
++#           ts (data/spawn_times.json) is older than [agents]
++#           job_max_runtime_seconds get a 'timeout' event emitted тА?the
++#           production producer for transition 5 (RUNNING->TIMED_OUT).
++#           Replan cap (H-04): transition 22 (SOL_ADJUDICATE->PLANNED) is
++#           counted per packet in data/replan_counters.json; over 2 replans
++#           (or any counter I/O failure тА?fail toward human, same direction
++#           as the L3 cap) the transition is REFUSED and a direct_l4 summary
++#           is queued under data/l4_queue/ for the human release gate.
+ # Input   : events.ndjson lines {"ts","packet_id","event","detail"?}; report
+-#           files data/reports/<pid>/report.json; config/config.toml toggles.
++#           files data/reports/<pid>/report.json; config/config.toml toggles;
++#           data/spawn_times.json (watchdog input written by dispatch.py).
+ # Output  : data/progress_ledger.json (state per packet), Sol wake summaries
+-#           under data/sol_wake/, appended audit lines to events.ndjson.
++#           under data/sol_wake/, direct_l4 summaries under data/l4_queue/,
++#           appended audit lines to events.ndjson.
+ #           Exit 0 = ok, 1 = I/O error, 2 = dead-letters produced this step.
+-# Lines   : ~150 (excluding this header)
++# Lines   : ~220 (excluding this header)
+ # ============================================================================
+-import argparse, json, os, re, sys, time
++import argparse, hashlib, json, os, re, sys, time
++from loop_config import config_bool, config_int
++from lifecycle_supervisor import locked
++from pathlib import Path
+ 
+ ROOT = os.environ.get("LOOP_ROOT", os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+ DATA = os.path.join(ROOT, "data")
+ E = lambda *p: os.path.join(DATA, *p)
+ TERMINAL = {"MERGED", "DEAD_LETTER", "SOL_ADJUDICATE", "DONE"}
++SUPERVISOR_HEARTBEAT_STALE_SECONDS = 5.0
++# Packet-id -> filename safety: 1-96 ASCII letters/digits/._- ONLY.  Any
++# separator (/, \, Unicode), "..", or absolute path is rejected so a pid can
++# never escape data/dead_letters/, data/sol_wake/, or data/l4_queue/.
++# Fail-visible: SystemExit(1) before any write.
++PACKET_ID_RE = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]{0,95}\Z")
++
++
++def safe_pid_filename(pid):
++    if not isinstance(pid, str) or not PACKET_ID_RE.fullmatch(pid):
++        sys.stderr.write("invalid packet id %r: allowed 1-96 ASCII "
++                         "letters/digits/._- only; refusing write\n" % (pid,))
++        raise SystemExit(1)
++    return pid
+ 
+ # Transition table: (from_state, event) -> (to_state, transition_number).
+ # This is the complete authorized set (delegation semantics, spec S3);
+@@ -30,7 +58,8 @@ T = {
+     ("RUNNING",        "exec_failed"):        ("FAILED",         6),
+     ("REPORTED",       "acceptance_pass"):    ("ACCEPTED",       7),
+     ("REPORTED",       "acceptance_fail"):    ("FAILED",         8),
+-    ("FAILED",         "retry_dispatch"):     ("RUNNING",        9),
++    ("FAILED",         "retry_dispatch"):     ("DISPATCHABLE",   9),
++    ("TIMED_OUT",      "retry_dispatch"):     ("DISPATCHABLE",  37),
+     ("FAILED",         "duty_review"):        ("DUTY_REVIEW",   10),
+     ("DUTY_REVIEW",    "duty_retryable"):     ("RUNNING",       11),   # gated on duty_officer.enforce
+     ("DUTY_REVIEW",    "duty_fixable"):       ("RUNNING",       12),   # gated on duty_officer.enforce
+@@ -45,26 +74,19 @@ T = {
+     ("WAVE_DONE",      "wave_summary"):       ("SOL_ADJUDICATE",21),
+     ("SOL_ADJUDICATE", "sol_replan"):         ("PLANNED",       22),
+     ("SOL_ADJUDICATE", "release_merge"):      ("DONE",          23),
++    # Release-review route (packets flagged release_review=True): the
++    # reviewer's result ALWAYS returns to SOL_ADJUDICATE -- success (verdict
++    # checked) or failure (exec_failed) -- never a direct release. Exit from
++    # SOL_ADJUDICATE stays human/Sol-triggered via t22/t23 only.
++    ("REPORTED",       "review_verdict_pass"):("SOL_ADJUDICATE",24),
++    ("REPORTED",       "review_verdict_fail"):("SOL_ADJUDICATE",25),
+ }
+ 
+ def read_toggle(section, key, default=False):
+-    """Minimal deterministic TOML scan for '[section] key = true|false'."""
+-    cfg = os.path.join(ROOT, "config", "config.toml")
+-    if not os.path.exists(cfg):
+-        cfg = os.path.join(ROOT, "config", "config.toml.example")
+-    cur, pat = None, re.compile(r"^\s*%s\s*=\s*(true|false)" % re.escape(key))
+-    try:
+-        for ln in open(cfg, encoding="utf-8"):
+-            s = ln.split("#", 1)[0].strip()
+-            if s.startswith("["):
+-                cur = s.strip("[]").strip()
+-            elif cur == section:
+-                m = pat.match(s)
+-                if m:
+-                    return m.group(1) == "true"
+-    except OSError:
+-        pass
+-    return default
++    return config_bool(section, key, default)
++
++def read_int_key(section, key, default):
++    return config_int(section, key, default)
+ 
+ def load_ledger():
+     try:
+@@ -78,11 +100,16 @@ def save_ledger(led):
+     os.replace(tmp, E("progress_ledger.json"))  # atomic: files are the truth
+ 
+ def append(path, obj):
+-    with open(path, "a", encoding="utf-8") as f:
+-        f.write(json.dumps(obj, separators=(",", ":")) + "\n")
++    lock_path = (Path(DATA) / "lifecycle" / ".events.lock"
++                 if os.path.normcase(path) == os.path.normcase(E("events.ndjson"))
++                 else Path(path + ".lock"))
++    with locked(lock_path):
++        with open(path, "a", encoding="utf-8") as f:
++            f.write(json.dumps(obj, separators=(",", ":")) + "\n")
+ 
+ def sol_wake(pid, reason, detail):
+     """Fail-visible: synthesize a bounded Sol wake summary on disk (spec S3/S5)."""
++    safe_pid_filename(pid)  # invalid pid: fail-visible, never written
+     os.makedirs(E("sol_wake"), exist_ok=True)
+     path = E("sol_wake", "%d_%s.md" % (int(time.time()), pid))
+     body = ("# SOL WAKE тА?%s\npacket: %s\nreason: %s\ndetail: %s\n"
+@@ -94,6 +121,7 @@ def sol_wake(pid, reason, detail):
+     return path
+ 
+ def to_dead_letter(led, pid, reason, detail):
++    safe_pid_filename(pid)  # invalid pid: fail-visible, never written
+     p = led["packets"].setdefault(pid, {"state": "NONE", "history": [], "attempts": 0})
+     p["state"] = "DEAD_LETTER"
+     p["history"].append({"ts": time.time(), "to": "DEAD_LETTER", "via": reason})
+@@ -105,19 +133,156 @@ def to_dead_letter(led, pid, reason, detail):
+ # Audit-only events emitted by harness scripts (worktree_pool.sh) that are
+ # NOT state transitions. Without this skip list the harness dead-letters its
+ # own allocation bookkeeping (integration bug found by Phase7 golden tests).
+-INFO_EVENTS = {"worktree_allocated", "worktree_released"}
++INFO_EVENTS = {
++    "worktree_allocated", "worktree_released",
++    "SubagentStart", "SubagentStartRecovered", "SubagentStop",
++    "exec_spawned", "exec_supervisor_started", "exec_exited", "exec_killed", "spawn_lost",
++    "parent_stop", "close_requested", "lifecycle_reconciled",
++    "dispatch_dry_run", "sol_budget_blocked",
++}
++
++REPLAN_CAP = 2  # H-04: max SOL_ADJUDICATE->PLANNED loops per packet (t22)
++TIMEOUT_RETRY_MAX = 1  # t37: only the first timeout may re-dispatch
++
++def bump_replan_counter(pid):
++    """Per-packet t22 replan counter (same bump pattern as the L3 cap in
++    trigger_eval.py). Returns (count_after, exceeded). Counter-file I/O
++    failure counts as exceeded тА?fail toward the human gate (direct_l4),
++    never toward unlimited replanning."""
++    path = E("replan_counters.json")
++    try:
++        counters = json.load(open(path, encoding="utf-8")) \
++            if os.path.exists(path) else {}
++    except (OSError, ValueError):
++        return REPLAN_CAP + 1, True  # unreadable state: assume over-cap -> L4
++    count = int(counters.get(pid, 0)) + 1
++    counters[pid] = count
++    try:
++        tmp = path + ".tmp"
++        json.dump(counters, open(tmp, "w", encoding="utf-8"))
++        os.replace(tmp, path)
++    except OSError:
++        return REPLAN_CAP + 1, True  # cannot persist: assume over-cap -> L4
++    return count, count > REPLAN_CAP
++
++
++def bump_timeout_retry_counter(pid):
++    """Independent t37 budget; never reuse the aggregate attempts counter.
++
++    The sidecar is shared with v2 so a routing-mode switch cannot reset the
++    timeout budget.  I/O failure follows the existing cap discipline and
++    fails toward dead-letter/human review.
++    """
++    path = E("timeout_retry_counters.json")
++    try:
++        counters = (json.load(open(path, encoding="utf-8"))
++                    if os.path.exists(path) else {})
++        count = int(counters.get(pid, 0)) + 1
++        counters[pid] = count
++        tmp = path + ".tmp"
++        with open(tmp, "w", encoding="utf-8") as handle:
++            json.dump(counters, handle)
++            handle.flush()
++            os.fsync(handle.fileno())
++        os.replace(tmp, path)
++    except (OSError, ValueError, TypeError):
++        return TIMEOUT_RETRY_MAX + 1, True
++    return count, count > TIMEOUT_RETRY_MAX
++
++def l4_summary(pid, reason, detail):
++    """Queue a bounded direct_l4 summary for the HUMAN release gate тА?+    escalation only, never a release path (release stays human-triggered)."""
++    safe_pid_filename(pid)  # invalid pid: fail-visible, never written
++    os.makedirs(E("l4_queue"), exist_ok=True)
++    path = E("l4_queue", "%d_%s.md" % (int(time.time()), pid))
++    open(path, "w", encoding="utf-8").write(
++        "# DIRECT_L4 тА?%s\npacket: %s\nreason: %s\ndetail: %s\n"
++        "report: data/reports/%s/report.json\n"
++        % (reason, pid, reason, json.dumps(detail)[:800], pid))
+
+2026-08-14T14:18:06.026066Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-14T14:19:12.819931Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.6 seconds
+Output:
+diff --git a/AGENTS.md b/AGENTS.md
+index da5918a..712e1e6 100644
+--- a/AGENTS.md
++++ b/AGENTS.md
+@@ -65,20 +65,55 @@ Route work to the ipybox persistent kernel when either holds:
+ - State must **survive across calls** (dataframes, parsed indexes, counters) тА?   kernel state is compression-immune and lives off-heap from the context.
+ 
+-Otherwise stay with plain tools. In the F2 cold start form the kernel is
+-disabled; the rules above only apply after the `[mcp_servers.ipybox]` block in
+-config.toml is uncommented. Kernel discipline: print тЙ?0 lines, return handles.
++Otherwise stay with plain tools. In this deployed F2 environment every root and
++headless worker can see ipybox, but its Jupyter gateway and IPython kernel start
++lazily on the first kernel tool call. Workers that never use it pay no Jupyter
++process cost. Kernel discipline: print тЙ?0 lines, return handles.
+ 
+ ## 6. Spawn scale heuristics
+ 
+ - **Homogeneous batch** (same instruction over many rows: per-file review,
+   migration checklist, N similar packets): use `spawn_agents_on_csv` with an
+   `output_schema` and a stable `id_column`; each worker calls
+-  `report_agent_job_result` exactly once.
++  `report_agent_job_result` exactly once. After the tool writes
++  `output_csv_path`, execute the generated call pack's
++  `required_postprocess.argv` and then `required_postprocess.then_argv`.
++  The first command copies worktree reports back to LOOP root and emits
++  generation-aware terminal events; the second advances the state machine.
++  A nonzero postprocess result stops the wave and is never optional.
+ - **Unique task** (one-off packet, distinct instructions): single `spawn_agent`
+   with the packet's 4 fields as the prompt.
+-- Concurrency is capped by `agents.max_concurrent_threads_per_session` (4);
+-  excess rows queue тА?do not tune per-call concurrency above the session cap.
++- Desktop host slots remain capped by
++  `agents.max_concurrent_threads_per_session` (50) per root session, while
++  LOOP's normal **cross-plane combined effective target is 80**. A parent
++  dialogue sustains 20 agents. The preferred mixed load is execution=60 and
++  review=20; these are borrowable reservations, not hard partitions. If one
++  pool has no ready work, the other may use all 80 slots.
++- Wide execution normally uses WSL/headless `codex exec` workers so Desktop is
++  a light control and observation plane. Existing Desktop/CSV entry points stay
++  available; routing to headless is a low-friction default, not a global ban.
++- Ad-hoc headless waves use `harness/headless_wave.py` so each birth is owned by
++  `lifecycle_supervisor.py`, appears in `exec_roster.json`, and is visible on
++  8765. A raw unregistered `codex exec` process does not satisfy refill debt.
++  Only the matching generation stably observed as `running` is effective;
++  `starting`, spawn intent, deny messages, stale/lost rows, and Popen success do
++  not reduce the 20/80 deficit.
++- A one-shot ad-hoc manifest is observable but is not a sustained-concurrency
++  backlog. When a parent dialogue must remain near 20, compile 21-80 real,
++  bounded read-only packets into `codex-loop-parent-refill/v1` and admit them
++  once through `harness/parent_manifest_importer.py` with `target_active=20`.
++  The importer wakes the existing refill consumer; do not launch the same
++  packets separately through a second wave.
++- Never synthesize filler packets to satisfy a number. If the admitted parent
++  backlog is exhausted, 8765 must show `parent_backlog_empty` and zero
++  spawnable work rather than pretending spare capacity is refill debt.
++- Births are submitted at least 1 second apart. No fixed group pause is added
++  while healthy; at most eight agents may still be in the initializing handshake
++  at once, and every eighth birth performs one lightweight OpenCodex health
++  check. A failed check pauses new births for 30 seconds but does not cancel
++  already-running work or clear refill demand.
++- Sustain the combined target across the task while independent work remains;
++  refill completed/failed slots without requiring another user command.
+ - Depth stays at 1: children never spawn grandchildren.
+ - After a batch, failed rows are detected from the output CSV `status` /
+   `last_error` columns by script тА?only failed rows are re-dispatched.
+@@ -90,3 +125,29 @@ config.toml is uncommented. Kernel discipline: print тЙ?0 lines, return handles
+   migration paths) route deterministically to L3+L4; no verdict overrides them.
+ - Off-table events go to DEAD_LETTER and wake Sol тА?fail-visible, never silent.
+ - Release merge is human-triggered. Always.
++
++## 8. Sol mechanical discipline: no L0 data processing (enforced, not advisory)
++
++- Sol NEVER performs L0 data processing itself: searching files or the web,
++  computing statistics, aggregating logs, bulk-reading files, or running
++  tests/counts. Every such step is either zero-token script work (harness/,
++  metering/) or a dispatched worker packet тА?even when doing it inline would
++  feel faster. "The main thread just did it quickly" is exactly how Sol share
++  breaks its budget.
++- **PreToolUse gate (mechanical enforcement):** `hooks/sol_tool_gate.py` is
++  registered as a PreToolUse hook. When the LOOP state is not `planning`,
++  `adjudication`, or `release_finalize`, root-session shell / search /
++  bulk-read / test / statistics tool calls are DENIED with the instruction to
++  dispatch an L0/L1 packet instead. Subagents are never gated. The gate fails
++  open on an unreadable ledger (with a stderr note) тА?discipline enforcement
++  must not paralyze the session.
++- **Token share budget (measured, not aspirational):**
++  `metering/model_token_share.py` aggregates Codex's own rollout JSONL into
++  Sol/worker/verifier/reviewer/maintenance buckets and computes
++  `share_effective = (sol тИ?sol cached input) / (total тИ?cached input)` as the
++  primary control metric, per task / per wave / rolling 24h / rolling 7d /
++  cumulative. Over 20% тЖ?WARNING; over 25% тЖ?BLOCK: no new
++  non-planning/adjudication Sol work until the share is back under budget.
++  Reviewer tokens sit in their own bucket. Historical Sol-model reviewer
++  tokens remain part of the Sol KPI; current K3 reviewer tokens do not.
++  Install/acceptance runs are maintenance and never enter production KPIs.
+diff --git a/README.md b/README.md
+index 1a40fea..91128ae 100644
+--- a/README.md
++++ b/README.md
+@@ -43,6 +43,15 @@ harness/worktree_pool.sh merge-queue               # serial merge under lockfile
+
+2026-08-14T14:20:57.686536Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 183ms)... turn_id=01a0009e-116c-7583-8733-4cecb7558f89 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T14:21:43.428793Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 380ms)... turn_id=01a0009e-116c-7583-8733-4cecb7558f89 retries=2 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T14:22:30.137485Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 861ms)... turn_id=01a0009e-116c-7583-8733-4cecb7558f89 retries=3 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T14:23:29.715560Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.581s)... turn_id=01a0009e-116c-7583-8733-4cecb7558f89 retries=4 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T14:24:18.958223Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 3.001s)... turn_id=01a0009e-116c-7583-8733-4cecb7558f89 retries=5 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T14:25:22.978296Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

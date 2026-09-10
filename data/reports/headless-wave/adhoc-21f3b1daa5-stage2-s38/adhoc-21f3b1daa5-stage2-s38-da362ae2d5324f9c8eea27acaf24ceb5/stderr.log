@@ -1,0 +1,283 @@
+Reading additional input from stdin...
+2026-08-23T14:04:30.870446Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-23T14:04:30.870512Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:04:30.879352Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-23T14:04:30.988772Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:04:30.991002Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:04:30.991676Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:04:30.992345Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:04:31.012482Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:04:31.777648Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Provided authentication token is expired. Please try signing in again.",
+    "type": null,
+    "code": "token_expired",
+    "param": null
+  },
+  "status": 401,
+  "detail": {
+    "code": "token_expired",
+    "message": "Provided authentication token is expired. Please try signing in again."
+  }
+}
+2026-08-23T14:04:32.131214Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:04:33.727689Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:04:34.917171Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:04:34.918572Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:04:34.919946Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:05:14.763868Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:05:14.764461Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:05:14.765163Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:05:39.035236Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:05:39.035801Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:05:39.036453Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:06:12.806926Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 6.2 seconds
+Output:
+python : 无法将“python”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后再试一次。
+所在位置 行:39 字符: 6
++ '@ | python -
++      ~~~~~~
+    + CategoryInfo          : ObjectNotFound: (python:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-23T14:06:12.914960Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:06:12.916288Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:06:12.918418Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:07:00.221136Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 3.3 seconds
+Output:
+
+2026-08-23T14:07:00.249961Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:07:00.250353Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:07:00.250727Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:07:22.052806Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.4 seconds
+Output:
+Test-Path : Access is denied
+所在位置 行:11 字符: 33
++ ); foreach ($c in $cands) { if (Test-Path $c) { Write-Output "FOUND:  ...
++                                 ~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (C:\Users\hzq00\...Programs\Python:String) [Test-Path], UnauthorizedAc 
+   cessException
+    + FullyQualifiedErrorId : ItemExistsUnauthorizedAccessError,Microsoft.PowerShell.Commands.TestPathCommand
+ 
+
+2026-08-23T14:07:22.775114Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.1 seconds
+Output:
+
+Name                  
+----                  
+.codex                
+.pytest_cache         
+agents                
+backup-20260811-215706
+backup-20260811-215927
+backup-20260813-012318
+codex-loop-s-f2       
+config                
+C                    
+data                  
+harness               
+hooks                 
+metering              
+reports               
+schemas               
+tests                 
+
+
+
+2026-08-23T14:07:22.796909Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:07:22.797256Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:07:22.797533Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:07:53.413569Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.8 seconds
+Output:
+Get-ChildItem : Access is denied
+所在位置 行:2 字符: 76
++ ... py 2>$null; Get-ChildItem "$env:LOCALAPPDATA\Programs\Python" -ErrorA ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [Get-ChildItem], UnauthorizedAccessException
+    + FullyQualifiedErrorId : System.UnauthorizedAccessException,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-23T14:07:54.068962Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:07:54.069490Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:07:54.069944Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:08:37.695751Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:08:37.696132Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:08:37.696430Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:10:17.688238Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+No Python at '"C:\Users\hzq00\AppData\Local\Programs\Python\Python312\python.exe'
+
+2026-08-23T14:10:17.711964Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:10:17.712405Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:10:17.712739Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:10:40.029606Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.3 seconds
+Output:
+
+2026-08-23T14:10:40.048381Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:10:40.048692Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:10:40.048944Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:11:34.737153Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.2 seconds
+Output:
+& : 无法将“C:\Users\hzq00\AppData\Local\Programs\Python\Python312\python.exe”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，
+请确保路径正确，然后再试一次。
+所在位置 行:2 字符: 3
++ & 'C:\Users\hzq00\AppData\Local\Programs\Python\Python312\python.exe' ...
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (C:\Users\hzq00\...n312\python.exe:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-23T14:11:35.103387Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.5 seconds
+Output:
+
+2026-08-23T14:11:35.133230Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:11:35.133651Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:11:35.134264Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:12:07.195924Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.6 seconds
+Output:
+
+2026-08-23T14:12:07.238311Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.7 seconds
+Output:
+�b�~���0  
+ 
+ ���Nx:   W s l / E n u m e r a t e D i s t r o s / S e r v i c e / E _ A C C E S S D E N I E D 
+ 
+ 
+�b�~���0  
+ 
+ ���Nx:   W s l / E n u m e r a t e D i s t r o s / S e r v i c e / E _ A C C E S S D E N I E D 
+ 
+ 
+
+2026-08-23T14:12:07.279841Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:12:07.280591Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:12:07.281310Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:12:29.052267Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.7 seconds
+Output:
+
+FullName                                                                                        
+--------                                                                                        
+E:\codex-LOOP\test-runs\installer-validation-20260808-050353\codex-loop\.venv\Scripts\python.exe
+E:\codex-LOOP\test-runs\opencodex-validation-20260808-052856\codex-loop\.venv\Scripts\python.exe
+E:\codex-LOOP\venv\Scripts\python.exe                                                           
+
+
+
+2026-08-23T14:12:29.075504Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:12:29.075831Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:12:29.076187Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:13:48.888845Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.5 seconds
+Output:
+python.exe : did not find executable at 'C:\Users\hzq00\AppData\Local\Programs\Python\Python314\python.exe': ?????
+所在位置 行:2 字符: 1
++ & 'E:\codex-LOOP\test-runs\installer-validation-20260808-050353\codex ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (did not find ex...hon.exe': ?????:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+python.exe : did not find executable at 'C:\Users\hzq00\AppData\Local\Programs\Python\Python314\python.exe': ?????
+所在位置 行:2 字符: 169
++ ... t -First 3; & 'E:\codex-LOOP\test-runs\opencodex-validation-20260808- ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (did not find ex...hon.exe': ?????:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+2026-08-23T14:13:48.936275Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:13:48.937398Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:13:48.938303Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:14:39.902770Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:14:39.903231Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:14:39.903548Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:15:43.249668Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:15:43.250283Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:15:43.250816Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:16:18.015876Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:16:18.016616Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:16:18.017153Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:17:11.297957Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:17:11.300229Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:17:11.302358Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:19:28.779929Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:21:43.435322Z  WARN codex_sandboxing::violation: recorded sandbox violation: resource=filesystem backend=windows_sandbox reason=permission_denied path=unknown
+2026-08-23T14:21:43.435769Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.1 seconds
+Output:
+
+FileVersion ProductVersion
+----------- --------------
+                          
+---
+
+
+adb.exe : 08-23 22:21:43.338 58244 64748 F adb.exe : adb_utils.cpp:315 Cannot mkdir '\.android': Permission denied
+所在位置 行:2 字符: 202
++ ... ; $env:USERPROFILE = (Get-Location).Path; & $adb version 2>&1 | Selec ...
++                                               ~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (08-23 22:21:43....rmission denied:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+adb.exe : 08-23 22:21:43.416 49280 58860 F adb.exe : adb_utils.cpp:315 Cannot mkdir '\.android': Permission denied
+所在位置 行:2 字符: 301
++ ... t "---"; $env:HOME = (Get-Location).Path; & $adb version 2>&1 | Selec ...
++                                               ~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (08-23 22:21:43....rmission denied:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+2026-08-23T14:21:43.459428Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:21:43.459781Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:21:43.460097Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:22:39.845522Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:22:39.845868Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:22:39.846179Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:24:45.140702Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:24:45.141073Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:24:45.141452Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:26:01.281744Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:26:01.282321Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:26:01.282990Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:27:11.469697Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:27:11.470119Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:27:11.470519Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:28:05.771749Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:28:05.772226Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:28:05.772942Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:29:15.027626Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:29:15.028152Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:29:15.028710Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:32:10.149726Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:32:10.150360Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:32:10.151216Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:32:53.015210Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:32:53.016009Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:32:53.016684Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:33:32.155020Z ERROR codex_core::tools::router: error=`"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command 'Get-ChildItem -Force | Select-Object Name, Length; $targets = @((Join-Path (Get-Location) '"'.probe-dir'), (Join-Path (Get-Location) 'adb_probe.exe')); foreach ("'$t in $targets) { $resolved = (Resolve-Path -LiteralPath $t -ErrorAction SilentlyContinue).Path; if ($resolved -and $resolved.StartsWith((Get-Location).Path + [IO.Path]::DirectorySeparatorChar)) { Remove-Item -LiteralPath $resolved -Recurse -Force; Write-Output "removed: $resolved" } else { Write-Output "skip: $t" } }; Get-ChildItem -Force | Select-Object Name, Length'` rejected: blocked by policy
+2026-08-23T14:33:32.187948Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:33:32.188448Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:33:32.188933Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:33:53.717164Z ERROR codex_core::tools::router: error=`"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Remove-Item -LiteralPath 'C:\\Users\\hzq00\\Documents\\Codex\\2026-08-23\\ni-j\\work\\stage2_continue\\S38_alternative_browsers\\.probe-dir' -Recurse -Force; Remove-Item -LiteralPath 'C:\\Users\\hzq00\\Documents\\Codex\\2026-08-23\\ni-j\\work\\stage2_continue\\S38_alternative_browsers\\adb_probe.exe' -Force; Get-ChildItem -Force | Select-Object Name, Length"` rejected: blocked by policy
+2026-08-23T14:33:53.758023Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:33:53.758755Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-23T14:33:53.759410Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.

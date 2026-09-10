@@ -1,0 +1,115 @@
+Reading additional input from stdin...
+2026-08-14T14:12:53.626085Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T14:12:56.249103Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T14:13:32.190052Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 7.7 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 176
++ ... c,cpp,h}" -t code -l E:\codex-LOOP\codex-loop-s-f2 2>$null | head -30
++                                                                  ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T14:13:55.360393Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.9 seconds
+Output:
+
+2026-08-14T14:14:08.155151Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.2 seconds
+Output:
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.29420.tmp
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json
+E:\codex-LOOP\codex-loop-s-f2\data\refill\root_non_ipybox_audit_headless_refill_20260814_r7.json
+E:\codex-LOOP\codex-loop-s-f2\data\reports\parent-2dc2ec6016a4479f121e2d84d250ee9da942153fe09d46bd\stderr.log
+E:\codex-LOOP\codex-loop-s-f2\data\reports\parent-2dc2ec6016a4479f121e2d84d250ee9da942153fe09d46bd\events.jsonl
+E:\codex-LOOP\codex-loop-s-f2\data\reports\parent-27bb0f1c73dd82b71270c14d9a2b471316d023496df9a4c7\events.jsonl
+E:\codex-LOOP\codex-loop-s-f2\data\reports\convergence-wave3-patches\install_v2.sh.patch
+E:\codex-LOOP\codex-loop-s-f2\data\reports\convergence-wave2b-patches\hooks__subagent_lifecycle.py.patch
+E:\codex-LOOP\codex-loop-s-f2\data\reports\parent-b465863d62d814dd779568ba9964b364a842ac60d5e0a472\events.jsonl
+E:\codex-LOOP\codex-loop-s-f2\data\reports\parent-22aebdf2be11a48dbb131af84b29ee682e6e926234066196\events.jsonl
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-0f5426ee3c-install\adhoc-0f5426ee3c-install-439c340ceb2348cfb9da60098374a30e\events.jsonl
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-0f5426ee3c-hook-stop\adhoc-0f5426ee3c-hook-stop-2e7c47349d814659a47e9b7d2ac5f2fa\events.jsonl
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-11e226c71e-k3-release-patch-review\adhoc-11e226c71e-k3-release-patch-review-59345ea2866842dda24d004d7caffcbe\events.jsonl
+E:\codex-LOOP\codex-loop-s-f2\data\reports\parent-073b8e0554753b449481e532b02a6301b3e5b3346d63aec1\events.jsonl
+E:\codex-LOOP\codex-loop-s-f2\data\reports\parent-6249a9c80b217b551ef0f0961c3c235effb4f733cd14823f\events.jsonl
+E:\codex-LOOP\codex-loop-s-f2\hooks\subagent_lifecycle.py
+E:\codex-LOOP\codex-loop-s-f2\install_v2.sh
+E:\codex-LOOP\codex-loop-s-f2\reports\desktop-concurrency-audit-20260812\02-è‡ªåŠ¨äº¤æŽ¥å¯è¡Œæ€?jsonl
+E:\codex-LOOP\codex-loop-s-f2\reports\exec-roster-concurrency-audit-20260812\report.md
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-33ce0b16e7-f03-spawnable-zero-wake\adhoc-33ce0b16e7-f03-spawnable-zero-wake-8adcc04fdccb40cdb8477ba1721c0be5\stderr.log
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-2a28776306-fl18-sonnet-root-ssh\adhoc-2a28776306-fl18-sonnet-root-ssh-953dd9472c38405f889abcd25fc3bbbe\events.jsonl
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-2c51194246-fl18-sonnet-akf-fixtures\adhoc-2c51194246-fl18-sonnet-akf-fixtures-7e9fdcce86ae4f9abda93e1970dc6e7e\events.jsonl
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-2a28776306-fl18-sonnet-transaction-r2\adhoc-2a28776306-fl18-sonnet-transaction-r2-a617542dbde04a4e94c6329cb034a4ff\events.jsonl
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-33ce0b16e7-f03-spawnable-zero-wake\adhoc-33ce0b16e7-f03-spawnable-zero-wake-8adcc04fdccb40cdb8477ba1721c0be5\events.jsonl
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-27981a6812-r3-02-results\adhoc-27981a6812-r3-02-results-a62f40878a8949e5b0c1c7faaa143323\last_message.txt
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-27981a6812-r3-02-results\adhoc-27981a6812-r3-02-results-a62f40878a8949e5b0c1c7faaa143323\events.jsonl
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-2a28776306-fl18-sonnet-transaction\adhoc-2a28776306-fl18-sonnet-transaction-3eecd4143339429898612106cef571c7\events.jsonl
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-2a28776306-fl18-sonnet-db-wal-r2\adhoc-2a28776306-fl18-sonnet-db-wal-r2-37a2558511db4b62af0379e03326719f\events.jsonl
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-34c7085c8d-r7-16\adhoc-34c7085c8d-r7-16-78c897c150b645d797e2fa71ee0d6c38\events.jsonl
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-2a28776306-fl18-sonnet-db-wal\adhoc-2a28776306-fl18-sonnet-db-wal-aabf00e0276b4f5abe42ad0683602e5d\events.jsonl
+
+2026-08-14T14:15:00.572633Z ERROR codex_core::tools::router: error=unsupported call: read
+2026-08-14T14:15:55.035552Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.3 seconds
+Output:
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\agent_router.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\budget_controller.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\dispatch_v2.py
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\metering\model_token_share_v2.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\l2_consumer.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\hooks\sol_tool_gate_v2.py
+E:\codex-LOOP\codex-loop-s-f2\backup-20260811-215927\tests\orchestration_v2\test_windows_wsl_paths.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\lifecycle_supervisor_v2.py
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\hooks\sol_tool_gate_v2.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\orchestration_common.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\refill_controller_v2.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\result_reducer.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\root_turn_governor.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\metering\model_token_share_v2.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\statemachine_v2.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\test_l2_consumer.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\trigger_eval_v2.py
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\harness\trigger_eval_v2.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\test_refill_controller_v2.py
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\harness\statemachine_v2.py
+
+2026-08-14T14:18:23.601984Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.7 seconds
+Output:
+
+2026-08-14T14:18:45.248786Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+
+2026-08-14T14:19:04.848596Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1 seconds
+Output:
+
+2026-08-14T14:21:11.151354Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-14T14:21:48.612175Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

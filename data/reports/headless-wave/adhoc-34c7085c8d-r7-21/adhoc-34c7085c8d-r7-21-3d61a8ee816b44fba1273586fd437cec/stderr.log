@@ -1,0 +1,60 @@
+Reading additional input from stdin...
+2026-08-14T14:13:04.245482Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T14:13:08.995298Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T14:13:25.094376Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.3 seconds
+Output:
+所在位置 行:2 字符: 34
++ cd E:\codex-LOOP\codex-loop-s-f2 && rg -r --files | rg -i "throttle"  ...
++                                  ~~
+标记“&&”不是此版本中的有效语句分隔符。
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : InvalidEndOfLine
+ 
+
+2026-08-14T14:14:08.014698Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.1 seconds
+Output:
+
+2026-08-14T14:14:17.766977Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.7 seconds
+Output:
+
+2026-08-14T14:14:52.766964Z ERROR codex_core::tools::router: error=unsupported call: read
+2026-08-14T14:18:18.492042Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 3.8 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 125
++ ... ispatch*.py" -Pattern "." | Select-Object LineNumber, Line | head -80
++                                                                  ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T14:21:32.914652Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-14T14:23:29.692497Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

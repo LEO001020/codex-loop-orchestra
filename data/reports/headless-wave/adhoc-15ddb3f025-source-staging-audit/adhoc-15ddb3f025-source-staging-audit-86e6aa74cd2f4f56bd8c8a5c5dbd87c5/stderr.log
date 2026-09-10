@@ -1,0 +1,43 @@
+Reading additional input from stdin...
+2026-08-15T06:08:12.261562Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-15T06:08:13.306939Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-15T06:08:15.827691Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-15T06:08:38.365941Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-15T06:08:51.901678Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:08:58.726570Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:09:06.164778Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:18:15.575800Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 216ms)... turn_id=01a00408-fa51-7bc1-86f2-037fa51bd700 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T06:20:47.347602Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 190ms)... turn_id=01a00408-fa51-7bc1-86f2-037fa51bd700 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T06:21:33.544684Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 363ms)... turn_id=01a00408-fa51-7bc1-86f2-037fa51bd700 retries=2 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T06:22:19.642082Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 844ms)... turn_id=01a00408-fa51-7bc1-86f2-037fa51bd700 retries=3 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T06:23:06.545316Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.696s)... turn_id=01a00408-fa51-7bc1-86f2-037fa51bd700 retries=4 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T06:23:54.095889Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 3.232s)... turn_id=01a00408-fa51-7bc1-86f2-037fa51bd700 retries=5 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T06:25:12.245730Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 207ms)... turn_id=01a00408-fa51-7bc1-86f2-037fa51bd700 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T06:25:57.923079Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 405ms)... turn_id=01a00408-fa51-7bc1-86f2-037fa51bd700 retries=2 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T06:26:46.183228Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 813ms)... turn_id=01a00408-fa51-7bc1-86f2-037fa51bd700 retries=3 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T06:27:33.177875Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.556s)... turn_id=01a00408-fa51-7bc1-86f2-037fa51bd700 retries=4 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T06:27:46.246611Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 3.066s)... turn_id=01a00408-fa51-7bc1-86f2-037fa51bd700 retries=5 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-15T06:28:00.433130Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

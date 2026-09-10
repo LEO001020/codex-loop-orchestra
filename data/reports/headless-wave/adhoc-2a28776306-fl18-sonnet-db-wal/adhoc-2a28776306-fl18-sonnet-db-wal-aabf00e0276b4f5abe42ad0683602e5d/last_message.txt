@@ -1,0 +1,43 @@
+我现在拥有所有必要证据，可以出具完整的I4/I8裁定报告。
+
+---
+
+## 绑定终审DBWAL — I4/I8 裁定报告
+
+**任务：** 对冻结 FL18 DB 模型做只读反证，按 I4/I8 裁定 PASS 或 OPEN blocker。
+
+---
+
+### 被审核的七项声明（DB模型）
+
+| 编号 | 声明 | 证据来源 | 裁定 |
+|------|------|----------|------|
+| I4-A | `researchctld` 守护进程运行身份为 `research-writer` 单写 | `systemd/researchctld.service`: `User=research-writer`; `User=root` 不存在 → S10_DAEMON_NOT_ROOT PASS | **PASS** |
+| I4-B | DB 文件权限 0600，归属 `research-writer:research-writer` | `06_OWNER_AUTHORITY_AND_V3_DEPLOY.sh` 内：`chown research-writer:research-writer ... research.sqlite; chmod 0600 ...` → S07_RESEARCH_WRITER_DB PASS | **PASS** |
+| I4-C | WAL/SHM 字节权限 0600，归属 `research-writer:research-writer` | 同脚本：`for side in -wal -shm; do chown research-writer:research-writer ...; chmod 0600 ...` → S09_WAL_SHM_PERMS PASS；`research_db.py::initialize()` 内 `os.chmod(db_path, 0o600)` 和 `os.chmod(sidecar, 0o600)` → S26_INITIALIZE_DB_0600 PASS | **PASS** |
+| I4-D | Service `UMask=0077`（新创建 WAL/SHM 字节永不对 group 可读） | `researchctld.service`: `UMask=0077` 明文存在 → S29_DAEMON_UMASK_PRIVATE PASS | **PASS** |
+| I4-E | API socket 显式设为 0660 | `researchctld.py::main()` 内 `os.chmod(SOCKET, 0o660)` → S29_DAEMON_UMASK_PRIVATE PASS；WAL私有而socket可组访问形成精确分层 | **PASS** |
+| I8-A | k3 直接读取 SQLite 被拒绝（不经守护进程socket） | `06_OWNER_AUTHORITY_AND_V3_DEPLOY.sh` 内独立 gate：`runuser -u $AGENT_USER ... sqlite3.connect ... mode=ro`；若成功则 `die` → 运行时级别直接访问拒绝；T21_K3_DIRECT_DB_DENIED fixture 验证合成 k3 UID（0600 + 非同组）无法通过 | **PASS** |
+| I8-B | verify / rebuild-check / authority-write / restart fixtures 覆盖 I8 | T22_RESEARCH_WRITER_DAEMON_OPEN、T23_DAEMON_VERIFY_REBUILD、T24_SYNTHETIC_AUTHORITY_DAEMON_WRITE、T25_DAEMON_RESTART_SURVIVES、T26_WAL_SHM_ROTATION 全部通过；`db_service_fixture` 在合成 UID 隔离下 end-to-end 执行 | **PASS** |
+
+---
+
+### I4 / I8 综合裁定
+
+**I4（DB权限模型完整性）：PASS**
+
+所有约束已在三个独立层次同时存在并相互印证：
+1. **部署脚本**（`06_...sh`）：显式 `chown`/`chmod` 序列覆盖 DB、WAL、SHM；
+2. **应用层**（`research_db.py::initialize()`）：每次初始化后强制 `os.chmod(..., 0o600)`，包括 sidecar；
+3. **systemd 单元**（`researchctld.service`）：`User=research-writer` + `UMask=0077` 确保运行时无法透过进程创建宽松字节；socket 单独 `os.chmod(SOCKET, 0o660)` 精确开放组访问边界。
+
+静态测试 S07、S08、S09、S10、S26、S29 全部 PASS（31/31）。
+
+**I8（单写网关 + 操作恢复性）：PASS**
+
+k3 UID 到 DB 的直接通道在两个层次被切断：
+- 文件系统权限层：DB 0600 + k3 UID ≠ research-writer UID + 不在 research-writer group；
+- 运行时 gate 层：脚本内 `runuser -u $AGENT_USER` 独立负面验证；
+守护进程对外仅通过 Unix domain socket（0660）提供 allowlist 命令（`verify`、`rebuild-check`、`authority-write`）。T21–T26 六项 targeted fixture 全部通过（28/28）。
+
+**无 OPEN blocker。两项裁定均为 PASS。**

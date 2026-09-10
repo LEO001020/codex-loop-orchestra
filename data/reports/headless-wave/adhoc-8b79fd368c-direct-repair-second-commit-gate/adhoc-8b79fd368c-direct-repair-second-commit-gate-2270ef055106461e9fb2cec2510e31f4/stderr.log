@@ -1,0 +1,404 @@
+Reading additional input from stdin...
+2026-08-13T05:44:39.396529Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-13T05:44:46.781869Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-13T05:45:23.872114Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.5 seconds
+Output:
+---known_hosts---
+
+2026-08-13T05:45:33.716432Z ERROR codex_core::tools::router: error=Exit code: 124
+Wall time: 11.4 seconds
+Output:
+command timed out after 11390 milliseconds
+
+Mode   LastWriteTime      Length Name                                                     
+----   -------------      ------ ----                                                     
+d----- 2026/8/13 12:14:55        .gcloud                                                  
+d----- 2026/8/13 12:59:28        .pytest_cache                                            
+d----- 2026/8/11 3:34:37         .tools                                                   
+d----- 2026/8/13 13:35:26        .work                                                    
+d----- 2026/8/13 13:28:46        cli-parser-dispatch-tests-20260813                       
+d----- 2026/8/13 13:28:47        direct_repair_stage                                      
+d----- 2026/8/13 2:04:27         home-gpu                                                 
+d----- 2026/8/11 4:41:46         hub-baseline-audit                                       
+d----- 2026/8/10 22:58:02        p5-boot-image-20260810T144519Z                           
+d----- 2026/8/10 22:49:35        p5-boot-image-preflight-20260810T144519Z                 
+d----- 2026/8/10 23:20:53        p5-cold-canary-20260810-150058                           
+d----- 2026/8/10 23:13:49        p5-data-snapshot-20260810-151108                         
+d----- 2026/8/10 23:20:19        p5-fastpath-state-20260810T151305Z                       
+d----- 2026/8/11 0:13:24         p5-fastpath-template-20260810                            
+d----- 2026/8/11 0:49:01         p5-fastpath-template-v3-20260810                         
+d----- 2026/8/11 0:54:22         p5-fastpath-template-v4-20260810                         
+d----- 2026/8/11 3:08:48         p5-filebrowser-tunnel                                    
+d----- 2026/8/11 0:25:49         p5-hub-research-ready-p5-fastpath-20260810T161639Z       
+d----- 2026/8/10 23:45:36        p5-wheels                                                
+d----- 2026/8/13 12:55:11        pc7_stage                                                
+d----- 2026/8/13 13:44:32        reports                                                  
+d----- 2026/8/13 6:04:43         terminalization_v2_build                                 
+d----- 2026/8/13 6:08:29         terminalization_v2_handoff                               
+d----- 2026/8/11 4:26:54         tmp_probe                                                
+d----- 2026/8/13 0:35:04         __pycache__                                              
+-a---- 2026/8/13 6:11:38  4344   build_handoff_v2.py                                      
+-a---- 2026/8/13 6:04:36  15770  build_terminalization_v2.py                              
+-a---- 2026/8/13 12:33:38 830    create_direct_repair_worktree.sh                         
+-a---- 2026/8/13 12:44:22 8952   direct-repair-headless-wave-v1.json                      
+-a---- 2026/8/13 6:09:43  746    finalize_handoff_remote.sh                               
+-a---- 2026/8/13 12:45:00 0      headless-wave-v1.err.log                                 
+-a---- 2026/8/13 12:45:39 5722   headless-wave-v1.out.log                                 
+-a---- 2026/8/10 23:54:06 19228  k3-p5-fastpath-startup-20260810.sh                       
+-a---- 2026/8/10 23:00:50 18672  k3-p5-startup-20260810T144519Z.sh                        
+-a---- 2026/8/10 21:34:22 32186  p5-gcp-prechange-20260810T125030Z.tar.gz                 
+-a---- 2026/8/10 22:14:28 115680 p5-snapshot-gate-p5-prechange-data-20260810-135948.tar.gz
+-a---- 2026/8/10 22:17:30 40659  p5-source-20260810T141730Z.tar.gz                        
+-a---- 2026/8/10 22:27:24 40679  p5-source-20260810T142724Z.tar.gz                        
+-a---- 2026/8/10 22:39:34 107995 p5-source-20260810T143934Z.tar.gz                        
+-a---- 2026/8/10 22:39:34 111    p5-source-20260810T143934Z.tar.gz.sha256                 
+-a---- 2026/8/10 23:28:02 108597 p5-source-20260810T152802Z.tar.gz                        
+-a---- 2026/8/10 23:28:02 111    p5-source-20260810T152802Z.tar.gz.sha256                 
+-a---- 2026/8/10 23:33:35 108685 p5-source-20260810T153334Z.tar.gz                        
+-a---- 2026/8/10 23:33:35 111    p5-source-20260810T153334Z.tar.gz.sha256                 
+-a---- 2026/8/10 23:03:00 1961   p5_audit_readonly_check.sh                               
+-a---- 2026/8/11 1:50:55  4946   p5_bootstrap_idempotency_remote.sh                       
+-a---- 2026/8/10 22:45:50 2119   p5_boot_image_preflight.sh                               
+-a---- 2026/8/10 22:50:34 432    p5_boot_image_prepare_diag_remote.sh                     
+-a---- 2026/8/10 22:51:36 1684   p5_boot_image_prepare_remote.sh                          
+-a---- 2026/8/11 0:21:11  2927   p5_capture_fastpath_gcp_pre.sh                           
+-a---- 2026/8/11 2:13:16  13181  p5_capture_fastpath_post_remote.sh                       
+-a---- 2026/8/11 0:19:38  5585   p5_capture_fastpath_pre_remote.sh                        
+-a---- 2026/8/10 23:20:47 2480   p5_cleanup_cold_canary.sh                                
+-a---- 2026/8/10 23:37:51 890    p5_clear_filebrowser_orphan_remote.sh                    
+-a---- 2026/8/10 23:06:03 1483   p5_cold_observe.sh                                       
+-a---- 2026/8/10 23:08:59 1757   p5_cold_runtime_remote.sh                                
+-a---- 2026/8/10 23:08:59 357    p5_cold_set_k3_key.sh                                    
+-a---- 2026/8/10 22:59:42 563    p5_cold_ssh_keys.txt                                     
+-a---- 2026/8/10 23:08:59 559    p5_cold_ssh_keys_k3.txt                                  
+-a---- 2026/8/10 22:54:33 3944   p5_create_boot_image.sh                                  
+-a---- 2026/8/10 23:01:42 4497   p5_create_cold_canary.sh                                 
+-a---- 2026/8/10 23:12:00 1947   p5_create_current_data_snapshot.sh                       
+-a---- 2026/8/11 0:08:07  3915   p5_create_fastpath_template.sh                           
+-a---- 2026/8/11 0:47:22  3379   p5_create_fastpath_template_v3.sh                        
+-a---- 2026/8/11 0:53:14  4785   p5_create_fastpath_template_v4_rest.sh                   
+-a---- 2026/8/10 23:12:00 3268   p5_data_snapshot_prepare_remote.sh                       
+-a---- 2026/8/10 23:12:00 165    p5_data_snapshot_resume_remote.sh                        
+-a---- 2026/8/11 1:57:58  5527   p5_deadlock_exception_gcp_preflight.sh                   
+-a---- 2026/8/11 2:02:40  8927   p5_deadlock_exception_guest_preflight_remote.sh          
+-a---- 2026/8/11 4:38:47  755    p5_deploy_home_e2e_cli.sh                                
+-a---- 2026/8/11 4:38:21  1261   p5_deploy_home_e2e_cli_remote.sh                         
+-a---- 2026/8/10 23:33:52 2285   p5_deploy_source_remote.sh                               
+-a---- 2026/8/10 23:45:04 467    p5_download_apsw_wheel.sh                                
+-a---- 2026/8/10 23:13:38 2596   p5_fastpath_state_check.sh                               
+-a---- 2026/8/10 22:37:30 1095   p5_filebrowser_diag_remote.sh                            
+-a---- 2026/8/11 2:17:10  5347   p5_filebrowser_tunnel_supervisor.ps1                     
+-a---- 2026/8/11 2:20:50  6464   p5_finalize_hub_research_ready.py                        
+-a---- 2026/8/10 22:52:36 435    p5_gcloud_image_help.sh                                  
+-a---- 2026/8/11 0:17:04  587    p5_install_fastpath_startup_remote.sh                    
+-a---- 2026/8/10 23:49:57 2505   p5_install_research_sqlite_runtime_remote.sh             
+-a---- 2026/8/10 23:36:29 697    p5_listener_diag_remote.sh                               
+-a---- 2026/8/10 22:34:30 4283   p5_live_p0_remote.sh                                     
+-a---- 2026/8/10 23:10:04 414    p5_manifest_diag_remote.sh                               
+-a---- 2026/8/11 2:18:25  8941   p5_observe_v4_terminal.sh                                
+-a---- 2026/8/10 22:34:30 1386   p5_p0_diagnose_remote.sh                                 
+-a---- 2026/8/10 22:39:26 359    p5_pack_source.sh                                        
+-a---- 2026/8/12 23:06:37 791    p5_pc6_remote_code_inventory.sh                          
+-a---- 2026/8/13 0:37:58  797    p5_pc6_remote_commit_final_artifacts.sh                  
+-a---- 2026/8/12 23:04:46 1008   p5_pc6_remote_create_materialization_worktree.sh         
+-a---- 2026/8/12 23:22:26 1037   p5_pc6_remote_deploy_code.sh                             
+-a---- 2026/8/13 0:10:44  984    p5_pc6_remote_deploy_tests.sh                            
+-a---- 2026/8/12 23:58:34 975    p5_pc6_remote_duplicate_detail.sh                        
+-a---- 2026/8/13 0:39:01  3520   p5_pc6_remote_final_gate.sh                              
+-a---- 2026/8/12 23:00:55 1182   p5_pc6_remote_identity_gate.sh                           
+-a---- 2026/8/12 23:02:53 2422   p5_pc6_remote_materialization_preflight.sh               
+-a---- 2026/8/12 23:50:10 947    p5_pc6_remote_missing_normalization.sh                   
+-a---- 2026/8/12 23:57:10 981    p5_pc6_remote_normalization_failure.sh                   
+-a---- 2026/8/12 23:16:59 777    p5_pc6_remote_permissions_and_help.sh                    
+-a---- 2026/8/12 23:44:34 1365   p5_pc6_remote_progress.sh                                
+-a---- 2026/8/12 23:20:32 933    p5_pc6_remote_register_agent_run.sh                      
+-a---- 2026/8/12 23:18:54 674    p5_pc6_remote_research_schema.sh                         
+-a---- 2026/8/12 23:08:18 1089   p5_pc6_remote_runtime_check.sh                           
+-a---- 2026/8/13 0:25:39  962    p5_pc6_remote_run_materializer.sh                        
+-a---- 2026/8/13 0:36:49  988    p5_pc6_remote_run_tests.sh                               
+-a---- 2026/8/12 23:11:06 1105   p5_pc6_remote_schema_samples.sh                          
+-a---- 2026/8/10 23:31:11 761    p5_persistence_diag_remote.sh                            
+-a---- 2026/8/10 23:42:52 331    p5_python_runtime_diag_remote.sh                         
+-a---- 2026/8/11 0:25:32  3462   p5_recreate_fastpath.sh                                  
+-a---- 2026/8/11 0:39:25  1048   p5_recreate_status.sh                                    
+-a---- 2026/8/11 0:42:10  1770   p5_recreate_stuck_diag.sh                                
+-a---- 2026/8/10 22:00:44 7684   p5_restore_canary_startup.sh                             
+-a---- 2026/8/11 0:54:57  3663   p5_retarget_v4_recovery.sh                               
+-a---- 2026/8/10 23:08:59 1008   p5_run_cold_strict.sh                                    
+-a---- 2026/8/10 22:33:32 563    p5_run_remote_root.sh                                    
+-a---- 2026/8/11 4:39:58  4565   p5_seal_home_e2e_parser_attempt.py                       
+-a---- 2026/8/11 4:39:58  512    p5_seal_home_e2e_parser_attempt.sh                       
+-a---- 2026/8/11 0:12:54  2605   p5_set_fastpath_template.sh                              
+-a---- 2026/8/10 22:59:42 409    p5_startup_source_diag_remote.sh                         
+-a---- 2026/8/11 2:04:04  3444   p5_superseding_recreate_v4.sh                            
+-a---- 2026/8/11 0:08:07  664    p5_template_help_cleanup.sh                              
+-a---- 2026/8/10 23:46:32 456    p5_upload_apsw.sh                                        
+-a---- 2026/8/11 0:17:04  400    p5_upload_fastpath_startup.sh                            
+-a---- 2026/8/10 23:33:52 452    p5_upload_source.sh                                      
+-a---- 2026/8/13 0:34:30  51034  pc6_binance_materializer.py                              
+-a---- 2026/8/13 4:54:59  487    pc7-conditional-prewarm-headless-retry.json              
+-a---- 2026/8/13 4:54:27  3481   pc7-conditional-prewarm-headless.json                    
+-a---- 2026/8/13 4:05:14  5224   pc7-headless-wave-manifest-2.json                        
+-a---- 2026/8/13 4:08:37  5446   pc7-headless-wave-manifest-3.json                        
+-a---- 2026/8/13 4:01:20  3307   pc7-headless-wave-manifest.json                          
+-a---- 2026/8/13 6:08:51  2664   publish_register_handoff_v2.ps1                          
+-a---- 2026/8/13 6:05:21  1415   publish_terminalization_v2.ps1                           
+-a---- 2026/8/13 6:10:11  2000   register_handoff_only.sh                                 
+-a---- 2026/8/13 6:07:50  2176   register_terminalization_package.sh                      
+-a---- 2026/8/11 2:41:21  20816  research-memory-v1-final.tar.gz                          
+-a---- 2026/8/11 2:35:24  18066  research-memory-v1.tar.gz                                
+-a---- 2026/8/13 0:34:43  12899  test_pc6_binance_materializer.py                         
+---
+                                                                                          
+                                                                                          
+                                                                                          
+                                                                                          
+                                                                                          
+                                                                                          
+                                                                                          
+                                                                                          
+                                                                                          
+                                                                                          
+                                                                                          
+                                                                                          
+                                                                                          
+
+2026-08-13T05:47:21.214896Z ERROR codex_core::tools::router: error=Exit code: 124
+Wall time: 11.2 seconds
+Output:
+command timed out after 11161 milliseconds
+
+
+2026-08-13T05:49:14.216262Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.6 seconds
+Output:
+Òbİ~¿‹î•0   
+ •ï‹ãNx:   W s l / E n u m e r a t e D i s t r o s / S e r v i c e / E _ A C C E S S D E N I E D  
+ ---
+Òbİ~¿‹î•0   
+ •ï‹ãNx:   W s l / S e r v i c e / C r e a t e I n s t a n c e / E _ A C C E S S D E N I E D  
+ 
+2026-08-13T05:50:28.736303Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 6.4 seconds
+Output:
+
+Name                                                  
+----                                                  
+.audit-fable-20260813-fe139077266b42b6bf51c9b085012680
+.bootstrap                                            
+.codex                                                
+.fable-install-test-20260813                          
+.fable-install-test-20260813-wsl                      
+.pytest_cache                                         
+.tmp-global-hook-test-20260810                        
+.tmp-lock-probe-478b1b6f9e3a478a8a97185229fcbcbf      
+.tmp-lock-tests-43b65e6a6acf4034bdd732aba88a6229      
+acceptance-evidence                                   
+archives                                              
+backups                                               
+codex-home                                            
+codex-loop-s-f2                                       
+codex-sqlite                                          
+data                                                  
+deliveries                                            
+guards                                                
+handoff                                               
+hl-loop-v3                                            
+inputs                                                
+K3OC-CDX-LOOP-CODEX-EXECUTION-PACK-v2.3               
+launchers                                             
+logs                                                  
+open-source                                           
+package                                               
+private-quarantine                                    
+quarantine                                            
+release-candidates                                    
+reports                                               
+reports-同步ACL残留                                   
+runtime                                               
+source                                                
+staging                                               
+state                                                 
+test-runs                                             
+toolcache                                             
+venv                                                  
+worktrees                                             
+wsl                                                   
+K3OC-CDX-LOOP-CODEX-EXECUTION-PACK-v2.3.zip           
+---config---
+                                                      
+                                                      
+                                                      
+                                                      
+
+
+
+2026-08-13T05:51:10.132826Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 5.9 seconds
+Output:
+---ssh configs---
+
+2026-08-13T05:51:46.727254Z  WARN codex_sandboxing::violation: recorded sandbox violation: resource=filesystem backend=windows_sandbox reason=policy_denied path=unknown
+2026-08-13T05:51:46.727490Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.5 seconds
+Output:
+---branches---
+---head---
+---status---
+fatal: detected dubious ownership in repository at 'E:/codex-LOOP/source'
+'E:/codex-LOOP/source' is owned by:
+	DESKTOP-3L9C649/hzq00 (S-1-5-21-2299765140-2670231981-1235975754-1001)
+but the current user is:
+	DESKTOP-3L9C649/CodexSandboxOffline (S-1-5-21-2299765140-2670231981-1235975754-1004)
+To add an exception for this directory, call:
+
+	git config --global --add safe.directory E:/codex-LOOP/source
+git : fatal: detected dubious ownership in repository at 'E:/codex-LOOP/source'
+所在位置 行:2 字符: 71
++ ...  '---branches---'; git -C E:\codex-LOOP\source branch -a 2>&1 | Selec ...
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (fatal: detected...ex-LOOP/source':String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+'E:/codex-LOOP/source' is owned by:
+	DESKTOP-3L9C649/hzq00 (S-1-5-21-2299765140-2670231981-1235975754-1001)
+but the current user is:
+	DESKTOP-3L9C649/CodexSandboxOffline (S-1-5-21-2299765140-2670231981-1235975754-1004)
+To add an exception for this directory, call:
+	git config --global --add safe.directory E:/codex-LOOP/source
+git : fatal: detected dubious ownership in repository at 'E:/codex-LOOP/source'
+所在位置 行:2 字符: 167
++ ... --head---'; git -C E:\codex-LOOP\source log --oneline -5 2>&1; Write- ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (fatal: detected...ex-LOOP/source':String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+'E:/codex-LOOP/source' is owned by:
+	DESKTOP-3L9C649/hzq00 (S-1-5-21-2299765140-2670231981-1235975754-1001)
+but the current user is:
+	DESKTOP-3L9C649/CodexSandboxOffline (S-1-5-21-2299765140-2670231981-1235975754-1004)
+To add an exception for this directory, call:
+	git config --global --add safe.directory E:/codex-LOOP/source
+git : fatal: detected dubious ownership in repository at 'E:/codex-LOOP/source'
+所在位置 行:2 字符: 247
++ ... --status---'; git -C E:\codex-LOOP\source status --short 2>&1 | Selec ...
++                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (fatal: detected...ex-LOOP/source':String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+'E:/codex-LOOP/source' is owned by:
+	DESKTOP-3L9C649/hzq00 (S-1-5-21-2299765140-2670231981-1235975754-1001)
+but the current user is:
+	DESKTOP-3L9C649/CodexSandboxOffline (S-1-5-21-2299765140-2670231981-1235975754-1004)
+To add an exception for this directory, call:
+	git config --global --add safe.directory E:/codex-LOOP/source
+
+2026-08-13T05:51:46.806081Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.6 seconds
+Output:
+False
+False
+
+2026-08-13T05:52:17.241194Z  WARN codex_sandboxing::violation: recorded sandbox violation: resource=filesystem backend=windows_sandbox reason=policy_denied path=unknown
+2026-08-13T05:52:17.241636Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.6 seconds
+Output:
+== C:\Users\CodexSandboxOffline\.ssh ==
+(missing)
+== C:\Users\codexloop\.ssh ==
+(missing)
+== C:\Users\hzq00\.ssh ==
+(missing)
+== E:\VPS\.ssh ==
+(missing)
+== E:\codex-LOOP\.ssh ==
+(missing)
+---ssh-agent---
+Test-Path : 拒绝访问。
+所在位置 行:2 字符: 197
++ ... c in $candidates) { Write-Output "== $c =="; if (Test-Path $c) { Get- ...
++                                                      ~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (C:\Users\hzq00\.ssh:String) [Test-Path], UnauthorizedAccessException
+    + FullyQualifiedErrorId : ItemExistsUnauthorizedAccessError,Microsoft.PowerShell.Commands.TestPathCommand
+ 
+
+2026-08-13T06:00:31.932255Z  WARN codex_sandboxing::violation: recorded sandbox violation: resource=filesystem backend=windows_sandbox reason=policy_denied path=unknown
+2026-08-13T06:00:31.932506Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.1 seconds
+Output:
+
+Name            LastWriteTime     
+----            -------------     
+app-v3-manifest 2026/8/13 13:27:33
+implementation  2026/8/3 15:40:20 
+---app-v3-manifest---
+---find wt dirs---
+                                  
+                                  
+                                  
+
+
+git : fatal: detected dubious ownership in repository at 'E:/codex-LOOP/worktrees/app-v3-manifest'
+所在位置 行:2 字符: 121
++ ... nifest---'; git -C E:\codex-LOOP\worktrees\app-v3-manifest branch -a  ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (fatal: detected...pp-v3-manifest':String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+'E:/codex-LOOP/worktrees/app-v3-manifest/.git' is owned by:
+	DESKTOP-3L9C649/hzq00 (S-1-5-21-2299765140-2670231981-1235975754-1001)
+but the current user is:
+	DESKTOP-3L9C649/CodexSandboxOffline (S-1-5-21-2299765140-2670231981-1235975754-1004)
+To add an exception for this directory, call:
+	git config --global --add safe.directory E:/codex-LOOP/worktrees/app-v3-manifest
+git : fatal: detected dubious ownership in repository at 'E:/codex-LOOP/worktrees/app-v3-manifest'
+所在位置 行:2 字符: 210
++ ...  -First 20; git -C E:\codex-LOOP\worktrees\app-v3-manifest log --onel ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (fatal: detected...pp-v3-manifest':String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+'E:/codex-LOOP/worktrees/app-v3-manifest/.git' is owned by:
+	DESKTOP-3L9C649/hzq00 (S-1-5-21-2299765140-2670231981-1235975754-1001)
+but the current user is:
+	DESKTOP-3L9C649/CodexSandboxOffline (S-1-5-21-2299765140-2670231981-1235975754-1004)
+To add an exception for this directory, call:
+	git config --global --add safe.directory E:/codex-LOOP/worktrees/app-v3-manifest
+
+2026-08-13T06:03:29.715725Z  WARN codex_sandboxing::violation: recorded sandbox violation: resource=filesystem backend=windows_sandbox reason=permission_denied path=unknown
+2026-08-13T06:03:29.716006Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 5.8 seconds
+Output:
+ssh : Could not create directory 'C:\\WINDOWS/.ssh' (Permission denied).
+所在位置 行:2 字符: 1
++ ssh -o BatchMode=yes -o ConnectTimeout=8 -o StrictHostKeyChecking=no  ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Could not creat...ission denied).:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Failed to add the host to the list of known hosts (C:\\WINDOWS/.ssh/known_hosts).
+k3@136.85.49.91: Permission denied (publickey).
+
+2026-08-13T06:08:48.361172Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 196ms)... turn_id=019ff9a6-b33f-7c20-bda1-053a9b82d766 retries=1 max_retries=5 sampling_error=unexpected status 503 Service Unavailable: Provider error 503: No available channel for model deepseek-v4-flash under group Eazy口子-openai (distributor) (request id: 202608130608482594974398268d9d6FpO217VA), url: http://127.0.0.1:10100/v1/responses
+2026-08-13T06:08:58.512066Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 377ms)... turn_id=019ff9a6-b33f-7c20-bda1-053a9b82d766 retries=2 max_retries=5 sampling_error=unexpected status 503 Service Unavailable: Provider error 503: No available channel for model deepseek-v4-flash under group Eazy口子-openai (distributor) (request id: 202608130608579117308998268d9d6lVlVmGej), url: http://127.0.0.1:10100/v1/responses
+2026-08-13T06:09:11.988491Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 803ms)... turn_id=019ff9a6-b33f-7c20-bda1-053a9b82d766 retries=3 max_retries=5 sampling_error=unexpected status 503 Service Unavailable: Provider error 503: No available channel for model deepseek-v4-flash under group Eazy口子-openai (distributor) (request id: 202608130609119481646888268d9d6oikiWKiI), url: http://127.0.0.1:10100/v1/responses
+2026-08-13T06:09:24.257315Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.57s)... turn_id=019ff9a6-b33f-7c20-bda1-053a9b82d766 retries=4 max_retries=5 sampling_error=unexpected status 503 Service Unavailable: Provider error 503: No available channel for model deepseek-v4-flash under group Eazy口子-openai (distributor) (request id: 202608130609241374660188268d9d6r6qaEfMh), url: http://127.0.0.1:10100/v1/responses
+2026-08-13T06:09:40.411729Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 3.053s)... turn_id=019ff9a6-b33f-7c20-bda1-053a9b82d766 retries=5 max_retries=5 sampling_error=unexpected status 503 Service Unavailable: Provider error 503: No available channel for model deepseek-v4-flash under group Eazy口子-openai (distributor) (request id: 202608130609403393777008268d9d6hGG63A4A), url: http://127.0.0.1:10100/v1/responses
+2026-08-13T06:10:03.136056Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

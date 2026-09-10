@@ -1,0 +1,87 @@
+I now have a complete view of all the data. Let me compile the audit findings:
+
+---
+
+## 8765界面真值审计报告
+
+### 审计范围
+
+源文件：`E:\codex-LOOP\launchers\loop_monitor_server.py`  
+数据来源：`exec_roster.json`、`native_roster.json`、`refill_state.json`
+
+---
+
+### 一、字段映射总览（API → 界面标签）
+
+| API 字段 (`/api/status`) | 界面标签 (HTML) | JS 绑定 | 状态 |
+|---|---|---|---|
+| `d.counts.running` | 当前运行 | `$('running').textContent` | ✅ 一致 |
+| `d.target` | 全局容量 | `$('target').textContent` | ✅ 一致 |
+| `d.headroom` | 可用余量 | `$('headroom').textContent` | ✅ 一致 |
+| `d.planes.desktop` | Desktop | `$('desktop').textContent` | ✅ 一致 |
+| `d.planes.headless` | Headless | `$('headless').textContent` | ✅ 一致 |
+| `d.models.v4` | V4 Flash | `$('model-v4').textContent` | ✅ 一致 |
+| `d.models.sonnet` | Sonnet 4.6 | `$('model-sonnet').textContent` | ✅ 一致 |
+| `d.models.k3` | K3 | `$('model-k3').textContent` | ✅ 一致 |
+| `d.models.sol` | Sol | `$('model-sol').textContent` | ✅ 一致 |
+| `d.models.other` | 其他 | `$('model-other').textContent` | ✅ 一致 |
+| `d.opencodex.ok` | 健康/异常 | `$('gateway').textContent` | ✅ 一致 |
+| `d.freshness` | 时间戳前缀 | `$('stamp').textContent` | ✅ 一致 |
+
+---
+
+### 二、已确认的显示差异（mismatches）
+
+**M1：`spawnable` 字段——仅在 API 中，界面完全未展示**
+
+- `refill_state.json` 中每个 `parents[id].spawnable.total` 是控制器计算的"可生成容量"。
+- 服务端代码（第 751 行）读入该值并写入 `parents` 字典的 `spawnable` 键，通过 `/api/status` 的 `parents` 对象暴露。
+- **HTML 模板和 JS 代码均未读取或渲染 `d.parents` 的任何字段**，整个 `parents` 对象（含 `spawnable`、`deficit`、`controller_running`、`target`、`reason`）对用户**不可见**。
+- 当前实际数据：`parents["019feacd-..."].spawnable = {total:0, k3:0, v4:0}`，`target=20`，`running=29`（controller_running 覆写为控制器视角的 running，与 `counts.running` 来源不同）。
+
+**M2：`deficit` 字段——API 计算逻辑与来源存在潜在混淆**
+
+- `/api/status` 顶层的 `deficit` 读自 `refill_state.json` 的 `deficit.total`（当前为 `0`）。
+- 但 `parents[id].deficit` 读自 `refill_state.json` 的 `parents[id].deficit`（同样为 `0`）。
+- 界面中没有标签渲染任何 `deficit` 值——`d.deficit` 在 API 响应中存在但 HTML 从未使用。
+- **结论**：deficit 字段存在于 API 但界面零可见性，用户无法区分"队列空无债务"和"控制器未运行/未写出数据"。
+
+**M3：`stale_headless` / `stale_native` 计数——仅在 `counts` 子对象中，界面未展示**
+
+- `counts.stale_headless` 和 `counts.stale_native` 计数在 `/api/status` 的 `counts` 中可取。
+- 它们影响 `freshness` 状态字符串（STALE 判断）。
+- 但界面没有单独显示"过期计数"数字——用户只能看到 freshness 文字标签，无法直接看到有多少个过期条目。
+
+**M4：`counts.running` 与 `parents[id].controller_running` 的语义差异未对齐**
+
+- 界面显示的"当前运行"是 `d.counts.running`，来自服务器聚合本地 native_roster + exec_roster + rollout 三个来源后的观测值。
+- `parents[id].controller_running` 是 refill 控制器自己记录的 running 数（来自 `refill_state.json`）。
+- 当前实测：`refill_state.json` 中 `parents["019feacd-..."].running = 29`，但 exec_roster 中最近完成的任务状态均为 `completed`/`cancelled`/`timed_out`，没有状态为 `running` 的 job——**controller_running=29 与 exec_roster 实际观测值存在不一致**（controller 的 refill_state 是最新写入的 19:16:52，exec_roster 最后写入 19:17:08，二者都是最新，但 exec_roster 中已无 running 行，说明 refill_state 反映的是任务完成前最后一个写入快照，存在约1秒的传播延迟窗口，属正常，但界面无法帮助用户发现两者不一致的情况）。
+
+**M5：`rollout_fallback.open_estimate` / `open_quiet` 字段界面不可见**
+
+- API 返回 `rollout_fallback: {open_estimate, open_quiet, active_seconds, parent_fresh_seconds}`，但 JS 从未读取该对象。
+- 这两个计数反映"通过 rollout 扫描估计在运行的任务数"与"通过 open session 估计的数"，是判断估算质量的重要辅助信息，但对用户不可见。
+
+---
+
+### 三、无问题的关键字段（已验证一致）
+
+- `target`：来自 `concurrency_policy` 或 `refill_state.target_total`，当前 = 80，界面显示 80 ✅
+- `headroom`：`max(0, target - counts.running)` 服务端计算后直接展示 ✅
+- `planes.desktop` / `planes.headless`：计数口径清晰（desktop = native_roster 计，headless = exec_roster 计），界面标签"Desktop / Headless"准确 ✅
+- `freshness` 状态：LIVE/STALE/IDLE/ESTIMATED/QUIET/UNINITIALIZED，逻辑与 headless_age>30 + stale_native/stale_headless 判断耦合正确，标签语义准确 ✅
+
+---
+
+### 四、结论摘要
+
+共发现 **5 处显示差异**，均为"API 中存在但界面不展示"的单向缺口，没有"界面显示了 API 没有的值"的情况：
+
+1. **spawnable（可生成容量）** — 完整缺失于界面
+2. **deficit（欠账量）** — 完整缺失于界面
+3. **stale_headless / stale_native 计数** — 仅影响 freshness 文字，原始数字不可见
+4. **controller_running vs counts.running 语义差异** — 界面无区分说明，可能误导并发判断
+5. **rollout_fallback 估算数** — 完整缺失于界面
+
+这些均为**展示层缺口**，不是数据计算错误。服务端 `/api/status` 数据是准确的，界面选择性地只渲染了其中一部分字段。建议后续迭代在界面补充 `deficit`、`spawnable` 以及 stale 原始计数的可见性，以便运维人员不需要手工 curl API 才能看到完整的容量压力状态。

@@ -1,0 +1,54 @@
+Reading additional input from stdin...
+2026-08-14T20:27:10.331552Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T20:27:11.145504Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T20:27:13.595183Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-14T20:27:22.773779Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.5 seconds
+Output:
+所在位置 行:2 字符: 32
++ cd G:\VPS-K3\extracted\k3\repo && git diff HEAD -- AGENTS.md | head - ...
++                                ~~
+标记“&&”不是此版本中的有效语句分隔符。
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : InvalidEndOfLine
+ 
+
+2026-08-14T20:29:07.536400Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+Get-Content : 找不到路径“G:\VPS-K3\extracted\k3\repo\packages\coding-agent\src\k3\index.ts”，因为该路径不存在。
+所在位置 行:2 字符: 33
++ ... ed\k3\repo; Get-Content "packages/coding-agent/src/k3/index.ts" | Sel ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (G:\VPS-K3\extra...src\k3\index.ts:String) [Get-Content], ItemNotFoundEx 
+   ception
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+
+2026-08-14T20:29:52.656747Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1 seconds
+Output:
+Select-String : 找不到与参数名称“Recurse”匹配的参数。
+所在位置 行:2 字符: 114
++ ... s/coding-agent/src/core/**/*.ts" -Pattern "from.*k3" -Recurse | Selec ...
++                                                          ~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) [Select-String]，ParameterBindingException
+    + FullyQualifiedErrorId : NamedParameterNotFound,Microsoft.PowerShell.Commands.SelectStringCommand
+ 
+
+2026-08-14T20:40:22.581923Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 211ms)... turn_id=01a001f5-06d4-78e0-a00a-16a9f5a19bfa retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽

@@ -1,0 +1,24 @@
+Reading additional input from stdin...
+2026-08-13T04:44:46.819124Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-13T04:44:53.105212Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-13T04:46:03.195866Z ERROR codex_core::tools::router: error=Exit code: 124
+Wall time: 13.1 seconds
+Output:
+command timed out after 13105 milliseconds
+
+2026-08-13T04:51:18.491137Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 195ms)... turn_id=019ff96f-e1da-7d61-bf44-4de7e328f41f retries=1 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-13T04:54:13.796135Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 4.2 seconds
+Output:
+
+2026-08-13T04:59:27.090424Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 218ms)... turn_id=019ff96f-e1da-7d61-bf44-4de7e328f41f retries=1 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-13T05:04:33.617145Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 387ms)... turn_id=019ff96f-e1da-7d61-bf44-4de7e328f41f retries=2 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-13T05:09:41.256898Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 756ms)... turn_id=019ff96f-e1da-7d61-bf44-4de7e328f41f retries=3 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses

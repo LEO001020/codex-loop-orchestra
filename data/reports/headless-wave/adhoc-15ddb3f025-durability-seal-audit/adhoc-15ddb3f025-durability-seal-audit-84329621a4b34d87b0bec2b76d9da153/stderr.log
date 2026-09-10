@@ -1,0 +1,120 @@
+Reading additional input from stdin...
+2026-08-15T06:08:16.037417Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-15T06:08:17.156883Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-15T06:08:35.192112Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:08:43.284833Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-15T06:08:51.507935Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:08:58.687236Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:09:15.047402Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.6 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 25
++ dir E:\VPS /b /s 2>&1 | head -80
++                         ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-15T06:09:58.597913Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-15T06:10:59.484053Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-15T06:14:46.349275Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 9.5 seconds
+Output:
+Get-ChildItem : 对路径“E:\VPS\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem E:\VPS -Recurse -File | Where-Object { $_.Name -match " ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\VPS\.pytest_cache:String) [Get-ChildItem], UnauthorizedAccessExcep 
+   tion
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+Get-ChildItem : 对路径“E:\VPS\direct_repair_stage\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem E:\VPS -Recurse -File | Where-Object { $_.Name -match " ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\VPS\direct_repair_stage\.pytest_cache:String) [Get-ChildItem], Una 
+   uthorizedAccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-15T06:16:07.962545Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 3.3 seconds
+Output:
+python3 : 无法将“python3”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确
+，然后再试一次。
+所在位置 行:2 字符: 1
++ python3 -c "import zipfile; z=zipfile.ZipFile('E:/VPS/reports/owner-a ...
++ ~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (python3:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-15T06:16:22.219301Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1 seconds
+Output:
+where.exe : 信息: 用提供的模式无法找到文件。
+所在位置 行:2 字符: 1
++ where.exe python 2>&1; where.exe py 2>&1; where.exe python3.12 2>&1
++ ~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (信息: 用提供的模式无法找到文件。:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+where.exe : 信息: 用提供的模式无法找到文件。
+所在位置 行:2 字符: 24
++ where.exe python 2>&1; where.exe py 2>&1; where.exe python3.12 2>&1
++                        ~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (信息: 用提供的模式无法找到文件。:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+where.exe : 信息: 用提供的模式无法找到文件。
+所在位置 行:2 字符: 43
++ where.exe python 2>&1; where.exe py 2>&1; where.exe python3.12 2>&1
++                                           ~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (信息: 用提供的模式无法找到文件。:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+2026-08-15T06:16:53.972632Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+Get-Content : 找不到路径“E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-execution-v1-fl19\lib\alpha_execution.
+py”，因为该路径不存在。
+所在位置 行:2 字符: 1
++ Get-Content "E:\VPS\reports\owner-admin-cutover-final-20260814-alpha- ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (E:\VPS\reports\...ha_execution.py:String) [Get-Content], ItemNotFoundEx 
+   ception
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+
+2026-08-15T06:19:24.032274Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 218ms)... turn_id=01a00409-090f-7862-a088-d1a9e8863851 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T06:20:14.074859Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 363ms)... turn_id=01a00409-090f-7862-a088-d1a9e8863851 retries=2 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T06:21:06.397669Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 828ms)... turn_id=01a00409-090f-7862-a088-d1a9e8863851 retries=3 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T06:21:56.822766Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.746s)... turn_id=01a00409-090f-7862-a088-d1a9e8863851 retries=4 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T06:22:45.337228Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 3.264s)... turn_id=01a00409-090f-7862-a088-d1a9e8863851 retries=5 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T06:23:35.315330Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

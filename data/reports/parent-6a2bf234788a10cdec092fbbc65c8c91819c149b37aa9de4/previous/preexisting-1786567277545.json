@@ -1,0 +1,20 @@
+结论：**通过（PASS）** — 在授权范围内，worker 固定 `weiwu/deepseek-v4-flash` + `ultra`，verifier/reviewer（及 plan_expander）固定 `weiwu-k3/kimi-k3` + `max`，所有出生路径（含 refill/headless 波次）都把 model/effort 显式钉在命令行上，Sol 只作为“turn”事件、不存在 Sol 子 agent 出生路径；存在两处需知悉的继承/兜底边界，均非静默继承。
+
+命令边界的模型与 effort 证据
+
+- worker：[worker.toml](/E:/codex-LOOP/codex-loop-s-f2/agents/worker.toml:12) `model="weiwu/deepseek-v4-flash"`、[worker.toml](/E:/codex-LOOP/codex-loop-s-f2/agents/worker.toml:13) `model_reasoning_effort="ultra"`；与 [model_profiles.toml](/E:/codex-LOOP/codex-loop-s-f2/config/model_profiles.toml:2)（active_profile=v4f）及 [:8-9]（execution_model/reasoning=ultra）一致。
+- verifier/reviewer：[verifier.toml](/E:/codex-LOOP/codex-loop-s-f2/agents/verifier.toml:12) 与 [reviewer.toml](/E:/codex-LOOP/codex-loop-s-f2/agents/reviewer.toml:13) 均为 `weiwu-k3/kimi-k3` + `max`；[dispatch_v2.py](/E:/codex-LOOP/codex-loop-s-f2/harness/dispatch_v2.py:90) 的 ROLE_FAMILY 将 worker/duty_officer 归 v4、verifier/reviewer/plan_expander 归 k3。
+- 出生命令必带显式 `-m`/`-c model_reasoning_effort`：`RolePin.cli_overrides()`（[dispatch_v2.py:135](/E:/codex-LOOP/codex-loop-s-f2/harness/dispatch_v2.py:135)）被 [build_exec_command](/E:/codex-LOOP/codex-loop-s-f2/harness/dispatch_v2.py:426)（[:437]）和 [headless_wave.py build_commands](/E:/codex-LOOP/codex-loop-s-f2/harness/headless_wave.py:260)（[:280-282]）无条件拼入 `codex exec` 命令行；headless 波次还把 `--model pin.model` 传给生命周期监督进程（[:304]）。不存在不带 model 参数的出生。
+
+无默认/继承 Sol 子 agent
+
+- 无角色时默认是 worker（V4）而非 Sol：[dispatch_v2.py:421-422](/E:/codex-LOOP/codex-loop-s-f2/harness/dispatch_v2.py:421) `if role is None: role = "worker"`；[headless_wave.py:262](/E:/codex-LOOP/codex-loop-s-f2/harness/headless_wave.py:262) 同。
+- manifest 角色集合与 CLI `--role` 白名单均不含 sol：[headless_wave.py:46](/E:/codex-LOOP/codex-loop-s-f2/harness/headless_wave.py:46)、[dispatch_v2.py:104-105](/E:/codex-LOOP/codex-loop-s-f2/harness/dispatch_v2.py:104)；refill 拒绝而非降级：K3 不可用时 `retain_k3_debt` 抛 `DispatchBlocked`（retryable），绝不回退 Sol/V4（[:375-385](/E:/codex-LOOP/codex-loop-s-f2/harness/dispatch_v2.py:375)、[:418-420]）。
+- Sol 仅作为 adjudication turn 处理：[dispatch_v2.py:464-469](/E:/codex-LOOP/codex-loop-s-f2/harness/dispatch_v2.py:464) 发事件后 `continue`，无出生。
+
+需指出的继承/兜底边界（均非静默）
+
+1. `resolve_role_pin` 的 TOML 查找会回退到 `$CODEX_HOME/agents/<role>.toml`，repo 内 TOML 缺失时 effort/sandbox 可能取自环境目录或 policy 默认（[:159-205](/E:/codex-LOOP/codex-loop-s-f2/harness/dispatch_v2.py:159)）；model 若与 policy 钉不一致会抛 `ModelPinError` 失败可见（[:187-191]）。当前 repo 内五个角色 TOML 均存在，生效值即 repo 值。
+2. v2 物理出生委托 v1 `dispatch_single`，以显式 `pinned=(pin.cli_overrides(), ...)` 交接（[:538](/E:/codex-LOOP/codex-loop-s-f2/harness/dispatch_v2.py:538)），但 v1 内部应用不在本包 authorized_paths 内，未复验其内部实现；policy `[models]` 钉值文件亦在授权范围外，一致性由运行时 `ModelPinError` 强制。
+
+未修改任何文件，未写报告文件。

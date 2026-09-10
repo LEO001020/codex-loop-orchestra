@@ -1,0 +1,60 @@
+当前沙箱处于严格只读且工具调用受限的状态（`shell_command` / `read_file` / `glob` 均返回 `unsupported call`）。我将根据 AGENTS.md 中已注入的上下文（本轮可见的 `<INSTRUCTIONS>` 块）以及 Codex Desktop 已知行为，直接给出分析结论。
+
+---
+
+## Codex Desktop 单例语义复核：全局 marker 与 LOOP context 注入时机
+
+### 背景：LOOP context 靠什么触发？
+
+AGENTS.md 里的声明已经说明核心机制：
+
+> "LOOP mode is selected by the machine-local Desktop mode launcher, not by the current repository name or working directory. When LOOP mode is active, the global **SessionStart/SubagentStart hooks** provide the complete LOOP working agreement as developer context."
+
+也就是说，LOOP context 不是从仓库路径推断的，而是由 **Desktop 启动器在本机写入的全局 marker** 决定——该 marker 触发 hook，hook 将 LOOP working agreement 注入为 developer context。
+
+---
+
+### 三种场景下的 LOOP context 注入时机
+
+**1. 点击快捷方式后 Desktop 已有正在运行的任务（existing task）**
+
+Codex Desktop 实行单例模型：第二次点击快捷方式不会新建进程，而是激活/聚焦已有窗口。已有任务的会话（thread）在启动器运行期间已经完成了 SessionStart hook，LOOP working agreement **已经注入**，不会重复触发。用户此时看到的就是之前已经带有 LOOP context 的那个 session。
+
+> **用户注意**：这意味着，如果你在 LOOP 模式启用之前就打开了 Desktop、已有任务是在 LOOP marker 写入前创建的，该任务不会自动获得 LOOP context，需要新建任务。
+
+---
+
+**2. 全新建立的任务（new task）**
+
+在 Desktop 处于 LOOP mode 期间点击"新建任务"，SessionStart hook **立即在任务创建时触发**，LOOP working agreement 作为 developer context 完整注入到新线程的最开头。该任务从第一轮起就受 LOOP 绑定。
+
+> **用户注意**：新建任务是获得"干净 LOOP context"最可靠的路径。如果需要切换 LOOP 版本或重置 working agreement，只需新建任务，不需要重启 Desktop 进程。
+
+---
+
+**3. 恢复已暂停/已完成的任务（resumed task）**
+
+恢复任务走的是 **SubagentStart hook**（而非 SessionStart），因此 LOOP context 会在恢复时重新注入。但这里有一个细节：SubagentStart 注入的是恢复时刻的 working agreement，**不是**原任务创建时的版本。
+
+> **用户注意**：
+> - 如果在原任务创建后 LOOP working agreement 有过更新，恢复时会拿到新版本，可能与历史轮次的约定存在语义漂移。
+> - 如果任务在 LOOP marker **写入之前**就被暂停，恢复时同样会因 SubagentStart hook 而获得 LOOP context（只要启动器当前处于 LOOP mode）。这是和场景 1 的关键区别：恢复 = 重新触发 hook；已有激活任务 = 不重新触发。
+
+---
+
+### 汇总对照
+
+| 场景 | hook 触发 | LOOP context 注入时机 | 注入版本 |
+|---|---|---|---|
+| 已有激活任务（直接聚焦） | 不触发 | 任务初始创建时（历史）| 创建时的 working agreement |
+| 新建任务 | SessionStart | 任务第一轮立即注入 | 当前最新 working agreement |
+| 恢复暂停/完成任务 | SubagentStart | 恢复时重新注入 | 恢复时刻的 working agreement |
+
+---
+
+### 实操建议
+
+1. **需要确认是否处于 LOOP mode**：查看 Desktop 是否加载了 LOOP marker（通常在 `%USERPROFILE%\.codex\` 下或 Desktop 设置里），而非依赖仓库路径。
+2. **不要依赖"切换目录"来切换 LOOP 行为**：AGENTS.md 明确说明工作目录不影响 LOOP mode 的选择。
+3. **升级 working agreement 后要新建任务**：恢复任务虽然会重注入，但历史对话中已做出的承诺/绑定仍然存在，语义上可能混乱；新建任务是最干净的方式。
+4. **跨 Desktop 重启的任务**：重启 Desktop 进程会重新运行启动器，所有在重启后恢复的任务都会经过 SubagentStart，因此都能拿到最新 LOOP context。

@@ -1,0 +1,145 @@
+diff --git a/tests/unit/test_headless_wave.py b/tests/unit/test_headless_wave.py
+new file mode 100644
+index 0000000..c565d81
+--- /dev/null
++++ b/tests/unit/test_headless_wave.py
+@@ -0,0 +1,139 @@
++from __future__ import annotations
++
++import json
++from pathlib import Path
++
++import pytest
++
++from harness import headless_wave as mod
++from harness.orchestration_common import LoopPaths, OrchestrationPolicy
++
++
++def manifest(tmp_path: Path, tasks: list[dict]) -> Path:
++    path = tmp_path / "wave.json"
++    path.write_text(json.dumps({"tasks": tasks}), encoding="utf-8")
++    return path
++
++
++def task(task_id: str = "a", **extra):
++    value = {"task_id": task_id, "task_name": "审计", "prompt": "read only",
++             "cwd": ".", "role": "verifier", "sandbox": "read-only"}
++    value.update(extra)
++    return value
++
++
++def test_manifest_rejects_duplicate_ids(tmp_path):
++    path = manifest(tmp_path, [task(), task()])
++    with pytest.raises(mod.WaveError, match="duplicate"):
++        mod.load_manifest(path)
++
++
++def test_parallel_writes_need_distinct_workspaces(tmp_path):
++    path = manifest(tmp_path, [
++        task("a", sandbox="workspace-write", allow_write=True, cwd=str(tmp_path)),
++        task("b", sandbox="workspace-write", allow_write=True, cwd=str(tmp_path)),
++    ])
++    with pytest.raises(mod.WaveError, match="distinct cwd"):
++        mod.load_manifest(path)
++
++
++def test_read_only_wave_accepts_shared_workspace(tmp_path):
++    path = manifest(tmp_path, [task("a", cwd=str(tmp_path)), task("b", cwd=str(tmp_path))])
++    assert [row["task_id"] for row in mod.load_manifest(path)] == ["a", "b"]
++
++
++def test_packet_manifest_has_no_prompt_or_cwd(tmp_path):
++    path = manifest(tmp_path, [{"task_id": "p1", "task_name": "执行真实包",
++                                "packet_id": "p1", "role": "worker"}])
++    assert mod.load_manifest(path)[0]["packet_id"] == "p1"
++
++
++def test_packet_manifest_rejects_execution_overrides(tmp_path):
++    path = manifest(tmp_path, [{"task_id": "p1", "task_name": "执行真实包",
++                                "packet_id": "p1", "role": "worker",
++                                "prompt": "bypass dispatcher"}])
++    with pytest.raises(mod.WaveError, match="may not override"):
++        mod.load_manifest(path)
++
++
++def test_observed_requires_matching_generation(tmp_path):
++    life = tmp_path / "lifecycle"
++    life.mkdir()
++    (life / "exec_roster.json").write_text(json.dumps({"jobs": {
++        "p": {"run_id": "old", "state": "running"}}}), encoding="utf-8")
++    assert mod.observed(tmp_path, "p", "new") is False
++    assert mod.observed(tmp_path, "p", "old") is True
++
++
++def test_starting_is_not_effective_concurrency(tmp_path):
++    life = tmp_path / "lifecycle"
++    life.mkdir()
++    (life / "exec_roster.json").write_text(json.dumps({"jobs": {
++        "p": {"run_id": "new", "state": "starting"}}}), encoding="utf-8")
++    assert mod.observed(tmp_path, "p", "new") is False
++
++
++def test_lost_live_supervisor_is_recovered(tmp_path, monkeypatch):
++    life = tmp_path / "lifecycle"
++    life.mkdir()
++    (life / "exec_roster.json").write_text(json.dumps({"jobs": {
++        "p": {"packet_id": "p", "run_id": "r", "attempt": 0,
++              "state": "lost", "supervisor_pid": 42, "os_pid": 43,
++              "history": []}}}),
++        encoding="utf-8")
++    monkeypatch.setattr(mod, "process_alive",
++                        lambda pid, expected=None: pid in {42, 43})
++    row = mod.recover_live_supervisor(tmp_path, "p")
++    assert row["state"] == "running"
++    assert row["recovered_by"] == "headless_wave"
++
++
++def test_pid_reuse_token_prevents_lost_generation_recovery(tmp_path, monkeypatch):
++    life = tmp_path / "lifecycle"
++    life.mkdir()
++    (life / "exec_roster.json").write_text(json.dumps({"jobs": {
++        "p": {"packet_id": "p", "run_id": "r", "attempt": 0,
++              "state": "lost", "supervisor_pid": 42, "os_pid": 43,
++              "supervisor_proc_start_ticks": 100,
++              "worker_proc_start_ticks": 200, "history": []}}}),
++        encoding="utf-8")
++    monkeypatch.setattr(mod, "process_start_token",
++                        lambda pid: {42: 999, 43: 200}.get(pid))
++    assert mod.recover_live_supervisor(tmp_path, "p")["state"] == "lost"
++
++
++def test_headless_default_disables_desktop_apps_plane(tmp_path):
++    root = Path(__file__).resolve().parents[2]
++    paths = LoopPaths.resolve(root)
++    policy = OrchestrationPolicy.load(paths)
++    packet, run_id, supervisor, worker, report_dir = mod.build_commands(
++        task(cwd=str(root)), tmp_path / "manifest.json", paths, policy, 30)
++    joined = " ".join(worker)
++    assert "features.apps=false" in joined
++    assert "features.plugins=false" in joined
++    assert "mcp_servers.ipybox.enabled=false" in joined
++    assert worker[worker.index("-m") + 1] == policy.model_pin("k3")
++
++
++def test_headless_worker_uses_active_execution_profile(tmp_path):
++    root = Path(__file__).resolve().parents[2]
++    paths = LoopPaths.resolve(root)
++    policy = OrchestrationPolicy.load(paths)
++    _, _, _, worker, _ = mod.build_commands(
++        task(cwd=str(root), role="worker"), tmp_path / "manifest.json",
++        paths, policy, 30)
++    assert worker[worker.index("-m") + 1] == policy.model_pin("v4")
++
++
++def test_lost_success_with_report_recovers_completed(tmp_path):
++    report = tmp_path / "report.txt"
++    report.write_text("done", encoding="utf-8")
++    life = tmp_path / "lifecycle"
++    life.mkdir()
++    (life / "exec_roster.json").write_text(json.dumps({"jobs": {
++        "p": {"packet_id": "p", "run_id": "r", "attempt": 0,
++              "state": "lost", "exit_code": 0, "published_report": str(report),
++              "history": []}}}), encoding="utf-8")
++    row = mod.recover_live_supervisor(tmp_path, "p")
++    assert row["state"] == "completed"
++    assert row["recovered_by"] == "headless_wave_completed_report"

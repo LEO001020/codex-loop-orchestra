@@ -41,6 +41,17 @@ done
 
 say()  { printf '%s\n' "$*"; }
 step() { printf '\n== %s ==\n' "$*"; }
+atomic_copy() { # $1 = source, $2 = destination
+  local src="$1" dst="$2" tmp="$2.tmp.$$"
+  if ! cp "$src" "$tmp"; then
+    rm -f -- "$tmp"
+    return 1
+  fi
+  if ! mv -f "$tmp" "$dst"; then
+    rm -f -- "$tmp"
+    return 1
+  fi
+}
 
 # ----------------------------------------------------------------------------
 # ① Prerequisites: Node 22+ and Codex CLI. Missing -> prompt, never install.
@@ -86,6 +97,24 @@ if [[ "$MISSING" -eq 1 ]]; then
   exit 1
 fi
 
+# Fail before the first user-state write when existing or template inputs are
+# malformed.  This keeps agent/config/hook installation simple and avoids a
+# half-applied user transaction caused by discovering bad JSON/TOML late.
+python3 - "$PKG_ROOT/config/config.toml.example" "$CODEX_HOME/config.toml" \
+  "$PKG_ROOT/hooks/hooks.json.example" "$TARGET_REPO/.codex/hooks.json" <<'PYEOF'
+import json, os, sys, tomllib
+example, user_config, hook_template, user_hooks = sys.argv[1:]
+with open(example, "rb") as handle:
+    tomllib.load(handle)
+if os.path.exists(user_config):
+    with open(user_config, "rb") as handle:
+        tomllib.load(handle)
+json.load(open(hook_template, encoding="utf-8"))
+if os.path.exists(user_hooks):
+    json.load(open(user_hooks, encoding="utf-8"))
+print("OK    config/hook inputs parse before user-state writes")
+PYEOF
+
 # ----------------------------------------------------------------------------
 # ② Agent TOMLs -> $CODEX_HOME/agents/
 # ----------------------------------------------------------------------------
@@ -97,12 +126,12 @@ for SRC in "$PKG_ROOT"/agents/*.toml; do
   if [[ -f "$DST" ]] && cmp -s "$SRC" "$DST"; then
     say "SKIP  $BASE (identical already installed)"
   elif [[ -f "$DST" ]]; then
-    BAK="$DST.bak.$(date -u +%Y%m%dT%H%M%SZ)"
+    BAK="$DST.bak.$(date -u +%Y%m%dT%H%M%SZ)-$$"
     cp "$DST" "$BAK"
-    cp "$SRC" "$DST"
+    atomic_copy "$SRC" "$DST"
     say "REPLACED $BASE (previous version backed up: $BAK)"
   else
-    cp "$SRC" "$DST"
+    atomic_copy "$SRC" "$DST"
     say "INSTALLED $BASE"
   fi
 done
@@ -115,11 +144,17 @@ step "3/5 Config merge -> $CODEX_HOME/config.toml"
 USER_CFG="$CODEX_HOME/config.toml"
 EXAMPLE="$PKG_ROOT/config/config.toml.example"
 if [[ ! -f "$USER_CFG" ]]; then
-  cp "$EXAMPLE" "$USER_CFG"
+  TMP_CFG="$USER_CFG.tmp.$$"
+  atomic_copy "$EXAMPLE" "$TMP_CFG"
+  if ! python3 -c 'import sys,tomllib; tomllib.load(open(sys.argv[1], "rb"))' "$TMP_CFG"; then
+    rm -f -- "$TMP_CFG"
+    exit 1
+  fi
+  mv -f "$TMP_CFG" "$USER_CFG"
   say "CREATED $USER_CFG from config.toml.example (no prior user config)"
 else
   python3 - "$EXAMPLE" "$USER_CFG" <<'PYEOF'
-import re, sys, difflib, tempfile, os
+import re, sys, difflib, tempfile, os, shutil, time
 try:
     import tomllib
 except ImportError:  # pragma: no cover
@@ -144,14 +179,18 @@ key_re = re.compile(r"^\s*([A-Za-z0-9_\-]+)\s*=")
 missing = {}   # section -> [raw key lines]
 section = ""
 in_multiline = False
-with open(example_path) as f:
+multiline_key_missing = False  # does the multiline body belong to a NEW key?
+with open(example_path, encoding="utf-8") as f:
     for raw in f:
         line = raw.rstrip("\n")
         if in_multiline:
-            missing.setdefault(section, [])
-            if section in missing and missing[section] and missing[section][-1][0]:
+            # Continuation lines belong to the key that OPENED the multiline
+            # value.  Appending them to the last missing key unconditionally
+            # injected garbage under an unrelated key (or under one the user
+            # already had).  Handle both TOML multiline quote styles.
+            if multiline_key_missing and missing.get(section):
                 missing[section][-1][1].append(line)
-            if '"""' in line:
+            if line.count('"""') >= 1 or line.count("'''") >= 1:
                 in_multiline = False
             continue
         m = sec_re.match(line)
@@ -161,12 +200,13 @@ with open(example_path) as f:
         m = key_re.match(line)
         if m and not line.lstrip().startswith("#"):
             key = m.group(1)
-            if not has_key(user, section, key):
+            multiline_key_missing = not has_key(user, section, key)
+            if multiline_key_missing:
                 missing.setdefault(section, []).append([key, [line]])
-            if line.count('"""') == 1:
+            if line.count('"""') == 1 or line.count("'''") == 1:
                 in_multiline = True
 
-with open(user_path) as f:
+with open(user_path, encoding="utf-8") as f:
     user_lines = f.read().splitlines()
 
 new_lines = list(user_lines)
@@ -195,8 +235,14 @@ diff = difflib.unified_diff(user_lines, new_lines,
 print("Merged the following NEW keys (existing keys untouched) — diff:")
 for d in diff:
     print(d)
-tmp = tempfile.NamedTemporaryFile("w", delete=False, dir=os.path.dirname(user_path))
-tmp.write("\n".join(new_lines) + "\n")
+rendered = "\n".join(new_lines) + "\n"
+# Validate the exact bytes before preserving/replacing the user's config.
+tomllib.loads(rendered)
+backup = user_path + ".bak." + time.strftime("%Y%m%dT%H%M%SZ", time.gmtime()) + "." + str(time.time_ns())
+shutil.copy2(user_path, backup)
+print("BACKUP config.toml -> %s" % backup)
+tmp = tempfile.NamedTemporaryFile("w", delete=False, encoding="utf-8", dir=os.path.dirname(user_path))
+tmp.write(rendered)
 tmp.close()
 os.replace(tmp.name, user_path)
 PYEOF
@@ -215,47 +261,60 @@ touch "$DATA/events.ndjson" "$DATA/escalation_log.jsonl" "$DATA/lessons.jsonl" "
 [[ -f "$DATA/progress_ledger.json" ]] || printf '{"packets": {}, "waves": []}\n' > "$DATA/progress_ledger.json"
 say "OK    data/ skeleton at $DATA (packets/ reports/ dead_letters/ + 4 truth files)"
 
-HOOK_DIR="$TARGET_REPO/.codex/hooks"
+HOOK_DIR="$TARGET_REPO/hooks"
 HOOK_JSON="$TARGET_REPO/.codex/hooks.json"
-mkdir -p "$HOOK_DIR"
-if [[ -f "$HOOK_DIR/subagent_start_meter.sh" ]] && cmp -s "$PKG_ROOT/hooks/subagent_start_meter.sh" "$HOOK_DIR/subagent_start_meter.sh"; then
-  say "SKIP  hook script already mounted"
+if command -v cygpath >/dev/null 2>&1; then
+  HOOK_DIR_WINDOWS="$(cygpath -w "$HOOK_DIR")"
+elif command -v wslpath >/dev/null 2>&1; then
+  HOOK_DIR_WINDOWS="$(wslpath -w "$HOOK_DIR")"
 else
-  cp "$PKG_ROOT/hooks/subagent_start_meter.sh" "$HOOK_DIR/subagent_start_meter.sh"
-  chmod +x "$HOOK_DIR/subagent_start_meter.sh"
-  say "MOUNTED hooks/subagent_start_meter.sh -> $HOOK_DIR/"
+  HOOK_DIR_WINDOWS="$HOOK_DIR"
 fi
-if [[ -f "$HOOK_JSON" ]]; then
-  if grep -q "subagent_start_meter.sh" "$HOOK_JSON"; then
-    say "SKIP  $HOOK_JSON already registers the metering hook"
-  else
-    say "NOTICE $HOOK_JSON exists but does not register subagent_start_meter.sh."
-    say "       To avoid corrupting your hook config, merge this entry yourself:"
-    say '       "SubagentStart": [{"matcher": ".*", "hooks": [{"type": "command",'
-    say "         \"command\": \"$HOOK_DIR/subagent_start_meter.sh\", \"timeout\": 30}]}]"
-  fi
-else
-  cat > "$HOOK_JSON" <<EOF
-{
-  "hooks": {
-    "SubagentStart": [
-      {
-        "matcher": ".*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "$HOOK_DIR/subagent_start_meter.sh",
-            "timeout": 30,
-            "statusMessage": "Recording subagent start (metering, fail-open)"
-          }
-        ]
-      }
-    ]
-  }
-}
-EOF
-  say "WROTE $HOOK_JSON (SubagentStart -> metering hook)"
-fi
+HOOK_DIR_WINDOWS_JSON="${HOOK_DIR_WINDOWS//\\/\\\\}"
+mkdir -p "$(dirname "$HOOK_JSON")"
+python3 - "$PKG_ROOT/hooks/hooks.json.example" "$HOOK_JSON" \
+  "$HOOK_DIR" "$HOOK_DIR_WINDOWS" <<'PYEOF'
+import json, os, shutil, sys, tempfile, time
+template_path, target_path, hook_dir, hook_dir_windows = sys.argv[1:]
+template = open(template_path, encoding="utf-8").read()
+template = template.replace("<HOOK_DIR>", hook_dir.replace("\\", "/"))
+template = template.replace("<HOOK_DIR_WINDOWS>", hook_dir_windows.replace("\\", "\\\\"))
+desired = json.loads(template)["hooks"]
+try:
+    current = json.load(open(target_path, encoding="utf-8"))
+except FileNotFoundError:
+    current = {"hooks": {}}
+hooks = current.setdefault("hooks", {})
+# Remove every historical LOOP-managed hook before adding the canonical set.
+# This deliberately includes the old Windows-only metering helpers: otherwise
+# a Windows-generated hooks.json copied into WSL keeps PowerShell/E:\ paths and
+# runs alongside the package-local lifecycle hook.
+managed = ("subagent_lifecycle.py", "leaf_agent_spawn_gate.py", "sol_tool_gate.py",
+           "sol_tool_gate_router.py", "subagent_start_meter",
+           "reconcile_subagent_metering")
+for event, entries in desired.items():
+    kept = []
+    for entry in hooks.get(event, []):
+        commands = " ".join(str(h.get("command", "")) + " " +
+                            str(h.get("commandWindows", ""))
+                            for h in entry.get("hooks", []))
+        if not any(name in commands for name in managed):
+            kept.append(entry)
+    hooks[event] = kept + entries
+rendered = json.dumps(current, ensure_ascii=False, indent=2) + "\n"
+if os.path.exists(target_path) and open(target_path, encoding="utf-8").read() == rendered:
+    print("SKIP  hooks.json already contains canonical LOOP hooks")
+    raise SystemExit(0)
+if os.path.exists(target_path):
+    backup = target_path + ".bak." + time.strftime("%Y%m%dT%H%M%SZ", time.gmtime()) + "." + str(time.time_ns())
+    shutil.copy2(target_path, backup)
+    print("BACKUP hooks.json -> %s" % backup)
+fd, tmp = tempfile.mkstemp(prefix="hooks.json.", dir=os.path.dirname(target_path))
+with os.fdopen(fd, "w", encoding="utf-8") as handle:
+    handle.write(rendered)
+os.replace(tmp, target_path)
+print("MERGED canonical router + lifecycle hooks -> %s" % target_path)
+PYEOF
 say "NOTE  Hooks require trust: run /hooks in the Codex TUI once, or pass"
 say "      --dangerously-bypass-hook-trust for non-interactive codex exec runs."
 

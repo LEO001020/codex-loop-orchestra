@@ -1,0 +1,186 @@
+用户要的是右缘细条水平向内慢滑并停顿展开的 AI 侧栏（`GestureNavDock` → `DockMainService` → `HnDockBarFloatWindow`），不是小圆点、负一屏「AI应用」、顶部分屏条、悬浮球或 YOYO/任意门。沙箱只读，未能写入 `outputs/audit_20260830/16_lookalikes.md`，完整报告如下。
+
+# 易混功能对照（16_lookalikes）
+
+只读。本回合 adb 因沙箱无法建 `\.android` 失败，未写设备。对照来自本仓 live dumpsys / 截图结论，以及 ni-j 冻结与设置页 dumpsys。
+
+## 1 行结论
+
+用户要的是**边缘停顿侧栏**：SystemUI 右缘胶囊 `GestureNavDock`（约 `[2090,269]-[2180,617]`，90×348）水平向内慢滑并停顿 → bind `com.hihonor.hndockbar/.DockMainService` → `HnDockBarFloatWindow`；设置页 `com.hihonor.hndockbar/com.hihonor.aidock.settings.activity.AISettingsActivity`（设置→荣耀 AI & YOYO→AI 侧边栏）。其余五个都不是这条链路。
+
+## 对照表
+
+| 功能 | 包名 | 窗名 / 服务 | 设置页 | 关键 settings | 用户要的？ |
+|---|---|---|---|---|---|
+| AI 侧边栏（边缘停顿） | `com.hihonor.hndockbar` + 热区在 `com.android.systemui` | 空闲：`GestureNavDock`；展开：`HnDockBarFloatWindow`；滑出容器：`GestureSildeOut` | `...AISettingsActivity` + `AISettingsShowProvider` | 门闩 `secure is_ota_finished=1`；空闲 `honor.globalWindow.dockBar=0`（展开右缘变 -1）；`dockbar_tooltip_enabled=1` | **是** |
+| FloatTasks 小圆点 | `com.hihonor.android.FloatTasks`（`/system/app/HnFloatTasks`） | 服务 `FloatTasksService`；本帧 **无** 小圆点窗 | `.settings.FloatTaskSettings` / `.FloatTaskSettingsAlias` | `secure float_task_state=0`；User0 `enabled=3` disable-user | 否（用户已否定） |
+| hiboard 负一屏「AI应用」 | `com.hihonor.hiboard` | `com.hihonor.hiboard.Workspace`；launcher overlay `LauncherOverlayService` | MAIN=`LauncherActivityAlias`；dumpsys **无** EXTRA_APP_SETTINGS | `hiboard.keepalive=1` 等，不是 dockBar | 否（左缘全幅工作台） |
+| HnMultiWindowBar 顶部分屏条 | `com.android.systemui`（设置页在 hndockbar） | `HnMultiWindowBar` 顶中 180×99；分屏时还有 `SplitBar` | `.settings.MultiWinSettingsForSettings` | `secure multi_win_gesture_status=1`；`hn_multiwindow_bar_breathe_*` | 否（顶栏，不是右缘胶囊） |
+| FloatBall 悬浮球 | `com.android.systemui` 内 `hwfloatdockbar` | 服务 `FloatBallService`；窗名 `FloatBall` **0 命中** | 未见独立 EXTRA_APP_SETTINGS；仅有引导键 | `floatball_delete_guide_show_status=1` | 否 |
+| YOYO / MagicPortal | YOYO：`com.hihonor.assistant`（+ hiboard）；任意门：`com.hihonor.hnmagicportal` | YOYO 设置 activity；Portal=`AnyDoorActivity` / TransGate | YOYO：`YoYoAssistantSettingActivity` / `YoYoAssistantStartActivity`；Portal：`.AnyDoorActivityAlias` | `copy_from_dockbar=1`、`expand_switch=1`、`transgate_long_press_switch=1` | 否（助手/任意门，不是边缘停顿栏） |
+
+## 证据：用户要的是边缘停顿侧栏
+
+用户纠正（冻结文件，不是本回合猜测）：
+
+```
+"user_correction": "FloatTasks is the floating dot, not AI swipe sidebar"
+"float_tasks_must_remain_disabled_user": true
+"ai_sidebar_package": "com.hihonor.hndockbar"
+"ai_sidebar_settings_activity": "com.hihonor.aidock.settings.activity.AISettingsActivity"
+```
+
+路径：[HONOR_DESIRED_STATE.stage3.20260823.json](C:/Users/hzq00/Documents/Codex/2026-08-23/ni-j/outputs/HONOR_DESIRED_STATE.stage3.20260823.json) `ai_sidebar_note`。
+
+08-24 恢复稿原文：「先前弄出来的是**小圆点**，不是设置里的「AI 侧边栏 / 边缘侧滑快捷栏」。」路径：[HONOR_AI_SIDEBAR_RESTORE_20260824.md](C:/Users/hzq00/Documents/Codex/2026-08-23/ni-j/outputs/HONOR_AI_SIDEBAR_RESTORE_20260824.md)。
+
+交接原文：设置页路径是「设置 → 荣耀 AI & YOYO → AI 侧边栏」。路径：[HANDOVER_20260829.md](C:/Users/hzq00/Documents/Codex/2026-08-23/ni-j/outputs/HANDOVER_20260829.md) §4.4。
+
+00:15 成功复现：「从**右缘中上那段细条水平向内慢滑并停顿**即可展开 `HnDockBarFloatWindow`（微信/设置/图库/信息/相机那一列）。」路径：[HONOR_AI_SIDEBAR_STATUS_20260830.md](C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/outputs/HONOR_AI_SIDEBAR_STATUS_20260830.md)。
+
+hndockbar 资源串：「AI 侧边栏」「使用 AI 侧边栏，需开启“在其他应用的上层显示”权限。」路径：[hndockbar_zh_hits.txt](C:/Users/hzq00/Documents/Codex/2026-08-23/ni-j/work/stage4_sidebar/hndockbar_zh_hits.txt)。
+
+## 原文摘录
+
+### 1. AI 侧边栏热区（右缘胶囊）
+
+[21_window_windows.full.txt](C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/reports/01_device_live_state/21_window_windows.full.txt) Window #2：
+
+```
+Window #2 Window{b11e067 u0 GestureNavDock}:
+  package=com.android.systemui ... uid=10084
+  mAttrs={(2090,269)(90x348) ... ty=NAVIGATION_BAR_PANEL
+    fl=NOT_FOCUSABLE NOT_TOUCH_MODAL LAYOUT_IN_SCREEN LAYOUT_NO_LIMITS
+  Frames: ... frame=[2090,269][2180,617]
+  isVisible=true  Surface shown=true HAS_DRAWN
+```
+
+Dispatcher 真框（同文件可见窗口列表）：
+
+```
+b11e067 GestureNavDock, frame=[Rect(2090, 269 - 2180, 617)],
+  touchableRegion=SkRegion((2090,269,2180,617)), alpha=1.0, contentSize=348x90
+```
+
+设置页（[17_dumpsys_pkg_hndockbar.out.txt](C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/reports/01_device_live_state/17_dumpsys_pkg_hndockbar.out.txt)）：
+
+```
+com.android.settings.action.EXTRA_APP_SETTINGS:
+  com.hihonor.hndockbar/.settings.MultiWinSettingsForSettings
+  com.hihonor.hndockbar/.settings.MultiWinTipsForSetting
+  com.hihonor.hndockbar/com.hihonor.aidock.settings.activity.AISettingsActivity
+```
+
+现键（[15_dumpsys_settings.full.txt](C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/reports/01_device_live_state/15_dumpsys_settings.full.txt)）：
+
+```
+is_ota_finished pkg:com.android.shell value:1
+honor.globalWindow.dockBar pkg:com.hihonor.hndockbar value:0
+dockbar_tooltip_enabled pkg:com.hihonor.hndockbar value:1
+settings_ai_recommend pkg:com.hihonor.hndockbar value:0
+```
+
+只读 get：[11_dockBar.out.txt](C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/reports/01_device_live_state/11_dockBar.out.txt) `0`；[10_is_ota_finished.out.txt](C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/reports/01_device_live_state/10_is_ota_finished.out.txt) `1`。
+
+展开链路（STATUS 08-29/08-30）：ADB 右缘慢滑立刻 bind `hndockbar/.DockMainService`，出现 `HnDockBarFloatWindow`。空闲无 DockMainService 正常。APK 符号 `HnDockBarFloatWindow` / `DockMainService` 见 [hndockbar_keys.txt](C:/Users/hzq00/Documents/Codex/2026-08-23/ni-j/work/stage4_sidebar/hndockbar_keys.txt)。
+
+### 2. FloatTasks 小圆点（误伤对象）
+
+[16_dumpsys_pkg_floattasks.out.txt](C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/reports/01_device_live_state/16_dumpsys_pkg_floattasks.out.txt)：
+
+```
+com.hihonor.android.FloatTasks.FLOAT_TASK_SETTINGS:
+  com.hihonor.android.FloatTasks/.settings.FloatTaskSettings
+com.android.settings.action.EXTRA_APP_SETTINGS:
+  com.hihonor.android.FloatTasks/.FloatTaskSettingsAlias
+Service: com.hihonor.android.FloatTasks/.FloatTasksService
+User 0: ... enabled=3 ... lastDisabledCaller: shell:1000
+```
+
+`pm -d` 含 `package:com.hihonor.android.FloatTasks`（[25_pm_disabled.out.txt](C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/reports/01_device_live_state/25_pm_disabled.out.txt)）。`secure float_task_state=0`。当前 windows dump **没有** FloatTasks 窗。禁回后 `GestureNavDock` 仍在，证伪「必须 enable FloatTasks 才能出侧栏」（[HONOR_AI_SIDEBAR_FIX_20260829.md](C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/outputs/HONOR_AI_SIDEBAR_FIX_20260829.md)）。
+
+### 3. hiboard 负一屏「AI应用」
+
+[21_window_windows.full.txt](C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/reports/01_device_live_state/21_window_windows.full.txt) Window #21：
+
+```
+Window{58f205 u0 com.hihonor.hiboard.Workspace}
+  package=com.hihonor.hiboard uid=10034
+  mAttrs={(-2344,2344)(fillxfill) ... ty=APPLICATION
+    fl=NOT_FOCUSABLE NOT_TOUCHABLE NOT_TOUCH_MODAL LAYOUT_NO_LIMITS
+  mToken=ActivityRecord{... UniHomeLauncher t13248}
+  frame=[-2344,2344][-188,4688]
+```
+
+overlay 绑定（[20_activity_services.full.txt](C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/reports/01_device_live_state/20_activity_services.full.txt)）：
+
+```
+ServiceRecord{... com.hihonor.hiboard/...LauncherOverlayService
+  recentCallingPackage=com.hihonor.android.launcher
+```
+
+截图结论：左缘竖排「AI应用」= 负一屏，不是 90px 胶囊（[左缘不是侧栏/conclusion.md](C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/reports/左缘不是侧栏/conclusion.md)）。hiboard dumpsys 有 MAIN=`LauncherActivityAlias`，**没有** EXTRA_APP_SETTINGS。
+
+### 4. HnMultiWindowBar 顶部分屏条
+
+同 windows dump Window #11（GKD 快照当时 visible；01 快照 `mViewVisibility=0x4` / `isVisible=false`，几何不变）：
+
+```
+Window{e130d3 u0 HnMultiWindowBar}
+  package=com.android.systemui
+  mAttrs={(0,0)(180x99) gr=TOP CENTER_VERTICAL ... ty=STATUS_BAR_ADDITIONAL
+  Frames: frame=[988,0][1168,99]
+```
+
+分屏时 Dispatcher 另有 `Embedded{SplitBar}` / `StageCoordinatorSplitDivider`，仍是顶/中缝，不是右缘 90×348。hndockbar 文案：「智慧多窗应用栏」「请从屏幕左侧或右侧滑出智慧多窗应用栏，拖出应用图标以开启分屏。」这是多窗拖出，不是 AI 快捷栏那一列。键：`multi_win_gesture_status=1`，`hn_multiwindow_bar_breathe_count=3`。
+
+### 5. FloatBall 悬浮球
+
+[20_activity_services.full.txt](C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/reports/01_device_live_state/20_activity_services.full.txt)：
+
+```
+ServiceRecord{... com.android.systemui/com.hihonor.hwfloatdockbar.floatball.main.FloatBallService
+  intent={act=android.service.floatball.FloatBallService cmp=...FloatBallService}
+  startRequested=true ... hasBound=true
+```
+
+[window_semantics.md](C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/reports/systemui_hotzone_windows/window_semantics.md)：「FloatBall — 三份均 0 命中」。不要把 GestureNavDock 当成悬浮球。仅见 `floatball_delete_guide_show_status=1`。
+
+### 6. YOYO / MagicPortal
+
+YOYO 助手 [dumpsys_com.hihonor.assistant.txt](C:/Users/hzq00/Documents/Codex/2026-08-23/ni-j/work/stage3_exec/T06_yoyo_pc_guard/adb_evidence/dumpsys_com.hihonor.assistant.txt)：
+
+```
+yoyosuggestion → .setting.activities.YoYoAssistantSettingActivity
+com.android.settings.action.ENHANCED_EXTRA_SETTINGS → .setting.activities.YoYoAssistantStartActivity
+com.hihonor.assistant.action.YoYoSetUpActivity → .setting.activities.YoYoSetUpActivity
+```
+
+任意门 [dumpsys_com.hihonor.hnmagicportal.txt](C:/Users/hzq00/Documents/Codex/2026-08-23/ni-j/work/stage3_exec/T06_yoyo_pc_guard/adb_evidence/dumpsys_com.hihonor.hnmagicportal.txt)：
+
+```
+EXTRA_APP_SETTINGS: com.hihonor.hnmagicportal/.AnyDoorActivityAlias
+SMART_FLOW: ...AnyDoorActivity / TransGateUpGradeActivity / TransGateUpGradeLongPressActivity
+```
+
+键：`copy_from_dockbar pkg:com.hihonor.hnmagicportal value:1`（从侧栏复制到任意门，不是侧栏开关）；`expand_switch=1`；`transgate_long_press_switch=1`。T06 保护集：`com.hihonor.hiboard` YOYO、`com.hihonor.hnmagicportal` YOYO、`com.hihonor.hndockbar` PC，均 default enabled，不是 disable 对象。hndockbar 另有 `AISettingsYOYOShowProvider`，只是设置搜索索引，不是负一屏。
+
+## 易混否证（最短）
+
+- 左缘「AI应用」= hiboard Workspace，全幅负一屏，带 `NOT_TOUCHABLE`。
+- 右缘淡细条 = GestureNavDock，才是边缘停顿热区。
+- 点胶囊无 DockMainService；要水平向内慢滑并停顿。
+- 顶中 180×99 = HnMultiWindowBar / 智慧多窗，不是 AI 栏。
+- enable FloatTasks 只会走小圆点设置页；用户已否，必须保持 disable-user + `float_task_state=0`。
+- FloatBall 是 SystemUI 内部服务，当前无同名窗。
+- YOYO/任意门是助手与拖放流转；`copy_from_dockbar` 只说明 Portal 能从侧栏取内容。
+- `settings_ai_recommend` / `ai_navigationbar=0` 都不是这条栏。
+
+## 未决未知
+
+- 本回合未能连 AVNS023705001888（adb `Cannot mkdir '\.android'`）；现场窗几何以已落盘 dumpsys 为准，未再 dumpsys。
+- 空闲 dump 无 `HnDockBarFloatWindow`（符合「showDock 才 bind」）；展开窗几何以 08-29/08-30 成功会话为准，本包未复滑。
+- FloatBall 服务在跑，但无 WindowState；是否有可见球、设置中文路径，本包无截图。
+- hiboard 负一屏的系统设置项组件未在 EXTRA_APP_SETTINGS 中出现。
+- 资源串写「左滑或右滑」；本机 live 热区窗只见右缘 GestureNavDock。左缘能否同样展开 AI 栏，本包未用当前 dumpsys 证实。
+- 因沙箱只读，未能写出 [outputs/audit_20260830/16_lookalikes.md](C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/outputs/audit_20260830/16_lookalikes.md)。

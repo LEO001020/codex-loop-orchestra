@@ -1,0 +1,72 @@
+{
+  "detail": {
+    "event": "subagent_stop"
+  },
+  "packet_id": "parent-a4abfe36a67065292657b318a522c55577aae37a7de425da",
+  "prior_history": [
+    {
+      "to": "DEAD_LETTER",
+      "ts": 1786567433.0959117,
+      "via": "off_table_event"
+    },
+    {
+      "current_run_id": "parent-a4abfe36a67065292657b318a522c55577aae37a7de425da-a0-afbdb43fa86a4f34aee11e1f7406b5ea",
+      "event": "exec_failed",
+      "event_run_id": "parent-a4abfe36a67065292657b318a522c55577aae37a7de425da-a0-b582c7bfaa9a4100b7e2f173b576533a",
+      "to": "DEAD_LETTER",
+      "ts": 1786567433.1006522,
+      "via": "stale_run_id_ignored"
+    },
+    {
+      "to": "DEAD_LETTER",
+      "ts": 1786567433.1665516,
+      "via": "off_table_event"
+    },
+    {
+      "current_run_id": "parent-a4abfe36a67065292657b318a522c55577aae37a7de425da-a0-afbdb43fa86a4f34aee11e1f7406b5ea",
+      "event": "exec_failed",
+      "event_run_id": "parent-a4abfe36a67065292657b318a522c55577aae37a7de425da-a0-58db5485f46c4805bedc4ffe3fdb86e7",
+      "to": "DEAD_LETTER",
+      "ts": 1786567433.171398,
+      "via": "stale_run_id_ignored"
+    },
+    {
+      "to": "DEAD_LETTER",
+      "ts": 1786567433.2346895,
+      "via": "off_table_event"
+    },
+    {
+      "to": "DEAD_LETTER",
+      "ts": 1786567433.2400115,
+      "via": "off_table_event"
+    },
+    {
+      "current_run_id": "parent-a4abfe36a67065292657b318a522c55577aae37a7de425da-a0-afbdb43fa86a4f34aee11e1f7406b5ea",
+      "event": "subagent_stop",
+      "event_run_id": "parent-a4abfe36a67065292657b318a522c55577aae37a7de425da-a0-996b89316f104db7b86858df7ef0945a",
+      "to": "DEAD_LETTER",
+      "ts": 1786567433.3709657,
+      "via": "stale_run_id_ignored"
+    },
+    {
+      "to": "DEAD_LETTER",
+      "ts": 1786567433.376524,
+      "via": "off_table_event"
+    },
+    {
+      "event_cursor": 374443,
+      "job_state": "running",
+      "run_id": "parent-a4abfe36a67065292657b318a522c55577aae37a7de425da-a0-afbdb43fa86a4f34aee11e1f7406b5ea",
+      "to": "RUNNING",
+      "ts": 1786567705.891901,
+      "via": "recover_historical_replay_incident"
+    },
+    {
+      "to": "DEAD_LETTER",
+      "ts": 1786567828.2582982,
+      "via": "report_missing_on_stop"
+    }
+  ],
+  "reason": "report_missing_on_stop",
+  "ts": 1786567828.2583718
+}

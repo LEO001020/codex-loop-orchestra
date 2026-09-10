@@ -1,0 +1,5 @@
+2026-09-03T14:31:27.230648Z  WARN sqlx::query: slow statement: execution time exceeded alert threshold summary="DELETE FROM logs WHERE …" db.statement="\n\nDELETE FROM logs WHERE ts < ?\n" rows_affected=16854 rows_returned=0 elapsed=3.3301014s elapsed_secs=3.3301014 slow_threshold=1s
+Reading additional input from stdin...
+2026-09-03T14:31:27.266002Z ERROR codex_skills_extension::host_service: failed to install system skills: io error while remove existing system skills dir: 拒绝访问。 (os error 5)
+2026-09-03T14:31:27.455875Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-09-03T14:32:43.302869Z  WARN codex_mcp::rmcp_client: failed to initialize MCP client during shutdown: MCP startup failed: handshaking with MCP server failed: connection closed: initialize response

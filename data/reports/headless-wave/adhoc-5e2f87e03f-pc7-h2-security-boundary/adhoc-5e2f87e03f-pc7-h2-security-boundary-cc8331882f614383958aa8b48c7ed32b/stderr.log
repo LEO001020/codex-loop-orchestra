@@ -1,0 +1,21 @@
+Reading additional input from stdin...
+2026-08-12T20:05:38.054470Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-12T20:05:39.117241Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:05:40.818297Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-12T20:21:21.150839Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 180ms)... turn_id=019ff794-96fb-7d83-9dbd-5bed8726a7eb retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+2026-08-12T20:33:08.136304Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 419ms)... turn_id=019ff794-96fb-7d83-9dbd-5bed8726a7eb retries=2 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()

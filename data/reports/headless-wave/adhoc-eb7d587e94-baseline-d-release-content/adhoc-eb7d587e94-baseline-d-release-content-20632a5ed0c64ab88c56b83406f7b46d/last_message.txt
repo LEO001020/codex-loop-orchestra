@@ -1,0 +1,59 @@
+已掌握足够信息做出完整比较结论。
+
+---
+
+## D成功归档对照报告
+
+**归档版本**：`archives/final-f2-success-20260810T082053Z/codex-loop-s-f2.tar.gz`（基准D）  
+**当前主树**：`E:\codex-LOOP\codex-loop-s-f2\`
+
+---
+
+### P0/P1 核心机制保留情况
+
+#### ✅ 完全保留（逻辑未变）
+
+**状态机 `statemachine.py`**：23条状态转换表与D版逐行一致（NONE→PLANNED→DISPATCHABLE→RUNNING→…），DEAD_LETTER fail-visible、replan cap（H-04）、watchdog（H-02）均原样保留。
+
+**dispatch P0-1修复**：`agent_overrides(role)` 函数逻辑不变——从role TOML读取model/effort，强制传 `-m`/`-c` 给 `codex exec`，防止子包继承Sol模型的根因修复依然存在。
+
+**lifecycle_supervisor 核心合同**：子进程绑定、roster写入、`exec_failed`/`subagent_stop` 事件发射、超时与cancel两路终止流程均保留。`locked()` 的语义不变（跨进程单字节锁）。
+
+**refill_controller 核心逻辑**：work_queue → refill_state → `refill_required` 信号链完整保留；RUNNING-only有效并发计数规则不变；双池（v4/k3）结构已在D中存在并保留。
+
+---
+
+#### 🔄 有实质扩展（机制保留，能力增强）
+
+**lifecycle_supervisor 锁强化**：D版 `locked()` 在Windows下用 `LK_LOCK`（阻塞等待），当前版升级为带 `LOCK_ACQUIRE_TIMEOUT_S=10s` 的指数退避非阻塞轮询，lock超时后抛 `LifecycleError`；新增 `ATOMIC_REPLACE_TIMEOUT_S` 和 `ATOMIC_REPLACE_INITIAL/MAX_BACKOFF_S` 常量。这是对D修复的加固，不是回退。
+
+**refill_controller schema升级**：D版 `STATE_SCHEMA="codex-loop-refill/v1"`，当前为 `v2`；新增 `DEFAULT_MAX_INITIALIZING=4`，新增 `initializing` 计数桶（PreToolUse birth到SubagentStart之间的reservation），防止birth突发超过上限。`policy_value` 接口替代了部分硬编码读取。
+
+**lifecycle_supervisor 终止扩展**：终止块新增 `schedule_epilogue` / `refill_consumer_v2.schedule_run` 调用（canonical包走epilogue，adhoc波走v2 refill），以及 `budget_controller.BudgetController.reclaim(run_id)`。D中这些均不存在——是双轨实现覆盖后追加的下游信号。
+
+**dispatch 新增spawn throttle**：当前版新增 `BirthThrottleError`、`THROTTLE_STATE`、`THROTTLE_LOCK` 常量；从 `loop_config` 导入 `policy_int`（D版无此import）。配合 `max_initializing` 防止birth风暴，属P1并发保护增强。
+
+---
+
+#### 🔄 模型替换（双轨实现覆盖）
+
+| 角色 | D版（归档） | 当前版 |
+|------|-------------|--------|
+| `worker.toml` model | `weiwu/deepseek-v4-flash` | `weiwu/aws.claude-sonnet-4.6` |
+| `reviewer.toml` model | `weiwu-k3/kimi-k3` + `max` effort | `weiwu/aws.claude-sonnet-4.6` + `ultra` effort |
+| `.codex/config.toml` default_subagent_model | `weiwu/deepseek-v4-flash` | `weiwu/aws.claude-sonnet-4.6` |
+
+**关键变化**：reviewer从跨系族K3(max)降为与worker同模型（aws.claude-sonnet-4.6 ultra），AGENTS.md要求"cross-source verification使用verifier/reviewer+kimi-k3/max"的路由规则与当前reviewer.toml存在偏差。`worker.toml` 新增 `model_context_window=1000000` 和 `model_auto_compact_token_limit=800000`。
+
+---
+
+#### ➕ 新增（D中不存在）
+
+- `harness/headless_wave.py`、`budget_controller.py`、`dual_plane_hash.py`、`routing_mode.py`、`model_profile.py`、`provider_health.py`、`lifecycle_supervisor_v2.py`、`refill_controller_v2.py`、`dispatch_v2.py`、`statemachine_v2.py` 等——整套v2双轨harness在D成功后新增。
+- `harness/refill_consumer_v2.py`、`terminal_packet_epilogue.py`、`orchestration_epilogue.py` 等epilogue/consumer链路。
+
+---
+
+### 总结
+
+D中P0/P1核心机制（模型路由修复、状态机23转换、lifecycle roster合同、refill low-water机制）**全部保留且无回退**。当前树在保留基础上做了三层扩展：锁加固防deadlock、initializing桶防birth突发、spawn throttle防birth风暴，均属稳健加固。唯一值得关注的偏差是reviewer模型从K3跨系族降为与worker同模型，与AGENTS.md路由规范存在名义冲突，但harness层代码逻辑本身未受破坏。

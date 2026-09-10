@@ -3,34 +3,58 @@
 # smoke_gate.sh — Deployment smoke gate: three assertions + version check
 # ----------------------------------------------------------------------------
 # Purpose : Mandatory post-install / post-upgrade gate (§7.4). Asserts:
-#           ① role spawnable  — each of worker/reviewer/verifier/duty_officer
-#              spawns and returns (via `codex exec` with the agent TOML);
-#           ② route grep visible — the SubagentStart metering hook's
-#              single-line JSON contains a "model" field that matches the
-#              model pinned in each role TOML (25x price differential makes
-#              this a non-forgeable routing-health signal);
+#           ① role starts on its PINNED model — for each of worker/reviewer/
+#              verifier/duty_officer the gate reads model + reasoning effort
+#              from the role TOML and runs `codex exec` with the SAME
+#              override combination dispatch.py injects
+#              (-m <model> -c model_reasoning_effort=<effort> --json).
+#              A bare `codex exec` (the P0-2 defect) would run the root Sol
+#              model four times and prove nothing.
+#           ② route verified from Codex's OWN persistence — the --json event
+#              stream (turn_context / turn.completed) or, as fallback, the
+#              newest rollout JSONL under $CODEX_HOME/sessions must record
+#              the pinned model as the model that ACTUALLY ran. This signal
+#              comes from the Codex persistence layer, not from any hook we
+#              wrote ourselves (SubagentStart never fires for exec top-level
+#              processes, so the old hook-log grep was structurally fake).
 #           ③ write isolation — an Executor attempt to write OUTSIDE its
-#              packet worktree is rejected (file must not appear).
+#              packet worktree is rejected. OUTSIDE lives under $HOME, NOT
+#              /tmp: the workspace-write sandbox whitelists /tmp and $TMPDIR
+#              as writable roots, so a /tmp OUTSIDE dir gives a fake verdict.
 #           Plus: `codex --version` compared against VERSIONS.lock; mismatch
 #           prints "must re-run smoke gate" warning (near-daily releases).
 # Input   : env CODEX_BIN (default: codex; tests point it at
-#              tests/mock_codex/codex), env CODEX_HOME (default ~/.codex),
+#              tests/mock_codex/bin/codex), env CODEX_HOME (default ~/.codex),
+#           env SMOKE_OUTSIDE_BASE (default $HOME; hermetic override for
+#              tests — must never resolve into /tmp in production),
 #           $1 = package root (default: script's parent dir)
 # Output  : per-assertion PASS/FAIL lines; exit 0 = all pass, 1 = any fail
-# Lines   : 108
+# Lines   : ~140
 # ============================================================================
 set -euo pipefail
 
 PKG_ROOT="${1:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
 CODEX_BIN="${CODEX_BIN:-codex}"
 CODEX_HOME="${CODEX_HOME:-$HOME/.codex}"
-METER_LOG="${METER_LOG:-$PKG_ROOT/data/events.ndjson}"  # same path the SubagentStart meter hook writes
 ROLES=(worker reviewer verifier duty_officer)
 FAILURES=0
+ROLE_TIMEOUT_SECONDS="${SMOKE_ROLE_TIMEOUT_SECONDS:-90}"
 
 say()  { printf '%s\n' "$*"; }
 pass() { say "PASS  $*"; }
 fail() { say "FAIL  $*"; FAILURES=$((FAILURES + 1)); }
+
+# Extract a quoted TOML scalar (model / model_reasoning_effort) — same single
+# source of truth dispatch.py reads; the gate never hand-copies model names.
+toml_field() { # $1 = toml path, $2 = key
+  grep -E "^\s*$2\s*=" "$1" 2>/dev/null | head -1 | sed -E 's/.*"([^"]+)".*/\1/' || true
+}
+
+role_toml() { # $1 = role -> echoes resolved TOML path or nothing
+  local t="$CODEX_HOME/agents/$1.toml"
+  [[ -f "$t" ]] || t="$PKG_ROOT/agents/$1.toml"
+  [[ -f "$t" ]] && printf '%s' "$t"
+}
 
 # --- Version comparison vs VERSIONS.lock ------------------------------------
 if command -v "$CODEX_BIN" >/dev/null 2>&1; then
@@ -45,58 +69,129 @@ else
   say "WARN  version drift: codex --version=$CUR_VER vs VERSIONS.lock=$LOCK_VER — must re-run smoke gate after every Codex upgrade"
 fi
 
-# --- Assertion ① role spawnable ---------------------------------------------
+# Scratch area for per-role event streams; OUTSIDE dir for assertion ③ lives
+# under $HOME (workspace-write whitelists /tmp — see header), both cleaned up.
+SMOKE_TMP="$(mktemp -d)"
+OUTSIDE_BASE="${SMOKE_OUTSIDE_BASE:-$HOME}"
+OUTSIDE="$OUTSIDE_BASE/.loop_smoke_outside_$$"
+trap 'rm -rf "$SMOKE_TMP" "$OUTSIDE"' EXIT
+
+# --- Assertions ① + ② : role starts on pinned model, verified from Codex ----
 for ROLE in "${ROLES[@]}"; do
-  TOML="$CODEX_HOME/agents/$ROLE.toml"
-  [[ -f "$TOML" ]] || TOML="$PKG_ROOT/agents/$ROLE.toml"
-  if [[ ! -f "$TOML" ]]; then
+  TOML="$(role_toml "$ROLE")"
+  if [[ -z "$TOML" ]]; then
     fail "spawnable[$ROLE]: agent TOML not found"
+    fail "route[$ROLE]: agent TOML not found"
     continue
   fi
+  PINNED="$(toml_field "$TOML" model)"
+  EFFORT="$(toml_field "$TOML" model_reasoning_effort)"
+  SANDBOX="$(toml_field "$TOML" sandbox_mode)"
+  if [[ -z "$PINNED" || -z "$EFFORT" || -z "$SANDBOX" ]]; then
+    fail "spawnable[$ROLE]: TOML lacks model/model_reasoning_effort pin ($TOML)"
+    fail "route[$ROLE]: cannot verify an unpinned role"
+    continue
+  fi
+  EV="$SMOKE_TMP/$ROLE.events.jsonl"
+  ROLE_T0="$SMOKE_TMP/$ROLE.started"
+  : >"$ROLE_T0"
   set +e
-  OUT="$("$CODEX_BIN" exec --skip-git-repo-check \
-        -o /dev/null "smoke: reply exactly OK ($ROLE)" 2>&1)"
+  # Same route-assertion surface as dispatch.py (model/effort pin; dispatch
+# additionally injects context-window/compact/ipybox overrides that do
+# not affect model routing). Never a bare `codex exec`.
+  timeout --signal=TERM --kill-after=5s "${ROLE_TIMEOUT_SECONDS}s" \
+      "$CODEX_BIN" exec --skip-git-repo-check \
+      --sandbox "$SANDBOX" -m "$PINNED" \
+      -c model_reasoning_effort="$EFFORT" --json \
+      -o /dev/null "smoke: reply exactly OK ($ROLE)" \
+      </dev/null >"$EV" 2>"$SMOKE_TMP/$ROLE.stderr"
   RC=$?
   set -e
   if [[ $RC -eq 0 ]]; then
-    pass "spawnable[$ROLE]: spawn returned rc=0"
+    pass "spawnable[$ROLE]: exec with -m $PINNED -c model_reasoning_effort=$EFFORT returned rc=0"
   else
-    fail "spawnable[$ROLE]: rc=$RC ${OUT:0:120}"
-  fi
-done
-
-# --- Assertion ② route grep visible (meter model field == TOML pin) ---------
-for ROLE in "${ROLES[@]}"; do
-  TOML="$CODEX_HOME/agents/$ROLE.toml"
-  [[ -f "$TOML" ]] || TOML="$PKG_ROOT/agents/$ROLE.toml"
-  PINNED="$(grep -E '^\s*model\s*=' "$TOML" 2>/dev/null | head -1 | sed -E 's/.*"([^"]+)".*/\1/' || true)"
-  if [[ -z "$PINNED" ]]; then
-    fail "route[$ROLE]: no model pin in TOML"
+    if [[ $RC -eq 124 || $RC -eq 137 ]]; then
+      fail "spawnable[$ROLE]: provider timeout after ${ROLE_TIMEOUT_SECONDS}s (rc=$RC)"
+    else
+      fail "spawnable[$ROLE]: rc=$RC $(head -c 120 "$SMOKE_TMP/$ROLE.stderr" 2>/dev/null || true)"
+    fi
+    fail "route[$ROLE]: spawn failed, no event stream to verify"
     continue
   fi
-  if [[ -f "$METER_LOG" ]] && \
-     grep -q "\"agent_role\"[[:space:]]*:[[:space:]]*\"$ROLE\"" "$METER_LOG" && \
-     grep "\"agent_role\"[[:space:]]*:[[:space:]]*\"$ROLE\"" "$METER_LOG" | tail -1 | grep -q "\"model\"[[:space:]]*:[[:space:]]*\"$PINNED\""; then
-    pass "route[$ROLE]: meter shows model=$PINNED (matches TOML pin)"
+  # ② non-forgeable check: the model that ACTUALLY ran, from Codex's own
+  # --json event stream; fallback = the rollout JSONL bound to THIS probe's
+  # thread id (codex >= 0.147 --json emits thread_id but no model/effort
+  # fields, so the event stream alone can never carry the routing evidence).
+  if grep -q "\"model\"[[:space:]]*:[[:space:]]*\"$PINNED\"" "$EV" 2>/dev/null && \
+     grep -qE "\"(effort|reasoning_effort)\"[[:space:]]*:[[:space:]]*\"$EFFORT\"" "$EV" 2>/dev/null; then
+    pass "route[$ROLE]: --json confirms model=$PINNED effort=$EFFORT actually ran"
   else
-    fail "route[$ROLE]: no meter line with model=$PINNED for role=$ROLE in $METER_LOG"
+    # Never accept a globally newest rollout from before this role probe.
+    # The fallback is bounded by a per-role T0 marker AND, whenever the
+    # current event stream carries a thread_id, by the rollout file named
+    # for that exact thread — a concurrent session can never match it.
+    THREAD_ID="$(grep -oE '"thread_id"[[:space:]]*:[[:space:]]*"[^"]+"' "$EV" 2>/dev/null | head -1 | sed -E 's/.*"([^"]+)"$/\1/' || true)"
+    ROLLOUT_NAME='rollout-*.jsonl'
+    [[ -n "$THREAD_ID" ]] && ROLLOUT_NAME="*$THREAD_ID.jsonl"
+    ROLLOUT="$(find "$CODEX_HOME/sessions" -name "$ROLLOUT_NAME" -newer "$ROLE_T0" -printf '%T@ %p\n' 2>/dev/null | sort -rn | head -1 | cut -d' ' -f2- || true)"
+    if [[ -n "$ROLLOUT" ]] && python3 - "$ROLLOUT" "$PINNED" "$EFFORT" "$EV" "$THREAD_ID" <<'PY'
+import json, os, sys
+rollout, model, effort, events, thread_id = sys.argv[1:6]
+def records(path):
+    with open(path, encoding="utf-8", errors="replace") as handle:
+        for line in handle:
+            try:
+                row = json.loads(line)
+            except (ValueError, TypeError):
+                continue
+            yield row
+event_model = any((row.get("model") == model or
+                   (row.get("payload") or {}).get("model") == model)
+                  for row in records(events))
+thread_bound = (thread_id in os.path.basename(rollout)) if thread_id else False
+turn_ok = False
+for row in records(rollout):
+    payload = row.get("payload") or {}
+    if (row.get("type") == "turn_context" or payload.get("type") == "turn_context"):
+        observed_model = payload.get("model") or row.get("model")
+        observed_effort = (payload.get("effort") or payload.get("reasoning_effort") or
+                           row.get("effort") or row.get("reasoning_effort"))
+        if observed_model == model and observed_effort == effort:
+            turn_ok = True
+            break
+raise SystemExit(0 if (thread_bound or event_model) and turn_ok else 1)
+PY
+    then
+      pass "route[$ROLE]: T0-bounded rollout + current event confirms model=$PINNED effort=$EFFORT"
+    else
+      fail "route[$ROLE]: no T0-bounded evidence that model=$PINNED effort=$EFFORT ran"
+    fi
   fi
 done
 
 # --- Assertion ③ write isolation (Executor cannot write outside worktree) ---
-ISO_TMP="$(mktemp -d)"
-trap 'rm -rf "$ISO_TMP"' EXIT
-WORKTREE="$ISO_TMP/worktree"; OUTSIDE="$ISO_TMP/outside"
+WORKTREE="$SMOKE_TMP/worktree"
 mkdir -p "$WORKTREE" "$OUTSIDE"
+WTOML="$(role_toml worker)"
+WMODEL="$(toml_field "${WTOML:-/dev/null}" model)"
+WEFFORT="$(toml_field "${WTOML:-/dev/null}" model_reasoning_effort)"
 set +e
-( cd "$WORKTREE" && "$CODEX_BIN" exec --skip-git-repo-check \
-    --sandbox workspace-write -o /dev/null \
-    "smoke: create the file $OUTSIDE/escape.txt with content BREACH" ) >/dev/null 2>&1
+( cd "$WORKTREE" && timeout --signal=TERM --kill-after=5s \
+    "${ROLE_TIMEOUT_SECONDS}s" "$CODEX_BIN" exec --skip-git-repo-check \
+    --sandbox workspace-write \
+    -m "${WMODEL:-unpinned}" -c model_reasoning_effort="${WEFFORT:-low}" \
+    -o /dev/null \
+    "smoke: create the file $OUTSIDE/escape.txt with content BREACH" ) </dev/null >/dev/null 2>&1
+ISOLATION_RC=$?
 set -e
+# A probe that never ran (codex failed to start: rc != 0 AND no escape file)
+# must not pass vacuously — the isolation claim needs an actually-run worker.
 if [[ -e "$OUTSIDE/escape.txt" ]]; then
   fail "write-isolation: Executor wrote outside worktree ($OUTSIDE/escape.txt exists)"
+elif [[ $ISOLATION_RC -ne 0 ]]; then
+  fail "write-isolation: probe did not run cleanly (rc=$ISOLATION_RC) — isolation unproven"
 else
-  pass "write-isolation: write outside worktree rejected"
+  pass "write-isolation: write outside worktree rejected (OUTSIDE under \$HOME, not /tmp)"
 fi
 
 # --- Verdict -----------------------------------------------------------------

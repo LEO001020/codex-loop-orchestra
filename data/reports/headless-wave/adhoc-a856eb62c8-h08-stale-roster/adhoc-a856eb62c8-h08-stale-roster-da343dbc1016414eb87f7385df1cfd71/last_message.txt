@@ -1,0 +1,84 @@
+现在我有了完整的证据。可以给出精确的报告。
+
+---
+
+## 审查结论：存在一个具体反例（仅限 v1）
+
+### 分析范围
+
+检查了三个组件：
+- `harness/lifecycle_supervisor.py`（v1，进程边界管理）
+- `harness/lifecycle_supervisor_v2.py`（结果验证/接收）
+- `harness/refill_controller.py`（v1 refill 状态机）
+- `harness/refill_controller_v2.py`（P0-6 修复版）
+
+---
+
+### v1 `refill_controller.py`：**存在具体反例**
+
+**问题位置：** `read_roster_state()` 方法，第 250–259 行：
+
+```python
+exec_roster = read_json(self.exec_roster_path, {"jobs": {}})
+for item in (exec_roster.get("jobs") or {}).values():
+    state = str(item.get("state") or "")
+    key = "initializing" if state == "starting" else ("running" if state == "running" else None)
+    if key is None:
+        continue
+    # ← 没有任何 supervisor/worker 进程存活性检查
+    pool = classify_pool(item.get("model"))
+    counts[pool][key] += 1
+```
+
+**具体反例场景：**
+
+1. supervisor 进程以 PID=1234 启动，将 `state=running` 写入 exec_roster；
+2. supervisor 进程意外崩溃（kill -9、OOM、电源故障）；
+3. 因为崩溃是 `BaseException` 路径，理想情况下 lifecycle_supervisor 的 `except BaseException` 块会尝试写 `state=failed`——**但如果崩溃发生在 roster 写入之前（例如 JSON 写到一半或 OOM 在 try 块之外）**，roster 行停留在 `state=running`；
+4. v1 refill_controller 下次 `recompute()` 读 exec_roster 时，这个已死的行被无条件计入 `running` 计数，抑制真正的 refill 需求。
+
+同样的问题也存在于 native_roster 的 `status=running` 行——v1 对 native 条目没有任何 TTL 或进程存活检查。
+
+---
+
+### v2 `refill_controller_v2.py`：**两层防御，反例不成立**
+
+**exec_roster 的防御（第 317–324 行）：**
+```python
+supervisor_alive = _process_generation_alive(
+    item.get("supervisor_pid"), item.get("supervisor_proc_start_ticks"))
+worker_alive = _process_generation_alive(
+    item.get("os_pid"), item.get("worker_proc_start_ticks"))
+if not supervisor_alive or (key == "running" and not worker_alive):
+    continue   # ← 跳过，不计入 running
+```
+这是**进程代次令牌（创建时间戳）校验**：比对 `GetProcessTimes`（Windows）或 `/proc/<pid>/stat` 第22字段（Linux）。即使 PID 被复用，不同进程的创建时间也不同，因此 PID 复用导致的误判也被排除。
+
+**native_roster 的防御（第 295–299 行）：**
+```python
+if observed_at <= 0 or now - observed_at > NATIVE_RUNNING_TTL_SECONDS:
+    continue   # TTL = 1800 秒
+```
+Desktop native agent 没有直接可访问的 OS 进程句柄，所以用心跳时间戳 TTL（30分钟）做兜底。supervisor 每 1 秒写一次 `heartbeat_at`，因此正常运行的任务不会被误过滤；只有孤立的陈旧行会超过 TTL。
+
+---
+
+### v2 `lifecycle_supervisor.py`：**防止 roster 停在 running 的机制**
+
+supervisor 的 `except BaseException` 块在崩溃路径上将状态写为 `spawn_failed`（pre_spawn）或 `failed`（post_spawn），并配合注释说明：
+> "the cold-start reconciler uses the supervisor PID/create-time token to turn any stale running row into a visible `supervisor_lost` failure on restart"
+
+所以即使写入失败，下次 refill_controller_v2 的 `_process_generation_alive` 也会在读时过滤这行，**不依赖 supervisor 的崩溃写入能否成功**。
+
+---
+
+### 汇总
+
+| 组件 | PID复用防御 | 进程存活检查 | TTL/心跳检查 | 会把已死任务算running |
+|---|---|---|---|---|
+| v1 `refill_controller` exec_roster | ✗ | **✗ 无** | ✗ | **是，存在反例** |
+| v1 `refill_controller` native_roster | ✗ | ✗ | ✗ | **是** |
+| v2 `refill_controller_v2` exec_roster | ✓（创建时间戳） | ✓ | — | 否 |
+| v2 `refill_controller_v2` native_roster | — | — | ✓ 1800s TTL | 否（最多 1800s 窗口） |
+
+**结论：`refill_controller.py`（v1）对 exec_roster 和 native_roster 中的 `state=running` / `status=running` 条目均无任何存活性过滤，进程死亡后 roster 行残留即可触发反例——已死的进程被持续计入有效并发，抑制真实 refill 需求。v2 通过进程代次令牌检查（exec）和 TTL（native）修复了这个问题。**

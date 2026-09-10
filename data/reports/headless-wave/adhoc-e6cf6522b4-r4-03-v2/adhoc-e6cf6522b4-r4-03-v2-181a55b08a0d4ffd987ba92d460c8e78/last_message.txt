@@ -1,0 +1,39 @@
+I have all the information needed for a thorough review. Here is the complete assessment:
+
+---
+
+**V2 report contract review — PASS with two minor observations**
+
+**What was reviewed:**
+
+1. `harness/short_result_validator.py` — the strict, non-raising ShortResult validator
+2. `harness/lifecycle_supervisor_v2.py` — the publish-point enforcer (success = rc==0 ∧ report exists ∧ schema-valid)
+3. `harness/result_reducer.py` — the deduplicating verdict reducer (defensive re-validation on every `add_short_result`)
+4. `harness/l2_consumer.py` — K3 verifier result acceptance (uses `require_verdict=True`)
+5. `schemas/short_result.schema.json` — the normative schema document
+6. Root `tests/conftest.py` — the updated root V2 fixture (`good_short_result`, `green_guards`, helpers)
+7. `tests/orchestration_v2/conftest.py` — the v2 suite conftest
+8. Both `test_short_result_validator.py` files (root and orchestration_v2)
+
+---
+
+**Strict non-empty validation — correct and complete**
+
+The validator enforces non-empty at three independent levels:
+
+| Field | How enforced |
+|---|---|
+| `conclusion` | `not conclusion.strip()` → `EMPTY_FIELD:conclusion` |
+| `packet_id`, `control_packet_id` | `not value.strip()` → `EMPTY_FIELD:<name>` |
+| `needs_decision.question` | `minLength: 1` in JSON schema; `BAD_NEEDS_DECISION` in code |
+| `control_packet_revision` | `< 1` and `bool`-subclass guard → `TYPE_ERROR` |
+
+The schema document (`schemas/short_result.schema.json`) mirrors these constraints exactly: `minLength: 1` on all three string id fields, `minimum: 1` on the revision integer, and `minLength: 1` on `conclusion`. The validator is dependency-free and fail-closed — it never raises on invalid inputs, returning structured `ValidationResult` objects in all cases.
+
+**Two minor coverage gaps (observations, not defects):**
+
+1. **Empty `packet_id` / `control_packet_id` untested.** The validator checks these (`lines 237–241`), but neither test file has a `test_empty_packet_id_rejected` or `test_empty_control_packet_id_rejected` case. The existing `test_empty_conclusion_rejected` only covers the `conclusion` field. The code is correct; the test coverage has a gap.
+
+2. **Root `green_guards` is a reduced fixture.** The root `tests/conftest.py` `green_guards` sets up only: L2 queue heartbeat, exactly-once canary, validator flag, and ledger schema. The v2 `tests/orchestration_v2/conftest.py` version additionally populates: `data/usage/model_token_share_v2.json`, `data/provider_health/k3.json`, `data/lifecycle/exec_roster.json`, `data/governor/` (five guard files including `layered_authorization.json` for layered mode). The root fixture is intentionally narrower (the root tests that use it call `green_guards` only from the subset of tests that don't exercise the governor or provider-health gates). This is an intentional split — the orchestration_v2 tests inherit the richer fixture for full gate coverage — but both versions are internally consistent with the tests that call them.
+
+**Conclusion:** Strict non-empty report validation is correctly implemented at all three enforcement points (lifecycle supervisor, result reducer, l2 consumer). The root V2 fixture (`good_short_result`) is structurally identical between root and v2 conftest and matches the schema. No edit required.

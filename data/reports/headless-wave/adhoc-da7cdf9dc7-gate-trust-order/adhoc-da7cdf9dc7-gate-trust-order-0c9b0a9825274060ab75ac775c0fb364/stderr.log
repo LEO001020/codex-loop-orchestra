@@ -1,0 +1,103 @@
+Reading additional input from stdin...
+2026-08-14T08:31:38.240254Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T08:31:43.321830Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T08:36:35.181669Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 190ms)... turn_id=019fff65-ef54-7bf1-978f-573148169a71 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+2026-08-14T08:38:57.491895Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 400ms)... turn_id=019fff65-ef54-7bf1-978f-573148169a71 retries=2 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+2026-08-14T08:43:08.144053Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 878ms)... turn_id=019fff65-ef54-7bf1-978f-573148169a71 retries=3 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T08:48:02.062392Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.638s)... turn_id=019fff65-ef54-7bf1-978f-573148169a71 retries=4 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T08:53:24.300213Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 7.5 seconds
+Output:
+
+FullName                                                                   Length LastWriteTime     
+--------                                                                   ------ -------------     
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18        2026/8/14 16:16:30
+E:\VPS\reports\p5-fl18-final-readonly-probe-20260814.sh                    796    2026/8/14 16:46:50
+E:\VPS\reports\p5-fl18-rm-register-20260814.sh                             2950   2026/8/14 16:52:24
+E:\VPS\reports\p5-fl18-upload-and-verify-20260814.sh                       2347   2026/8/14 16:51:48
+E:\VPS\reports\P5_FL18_ACTIVE20_REFILL1.json                               2604   2026/8/14 15:47:01
+E:\VPS\reports\P5_FL18_ACTIVE20_REFILL2.json                               2932   2026/8/14 16:06:57
+E:\VPS\reports\P5_FL18_ACTIVE20_WAVE1.json                                 3713   2026/8/14 15:41:02
+E:\VPS\reports\P5_FL18_BINDING_GATE_SONNET_RETRY_V1.json                   3700   2026/8/14 16:49:58
+E:\VPS\reports\P5_FL18_BINDING_GATE_V1.json                                2956   2026/8/14 16:31:18
+E:\VPS\reports\P5_FL18_TRUST_ORDER_SONNET_CORRECTIVE_V1.json               994    2026/8/14 16:53:10
+
+
+
+2026-08-14T08:55:49.266289Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.1 seconds
+Output:
+reports\canonical-v4-capture-20260813\P5_T1_STATISTICAL_AUTHORITY_PROPOSAL_V4.md
+reports\binance-usdm-perp-enumeration\analysis.json
+reports\binance-usdm-perp-enumeration\um_klines_symbols.txt
+reports\binance-usdm-perp-enumeration\um_metrics_symbols.txt
+reports\binance-usdm-perp-enumeration\exchangeInfo_fapi_20260812T151100Z.json
+reports\binance-usdm-perp-enumeration\um_monthly_fundingRate_symbols.txt
+reports\binance-usdm-perp-enumeration\um_monthly_klines_symbols.txt
+reports\cursor-fable-takeover-20260813\report-sources\AUD_05_production_state.md
+reports\direct-repair-release-build-20260813\P5_T1_STATISTICAL_AUTHORITY_PROPOSAL_V5.md
+reports\cursor-fable-takeover-20260813\report-sources\AUD_16_rollback.md
+reports\cursor-fable-takeover-20260813\report-sources\AUD_18_core_runtime.md
+reports\hardening-script-threat-model-20260813\probe_live_20260813.txt
+reports\final-normalized-review\probe_stderr.txt
+reports\cursor-fable-takeover-20260813\report-sources\DET_RT.md
+reports\cursor-fable-takeover-20260813\report-sources\DET_W.md
+reports\cursor-fable-takeover-20260813\report-sources\DET_U20_29.md
+reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\01_PRE_CUTOVER_READONLY_PREFLIGHT.sh
+reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\proposals\P5_T1_STATISTICAL_AUTHORITY_PROPOSAL_V6.md
+reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\proposals\P5_T1_STATISTICAL_AUTHORITY_PROPOSAL_V5.md
+reports\P5_FL18_BINDING_GATE_V1.json
+reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tests\test_targeted_security_regressions.py
+reports\P5_FL18_BINDING_GATE_SONNET_RETRY_V1.json
+reports\P5_FL18_ACTIVE20_WAVE1.json
+reports\P5_FL18_ACTIVE20_REFILL2.json
+reports\cursor-fable-takeover-20260813\report-sources\DET_X_a.md
+reports\P5_FL18_ACTIVE20_REFILL1.json
+reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tcb\bundle\quant\p5_track3\t1_wave1_evaluator.py
+reports\OwnerAdmin蜃ｭ謐ｮ髣?20260813\owner_admin_credential_request_v1.json
+reports\OwnerAdmin蜃ｭ謐ｮ髣?20260813\tmp_keygen\req_admin_key.pub
+reports\OwnerAdmin蜃ｭ謐ｮ髣?20260813\remote_audit_output.txt
+reports\OwnerAdmin蜃ｭ謐ｮ髣?20260813\known_hosts_lf
+reports\OwnerAdmin蜃ｭ謐ｮ髣?20260813\request_public_key_only.json
+reports\cursor-fable-takeover-20260813\evidence\U03_v5_identity.md
+reports\cursor-fable-takeover-20260813\evidence\RTevaluator.md
+reports\P5_FL18_TRUST_ORDER_SONNET_CORRECTIVE_V1.json
+reports\pc6-artifact-group-c-bind\fetch_fresh\P5_P3_PERP_SPOT_IDENTITY_MAP_V1.json
+reports\cursor-fable-takeover-20260813\evidence\U19_resource_policy.md
+reports\cursor-fable-takeover-20260813\evidence\U20_scientific_immutability.md
+reports\pc6-artifact-group-b-bind\probe_remote_phase4.out.txt
+reports\pc6-input-map-t1w1\fetched\P5_P3_PERP_SPOT_IDENTITY_MAP_V1.json
+
+2026-08-14T08:56:37.422924Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.1 seconds
+Output:
+
+2026-08-14T08:56:51.815106Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+
+2026-08-14T08:56:51.969616Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1 seconds
+Output:
+
+2026-08-14T08:59:15.034382Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.1 seconds
+Output:
+
+2026-08-14T08:59:59.701577Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-14T09:00:09.721999Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)

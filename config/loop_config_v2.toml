@@ -1,0 +1,32 @@
+# ============================================================================
+# loop_config_v2.toml — compatibility/documentation mirror
+# ----------------------------------------------------------------------------
+# Purpose : preserve the v2 design snapshot for compatibility and audit.
+#           Runtime readers MUST use config/refill_policy.toml as the single
+#           concurrency authority and fail closed when it is unreadable.
+# ============================================================================
+
+schema = "codex-loop-config/v2"
+policy_version = 2
+
+[concurrency]
+dialogue_target = 20      # normal per-parent/dialogue sustained wave
+target_total = 80         # LOOP cross-dialogue/cross-plane target
+v4_target = 60            # semantic execution-role reservation
+k3_target = 20            # semantic verifier/reviewer reservation
+v4_low_water = 45
+k3_low_water = 15
+reservations_borrowable = true   # borrowable = true: K3 slots lend to V4
+                                 # when (and only when) k3 queue is empty
+
+[spawn_throttle]
+spawn_interval_ms = 1000  # spawn = 1000ms
+max_initializing = 8
+health_gate_every = 8
+failure_backoff_seconds = 30
+health_timeout_ms = 2000
+
+[state]
+# refill_state.json must record {policy_version, policy_mtime}; a mismatch
+# forces recompute — stale 24/18/6 state can never silently win.
+recompute_on_version_mismatch = true

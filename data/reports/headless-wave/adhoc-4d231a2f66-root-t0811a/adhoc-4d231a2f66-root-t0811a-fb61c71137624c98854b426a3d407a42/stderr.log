@@ -1,0 +1,35 @@
+Reading additional input from stdin...
+2026-08-14T07:36:15.952767Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T07:36:17.550499Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T07:36:41.828181Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 3.5 seconds
+Output:
+python3 : 无法将“python3”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确
+，然后再试一次。
+所在位置 行:2 字符: 1
++ python3 -c "
++ ~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (python3:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T07:37:03.638783Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 4.5 seconds
+Output:
+python : 无法将“python”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，
+然后再试一次。
+所在位置 行:2 字符: 1
++ python -c "
++ ~~~~~~
+    + CategoryInfo          : ObjectNotFound: (python:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+

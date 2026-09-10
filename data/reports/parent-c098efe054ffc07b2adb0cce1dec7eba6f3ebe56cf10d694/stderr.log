@@ -1,0 +1,1059 @@
+Reading additional input from stdin...
+2026-08-14T05:41:09.625322Z  WARN codex_skills::interface: ignoring interface.icon_small: icon path with '..' must resolve under plugin assets/
+2026-08-14T05:41:09.625388Z  WARN codex_skills::interface: ignoring interface.icon_large: icon path with '..' must resolve under plugin assets/
+2026-08-14T05:41:09.675094Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T05:41:11.920699Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T05:41:12.042883Z  WARN codex_core_plugins::manager: failed to warm featured plugin ids cache error=remote featured plugin request to https://chatgpt.com/backend-api/plugins/featured?platform=codex failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T05:41:12.133021Z  WARN codex_core_plugins::manager: failed to refresh cached remote plugin catalog error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/list?scope=GLOBAL&limit=200 failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+} scope=Global
+2026-08-14T05:41:12.306680Z  WARN codex_core_plugins::manager: failed to refresh remote installed plugins cache error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/installed?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+} materialized_remote_plugin_count=0
+2026-08-14T05:41:12.541772Z  WARN codex_core_plugins::remote::remote_installed_plugin_sync: remote installed plugin bundle sync failed error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/installed?scope=GLOBAL&includeDownloadUrls=true failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T05:41:12.802633Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T05:41:13.440296Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-14T05:41:14.123057Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-14T05:41:14.123125Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=1000
+2026-08-14T05:41:22.878539Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=failed to send remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL: error sending request for url (https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL)
+2026-08-14T05:41:47.969627Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-14T05:41:47.980784Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-14T05:41:49.051207Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-14T05:41:49.051286Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=2000
+2026-08-14T05:41:53.004230Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=failed to send remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL: error sending request for url (https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL)
+2026-08-14T05:42:22.277837Z ERROR codex_core::tools::router: error=Exit code: 124
+Wall time: 10.4 seconds
+Total output lines: 21622
+Output:
+command timed out after 10396 milliseconds
+#!/usr/bin/env python3
+"""refill_controller_v2.py 鈥?Pool-aware sustained refill (P0-6 fix, 搂2.6).
+
+Fixes the demand side of the K3 starvation:
+
+* **``queue_sync_ledger`` is pool-aware and total.**  The shipped
+  ``refill_controller.py:203-208`` counted DISPATCHABLE packets into a single
+  ``--pool`` argument defaulting to ``"v4"``, so K3-pool demand was never
+  written and the configured K3 reservation was permanently borrowed by V4.
+  v2 derives the pool per packet from role/``pool_hint`` metadata
+  (verifier/reviewer/plan_expander 鈫?``k3``, else ``v4``) and counts the K3
+  work states (``L2_VERIFY``, ``EXPAND_K3``, ``L2_RANK``) as K3 demand.  The
+  sync writes BOTH pools in one atomic mutation; the ``--pool`` flag no
+  longer applies to sync (it stays for manual ``queue-add``/``remove`` ops).
+* **Configured K3 target with actual demand matching:** targets/low-waters come
+  fail-closed from ``refill_policy.toml`` (the only concurrency authority;
+  policy unreadable => :class:`PolicyError`, never the silent divergent
+  16/16-vs-48 defaults of v1).  A pool refills only when it has pending work
+  AND its running count is below its low water 鈥?demand-backed, never idle
+  filling (anti-pattern canary: zero demand 鈬?zero K3 spawns).
+* **Reservations borrowable (true):** when only one pool has pending work it
+  may borrow the other pool's reservation up to ``target_total``; watermark
+  logic reclaims borrowed slots naturally once K3 demand exists.
+* **Policy-version stamping:** ``refill_state.json`` records the policy
+  version + mtime it was computed from; a mismatch on read forces a
+  recompute, so a stale state file can never silently win (P0-8.3).
+"""
+from __future__ import annotations
+
+import argparse
+import ctypes
+import json
+import os
+import sys
+import time
+import urllib.request
+from ctypes import wintypes
+from pathlib import Path
+from typing import Any, Callable, Final, Mapping
+
+try:
+    from orchestration_common import (LoopPaths, PolicyError, RefillPolicy,
+                                      append_ndjson, atomic_write_json, file_lock,
+                                      get_logger, read_json, utc_now)
+except ImportError:  # pragma: no cover - direct CLI execution
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from orchestration_common import (LoopPaths, PolicyError, RefillPolicy,
+                                      append_ndjson, atomic_write_json, file_lock,
+                                      get_logger, read_json, utc_now)
+
+__all__ = [
+    "POOLS",
+    "K3_ROLES",
+    "K3_WORK_STATES",
+    "pool_for_packet",
+    "RefillControllerV2",
+    "main",
+]
+
+log = get_logger("loop.refill_controller_v2")
+
+POOLS: Final[tuple[str, str]] = ("v4", "k3")
+STATE_SCHEMA: Final[str] = "codex-loop-refill/v3"
+QUEUE_SCHEMA: Final[str] = "codex-loop-refill-queue/v2"
+
+#: Roles whose packets are K3 demand.
+K3_ROLES: Final[frozenset[str]] = frozenset({"verifier", "reviewer", "plan_expander"})
+#: v2 state-machine states that ARE K3 work (count as K3 demand while active).
+K3_WORK_STATES: Final[frozenset[str]] = frozenset(
+    {"L2_VERIFY", "L2_RANK", "EXPAND_K3", "L2_VERIFY_PENDING"})
+NATIVE_RUNNING_TTL_SECONDS: Final[float] = 1800.0
+OBSERVER_URL: Final[str] = "http://127.0.0.1:8765/api/status"
+
+
+def _process_start_token(pid: Any) -> int | None:
+    try:
+        pid = int(pid)
+    except (TypeError, ValueError):
+        return None
+    if os.name == "nt":
+        handle = ctypes.windll.kernel32.OpenProcess(0x1000, False, pid)
+        if not handle:
+            return None
+        try:
+            code = wintypes.DWORD()
+            if (not ctypes.windll.kernel32.GetExitCodeProcess(
+                    handle, ctypes.byref(code)) or code.value != 259):
+                return None
+            creation = wintypes.FILETIME(); exit_time = wintypes.FILETIME()
+            kernel = wintypes.FILETIME(); user = wintypes.FILETIME()
+            if not ctypes.windll.kernel32.GetProcessTimes(
+                    handle, ctypes.byref(creation), ctypes.byref(exit_time),
+                    ctypes.byref(kernel), ctypes.byref(user)):
+                return None
+            return ((int(creation.dwHighDateTime) << 32)
+                    | int(creation.dwLowDateTime))
+        finally:
+            ctypes.windll.kernel32.CloseHandle(handle)
+    try:
+        return int(Path("/proc/%d/stat" % pid).read_text(
+            encoding="ascii").split()[21])
+    except (OSError, ValueError, IndexError):
+        return None
+
+
+def _process_generation_alive(pid: Any, expected: Any) -> bool:
+    actual = _process_start_token(pid)
+    if actual is None:
+        return False
+    try:
+        return expected is not None and actual == int(expected)
+    except (TypeError, ValueError):
+        return False
+
+
+def pool_for_packet(item: Mapping[str, Any]) -> str:
+    """Mechanically derive the pool for a ledger packet entry.
+
+    Priority: explicit ``pool_hint`` > role (verifier/reviewer/plan_expander
+    鈫?k3) > default v4.  Zero-model, deterministic (搂2.6.1)."""
+    hint = item.get("pool_hint")
+    if isinstance(hint, str) and hint in POOLS:
+        return hint
+    role = str(item.get("role") or "")
+    return "k3" if role in K3_ROLES else "v4"
+
+
+def classify_pool(model: Any) -> str:
+    """Route an *observed* agent model string into v4/k3 (accounting only)."""
+    value = str(model or "").lower()
+    return "k3" if ("k3" in value or "r1" in value or "reasoner" in value) else "v4"
+
+
+class RefillControllerV2:
+    """Mechanical, pool-aware refill state machine.
+
+    The controller never calls the host spawn API: it publishes
+    machine-readable ``refill_required`` records carrying per-pool deficits
+    and keeps unfulfilled debt fail-visible (unchanged v1 contract)."""
+
+    def __init__(self, paths: LoopPaths | None = None) -> None:
+        self.paths = paths or LoopPaths.resolve()
+        self.policy = RefillPolicy.load(self.paths)   # fail-closed (PolicyError)
+        self.refill_dir = self.paths.refill_dir
+        self.state_path = self.refill_dir / "refill_state.json"
+        self.queue_path = self.refill_dir / "work_queue.json"
+        self.events_path = self.refill_dir / "events.ndjson"
+        self.lock_path = self.refill_dir / ".refill.lock"
+        self.roster_path = self.paths.data / "lifecycle" / "native_roster.json"
+        self.exec_roster_path = self.paths.data / "lifecycle" / "exec_roster.json"
+        self.parent_sessions_path = self.refill_dir / "parent_sessions.json"
+
+    # ------------------------------------------------------------------ config
+    def targets(self) -> dict[str, int]:
+        return {"v4": self.policy.v4_target(), "k3": self.policy.k3_target()}
+
+    def low_waters(self) -> dict[str, int]:
+        return {"v4": min(self.policy.v4_target(), self.policy.v4_low_water()),
+                "k3": min(self.policy.k3_target(), self.policy.k3_low_water())}
+
+    def target_total(self) -> int:
+        return self.policy.target_total()
+
+    # ------------------------------------------------------------------ queue
+    def read_queue(self) -> dict[str, int]:
+        doc = read_json(self.queue_path, {}) or {}
+        pools = doc.get("pools", {}) if isinstance(doc, dict) else {}
+        return {p: max(0, int(pools.get(p, 0) or 0)) for p in POOLS}
+
+    def read_parent_queue(self) -> dict[str, dict[str, Any]]:
+        doc = read_json(self.queue_path, {}) or {}
+        source = doc.get("parents", {}) if isinstance(doc, dict) else {}
+        out: dict[str, dict[str, Any]] = {}
+        source_items = source.items() if isinstance(source, dict) else ()
+        for parent_id, row in source_items:
+            if not isinstance(row, dict):
+                continue
+            pools = {p: max(0, int(row.get(p, 0) or 0)) for p in POOLS}
+            out[str(parent_id)] = {
+                "total": sum(pools.values()), **pools,
+                "manifest_id": row.get("manifest_id"),
+            }
+        return out
+
+    def _write_queue_unlocked(
+            self, pools: Mapping[str, int],
+            parents: Mapping[str, Mapping[str, Any]] | None = None) -> dict[str, int]:
+        clean = {p: max(0, int(pools.get(p, 0) or 0)) for p in POOLS}
+        if parents is None:
+            parents = self.read_parent_queue()
+        clean_parents: dict[str, dict[str, Any]] = {}
+        for parent_id, row in parents.items():
+            parent_pools = {p: max(0, int(row.get(p, 0) or 0)) for p in POOLS}
+            clean_parents[str(parent_id)] = {
+                "total": sum(parent_pools.values()), **parent_pools,
+                "manifest_id": row.get("manifest_id"),
+            }
+        atomic_write_json(self.queue_path,
+                          {"schema": QUEUE_SCHEMA, "pools": clean,
+                           "parents": clean_parents,
+                           "updated_at": utc_now()})
+        return clean
+
+    def _queue_mutate(self, fn: Callable[[dict[str, int]], None]) -> dict[str, int]:
+        with file_lock(self.lock_path):
+            pools = self.read_queue()
+            fn(pools)
+            return self._write_queue_unlocked(pools)
+
+    def queue_set(self, count: int, pool: str) -> dict[str, int]:
+        return self._queue_mutate(lambda p: p.__setitem__(pool, int(count)))
+
+    def queue_add(self, count: int, pool: str) -> dict[str, int]:
+        return self._queue_mutate(
+            lambda p: p.__setitem__(pool, p.get(pool, 0) + int(count)))
+
+    def queue_remove(self, count: int, pool: str) -> dict[str, int]:
+        return self._queue_mutate(
+            lambda p: p.__setitem__(pool, max(0, p.get(pool, 0) - int(count))))
+
+    def queue_clear(self) -> dict[str, int]:
+        with file_lock(self.lock_path):
+            return self._write_queue_unlocked({p: 0 for p in POOLS})
+
+    def queue_sync_ledger(self) -> dict[str, int]:
+        """THE P0-6 FIX: pool-aware, total ledger sync.
+
+        Counts every DISPATCHABLE packet into its mechanically derived pool
+        and every K3 work state as K3 demand, then replaces BOTH pool counts
+        atomically.  No ``--pool`` parameter: sync is total by definition.
+        """
+        led = read_json(self.paths.ledger, {"packets": {}}) or {"packets": {}}
+        parent_doc = read_json(self.parent_sessions_path, {"parents": {}}) or {"parents": {}}
+        registered = parent_doc.get("parents", {}) if isinstance(parent_doc, dict) else {}
+        ready = {p: 0 for p in POOLS}
+        parent_ready: dict[str, dict[str, Any]] = {}
+        for pid, item in led.get("packets", {}).items():
+            if not isinstance(item, dict):
+                continue
+            state = item.get("state")
+            if state == "DISPATCHABLE":
+                pool = pool_for_packet(item)
+                parent_id = item.get("parent_session_id")
+                if parent_id:
+                    parent = registered.get(str(parent_id)) if isinstance(registered, dict) else None
+                    if (not isinstance(parent, dict) or parent.get("active") is not True
+                            or (parent.get("manifest_id") and
+                                parent.get("manifest_id") != item.get("manifest_id"))):
+                        continue
+                    row = parent_ready.setdefault(str(parent_id), {
+                        "v4": 0, "k3": 0,
+                        "manifest_id": item.get("manifest_id"),
+                    })
+                    row[pool] += 1
+                ready[pool] += 1
+            elif state in K3_WORK_STATES:
+                ready["k3"] += 1
+        with file_lock(self.lock_path):
+            result = self._write_queue_unlocked(ready, parent_ready)
+        log.info("queue_sync_ledger: %s", result)
+        return result
+
+    # ------------------------------------------------------------------ observed state
+    def _read_roster_state(self) -> tuple[dict[str, dict[str, int]],
+                                          dict[str, dict[str, int]]]:
+        """Running/initializing per pool from native + exec rosters.
+        Only ``running`` counts as effective concurrency (v1 contract)."""
+        keys = ("initializing", "running", "idle", "completed", "shutdown_pending")
+        counts = {p: {k: 0 for k in keys} for p in POOLS}
+        parents: dict[str, dict[str, int]] = {}
+
+        def remember_parent(item: Mapping[str, Any], pool: str, key: str) -> None:
+            parent_id = item.get("parent_session_id")
+            if not parent_id or key not in {"running", "initializing"}:
+                return
+            row = parents.setdefault(str(parent_id), {
+                "running": 0, "initializing": 0,
+                "v4_running": 0, "k3_running": 0,
+                "v4_initializing": 0, "k3_initializing": 0,
+            })
+            row[key] += 1
+            row[f"{pool}_{key}"] += 1
+
+        now = time.time()
+        roster = read_json(self.roster_path, {"agents": {}}) or {"agents": {}}
+        for item in (roster.get("agents") or {}).values():
+            if not isinstance(item, dict):
+                continue
+            role = str(item.get("agent_role") or item.get("role") or "")
+            pool = ("k3" if role in K3_ROLES else "v4") if role else classify_pool(item.get("model"))
+            status = str(item.get("status") or "")
+            if status == "running":
+                try:
+                    observed_at = float(item.get("updated_at") or
+                                        item.get("started_at") or 0)
+                except (TypeError, ValueError):
+                    observed_at = 0.0
+                if observed_at <= 0 or now - observed_at > NATIVE_RUNNING_TTL_SECONDS:
+                    continue
+            if status in counts[pool]:
+                counts[pool][status] += 1
+                remember_parent(item, pool, status)
+        for item in (roster.get("pending") or []):
+            if not isinstance(item, dict) or item.get("status") != "pending_start":
+                continue
+            role = str(item.get("agent_role") or "")
+            pool = ("k3" if role in K3_ROLES else "v4") if role else classify_pool(item.get("model"))
+            counts[pool]["initializing"] += 1
+            remember_parent(item, pool, "initializing")
+        exec_roster = read_json(self.exec_roster_path, {"jobs": {}}) or {"jobs": {}}
+        for item in (exec_roster.get("jobs") or {}).values():
+            if not isinstance(item, dict):
+                continue
+            state = str(item.get("state") or "")
+            key = ("initializing" if state == "starting"
+                   else "running" if state == "running" else None)
+            if key is None:
+                continue
+            supervisor_alive = _process_generation_alive(
+                item.get("supervisor_pid"), item.get("supervisor_proc_start_ticks"))
+            worker_alive = _process_generation_alive(
+                item.get("os_pid"), item.get("worker_proc_start_ticks"))
+            if not supervisor_alive or (key == "running" and not worker_alive):
+                continue
+            role = str(item.get("role") or item.get("agent_role") or "")
+            pool = ("k3" if role in K3_ROLES else "v4") if role else classify_pool(item.get("model"))
+            counts[pool][key] += 1
+            remember_parent(item, pool, key)
+        # The 8765 observer is the existing cross-plane aggregator.  Current
+        # Desktop tasks can predate the lifecycle hook loaded by this root, so
+        # native_roster alone may undercount them; WSL and Windows rosters are
+        # also physically separate.  Overlay (never add) a fresh snapshot for
+        # this exact LOOP root so an imported parent backlog cannot overfill by
+        # mistaking already-running Desktop/peer-plane work for free slots.
+        observer = self._read_observer_snapshot()
+        if observer is not None:
+            observed_pools = observer.get("pools", {})
+            for pool in POOLS:
+                counts[pool]["running"] = max(
+                    counts[pool]["running"],
+                    max(0, int((observed_pools or {}).get(pool, 0) or 0)),
+                )
+            for parent_id, observed in (observer.get("parents", {}) or {}).items():
+                if not isinstance(observed, dict):
+                    continue
+                row = parents.setdefault(str(parent_id), {
+                    "running": 0, "initializing": 0,
+                    "v4_running": 0, "k3_running": 0,
+                    "v4_initializing": 0, "k3_initializing": 0,
+                })
+                row["running"] = max(
+                    row["running"], max(0, int(observed.get("running", 0) or 0)))
+                for pool in POOLS:
+                    row[f"{pool}_running"] = max(
+                        row[f"{pool}_running"],
+                        max(0, int(observed.get(pool, 0) or 0)),
+                    )
+        return counts, parents
+
+    def _read_observer_snapshot(self) -> dict[str, Any] | None:
+        try:
+            with urllib.request.urlopen(OBSERVER_URL, timeout=0.35) as response:
+                doc = json.loads(response.read(1024 * 1024).decode("utf-8"))
+        except (OSError, ValueError, TimeoutError):
+            return None
+        if not isinstance(doc, dict) or doc.get("freshness") not in {
+                "LIVE", "QUIET", "ESTIMATED"}:
+            return None
+        try:
+            if time.time() - float(doc.get("timestamp", 0) or 0) > 5.0:
+                return None
+        except (TypeError, ValueError):
+            return None
+        local = str(self.paths.root.resolve()).replace("\\", "/").casefold()
+        advertised = {
+            str(doc.get(key) or "").replace("\\", "/").casefold()
+            for key in ("root", "windows_root")
+        }
+        if local not in advertised:
+            return None
+        return doc
+
+    def read_roster_counts(self) -> dict[str, dict[str, int]]:
+        return self._read_roster_state()[0]
+
+    # ------------------------------------------------------------------ recompute
+    def recompute(self, emit: bool = True) -> dict[str, Any]:
+        """Recompute the refill state with borrowable reservations.
+
+        Demand matching: a pool is refill-required only when IT has pending
+        work and its own running count is below its own low water.  With
+        ``reservations_borrowable=true`` and only one active pool, that pool
+        may use the full ``target_total``; as soon as the other pool gains
+        pending work its preferred reservation is honoured again (watermark
+        reclaim; 搂2.6.3)."""
+        preferred_targets = self.targets()
+        preferred_low_waters = self.low_waters()
+        target_total = self.target_total()
+        borrowable = self.policy.reservations_borrowable()
+        pending = self.read_queue()
+        pending_total = sum(pending.values())
+        targets = dict(preferred_targets)
+        low_waters = dict(preferred_low_waters)
+        active_pools = [p for p in POOLS if pending[p] > 0]
+        if borrowable and len(active_pools) == 1:
+            only = active_pools[0]
+            targets = {p: (target_total if p == only else 0) for p in POOLS}
+            shared_low = min(target_total, sum(preferred_low_waters.values()))
+            low_waters = {p: (shared_low if p == only else 0) for p in POOLS}
+
+        counts, parent_counts = self._read_roster_state()
+        running = {p: counts[p]["running"] for p in POOLS}
+        initializing = {p: counts[p]["initializing"] for p in POOLS}
+        running_total = sum(running.values())
+        initializing_total = sum(initializi…252237 tokens truncated…"http://127.0.0.1:8765/api/status"
+
+
+def _process_start_token(pid: Any) -> int | None:
+    try:
+        pid = int(pid)
+    except (TypeError, ValueError):
+        return None
+    if os.name == "nt":
+        handle = ctypes.windll.kernel32.OpenProcess(0x1000, False, pid)
+        if not handle:
+            return None
+        try:
+            code = wintypes.DWORD()
+            if (not ctypes.windll.kernel32.GetExitCodeProcess(
+                    handle, ctypes.byref(code)) or code.value != 259):
+                return None
+            creation = wintypes.FILETIME(); exit_time = wintypes.FILETIME()
+            kernel = wintypes.FILETIME(); user = wintypes.FILETIME()
+            if not ctypes.windll.kernel32.GetProcessTimes(
+                    handle, ctypes.byref(creation), ctypes.byref(exit_time),
+                    ctypes.byref(kernel), ctypes.byref(user)):
+                return None
+            return ((int(creation.dwHighDateTime) << 32)
+                    | int(creation.dwLowDateTime))
+        finally:
+            ctypes.windll.kernel32.CloseHandle(handle)
+    try:
+        return int(Path("/proc/%d/stat" % pid).read_text(
+            encoding="ascii").split()[21])
+    except (OSError, ValueError, IndexError):
+        return None
+
+
+def _process_generation_alive(pid: Any, expected: Any) -> bool:
+    actual = _process_start_token(pid)
+    if actual is None:
+        return False
+    try:
+        return expected is not None and actual == int(expected)
+    except (TypeError, ValueError):
+        return False
+
+
+def pool_for_packet(item: Mapping[str, Any]) -> str:
+    """Mechanically derive the pool for a ledger packet entry.
+
+    Priority: explicit ``pool_hint`` > role (verifier/reviewer/plan_expander
+    鈫?k3) > default v4.  Zero-model, deterministic (搂2.6.1)."""
+    hint = item.get("pool_hint")
+    if isinstance(hint, str) and hint in POOLS:
+        return hint
+    role = str(item.get("role") or "")
+    return "k3" if role in K3_ROLES else "v4"
+
+
+def classify_pool(model: Any) -> str:
+    """Route an *observed* agent model string into v4/k3 (accounting only)."""
+    value = str(model or "").lower()
+    return "k3" if ("k3" in value or "r1" in value or "reasoner" in value) else "v4"
+
+
+class RefillControllerV2:
+    """Mechanical, pool-aware refill state machine.
+
+    The controller never calls the host spawn API: it publishes
+    machine-readable ``refill_required`` records carrying per-pool deficits
+    and keeps unfulfilled debt fail-visible (unchanged v1 contract)."""
+
+    def __init__(self, paths: LoopPaths | None = None) -> None:
+        self.paths = paths or LoopPaths.resolve()
+        self.policy = RefillPolicy.load(self.paths)   # fail-closed (PolicyError)
+        self.refill_dir = self.paths.refill_dir
+        self.state_path = self.refill_dir / "refill_state.json"
+        self.queue_path = self.refill_dir / "work_queue.json"
+        self.events_path = self.refill_dir / "events.ndjson"
+        self.lock_path = self.refill_dir / ".refill.lock"
+        self.roster_path = self.paths.data / "lifecycle" / "native_roster.json"
+        self.exec_roster_path = self.paths.data / "lifecycle" / "exec_roster.json"
+        self.parent_sessions_path = self.refill_dir / "parent_sessions.json"
+
+    # ------------------------------------------------------------------ config
+    def targets(self) -> dict[str, int]:
+        return {"v4": self.policy.v4_target(), "k3": self.policy.k3_target()}
+
+    def low_waters(self) -> dict[str, int]:
+        return {"v4": min(self.policy.v4_target(), self.policy.v4_low_water()),
+                "k3": min(self.policy.k3_target(), self.policy.k3_low_water())}
+
+    def target_total(self) -> int:
+        return self.policy.target_total()
+
+    # ------------------------------------------------------------------ queue
+    def read_queue(self) -> dict[str, int]:
+        doc = read_json(self.queue_path, {}) or {}
+        pools = doc.get("pools", {}) if isinstance(doc, dict) else {}
+        return {p: max(0, int(pools.get(p, 0) or 0)) for p in POOLS}
+
+    def read_parent_queue(self) -> dict[str, dict[str, Any]]:
+        doc = read_json(self.queue_path, {}) or {}
+        source = doc.get("parents", {}) if isinstance(doc, dict) else {}
+        out: dict[str, dict[str, Any]] = {}
+        source_items = source.items() if isinstance(source, dict) else ()
+        for parent_id, row in source_items:
+            if not isinstance(row, dict):
+                continue
+            pools = {p: max(0, int(row.get(p, 0) or 0)) for p in POOLS}
+            out[str(parent_id)] = {
+                "total": sum(pools.values()), **pools,
+                "manifest_id": row.get("manifest_id"),
+            }
+        return out
+
+    def _write_queue_unlocked(
+            self, pools: Mapping[str, int],
+            parents: Mapping[str, Mapping[str, Any]] | None = None) -> dict[str, int]:
+        clean = {p: max(0, int(pools.get(p, 0) or 0)) for p in POOLS}
+        if parents is None:
+            parents = self.read_parent_queue()
+        clean_parents: dict[str, dict[str, Any]] = {}
+        for parent_id, row in parents.items():
+            parent_pools = {p: max(0, int(row.get(p, 0) or 0)) for p in POOLS}
+            clean_parents[str(parent_id)] = {
+                "total": sum(parent_pools.values()), **parent_pools,
+                "manifest_id": row.get("manifest_id"),
+            }
+        atomic_write_json(self.queue_path,
+                          {"schema": QUEUE_SCHEMA, "pools": clean,
+                           "parents": clean_parents,
+                           "updated_at": utc_now()})
+        return clean
+
+    def _queue_mutate(self, fn: Callable[[dict[str, int]], None]) -> dict[str, int]:
+        with file_lock(self.lock_path):
+            pools = self.read_queue()
+            fn(pools)
+            return self._write_queue_unlocked(pools)
+
+    def queue_set(self, count: int, pool: str) -> dict[str, int]:
+        return self._queue_mutate(lambda p: p.__setitem__(pool, int(count)))
+
+    def queue_add(self, count: int, pool: str) -> dict[str, int]:
+        return self._queue_mutate(
+            lambda p: p.__setitem__(pool, p.get(pool, 0) + int(count)))
+
+    def queue_remove(self, count: int, pool: str) -> dict[str, int]:
+        return self._queue_mutate(
+            lambda p: p.__setitem__(pool, max(0, p.get(pool, 0) - int(count))))
+
+    def queue_clear(self) -> dict[str, int]:
+        with file_lock(self.lock_path):
+            return self._write_queue_unlocked({p: 0 for p in POOLS})
+
+    def queue_sync_ledger(self) -> dict[str, int]:
+        """THE P0-6 FIX: pool-aware, total ledger sync.
+
+        Counts every DISPATCHABLE packet into its mechanically derived pool
+        and every K3 work state as K3 demand, then replaces BOTH pool counts
+        atomically.  No ``--pool`` parameter: sync is total by definition.
+        """
+        led = read_json(self.paths.ledger, {"packets": {}}) or {"packets": {}}
+        parent_doc = read_json(self.parent_sessions_path, {"parents": {}}) or {"parents": {}}
+        registered = parent_doc.get("parents", {}) if isinstance(parent_doc, dict) else {}
+        ready = {p: 0 for p in POOLS}
+        parent_ready: dict[str, dict[str, Any]] = {}
+        for pid, item in led.get("packets", {}).items():
+            if not isinstance(item, dict):
+                continue
+            state = item.get("state")
+            if state == "DISPATCHABLE":
+                pool = pool_for_packet(item)
+                parent_id = item.get("parent_session_id")
+                if parent_id:
+                    parent = registered.get(str(parent_id)) if isinstance(registered, dict) else None
+                    if (not isinstance(parent, dict) or parent.get("active") is not True
+                            or (parent.get("manifest_id") and
+                                parent.get("manifest_id") != item.get("manifest_id"))):
+                        continue
+                    row = parent_ready.setdefault(str(parent_id), {
+                        "v4": 0, "k3": 0,
+                        "manifest_id": item.get("manifest_id"),
+                    })
+                    row[pool] += 1
+                ready[pool] += 1
+            elif state in K3_WORK_STATES:
+                ready["k3"] += 1
+        with file_lock(self.lock_path):
+            result = self._write_queue_unlocked(ready, parent_ready)
+        log.info("queue_sync_ledger: %s", result)
+        return result
+
+    # ------------------------------------------------------------------ observed state
+    def _read_roster_state(self) -> tuple[dict[str, dict[str, int]],
+                                          dict[str, dict[str, int]]]:
+        """Running/initializing per pool from native + exec rosters.
+        Only ``running`` counts as effective concurrency (v1 contract)."""
+        keys = ("initializing", "running", "idle", "completed", "shutdown_pending")
+        counts = {p: {k: 0 for k in keys} for p in POOLS}
+        parents: dict[str, dict[str, int]] = {}
+
+        def remember_parent(item: Mapping[str, Any], pool: str, key: str) -> None:
+            parent_id = item.get("parent_session_id")
+            if not parent_id or key not in {"running", "initializing"}:
+                return
+            row = parents.setdefault(str(parent_id), {
+                "running": 0, "initializing": 0,
+                "v4_running": 0, "k3_running": 0,
+                "v4_initializing": 0, "k3_initializing": 0,
+            })
+            row[key] += 1
+            row[f"{pool}_{key}"] += 1
+
+        now = time.time()
+        roster = read_json(self.roster_path, {"agents": {}}) or {"agents": {}}
+        for item in (roster.get("agents") or {}).values():
+            if not isinstance(item, dict):
+                continue
+            role = str(item.get("agent_role") or item.get("role") or "")
+            pool = ("k3" if role in K3_ROLES else "v4") if role else classify_pool(item.get("model"))
+            status = str(item.get("status") or "")
+            if status == "running":
+                try:
+                    observed_at = float(item.get("updated_at") or
+                                        item.get("started_at") or 0)
+                except (TypeError, ValueError):
+                    observed_at = 0.0
+                if observed_at <= 0 or now - observed_at > NATIVE_RUNNING_TTL_SECONDS:
+                    continue
+            if status in counts[pool]:
+                counts[pool][status] += 1
+                remember_parent(item, pool, status)
+        for item in (roster.get("pending") or []):
+            if not isinstance(item, dict) or item.get("status") != "pending_start":
+                continue
+            role = str(item.get("agent_role") or "")
+            pool = ("k3" if role in K3_ROLES else "v4") if role else classify_pool(item.get("model"))
+            counts[pool]["initializing"] += 1
+            remember_parent(item, pool, "initializing")
+        exec_roster = read_json(self.exec_roster_path, {"jobs": {}}) or {"jobs": {}}
+        for item in (exec_roster.get("jobs") or {}).values():
+            if not isinstance(item, dict):
+                continue
+            state = str(item.get("state") or "")
+            key = ("initializing" if state == "starting"
+                   else "running" if state == "running" else None)
+            if key is None:
+                continue
+            supervisor_alive = _process_generation_alive(
+                item.get("supervisor_pid"), item.get("supervisor_proc_start_ticks"))
+            worker_alive = _process_generation_alive(
+                item.get("os_pid"), item.get("worker_proc_start_ticks"))
+            if not supervisor_alive or (key == "running" and not worker_alive):
+                continue
+            role = str(item.get("role") or item.get("agent_role") or "")
+            pool = ("k3" if role in K3_ROLES else "v4") if role else classify_pool(item.get("model"))
+            counts[pool][key] += 1
+            remember_parent(item, pool, key)
+        # The 8765 observer is the existing cross-plane aggregator.  Current
+        # Desktop tasks can predate the lifecycle hook loaded by this root, so
+        # native_roster alone may undercount them; WSL and Windows rosters are
+        # also physically separate.  Overlay (never add) a fresh snapshot for
+        # this exact LOOP root so an imported parent backlog cannot overfill by
+        # mistaking already-running Desktop/peer-plane work for free slots.
+        observer = self._read_observer_snapshot()
+        if observer is not None:
+            observed_pools = observer.get("pools", {})
+            for pool in POOLS:
+                counts[pool]["running"] = max(
+                    counts[pool]["running"],
+                    max(0, int((observed_pools or {}).get(pool, 0) or 0)),
+                )
+            for parent_id, observed in (observer.get("parents", {}) or {}).items():
+                if not isinstance(observed, dict):
+                    continue
+                row = parents.setdefault(str(parent_id), {
+                    "running": 0, "initializing": 0,
+                    "v4_running": 0, "k3_running": 0,
+                    "v4_initializing": 0, "k3_initializing": 0,
+                })
+                row["running"] = max(
+                    row["running"], max(0, int(observed.get("running", 0) or 0)))
+                for pool in POOLS:
+                    row[f"{pool}_running"] = max(
+                        row[f"{pool}_running"],
+                        max(0, int(observed.get(pool, 0) or 0)),
+                    )
+        return counts, parents
+
+    def _read_observer_snapshot(self) -> dict[str, Any] | None:
+        try:
+            with urllib.request.urlopen(OBSERVER_URL, timeout=0.35) as response:
+                doc = json.loads(response.read(1024 * 1024).decode("utf-8"))
+        except (OSError, ValueError, TimeoutError):
+            return None
+        if not isinstance(doc, dict) or doc.get("freshness") not in {
+                "LIVE", "QUIET", "ESTIMATED"}:
+            return None
+        try:
+            if time.time() - float(doc.get("timestamp", 0) or 0) > 5.0:
+                return None
+        except (TypeError, ValueError):
+            return None
+        local = str(self.paths.root.resolve()).replace("\\", "/").casefold()
+        advertised = {
+            str(doc.get(key) or "").replace("\\", "/").casefold()
+            for key in ("root", "windows_root")
+        }
+        if local not in advertised:
+            return None
+        return doc
+
+    def read_roster_counts(self) -> dict[str, dict[str, int]]:
+        return self._read_roster_state()[0]
+
+    # ------------------------------------------------------------------ recompute
+    def recompute(self, emit: bool = True) -> dict[str, Any]:
+        """Recompute the refill state with borrowable reservations.
+
+        Demand matching: a pool is refill-required only when IT has pending
+        work and its own running count is below its own low water.  With
+        ``reservations_borrowable=true`` and only one active pool, that pool
+        may use the full ``target_total``; as soon as the other pool gains
+        pending work its preferred reservation is honoured again (watermark
+        reclaim; 搂2.6.3)."""
+        preferred_targets = self.targets()
+        preferred_low_waters = self.low_waters()
+        target_total = self.target_total()
+        borrowable = self.policy.reservations_borrowable()
+        pending = self.read_queue()
+        pending_total = sum(pending.values())
+        targets = dict(preferred_targets)
+        low_waters = dict(preferred_low_waters)
+        active_pools = [p for p in POOLS if pending[p] > 0]
+        if borrowable and len(active_pools) == 1:
+            only = active_pools[0]
+            targets = {p: (target_total if p == only else 0) for p in POOLS}
+            shared_low = min(target_total, sum(preferred_low_waters.values()))
+            low_waters = {p: (shared_low if p == only else 0) for p in POOLS}
+
+        counts, parent_counts = self._read_roster_state()
+        running = {p: counts[p]["running"] for p in POOLS}
+        initializing = {p: counts[p]["initializing"] for p in POOLS}
+        running_total = sum(running.values())
+        initializing_total = sum(initializing.values())
+        prior = read_json(self.state_path, {}) or {}
+        finalized = bool(prior.get("finalized"))
+        queue_empty = pending_total <= 0
+
+        # Sustained refill means demand-backed slots are restored to target,
+        # not left parked at the low-water trigger.  Low water remains an
+        # urgency/hysteresis signal exposed in state; the debt target is the
+        # declared policy capacity (currently 80/60/20).
+        required = {p: bool(not queue_empty and not finalized
+                            and pending[p] > 0 and running[p] < targets[p])
+                    for p in POOLS}
+        required_any = any(required.values())
+        # Debt = min(pending, target 鈭?running); initializing births reserve
+        # capacity but never clear debt (fail-visible until observed running).
+        raw_debt = {p: (min(pending[p], max(0, targets[p] - running[p]))
+                        if required[p] else 0) for p in POOLS}
+        raw_spawn = {p: max(0, raw_debt[p] - initializing[p]) for p in POOLS}
+        capacity = max(0, target_total - running_total - initializing_total)
+        deficit_total = min(sum(raw_spawn.values()), capacity) if required_any else 0
+        deficit = self._split_deficit(deficit_total, raw_spawn)
+
+        parent_registry_doc = read_json(
+            self.parent_sessions_path, {"parents": {}}) or {"parents": {}}
+        parent_registry = (parent_registry_doc.get("parents", {})
+                           if isinstance(parent_registry_doc, dict) else {})
+        parent_pending = self.read_parent_queue()
+        parent_states: dict[str, dict[str, Any]] = {}
+        # Older/global-only deployments did not declare dialogue_target. Keep
+        # that path compatible; the field becomes mandatory only when an
+        # admitted parent session actually needs a per-dialogue target.
+        dialogue_limit = (self.policy.dialogue_target()
+                          if isinstance(parent_registry, dict) and parent_registry else 0)
+        for parent_id, registered in sorted(
+                parent_registry.items() if isinstance(parent_registry, dict) else ()):
+            if not isinstance(registered, dict):
+                continue
+            active = registered.get("active") is True
+            try:
+                parent_target = int(registered.get("target_active") or dialogue_limit)
+            except (TypeError, ValueError):
+                parent_target = dialogue_limit
+            parent_target = max(1, min(dialogue_limit, parent_target))
+            observed = parent_counts.get(str(parent_id), {})
+            parent_running = max(0, int(observed.get("running", 0) or 0))
+            parent_initializing = max(0, int(observed.get("initializing", 0) or 0))
+            queued = parent_pending.get(str(parent_id), {"total": 0, "v4": 0, "k3": 0})
+            queued_pools = {p: max(0, int(queued.get(p, 0) or 0)) for p in POOLS}
+            queued_total = sum(queued_pools.values())
+            parent_debt = (min(queued_total, max(0, parent_target - parent_running))
+                           if active else 0)
+            # Starting generations reserve a birth slot but do not clear the
+            # visible debt. Only a process-generation-verified running row
+            # reduces ``deficit``.
+            p
+2026-08-14T05:42:22.605375Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-14T05:42:22.605673Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=4000
+2026-08-14T05:42:24.499126Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T05:42:46.841675Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-14T05:42:46.841759Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=8000
+2026-08-14T05:42:51.026706Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T05:43:14.959416Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-14T05:43:14.959481Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=16000
+2026-08-14T05:43:16.774153Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T05:43:43.519719Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-14T05:43:43.519793Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=30000
+2026-08-14T05:43:48.215213Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=failed to send remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL: error sending request for url (https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL)
+2026-08-14T05:44:15.457735Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T05:44:38.059485Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-14T05:44:38.059572Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=30000
+2026-08-14T05:44:42.632155Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=failed to send remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL: error sending request for url (https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL)
+2026-08-14T05:45:08.652535Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-14T05:45:08.652632Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=30000
+2026-08-14T05:45:13.281840Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=failed to send remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL: error sending request for url (https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL)
+2026-08-14T05:45:39.398196Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-14T05:45:39.398294Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=30000
+2026-08-14T05:45:42.389016Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T05:46:09.731047Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-14T05:46:09.731125Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=30000
+2026-08-14T05:46:12.696477Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T05:46:32.488262Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=failed to send remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL: error sending request for url (https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL)
+2026-08-14T05:47:07.943927Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-14T05:47:07.943998Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=30000
+2026-08-14T05:47:10.298170Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=failed to send remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL: error sending request for url (https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL)
+2026-08-14T05:47:53.514216Z  WARN codex_mcp::rmcp_client: failed to initialize MCP client during shutdown: MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request
+2026-08-14T05:48:03.467579Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)

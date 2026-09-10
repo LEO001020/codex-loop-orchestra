@@ -1,0 +1,152 @@
+Reading additional input from stdin...
+2026-08-14T10:51:10.067719Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T10:51:13.404303Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T10:51:29.749519Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.7 seconds
+Output:
+所在位置 行:2 字符: 34
++ cd E:\codex-LOOP\codex-loop-s-f2 && rg --files | head -60
++                                  ~~
+标记“&&”不是此版本中的有效语句分隔符。
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : InvalidEndOfLine
+ 
+
+2026-08-14T10:51:43.789509Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 3.3 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 48
++ cd E:\codex-LOOP\codex-loop-s-f2; rg --files | head -80
++                                                ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T10:51:56.700840Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.2 seconds
+Output:
+work_commencement_certificate.md
+VERSIONS.lock
+test_evidence_pytest_output.txt
+AGENTS.md
+README.md
+pyproject.toml
+agents\worker.toml
+agents\verifier.toml
+agents\reviewer.toml
+agents\plan_expander.toml
+agents\duty_officer.toml
+metering\model_token_share.py
+metering\e0_annotate.py
+install_v2.sh
+install.sh
+tests\__pycache__\test_windows_wsl_paths.cpython-314-pytest-9.1.1.pyc
+tests\__pycache__\test_trigger_eval_v2.cpython-314-pytest-9.1.1.pyc
+tests\__pycache__\test_token_meter_v2.cpython-314-pytest-9.1.1.pyc
+tests\__pycache__\test_statemachine_v2.cpython-314-pytest-9.1.1.pyc
+tests\__pycache__\test_sol_tool_gate_v2.cpython-314-pytest-9.1.1.pyc
+tests\__pycache__\test_smoke_all.cpython-314-pytest-9.1.1.pyc
+tests\__pycache__\test_short_result_validator.cpython-314-pytest-9.1.1.pyc
+tests\__pycache__\test_root_turn_governor.cpython-314-pytest-9.1.1.pyc
+tests\__pycache__\test_result_reducer.cpython-314-pytest-9.1.1.pyc
+tests\__pycache__\test_refill_controller_v2.cpython-314-pytest-9.1.1.pyc
+tests\__pycache__\test_lifecycle_supervisor_v2.cpython-314-pytest-9.1.1.pyc
+tests\__pycache__\test_layered_gate.cpython-314-pytest-9.1.1.pyc
+tests\__pycache__\test_layered_e2e.cpython-314-pytest-9.1.1.pyc
+tests\__pycache__\test_l2_consumer.cpython-314-pytest-9.1.1.pyc
+tests\__pycache__\test_governor_hysteresis.cpython-314-pytest-9.1.1.pyc
+tests\__pycache__\test_dispatch_v2.cpython-314-pytest-9.1.1.pyc
+tests\__pycache__\test_cold_start_rollback.cpython-314-pytest-9.1.1.pyc
+tests\__pycache__\test_budget_controller.cpython-314-pytest-9.1.1.pyc
+tests\__pycache__\test_agent_router.cpython-314-pytest-9.1.1.pyc
+tests\__pycache__\ipybox_supervisor_smoke.cpython-314-pytest-9.1.1.pyc
+tests\__pycache__\ipybox_parent_death_smoke.cpython-314-pytest-9.1.1.pyc
+tests\__pycache__\conftest.cpython-314.pyc
+tests\__pycache__\conftest.cpython-314-pytest-9.1.1.pyc
+tests\__pycache__\conftest.cpython-312-pytest-8.4.1.pyc
+metering\model_token_share_v2.py
+codex-loop-s-f2\tests\test_budget_controller.py
+codex-loop-s-f2\tests\test_result_reducer.py
+metering\model_token_share_bridge.py
+codex-loop-s-f2\tests\test_refill_controller_v2.py
+metering\oscillation_report.py
+codex-loop-s-f2\tests\test_agent_router.py
+codex-loop-s-f2\tests\test_lifecycle_supervisor_v2.py
+metering\usage_reconcile.py
+codex-loop-s-f2\tests\conftest.py
+codex-loop-s-f2\tests\test_layered_gate.py
+codex-loop-s-f2\tests\test_layered_e2e.py
+codex-loop-s-f2\tests\test_l2_consumer.py
+codex-loop-s-f2\tests\test_governor_hysteresis.py
+codex-loop-s-f2\tests\test_dispatch_v2.py
+codex-loop-s-f2\tests\test_cold_start_rollback.py
+tests\ipybox_parent_death_smoke.py
+tests\statemachine_paths\__pycache__\test_all_transitions.cpython-314-pytest-9.1.1.pyc
+tests\statemachine_paths\__pycache__\test_adversarial.cpython-314-pytest-9.1.1.pyc
+tests\statemachine_paths\test_all_transitions.py
+tests\statemachine_paths\test_adversarial.py
+backup-20260813-012318\metering\model_token_share_v2.py
+backup-20260811-215706\config\refill_policy.toml
+backup-20260811-215706\config\orchestration_policy.toml
+tests\golden\test_g1_two_packet_parallel.py
+tests\conftest.py
+SHA256SUMS
+search_log.md
+harness\__pycache__\verdict_check.cpython-314.pyc
+harness\__pycache__\verdict_aggregate.cpython-314.pyc
+harness\__pycache__\trigger_eval_v2.cpython-314.pyc
+harness\__pycache__\trigger_eval.cpython-314.pyc
+harness\__pycache__\terminal_packet_epilogue.cpython-314.pyc
+backup-20260813-012318\hooks\sol_tool_gate_v2.py
+codex-loop-s-f2\tests\__pycache__\test_windows_wsl_paths.cpython-314-pytest-9.1.1.pyc
+harness\__pycache__\summary_synth.cpython-314.pyc
+codex-loop-s-f2\tests\__pycache__\test_trigger_eval_v2.cpython-314-pytest-9.1.1.pyc
+codex-loop-s-f2\tests\__pycache__\test_token_meter_v2.cpython-314-pytest-9.1.1.pyc
+codex-loop-s-f2\tests\__pycache__\test_statemachine_v2.cpython-314-pytest-9.1.1.pyc
+codex-loop-s-f2\tests\__pycache__\test_sol_tool_gate_v2.cpython-314-pytest-9.1.1.pyc
+codex-loop-s-f2\tests\__pycache__\test_smoke_all.cpython-314-pytest-9.1.1.pyc
+
+2026-08-14T10:52:20.899471Z ERROR codex_core::tools::router: error=unsupported call: read
+2026-08-14T10:53:32.718870Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-14T10:53:53.969366Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.1 seconds
+Output:
+
+2026-08-14T10:57:48.986165Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.1 seconds
+Output:
+
+2026-08-14T10:58:07.826656Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.1 seconds
+Output:
+
+2026-08-14T10:58:31.134585Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.2 seconds
+Output:
+
+2026-08-14T11:02:47.245933Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

@@ -1,0 +1,72 @@
+数据已完整，现在给出审计结论。
+
+---
+
+## C 叠加层内容哈希审计报告
+
+**审计对象**
+- 当前树：`E:\codex-LOOP\codex-loop-s-f2\`（及其嵌套 `codex-loop-s-f2/`，SHA256SUMS 取自顶层）
+- 包文件：`最终+1/codex-loop-s-f2-orchestration-v2-20260810.tar.gz`（通过已解压的 `.audit-fable-20260813-…` 目录读取，内容完全一致）
+
+---
+
+### 一、同名核心文件哈希偏离汇总
+
+共有 **4 个文件完全一致（MATCH）**，**12 个核心模块发生偏离（DIFFER）**：
+
+| 状态 | 文件 |
+|------|------|
+| MATCH | `config/triggers_v2.yaml` |
+| MATCH | `harness/lifecycle_supervisor_v2.py` |
+| MATCH | `harness/result_reducer.py` |
+| MATCH | `harness/short_result_validator.py` |
+| DIFFER | `config/loop_config_v2.toml` |
+| DIFFER | `config/orchestration_policy_v2.toml` |
+| DIFFER | `config/refill_policy.toml` |
+| DIFFER | `config/roles_v2.yaml` |
+| DIFFER | `config/statemachine_v2_transitions.json` |
+| DIFFER | `harness/agent_router.py` |
+| DIFFER | `harness/budget_controller.py` |
+| DIFFER | `harness/dispatch_v2.py` |
+| DIFFER | `harness/l2_consumer.py` |
+| DIFFER | `harness/layered_gate.py` |
+| DIFFER | `harness/orchestration_common.py` |
+| DIFFER | `harness/refill_controller_v2.py` |
+| DIFFER | `harness/root_turn_governor.py` |
+| DIFFER | `harness/statemachine_v2.py` |
+| DIFFER | `harness/trigger_eval_v2.py` |
+| DIFFER | `install_v2.sh` |
+| DIFFER | `metering/model_token_share_v2.py` |
+| NOT_IN_LIVE | `config/orchestration_policy.toml`（包有，live 无） |
+| NOT_IN_LIVE | `hooks/sol_tool_gate_v2.py`（包有，live 无） |
+
+`tests/` 层：包内 `tests/test_*.py`（顶层扁平）与 live 的 `tests/orchestration_v2/test_*.py` 是**路径不同的同内容镜像**，`tests/conftest.py` 哈希一致（MATCH），其余测试文件路径均不重叠。
+
+---
+
+### 二、live 独有的后续新增模块（包内不存在）
+
+live 树在包基础上额外增加了 **~75 个文件**，主要分布在：
+
+- `agents/`（5 个 `.toml` agent 定义，包内完全没有）
+- `harness/` 新增 16 个模块：`csv_reconcile.py`、`dispatch.py`、`dual_plane_hash.py`、`headless_wave.py`、`lifecycle_supervisor.py`（v1）、`model_profile.py`、`orchestration_epilogue.py`、`parent_manifest_importer.py`、`plan_consumer.py`、`provider_health.py`、`refill_consumer_v2.py`、`routing_mode.py`、`smoke_gate.sh`、`statemachine.py`（v1）、`terminal_packet_epilogue.py`、`trigger_eval.py`（v1）、`worktree_pool.sh`、`orchestration/plan_pipeline.py`
+- `hooks/` 新增：`leaf_agent_spawn_gate.py`、`sol_tool_gate.py`（v1）、`sol_tool_gate_router.py`、`subagent_lifecycle.py`
+- `metering/` 新增：`model_token_share.py`（v1）、`model_token_share_bridge.py`、`usage_reconcile.py`
+- `schemas/`（3 个 JSON Schema，包内完全没有）
+- `config/` 新增：`config.toml.example`、`managed_files_v2.txt`、`model_profiles.toml`、`roles.yaml`（v1）
+- `tests/orchestration_v2/`（25 个测试，包内对应的是顶层 `tests/test_*.py`）
+- `tests/unit/`（13 个单测，包内完全没有）
+- `VERSIONS.lock`
+
+---
+
+### 三、结论：**叠加（overlay），不是替换**
+
+理由：
+
+1. **live 树包含大量包内不存在的模块**（agents 定义、v1 历史层、schemas、unit 测试、headless_wave、dual_plane_hash 等），若完整替换将丢失这些后续演化成果。
+2. **12 个核心模块 DIFFER** 说明 live 树已在包的基础上继续迭代，并非原样保留。包是更早的基线快照（20260810），live 树是其演化结果。
+3. **4 个文件 MATCH** 表明部分模块从包到 live 保持稳定，叠加关系成立。
+4. `hooks/sol_tool_gate_v2.py` 在 live 的顶层 SHA256SUMS 中未出现但目录存在（`codex-loop-s-f2/hooks/sol_tool_gate_v2.py`），说明 live 有该文件但 SHA256SUMS 采用了不同的路径前缀索引方式，实际文件存在。
+
+**操作建议（仅供参考，不执行）**：若需将包内 DIFFER 文件引入 live，应逐文件 diff 审查后按需叠加，绝不全量覆盖，以免抹除 live 独有的 75+ 新增模块和 VERSIONS.lock。

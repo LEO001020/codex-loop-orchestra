@@ -1,0 +1,71 @@
+{
+  "detail": {
+    "event": "duty_review",
+    "from_state": "TIMED_OUT"
+  },
+  "packet_id": "parent-27bb0f1c73dd82b71270c14d9a2b471316d023496df9a4c7",
+  "prior_history": [
+    {
+      "to": "DEAD_LETTER",
+      "ts": 1786567432.8925922,
+      "via": "off_table_event"
+    },
+    {
+      "to": "DEAD_LETTER",
+      "ts": 1786567432.9685884,
+      "via": "off_table_event"
+    },
+    {
+      "current_run_id": "parent-27bb0f1c73dd82b71270c14d9a2b471316d023496df9a4c7-a0-d0ca0784448243db955795521ff62b77",
+      "event": "exec_failed",
+      "event_run_id": "parent-27bb0f1c73dd82b71270c14d9a2b471316d023496df9a4c7-a0-f744ba880f4a4de9a58a692e5c296fe3",
+      "to": "DEAD_LETTER",
+      "ts": 1786567432.973528,
+      "via": "stale_run_id_ignored"
+    },
+    {
+      "to": "DEAD_LETTER",
+      "ts": 1786567433.3873732,
+      "via": "off_table_event"
+    },
+    {
+      "event_cursor": 374443,
+      "job_state": "running",
+      "run_id": "parent-27bb0f1c73dd82b71270c14d9a2b471316d023496df9a4c7-a0-d0ca0784448243db955795521ff62b77",
+      "to": "RUNNING",
+      "ts": 1786567705.8904622,
+      "via": "recover_historical_replay_incident"
+    },
+    {
+      "t": 5,
+      "to": "TIMED_OUT",
+      "ts": 1786569134.9631412,
+      "via": "timeout"
+    },
+    {
+      "t": 37,
+      "to": "DISPATCHABLE",
+      "ts": 1786569921.8658125,
+      "via": "retry_dispatch"
+    },
+    {
+      "t": 3,
+      "to": "RUNNING",
+      "ts": 1786570190.0920966,
+      "via": "dispatched"
+    },
+    {
+      "t": 5,
+      "to": "TIMED_OUT",
+      "ts": 1786571988.5791805,
+      "via": "timeout"
+    },
+    {
+      "to": "DEAD_LETTER",
+      "ts": 1786571988.7057695,
+      "via": "off_table_event"
+    }
+  ],
+  "reason": "off_table_event",
+  "ts": 1786571988.70584
+}

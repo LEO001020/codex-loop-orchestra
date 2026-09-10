@@ -1,0 +1,14 @@
+根上下文Token最终审计（4 worker + 1 K3 verifier，全只读）
+
+**判定：PASS**（4 项核心设计全部有代码/配置级机械支撑），无 P0，P1 ×3。
+
+- **控制包传递**：子代理 prompt 仅由 packets/*.json 四字段拼成（dispatch.py:365-379、dispatch_v2.py:340-347），重试只传"路径句柄+失败类别"（dispatch.py:326-330），全链无读取 rollout 注入 prompt 的路径；governor 仅做 PreToolUse 门控（root_turn_governor.py:75-84）。
+- **1M/800k**：`model_context_window=1000000`（模型上限）与 `model_auto_compact_token_limit=800000`（压缩阈值）成对钉入 agents/*.toml:14-15 与 orchestration_policy_v2.toml:32-38，dispatch_v2.py:141-145 传递，tests/unit/test_dispatch_model_pin.py:82-90 有断言。
+- **Sol 20-25% 门限**：WARN=0.20/BLOCK=0.25、公式 (sol−cached)/(total−cached) 在 metering/model_token_share.py:12,46,341 机械断电（exit 1），v2 经 budget_state 供 hooks/sol_tool_gate_v2.py:293 机械 deny；窗口含 1h/5h(主)/24h/7d/cumulative。
+- **双族链**：执行=V4 Flash ultra（model_profiles.toml:8-9）、核验/评审=K3 kimi-k3 max（orchestration_policy_v2.toml:30-31，roles_v2.yaml:51-77）；并发 48/36/12 在 refill_policy.toml:12-14。
+
+**P1**：① dispatch.py:370-377 四字段无 max_chars 硬上限，仅靠 planning_max_new_tokens=30000 上游约束；② 控制器为双门限——除 20/25 计量门限外，budget_controller.py:7 另有 sol_hard_cap=15% Tier-1，两档语义未在同处注释，存在歧义；③ "16-agent 波"仅 AGENTS.md 文本，config/policy 无对应条款，非机械强制；另 artifact_paths 只校类型不校路径存在（short_result_validator.py:245-256）。
+
+**36.25% 归因**：属历史窗口，非设计缺口。36%>25% 但系统未停摆，说明该值大概率取自 rolling-5h 主窗口之外（24h/7d 滞后旧资或 BLOCK 前的运行历史）；门限逻辑按主窗口+滞后状态机械断电，回看高位系早先 Sol 直做的历史残留。当前控制链 PASS，无需按机制 REDO；是否对历史窗口红队治理属运维决策，非代码缺口。
+
+**建议**（可在下轮整改）：P1①在 dispatcher 加字段级字符上限；P1②在 budget_controller 顶部注明 15%/20%/25% 三档职责；P1③视需要把 16 波写入 refill_policy。

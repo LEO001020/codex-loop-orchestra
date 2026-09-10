@@ -28,9 +28,13 @@ def test_g1_two_disjoint_packets_reach_wave_done(repo_loop, tmp_path):
     rc, states = loop.step()
     assert states == {p1: "DISPATCHABLE", p2: "DISPATCHABLE"}
 
-    # --- dispatch (dry-run emits dispatched events; spawn is mocked below) ---
+    # --- dry-run is audit-only; physical mock dispatch follows below --------
     p = loop.run([PY, loop.harness("dispatch.py"), "--mode", "single", "--dry-run"])
     assert p.returncode == 0, p.stderr
+    rc, states = loop.step()
+    assert states == {p1: "DISPATCHABLE", p2: "DISPATCHABLE"}
+    for pid in (p1, p2):
+        loop.append_event(pid, "dispatched", {"mode": "mock"})
     rc, states = loop.step()
     assert states == {p1: "RUNNING", p2: "RUNNING"}
 

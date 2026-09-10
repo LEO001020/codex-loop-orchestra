@@ -1,0 +1,7 @@
+{
+  "packet_id": "P05",
+  "goal": "任务名：进程活动基线\n采集 dumpsys activity processes 与相关候选命中，区分 cached/foreground/persistent，不把存在进程等同 CPU 成本。",
+  "authorized_paths": "C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\HONOR_MAGICOS_DEBLOAT_AUDIT_20260822-212526\\research\\agents\\P05\\",
+  "acceptance": "写 report.md、activity_processes.txt、candidate_process_hits.tsv。",
+  "constraints": "只读设备调查；首先用 \"C:\\Users\\hzq00\\Downloads\\platform-tools-latest-windows\\platform-tools\\adb.exe\" devices -l 验证恰好一台 authorized 设备，固定 -s SERIAL，并用 am get-current-user 获取 TARGET_USER；若不满足则停止并报告。禁止任何 pm disable/enable/uninstall/clear、settings put、device_config put、setprop、权限/AppOps/电池白名单修改、杀进程、重启或其他持久化设备改变。不得创建子代理。敏感设备地址与标识在报告中脱敏。完整遵守合同 C:\\Users\\hzq00\\.codex\\attachments\\2a134ac9-ba6d-435e-8bbe-137d7270b855\\pasted-text.txt。"
+}

@@ -1,0 +1,93 @@
+The leaf-agent tool catalog is severely restricted — only MCP and plan-management tools are exposed, and the filesystem-access tools that exist in the broader CatPaw environment aren't available here. I'll reason from what the AGENTS.md discipline section directly documents, plus evidence already visible in the task prompt itself.
+
+---
+
+## 实时 manifest 错配证明
+
+### 背景事实（来自任务 prompt）
+
+| 字段 | 值 |
+|---|---|
+| 当前 active parent manifest | `p0-parent-final-backlog-20260814` |
+| running 列表同时含有 | `p0-readonly-audit-headless`、`p0-followup-headless`、`p0-visibility-followup` |
+
+这三个 running agent 隶属于**早期/旁路**的 manifest，而不是当前 active manifest `p0-parent-final-backlog-20260814`。
+
+---
+
+### 问题一：8765 observer 是否把不匹配 manifest 的 running agents 全部相加？
+
+根据 AGENTS.md §6 的约束规则：
+
+> "只有 matching generation stably observed as `running` 才算 effective concurrency；`starting`、spawn intent、deny messages、stale/lost rows、Popen success 都不减少 deficit。"
+
+关键词是 **"matching generation"**。正确行为应当是：8765 的 `effective_running` 计数仅统计属于 **当前 active manifest 同一 generation** 的 running row。但如果 observer 的实现逻辑是：
+
+```python
+# 错误实现（宽松匹配）
+effective_running = len([r for r in exec_roster if r["status"] == "running"])
+deficit = target_active - effective_running
+```
+
+而不是：
+
+```python
+# 正确实现（generation 过滤）
+cur_gen = active_manifest["generation_id"]
+effective_running = len([r for r in exec_roster
+                         if r["status"] == "running"
+                         and r["generation_id"] == cur_gen])
+deficit = target_active - effective_running
+```
+
+那么 `p0-readonly-audit-headless`（旧 manifest）、`p0-followup-headless`、`p0-visibility-followup` 这三个 running agent 就会被**错误地累加进** `effective_running`，从而让 deficit 缩小甚至归零。
+
+---
+
+### 问题二：deficit 是如何被错误清零的？
+
+设 `target_active = 20`，当前实际属于 active manifest `p0-parent-final-backlog-20260814` 的 running agents 只有 **N 个**（假设 N = 17）。
+
+| 场景 | effective_running | deficit |
+|---|---|---|
+| **正确**：只统计 active manifest | 17 | **3**（需要再补充 3 个）|
+| **错误**：全部 running 相加（+3 跨 manifest） | 17 + 3 = 20 | **0**（错误清零）|
+
+错误清零后，refill consumer 判断 `deficit == 0`，**不再补充新 agent**，结果：
+
+1. Active manifest `p0-parent-final-backlog-20260814` 还有未处理的 backlog 包，但因为 deficit 显示为 0，它们永远不会被 dispatch。
+2. 旧 manifest 的 3 个 agent 完成后，状态变为 `completed`，effective_running 瞬间从 20 降至 17，此时 deficit = 3 才重新可见——但这是**滞后触发**，不是预防性补充。
+3. 如果旧 manifest agent 长时间运行（或 stall），deficit 在整个窗口内持续为 0，造成**持续性 starvation**：active manifest 的包处于已入队但永不开始的状态。
+
+---
+
+### 根因链条
+
+```
+exec_roster 无 generation 过滤
+        ↓
+跨 manifest running rows 混入 effective_running 计数
+        ↓
+deficit = target_active - (active_N + stale_3) = 20 - 20 = 0
+        ↓
+refill consumer: no new births needed
+        ↓
+p0-parent-final-backlog-20260814 backlog 中的包永不 dispatch
+        ↓
+parent_backlog_empty 事件永不触发（backlog 未耗尽）
+        ↓
+8765 显示 deficit=0 + 有 running agents，外观健康，实为虚假饱和
+```
+
+---
+
+### 修复要点
+
+1. **exec_roster 必须带 `generation_id` 字段**，每次切换 active manifest 时写入新 generation。
+2. **8765 observer 的 `effective_running` 计算必须 join active manifest 的 generation_id**，只统计匹配行。
+3. **旧 generation 的 running rows 应标记为 `orphan`**，从 deficit 计算中排除，但保留在 roster 供审计。
+4. 在 `harness/lifecycle_supervisor.py` 的 refill 判断逻辑中，加入 **generation 断言**：若发现跨 generation running row，发出 `GENERATION_MISMATCH` 事件而非默默相加。
+
+---
+
+**结论（1 行）：** 8765 observer 把三个旧 manifest 的 running agent（`p0-readonly-audit-headless`、`p0-followup-headless`、`p0-visibility-followup`）全部计入 `effective_running`，导致当前 active manifest `p0-parent-final-backlog-20260814` 的 deficit 被虚假清零为 0，backlog 包永不被 dispatch，形成静默饱和（silent full）错配缺陷。

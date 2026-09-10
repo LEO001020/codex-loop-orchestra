@@ -1,0 +1,149 @@
+Reading additional input from stdin...
+2026-08-12T20:05:36.692117Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-12T20:05:37.648232Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:05:39.281179Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-12T20:07:30.165586Z ERROR codex_core::tools::router: error=Exit code: 124
+Wall time: 17.1 seconds
+Output:
+command timed out after 17065 milliseconds
+
+Mode   Length Name                                                     
+----   ------ ----                                                     
+d-----        .gcloud                                                  
+d-----        .tools                                                   
+d-----        .work                                                    
+d-----        home-gpu                                                 
+d-----        hub-baseline-audit                                       
+d-----        p5-boot-image-20260810T144519Z                           
+d-----        p5-boot-image-preflight-20260810T144519Z                 
+d-----        p5-cold-canary-20260810-150058                           
+d-----        p5-data-snapshot-20260810-151108                         
+d-----        p5-fastpath-state-20260810T151305Z                       
+d-----        p5-fastpath-template-20260810                            
+d-----        p5-fastpath-template-v3-20260810                         
+d-----        p5-fastpath-template-v4-20260810                         
+d-----        p5-filebrowser-tunnel                                    
+d-----        p5-hub-research-ready-p5-fastpath-20260810T161639Z       
+d-----        p5-wheels                                                
+d-----        reports                                                  
+d-----        tmp_probe                                                
+d-----        __pycache__                                              
+-a---- 19228  k3-p5-fastpath-startup-20260810.sh                       
+-a---- 18672  k3-p5-startup-20260810T144519Z.sh                        
+-a---- 32186  p5-gcp-prechange-20260810T125030Z.tar.gz                 
+-a---- 115680 p5-snapshot-gate-p5-prechange-data-20260810-135948.tar.gz
+-a---- 40659  p5-source-20260810T141730Z.tar.gz                        
+-a---- 40679  p5-source-20260810T142724Z.tar.gz                        
+-a---- 107995 p5-source-20260810T143934Z.tar.gz                        
+-a---- 111    p5-source-20260810T143934Z.tar.gz.sha256                 
+-a---- 108597 p5-source-20260810T152802Z.tar.gz                        
+-a---- 111    p5-source-20260810T152802Z.tar.gz.sha256                 
+-a---- 108685 p5-source-20260810T153334Z.tar.gz                        
+-a---- 111    p5-source-20260810T153334Z.tar.gz.sha256                 
+-a---- 1961   p5_audit_readonly_check.sh                               
+-a---- 4946   p5_bootstrap_idempotency_remote.sh                       
+-a---- 2119   p5_boot_image_preflight.sh                               
+-a---- 432    p5_boot_image_prepare_diag_remote.sh                     
+-a---- 1684   p5_boot_image_prepare_remote.sh                          
+-a---- 2927   p5_capture_fastpath_gcp_pre.sh                           
+-a---- 13181  p5_capture_fastpath_post_remote.sh                       
+-a---- 5585   p5_capture_fastpath_pre_remote.sh                        
+-a---- 2480   p5_cleanup_cold_canary.sh                                
+-a---- 890    p5_clear_filebrowser_orphan_remote.sh                    
+-a---- 1483   p5_cold_observe.sh                                       
+-a---- 1757   p5_cold_runtime_remote.sh                                
+-a---- 357    p5_cold_set_k3_key.sh                                    
+-a---- 563    p5_cold_ssh_keys.txt                                     
+-a---- 559    p5_cold_ssh_keys_k3.txt                                  
+-a---- 3944   p5_create_boot_image.sh                                  
+-a---- 4497   p5_create_cold_canary.sh                                 
+-a---- 1947   p5_create_current_data_snapshot.sh                       
+-a---- 3915   p5_create_fastpath_template.sh                           
+-a---- 3379   p5_create_fastpath_template_v3.sh                        
+-a---- 4785   p5_create_fastpath_template_v4_rest.sh                   
+-a---- 3268   p5_data_snapshot_prepare_remote.sh                       
+-a---- 165    p5_data_snapshot_resume_remote.sh                        
+-a---- 5527   p5_deadlock_exception_gcp_preflight.sh                   
+-a---- 8927   p5_deadlock_exception_guest_preflight_remote.sh          
+-a---- 755    p5_deploy_home_e2e_cli.sh                                
+-a---- 1261   p5_deploy_home_e2e_cli_remote.sh                         
+-a---- 2285   p5_deploy_source_remote.sh                               
+-a---- 467    p5_download_apsw_wheel.sh                                
+-a---- 2596   p5_fastpath_state_check.sh                               
+-a---- 1095   p5_filebrowser_diag_remote.sh                            
+-a---- 5347   p5_filebrowser_tunnel_supervisor.ps1                     
+-a---- 6464   p5_finalize_hub_research_ready.py                        
+-a---- 435    p5_gcloud_image_help.sh                                  
+-a---- 587    p5_install_fastpath_startup_remote.sh                    
+-a---- 2505   p5_install_research_sqlite_runtime_remote.sh             
+-a---- 697    p5_listener_diag_remote.sh                               
+-a---- 4283   p5_live_p0_remote.sh                                     
+-a---- 414    p5_manifest_diag_remote.sh                               
+-a---- 8941   p5_observe_v4_terminal.sh                                
+-a---- 1386   p5_p0_diagnose_remote.sh                                 
+-a---- 359    p5_pack_source.sh                                        
+-a---- 791    p5_pc6_remote_code_inventory.sh                          
+-a---- 797    p5_pc6_remote_commit_final_artifacts.sh                  
+-a---- 1008   p5_pc6_remote_create_materialization_worktree.sh         
+-a---- 1037   p5_pc6_remote_deploy_code.sh                             
+-a---- 984    p5_pc6_remote_deploy_tests.sh                            
+-a---- 975    p5_pc6_remote_duplicate_detail.sh                        
+-a---- 3520   p5_pc6_remote_final_gate.sh                              
+-a---- 1182   p5_pc6_remote_identity_gate.sh                           
+-a---- 2422   p5_pc6_remote_materialization_preflight.sh               
+-a---- 947    p5_pc6_remote_missing_normalization.sh                   
+-a---- 981    p5_pc6_remote_normalization_failure.sh                   
+-a---- 777    p5_pc6_remote_permissions_and_help.sh                    
+-a---- 1365   p5_pc6_remote_progress.sh                                
+-a---- 933    p5_pc6_remote_register_agent_run.sh                      
+-a---- 674    p5_pc6_remote_research_schema.sh                         
+-a---- 1089   p5_pc6_remote_runtime_check.sh                           
+-a---- 962    p5_pc6_remote_run_materializer.sh                        
+-a---- 988    p5_pc6_remote_run_tests.sh                               
+-a---- 1105   p5_pc6_remote_schema_samples.sh                          
+-a---- 761    p5_persistence_diag_remote.sh                            
+-a---- 331    p5_python_runtime_diag_remote.sh                         
+-a---- 3462   p5_recreate_fastpath.sh                                  
+-a---- 1048   p5_recreate_status.sh                                    
+-a---- 1770   p5_recreate_stuck_diag.sh                                
+-a---- 7684   p5_restore_canary_startup.sh                             
+-a---- 3663   p5_retarget_v4_recovery.sh                               
+-a---- 1008   p5_run_cold_strict.sh                                    
+-a---- 563    p5_run_remote_root.sh                                    
+-a---- 4565   p5_seal_home_e2e_parser_attempt.py                       
+-a---- 512    p5_seal_home_e2e_parser_attempt.sh                       
+-a---- 2605   p5_set_fastpath_template.sh                              
+-a---- 409    p5_startup_source_diag_remote.sh                         
+-a---- 3444   p5_superseding_recreate_v4.sh                            
+-a---- 664    p5_template_help_cleanup.sh                              
+-a---- 456    p5_upload_apsw.sh                                        
+-a---- 400    p5_upload_fastpath_startup.sh                            
+-a---- 452    p5_upload_source.sh                                      
+-a---- 51034  pc6_binance_materializer.py                              
+-a---- 5224   pc7-headless-wave-manifest-2.json                        
+-a---- 3307   pc7-headless-wave-manifest.json                          
+-a---- 20816  research-memory-v1-final.tar.gz                          
+-a---- 18066  research-memory-v1.tar.gz                                
+-a---- 12899  test_pc6_binance_materializer.py                         
+
+
+
+2026-08-12T20:10:02.369909Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.1 seconds
+Output:
+

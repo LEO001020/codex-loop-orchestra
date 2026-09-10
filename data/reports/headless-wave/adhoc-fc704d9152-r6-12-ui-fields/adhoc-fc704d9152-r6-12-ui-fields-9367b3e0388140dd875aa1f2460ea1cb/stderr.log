@@ -1,0 +1,275 @@
+Reading additional input from stdin...
+2026-08-14T14:09:01.674888Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T14:09:06.571319Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T14:09:41.766283Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 4.2 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 73
++ ... dex-LOOP --files | rg -i "dashboard|monitor|observer|8765" | head -40
++                                                                  ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T14:09:59.801370Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.5 seconds
+Output:
+backups\scheduled-tasks\Codex-LOOP-Monitor-20260812-193012.xml
+codex-loop-s-f2\tests\unit\__pycache__\test_loop_monitor_server.cpython-314-pytest-9.1.1.pyc
+codex-loop-s-f2\tests\unit\test_loop_monitor_server.py
+hl-loop-v3\tools\__pycache__\desktop_gate_monitor.cpython-314.pyc
+hl-loop-v3\tools\__pycache__\desktop_gate_monitor.cpython-312.pyc
+hl-loop-v3\tools\desktop_gate_monitor.py
+hl-loop-v3\tests\__pycache__\test_desktop_gate_monitor.cpython-314-pytest-9.1.1.pyc
+hl-loop-v3\tests\__pycache__\test_desktop_gate_monitor.cpython-312-pytest-8.4.1.pyc
+hl-loop-v3\tests\test_desktop_gate_monitor.py
+open-source\codex-loop\tools\desktop_gate_monitor.py
+open-source\codex-loop\tests\test_desktop_gate_monitor.py
+hl-loop-v3\state\desktop-runtime\g3-monitor.lockdir\pid
+codex-loop-s-f2\reports\desktop-concurrency-audit-20260812\06-8765????????txt
+codex-loop-s-f2\reports\desktop-concurrency-audit-20260812\06-8765????????stderr.log
+codex-loop-s-f2\reports\desktop-concurrency-audit-20260812\06-8765????????jsonl
+codex-loop-s-f2\reports\Observer?????2\audit_report.md
+launchers\__pycache__\loop_monitor_server.cpython-314.pyc
+launchers\task-backups\20260813-023417\Codex-LOOP-Monitor.xml
+launchers\Start-Codex-LOOP-Monitor.ps1
+launchers\Start-Codex-LOOP-Monitor-Hidden.vbs
+launchers\Register-Codex-LOOP-Monitor.ps1
+launchers\loop_monitor_server.py
+deliveries\fable-audit-20260810\stage\codex-loop-s-f2-fable-audit-20260810\host-overlay\launchers\Start-Codex-LOOP-Monitor.ps1
+deliveries\fable-audit-20260810\stage\codex-loop-s-f2-fable-audit-20260810\host-overlay\launchers\loop_monitor_server.py
+codex-loop-s-f2\data\sol_wake\1786565239_adhoc-dedff9fb87-monitor-model-dedup-final.md
+codex-loop-s-f2\data\sol_wake\1786565239_adhoc-ae4185dded-monitor-watchdog.md
+codex-loop-s-f2\data\sol_wake\1786565239_adhoc-0f5426ee3c-observer.md
+codex-loop-s-f2\data\sol_wake\1786565239_adhoc-08bf8bc078-monitor-freshness-root-cause.md
+reports\8765-liveness-audit\report.md
+reports\monitor-mutex-patch-audit\verification-report.md
+recovery-staging\prepatch-20260814-1318-candidate\tests\unit\test_loop_monitor_server.py
+release-candidates\codex-loop-0.1.0-test-preview-20260808\verification\codex-loop-0.1.0-test-preview\tools\desktop_gate_monitor.py
+release-candidates\codex-loop-0.1.0-test-preview-20260808\verification\codex-loop-0.1.0-test-preview\tests\test_desktop_gate_monitor.py
+reports\observer-unavailable-R3\audit.md
+release-candidates\codex-loop-0.1.0-test-preview-20260808\codex-loop-0.1.0-test-preview\tools\desktop_gate_monitor.py
+release-candidates\codex-loop-0.1.0-test-preview-20260808\codex-loop-0.1.0-test-preview\tests\test_desktop_gate_monitor.py
+release-candidates\codex-loop-0.1.0-test-preview-20260808\archive-input\codex-loop-0.1.0-test-preview\tools\desktop_gate_monitor.py
+release-candidates\codex-loop-0.1.0-test-preview-20260808\archive-input\codex-loop-0.1.0-test-preview\tests\test_desktop_gate_monitor.py
+venv\Lib\site-packages\zmq\utils\__pycache__\monitor.cpython-312.pyc
+venv\Lib\site-packages\zmq\utils\monitor.py
+rg: ./hl-loop-v3\deploy\codex-home: 拒绝访问。 (os error 5)
+rg: ./runtime\pytest\PRE-07-gate: 拒绝访问。 (os error 5)
+rg: ./runtime\pytest\PRE-06: 拒绝访问。 (os error 5)
+rg: ./runtime\pytest\PRE-05: 拒绝访问。 (os error 5)
+rg: ./runtime\pytest\PRE-04: 拒绝访问。 (os error 5)
+rg: ./runtime\pytest\PRE-00: 拒绝访问。 (os error 5)
+rg: ./runtime\pytest\M5-04: 拒绝访问。 (os error 5)
+rg: ./runtime\pytest\M5-02: 拒绝访问。 (os error 5)
+rg: ./runtime\pytest\M5-01: 拒绝访问。 (os error 5)
+rg: ./runtime\pytest\M4-full: 拒绝访问。 (os error 5)
+rg: ./runtime\pytest\M4-08-mutants: 拒绝访问。 (os error 5)
+rg: ./runtime\pytest\M4-08-e2e: 拒绝访问。 (os error 5)
+rg: ./runtime\pytest\M4-08: 拒绝访问。 (os error 5)
+rg: ./runtime\pytest\M4-07-regression: 拒绝访问。 (os error 5)
+rg: ./runtime\pytest\M4-07: 拒绝访问。 (os error 5)
+rg: ./runtime\pytest\M4-06-regression: 拒绝访问。 (os error 5)
+rg: ./runtime\pytest\M4-05: 拒绝访问。 (os error 5)
+rg: ./runtime\pytest\M4-04-regression: 拒绝访问。 (os error 5)
+rg: ./runtime\pytest\M4-04: 拒绝访问。 (os error 5)
+rg: ./runtime\pytest\M4-03-regression: 拒绝访问。 (os error 5)
+rg: ./runtime\pytest\M4-03: 拒绝访问。 (os error 5)
+rg: ./runtime\pytest\M4-02: 拒绝访问。 (os error 5)
+rg: ./runtime\pytest\M4-01: 拒绝访问。 (os error 5)
+rg: ./runtime\pytest\M3-06: 拒绝访问。 (os error 5)
+rg: ./runtime\pytest\M3-05: 拒绝访问。 (os error 5)
+rg: ./runtime\pytest\M3-03: 拒绝访问。 (os error 5)
+rg: ./runtime\pytest\M3-02: 拒绝访问。 (os error 5)
+rg: ./runtime\pytest\M3-01: 拒绝访问。 (os error 5)
+rg: ./runtime\pytest\M1-06: 拒绝访问。 (os error 5)
+rg: ./runtime\pytest\M1-05: 拒绝访问。 (os error 5)
+rg: ./runtime\pytest\M1-04: 拒绝访问。 (os error 5)
+rg: ./runtime\pytest\M1-03: 拒绝访问。 (os error 5)
+rg: ./runtime\pytest\M1-02: 拒绝访问。 (os error 5)
+rg: ./runtime\pytest\M1-01: 拒绝访问。 (os error 5)
+rg: ./runtime\pytest\M0-12: 拒绝访问。 (os error 5)
+rg: ./runtime\pytest\M0-08: 拒绝访问。 (os error 5)
+rg: ./runtime\pytest\M0-06: 拒绝访问。 (os error 5)
+rg: ./runtime\pytest\M0-02: 拒绝访问。 (os error 5)
+rg: ./runtime\pytest\M0-01: 拒绝访问。 (os error 5)
+rg: ./runtime\cache-quarantine\95fb6fc2506f435196cf88727c2b4458-.pytest_cache: 拒绝访问。 (os error 5)
+
+2026-08-14T14:10:28.284893Z ERROR codex_core::tools::router: error=unsupported call: read
+2026-08-14T14:13:15.398692Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 4.5 seconds
+Output:
+.*? : 无法将“.*?”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后再
+试一次。
+所在位置 行:6 字符: 36
++ m = re.search(r'PAGE\s*=\s*r\"\"\"(.*?)\"\"\"', content, re.DOTALL)
++                                    ~~~
+    + CategoryInfo          : ObjectNotFound: (.*?:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T14:13:57.387851Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 8.9 seconds
+Output:
+python : 无法将“python”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，
+然后再试一次。
+所在位置 行:2 字符: 1
++ python -c "exec(open('extract_page.py','w').write('''import re\nconte ...
++ ~~~~~~
+    + CategoryInfo          : ObjectNotFound: (python:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T14:14:24.196164Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.3 seconds
+Output:
+
+2026-08-14T14:15:38.182438Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.3 seconds
+Output:
+
+
+    Ŀ¼: E:\codex-LOOP\venv\Scripts
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----          2026/8/3     11:52         274424 python.exe                                                           
+
+
+
+2026-08-14T14:16:14.870237Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.8 seconds
+Output:
+Set-Content : 对路径“C:\Temp\extract_page.py”的访问被拒绝。
+所在位置 行:11 字符: 11
++ $script | Set-Content "C:\Temp\extract_page.py" -Encoding UTF8
++           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (C:\Temp\extract_page.py:String) [Set-Content], UnauthorizedAccessExce 
+   ption
+    + FullyQualifiedErrorId : GetContentWriterUnauthorizedAccessError,Microsoft.PowerShell.Commands.SetContentCommand
+ 
+No Python at '"C:\Users\hzq00\AppData\Local\Programs\Python\Python312\python.exe'
+
+2026-08-14T14:16:43.670345Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1 seconds
+Output:
+无法调用方法。此语言模式仅支持核心类型的方法调用。
+所在位置 行:2 字符: 1
++ $tmp = [System.IO.Path]::GetTempFileName() + ".py"
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : MethodInvocationNotSupportedInConstrainedLanguage
+ 
+无法调用方法。此语言模式仅支持核心类型的方法调用。
+所在位置 行:4 字符: 1
++ [System.IO.File]::WriteAllText($tmp, $script, [System.Text.Encoding]: ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : MethodInvocationNotSupportedInConstrainedLanguage
+ 
+No Python at '"C:\Users\hzq00\AppData\Local\Programs\Python\Python312\python.exe'
+
+2026-08-14T14:17:34.348737Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.7 seconds
+Output:
+New-Item : 对路径“E:\codex-LOOP\extract_page.py”的访问被拒绝。
+所在位置 行:2 字符: 1
++ New-Item -Path "E:\codex-LOOP\extract_page.py" -ItemType File -Force  ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\codex-LOOP\extract_page.py:String) [New-Item], UnauthorizedAccessE 
+   xception
+    + FullyQualifiedErrorId : NewItemUnauthorizedAccessError,Microsoft.PowerShell.Commands.NewItemCommand
+ 
+Set-Content : 对路径“E:\codex-LOOP\extract_page.py”的访问被拒绝。
+所在位置 行:2 字符: 82
++ ... | Out-Null; Set-Content -Path "E:\codex-LOOP\extract_page.py" -Encodi ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\codex-LOOP\extract_page.py:String) [Set-Content], UnauthorizedAcce 
+   ssException
+    + FullyQualifiedErrorId : GetContentWriterUnauthorizedAccessError,Microsoft.PowerShell.Commands.SetContentCommand
+ 
+Add-Content : 对路径“E:\codex-LOOP\extract_page.py”的访问被拒绝。
+所在位置 行:2 字符: 167
++ ... import re'; Add-Content -Path "E:\codex-LOOP\extract_page.py" -Encodi ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\codex-LOOP\extract_page.py:String) [Add-Content], UnauthorizedAcce 
+   ssException
+    + FullyQualifiedErrorId : GetContentWriterUnauthorizedAccessError,Microsoft.PowerShell.Commands.AddContentCommand
+ 
+Add-Content : 对路径“E:\codex-LOOP\extract_page.py”的访问被拒绝。
+所在位置 行:2 字符: 333
++ ... ").read()'; Add-Content "E:\codex-LOOP\extract_page.py" -Encoding UTF ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\codex-LOOP\extract_page.py:String) [Add-Content], UnauthorizedAcce 
+   ssException
+    + FullyQualifiedErrorId : GetContentWriterUnauthorizedAccessError,Microsoft.PowerShell.Commands.AddContentCommand
+ 
+Add-Content : 对路径“E:\codex-LOOP\extract_page.py”的访问被拒绝。
+所在位置 行:2 字符: 426
++ ... AGE = r")'; Add-Content "E:\codex-LOOP\extract_page.py" -Encoding UTF ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\codex-LOOP\extract_page.py:String) [Add-Content], UnauthorizedAcce 
+   ssException
+    + FullyQualifiedErrorId : GetContentWriterUnauthorizedAccessError,Microsoft.PowerShell.Commands.AddContentCommand
+ 
+Add-Content : 对路径“E:\codex-LOOP\extract_page.py”的访问被拒绝。
+所在位置 行:2 字符: 537
++ ...  idx) + 1'; Add-Content "E:\codex-LOOP\extract_page.py" -Encoding UTF ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\codex-LOOP\extract_page.py:String) [Add-Content], UnauthorizedAcce 
+   ssException
+    + FullyQualifiedErrorId : GetContentWriterUnauthorizedAccessError,Microsoft.PowerShell.Commands.AddContentCommand
+ 
+Add-Content : 对路径“E:\codex-LOOP\extract_page.py”的访问被拒绝。
+所在位置 行:2 字符: 682
++ ...  + 12000)'; Add-Content "E:\codex-LOOP\extract_page.py" -Encoding UTF ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\codex-LOOP\extract_page.py:String) [Add-Content], UnauthorizedAcce 
+   ssException
+    + FullyQualifiedErrorId : GetContentWriterUnauthorizedAccessError,Microsoft.PowerShell.Commands.AddContentCommand
+ 
+Add-Content : 对路径“E:\codex-LOOP\extract_page.py”的访问被拒绝。
+所在位置 行:2 字符: 790
++ ... body_end]'; Add-Content "E:\codex-LOOP\extract_page.py" -Encoding UTF ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\codex-LOOP\extract_page.py:String) [Add-Content], UnauthorizedAcce 
+   ssException
+    + FullyQualifiedErrorId : GetContentWriterUnauthorizedAccessError,Microsoft.PowerShell.Commands.AddContentCommand
+ 
+No Python at '"C:\Users\hzq00\AppData\Local\Programs\Python\Python312\python.exe'
+
+2026-08-14T14:18:06.011000Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-14T14:21:17.727667Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 181ms)... turn_id=01a0009a-d349-79c3-86d2-19043aeeaf9f retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T14:22:03.922959Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 433ms)... turn_id=01a0009a-d349-79c3-86d2-19043aeeaf9f retries=2 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T14:26:09.788463Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 195ms)... turn_id=01a0009a-d349-79c3-86d2-19043aeeaf9f retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T14:26:56.622571Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 383ms)... turn_id=01a0009a-d349-79c3-86d2-19043aeeaf9f retries=2 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T14:27:42.959427Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 742ms)... turn_id=01a0009a-d349-79c3-86d2-19043aeeaf9f retries=3 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T14:28:43.906479Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.716s)... turn_id=01a0009a-d349-79c3-86d2-19043aeeaf9f retries=4 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T14:29:31.187041Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 2.902s)... turn_id=01a0009a-d349-79c3-86d2-19043aeeaf9f retries=5 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T14:30:22.634592Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

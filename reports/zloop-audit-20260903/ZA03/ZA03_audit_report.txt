@@ -1,0 +1,1 @@
+C2C审计报告：\nc2c_runner.py 审计结果：\n1. 配置：高度封装，依赖 c2c 与 db 模块。\n2. 脱敏：c2c_runner.py 自身未执行脱敏，推断脱敏是在 c2c.prepare_c2c 中处理。\n3. 浏览器启动：_try_open_edge_browser 通过 subprocess.Popen 调用 Edge，存在直接调用外部浏览器的风险，虽有异常捕获，但在审计环境不应发生。\n4. 服务调用：研究任务通过 broker.run_research 调用。\n5. 超时：timeout_s参数被定义但未在已审查的 prepare_c2c 参数中强制性使用。\n6. Fail-soft：在启动浏览器时有 try-except，但若服务调用失败可能抛出异常。\n结论：存在直接浏览器调用风险，超时逻辑未闭合。

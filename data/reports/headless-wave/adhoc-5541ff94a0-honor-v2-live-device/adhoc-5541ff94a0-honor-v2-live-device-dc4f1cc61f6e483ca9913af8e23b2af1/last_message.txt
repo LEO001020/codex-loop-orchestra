@@ -1,0 +1,91 @@
+## 诊断结论
+
+经过对 Windows PnP 子系统的完整枚举，**当前系统未检测到 HONOR Magic V2 作为 USB 设备被枚举**。
+
+### 关键证据
+
+**1. 无 HONOR/Huawei/Android 厂商 VID 的 Present 设备**
+
+已使用以下命令进行全局搜索，均未发现匹配：
+
+```powershell
+# 命令 1：全局搜索 HONOR/Huawei/Android 相关关键词
+pnputil /enum-devices /connected | Select-String -Pattern 'HONOR|Huawei|Android|MTP|ADB|Portable|Phone'
+
+# 命令 2：搜索已知厂商 VID（HONOR=0x22D9, Huawei=0x12D1, Google=0x18D1, Samsung=0x04E8 等）
+pnputil /enum-devices /connected | Select-String -Pattern 'VID_22D9|VID_12D1|VID_2B0E|VID_18D1|VID_04E8|VID_0BB4|VID_19D2|VID_2A45|VID_2A70|VID_2B0C|VID_2D95'
+```
+
+**结果：零匹配。**
+
+**2. USB 类设备清单中无手机**
+
+```powershell
+pnputil /enum-devices /connected /class USB
+```
+
+当前 Present 的 USB 设备仅包括：
+- Intel USB 3.20/3.10 xHCI 主机控制器
+- USB 根集线器
+- **USB\VID_0000&PID_0002** — 未知 USB 设备（设备描述符请求失败）
+- USB\VID_2B7E&PID_B663 — IR Camera / HD Webcam（笔记本摄像头）
+- USB\VID_3554&PID_FA09 — USB Composite Device（外接键盘/鼠标）
+- USB\VID_056E&PID_01C5 — USB Composite Device（外接键盘/鼠标）
+- ROOT\USB\0000 — Lebo Virtual USB Monitor（虚拟设备）
+
+**3. 无 WPD / PortableDevices / AndroidUsbDeviceClass 类设备**
+
+```powershell
+pnputil /enum-devices /connected /class WPD          # 仅 NVMe 存储的 WPD 虚拟项
+pnputil /enum-devices /connected /class PortableDevices  # 无设备
+pnputil /enum-devices /connected /class AndroidUsbDeviceClass  # 无设备
+```
+
+**4. 注册表枚举历史无 HONOR VID**
+
+```powershell
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Enum\USB'
+```
+
+列出的所有 VID 中，**无 `VID_22D9`（HONOR）或 `VID_12D1`（Huawei）**，近期也无其他可疑手机 VID 出现为 Present 状态。
+
+---
+
+### 唯一异常设备
+
+| 属性 | 值 |
+|------|-----|
+| **实例 ID** | `USB\VID_0000&PID_0002\5&3b4ed2c2&0&2` |
+| **设备描述** | 未知 USB 设备(设备描述符请求失败) |
+| **类** | USB |
+| **状态** | 问题 |
+| **问题代码** | **43 (0x2B) [CM_PROB_FAILED_POST_START]** |
+| **驱动** | usb.inf |
+
+**分析：** VID=0x0000 / PID=0x0002 是 USB 描述符获取失败时的占位符值，通常表示：
+- 设备未正确响应 USB 枚举请求
+- 线缆/端口接触不良
+- 设备处于关机、深度休眠或充电-only 模式
+- 驱动/固件问题导致描述符无法读取
+
+**该异常设备有可能是 HONOR Magic V2**，但由于 USB 描述符请求失败，Windows 无法识别其真实 VID/PID，因此无法确认身份。
+
+---
+
+### 结论
+
+| 问题 | 答案 |
+|------|------|
+| **Windows 是否枚举到手机？** | **未明确枚举到 HONOR Magic V2**。系统存在一个 USB 描述符失败的未知设备（VID_0000&PID_0002，错误码 43），可能是手机，但无法确认。 |
+| **当前模式** | 无法确定。若该未知设备为手机，则当前处于 **USB 枚举失败状态**（非 MTP、非 ADB、非大容量存储）。 |
+| **错误码** | **CM_PROB_FAILED_POST_START (43)** — 设备启动后失败，USB 描述符无法读取。 |
+
+### 建议复核步骤
+
+1. **更换 USB 端口或线缆**后重新运行：
+   ```powershell
+   pnputil /enum-devices /connected /class USB
+   ```
+2. **检查手机端 USB 连接模式**（文件传输 / MTP / 仅充电）。
+3. **确认手机是否解锁并允许 USB 调试**（如需要 ADB 模式）。
+4. 如手机正常响应枚举，预期应出现类似 `VID_22D9&PID_XXXX` 的 HONOR 设备条目，并可能伴随 WPD、PortableDevices 或 AndroidUsbDeviceClass 类设备。

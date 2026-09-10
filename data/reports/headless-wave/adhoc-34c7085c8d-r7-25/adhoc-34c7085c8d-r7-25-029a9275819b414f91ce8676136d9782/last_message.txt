@@ -1,0 +1,34 @@
+Good — the nested `codex-loop-s-f2` subdirectory doesn't contain `test_release_review_route.py`. Now let me confirm the canonical review model from the policy file one more time and understand whether this constitutes an "obsolete" pin:
+
+The evidence is clear. Here is the complete finding:
+
+---
+
+**任务名：ReleaseRoute复核 — 复核结果**
+
+**结论：** 活跃的 release-review 测试文件 `tests/unit/test_release_review_route.py` 共有 **5 处** 硬编码了已过时的 K3 模型字符串 `"weiwu-k3/kimi-k3"`。
+
+**详细位置：**
+
+| 行号 | 所在测试函数 | 用途 |
+|------|-------------|------|
+| 82 | `test_release_review_idempotent_when_record_exists` | 写入 `w0.json` 分发记录的 `model` 字段 |
+| 99 | `test_release_review_launching_record_blocks_second_birth` | 写入 `w0.json` 分发记录的 `model` 字段 |
+| 139 | `test_verdict_provenance_must_match_dispatch_record` | 写入 dispatch record 的 `model` 字段 |
+| 145 | `test_verdict_provenance_must_match_dispatch_record` | 写入正确 verdict 的 `provenance.model` 字段 |
+| 153 | `test_verdict_provenance_must_match_dispatch_record` | 写入错误 verdict 的 `provenance.model` 字段 |
+
+**文件路径：** `E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_release_review_route.py`
+
+**为何认定为"过时"：**  
+`config/orchestration_policy_v2.toml` 中当前 `[models]` 节的权威值为：
+```
+k3_model = "weiwu/aws.claude-sonnet-4.6"
+k3_reasoning = "ultra"
+```
+而这 5 处测试静态写入的是旧字符串 `"weiwu-k3/kimi-k3"`，与当前策略文件的实际 pin 不一致。
+
+**补充说明：**
+- 其余两个测试（`test_release_review_pin_mismatch_fails_closed`、`test_release_review_sandbox_drift_fails_closed`、`test_release_review_dry_run_pins_active_review_profile`）**没有**硬编码旧 pin，它们通过 `expected_review_pin()` 函数动态读取 TOML，是合规写法。
+- 后备目录 `backup-*/` 内同样存在旧 pin，但它们不是活跃测试，不计入本次发现范围。
+- `tests/unit/test_sol_tool_gate.py:17` 定义了 `K3 = "weiwu-k3/kimi-k3"` 用于门控测试（非 release-review 路径），属于独立范畴，本次任务不纳入。

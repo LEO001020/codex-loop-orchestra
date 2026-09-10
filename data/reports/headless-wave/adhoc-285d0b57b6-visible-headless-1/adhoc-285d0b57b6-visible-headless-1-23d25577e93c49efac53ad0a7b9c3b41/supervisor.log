@@ -1,0 +1,30 @@
+Traceback (most recent call last):
+  File "E:\codex-LOOP\codex-loop-s-f2\harness\lifecycle_supervisor.py", line 508, in run
+    if time.monotonic() - heartbeat_at >= 1.0:
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        store.update(args.packet, run_id=args.run_id, attempt=args.attempt,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\codex-LOOP\codex-loop-s-f2\harness\lifecycle_supervisor.py", line 120, in update
+    atomic_json(self.roster_path, roster)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\codex-LOOP\codex-loop-s-f2\harness\lifecycle_supervisor.py", line 75, in atomic_json
+    os.replace(tmp, path)
+    ~~~~~~~~~~^^^^^^^^^^^
+PermissionError: [WinError 5] ¾Ü¾ø·ÃÎÊ¡£: 'E:\\codex-LOOP\\codex-loop-s-f2\\data\\lifecycle\\exec_roster.json.38772.tmp' -> 'E:\\codex-LOOP\\codex-loop-s-f2\\data\\lifecycle\\exec_roster.json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\codex-LOOP\codex-loop-s-f2\harness\lifecycle_supervisor.py", line 591, in <module>
+  File "E:\codex-LOOP\codex-loop-s-f2\harness\lifecycle_supervisor.py", line 558, in run
+    detail = {"why": "supervisor_error", "error": "%s: %s" % (type(exc).__name__, exc)}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    store.update(args.packet, run_id=args.run_id, attempt=args.attempt,
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\codex-LOOP\codex-loop-s-f2\harness\lifecycle_supervisor.py", line 120, in update
+    atomic_json(self.roster_path, roster)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\codex-LOOP\codex-loop-s-f2\harness\lifecycle_supervisor.py", line 75, in atomic_json
+    os.replace(tmp, path)
+    ~~~~~~~~~~^^^^^^^^^^^
+PermissionError: [WinError 5] ¾Ü¾ø·ÃÎÊ¡£: 'E:\\codex-LOOP\\codex-loop-s-f2\\data\\lifecycle\\exec_roster.json.38772.tmp' -> 'E:\\codex-LOOP\\codex-loop-s-f2\\data\\lifecycle\\exec_roster.json'

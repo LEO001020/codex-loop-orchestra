@@ -1,0 +1,43 @@
+结论：**已安装配置中 Desktop 的 SubagentStop / SessionStart / Stop 三条事件均未接到 packet-only refill actuator** —— 钩子脚本里有完整链路（`subagent_stop`/`parent_stop`/`SessionStart` 处理 + `schedule_refill_actuator` 调用），但 `.codex/hooks.json` 只注册了 `PreToolUse` 一个入口，且模板与安装脚本同样如此。当前唯一能触达 actuator 的 Desktop 原生边是 PreToolUse 观测到 `close_agent`，其余靠 headless supervisor 终端边补位。
+
+## 已验证事实
+
+**1. Desktop 事件注册（实际生效层）**
+
+| Desktop 事件 | `.codex/hooks.json` 注册 | 效果 |
+|---|---|---|
+| SubagentStop | 空数组 [.codex/hooks.json:17](/E:/codex-LOOP/codex-loop-s-f2/.codex/hooks.json:17) | 不运行 `subagent_lifecycle.py`，`desktop_subagent_stop` 触发点为死代码 |
+| SessionStart | 空数组 [.codex/hooks.json:32](/E:/codex-LOOP/codex-loop-s-f2/.codex/hooks.json:32) | cold_reconcile / cold_reconcile_exec / `desktop_session_start` 均不执行 |
+| Stop | 仅 `reconcile_subagent_metering.ps1` [.codex/hooks.json:18](/E:/codex-LOOP/codex-loop-s-f2/.codex/hooks.json:18) | 只做 rollout 计量恢复 + token bridge（[ps1:60-61](/E:/codex-LOOP/codex-loop-s-f2/.codex/hooks/reconcile_subagent_metering.ps1:60)），从不调用 `subagent_lifecycle.py` 或 `schedule_run` |
+| PreToolUse | `subagent_lifecycle.py --event PreToolUse` [.codex/hooks.json:51](/E:/codex-LOOP/codex-loop-s-f2/.codex/hooks.json:51) | 唯一注册的 lifecycle 入口 |
+
+模板 [hooks.json.example:4](/E:/codex-LOOP/codex-loop-s-f2/hooks/hooks.json.example:4)、[:19](/E:/codex-LOOP/codex-loop-s-f2/hooks/hooks.json.example:19)、[:52](/E:/codex-LOOP/codex-loop-s-f2/hooks/hooks.json.example:52) 与安装脚本 [install.sh:270-310](/E:/codex-LOOP/codex-loop-s-f2/install.sh:270) 完全一致；全仓检索确认 `subagent_lifecycle.py` 只被注册这一次。这是模板级缺口，不是本地漂移。
+
+**2. 脚本内的链路存在但未被触发**
+
+- `subagent_stop()`：标记 terminal、排队 host close、`recompute_refill()`、`schedule_refill_actuator("desktop_subagent_stop")` [subagent_lifecycle.py:551-572](/E:/codex-LOOP/codex-loop-s-f2/hooks/subagent_lifecycle.py:551)
+- `parent_stop()`：parent 置 inactive、原生子中断、写 exec cancel 文件、`schedule_refill_actuator("desktop_parent_stop")` [subagent_lifecycle.py:575-616](/E:/codex-LOOP/codex-loop-s-f2/hooks/subagent_lifecycle.py:575)
+- `SessionStart`：cold_reconcile + cold_reconcile_exec + `schedule_refill_actuator("desktop_session_start")` [subagent_lifecycle.py:803-807](/E:/codex-LOOP/codex-loop-s-f2/hooks/subagent_lifecycle.py:803)
+- 唯一真实可达：PreToolUse 观测 `close_agent` → `schedule_refill_actuator("desktop_close_observed")` [subagent_lifecycle.py:445](/E:/codex-LOOP/codex-loop-s-f2/hooks/subagent_lifecycle.py:445)
+
+**3. 目标 actuator 本身是 packet-only 且机制安全**
+
+- `schedule_run` 用 pid 标记合并并发、detached 执行、日志落盘 [refill_consumer_v2.py:71-110](/E:/codex-LOOP/codex-loop-s-f2/harness/refill_consumer_v2.py:71)
+- `select_tasks` 只消费 `DISPATCHABLE`、跳过 release_review、parent_enabled 门、校验 packet 文件四字段；`role_for_entry` 拒绝无显式角色的包 [refill_consumer_v2.py:113-193](/E:/codex-LOOP/codex-loop-s-f2/harness/refill_consumer_v2.py:113)
+- 角色→模型由 `resolve_role_pin` 钉死（worker→v4-flash，verifier/reviewer→kimi-k3 max）[dispatch_v2.py:159](/E:/codex-LOOP/codex-loop-s-f2/harness/dispatch_v2.py:159)；`wait_observed` 只认 RUNNING 为有效并发、starting 不算 [headless_wave.py:170-203](/E:/codex-LOOP/codex-loop-s-f2/harness/headless_wave.py:170)，未观测到 running 返回 rc 3 且不算 refill [headless_wave.py:459-477](/E:/codex-LOOP/codex-loop-s-f2/harness/headless_wave.py:459)
+- 控制器按 running-only 计债、initializing 只占容量不清债 [refill_controller_v2.py:303-313](/E:/codex-LOOP/codex-loop-s-f2/harness/refill_controller_v2.py:303)，目标 60/45/15 来自 [refill_policy.toml](/E:/codex-LOOP/codex-loop-s-f2/config/refill_policy.toml)
+- headless 平面独立于 Desktop 已正确接线：supervisor 终端边调用 `schedule_epilogue`/`schedule_run("adhoc_lifecycle_supervisor")` [lifecycle_supervisor.py:741-744](/E:/codex-LOOP/codex-loop-s-f2/harness/lifecycle_supervisor.py:741)
+
+**4. 失败可见性（分边）**
+
+- 钩子脚本：fail-open —— 任何异常只写 `hook_degraded` audit，恒输出 `{}` 且 exit 0 [subagent_lifecycle.py:822-830](/E:/codex-LOOP/codex-loop-s-f2/hooks/subagent_lifecycle.py:822)，Desktop 永远看到成功
+- `schedule_refill_actuator`：成功/失败分别 audit `refill_actuator_scheduled/coalesced/failed`，失败返回 None 不抛给调用方 [subagent_lifecycle.py:87-100](/E:/codex-LOOP/codex-loop-s-f2/hooks/subagent_lifecycle.py:87)
+- actuator 进程：失败 rc 3 + JSON，逐 task 输出 `dispatch_refused/health_blocked/unobserved` 等状态，但只进 `data/orchestration/refill_actuator.log`，不回流 Desktop
+- 已注册的 Stop 钩子：`catch {}` 吞掉一切、恒 exit 0 [reconcile_subagent_metering.ps1:74-78](/E:/codex-LOOP/codex-loop-s-f2/.codex/hooks/reconcile_subagent_metering.ps1:74)，无 audit 记录 —— 该边失败完全不可见（只有记录缺失）
+
+## 残余风险
+
+- `data/` 运行时证据（native_roster、events.ndjson、refill_actuator.log 中实际出现过的 source）在授权路径之外，本次未实证哪些触发源真实发生过。
+- CODEX_HOME 级（用户主目录）hooks.json 不在授权路径；若另有注册可部分覆盖，项目内未见任何其它注册。
+- Desktop 运行时在本构建中是否发射 SubagentStop/SessionStart 事件无法从仓库内验证；即使发射，当前配置也没有消费者。
+- detached actuator 的退出码与结果只落日志；若日志被清理，audit 事件流是唯一痕迹。

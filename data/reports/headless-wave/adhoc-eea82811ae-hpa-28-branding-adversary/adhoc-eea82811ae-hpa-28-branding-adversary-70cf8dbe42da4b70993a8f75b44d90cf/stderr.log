@@ -1,0 +1,157 @@
+Reading additional input from stdin...
+2026-08-14T20:18:45.417688Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T20:18:46.368077Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T20:18:48.042505Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-14T20:19:00.081877Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.4 seconds
+Output:
+所在位置 行:2 字符: 32
++ cd G:\VPS-K3\extracted\k3\repo && rg -r --no-heading -n "Prime Agent| ...
++                                ~~
+标记“&&”不是此版本中的有效语句分隔符。
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : InvalidEndOfLine
+ 
+
+2026-08-14T20:19:10.084058Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.1 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 197
++ ... js" --include="*.md" --include="*.json" --include="*.toml" | head -50
++                                                                  ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T20:19:19.434474Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.7 seconds
+Output:
+rg: unrecognized flag --include
+
+similar flags that are available: --include-zero
+
+2026-08-14T20:19:26.808211Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.7 seconds
+Output:
+
+2026-08-14T20:19:36.564510Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+
+2026-08-14T20:21:10.599966Z ERROR codex_core::tools::router: error=Exit code: 124
+Wall time: 10.5 seconds
+Output:
+command timed out after 10450 milliseconds
+
+2026-08-14T20:21:43.607565Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.6 seconds
+Output:
+所在位置 行:2 字符: 450
++ ...  "$($_.Filename):$($_.LineNumber): $($_.Line.Trim())" } } } | Select- ...
++                                                                 ~
+不允许使用空管道元素。
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : EmptyPipeElement
+ 
+
+2026-08-14T20:24:37.218880Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.7 seconds
+Output:
+Get-Content : 找不到路径“G:\VPS-K3\extracted\k3\repo\packages\coding-agent\src\cli\prime-logo.ts”，因为该路径不存在。
+所在位置 行:2 字符: 33
++ ... cted\k3\repo; Get-Content packages\coding-agent\src\cli\prime-logo.ts
++                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (G:\VPS-K3\extra...i\prime-logo.ts:String) [Get-Content], ItemNotFoundEx 
+   ception
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+
+2026-08-14T20:25:05.714303Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.6 seconds
+Output:
+Get-Content : 找不到路径“G:\VPS-K3\extracted\k3\repo\packages\coding-agent\src\themes\prime-onboarding-splash.ts”，因为
+该路径不存在。
+所在位置 行:2 字符: 33
++ ... ed\k3\repo; Get-Content "packages\coding-agent\src\themes\prime-onboa ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (G:\VPS-K3\extra...rding-splash.ts:String) [Get-Content], ItemNotFoundEx 
+   ception
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+
+2026-08-14T20:29:32.222663Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.7 seconds
+Output:
+Select-String : 找不到接受实际参数“pi\”的位置形式参数。
+所在位置 行:2 字符: 33
++ ... ed\k3\repo; Select-String -Path (Get-ChildItem packages\coding-agent\ ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) [Select-String]，ParameterBindingException
+    + FullyQualifiedErrorId : PositionalParameterNotFound,Microsoft.PowerShell.Commands.SelectStringCommand
+ 
+
+2026-08-14T20:29:55.229048Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+Select-String : 找不到接受实际参数“pi-ai\|pi-coding-agent|pi-agent-core|pi-tui”的位置形式参数。
+所在位置 行:2 字符: 216
++ ... y FullName; Select-String -Path $srcFiles -Pattern "bin.*pi|pi.*bin|\ ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) [Select-String]，ParameterBindingException
+    + FullyQualifiedErrorId : PositionalParameterNotFound,Microsoft.PowerShell.Commands.SelectStringCommand
+ 
+
+2026-08-14T20:32:15.604579Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+Get-Content : 找不到路径“G:\VPS-K3\extracted\k3\repo\packages\coding-agent\src\cli\main.ts”，因为该路径不存在。
+所在位置 行:2 字符: 33
++ ... ed\k3\repo; Get-Content "packages\coding-agent\src\cli\main.ts" | Sel ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (G:\VPS-K3\extra...src\cli\main.ts:String) [Get-Content], ItemNotFoundEx 
+   ception
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+
+2026-08-14T20:36:43.153894Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+Get-Content : 找不到路径“G:\VPS-K3\extracted\k3\repo\packages\coding-agent\src\k3\ipython\index.ts”，因为该路径不存在。
+所在位置 行:2 字符: 33
++ ... ed\k3\repo; Get-Content "packages\coding-agent\src\k3\ipython\index.t ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (G:\VPS-K3\extra...python\index.ts:String) [Get-Content], ItemNotFoundEx 
+   ception
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+
+2026-08-14T20:39:12.259567Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+Get-Content : 找不到路径“G:\VPS-K3\extracted\k3\repo\packages\coding-agent\src\core\kernel\ipython.ts”，因为该路径不存
+在。
+所在位置 行:2 字符: 33
++ ... ed\k3\repo; Get-Content "packages\coding-agent\src\core\kernel\ipytho ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (G:\VPS-K3\extra...rnel\ipython.ts:String) [Get-Content], ItemNotFoundEx 
+   ception
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+

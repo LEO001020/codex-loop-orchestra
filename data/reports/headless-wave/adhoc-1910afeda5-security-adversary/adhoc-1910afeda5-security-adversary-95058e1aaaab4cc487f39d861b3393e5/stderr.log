@@ -1,0 +1,119 @@
+Reading additional input from stdin...
+2026-08-14T14:12:47.703053Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T14:12:50.094681Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T14:13:06.944220Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-14T14:13:16.105507Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:13:29.441278Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.7 seconds
+Output:
+Get-ChildItem : 找不到接受实际参数“/A”的位置形式参数。
+所在位置 行:2 字符: 1
++ dir E:\VPS /B /A
++ ~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) [Get-ChildItem]，ParameterBindingException
+    + FullyQualifiedErrorId : PositionalParameterNotFound,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-14T14:13:54.106844Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 7.2 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 67
++ ... hildItem E:\VPS -Recurse -Depth 3 | Select-Object FullName | head -80
++                                                                  ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T14:18:06.217026Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-14T14:19:58.848230Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.9 seconds
+Output:
+E:\VPS\direct_repair_stage\.pytest_cache
+E:\VPS\direct_repair_stage\app_v2
+E:\VPS\direct_repair_stage\tests
+E:\VPS\direct_repair_stage\__pycache__
+E:\VPS\direct_repair_stage\authority_runtime.py
+E:\VPS\direct_repair_stage\authority_store.py
+E:\VPS\direct_repair_stage\conditional_delegation.py
+E:\VPS\direct_repair_stage\P5_AMENDMENT_D_AUTONOMOUS_AUTHORITY_BRIDGE_V1.md
+E:\VPS\direct_repair_stage\P5_AUTHORITY_SCHEMA_V2_TO_V3.sql
+E:\VPS\direct_repair_stage\t1_wave1_evaluator.py
+E:\VPS\direct_repair_stage\test_authority_store_v3.py
+E:\VPS\direct_repair_stage\test_migration_v3_rehearsal.py
+E:\VPS\direct_repair_stage\test_pc7_synthetic.py
+E:\VPS\direct_repair_stage\app_v2\p5_infra
+E:\VPS\direct_repair_stage\app_v2\p5_infra\deploy
+E:\VPS\direct_repair_stage\app_v2\p5_infra\__pycache__
+E:\VPS\direct_repair_stage\app_v2\p5_infra\authority_runtime.py
+E:\VPS\direct_repair_stage\app_v2\p5_infra\authority_schema_v3.sql
+E:\VPS\direct_repair_stage\app_v2\p5_infra\authority_store.py
+E:\VPS\direct_repair_stage\app_v2\p5_infra\conditional_delegation.py
+E:\VPS\direct_repair_stage\app_v2\p5_infra\finalize_research_memory.py
+E:\VPS\direct_repair_stage\app_v2\p5_infra\researchctl.py
+E:\VPS\direct_repair_stage\app_v2\p5_infra\researchctld.py
+E:\VPS\direct_repair_stage\app_v2\p5_infra\research_canary.py
+E:\VPS\direct_repair_stage\app_v2\p5_infra\research_db.py
+E:\VPS\direct_repair_stage\app_v2\p5_infra\research_schema.sql
+E:\VPS\direct_repair_stage\app_v2\p5_infra\__init__.py
+E:\VPS\direct_repair_stage\app_v2\p5_infra\deploy\install_research_memory.sh
+E:\VPS\direct_repair_stage\app_v2\p5_infra\deploy\researchctl
+E:\VPS\direct_repair_stage\app_v2\p5_infra\deploy\researchctld.service
+E:\VPS\direct_repair_stage\app_v2\p5_infra\__pycache__\authority_runtime.cpython-314.pyc
+E:\VPS\direct_repair_stage\app_v2\p5_infra\__pycache__\authority_store.cpython-314.pyc
+E:\VPS\direct_repair_stage\app_v2\p5_infra\__pycache__\conditional_delegation.cpython-314.pyc
+E:\VPS\direct_repair_stage\app_v2\p5_infra\__pycache__\researchctl.cpython-314.pyc
+E:\VPS\direct_repair_stage\app_v2\p5_infra\__pycache__\researchctld.cpython-314.pyc
+E:\VPS\direct_repair_stage\app_v2\p5_infra\__pycache__\research_db.cpython-314.pyc
+E:\VPS\direct_repair_stage\app_v2\p5_infra\__pycache__\__init__.cpython-314.pyc
+E:\VPS\direct_repair_stage\tests\__pycache__
+E:\VPS\direct_repair_stage\tests\test_authority_store_v3.py
+E:\VPS\direct_repair_stage\tests\__pycache__\test_authority_store_v3.cpython-314-pytest-9.1.1.pyc
+E:\VPS\direct_repair_stage\__pycache__\authority_runtime.cpython-314.pyc
+E:\VPS\direct_repair_stage\__pycache__\authority_store.cpython-314.pyc
+E:\VPS\direct_repair_stage\__pycache__\conditional_delegation.cpython-314.pyc
+E:\VPS\direct_repair_stage\__pycache__\t1_wave1_evaluator.cpython-314.pyc
+E:\VPS\direct_repair_stage\__pycache__\test_pc7_synthetic.cpython-314.pyc
+Get-ChildItem : 对路径“E:\VPS\direct_repair_stage\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem "E:\VPS\direct_repair_stage" -Recurse -Depth 4 | Select ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\VPS\direct_repair_stage\.pytest_cache:String) [Get-ChildItem], Una 
+   uthorizedAccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-14T14:23:31.514904Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 191ms)... turn_id=01a0009e-4638-7ec3-83cf-ae9b659059dc retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T14:24:19.290378Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 369ms)... turn_id=01a0009e-4638-7ec3-83cf-ae9b659059dc retries=2 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T14:25:39.487711Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 208ms)... turn_id=01a0009e-4638-7ec3-83cf-ae9b659059dc retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T14:26:41.216950Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 388ms)... turn_id=01a0009e-4638-7ec3-83cf-ae9b659059dc retries=2 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T14:28:11.112309Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 192ms)... turn_id=01a0009e-4638-7ec3-83cf-ae9b659059dc retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T14:28:57.541509Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 437ms)... turn_id=01a0009e-4638-7ec3-83cf-ae9b659059dc retries=2 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T14:29:49.968273Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 723ms)... turn_id=01a0009e-4638-7ec3-83cf-ae9b659059dc retries=3 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T14:30:41.597151Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.741s)... turn_id=01a0009e-4638-7ec3-83cf-ae9b659059dc retries=4 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T14:30:51.317073Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 3.272s)... turn_id=01a0009e-4638-7ec3-83cf-ae9b659059dc retries=5 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T14:31:13.523633Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

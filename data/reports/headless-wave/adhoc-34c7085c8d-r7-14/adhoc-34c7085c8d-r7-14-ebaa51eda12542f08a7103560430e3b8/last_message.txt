@@ -1,0 +1,55 @@
+Confirmed — `VERSIONS.lock` is a version-pinning config file, correct to include. Now let me compile the complete findings:
+
+---
+
+## 复核结论
+
+**任务：验证 `config/managed_files_v2.txt`（104条）是否正确排除运行时账本、是否包含所有控制平面源文件。**
+
+### ✅ 运行时账本排除——正确
+
+`data/` 目录下所有运行时账本均**未出现**在清单中，包括：
+- `data/events.ndjson`、`data/progress_ledger.json`、`data/spawn_times.json` 等
+- `data/lifecycle/exec_roster.json`（执行名单）
+- `data/budget/`、`data/refill/`、`data/dead_letters/` 等所有子目录
+
+**VERSIONS.lock** 虽名为 `.lock`，实为版本固定配置文件（非运行时锁），纳入清单正确。
+
+---
+
+### ⚠️ 控制平面源文件缺漏——存在遗漏
+
+清单共 104 条，对比磁盘发现以下控制平面源文件**未收录**：
+
+#### config/ 缺漏（5个）
+| 文件 | 性质 |
+|------|------|
+| `config/escalation_ladder.yaml` | L0–L4 升级梯控制文件，被 trigger_eval.py 和状态机消费 |
+| `config/retry_classes.yaml` | 重试分类表，被 harness/retry.py 消费 |
+| `config/ipybox_sandbox.json` | ipybox 沙盒权限配置 |
+| `config/orchestration_policy.toml` | v1 编排策略（v2 已入清单，v1 缺失） |
+| `config/triggers.yaml` | v1 触发器表（v2 已入清单，v1 缺失） |
+
+#### harness/ 缺漏（21个）
+主要包括：`dag_assert.py`、`desktop_edge_reconcile.py`、`diffvalidator.py`、`duty_driver.py`、`duty_gate.py`、`duty_route.py`、`ipybox_cleanup.py`、`ipybox_lazy.py`、`loop_config.py`、`recover_parent_replay_incident.py`、`refill_controller.py`（v1）、`repair_*.py`（3个）、`retry.py`、`sanitize.py`、`signals_collect.py`、`summary_synth.py`、`verdict_aggregate.py`、`verdict_check.py`、`acceptance_replay.sh`、`missing_check.sh`
+
+#### hooks/ 缺漏（2个）
+`hooks/sol_tool_gate_v2.py`、`hooks/subagent_start_meter.sh`
+
+#### metering/ 缺漏（2个）
+`metering/e0_annotate.py`、`metering/oscillation_report.py`
+
+#### tests/ 缺漏（58个）
+清单有 42 条测试，磁盘有 100 个测试文件，缺少 58 个，涵盖：
+- `tests/` 根目录下直接的 21 个测试文件（含 `tests/ipybox_*.py` 和各 `test_*.py`）
+- `tests/golden/` 5 个黄金测试
+- `tests/statemachine_paths/` 2 个
+- `tests/orchestration_v2/test_statemachine_v1_retry_contract.py`
+- `tests/unit/` 29 个（主要是 v1 组件和新增模块的单元测试）
+
+---
+
+### 总结
+
+**运行时账本排除无误**，`data/` 下全部动态文件均被正确排除。  
+**控制平面源文件存在大量遗漏**：清单 104 条对应磁盘约 190 个控制平面文件，净缺 ~88 个（主要集中在 `harness/`、`tests/`、`config/` 三个目录）。v1 版本文件（`triggers.yaml`、`orchestration_policy.toml`、`refill_controller.py` 等）和大量新增/修复辅助脚本是主要遗漏点。

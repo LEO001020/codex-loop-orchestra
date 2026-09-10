@@ -1,0 +1,49 @@
+现在我有了完整的证据体。让我进行最终的汇总核验。
+
+**最终发布裁定——FL18冻结包完整性核验摘要**
+
+---
+
+**I1 – 信任顺序（Trust Order）**
+README第1条明确记录：owner anchor/v3 TCB不得早于去权限化、重启、fresh-k3 proof、独立root否定验证。`03_AGENT_PRIVILEGE_CUTOVER.sh`、`04_TERMINATE_AND_REBOOT_GATE.sh`、`05_FRESH_K3_PRETRUST_VERIFY.sh`等按序编号。S01_PHASE_ORDER、S02_NO_PRETRUST_ANCHOR、S03_NO_PRETRUST_TCB、S04_FRESH_BOOT_GATE、S27_INDEPENDENT_PRETRUST均在static_tests 31/31中。→ **PASS**
+
+**I2 – Root SSH / AKF**
+S05_ROOT_AKF_CONTEXT、S06_ROOT_AKF_EXACT_REMOVE、S28_OWNER_MATCH_AKF，T09_ROOT_AGENT_KEY_REMOVED、T10_ADMIN_KEY_PRESERVED、T11_DUPLICATE_AKF_REFUSED、T12_SYMLINK_AKF_REFUSED全部在测试套件中并通过。`tools/sanitize_authorized_keys.py`哈希锁定于清单。→ **PASS**
+
+**I3 – TCB完整集**
+S11_TCB_WRAPPER、S12_TCB_BASE_UNIT、S13_TCB_DROPIN、S14_TCB_MIGRATION、S15_TCB_ENTRIES、S16_TCB_PLATFORM、S17_PRE_RELOAD_HASH、S18_POST_RELOAD_HASH、T17_TCB_BUNDLE_EXACT_SET、T18_INTERPRETER_DEPENDENCY_BOUND通过。`tcb/bundle/`的全部源文件哈希在56文件全量验证中一致。→ **PASS**
+
+**I4 – DB权限模型**
+S07_RESEARCH_WRITER_DB、S08_RESEARCH_DIR、S09_WAL_SHM_PERMS、S10_DAEMON_NOT_ROOT、S29_DAEMON_UMASK_PRIVATE、T21_K3_DIRECT_DB_DENIED、T22_RESEARCH_WRITER_DAEMON_OPEN、T23_DAEMON_VERIFY_REBUILD、T24_SYNTHETIC_AUTHORITY_DAEMON_WRITE、T25_DAEMON_RESTART_SURVIVES、T26_WAL_SHM_ROTATION均通过。→ **PASS**
+
+**I5 – 生产无变更**
+`production_mutations_by_engineering_mission`所有8个字段（cutover、schema_migration、wave1_executed等）全为`false`。README明确："this engineering mission did not deprivilege production k3, install an owner anchor, deploy v3, register C/D/root, read real labels, execute T1, or execute Wave-1."→ **PASS**
+
+**I6 – 包哈希完整性**
+全部56个payload文件哈希经独立计算与清单完全一致。`11_SHA256SUMS`有57行（56 payload + `10_MANIFEST.json`），与`identity_algorithm.sums_enumerates`定义一致。`10_MANIFEST.json`在`11_SHA256SUMS`中的哈希条目`0697017d…`与实际计算值完全匹配。S24_PACKAGE_SELF_BINDING、S14_SUMS_BINDS_MANIFEST、S15_MANIFEST_NONCIRCULAR通过。→ **PASS**
+
+**I7 – Owner Ceremony**
+S19_ZERO_AUTHORITY_ROWS、S20_CANONICAL_SIGN_BYTES、S21_C_D_ROOT_ORDER、S22_ROOT_SCOPE_AB、S23_SCOPE_EXCLUSIONS、T01_ROOT_MATERIALIZES至T08_D_BEFORE_C_REFUSED全部通过。→ **PASS**
+
+**I8 – 事务/schema版本**
+生产authority schema当前仍为版本2（FL17交接明确`PRODUCTION_SCHEMA_VERSION=2`；清单`schema_migration: false`）。`P5_AUTHORITY_SCHEMA_V2_TO_V3.sql`已随包冻结但未执行。S30_AUTHORITY_ZERO_EIGHT_TABLES通过（authority_schema_v3.sql中CREATE TABLE计数=8）。T27_MIGRATION_V2_V3_DETERMINISTIC、T28_MIGRATION_NONEMPTY_FAILS_CLOSED通过。→ **PASS**
+
+**A – Science零变更**
+`scientific_rule_changes`: adjudication=0, candidate=0, data=0, estimand=0, multiplicity=0。S25_NO_SCIENCE_CHANGES通过。→ **PASS**
+
+**B–E – 各类测试套件计数**
+- shell syntax: 10/10（IDs完整枚举）
+- static tests: 31/31（IDs完整枚举）
+- functional fixtures: 15/15 executed, 0 skipped（IDs完整枚举）
+- targeted security regressions: 28/28（IDs完整枚举）
+- `TEST_COUNTS.json`哈希`cd124ee2…`与清单条目完全一致
+→ **PASS**
+
+**F – 包身份与链**
+FL18的`supersedes_package_self_sha256 = f1da80801233be0f7f2080f2596c1cb512a0dd377b75cd58e55809c6d09c9e1f`与FL17交接文档中`PACKAGE_SELF_SHA256`完全一致，链完整。`package_self_sha256 = sha256(11_SHA256SUMS)`定义与实现一致。FL17条件计数勘误记录在`fl17_count_reconciliation`字段中。→ **PASS**
+
+---
+
+## 裁定：**PASS**
+
+I1–I8全部通过，A–F全部通过。无生产变更，science零变更，authority schema仍为2（未执行迁移），56文件哈希全量一致，测试计数10/31/15/28与TEST_COUNTS.json及清单内嵌值三方一致，FL17→FL18包链完整。冻结FL18包具备发布合格性。

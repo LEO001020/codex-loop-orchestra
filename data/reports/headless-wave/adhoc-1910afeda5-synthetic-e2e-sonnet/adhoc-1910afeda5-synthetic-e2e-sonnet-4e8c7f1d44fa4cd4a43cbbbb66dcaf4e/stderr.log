@@ -1,0 +1,52 @@
+Reading additional input from stdin...
+2026-08-14T14:12:56.408138Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T14:13:01.869614Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T14:13:22.479754Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:13:39.198701Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.7 seconds
+Output:
+dir : 第二个路径段不得为驱动器或 UNC 名称。
+参数名: path2
+所在位置 行:2 字符: 1
++ dir E:\VPS /b
++ ~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (E:\VPS:String) [Get-ChildItem]，ArgumentException
+    + FullyQualifiedErrorId : DirArgumentError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-14T14:14:12.479782Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-14T14:14:32.695334Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 5.9 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 76
++ ... "E:/VPS/pc7_stage" -Recurse | Select-Object FullName, Mode | head -60
++                                                                  ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T14:15:08.529544Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-14T14:27:44.808933Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 214ms)... turn_id=01a0009e-683e-7080-96fc-8dcb9253b27e retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T14:28:31.852336Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 382ms)... turn_id=01a0009e-683e-7080-96fc-8dcb9253b27e retries=2 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T14:29:19.800219Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 853ms)... turn_id=01a0009e-683e-7080-96fc-8dcb9253b27e retries=3 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T14:30:06.385446Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.699s)... turn_id=01a0009e-683e-7080-96fc-8dcb9253b27e retries=4 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T14:30:54.113727Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 3.094s)... turn_id=01a0009e-683e-7080-96fc-8dcb9253b27e retries=5 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T14:31:13.604918Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

@@ -1,0 +1,1147 @@
+Reading additional input from stdin...
+2026-08-14T14:08:56.831241Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T14:09:01.345830Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T14:09:36.944091Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+rg: unrecognized flag --include
+
+similar flags that are available: --include-zero
+
+2026-08-14T14:09:51.014932Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1 seconds
+Output:
+rg: regex parse error:
+    (?:E:\codex-LOOP)
+         ^^
+error: unrecognized escape sequence
+
+2026-08-14T14:10:00.059390Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+所在位置 行:2 字符: 21
++ cd /d E:\codex-LOOP && rg -l "stale|ttl|TTL|freshness|fresh|expire" - ...
++                     ~~
+标记“&&”不是此版本中的有效语句分隔符。
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : InvalidEndOfLine
+ 
+
+2026-08-14T14:10:24.249783Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+
+2026-08-14T14:11:03.003597Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+
+2026-08-14T14:11:29.236116Z ERROR codex_core::tools::router: error=Exit code: 124
+Wall time: 10.5 seconds
+Total output lines: 17158
+Output:
+command timed out after 10532 milliseconds
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...-PACK-v2.3.zip}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...A1_MANIFEST.md}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...A2_MANIFEST.md}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...\B_MANIFEST.md}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...\install_v2.sh}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...TION_MATRIX.md}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...810\package.sh}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...810\SHA256SUMS}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...config_v2.toml}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...on_policy.toml}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...policy_v2.toml}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...ll_policy.toml}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...\roles_v2.yaml}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...ansitions.json}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...iggers_v2.yaml}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...gent_router.py}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c..._controller.py}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...dispatch_v2.py}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...l2_consumer.py}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...ayered_gate.py}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...pervisor_v2.py}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...tion_common.py}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...ntroller_v2.py}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...ult_reducer.py}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...rn_governor.py}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...t_validator.py}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...emachine_v2.py}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...ger_eval_v2.py}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...python-314.pyc}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...python-314.pyc}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...python-314.pyc}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...python-314.pyc}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不…284513 tokens truncated…                                ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...supervisor.log}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...0\events.jsonl}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...fd0\stderr.log}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...supervisor.log}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...d\events.jsonl}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...c5d\stderr.log}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...supervisor.log}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...3\events.jsonl}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...df3\stderr.log}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...supervisor.log}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...b\events.jsonl}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...41b\stderr.log}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...supervisor.log}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...0\events.jsonl}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...f80\stderr.log}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...supervisor.log}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...d\events.jsonl}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...79d\stderr.log}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...supervisor.log}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...c\events.jsonl}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...ecc\stderr.log}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...supervisor.log}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...c\events.jsonl}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...8fc\stderr.log}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...supervisor.log}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...5\events.jsonl}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...d05\stderr.log}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...supervisor.log}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...a\events.jsonl}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...3ea\stderr.log}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...supervisor.log}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...2\events.jsonl}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 85
++ ... dex-LOOP; Get-ChildItem -Recurse -File | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...9d2\stderr.log}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBo
+2026-08-14T14:11:56.184128Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.1 seconds
+Output:
+
+Name                                                       PSIsContainer
+----                                                       -------------
+.audit-fable-20260813-fe139077266b42b6bf51c9b085012680              True
+.bootstrap                                                          True
+.codex                                                              True
+.fable-install-test-20260813                                        True
+.fable-install-test-20260813-wsl                                    True
+.pytest_cache                                                       True
+.tmp-global-hook-test-20260810                                      True
+.tmp-lock-probe-478b1b6f9e3a478a8a97185229fcbcbf                    True
+.tmp-lock-tests-43b65e6a6acf4034bdd732aba88a6229                    True
+acceptance-evidence                                                 True
+archives                                                            True
+audit_manifests                                                     True
+backups                                                             True
+codex-home                                                          True
+codex-loop-s-f2                                                     True
+codex-sqlite                                                        True
+data                                                                True
+deliveries                                                          True
+guards                                                              True
+handoff                                                             True
+hl-loop-v3                                                          True
+inputs                                                              True
+K3OC-CDX-LOOP-CODEX-EXECUTION-PACK-v2.3                             True
+launchers                                                           True
+logs                                                                True
+open-source                                                         True
+package                                                             True
+private-quarantine                                                  True
+quarantine                                                          True
+recovery-staging                                                    True
+release-candidates                                                  True
+reports                                                             True
+reports-同步ACL残留                                                 True
+runtime                                                             True
+source                                                              True
+staging                                                             True
+state                                                               True
+test-runs                                                           True
+toolcache                                                           True
+venv                                                                True
+worktrees                                                           True
+wsl                                                                 True
+K3OC-CDX-LOOP-CODEX-EXECUTION-PACK-v2.3.zip                        False
+codex-loop-s-f2-orchestration-v2-20260810                           True
+codex-loop-s-f2-bin                                                 True
+completed-package-staging-f085c768cc4144a28ac29b30342ea300          True
+__pycache__                                                         True
+apply-wsl-agent-compat.sh                                          False
+apply-wsl-smoke-compat.sh                                          False
+build-fable-audit-package.ps1                                      False
+complete-codex-loop-f2.ps1                                         False
+Enable-LOOP-SystemManagedPagefile.ps1                              False
+install-wsl-model-catalog.sh                                       False
+install-wsl2.ps1                                                   False
+ipybox-supervised                                                  False
+OpenCodex-Service-Supervisor.ps1                                   False
+opencodex-service.cmd.template                                     False
+query-codex-hooks.ps1                                              False
+reconcile-wsl-metering.py                                          False
+Repair-OpenCodex-Gateway-Hardening.ps1                             False
+restart-codex-desktop-wsl.ps1                                      False
+resume-fable-headless-audit.py                                     False
+run-fable-headless-audit.py                                        False
+run-glm-migration-audit.py                                         False
+start-codex-loop-f2                                                False
+stop-stuck-wsl-install.ps1                                         False
+Switch-LOOP-ExecutionModel.ps1                                     False
+wsl-hooks.json                                                     False
+hooks                                                               True
+hooks.json                                                         False
+config                                                              True
+data                                                                True
+harness                                                             True
+hooks                                                               True
+metering                                                            True
+tests                                                               True
+lifecycle                                                           True
+events.ndjson                                                      False
+hook-output.txt                                                    False
+start.json                                                         False
+stop.json                                                          False
+BOOTSTRAP                                                           True
+FINAL-AUDIT                                                         True
+M0                                                                  True
+M1                                                                  True
+M2                                                                  True
+M3                                                                  True
+M4                                                                  True
+M5                                                                  True
+PRE                                                                 True
+final-f2-lifecycle-20260810T044017Z                                 True
+final-f2-runtime-20260810T021441Z                                   True
+final-f2-success-20260810T082053Z                                   True
+pre-codex-desktop-shortcut-20260810T054234                          True
+pre-codex-desktop-wsl-20260810T054052                               True
+pre-codex-loop-s-f2-20260810T035109                                 True
+pre-f2-desktop-complete-20260810T062825                             True
+pre-f2-model-remap-20260810T065034                                  True
+pre-shortcut-native-fix-20260810T061732                             True
+atomic-backup-0d3ebd4bbae148478e3ccbaefa56f72c.json                False
+atomic-backup-5bafd974aeec49d696900425bd5f7855.json                False
+atomic-backup-7bb9f25920ff45948485426e5b46cbd2.json                False
+atomic-backup-a92b885ca1a445c985f463261dc36440.json                False
+baseline-regression-wave-20260814.json                             False
+k3-recovery-canary-20260814.json                                   False
+root-thread-history-k3-wave3-20260814.json                         False
+root-thread-history-k3-wave4-20260814.json                         False
+root-thread-history-wave-20260814.json                             False
+root-thread-history-wave-k3-20260814.json                          False
+root-thread-history-wave-k3-retries2-20260814.json                 False
+root-thread-k3-retry-0814b.json                                    False
+root-thread-v4-evidence-wave-20260814.json                         False
+scheduled-tasks                                                     True
+implementer                                                         True
+runs                                                                True
+.codex                                                              True
+.pytest_cache                                                       True
+agents                                                              True
+backup-20260811-215706                                              True
+backup-20260811-215927                                              True
+backup-20260813-012318                                              True
+codex-loop-s-f2                                                     True
+config                                                              True
+C?                                                                  True
+data                                                                True
+harness                                                             True
+hooks                                                               True
+metering                                                            True
+reports                                                             True
+schemas                                                             True
+tests                                                               True
+AGENTS.md                                                          False
+install.sh                                                         False
+install_v2.sh                                                      False
+README.md                                                          False
+search_log.md                                                      False
+SHA256SUMS                                                         False
+test_evidence_pytest_output.txt                                    False
+VERSIONS.lock                                                      False
+work_commencement_certificate.md                                   False
+implementer                                                         True
+runs                                                                True
+dead_letters                                                        True
+packets                                                             True
+refill                                                              True
+reports                                                             True
+.merge.lock                                                        False
+escalation_log.jsonl                                               False
+events.ndjson                                                      False
+hook_probe_input.txt                                               False
+lessons.jsonl                                                      False
+progress_ledger.json                                               False
+fable-audit-20260810                                                True
+host-baseline.json                                                 False
+pro-model-k3oc-loop-20260803T0909145450817                          True
+pro-model-k3oc-loop-20260803T0909145450817Z                         True
+K3OC-CDX-LOOP-PRO-MODEL-HANDOFF-v2.3-20260803.zip                  False
+.codex                                                              True
+.pytest_cache                                                       True
+artifacts                                                           True
+codex-home-staging                                                  True
+deploy                                                              True
+docs-official                                                       True
+evidence                                                            True
+harness                                                             True
+state                                                               True
+tests                                                               True
+tools                                                               True
+_audit_scratch                                                      True
+_refdocs                                                            True
+AGENTS.md                                                          False
+CURRENT-CONCURRENCY-STATUS.md                                      False
+DEPLOYMENT-HANDOFF.md                                              False
+EVALUATION-PROTOCOL-V4.md                                          False
+evaluation-protocol.json                                           False
+EVALUATION-PROTOCOL.md                                             False
+FORM-B-HARDENING.md                                                False
+INDEPENDENT-AUDIT.md                                               False
+NEXT-AGENT-HANDOFF-PROMPT.md                                       False
+PLAN-DESKTOP-COMPLETION.md                                         False
+PLAN.md                                                            False
+R06-DESKTOP-SIDECHANNEL-POLICY.md                                  False
+SPEC-API.md                                                        False
+work-packages.json                                                 False
+CODEX-IMPLEMENTATION-CONTRACT.md                                   False
+SOURCE-INPUTS.json                                                 False
+config                                                              True
+docs                                                                True
+inputs                                                              True
+schemas                                                             True
+tools                                                               True
+CODEX-START-PROMPT.md                                              False
+implementation-progress.template.json                              False
+K3OC-CDX-LOOP-CODEX-EXECUTION-MASTER-v2.3.md                       False
+K3OC-CDX-LOOP-WORK-PACKAGES-v2.3.json                              False
+PACKAGE-MANIFEST.json                                              False
+PACKAGE-SHA256SUMS.txt                                             False
+README-FIRST.md                                                    False
+task-backups                                                        True
+__pycache__                                                         True
+Codex-LOOP-F2.ps1                                                  False
+k3-stability-probe.sh                                              False
+loop_model.ps1                                                     False
+loop_monitor_server.py                                             False
+Register-Codex-LOOP-Monitor.ps1                                    False
+Start-Codex-LOOP-Monitor-Hidden.vbs                                False
+Start-Codex-LOOP-Monitor.ps1                                       False
+app-server-schema-f2                                                True
+codex-loop-f2-desktop-baseline-sha256.log                          False
+codex-loop-f2-desktop-posix-pytest.log                             False
+codex-loop-f2-desktop-pytest.log                                   False
+codex-loop-f2-desktop-routing-final.log                            False
+codex-loop-f2-desktop-routing.log                                  False
+codex-loop-f2-fix2-modelsync-pytest.log                            False
+codex-loop-f2-hook-command-probe.log                               False
+codex-loop-f2-hook-empty-json-probe.log                            False
+codex-loop-f2-hook-schema-probe.log                                False
+codex-loop-f2-model-update-metering.log                            False
+codex-loop-f2-model-update-pytest.log                              False
+codex-loop-f2-model-update-release.log                             False
+codex-loop-f2-model-update-smoke-attempt1.log                      False
+codex-loop-f2-model-update-smoke.log                               False
+codex-loop-f2-v4-max-routing.log                                   False
+codex-loop-f2-v4-ultra-direct.log                                  False
+codex-loop-f2-wsl-pytest.log                                       False
+codex-loop-f2-wsl-routing.log                                      False
+codex-loop-f2-wsl-setup.log                                        False
+codex-loop-f2-wsl-smoke.log                                        False
+final-f2-lifecycle-pytest.log                                      False
+wsl2-install-20260810.log                                          False
+audit                                                               True
+codex-loop                                                          True
+config                                                              True
+docs                                                                True
+inputs                                                              True
+schemas                                                             True
+tools                                                               True
+CODEX-START-PROMPT.md                                              False
+implementation-progress.template.json                              False
+K3OC-CDX-LOOP-CODEX-EXECUTION-MASTER-v2.3.md                       False
+K3OC-CDX-LOOP-WORK-PACKAGES-v2.3.json                              False
+PACKAGE-MANIFEST.json                                              False
+PACKAGE-SHA256SUMS.txt                                             False
+README-FIRST.md                                                    False
+codex-loop-staging-hooks-pycache-20260808                           True
+bootstrap-json-escape-20260803T035455997Z                           True
+source-inputs-template-20260803T035406454Z                          True
+prepatch-20260814-1318-candidate                                    True
+codex-loop-0.1.0-test-preview-20260808                              True
+codex-loop-0.1.0-test-preview-20260808.json                        False
+codex-loop-0.1.0-test-preview-20260808.sha256                      False
+codex-loop-0.1.0-test-preview-20260808.zip                         False
+8765-liveness-audit                                                 True
+8765-xinyemian-zhongshen                                            True
+activity-panel-semantics                                            True
+adversarial-store-audit-20260812                                    True
+archive-reproducibility-hash-audit                                  True
+artifact                                                            True
+audit-current-tree-20260813                                         True
+authority-tree-audit-20260813                                       True
+baseline-tar-matrix                                                 True
+birth-failure-event-audit                                           True
+checksum-closure-review                                             True
+claude-signal-process-tree                                          True
+csv-prod-wiring-final                                               True
+desktop-cache-location                                              True
+desktop-silent-eviction-ruling                                      True
+desktop-terminal-headless-refill-audit-20260813                     True
+desktop-zombie-closure-review                                       True
+Desktop50持续性R3                                                   True
+Desktop补位衰减验收                                                 True
+dispatch-throttle-J                                                 True
+dual-pool-concurrency-audit                                         True
+DUTY-IDEMPOTENT-FINAL                                               True
+epilogue-generation-audit                                           True
+explicit-role-bypass-final-review                                   True
+fable-final-plus1-vs-prod-20260813                                  True
+fable-local-env-diff-20260813                                       True
+fable-local-pkg-itemized-review-20260813                            True
+final-security-diff-review-20260810                                 True
+four-baseline-drift-recheck                                         True
+full-test-failure-attribution-prereview                             True
+gateway-usage-crosscheck-20260813                                   True
+global-80-overshoot-r3                                              True
+headless-r2-manifest-review                                         True
+Headless80容量门R2                                                  True
+hook-install-path-authority-I                                       True
+hook-template-conflict-H                                            True
+hook-trust-precision-recheck                                        True
+IDLE-REFILL-SEMANTICS                                               True
+ipybox-baseline-audit                                               True
+ipybox-regression-recheck                                           True
+k3-five-layer-reclaim                                               True
+k3-metro-route-final-review                                         True
+K3V4使用量归因                                                      True
+layered-health-gate-audit                                           True
+legacy-controller-isolation-20260814                                True
+lifecycle-leak-prevention-rules                                     True
+minimal-repro-design-20260810                                       True
+model-pool-consistency-20260814                                     True
+monitor-mutex-patch-audit                                           True
+natural-day-token-20260813                                          True
+nickname-search                                                     True
+observer-unavailable-R3                                             True
+p0-independent-review-r2-20260814                                   True
+policy-load-callgraph-20260812                                      True
+posix-orphan-reap-review                                            True
+process-authenticity-verify                                         True
+profile-neutral-routing-J                                           True
+R2-concurrency-decay-audit                                          True
+retry-generational-closure-review                                   True
+rollout-attribution-20260813                                        True
+rollout-attribution-final-check                                     True
+roster-lock                                                         True
+roster-source-audit-20260814                                        True
+s-f2-final-20260810                                                 True
+s-f2-regression                                                     True
+sm-late-event-review                                                True
+ssh-task-lifecycle-019fe5d1                                         True
+StopHook冲突裁定R3                                                  True
+task-lifecycle-audit                                                True
+token-recalc-5h-20260813                                            True
+usage-audit                                                         True
+v2-naming-capability                                                True
+versions-closeout-audit                                             True
+win-handle-leak-review                                              True
+windows-file-lock-20260812                                          True
+zhongtai-report-check                                               True
+发布门测试覆盖复核                                                  True
+安装原子性复审                                                      True
+安装回滚兼容终审                                                    True
+恢复方案发布门                                                      True
+持续补位回归终审                                                    True
+正常终态漏调度复核                                                  True
+测试与验收矩阵审计                                                  True
+测试镜像漂移复核                                                    True
+父任务停止边界                                                      True
+父生命周期复核                                                      True
+监控估算语义复核                                                    True
+终态触发核对                                                        True
+配置切换原子性审计                                                  True
+f2-current-model-token-share-lifecycle.json                        False
+f2-current-model-token-share-success.json                          False
+f2-current-model-token-share.json                                  False
+ipybox-install-report.json                                         False
+rollout-attribution-export.patch                                   False
+config-failover.txt                                                False
+handlers-servers.txt                                               False
+symbol-hits.txt                                                    False
+cache-quarantine                                                    True
+cas                                                                 True
+db                                                                  True
+preflight-command                                                   True
+pytest                                                              True
+release                                                             True
+runs                                                                True
+tmp                                                                 True
+audit-preflight-report.json                                        False
+bootstrap-environment.json                                         False
+preflight-junit.xml                                                False
+preflight-lock-recomputed.json                                     False
+rebase-sequence.ps1                                                False
+refresh_autonomous_progress.py                                     False
+fable-orchestration-v2-audit-20260811                               True
+fix2-20260810-baseline                                              True
+fix2-20260810-modelsync                                             True
+verify-fix2-20260810-modelsync                                      True
+hook_glm_payload.json                                              False
+k3-probe-control.json                                              False
+k3-probe-decision.json                                             False
+l2-e2e-probe-candidate.json                                        False
+l2-e2e-probe-packet.json                                           False
+launch_fable_v2_integration_audit.sh                               False
+launch_glm_v2_verification.sh                                      False
+lifecycle_probe_child.py                                           False
+deferred                                                            True
+directives                                                          True
+gates                                                               True
+hook-probe-root                                                     True
+preflight                                                           True
+authority-binding.json                                             False
+autonomous-progress.json                                           False
+codex-loop-f2-lifecycle-closure-complete.json                      False
+codex-loop-f2-model-update-complete.json                           False
+codex-loop-f2-runtime-closure-complete.json                        False
+codex-loop-f2-success-complete.json                                False
+codex-loop-f2-wsl-complete.json                                    False
+pagefile-fix-status.json                                           False
+codex-loop-s-f2-hook-probe-20260810T0358                            True
+f2-desktop-hook-unit                                                True
+f2-desktop-rollout-recovery                                         True
+installer-validation-20260808-050338                                True
+installer-validation-20260808-050353                                True
+opencodex-validation-20260808-052818                                True
+opencodex-validation-20260808-052856                                True
+opencodex-validation-20260808-052937                                True
+gitleaks-8.30.1                                                     True
+etc                                                                 True
+Include                                                             True
+Lib                                                                 True
+Scripts                                                             True
+share                                                               True
+pyvenv.cfg                                                         False
+app-v3-manifest                                                     True
+implementation                                                      True
+
+
+Get-ChildItem : 对路径“E:\codex-LOOP\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 29
++ Set-Location E:\codex-LOOP; Get-ChildItem -Path "." -Depth 1 | Select ...
++                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\codex-LOOP\.pytest_cache:String) [Get-ChildItem], UnauthorizedAcce 
+   ssException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+Get-ChildItem : 对路径“E:\codex-LOOP\.tmp-lock-probe-478b1b6f9e3a478a8a97185229fcbcbf”的访问被拒绝。
+所在位置 行:2 字符: 29
++ Set-Location E:\codex-LOOP; Get-ChildItem -Path "." -Depth 1 | Select ...
++                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\codex-LOOP\....a97185229fcbcbf:String) [Get-ChildItem], Unauthoriz 
+   edAccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+Get-ChildItem : 对路径“E:\codex-LOOP\.tmp-lock-tests-43b65e6a6acf4034bdd732aba88a6229”的访问被拒绝。
+所在位置 行:2 字符: 29
++ Set-Location E:\codex-LOOP; Get-ChildItem -Path "." -Depth 1 | Select ...
++                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\codex-LOOP\....dd732aba88a6229:String) [Get-ChildItem], Unauthoriz 
+   edAccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-14T14:12:25.552368Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1 seconds
+Output:
+Get-ChildItem : 找不到路径“E:\codex-LOOP\harness”，因为该路径不存在。
+所在位置 行:2 字符: 29
++ ... t-Location E:\codex-LOOP; Get-ChildItem -Path "harness" -Name | Where ...
++                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (E:\codex-LOOP\harness:String) [Get-ChildItem], ItemNotFoundException
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-14T14:14:39.485684Z ERROR codex_core::tools::router: error=Exit code: 124
+Wall time: 11 seconds
+Output:
+command timed out after 11035 milliseconds
+codex-loop-s-f2\tests\unit\test_loop_monitor_server.py
+deliveries\fable-audit-20260810\stage\codex-loop-s-f2-fable-audit-20260810\host-overlay\launchers\loop_monitor_server.py
+hl-loop-v3\tests\test_desktop_gate_monitor.py
+hl-loop-v3\tools\desktop_gate_monitor.py
+launchers\loop_monitor_server.py
+open-source\codex-loop\tests\test_desktop_gate_monitor.py
+open-source\codex-loop\tools\desktop_gate_monitor.py
+recovery-staging\prepatch-20260814-1318-candidate\tests\unit\test_loop_monitor_server.py
+release-candidates\codex-loop-0.1.0-test-preview-20260808\archive-input\codex-loop-0.1.0-test-preview\tests\test_desktop_gate_monitor.py
+release-candidates\codex-loop-0.1.0-test-preview-20260808\archive-input\codex-loop-0.1.0-test-preview\tools\desktop_gate_monitor.py
+release-candidates\codex-loop-0.1.0-test-preview-20260808\codex-loop-0.1.0-test-preview\tests\test_desktop_gate_monitor.py
+release-candidates\codex-loop-0.1.0-test-preview-20260808\codex-loop-0.1.0-test-preview\tools\desktop_gate_monitor.py
+release-candidates\codex-loop-0.1.0-test-preview-20260808\verification\codex-loop-0.1.0-test-preview\tests\test_desktop_gate_monitor.py
+release-candidates\codex-loop-0.1.0-test-preview-20260808\verification\codex-loop-0.1.0-test-preview\tools\desktop_gate_monitor.py
+test-runs\installer-validation-20260808-050338\codex-loop\tests\test_desktop_gate_monitor.py
+test-runs\installer-validation-20260808-050338\codex-loop\tools\desktop_gate_monitor.py
+test-runs\installer-validation-20260808-050353\codex-loop\tests\test_desktop_gate_monitor.py
+test-runs\installer-validation-20260808-050353\codex-loop\tools\desktop_gate_monitor.py
+test-runs\opencodex-validation-20260808-052818\codex-loop\tests\test_desktop_gate_monitor.py
+test-runs\opencodex-validation-20260808-052818\codex-loop\tools\desktop_gate_monitor.py
+test-runs\opencodex-validation-20260808-052856\codex-loop\tests\test_desktop_gate_monitor.py
+test-runs\opencodex-validation-20260808-052856\codex-loop\tools\desktop_gate_monitor.py
+test-runs\opencodex-validation-20260808-052937\codex-loop\tests\test_desktop_gate_monitor.py
+test-runs\opencodex-validation-20260808-052937\codex-loop\tools\desktop_gate_monitor.py
+venv\Lib\site-packages\debugpy\_vendored\pydevd\_pydevd_sys_monitoring\pydevd_sys_monitoring.py
+venv\Lib\site-packages\debugpy\_vendored\pydevd\_pydevd_sys_monitoring\_pydevd_sys_monitoring.py
+
+2026-08-14T14:15:48.096283Z ERROR codex_core::tools::router: error=unsupported call: read
+2026-08-14T14:16:49.650490Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 5.1 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 120
++ ... 4-1318-candidate\tests\unit\test_loop_monitor_server.py" | head -n 80
++                                                                ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T14:18:19.697680Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 200ms)... turn_id=01a0009a-c067-7a11-80f2-a95600cea0d8 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T14:26:28.632583Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-14T14:30:29.690895Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 215ms)... turn_id=01a0009a-c067-7a11-80f2-a95600cea0d8 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T14:30:38.763299Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 435ms)... turn_id=01a0009a-c067-7a11-80f2-a95600cea0d8 retries=2 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T14:30:50.397901Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 745ms)... turn_id=01a0009a-c067-7a11-80f2-a95600cea0d8 retries=3 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T14:31:02.272871Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.749s)... turn_id=01a0009a-c067-7a11-80f2-a95600cea0d8 retries=4 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T14:31:17.464245Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 3.387s)... turn_id=01a0009a-c067-7a11-80f2-a95600cea0d8 retries=5 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T14:31:35.207913Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

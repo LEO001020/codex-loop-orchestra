@@ -1,0 +1,1747 @@
+Reading additional input from stdin...
+2026-08-12T20:33:22.718427Z  WARN codex_skills::interface: ignoring interface.icon_small: icon path with '..' must resolve under plugin assets/
+2026-08-12T20:33:22.718518Z  WARN codex_skills::interface: ignoring interface.icon_large: icon path with '..' must resolve under plugin assets/
+2026-08-12T20:33:22.720101Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.codex/plugins/cache/openai-primary-runtime/template-creator/26.805.11740/.codex-plugin/plugin.json
+2026-08-12T20:33:22.725477Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.codex/plugins/cache/openai-primary-runtime/template-creator/26.805.11740/.codex-plugin/plugin.json
+2026-08-12T20:33:22.764069Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-12T20:33:23.242060Z  WARN codex_core_plugins::manager: failed to refresh remote installed plugins cache error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/installed?scope=USER failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+} materialized_remote_plugin_count=0
+2026-08-12T20:33:23.253399Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:33:23.275761Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:33:23.323225Z  WARN codex_core_plugins::manager: failed to refresh cached remote plugin catalog error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/list?scope=GLOBAL&limit=200 failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+} scope=Global
+2026-08-12T20:33:23.376901Z  WARN codex_core_plugins::remote::remote_installed_plugin_sync: remote installed plugin bundle sync failed error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/installed?scope=USER&includeDownloadUrls=true failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:33:23.472490Z  WARN codex_core_plugins::manager: failed to warm featured plugin ids cache error=remote featured plugin request to https://chatgpt.com/backend-api/plugins/featured?platform=codex failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:33:23.583960Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-12T20:33:23.589747Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:33:24.003919Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-12T20:33:24.004008Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=1000
+2026-08-12T20:33:25.807545Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-12T20:33:26.613802Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:33:34.295911Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-12T20:33:34.296015Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=2000
+2026-08-12T20:33:34.788773Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:33:34.805117Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:33:46.987880Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-12T20:33:46.988105Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=4000
+2026-08-12T20:33:47.451120Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:33:47.484565Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:33:55.730104Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-12T20:33:55.730211Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=8000
+2026-08-12T20:33:56.041437Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:33:56.053045Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:34:06.453723Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-12T20:34:06.453799Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=16000
+2026-08-12T20:34:06.864709Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:34:06.873875Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:34:16.515906Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:34:16.533372Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:34:24.764146Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-12T20:34:24.764241Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=30000
+2026-08-12T20:34:28.120923Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:34:28.149127Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:34:58.650699Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.2 seconds
+Output:
+"""conftest.py 鈥?shared fixtures for the codex-loop-s-f2 v2 test suite.
+
+Every test runs against an isolated LOOP root under ``tmp_path`` with the
+real config files copied in (single-source-of-truth discipline: tests read
+model pins and thresholds from config, never hardcode them).
+"""
+from __future__ import annotations
+
+import json
+import re
+import shutil
+import sys
+import time
+from pathlib import Path
+
+import pytest
+
+IMPL = Path(__file__).resolve().parent.parent
+# The installer keeps this suite isolated under tests/orchestration_v2 so it
+# cannot overwrite or alter the existing F2 tests/conftest.py.  The source
+# package still runs directly from tests/ during pre-deployment audit.
+if not (IMPL / "config").is_dir():
+    IMPL = Path(__file__).resolve().parents[2]
+for _sub in ("harness", "metering", "hooks"):
+    _p = str(IMPL / _sub)
+    if _p not in sys.path:
+        sys.path.insert(0, _p)
+
+CONFIG_FILES = (
+    "orchestration_policy_v2.toml",
+    "refill_policy.toml",
+    "loop_config_v2.toml",
+    "statemachine_v2_transitions.json",
+    "roles_v2.yaml",
+    "triggers_v2.yaml",
+)
+
+# This overlay coexists with the older F2 tree after deployment. Static source
+# checks therefore inspect exactly the modules managed by v2, not unrelated
+# historical Python files under the same root.
+V2_SOURCE_FILES = tuple(IMPL / rel for rel in (
+    "harness/orchestration_common.py",
+    "harness/statemachine_v2.py",
+    "harness/agent_router.py",
+    "harness/root_turn_governor.py",
+    "harness/budget_controller.py",
+    "harness/dispatch_v2.py",
+    "harness/trigger_eval_v2.py",
+    "harness/refill_controller_v2.py",
+    "harness/l2_consumer.py",
+    "harness/short_result_validator.py",
+    "harness/result_reducer.py",
+    "harness/layered_gate.py",
+    "harness/lifecycle_supervisor_v2.py",
+    "harness/orchestration_epilogue.py",
+    "harness/orchestration/plan_pipeline.py",
+    "harness/routing_mode.py",
+    "metering/model_token_share_v2.py",
+    "metering/model_token_share_bridge.py",
+    "hooks/sol_tool_gate_v2.py",
+    "hooks/sol_tool_gate_router.py",
+))
+
+
+@pytest.fixture(autouse=True)
+def _clean_env(monkeypatch):
+    """Isolate every test from ambient LOOP/codex environment state."""
+    for var in ("LOOP_ROOT", "LOOP_REFILL_POLICY",
+                "LOOP_GOVERNOR_OVERRIDE", "LOOP_EXECUTION_PLANE"):
+        monkeypatch.delenv(var, raising=False)
+    monkeypatch.setenv("CODEX_HOME", "/nonexistent-codex-home-for-tests")
+    yield
+
+
+def make_root(tmp_path: Path) -> Path:
+    """Create an isolated LOOP root with real config files copied in."""
+    root = tmp_path / "loop"
+    (root / "config").mkdir(parents=True, exist_ok=True)
+    (root / "data").mkdir(parents=True, exist_ok=True)
+    for name in CONFIG_FILES:
+---V1CONFTEST---
+Get-Content : 找不到路径“E:\codex-LOOP\codex-loop-s-f2\tests\statemachine_paths\conftest.py”，因为该路径不存在。
+所在位置 行:2 字符: 108
++ ... ONFTEST---'; Get-Content tests\statemachine_paths\conftest.py | Selec ...
++                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (E:\codex-LOOP\c...ths\conftest.py:String) [Get-Content], ItemNotFoundEx 
+   ception
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+
+2026-08-12T20:34:58.942053Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-12T20:34:58.942150Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=30000
+2026-08-12T20:34:59.350828Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:34:59.363287Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:35:07.505107Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.1 seconds
+Output:
+tests\test_l2_consumer.py:74:    assert path is not None and path.exists()
+tests\test_l2_consumer.py:146:    assert not consumer._claim_path(rec.idem_key).exists(), \
+tests\orchestration_v2\test_install_v2.py:96:    assert not target.exists()
+tests\orchestration_v2\test_install_v2.py:110:    assert not target.exists()
+tests\orchestration_v2\test_install_v2.py:212:    assert not (target / ".install-v2.lock.d").exists()
+tests\orchestration_v2\test_install_v2.py:213:    assert not (target / ".install-v2.lock").exists()
+tests\orchestration_v2\test_layered_e2e.py:176:    assert led["packets"][pid]["attempts"] == 1, "retry bumps the generation"
+tests\test_layered_e2e.py:176:    assert led["packets"][pid]["attempts"] == 1, "retry bumps the generation"
+tests\orchestration_v2\test_l2_consumer.py:74:    assert path is not None and path.exists()
+tests\orchestration_v2\test_l2_consumer.py:132:    assert not consumer._claim_path(rec.idem_key).exists()
+tests\orchestration_v2\test_l2_consumer.py:133:    assert not (root / "data/refill/k3_demand.ndjsonl").exists()
+tests\orchestration_v2\test_l2_consumer.py:167:    assert not consumer._claim_path(rec.idem_key).exists(), \
+tests\orchestration_v2\test_meter_governor_contract.py:135:    assert not gate.canary_marker.exists()
+tests\orchestration_v2\test_parent_manifest_importer.py:154:    assert not (packet_dir / f"{first_pid}.json").exists()
+tests\orchestration_v2\test_provider_health.py:49:    assert not (tmp_path / "data/provider_health").exists()
+tests\test_statemachine_v2.py:82:    assert led["packets"]["p1"]["state"] == to
+tests\test_statemachine_v2.py:83:    assert led["packets"]["p1"]["history"][-1]["t"] == num
+tests\test_statemachine_v2.py:92:    assert led["packets"]["p1"]["attempts"] == 1
+tests\test_statemachine_v2.py:107:    assert led["packets"]["p1"]["history"][-1]["via"] == "l2_attempts_exhausted"
+tests\test_statemachine_v2.py:147:    assert led["packets"]["p1"]["history"][-1]["t"] == 23
+tests\test_statemachine_v2.py:191:    assert not (root / "data" / ".sm_cursor").exists()
+tests\test_statemachine_v2.py:241:    assert led["packets"]["p1"]["state"] == "TIMED_OUT"
+tests\test_statemachine_v2.py:251:    assert led["packets"]["p1"]["state"] == "RUNNING"
+tests\test_statemachine_v2.py:347:    assert led["packets"]["p1"]["history"][-1]["via"] == "stale_generation_ignored"
+tests\unit\test_csv_reconcile.py:74:    assert not (data / "events.ndjson").exists()
+tests\unit\test_csv_reconcile.py:75:    assert not (data / "reports" / "p3" / "report.json").exists()
+tests\unit\test_csv_reconcile.py:92:    assert not (data / "events.ndjson").exists()
+tests\unit\test_csv_reconcile.py:110:    assert not (data / "reports" / "p1" / "report.json").exists()
+tests\unit\test_csv_reconcile.py:111:    assert not (data / "events.ndjson").exists()
+tests\orchestration_v2\test_statemachine_v2.py:82:    assert led["packets"]["p1"]["state"] == to
+tests\orchestration_v2\test_statemachine_v2.py:83:    assert led["packets"]["p1"]["history"][-1]["t"] == num
+tests\orchestration_v2\test_statemachine_v2.py:92:    assert led["packets"]["p1"]["attempts"] == 1
+tests\orchestration_v2\test_statemachine_v2.py:107:    assert led["packets"]["p1"]["history"][-1]["via"] == "l2_attempts_exhausted"
+tests\orchestration_v2\test_statemachine_v2.py:147:    assert led["packets"]["p1"]["history"][-1]["t"] == 23
+tests\orchestration_v2\test_statemachine_v2.py:191:    assert not (root / "data" / ".sm_cursor").exists()
+tests\orchestration_v2\test_statemachine_v2.py:241:    assert led["packets"]["p1"]["state"] == "TIMED_OUT"
+tests\orchestration_v2\test_statemachine_v2.py:251:    assert led["packets"]["p1"]["state"] == "RUNNING"
+tests\orchestration_v2\test_statemachine_v2.py:330:        "packet_id": "adhoc-wave-run", "event": "exec_failed",
+tests\orchestration_v2\test_statemachine_v2.py:334:    assert led["packets"] == {}
+tests\orchestration_v2\test_statemachine_v2.py:335:    assert not (sm.paths.data / "dead_letters" / "adhoc-wave-run.json").exists()
+tests\orchestration_v2\test_statemachine_v2.py:367:    assert led["packets"]["p1"]["state"] == "L2_VERIFY"
+tests\orchestration_v2\test_statemachine_v2.py:376:    assert led["packets"]["p1"]["history"][-1]["via"] == "stale_generation_ignored"
+tests\unit\test_duty_gate_fixhint.py:49:    assert not (loop.data / "duty_rulings" / "p9.json").exists()
+tests\unit\test_lifecycle_supervisor.py:84:    assert not marker.exists(), "grandchild escaped the supervisor process boundary"
+tests\unit\test_lifecycle_supervisor.py:154:    assert not target.exists()
+tests\unit\test_lifecycle_supervisor.py:251:def test_adhoc_terminal_uses_packet_only_refill(tmp_path, monkeypatch):
+tests\unit\test_lifecycle_supervisor.py:260:                            AssertionError("adhoc terminal must not run full epilogue")))
+tests\unit\test_lifecycle_supervisor.py:261:    report = tmp_path / "data" / "reports" / "adhoc-test" / "report.json"
+tests\unit\test_lifecycle_supervisor.py:266:        packet="adhoc-test", run_id="adhoc-test-run", attempt=0,
+tests\unit\test_lifecycle_supervisor.py:267:        task_name="adhoc", role="worker", model="test/model", plane="Windows CLI",
+tests\unit\test_lifecycle_supervisor.py:272:    assert calls == [(tmp_path, "adhoc_lifecycle_supervisor")]
+tests\unit\test_lifecycle_supervisor.py:294:    assert not cancel.exists()
+tests\unit\test_lifecycle_supervisor.py:322:    assert not marker.exists()
+tests\unit\test_model_profile.py:96:    assert not created.exists()
+tests\unit\test_path_id_safety.py:24:        assert not p.exists() or list(p.glob("*")) == [], d
+tests\unit\test_path_id_safety.py:25:    assert not (loop.root / "escape.json").exists()
+tests\unit\test_path_id_safety.py:26:    assert not (loop.root / "escape.md").exists()
+tests\unit\test_path_id_safety.py:27:    assert not (loop.data / "escape.json").exists()
+tests\unit\test_release_review_route.py:60:    assert not (loop.data / "release_review" / "w0.json").exists()  # audit-only
+tests\unit\test_subagent_lifecycle_hook.py:179:    assert not (tmp_path / "data" / "lifecycle" / "close_requests.ndjson").exists()
+
+2026-08-12T20:35:11.048727Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:35:11.060718Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:35:29.341209Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-12T20:35:29.341298Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=30000
+2026-08-12T20:35:34.051264Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=failed to send remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL: error sending request for url (https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL)
+2026-08-12T20:35:34.060524Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:35:47.925640Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:35:47.939349Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:35:57.115820Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:35:57.129180Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:36:02.828833Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-12T20:36:02.828909Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=30000
+2026-08-12T20:36:03.343760Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:36:03.354977Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:36:07.285148Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.3 seconds
+Output:
+
+2026-08-12T20:36:08.013969Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:36:08.025540Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:36:13.694591Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:36:13.707098Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:36:19.288691Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.1 seconds
+Output:
+
+tests\statemachine_paths\test_all_transitions.py
+tests\statemachine_paths\test_adversarial.py
+FullName                                                        
+--------                                                        
+E:\codex-LOOP\codex-loop-s-f2\tests\conftest.py                 
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\conftest.py
+
+
+
+2026-08-12T20:36:20.078398Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:36:20.089648Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:36:25.957406Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:36:25.969525Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:36:46.947220Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.5 seconds
+Output:
+python : 无法将“python”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，
+然后再试一次。
+所在位置 行:2 字符: 1
++ python -B -m pytest --fixtures -q -p no:cacheprovider 2>&1 | Select-S ...
++ ~~~~~~
+    + CategoryInfo          : ObjectNotFound: (python:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-12T20:36:47.361074Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-12T20:36:47.361158Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=30000
+2026-08-12T20:36:47.705966Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:36:47.714148Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:36:54.749118Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 3.1 seconds
+Output:
+py : 无法将“py”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后再试
+一次。
+所在位置 行:2 字符: 1
++ py -3 --version 2>&1; python3 --version 2>&1; Get-Command py, python3 ...
++ ~~
+    + CategoryInfo          : ObjectNotFound: (py:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+python3 : 无法将“python3”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确
+，然后再试一次。
+所在位置 行:2 字符: 23
++ py -3 --version 2>&1; python3 --version 2>&1; Get-Command py, python3 ...
++                       ~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (python3:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-12T20:36:57.572471Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:36:57.581509Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:37:10.627394Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=failed to send remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL: error sending request for url (https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL)
+2026-08-12T20:37:10.637829Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:37:21.022883Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:37:21.034788Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:37:36.625914Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-12T20:37:36.626001Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=30000
+2026-08-12T20:37:41.302506Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=failed to send remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL: error sending request for url (https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL)
+2026-08-12T20:37:41.311821Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:38:01.535640Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:38:01.548195Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:38:14.615691Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-12T20:38:14.615793Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=30000
+2026-08-12T20:38:15.141233Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:38:15.149175Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:38:24.726162Z  WARN codex_mcp::rmcp_client: failed to initialize MCP client during shutdown: MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request
+2026-08-12T20:38:25.695101Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+Reading additional input from stdin...
+2026-08-12T20:38:48.209250Z  WARN codex_skills::interface: ignoring interface.icon_small: icon path with '..' must resolve under plugin assets/
+2026-08-12T20:38:48.209293Z  WARN codex_skills::interface: ignoring interface.icon_large: icon path with '..' must resolve under plugin assets/
+2026-08-12T20:38:48.210759Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.codex/plugins/cache/openai-primary-runtime/template-creator/26.805.11740/.codex-plugin/plugin.json
+2026-08-12T20:38:48.215379Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.codex/plugins/cache/openai-primary-runtime/template-creator/26.805.11740/.codex-plugin/plugin.json
+2026-08-12T20:38:48.285450Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-12T20:38:48.830647Z  WARN codex_core_plugins::manager: failed to refresh remote installed plugins cache error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/installed?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+} materialized_remote_plugin_count=0
+2026-08-12T20:38:48.869057Z  WARN codex_core_plugins::manager: failed to warm featured plugin ids cache error=remote featured plugin request to https://chatgpt.com/backend-api/plugins/featured?platform=codex failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:38:48.869996Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:38:48.895014Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:38:48.900328Z  WARN codex_core_plugins::manager: failed to refresh cached remote plugin catalog error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/list?scope=GLOBAL&limit=200 failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+} scope=Global
+2026-08-12T20:38:48.946718Z  WARN codex_core_plugins::remote::remote_installed_plugin_sync: remote installed plugin bundle sync failed error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/installed?scope=GLOBAL&includeDownloadUrls=true failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:38:49.133482Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-12T20:38:49.145918Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:38:49.501161Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-12T20:38:49.501250Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=1000
+2026-08-12T20:38:51.441062Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-12T20:38:56.454494Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=failed to send remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL: error sending request for url (https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL)
+2026-08-12T20:39:19.184037Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-12T20:39:19.184110Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=2000
+2026-08-12T20:39:19.598019Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:39:19.605481Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:39:25.239349Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-12T20:39:25.239424Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=4000
+2026-08-12T20:39:25.788570Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:39:25.795931Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:39:29.962338Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-12T20:39:29.962407Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=8000
+2026-08-12T20:39:30.429720Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:39:30.436853Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:39:36.012681Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:39:36.019921Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:39:40.340441Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-12T20:39:40.340512Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=16000
+2026-08-12T20:39:40.890150Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:39:40.899607Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:39:45.949202Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:39:45.960674Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:39:55.678331Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:39:55.685876Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:40:01.942783Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-12T20:40:01.942849Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=30000
+2026-08-12T20:40:02.383834Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:40:02.391116Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:40:09.600737Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:40:09.608448Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:40:21.142656Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:40:21.149776Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:40:42.171735Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-12T20:40:42.171846Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=30000
+2026-08-12T20:40:42.593324Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:40:42.600738Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:40:49.529612Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:40:49.538308Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:41:13.159163Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-12T20:41:13.159237Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=30000
+2026-08-12T20:41:15.393638Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:41:15.402295Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:41:21.918283Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:41:21.926913Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:41:30.528848Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:41:30.537275Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:41:37.703532Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+.codex\hooks.json:35:        "matcher": "^(shell|shell_command|bash|local_shell|exec_command|functions\\.exec|run_terminal|terminal|web_search|search|grep|glob|mcp__|read_mcp_resource|list_mcp|read_many_files|read_file|list_files|pytest|test)",
+
+2026-08-12T20:41:38.627481Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:41:38.634190Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:41:50.816527Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.2 seconds
+Output:
+harness/orchestration\plan_pipeline.py
+hooks\subagent_lifecycle.py
+hooks\sol_tool_gate_router.py
+hooks\sol_tool_gate.py
+hooks\sol_tool_gate_v2.py
+
+2026-08-12T20:41:51.234451Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-12T20:41:51.234521Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=30000
+2026-08-12T20:41:51.676685Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:41:51.683271Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:42:00.787373Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:42:00.798021Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:42:10.075776Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:42:10.086312Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:42:16.639039Z  WARN codex_sandboxing::violation: recorded sandbox violation: resource=filesystem backend=windows_sandbox reason=policy_denied path=unknown
+2026-08-12T20:42:16.639344Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2 seconds
+Output:
+# ============================================================================
+# test_statemachine.py тА?Unit tests for harness/statemachine.py
+# Cases: normal main chain, off-table -> DEAD_LETTER + Sol wake (fail-visible),
+#        report-file fallback (reconcile), report-missing-on-stop gate,
+#        duty enforce toggle both ways, malformed event line, cursor
+#        idempotency, state/wave-check subcommands.
+# ============================================================================
+import json
+
+
+MAIN_CHAIN = ["planned", "dag_assert_pass", "dispatched", "subagent_stop",
+              "acceptance_pass", "merged", "wave_complete"]
+
+
+def test_normal_main_chain_reaches_wave_done(loop):
+=====
+diff --git a/tests/conftest.py b/tests/conftest.py
+index c2e3d42..7b8d03f 100644
+--- a/tests/conftest.py
++++ b/tests/conftest.py
+@@ -1,206 +1,168 @@
+-# ============================================================================
+-# conftest.py тА?Shared fixtures for the Codex-LOOP-Build-F2 test suite
+-# Purpose : Hermetic per-test LOOP_ROOT (temp data plane + symlinked harness),
+-#           mock_codex scenario isolation, scratch git repos, and a `Loop`
+-#           helper object wrapping the harness CLIs. Every test gets a fresh
+-#           tmp dir (auto-cleaned by pytest) and a fresh mock scenario state.
+-# Input   : none (pytest plugin conventions)
+-# Output  : fixtures `loop`, `repo_loop`; helper class Loop.
+-# ============================================================================
++"""conftest.py тА?shared fixtures for the codex-loop-s-f2 v2 test suite.
++
++Every test runs against an isolated LOOP root under ``tmp_path`` with the
++real config files copied in (single-source-of-truth discipline: tests read
++model pins and thresholds from config, never hardcode them).
++"""
++from __future__ import annotations
++
+ import json
+-import os
++import re
+ import shutil
+-import subprocess
+ import sys
+ import time
+ from pathlib import Path
+ 
+ import pytest
+ 
+-PKG = Path(__file__).resolve().parents[1]          # codex-loop-s-f2/
+-HARNESS = PKG / "harness"
+-CONFIG = PKG / "config"
+-TESTS = PKG / "tests"
+-MOCK = TESTS / "mock_codex"
+-PY = sys.executable
+-
+-
+-class Loop:
+-    """Hermetic harness driver: fresh LOOP_ROOT, event/report/packet helpers."""
+-
+-    def __init__(self, root: Path, state_dir: Path):
+-        self.root = root
+-        self.data = root / "data"
+-        self.state_dir = state_dir            # mock_codex scenario state (isolated)
+-        self.repo = None                      # set by attach_repo()
+-        self.wt_dir = None
+-
+-    # ---- environment ------------------------------------------------------
+-    def env(self, **extra):
+-        e = os.environ.copy()
+-        e["LOOP_ROOT"] = str(self.root)
+-        e["MOCK_CODEX_STATE"] = str(self.state_dir)
+-        # sandbox has no global git identity; rebase/commit need one
+-        e.update(GIT_AUTHOR_NAME="loop-test", GIT_AUTHOR_EMAIL="loop@test.local",
+-                 GIT_COMMITTER_NAME="loop-test", GIT_COMMITTER_EMAIL="loop@test.local")
+-        if self.repo:
+-            e["LOOP_REPO"] = str(self.repo)
+-            e["LOOP_WT_DIR"] = str(self.wt_dir)
+-        e.update({k: str(v) for k, v in extra.items()})
+-        return e
+-
+-    def run(self, cmd, check=False, timeout=120, **extra_env):
+-        p = subprocess.run([str(c) for c in cmd], capture_output=True, text=True,
+-                           env=self.env(**extra_env), timeout=timeout)
+-        if check and p.returncode != 0:
+-            raise AssertionError("cmd %s failed rc=%d\nstdout:%s\nstderr:%s"
+-                                 % (cmd, p.returncode, p.stdout, p.stderr))
+-        return p
+-
+-    # ---- harness invocations ------------------------------------------------
+-    def harness(self, name):
+-        return HARNESS / name
+-
+-    def sm(self, *args, **extra_env):
+-        return self.run([PY, self.harness("statemachine.py"), *args], **extra_env)
+-
+
+2026-08-12T20:42:17.519058Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:42:17.527803Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:42:35.103118Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-12T20:42:35.103197Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=30000
+2026-08-12T20:42:35.505433Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:42:35.512466Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/template-creator/.codex-plugin/plugin.json
+2026-08-12T20:42:46.458821Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.1 seconds
+Output:
+rg: regex parse error:
+    (?:skeleton_ready|planned.*packets|packets.*==.*\{\}|led\[\)
+    ^
+error: unclosed group
+
+2026-08-12T20:42:49.995734Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:42:55.488932Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:43:02.908243Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.1 seconds
+Output:
+
+2026-08-12T20:43:03.607985Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:43:16.236138Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-12T20:43:16.236249Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=30000
+2026-08-12T20:43:16.691687Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:43:50.285959Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 4.9 seconds
+Output:
+"""conftest.py 鈥?shared fixtures for the codex-loop-s-f2 v2 test suite.
+
+Every test runs against an isolated LOOP root under ``tmp_path`` with the
+real config files copied in (single-source-of-truth discipline: tests read
+model pins and thresholds from config, never hardcode them).
+"""
+from __future__ import annotations
+
+import json
+import re
+import shutil
+import sys
+import time
+from pathlib import Path
+
+import pytest
+
+IMPL = Path(__file__).resolve().parent.parent
+# The installer keeps this suite isolated under tests/orchestration_v2 so it
+# cannot overwrite or alter the existing F2 tests/conftest.py.  The source
+# package still runs directly from tests/ during pre-deployment audit.
+if not (IMPL / "config").is_dir():
+    IMPL = Path(__file__).resolve().parents[2]
+for _sub in ("harness", "metering", "hooks"):
+    _p = str(IMPL / _sub)
+    if _p not in sys.path:
+        sys.path.insert(0, _p)
+
+CONFIG_FILES = (
+    "orchestration_policy_v2.toml",
+    "refill_policy.toml",
+    "loop_config_v2.toml",
+    "statemachine_v2_transitions.json",
+    "roles_v2.yaml",
+    "triggers_v2.yaml",
+)
+
+# This overlay coexists with the older F2 tree after deployment. Static source
+# checks therefore inspect exactly the modules managed by v2, not unrelated
+# historical Python files under the same root.
+V2_SOURCE_FILES = tuple(IMPL / rel for rel in (
+    "harness/orchestration_common.py",
+    "harness/statemachine_v2.py",
+    "harness/agent_router.py",
+    "harness/root_turn_governor.py",
+    "harness/budget_controller.py",
+    "harness/dispatch_v2.py",
+    "harness/trigger_eval_v2.py",
+    "harness/refill_controller_v2.py",
+    "harness/l2_consumer.py",
+    "harness/short_result_validator.py",
+    "harness/result_reducer.py",
+    "harness/layered_gate.py",
+    "harness/lifecycle_supervisor_v2.py",
+    "harness/orchestration_epilogue.py",
+    "harness/orchestration/plan_pipeline.py",
+    "harness/routing_mode.py",
+    "metering/model_token_share_v2.py",
+    "metering/model_token_share_bridge.py",
+    "hooks/sol_tool_gate_v2.py",
+    "hooks/sol_tool_gate_router.py",
+))
+
+
+@pytest.fixture(autouse=True)
+def _clean_env(monkeypatch):
+    """Isolate every test from ambient LOOP/codex environment state."""
+    for var in ("LOOP_ROOT", "LOOP_REFILL_POLICY",
+                "LOOP_GOVERNOR_OVERRIDE", "LOOP_EXECUTION_PLANE"):
+        monkeypatch.delenv(var, raising=False)
+    monkeypatch.setenv("CODEX_HOME", "/nonexistent-codex-home-for-tests")
+    yield
+
+
+def make_root(tmp_path: Path) -> Path:
+    """Create an isolated LOOP root with real config files copied in."""
+    root = tmp_path / "loop"
+    (root / "config").mkdir(parents=True, exist_ok=True)
+    (root / "data").mkdir(parents=True, exist_ok=True)
+    for name in CONFIG_FILES:
+        src = IMPL / "config" / name
+        if src.exists():
+            shutil.copy2(src, root / "config" / name)
+    return root
+
+
+@pytest.fixture
+def loop_root(tmp_path: Path) -> Path:
+    return make_root(tmp_path)
+
+=====
+python : 无法将“python”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，
+然后再试一次。
+所在位置 行:2 字符: 97
++ ... st.py | Select-Object -First 90; Write-Output '====='; python --versi ...
++                                                            ~~~~~~
+    + CategoryInfo          : ObjectNotFound: (python:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+python : 无法将“python”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，
+然后再试一次。
+所在位置 行:2 字符: 115
++ ... ect -First 90; Write-Output '====='; python --version; python -m pyte ...
++                                                            ~~~~~~
+    + CategoryInfo          : ObjectNotFound: (python:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-12T20:43:50.571893Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-12T20:43:50.572009Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=30000
+2026-08-12T20:43:51.159955Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:43:59.105742Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 4.2 seconds
+Output:
+àeHe„v}TäNLˆÂSpeÿ  - - w h i c h  
+ ÷‹O(u w s l . e x e   - - h e l p '   ·ƒÖS×S/ec„vÂSpeRhˆ0 
+ ÒbÝ~¿‹î•0   
+ •ï‹ãNx:   W s l / S e r v i c e / C r e a t e I n s t a n c e / E _ A C C E S S D E N I E D  
+ py : ÎÞ·¨½«¡°py¡±ÏîÊ¶±ðÎª cmdlet¡¢º¯Êý¡¢½Å±¾ÎÄ¼þ»ò¿ÉÔËÐÐ³ÌÐòµÄÃû³Æ¡£Çë¼ì²éÃû³ÆµÄÆ´Ð´£¬Èç¹û°üÀ¨Â·¾¶£¬ÇëÈ·±£Â·¾¶ÕýÈ·£¬È»ºóÔÙÊÔ
+Ò»´Î¡£
+ËùÔÚÎ»ÖÃ ÐÐ:2 ×Ö·û: 1
++ py -0p 2>$null; Get-Command py,python3,python -ErrorAction SilentlyCo ...
++ ~~
+    + CategoryInfo          : ObjectNotFound: (py:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-12T20:43:59.862184Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:44:06.536796Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.8 seconds
+Output:
+---where---
+Test-Path : 拒绝访问。
+所在位置 行:2 字符: 349
++ ... onda3\python.exe"); foreach ($c in $cands) { if (Test-Path $c) { Get- ...
++                                                      ~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (C:\Users\hzq00\...Programs\Python:String) [Test-Path], UnauthorizedAc 
+   cessException
+    + FullyQualifiedErrorId : ItemExistsUnauthorizedAccessError,Microsoft.PowerShell.Commands.TestPathCommand
+ 
+
+2026-08-12T20:44:07.219675Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:44:21.085453Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:44:27.658630Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-12T20:44:27.658751Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=30000
+2026-08-12T20:44:28.117887Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:44:37.510652Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.6 seconds
+Output:
+tests/orchestration_v2/test_statemachine_v2.py:363:def test_l2_claim_reaped_is_audit_only(sm):
+tests/orchestration_v2/test_statemachine_v2.py:394:def test_terminal_from_duplicate_run_id_is_audit_only(sm):
+====
+
+2026-08-12T20:44:38.234848Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:44:50.414197Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.1 seconds
+Output:
+
+Name    
+----    
+config  
+data    
+harness 
+hooks   
+metering
+tests   
+=====
+
+
+
+2026-08-12T20:44:51.158462Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:45:04.105459Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.2 seconds
+Output:
+data/progress_ledger.json:290:      "goal": "åªè¯»å¤éªŒ adhoc transport äº‹ä»¶ä¸ä¼šå†åˆ›å»?canonical packet æˆ–è§¦å?off-table dead letterã€‚ä¸å¾—ä¿®æ”¹æ–‡ä»¶ã€?,
+data/events.ndjson:21:{"ts":1786481588.882448,"packet_id":"adhoc-285d0b57b6-visible-headless-1","run_id":"adhoc-285d0b57b6-visible-headless-1-2086fb87a1a642efa554ae4ac684e559","attempt":0,"event":"exec_failed","detail":{"why":"supervisor_error","error":"LifecycleError: CreateProcessW failed (5): æ‹’ç»è®¿é—®ã€?}}
+data/events.ndjson:22:{"ts":1786481589.9914212,"packet_id":"adhoc-285d0b57b6-visible-headless-2","run_id":"adhoc-285d0b57b6-visible-headless-2-acfd901c405a4cf5a9377d8979b6b568","attempt":0,"event":"exec_failed","detail":{"why":"supervisor_error","error":"LifecycleError: CreateProcessW failed (5): æ‹’ç»è®¿é—®ã€?}}
+data/events.ndjson:23:{"ts":1786481596.0956466,"packet_id":"adhoc-285d0b57b6-visible-headless-3","run_id":"adhoc-285d0b57b6-visible-headless-3-124ceb41aaa7467594a49d0bf5499b89","attempt":0,"event":"exec_failed","detail":{"why":"supervisor_error","error":"LifecycleError: CreateProcessW failed (5): æ‹’ç»è®¿é—®ã€?}}
+data/events.ndjson:24:{"ts":1786481602.0914862,"packet_id":"adhoc-285d0b57b6-visible-headless-4","run_id":"adhoc-285d0b57b6-visible-headless-4-69301ad8c0144141bb75b097c9f895ee","attempt":0,"event":"exec_failed","detail":{"why":"supervisor_error","error":"LifecycleError: CreateProcessW failed (5): æ‹’ç»è®¿é—®ã€?}}
+data/events.ndjson:25:{"ts":1786481676.4861238,"packet_id":"adhoc-285d0b57b6-visible-headless-1","run_id":"adhoc-285d0b57b6-visible-headless-1-c6d5ee1f3b264ebfb22432c2be0f05e1","attempt":0,"event":"exec_spawned","detail":{"os_pid":15728,"task_name":"Headlesså‡ºç”Ÿç¡®è®¤"}}
+data/events.ndjson:26:{"ts":1786481677.8888412,"packet_id":"adhoc-285d0b57b6-visible-headless-2","run_id":"adhoc-285d0b57b6-visible-headless-2-059d2df18696451fb4094ae09432ac90","attempt":0,"event":"exec_spawned","detail":{"os_pid":48324,"task_name":"8765åˆå¹¶ç¡®è®¤"}}
+data/events.ndjson:27:{"ts":1786481679.3068113,"packet_id":"adhoc-285d0b57b6-visible-headless-3","run_id":"adhoc-285d0b57b6-visible-headless-3-d65685f1a79942c9b7d1fec2405811e6","attempt":0,"event":"exec_spawned","detail":{"os_pid":54168,"task_name":"å¹¶å‘å€ºåŠ¡ç¡®è®¤"}}
+data/events.ndjson:28:{"ts":1786481680.6716704,"packet_id":"adhoc-285d0b57b6-visible-headless-2","run_id":"adhoc-285d0b57b6-visible-headless-2-059d2df18696451fb4094ae09432ac90","attempt":0,"event":"exec_failed","detail":{"why":"supervisor_lost","cancelled":false,"cold_start":true}}
+data/events.ndjson:29:{"ts":1786481680.672575,"packet_id":"adhoc-285d0b57b6-visible-headless-3","run_id":"adhoc-285d0b57b6-visible-headless-3-d65685f1a79942c9b7d1fec2405811e6","attempt":0,"event":"exec_failed","detail":{"why":"supervisor_lost","cancelled":false,"cold_start":true}}
+data/events.ndjson:30:{"ts":1786481680.748501,"packet_id":"adhoc-285d0b57b6-visible-headless-4","run_id":"adhoc-285d0b57b6-visible-headless-4-a5d8691bc51e4e608be812e01a4ac9a3","attempt":0,"event":"exec_spawned","detail":{"os_pid":39816,"task_name":"æ¨¡åž‹å›ºå®šç¡®è®¤"}}
+data/events.ndjson:31:{"ts":1786481682.7878866,"packet_id":"adhoc-285d0b57b6-visible-headless-1","run_id":"adhoc-285d0b57b6-visible-headless-1-c6d5ee1f3b264ebfb22432c2be0f05e1","attempt":0,"event":"exec_failed","detail":{"why":"supervisor_lost","cancelled":false,"cold_start":true}}
+data/events.ndjson:32:{"ts":1786481682.7889266,"packet_id":"adhoc-285d0b57b6-visible-headless-4","run_id":"adhoc-285d0b57b6-visible-headless-4-a5d8691bc51e4e608be812e01a4ac9a3","attempt":0,"event":"exec_failed","detail":{"why":"supervisor_lost","cancelled":false,"cold_start":true}}
+data/events.ndjson:33:{"ts":1786481769.0772274,"packet_id":"adhoc-285d0b57b6-visible-headless-1","run_id":"adhoc-285d0b57b6-visible-headless-1-c6d5ee1f3b264ebfb22432c2be0f05e1","attempt":0,"event":"subagent_stop","detail":{"source":"lifecycle_supervisor","exit_code":0}}
+data/events.ndjson:34:{"ts":1786481808.141251,"packet_id":"adhoc-285d0b57b6-visible-headless-1","run_id":"adhoc-285d0b57b6-visible-headless-1-23d25577e93c49efac53ad0a7b9c3b41","attempt":0,"event":"exec_spawned","detail":{"os_pid":33508,"task_name":"Headlesså‡ºç”Ÿç¡®è®¤"}}
+data/events.ndjson:35:{"ts":1786481825.2240508,"packet_id":"adhoc-285d0b57b6-visible-headless-2","run_id":"adhoc-285d0b57b6-visible-headless-2-059d2df18696451fb4094ae09432ac90","attempt":0,"event":"subagent_stop","detail":{"source":"lifecycle_supervisor","exit_code":0}}
+data/events.ndjson:36:{"ts":1786481923.5583167,"packet_id":"adhoc-285d0b57b6-visible-headless-4","run_id":"adhoc-285d0b57b6-visible-headless-4-a5d8691bc51e4e608be812e01a4ac9a3","attempt":0,"event":"subagent_stop","detail":{"source":"lifecycle_supervisor","exit_code":0}}
+data/events.ndjson:37:{"ts":1786482143.394652,"packet_id":"adhoc-313dfd0560-apps-off-smoke","run_id":"adhoc-313dfd0560-apps-off-smoke-44e9f31f3aa146288ae7bc5de4ba29c8","attempt":0,"event":"exec_spawned","detail":{"os_pid":27828,"task_name":"Headlesså¯åŠ¨å‡è´Ÿç¡®è®¤"}}
+data/events.ndjson:38:{"ts":1786482146.6103392,"packet_id":"adhoc-285d0b57b6-visible-headless-1","run_id":"adhoc-285d0b57b6-visible-headless-1-23d25577e93c49efac53ad0a7b9c3b41","attempt":0,"event":"exec_failed","detail":{"why":"supervisor_lost","cancelled":false,"cold_start":true}}
+data/events.ndjson:39:{"ts":1786482211.184879,"packet_id":"adhoc-313dfd0560-apps-off-smoke","run_id":"adhoc-313dfd0560-apps-off-smoke-44e9f31f3aa146288ae7bc5de4ba29c8","attempt":0,"event":"subagent_stop","detail":{"source":"lifecycle_supervisor","exit_code":0}}
+data/events.ndjson:40:{"ts":1786482408.9756167,"packet_id":"adhoc-285d0b57b6-visible-headless-3","run_id":"adhoc-285d0b57b6-visible-headless-3-8679781c718941fa98e2cb04b3f661f7","attempt":0,"event":"exec_spawned","detail":{"os_pid":4120,"task_name":"å¹¶å‘å€ºåŠ¡ç¡®è®¤"}}
+data/events.ndjson:41:{"ts":1786482592.4673371,"packet_id":"adhoc-285d0b57b6-visible-headless-3","run_id":"adhoc-285d0b57b6-visible-headless-3-8679781c718941fa98e2cb04b3f661f7","attempt":0,"event":"subagent_stop","detail":{"source":"lifecycle_supervisor","exit_code":0}}
+data/events.ndjson:42:{"ts":1786527430.4200563,"packet_id":"adhoc-20516a9185-policy-reader-map-2","run_id":"adhoc-20516a9185-policy-reader-map-2-e3a157a448864c0d921f69afe73c9db6","attempt":0,"event":"exec_spawned","detail":{"os_pid":25568,"task_name":"ç­–ç•¥è¯»å–äº¤å‰æ ¸éªŒ"}}
+data/events.ndjson:43:{"ts":1786527431.8461843,"packet_id":"adhoc-20516a9185-policy-schema-union","run_id":"adhoc-20516a9185-policy-schema-union-1d330e3fc0d74c06a6037dd20745997b","attempt":0,"event":"exec_spawned","detail":{"os_pid":19216,"task_name":"ç­–ç•¥æ¨¡å¼è”åˆå®¡è®¡"}}
+data/events.ndjson:44:{"ts":1786527433.2602186,"packet_id":"adhoc-20516a9185-policy-consumer-contracts","run_id":"adhoc-20516a9185-policy-consumer-contracts-b7a15dc4c0234820b15dd26965edf155","attempt":0,"event":"exec_spawned","detail":{"os_pid":39436,"task_name":"ç­–ç•¥æ¶ˆè´¹è€…å¥‘çº?}}
+data/events.ndjson:45:{"ts":1786527434.6903195,"packet_id":"adhoc-20516a9185-policy-direct-consumers","run_id":"adhoc-20516a9185-policy-direct-consumers-8e22278db9fa43179dd92ff5f42049b9","attempt":0,"event":"exec_spawned","detail":{"os_pid":53720,"task_name":"ç›´æŽ¥ç­–ç•¥æ¶ˆè´¹è€?}}
+data/events.ndjson:46:{"ts":1786527436.1143868,"packet_id":"adhoc-20516a9185-policy-rollback-adversary","run_id":"adhoc-20516a9185-policy-rollback-adversary-5461a1543d8145e6a0b1428ca8f4ac4d","attempt":0,"event":"exec_spawned","detail":{"os_pid":34688,"task_name":"å›žæ»šå¯¹æŠ—æ£€æŸ?}}
+data/events.ndjson:47:{"ts":1786527437.5350964,"packet_id":"adhoc-20516a9185-policy-env-override","run_id":"adhoc-20516a9185-policy-env-override-d95f0d96a2ed4d95a61cb7dc83665ed5","attempt":0,"event":"exec_spawned","detail":{"os_pid":3008,"task_name":"çŽ¯å¢ƒå˜é‡è¦†ç›–å®¡è®¡"}}
+data/events.ndjson:48:{"ts":1786527438.9926302,"packet_id":"adhoc-20516a9185-policy-doc-install","run_id":"adhoc-20516a9185-policy-doc-install-2628de07568949aea8485788af515701","attempt":0,"event":"exec_spawned","detail":{"os_pid":25576,"task_name":"ç­–ç•¥æ–‡æ¡£å®‰è£…ä¸€è‡´æ€?}}
+data/events.ndjson:49:{"ts":1786527440.4681625,"packet_id":"adhoc-20516a9185-policy-minimal-patch-review","run_id":"adhoc-20516a9185-policy-minimal-patch-review-7987bb489e074ce3b7353e6d6ae22cd5","attempt":0,"event":"exec_spawned","detail":{"os_pid":54308,"task_name":"æœ€å°è¡¥ä¸é¢„å®?}}
+data/events.ndjson:50:{"ts":1786527490.7593532,"packet_id":"adhoc-20516a9185-policy-consumer-contracts","run_id":"adhoc-20516a9185-policy-consumer-contracts-b7a15dc4c0234820b15dd26965edf155","attempt":0,"event":"exec_failed","detail":{"why":"supervisor_error","error":"PermissionError: [WinError 5] æ‹’ç»è®¿é—®ã€? 'E:\\\\codex-LOOP\\\\codex-loop-s-f2\\\\data\\\\lifecycle\\\\exec_roster.json.12664.tmp' -> 'E:\\\\codex-LOOP\\\\codex-loop-s-f2\\\\data\\\\lifecycle\\\\exec_roster.json'"}}
+data/events.ndjson:51:{"ts":1786527524.7679799,"packet_id":"adhoc-20516a9185-policy-doc-install","run_id":"adhoc-20516a9185-policy-doc-install-2628de07568949aea8485788af515701","attempt":0,"event":"exec_failed","detail":{"why":"supervisor_error","error":"PermissionError: [WinError 5] æ‹’ç»è®¿é—®ã€? 'E:\\\\codex-LOOP\\\\codex-loop-s-f2\\\\data\\\\lifecycle\\\\exec_roster.json.56284.tmp' -> 'E:\\\\codex-LOOP\\\\codex-loop-s-f2\\\\data\\\\lifecycle\\\\exec_roster.json'"}}
+data/events.ndjson:54:{"ts":1786527567.876964,"packet_id":"adhoc-20516a9185-policy-direct-consumers","run_id":"adhoc-20516a9185-policy-direct-consumers-8e22278db9fa43179dd92ff5f42049b9","attempt":0,"event":"exec_failed","detail":{"why":"supervisor_error","error":"PermissionError: [WinError 5] æ‹’ç»è®¿é—®ã€? 'E:\\\\codex-LOOP\\\\codex-loop-s-f2\\\\data\\\\lifecycle\\\\exec_roster.json.37480.tmp' -> 'E:\\\\codex-LOOP\\\\codex-loop-s-f2\\\\data\\\\lifecycle\\\\exec_roster.json'"}}
+data/events.ndjson:67:{"ts":1786527572.7591932,"packet_id":"adhoc-20516a9185-policy-minimal-patch-review","run_id":"adhoc-20516a9185-policy-minimal-patch-review-7987bb489e074ce3b7353e6d6ae22cd5","attempt":0,"event":"exec_failed","detail":{"why":"supervisor_error","error":"PermissionError: [WinError 5] æ‹’ç»è®¿é—®ã€? 'E:\\\\codex-LOOP\\\\codex-loop-s-f2\\\\data\\\\lifecycle\\\\exec_roster.json.49744.tmp' -> 'E:\\\\codex-LOOP\\\\codex-loop-s-f2\\\\data\\\\lifecycle\\\\exec_roster.json'"}}
+data/events.ndjson:87:{"ts":1786527689.834434,"packet_id":"adhoc-20516a9185-policy-reader-map-2","run_id":"adhoc-20516a9185-policy-reader-map-2-e3a157a448864c0d921f69afe73c9db6","attempt":0,"event":"exec_failed","detail":{"why":"supervisor_error","error":"PermissionError: [WinError 5] æ‹’ç»è®¿é—®ã€? 'E:\\\\codex-LOOP\\\\codex-loop-s-f2\\\\data\\\\lifecycle\\\\exec_roster.json.6900.tmp' -> 'E:\\\\codex-LOOP\\\\codex-loop-s-f2\\\\data\\\\lifecycle\\\\exec_roster.json'"}}
+data/events.ndjson:88:{"ts":1786527719.774062,"packet_id":"adhoc-20516a9185-policy-schema-union","run_id":"adhoc-20516a9185-policy-schema-union-1d330e3fc0d74c06a6037dd20745997b","attempt":0,"event":"exec_failed","detail":{"why":"supervisor_error","error":"PermissionError: [WinError 5] æ‹’ç»è®¿é—®ã€? 'E:\\\\codex-LOOP\\\\codex-loop-s-f2\\\\data\\\\lifecycle\\\\exec_roster.json.24676.tmp' -> 'E:\\\\codex-LOOP\\\\codex-loop-s-f2\\\\data\\\\lifecycle\\\\exec_roster.json'"}}
+data/events.ndjson:90:{"ts":1786527807.5865054,"packet_id":"adhoc-20516a9185-policy-env-override","run_id":"adhoc-20516a9185-policy-env-override-d95f0d96a2ed4d95a61cb7dc83665ed5","attempt":0,"event":"exec_failed","detail":{"why":"supervisor_error","error":"PermissionError: [WinError 5] æ‹’ç»è®¿é—®ã€? 'E:\\\\codex-LOOP\\\\codex-loop-s-f2\\\\data\\\\lifecycle\\\\exec_roster.json.34508.tmp' -> 'E:\\\\codex-LOOP\\\\codex-loop-s-f2\\\\data\\\\lifecycle\\\\exec_roster.json'"}}
+data/events.ndjson:91:{"ts":1786529733.5082262,"packet_id":"adhoc-1bea1cc97a-roster-stability-01","run_id":"adhoc-1bea1cc97a-roster-stability-01-244c66df46f54f2f86826eca708c1edf","attempt":0,"event":"exec_spawned","detail":{"os_pid":25800,"task_name":"rosterç¨³å®šéªŒè¯01"}}
+data/events.ndjson:92:{"ts":1786529734.984688,"packet_id":"adhoc-1bea1cc97a-roster-stability-02","run_id":"adhoc-1bea1cc97a-roster-stability-02-2e378b134b0740d88b665b6d4710e2e2","attempt":0,"event":"exec_spawned","detail":{"os_pid":58192,"task_name":"rosterç¨³å®šéªŒè¯02"}}
+data/events.ndjson:93:{"ts":1786529736.5661223,"packet_id":"adhoc-1bea1cc97a-roster-stability-03","run_id":"adhoc-1bea1cc97a-roster-stability-03-c1fbc7fb5e8943c08397559b5c400ffb","attempt":0,"event":"exec_spawned","detail":{"os_pid":53708,"task_name":"rosterç¨³å®šéªŒè¯03"}}
+
+2026-08-12T20:45:04.427609Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-12T20:45:04.427696Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=30000
+2026-08-12T20:45:04.814400Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:45:15.193710Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:45:35.581731Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.6 seconds
+Output:
+diff --git a/harness/statemachine.py b/harness/statemachine.py
+index 9c396c2..d60e34c 100644
+--- a/harness/statemachine.py
++++ b/harness/statemachine.py
+@@ -4,19 +4,47 @@
+ # Purpose : Consume data/events.ndjson (fast path) + reports/ (second truth
+ #           source), drive packet lifecycle deterministically. No LLM calls.
+ #           Off-table events -> DEAD_LETTER + Sol wake summary (fail-visible).
++#           Watchdog (H-02): each step, RUNNING packets whose dispatch spawn
++#           ts (data/spawn_times.json) is older than [agents]
++#           job_max_runtime_seconds get a 'timeout' event emitted тА?the
++#           production producer for transition 5 (RUNNING->TIMED_OUT).
++#           Replan cap (H-04): transition 22 (SOL_ADJUDICATE->PLANNED) is
++#           counted per packet in data/replan_counters.json; over 2 replans
++#           (or any counter I/O failure тА?fail toward human, same direction
++#           as the L3 cap) the transition is REFUSED and a direct_l4 summary
++#           is queued under data/l4_queue/ for the human release gate.
+ # Input   : events.ndjson lines {"ts","packet_id","event","detail"?}; report
+-#           files data/reports/<pid>/report.json; config/config.toml toggles.
++#           files data/reports/<pid>/report.json; config/config.toml toggles;
++#           data/spawn_times.json (watchdog input written by dispatch.py).
+ # Output  : data/progress_ledger.json (state per packet), Sol wake summaries
+-#           under data/sol_wake/, appended audit lines to events.ndjson.
++#           under data/sol_wake/, direct_l4 summaries under data/l4_queue/,
++#           appended audit lines to events.ndjson.
+ #           Exit 0 = ok, 1 = I/O error, 2 = dead-letters produced this step.
+-# Lines   : ~150 (excluding this header)
++# Lines   : ~220 (excluding this header)
+ # ============================================================================
+-import argparse, json, os, re, sys, time
++import argparse, hashlib, json, os, re, sys, time
++from loop_config import config_bool, config_int
++from lifecycle_supervisor import locked
++from pathlib import Path
+ 
+ ROOT = os.environ.get("LOOP_ROOT", os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+ DATA = os.path.join(ROOT, "data")
+ E = lambda *p: os.path.join(DATA, *p)
+ TERMINAL = {"MERGED", "DEAD_LETTER", "SOL_ADJUDICATE", "DONE"}
++SUPERVISOR_HEARTBEAT_STALE_SECONDS = 5.0
++# Packet-id -> filename safety: 1-96 ASCII letters/digits/._- ONLY.  Any
++# separator (/, \, Unicode), "..", or absolute path is rejected so a pid can
++# never escape data/dead_letters/, data/sol_wake/, or data/l4_queue/.
++# Fail-visible: SystemExit(1) before any write.
++PACKET_ID_RE = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]{0,95}\Z")
++
++
++def safe_pid_filename(pid):
++    if not isinstance(pid, str) or not PACKET_ID_RE.fullmatch(pid):
++        sys.stderr.write("invalid packet id %r: allowed 1-96 ASCII "
++                         "letters/digits/._- only; refusing write\n" % (pid,))
++        raise SystemExit(1)
++    return pid
+ 
+ # Transition table: (from_state, event) -> (to_state, transition_number).
+ # This is the complete authorized set (delegation semantics, spec S3);
+@@ -45,26 +73,19 @@ T = {
+     ("WAVE_DONE",      "wave_summary"):       ("SOL_ADJUDICATE",21),
+     ("SOL_ADJUDICATE", "sol_replan"):         ("PLANNED",       22),
+     ("SOL_ADJUDICATE", "release_merge"):      ("DONE",          23),
++    # Release-review route (packets flagged release_review=True): the
++    # reviewer's result ALWAYS returns to SOL_ADJUDICATE -- success (verdict
++    # checked) or failure (exec_failed) -- never a direct release. Exit from
++    # SOL_ADJUDICATE stays human/Sol-triggered via t22/t23 only.
++    ("REPORTED",       "review_verdict_pass"):("SOL_ADJUDICATE",24),
++    ("REPORTED",       "review_verdict_fail"):("SOL_ADJUDICATE",25),
+ }
+ 
+ def read_toggle(section, key, default=False):
+-    """Minimal deterministic TOML scan for '[section] key = true|false'."""
+-    cfg = os.path.join(ROOT, "config", "config.toml")
+-    if not os.path.exists(cfg):
+-        cfg = os.path.join(ROOT, "config", "config.toml.example")
+-    cur, pat = None, re.compile(r"^\s*%s\s*=\s*(true|false)" % re.escape(key))
+-    try:
+-        for ln in open(cfg, encoding="utf-8"):
+-            s = ln.split("#", 1)[0].strip()
+-            if s.startswith("["):
+-                cur = s.strip("[]").strip()
+-            elif cur == section:
+-                m = pat.match(s)
+-                if m:
+-                    return m.group(1) == "true"
+-    except OSError:
+-        pass
+-    return default
++    return config_bool(section, key, default)
++
++def read_int_key(section, key, default):
++    return config_int(section, key, default)
+ 
+ def load_ledger():
+     try:
+@@ -78,11 +99,16 @@ def save_ledger(led):
+     os.replace(tmp, E("progress_ledger.json"))  # atomic: files are the truth
+ 
+ def append(path, obj):
+-    with open(path, "a", encoding="utf-8") as f:
+-        f.write(json.dumps(obj, separators=(",", ":")) + "\n")
++    lock_path = (Path(DATA) / "lifecycle" / ".events.lock"
++                 if os.path.normcase(path) == os.path.normcase(E("events.ndjson"))
++                 else Path(path + ".lock"))
++    with locked(lock_path):
++        with open(path, "a", encoding="utf-8") as f:
++            f.write(json.dumps(obj, separators=(",", ":")) + "\n")
+ 
+ def sol_wake(pid, reason, detail):
+     """Fail-visible: synthesize a bounded Sol wake summary on disk (spec S3/S5)."""
++    safe_pid_filename(pid)  # invalid pid: fail-visible, never written
+     os.makedirs(E("sol_wake"), exist_ok=True)
+     path = E("sol_wake", "%d_%s.md" % (int(time.time()), pid))
+     body = ("# SOL WAKE тА?%s\npacket: %s\nreason: %s\ndetail: %s\n"
+@@ -94,6 +120,7 @@ def sol_wake(pid, reason, detail):
+     return path
+ 
+ def to_dead_letter(led, pid, reason, detail):
++    safe_pid_filename(pid)  # invalid pid: fail-visible, never written
+     p = led["packets"].setdefault(pid, {"state": "NONE", "history": [], "attempts": 0})
+     p["state"] = "DEAD_LETTER"
+     p["history"].append({"ts": time.time(), "to": "DEAD_LETTER", "via": reason})
+@@ -105,19 +132,122 @@ def to_dead_letter(led, pid, reason, detail):
+ # Audit-only events emitted by harness scripts (worktree_pool.sh) that are
+ # NOT state transitions. Without this skip list the harness dead-letters its
+ # own allocation bookkeeping (integration bug found by Phase7 golden tests).
+-INFO_EVENTS = {"worktree_allocated", "worktree_released"}
++INFO_EVENTS = {
++    "worktree_allocated", "worktree_released",
++    "SubagentStart", "SubagentStartRecovered", "SubagentStop",
++    "exec_spawned", "exec_supervisor_started", "exec_exited", "exec_killed", "spawn_lost",
++    "parent_stop", "close_requested", "lifecycle_reconciled",
++    "dispatch_dry_run", "sol_budget_blocked",
++}
++
++REPLAN_CAP = 2  # H-04: max SOL_ADJUDICATE->PLANNED loops per packet (t22)
++
++def bump_replan_counter(pid):
++    """Per-packet t22 replan counter (same bump pattern as the L3 cap in
++    trigger_eval.py). Returns (count_after, exceeded). Counter-file I/O
++    failure counts as exceeded тА?fail toward the human gate (direct_l4),
++    never toward unlimited replanning."""
+
+2026-08-12T20:45:35.903764Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-12T20:45:35.903863Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=30000
+2026-08-12T20:45:36.307688Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:46:08.355573Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-12T20:46:08.355677Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=30000
+2026-08-12T20:46:08.737867Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:46:21.768755Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:46:40.381089Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-12T20:46:40.381194Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=30000
+2026-08-12T20:46:40.757535Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:46:56.218722Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.3 seconds
+Output:
+harness\plan_consumer.py:203:            self._event(packet_id, "skeleton_ready", {
+harness\statemachine.py:202:    if pid not in led["packets"] and name not in {"planned", "skeleton_ready"}:
+harness\statemachine_v2.py:127:    ("NONE",           "skeleton_ready"):      ("EXPAND_K3",      27),   # plan pipeline entry
+harness\statemachine_v2.py:400:        if pid not in led["packets"] and name not in {"planned", "skeleton_ready"}:
+---
+
+2026-08-12T20:46:57.289900Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:47:24.913483Z  WARN codex_mcp::rmcp_client: failed to initialize MCP client during shutdown: MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request
+2026-08-12T20:47:25.894362Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

@@ -1,0 +1,24 @@
+{
+  "acceptance": [
+    "验证 fail-visible 状态",
+    "验证不回退到 Sol"
+  ],
+  "authorized_paths": [
+    "harness/",
+    "tests/orchestration_v2/",
+    "data/provider_health/"
+  ],
+  "constraints": [
+    "read-only"
+  ],
+  "created_by": "parent_manifest_importer",
+  "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+  "goal": "只读复验 actuator 启动失败、provider backoff、headless spawn failure 后 refill debt 不被伪清除并可在后续生命周期边重试。不得修改文件。",
+  "manifest_id": "loop-recovery-audit-20260813",
+  "packet_id": "parent-9aa243d45f99231bd62d7f2f8596a17f26a044a068acd247",
+  "parent_enabled": true,
+  "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+  "role": "worker",
+  "sandbox": "read-only",
+  "task_name": "失败重试可见性复验"
+}

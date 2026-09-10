@@ -1,0 +1,105 @@
+Monitor server 在此 plane 不存在，直接从测试断言理解消费方式。现在我有完整信息进行全面分析。
+
+---
+
+## 验收结论
+
+### 被检查目标
+
+`refill_state.json` 的 `parents` 字段由 `refill_controller_v2.py` 的 `recompute()` 方法在第 475 行（实际行为对应代码区块约 430–530 行）产出，其每个条目的结构为：
+
+```json
+{
+  "active": bool,
+  "target": int,
+  "running": int,
+  "initializing": int,
+  "pending": {"total": int, "v4": int, "k3": int},
+  "deficit": int,
+  "spawnable": {"total": int, "v4": int, "k3": int},
+  "reason": str,
+  "manifest_id": str | null
+}
+```
+
+### 逐字段机械表达能力审查
+
+| 目标字段 | schema 中是否存在 | 是否可机械读取 | 备注 |
+|---|---|---|---|
+| `target` | ✅ 存在 | ✅ | 整数，`parent_state["target"]` |
+| `running` | ✅ 存在 | ✅ | 整数，`parent_state["running"]` |
+| `initializing` | ✅ 存在 | ✅ | 整数，`parent_state["initializing"]` |
+| `pending` | ✅ 存在 | ⚠️ **反例** | 结构为 `dict`，但 monitor 测试（第 197 行）将其当 `int` 消费 |
+| `deficit` | ✅ 存在 | ✅ | 整数 |
+| `spawnable` | ✅ 存在 | ⚠️ **反例** | 结构为 `dict`，但 monitor 测试（第 198 行）将其当 `int` 消费 |
+| `reason` | ✅ 存在 | ✅ | 字符串枚举 |
+
+---
+
+### 反例与行号
+
+**反例 1 — `pending` 字段类型不一致**
+
+文件：`tests/unit/test_loop_monitor_server.py`，**第 197–198 行**
+
+```python
+assert parent["pending"] == 30      # 期望 int
+assert parent["spawnable"] == 19    # 期望 int
+```
+
+但 `refill_state.json` 实际写入的 `pending` 和 `spawnable` 均为 `dict`（含 `total`、`v4`、`k3` 子键）：
+
+```json
+"pending": {"total": 30, "v4": 30, "k3": 0}
+"spawnable": {"total": 19, "v4": 19, "k3": 0}
+```
+
+与测试输入对应，`test_loop_monitor_server.py` 第 187–192 行写入的 `refill_state.json` 模拟数据：
+
+```python
+"pending": {"total": 30},   # 只写了 total，省略 v4/k3
+"spawnable": {"total": 19}, # 同上
+```
+
+而后在第 197 行断言 `parent["pending"] == 30`——说明 monitor 的 `snapshot()` 函数将 `pending["total"]` 提升为顶层整数返回，但 controller 产出的原始 schema 中 `pending` 是 `dict`。
+
+这意味着 **monitor server 在读取时对 `pending` 和 `spawnable` 做了 `.get("total")` 展开**，而 `refill_consumer_v2.py`（第 264–266 行）则直接把 `spawnable` 当 `dict` 读取 per-pool 值。**同一字段被两个消费方以不同类型期望，schema 无法单义机械表达。**
+
+**反例 2 — `pending` 缺少 `v4`/`k3` 的强制性约束**
+
+文件：`harness/refill_controller_v2.py`，第 192–196 行
+
+controller 写入：
+```python
+"pending": {"total": queued_total, **queued_pools},  # 含 v4, k3
+```
+
+但测试模拟数据（`test_loop_monitor_server.py` 第 188 行）只写了 `{"total": 30}`，无 `v4`/`k3`。consumer 对 `spawnable.get(pool, 0)` 有容错，但 schema 字符串 `"codex-loop-refill/v3"` 无文档约束 `v4`/`k3` 是否必填。
+
+**反例 3 — `reason` 枚举值集合无机械定义**
+
+`reason` 取值在 controller 中散布于 5 处条件分支（第 392–399 行的 `parent_reason` 赋值），枚举为：
+
+```
+"parent_inactive"
+"at_parent_target"
+"parent_backlog_empty"
+"parent_initializing"
+"global_at_capacity"
+"below_parent_target"
+```
+
+schema 版本字符串 `"codex-loop-refill/v3"` 未携带任何枚举约束，消费方只能用字符串比对，无法机械验证枚举完整性。这是可接受的弱点但属于无机械保证的反例。
+
+---
+
+### 结论
+
+`parents` 字段**足以机械表达** `target/running/initializing/deficit` 四个字段；`pending` 和 `spawnable` 因两类消费方（monitor vs consumer）期望类型不同（`int` vs `dict`）存在**结构性二义性反例**，`reason` 枚举无 schema 约束。
+
+**关键反例行号汇总：**
+
+- `tests/unit/test_loop_monitor_server.py` 第 **197 行**：`assert parent["pending"] == 30`（期望 int，schema 产出 dict）
+- `tests/unit/test_loop_monitor_server.py` 第 **198 行**：`assert parent["spawnable"] == 19`（期望 int，schema 产出 dict）
+- `harness/refill_consumer_v2.py` 第 **264–266 行**：`spawnable.get(pool, 0)`（期望 dict）
+- `harness/refill_controller_v2.py` 第 **529 行**：`"parents": parent_states`（写入 dict 结构的 pending/spawnable）

@@ -1,0 +1,38 @@
+Reading additional input from stdin...
+2026-08-16T16:14:38.044609Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-16T16:14:44.888090Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-16T16:14:51.584825Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.6 seconds
+Output:
+
+2026-08-16T16:15:00.011867Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 106
++ ... ction SilentlyContinue | Select-Object Name, LastWriteTime | head -40
++                                                                  ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-16T16:15:37.676388Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.9 seconds
+Output:
+
+FullName                                 
+--------                                 
+E:\codex-LOOP\state\global-loop-mode.json
+
+
+
+2026-08-16T16:17:25.750762Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)

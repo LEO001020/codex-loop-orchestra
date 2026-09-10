@@ -1,0 +1,715 @@
+#!/usr/bin/env python3
+"""Read-only local dashboard for Codex LOOP headless concurrency."""
+from __future__ import annotations
+
+import argparse
+import json
+import os
+import re
+import threading
+import time
+import tomllib
+import urllib.request
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from pathlib import Path
+from typing import Any
+
+try:
+    import psutil
+except ImportError:  # dashboard remains usable without optional host telemetry
+    psutil = None
+
+
+DEFAULT_ROOT = Path(r"\\wsl.localhost\Ubuntu\home\codexloop\codex-loop-s-f2")
+DEFAULT_WINDOWS_ROOT = Path(r"E:\codex-LOOP\codex-loop-s-f2")
+DEFAULT_SESSIONS_ROOT = Path.home() / ".codex" / "sessions"
+GLOBAL_HOOK_PATH = Path.home() / ".codex" / "hooks.json"
+ROLLOUT_SCAN_TTL_SECONDS = 5.0
+ROLLOUT_PARENT_FRESH_SECONDS = 3600.0
+ROLLOUT_FILE_LOOKBACK_SECONDS = 6 * 3600.0
+_rollout_lock = threading.Lock()
+_rollout_cache: dict[str, Any] = {"checked_at": 0.0, "value": {"tasks": [], "updated_at": None}}
+_task_name_cache: dict[str, str] = {}
+_model_cache: dict[str, tuple[float, str]] = {}
+_desktop_epoch_cache: dict[str, float | None] = {"checked_at": 0.0, "value": None}
+_TASK_NAME = re.compile(r"^\s*任务名\s*[:：]\s*([^\r\n]+)")
+
+
+def read_json(path: Path, default: Any) -> Any:
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return default
+
+
+def read_policy(root: Path) -> dict[str, Any]:
+    try:
+        with (root / "config" / "refill_policy.toml").open("rb") as handle:
+            return tomllib.load(handle)
+    except (OSError, tomllib.TOMLDecodeError):
+        return {}
+
+
+def read_execution_model(root: Path) -> str:
+    """Return the active ordinary-execution model from the v2 source of truth."""
+    try:
+        with (root / "config" / "orchestration_policy_v2.toml").open("rb") as handle:
+            return str(tomllib.load(handle).get("models", {}).get("v4_model") or "")
+    except (OSError, tomllib.TOMLDecodeError):
+        return ""
+
+
+def read_execution_profile(root: Path) -> dict[str, str]:
+    """Return active profile metadata; observed task models remain runtime truth."""
+    try:
+        with (root / "config" / "model_profiles.toml").open("rb") as handle:
+            doc = tomllib.load(handle)
+        name = str(doc.get("active_profile") or "")
+        profile = (doc.get("profiles") or {}).get(name) or {}
+        return {"name": name, "label": str(profile.get("label") or name),
+                "model": str(profile.get("execution_model") or ""),
+                "reasoning": str(profile.get("execution_reasoning") or "")}
+    except (OSError, tomllib.TOMLDecodeError, AttributeError):
+        return {"name": "", "label": "", "model": read_execution_model(root),
+                "reasoning": ""}
+
+
+def pool_for(model: Any, role: Any = None) -> str:
+    model_text = str(model or "").casefold()
+    role_text = str(role or "").casefold()
+    if any(word in model_text for word in ("gpt-5.6-sol", "gpt-5.5-sol")):
+        return "sol"
+    if "k3" in model_text:
+        return "k3"
+    if any(word in model_text for word in ("glm-5.2", "deepseek-v4")):
+        return "v4"
+    if any(word in role_text for word in ("reviewer", "verifier", "plan_expander")):
+        return "k3"
+    if any(word in role_text for word in ("worker", "duty_officer", "executor", "scout")):
+        return "v4"
+    if "sol" in role_text:
+        return "sol"
+    return "other"
+
+
+def semantic_task_key(name: Any, pool: str) -> tuple[str, str] | None:
+    """Return a stable, display-name-based identity for fallback deduplication.
+
+    A Desktop app-server restart can leave rollout files without a terminal
+    marker.  If the same semantic task is already present in the authoritative
+    native/exec roster, the rollout is evidence of the task, not another live
+    task.  Keep this deliberately narrow: only an exact normalized task name
+    and pool match is suppressed, so unrelated same-project work remains
+    visible.
+    """
+    normalized = " ".join(str(name or "").strip().casefold().split())
+    return (normalized, pool) if normalized else None
+
+
+def report_title(wsl_path: Any) -> str:
+    """Read one bounded Markdown title from an allowlisted WSL report path."""
+    value = str(wsl_path or "")
+    allowed = ("/home/codexloop/stability/", "/home/codexloop/codex-loop-s-f2/data/reports/")
+    if not any(value.startswith(prefix) for prefix in allowed):
+        return ""
+    path = Path(r"\\wsl.localhost\Ubuntu" + value.replace("/", "\\"))
+    try:
+        with path.open(encoding="utf-8", errors="replace") as handle:
+            for _ in range(8):
+                line = handle.readline()
+                if not line:
+                    break
+                title = line.strip().strip("#* _").strip()
+                if title.casefold() in {"verified facts", "已验证事实", "审计正文如下。"}:
+                    continue
+                if title:
+                    return " ".join(title.split())[:96]
+    except OSError:
+        pass
+    return ""
+
+
+def opencodex_health() -> dict[str, Any]:
+    try:
+        with urllib.request.urlopen("http://127.0.0.1:10100/healthz", timeout=0.8) as response:
+            value = json.loads(response.read(65536).decode("utf-8"))
+        return {"ok": response.status == 200 and value.get("status") == "ok",
+                "pid": value.get("pid"), "uptime": value.get("uptime")}
+    except Exception as exc:
+        return {"ok": False, "error": "%s: %s" % (type(exc).__name__, exc)}
+
+
+def merge_native_rosters(*docs: dict[str, Any]) -> dict[str, Any]:
+    merged: dict[str, Any] = {"pending": [], "agents": {}}
+    pending_keys: set[tuple[Any, Any]] = set()
+    updated_at = 0.0
+    for doc in docs:
+        if not isinstance(doc, dict):
+            continue
+        if isinstance(doc.get("updated_at"), (int, float)):
+            updated_at = max(updated_at, float(doc["updated_at"]))
+        for row in doc.get("pending") or []:
+            if not isinstance(row, dict):
+                continue
+            key = (row.get("parent_session_id"), row.get("tool_use_id"))
+            if key in pending_keys:
+                continue
+            pending_keys.add(key)
+            merged["pending"].append(row)
+        for agent_id, row in (doc.get("agents") or {}).items():
+            if not isinstance(row, dict):
+                continue
+            old = merged["agents"].get(agent_id)
+            if old is None or float(row.get("updated_at", 0) or 0) >= float(old.get("updated_at", 0) or 0):
+                merged["agents"][agent_id] = row
+    if updated_at:
+        merged["updated_at"] = updated_at
+    return merged
+
+
+def merge_exec_rosters(*docs: dict[str, Any]) -> dict[str, Any]:
+    """Merge WSL and Windows headless lifecycle views by newest generation.
+
+    Headless workers may be supervised on either side of the WSL boundary.
+    The dashboard previously read only the WSL roster, so a real Windows
+    ``codex exec`` wave consumed capacity while appearing as zero concurrency.
+    """
+    merged: dict[str, Any] = {"schema": "codex-loop-exec-roster/v2", "jobs": {}}
+    updated_at = 0.0
+    for doc in docs:
+        if not isinstance(doc, dict):
+            continue
+        if isinstance(doc.get("updated_at"), (int, float)):
+            updated_at = max(updated_at, float(doc["updated_at"]))
+        for packet_id, row in (doc.get("jobs") or {}).items():
+            if not isinstance(row, dict):
+                continue
+            old = merged["jobs"].get(packet_id)
+            row_ts = max(float(row.get("updated_at", 0) or 0),
+                         float(row.get("heartbeat_at", 0) or 0),
+                         float(row.get("started_at", 0) or 0))
+            old_ts = max(float((old or {}).get("updated_at", 0) or 0),
+                         float((old or {}).get("heartbeat_at", 0) or 0),
+                         float((old or {}).get("started_at", 0) or 0))
+            if old is None or row_ts >= old_ts:
+                merged["jobs"][packet_id] = row
+            updated_at = max(updated_at, row_ts)
+    if updated_at:
+        merged["updated_at"] = updated_at
+    return merged
+
+
+def newest_status_doc(*docs: dict[str, Any]) -> dict[str, Any]:
+    """Choose the freshest WSL/Windows status snapshot without merging fields."""
+    valid = [doc for doc in docs if isinstance(doc, dict)]
+    return max(valid, key=lambda doc: float(doc.get("updated_at", 0) or 0),
+               default={})
+
+
+def read_session_meta(path: Path) -> dict[str, Any] | None:
+    try:
+        with path.open(encoding="utf-8", errors="replace") as handle:
+            row = json.loads(handle.readline())
+        payload = row.get("payload") if isinstance(row.get("payload"), dict) else {}
+        return payload if row.get("type") == "session_meta" else None
+    except (OSError, ValueError):
+        return None
+
+
+def rollout_terminal(path: Path) -> bool:
+    """Return whether the latest persisted turn lifecycle state is terminal.
+
+    A resumed Desktop parent rollout legitimately contains many historical
+    ``task_complete`` events followed by a newer ``task_started``.  A raw
+    substring search therefore marked every resumed parent terminal and hid
+    all of its currently running children from the dashboard.
+    """
+    terminal = {"task_complete", "turn_aborted", "turn_failed", "thread_closed"}
+    state: bool | None = None
+    try:
+        with path.open("rb") as handle:
+            handle.seek(0, os.SEEK_END)
+            size = handle.tell()
+            handle.seek(max(0, size - 131072))
+            tail = handle.read().decode("utf-8", errors="replace")
+        for line in tail.splitlines():
+            try:
+                row = json.loads(line)
+            except ValueError:
+                continue
+            payload = row.get("payload") if isinstance(row.get("payload"), dict) else {}
+            event = payload.get("type")
+            if event == "task_started":
+                state = False
+            elif event in terminal:
+                state = True
+        return state is True
+    except OSError:
+        return False
+
+
+def read_rollout_task_name(path: Path) -> str:
+    """Read the immutable dispatch label once, without hydrating the rollout.
+
+    Current LOOP prompts put ``任务名：...`` at the start of the dedicated user
+    message.  The bounded read and process-lifetime cache keep this effectively
+    free compared with the existing metadata/tail scan.
+    """
+    key = str(path)
+    if key in _task_name_cache:
+        return _task_name_cache[key]
+    name = ""
+    consumed = 0
+    try:
+        with path.open(encoding="utf-8", errors="replace") as handle:
+            for index, line in enumerate(handle):
+                consumed += len(line)
+                if index > 16 or consumed > 524288:
+                    break
+                try:
+                    row = json.loads(line)
+                except ValueError:
+                    continue
+                payload = row.get("payload") if isinstance(row.get("payload"), dict) else {}
+                candidates: list[str] = []
+                if (row.get("type") == "response_item" and payload.get("type") == "message"
+                        and payload.get("role") == "user"):
+                    for item in payload.get("content") or []:
+                        if isinstance(item, dict) and isinstance(item.get("text"), str):
+                            candidates.append(item["text"])
+                elif row.get("type") == "event_msg" and payload.get("type") == "user_message":
+                    if isinstance(payload.get("message"), str):
+                        candidates.append(payload["message"])
+                for text in candidates:
+                    match = _TASK_NAME.match(text)
+                    if match:
+                        name = " ".join(match.group(1).strip().split())[:96]
+                        break
+                if name:
+                    break
+    except OSError:
+        pass
+    # A rollout can be observed after session_meta is flushed but before the
+    # dedicated spawn prompt arrives.  Caching that transient blank forever
+    # turns every semantic task into a random id suffix in the UI.
+    if name:
+        _task_name_cache[key] = name
+    return name
+
+
+def read_rollout_model(path: Path) -> str:
+    """Read the actual turn model; session_meta often omits it for children.
+
+    Roleless Desktop children inherit the Sol parent unless spawn explicitly
+    selects a model.  Treating every non-K3 rollout as the execution pool hid
+    that expensive bypass, so classification must use turn_context evidence.
+    """
+    key = str(path)
+    try:
+        mtime = path.stat().st_mtime
+    except OSError:
+        return ""
+    cached = _model_cache.get(key)
+    if cached and cached[0] == mtime:
+        return cached[1]
+    model = ""
+    consumed = 0
+    try:
+        with path.open(encoding="utf-8", errors="replace") as handle:
+            for index, line in enumerate(handle):
+                consumed += len(line)
+                if index > 64 or consumed > 1024 * 1024:
+                    break
+                try:
+                    row = json.loads(line)
+                except ValueError:
+                    continue
+                payload = row.get("payload") if isinstance(row.get("payload"), dict) else {}
+                if row.get("type") == "turn_context" and isinstance(payload.get("model"), str):
+                    model = payload["model"]
+                    break
+    except OSError:
+        pass
+    _model_cache[key] = (mtime, model)
+    return model
+
+
+def scan_rollout_subagents(sessions_root: Path) -> dict[str, Any]:
+    now = time.time()
+    desktop_started_at = desktop_app_server_started_at(now)
+    with _rollout_lock:
+        if now - float(_rollout_cache.get("checked_at", 0) or 0) < ROLLOUT_SCAN_TTL_SECONDS:
+            return dict(_rollout_cache["value"])
+        sessions: dict[str, dict[str, Any]] = {}
+        if sessions_root.exists():
+            for path in sessions_root.rglob("rollout-*.jsonl"):
+                try:
+                    mtime = path.stat().st_mtime
+                except OSError:
+                    continue
+                if now - mtime > ROLLOUT_FILE_LOOKBACK_SECONDS:
+                    continue
+                # A Desktop restart cannot preserve a native child process.
+                # Rollouts without terminal markers from before the current
+                # app-server epoch are crash evidence, not live concurrency.
+                if desktop_started_at is not None and mtime < desktop_started_at:
+                    continue
+                meta = read_session_meta(path)
+                if not meta or not meta.get("id"):
+                    continue
+                sessions[str(meta["id"])] = {"meta": meta, "path": path, "mtime": mtime}
+        tasks: list[dict[str, Any]] = []
+        newest = None
+        for agent_id, item in sessions.items():
+            meta, path = item["meta"], item["path"]
+            parent_id = meta.get("parent_thread_id")
+            if not parent_id:
+                continue
+            parent = sessions.get(str(parent_id))
+            if not parent or now - float(parent["mtime"]) > ROLLOUT_PARENT_FRESH_SECONDS:
+                continue
+            if rollout_terminal(parent["path"]) or rollout_terminal(path):
+                continue
+            source = meta.get("source") if isinstance(meta.get("source"), dict) else {}
+            subagent = source.get("subagent") if isinstance(source.get("subagent"), dict) else {}
+            spawn = subagent.get("thread_spawn") if isinstance(subagent.get("thread_spawn"), dict) else {}
+            tasks.append({
+                "agent_id": agent_id,
+                "parent_session_id": str(parent_id),
+                "name": read_rollout_task_name(path),
+                "role": meta.get("agent_role") or spawn.get("agent_role") or "agent",
+                "model": meta.get("model") or read_rollout_model(path),
+                "cwd": meta.get("cwd") or parent["meta"].get("cwd"),
+                "updated_at": float(item["mtime"]),
+            })
+            newest = max(newest or 0.0, float(parent["mtime"]), float(item["mtime"]))
+        value = {"tasks": tasks, "updated_at": newest,
+                 "desktop_started_at": desktop_started_at}
+        _rollout_cache.update(checked_at=now, value=value)
+        return dict(value)
+
+
+def desktop_app_server_started_at(now: float | None = None) -> float | None:
+    """Return the current Windows Codex app-server process epoch, cached.
+
+    This is used only as a freshness fence for rollout fallback. Failure to
+    inspect processes degrades to the previous behavior; it never changes
+    lifecycle state or stops a process.
+    """
+    now = time.time() if now is None else now
+    if now - float(_desktop_epoch_cache.get("checked_at", 0.0) or 0.0) < 10.0:
+        return _desktop_epoch_cache.get("value")
+    value = None
+    if psutil is not None and os.name == "nt":
+        try:
+            for proc in psutil.process_iter(["name", "cmdline", "create_time"]):
+                name = str(proc.info.get("name") or "").casefold()
+                command = " ".join(proc.info.get("cmdline") or [])
+                if name == "codex.exe" and "app-server" in command:
+                    created = float(proc.info.get("create_time") or 0.0)
+                    value = max(value or 0.0, created)
+        except (psutil.Error, OSError, ValueError, TypeError):
+            value = None
+    _desktop_epoch_cache.update(checked_at=now, value=value)
+    return value
+
+
+def snapshot(root: Path, windows_root: Path = DEFAULT_WINDOWS_ROOT,
+             sessions_root: Path = DEFAULT_SESSIONS_ROOT) -> dict[str, Any]:
+    lifecycle = root / "data" / "lifecycle"
+    refill_dir = root / "data" / "refill"
+    native = merge_native_rosters(
+        read_json(lifecycle / "native_roster.json", {}),
+        read_json(windows_root / "data" / "lifecycle" / "native_roster.json", {}),
+    )
+    exec_roster = merge_exec_rosters(
+        read_json(lifecycle / "exec_roster.json", {}),
+        read_json(windows_root / "data" / "lifecycle" / "exec_roster.json", {}),
+    )
+    windows_refill = windows_root / "data" / "refill"
+    refill = newest_status_doc(
+        read_json(refill_dir / "refill_state.json", {}),
+        read_json(windows_refill / "refill_state.json", {}),
+    )
+    throttle = newest_status_doc(
+        read_json(refill_dir / "spawn_throttle_state.json", {}),
+        read_json(windows_refill / "spawn_throttle_state.json", {}),
+    )
+    policy = read_policy(root)
+    concurrency = policy.get("concurrency", {}) if isinstance(policy, dict) else {}
+    rollout = scan_rollout_subagents(sessions_root)
+    rollout_by_id = {str(row.get("agent_id")): row
+                     for row in (rollout.get("tasks") or [])
+                     if row.get("agent_id")}
+
+    def observed_model(agent_id: Any, row: dict[str, Any]) -> Any:
+        """Prefer roster evidence, then the same child's real turn_context."""
+        return (row.get("model")
+                or (rollout_by_id.get(str(agent_id), {}) or {}).get("model"))
+
+    counts = {name: 0 for name in ("running", "initializing", "idle", "completed", "failed", "estimated")}
+    pools = {"v4": 0, "k3": 0, "sol": 0, "other": 0}
+    planes = {"desktop": 0, "headless": 0}
+    projects: dict[str, int] = {}
+    tasks: list[dict[str, Any]] = []
+    recent_tasks: list[dict[str, Any]] = []
+    updated: list[float] = []
+    authoritative_task_keys: dict[tuple[str, str], int] = {}
+
+    def remember_authoritative(name: Any, pool: str) -> None:
+        key = semantic_task_key(name, pool)
+        if key is not None:
+            authoritative_task_keys[key] = authoritative_task_keys.get(key, 0) + 1
+
+    for row in (native.get("pending") or []):
+        if isinstance(row, dict) and row.get("status") == "pending_start":
+            counts["initializing"] += 1
+            task_name = row.get("task_name") or row.get("tool_use_id") or "pending"
+            model = observed_model(row.get("agent_id"), row)
+            pool = pool_for(model, row.get("agent_role"))
+            remember_authoritative(task_name, pool)
+            tasks.append({"name": task_name,
+                          "role": row.get("agent_role") or "agent", "pool": pool,
+                          "state": "initializing", "plane": "Desktop"})
+    for agent_id, row in (native.get("agents") or {}).items():
+        if not isinstance(row, dict):
+            continue
+        model = observed_model(agent_id, row)
+        state = str(row.get("status") or "unknown")
+        if state == "running":
+            counts["running"] += 1
+            planes["desktop"] += 1
+            pool = pool_for(model, row.get("agent_role"))
+            pools[pool] += 1
+        elif state == "idle":
+            counts["idle"] += 1
+        elif state in {"completed", "terminal", "shutdown_pending"}:
+            counts["completed"] += 1
+        elif state in {"failed", "errored", "interrupted"}:
+            counts["failed"] += 1
+        if state in {"running", "idle", "shutdown_pending"}:
+            task_name = row.get("task_name") or row.get("agent_id") or "agent"
+            pool = pool_for(model, row.get("agent_role"))
+            remember_authoritative(task_name, pool)
+            tasks.append({"name": task_name,
+                          "role": row.get("agent_role") or "agent", "pool": pool,
+                          "state": state, "plane": "Desktop"})
+        if isinstance(row.get("updated_at"), (int, float)):
+            updated.append(float(row["updated_at"]))
+
+    for row in (exec_roster.get("jobs") or {}).values():
+        if not isinstance(row, dict):
+            continue
+        state = str(row.get("state") or "unknown")
+        pool = pool_for(row.get("model"), row.get("role"))
+        if state == "starting":
+            counts["initializing"] += 1
+        elif state == "running":
+            counts["running"] += 1
+            planes["headless"] += 1
+            pools[pool] += 1
+        elif state == "completed":
+            counts["completed"] += 1
+        elif state in {"failed", "timed_out", "cancelled", "spawn_failed"}:
+            counts["failed"] += 1
+        if state in {"starting", "running"}:
+            task_name = row.get("task_name") or row.get("packet_id") or "worker"
+            remember_authoritative(task_name, pool)
+            tasks.append({"name": task_name,
+                          "role": row.get("role") or "worker", "pool": pool,
+                          "state": state, "plane": row.get("plane") or "Headless CLI"})
+            projects["codex-LOOP"] = projects.get("codex-LOOP", 0) + 1
+        elif state in {"completed", "failed", "timed_out", "cancelled", "spawn_failed"}:
+            task_name = (report_title(row.get("published_report") or row.get("report"))
+                         or row.get("task_name") or row.get("packet_id") or "worker")
+            recent_tasks.append({
+                "name": task_name,
+                "role": row.get("role") or "worker",
+                "pool": pool,
+                "state": state,
+                "plane": row.get("plane") or "Headless CLI",
+                "finished_at": row.get("updated_at") or row.get("heartbeat_at") or row.get("started_at"),
+            })
+        for key in ("updated_at", "heartbeat_at"):
+            if isinstance(row.get(key), (int, float)):
+                updated.append(float(row[key]))
+
+    known_native_ids = set((native.get("agents") or {}).keys())
+    for row in rollout.get("tasks") or []:
+        if row.get("agent_id") in known_native_ids:
+            continue
+        # Native/exec rosters do not currently receive every Desktop
+        # multi-agent lifecycle event.  Keep the rollout fallback active in
+        # the LOOP workspace as well: scan_rollout_subagents() already fences
+        # crash-era files by the current app-server epoch, requires a fresh
+        # non-terminal parent, and excludes terminal children.  The id/name
+        # checks above and below prevent double-counting rostered children.
+        rollout_key = semantic_task_key(row.get("name"), pool_for(row.get("model"), row.get("role")))
+        if rollout_key is not None and authoritative_task_keys.get(rollout_key, 0) > 0:
+            authoritative_task_keys[rollout_key] -= 1
+            continue
+        counts["running"] += 1
+        counts["estimated"] += 1
+        planes["desktop"] += 1
+        pool = pool_for(row.get("model"), row.get("role"))
+        pools[pool] += 1
+        project = Path(str(row.get("cwd") or "")).name or "Desktop"
+        projects[project] = projects.get(project, 0) + 1
+        public_name = row.get("name") or "%s 子任务 · %s" % (
+            project, str(row.get("agent_id") or "")[-8:])
+        tasks.append({"name": public_name,
+                      "role": row.get("role") or "agent", "pool": pool,
+                      "state": "open~", "plane": "Desktop rollout · " + project})
+    if isinstance(rollout.get("updated_at"), (int, float)):
+        updated.append(float(rollout["updated_at"]))
+
+    for doc in (native, exec_roster, refill, throttle):
+        if isinstance(doc.get("updated_at"), (int, float)):
+            updated.append(float(doc["updated_at"]))
+
+    # The policy is the source of truth for the next/normal LOOP pool.  A
+    # persisted refill snapshot may describe an older run and must not make the
+    # dashboard advertise a stale target after policy deployment.
+    target = int(concurrency.get("target_total") or refill.get("target_total") or 48)
+    if pool_for(read_execution_model(root)) == "k3":
+        # Temporary all-K3 route: execution workers and verification roles are
+        # one actual model pool, so a historical 36/12 family split would make
+        # the dashboard claim K3 is over target as soon as normal work starts.
+        preferred = {"v4": 0, "k3": target}
+    else:
+        preferred = {
+            "v4": int(concurrency.get("v4_target") or
+                      (refill.get("preferred_target") or {}).get("v4") or 36),
+            "k3": int(concurrency.get("k3_target") or
+                      (refill.get("preferred_target") or {}).get("k3") or 12),
+        }
+    newest = max(updated) if updated else None
+    age = max(0.0, time.time() - newest) if newest else None
+    initialized = (any((lifecycle / name).exists()
+                       for name in ("native_roster.json", "exec_roster.json"))
+                   or (refill_dir / "refill_state.json").exists()
+                   or (windows_refill / "refill_state.json").exists())
+    authoritative_running = counts["running"] - counts["estimated"]
+    if not initialized:
+        freshness = "UNINITIALIZED"
+    elif counts["running"] == 0 and counts["initializing"] == 0:
+        freshness = "IDLE"
+    elif counts["estimated"] and authoritative_running == 0 and counts["initializing"] == 0:
+        freshness = "ESTIMATED"
+    # Desktop-native lifecycle is event-driven, not a 1 Hz heartbeat.  Thirty
+    # seconds still detects a dead observer quickly without declaring a quiet,
+    # healthy Desktop task stale between tool events.  Headless supervisors
+    # continue refreshing every second and therefore remain much fresher.
+    elif age is not None and age > 30:
+        freshness = "STALE"
+    else:
+        freshness = "LIVE"
+
+    tasks.sort(key=lambda row: (row["state"] != "running", row["pool"], str(row["name"])))
+    recent_tasks.sort(key=lambda row: float(row.get("finished_at") or 0), reverse=True)
+    return {
+        "timestamp": time.time(), "root": str(root), "windows_root": str(windows_root),
+        "freshness": freshness,
+        "age_seconds": round(age, 1) if age is not None else None,
+        "target": target, "deficit": max(0, target - counts["running"]),
+        "preferred": preferred, "execution": read_execution_profile(root),
+        "counts": counts, "pools": pools, "planes": planes,
+        "projects": dict(sorted(projects.items())),
+        "tasks": tasks[:64], "recent_tasks": recent_tasks[:24], "opencodex": opencodex_health(),
+        "rollout_fallback": {"open_estimate": counts["estimated"],
+                             "parent_fresh_seconds": int(ROLLOUT_PARENT_FRESH_SECONDS)},
+        "throttle": {"backoff_active": float(throttle.get("blocked_until", 0) or 0) > time.time(),
+                     "blocked_until": throttle.get("blocked_until"),
+                     "last_error": throttle.get("last_error")},
+    }
+
+
+PAGE = r"""<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Codex LOOP 并发</title>
+<style>
+:root{color-scheme:light dark;--bg:#f5f5f5;--fg:#171717;--muted:#666;--card:#fff;--line:#ddd;--v4:#4f7cff;--k3:#9b6cff;--ok:#16803c;--bad:#b42318}
+@media(prefers-color-scheme:dark){:root{--bg:#111;--fg:#eee;--muted:#aaa;--card:#1b1b1b;--line:#333;--v4:#7aa2ff;--k3:#bd91ff;--ok:#54c77a;--bad:#ff746a}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:980px;margin:auto;padding:18px}.top{display:flex;justify-content:space-between;gap:12px;align-items:baseline;flex-wrap:wrap}
+h1{font-size:19px;margin:0;font-weight:600}.muted{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:14px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px}.label{color:var(--muted)}.value{font-size:28px;font-weight:600;margin-top:2px}
+.bar{height:20px;background:var(--line);border-radius:6px;overflow:hidden;display:flex;margin:8px 0}.v4{background:var(--v4)}.k3{background:var(--k3)}
+.legend{display:flex;gap:18px;flex-wrap:wrap}.dot{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:5px}.ok{color:var(--ok)}.bad{color:var(--bad)}
+table{width:100%;border-collapse:collapse;margin-top:14px}th,td{text-align:left;padding:8px;border-bottom:1px solid var(--line);vertical-align:top}th{color:var(--muted);font-weight:500}
+.state{font-family:ui-monospace,Consolas,monospace}@media(max-width:620px){.grid{grid-template-columns:1fr}th:nth-child(2),td:nth-child(2){display:none}}
+</style></head><body><main><div class="top"><h1>Codex LOOP · 实时并发</h1><div id="stamp" class="muted">连接中…</div></div>
+<div class="grid"><section class="card"><div class="label">全局观察到并发</div><div class="value"><span id="running">–</span></div><div class="muted">目标 <span id="target">48</span> · 缺口 <span id="deficit">–</span> · Desktop <span id="desktop">0</span> · Headless <span id="headless">0</span> · rollout 估算 <span id="estimated">0</span></div></section>
+<section class="card"><div class="label">正在初始化</div><div class="value" id="initializing">–</div><div class="muted">只限制出生握手，不限制稳定运行</div></section>
+<section class="card"><div class="label">OpenCodex</div><div class="value" id="ocx">–</div><div class="muted" id="ocx-detail"></div></section></div>
+<section class="card"><div class="label">模型与职责分布</div><div class="bar" aria-label="执行池与 K3 审核池的实际运行并发"><span id="v4bar" class="v4"></span><span id="k3bar" class="k3"></span></div>
+<div class="legend"><span id="v4legend"><i class="dot v4"></i><span id="v4label">执行池</span>：当前 <b id="v4">0</b>｜可借调基准 <span id="v4pref">0</span></span><span id="k3legend"><i class="dot k3"></i><span id="k3label">K3 规划/验证/审核池</span>：当前 <b id="k3">0</b>｜可借调基准 <span id="k3pref">12</span></span><span>Sol <b id="sol">0</b></span><span>未识别 <b id="other">0</b></span><span>完成 <b id="done">0</b></span><span>失败 <b id="failed">0</b></span></div><div class="muted">36/12 是可借调的调度配比，不是并发上限；任一池空闲时，另一池可使用空余容量，LOOP 总目标仍为 <span id="pooltarget">48</span>。</div><div id="projects" class="muted"></div></section>
+<table aria-label="当前执行任务"><thead><tr><th>当前任务</th><th>执行面</th><th>池</th><th>状态</th></tr></thead><tbody id="tasks"><tr><td colspan="4" class="muted">暂无活动任务</td></tr></tbody></table>
+<table aria-label="最近完成的 headless 子任务"><thead><tr><th>最近 headless 子任务</th><th>结束时间</th><th>池</th><th>状态</th></tr></thead><tbody id="recent"><tr><td colspan="4" class="muted">暂无近期记录</td></tr></tbody></table>
+</main><script>
+const $=id=>document.getElementById(id); const clean=v=>String(v??''); const poolLabel=v=>v==='v4'?'执行':v==='k3'?'K3 审核':v==='sol'?'Sol':v==='other'?'未识别':clean(v);
+async function refresh(){try{const r=await fetch('/api/status',{cache:'no-store'});const d=await r.json();
+$('running').textContent=d.counts.running;$('target').textContent=d.target;$('initializing').textContent=d.counts.initializing;
+$('deficit').textContent=d.deficit||0;$('desktop').textContent=d.planes.desktop||0;$('headless').textContent=d.planes.headless||0;$('estimated').textContent=d.counts.estimated||0;
+const collapsed=d.execution?.name==='k3-only';const execName=clean(d.execution?.label||d.execution?.name||'执行');
+$('v4legend').style.display=collapsed?'none':'';$('v4label').textContent=execName+' 执行池';$('k3label').textContent=collapsed?'K3 临时合并池（执行＋规划/验证/审核）':'K3 规划/验证/审核池';
+$('v4').textContent=d.pools.v4;$('k3').textContent=d.pools.k3;$('sol').textContent=d.pools.sol||0;$('other').textContent=d.pools.other||0;$('v4pref').textContent=d.preferred.v4;$('k3pref').textContent=d.preferred.k3;$('pooltarget').textContent=d.target;
+$('done').textContent=d.counts.completed;$('failed').textContent=d.counts.failed;
+$('projects').textContent='项目 · '+Object.entries(d.projects||{}).map(([k,v])=>k+' '+v).join(' · ');
+const observedPool=Math.max(1,d.pools.v4+d.pools.k3);$('v4bar').style.width=(100*d.pools.v4/observedPool)+'%';$('k3bar').style.width=(100*d.pools.k3/observedPool)+'%';
+$('ocx').textContent=d.opencodex.ok?'健康':'异常';$('ocx').className='value '+(d.opencodex.ok?'ok':'bad');$('ocx-detail').textContent=(d.opencodex.ok?('PID '+d.opencodex.pid):clean(d.opencodex.error))+' · 执行档案 '+clean(d.execution?.name)+' · '+clean(d.execution?.model);
+$('stamp').textContent=d.freshness+' · '+new Date(d.timestamp*1000).toLocaleTimeString()+(d.age_seconds==null?'':' · 状态龄 '+d.age_seconds+'s');
+const body=$('tasks');body.replaceChildren();if(!d.tasks.length){const tr=document.createElement('tr'),td=document.createElement('td');td.colSpan=4;td.className='muted';td.textContent='暂无活动任务';tr.append(td);body.append(tr)}
+for(const x of d.tasks){const tr=document.createElement('tr');for(const v of [x.name,x.plane,poolLabel(x.pool),x.state]){const td=document.createElement('td');td.textContent=clean(v);if(v===x.state)td.className='state';tr.append(td)}body.append(tr)}
+const recent=$('recent');recent.replaceChildren();if(!(d.recent_tasks||[]).length){const tr=document.createElement('tr'),td=document.createElement('td');td.colSpan=4;td.className='muted';td.textContent='暂无近期记录';tr.append(td);recent.append(tr)}
+for(const x of d.recent_tasks||[]){const when=x.finished_at?new Date(x.finished_at*1000).toLocaleTimeString():'–';const tr=document.createElement('tr');for(const v of [x.name,when,poolLabel(x.pool),x.state]){const td=document.createElement('td');td.textContent=clean(v);if(v===x.state)td.className='state';tr.append(td)}recent.append(tr)}
+}catch(e){$('stamp').textContent='监视器连接异常 · '+e}}
+refresh();setInterval(refresh,1000);
+</script></body></html>"""
+
+
+class Handler(BaseHTTPRequestHandler):
+    root: Path
+    windows_root: Path
+    sessions_root: Path
+
+    def send_bytes(self, code: int, content_type: str, body: bytes) -> None:
+        self.send_response(code)
+        self.send_header("Content-Type", content_type)
+        self.send_header("Content-Length", str(len(body)))
+        self.send_header("Cache-Control", "no-store")
+        self.end_headers()
+        self.wfile.write(body)
+
+    def do_GET(self) -> None:  # noqa: N802
+        if self.path == "/api/status":
+            body = json.dumps(snapshot(self.root, self.windows_root, self.sessions_root), ensure_ascii=False).encode("utf-8")
+            self.send_bytes(200, "application/json; charset=utf-8", body)
+        elif self.path == "/healthz":
+            self.send_bytes(200, "application/json", b'{"status":"ok"}')
+        elif self.path in {"/", "/index.html"}:
+            self.send_bytes(200, "text/html; charset=utf-8", PAGE.encode("utf-8"))
+        else:
+            self.send_bytes(404, "text/plain; charset=utf-8", "not found".encode())
+
+    def log_message(self, _format: str, *_args: Any) -> None:
+        return
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--root", type=Path,
+                        default=Path(os.environ.get("CODEX_LOOP_MONITOR_ROOT", str(DEFAULT_ROOT))))
+    parser.add_argument("--port", type=int, default=8765)
+    parser.add_argument("--windows-root", type=Path, default=DEFAULT_WINDOWS_ROOT)
+    parser.add_argument("--sessions-root", type=Path, default=DEFAULT_SESSIONS_ROOT)
+    args = parser.parse_args()
+    Handler.root = args.root
+    Handler.windows_root = args.windows_root
+    Handler.sessions_root = args.sessions_root
+    server = ThreadingHTTPServer(("127.0.0.1", args.port), Handler)
+    server.serve_forever()
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

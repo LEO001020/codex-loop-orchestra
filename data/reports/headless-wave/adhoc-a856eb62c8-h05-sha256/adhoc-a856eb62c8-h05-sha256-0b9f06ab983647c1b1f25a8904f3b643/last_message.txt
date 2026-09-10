@@ -1,0 +1,42 @@
+核验完成。以下是完整结论报告：
+
+---
+
+## 核验结论
+
+### ✅ 零漂移：所有已记录文件完全匹配
+
+SHA256SUMS 中记录的全部 **103 个文件**，实际哈希值与记录值 **100% 一致**，无任何篡改或未记录修改。
+
+P0 关键文件逐一确认通过：
+- `harness/headless_wave.py` ✓
+- `harness/lifecycle_supervisor.py` / `_v2.py` ✓
+- `harness/dispatch.py` / `dispatch_v2.py` ✓
+- `harness/refill_controller_v2.py` / `refill_consumer_v2.py` ✓
+- `harness/statemachine_v2.py` / `agent_router.py` ✓
+- `harness/layered_gate.py` / `root_turn_governor.py` ✓
+- `harness/parent_manifest_importer.py` ✓
+- `hooks/sol_tool_gate.py` / `leaf_agent_spawn_gate.py` ✓
+- `config/model_profiles.toml` / `orchestration_policy_v2.toml` ✓
+- `VERSIONS.lock` ✓
+
+### ⚠️ 注意：存在未追踪的源码文件（非 pycache）
+
+以下 **24 个源文件**在磁盘上存在但未被 SHA256SUMS 追踪，属于**覆盖范围缺口**，不是当前已追踪文件的漂移：
+
+**harness/ 层（22 个）：** `acceptance_replay.sh`, `dag_assert.py`, `desktop_edge_reconcile.py`, `diffvalidator.py`, `duty_driver.py`, `duty_gate.py`, `duty_route.py`, `ipybox_cleanup.py`, `ipybox_lazy.py`, `loop_config.py`, `missing_check.sh`, `recover_parent_replay_incident.py`, `refill_controller.py`（旧版，非 `_v2`）, `repair_parent_ledger_schema.py`, `repair_plain_parent_reports.py`, `repair_transport_deadletters.py`, `retry.py`, `sanitize.py`, `signals_collect.py`, `summary_synth.py`, `verdict_aggregate.py`, `verdict_check.py`
+
+**hooks/ 层（2 个）：** `sol_tool_gate_v2.py`, `subagent_start_meter.sh`
+
+此外还有大量 `__pycache__/*.pyc` 字节码文件未追踪（属于正常编译产物，不构成安全风险）。
+
+### 总结
+
+| 项目 | 结果 |
+|------|------|
+| 已追踪文件哈希匹配 | **103/103 全部通过** |
+| 已追踪文件缺失 | **0** |
+| 已追踪文件哈希不符 | **0**（零漂移） |
+| 磁盘存在但未追踪的源文件 | **24 个**（覆盖缺口，非当前漂移） |
+
+本轮 P0 harness 文件及清单自身**无未记录漂移**，SHA256SUMS 完整性良好。未追踪文件情况已记录备查，是否纳入追踪范围由编排者决定。

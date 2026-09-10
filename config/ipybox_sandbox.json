@@ -1,0 +1,30 @@
+{
+  "allowPty": false,
+  "enableWeakerNestedSandbox": false,
+  "filesystem": {
+    "denyRead": [
+      ".env",
+      "~/.ssh",
+      "~/.aws",
+      "~/.azure",
+      "~/.codex",
+      "~/.config/gcloud",
+      "/run/docker.sock",
+      "/var/run/docker.sock",
+      "/mnt/c/Users/hzq00/.ssh",
+      "/mnt/c/Users/hzq00/.codex"
+    ],
+    "allowWrite": [
+      "/home/codexloop/codex-loop-s-f2/data",
+      "~/.ipython",
+      "~/.local/share/jupyter"
+    ],
+    "denyWrite": []
+  },
+  "network": {
+    "allowedDomains": [],
+    "deniedDomains": [],
+    "allowLocalBinding": true,
+    "allowAllUnixSockets": true
+  }
+}

@@ -1,0 +1,54 @@
+## 快检报告：ADB 与 HonorSuite 助手日志
+
+### 1. HonorSuite 版本
+- **安装路径**：`C:\Program Files (x86)\HonorSuite\`
+- **主程序版本**：`11.0.0.1`（文件属性） / `11.0.0.724`（日志自报）
+
+### 2. 自带 adb.exe
+- **结论：HonorSuite 未自带 `adb.exe`**
+- `C:\Program Files (x86)\HonorSuite\hwtools\` 下仅有：
+  - `AdbWinApi.dll`（107 KB）
+  - `AdbWinUsbApi.dll`（72 KB）
+  - `fastboot.exe`、`hdbtransport.exe`、`hwtransport.exe`
+- 系统中 `where adb` 无结果，全局 PATH 中无 adb
+
+### 3. 当前设备状态
+- 因无可用 adb，无法通过 `adb devices -l` 获取设备列表
+- 从 `PhoneHomeUI_20260822_00.log` 日志推断：
+  - `phoneHomeUI::checkIsHnPhone() current is not connected status, m_currentState:2`（18:13:37）
+  - 当前**无设备连接**（状态码 2 通常表示未连接/空闲）
+
+### 4. 助手日志中的驱动安装命令与退出码
+
+**驱动安装触发路径**（来自 `PhoneHomeUI_20260822_00.log`）：
+- `SettingLogic::ExecuteInstallUsbDriverProcessFile, ShellExecuteExW failed iRet=2` — 先尝试卸载旧驱动（`DriverUninstall.exe`），返回码 2（文件未找到，因为 `driver\all\` 目录不存在）
+- `SettingLogic::ExecuteInstallUsbDriverProcessFile, ShellExecuteExW failed iRet=2` — 再尝试安装（`DriverSetup.exe`），同样返回码 2
+- 随后日志显示成功卸载并重新安装：
+  - `USB Driver uninstall sucess!`（18:13:44）
+  - `USB Driver install sucess!`（18:13:49）
+
+**底层驱动安装日志**（`C:\Users\hzq00\AppData\Local\HonorSuite\userdata\driver\new\Install.log`）：
+- 执行程序：`devsetup64.exe`
+- 驱动路径：`C:\Users\hzq00\AppData\Local\HonorSuite\userdata\driver\new\Driver\X64`
+- 部分 INF 安装结果：
+  - `hn_quser.inf` → OK
+  - `hn_goadb.inf` → OK
+  - `hn_gohdb.inf` → OK
+  - `hn_quusbnet.inf` → OK
+  - `hn_cdc-acm.inf` → OK
+  - `hn_usbccgpfilter.inf` → OK
+  - `hn_mtp.inf` → OK
+  - `hn_cdcmdm.inf` → ErrorCode: **2**（文件相关错误）
+  - `hn_usbdev.inf` / `hn_qumdm.inf` / `hn_cdcacm.inf` → **未找到**
+  - `WdfCoInstaller01009.dll` → 复制错误
+- 最终状态：`SUC: end...`（18:13:48）
+
+### 5. 总结
+| 项目 | 结果 |
+|------|------|
+| HonorSuite 版本 | 11.0.0.724 |
+| 自带 adb.exe | ❌ 无 |
+| adb 版本 | N/A（未安装） |
+| 设备连接状态 | 未连接（日志状态码 2） |
+| 驱动安装命令 | `devsetup64.exe` + `DriverSetup.exe` / `DriverUninstall.exe` |
+| 驱动安装退出码 | 部分 INF 返回 ErrorCode 2，整体最终 `SUC: end...` |

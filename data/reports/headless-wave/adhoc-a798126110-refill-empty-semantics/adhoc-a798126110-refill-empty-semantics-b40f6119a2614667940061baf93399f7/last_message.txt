@@ -1,0 +1,26 @@
+Confirmed: no code path synthesizes or replenishes parent backlog; only explicit manifest import registers work. 证据足够，给出审计结论。
+
+---
+
+## 空队列补位语义复核结论
+
+**结论（1行）：** 当前 `data/refill` 状态正确——parent `019feacd` backlog empty、deficit=0 代码语义自洽且符合设计；但"下一批有意义任务"的生成方在系统内**实际缺失**，当前系统对 active parent 只能永久停在 `parent_backlog_empty`，这是 P1 级语义缺口。
+
+**1. deficit=0 是否符合需求**
+
+符合。`refill_controller_v2.py:496` `parent_debt=min(queued_total, max(0,target-running))`，当 `queued_total=0` 时 debt 必为 0，且 `:517` 将 `queued_total<=0` 明确标为 `parent_backlog_empty`。当前 `refill_state.json` 父行 `running=8/target=20/pending=0/deficit=0/reason=parent_backlog_empty`，与 AGENTS 第6节"backlog 耗尽必须 show parent_backlog_empty 且零 spawnable work，不得把空闲容量伪装成 refic 债"的负向要求一致 → 语义正确。
+
+**2. 何处负责生成下一批有意义任务**
+
+- `parent_manifest_importer.py:1-15` 自我定位："admission boundary, not a watcher"，只在显式提供 manifest 时把任务落账，**不推断工作**。
+- `refill_consumer_v2.py:8`："never invents work"；`run_once()` 只在 `build_manifest` 返回非空（有 DISPATCHABLE backlog）时动作，否则 `idle`。
+- 因此**没有任何组件**在 active parent 数据库空时自动产生下一批。预期生成方=调用方（主对话 Sol）按需手写新 manifest 并调 importer——但当前 parent active 且 backlog 已空，无人触发，系统停在 `parent_backlog_empty` 静止态。
+
+**3. 是否实际缺失 + P0/P1**
+
+- **缺失属实：** active parent + `parent_backlog_empty` + 无入站路径 = 持续补位死锁，除非外部注入 manifest。
+- **判定 P1**，非 P0：
+  - 不是 P0：无静默错误、无错误补位、无违背"不合成 filler"的安全约束；状态可见（`reason` 明示），观察者/8765 能如实呈现空态。
+  - 是 P1：破坏了 sustained-concurrency 目标——8/20 的 parent 缺口被 deficit=0 永久掩盖，系统**无自愈路径**，补位语义只完成"不虚构"那半，缺"如何获得有意义下一批"的另一半。
+
+**建议方向（不在本次修复范围）：** 在 state 中把 `parent_backlog_empty + active` 定义为一类显式 `needs_manifest` 信号并透传到 Sol 入口（或 dead-letter 唤醒），让"缺任务"像异常一样可路由，而不是安静归零。

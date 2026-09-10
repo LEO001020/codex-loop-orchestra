@@ -1,0 +1,23 @@
+{
+  "acceptance": [
+    "事实与假设分离",
+    "不得编辑"
+  ],
+  "authorized_paths": [
+    "harness/parent_manifest_importer.py",
+    "tests/orchestration_v2/test_parent_manifest_importer.py"
+  ],
+  "constraints": [
+    "read-only"
+  ],
+  "created_by": "parent_manifest_importer",
+  "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+  "goal": "只读复核重复manifest不新增packet、内容碰撞硬失败、批次无部分写入。",
+  "manifest_id": "p0-sustained-final-review-20260814",
+  "packet_id": "parent-03fdf32428fa9264abe7d4e985e11100dc23b7716e915f91",
+  "parent_enabled": true,
+  "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+  "role": "verifier",
+  "sandbox": "read-only",
+  "task_name": "Importer幂等复核"
+}

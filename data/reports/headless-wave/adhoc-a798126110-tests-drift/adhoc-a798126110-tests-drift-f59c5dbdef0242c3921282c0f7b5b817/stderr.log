@@ -1,0 +1,28 @@
+Reading additional input from stdin...
+2026-08-14T08:08:35.775162Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T08:08:40.008575Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T08:14:32.478083Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 209ms)... turn_id=019fff50-d71f-7970-a67d-785a5e735ca8 retries=1 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T08:19:52.181347Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 431ms)... turn_id=019fff50-d71f-7970-a67d-785a5e735ca8 retries=2 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T08:22:02.421761Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 184ms)... turn_id=019fff50-d71f-7970-a67d-785a5e735ca8 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+2026-08-14T08:25:22.581451Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+rg: harness/loop_monitor_server.py: IO error for operation on harness/loop_monitor_server.py: 系统找不到指定的文件。 (os error 2)
+
+2026-08-14T08:27:46.508559Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+rg: scripts: 系统找不到指定的文件。 (os error 2)
+
+2026-08-14T08:32:22.535893Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 215ms)... turn_id=019fff50-d71f-7970-a67d-785a5e735ca8 retries=1 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider unreachable: unknown certificate verification error, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T08:37:41.986091Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 393ms)... turn_id=019fff50-d71f-7970-a67d-785a5e735ca8 retries=2 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T08:42:09.735712Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 763ms)... turn_id=019fff50-d71f-7970-a67d-785a5e735ca8 retries=3 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T08:47:03.046841Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.505s)... turn_id=019fff50-d71f-7970-a67d-785a5e735ca8 retries=4 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses

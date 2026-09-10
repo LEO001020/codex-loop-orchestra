@@ -64,6 +64,7 @@ import os
 import re
 import sys
 import time
+from loop_config import config_bool
 
 try:
     import yaml
@@ -116,24 +117,7 @@ def _num(d, *keys):
 
 
 def read_toggle(section, key, default=False):
-    """Minimal deterministic TOML scan for '[section] key = true|false'
-    (same pattern as statemachine.py read_toggle — F2 single-key switch)."""
-    cfg = os.path.join(ROOT, "config", "config.toml")
-    if not os.path.exists(cfg):
-        cfg = os.path.join(ROOT, "config", "config.toml.example")
-    cur, pat = None, re.compile(r"^\s*%s\s*=\s*(true|false)" % re.escape(key))
-    try:
-        for ln in open(cfg, encoding="utf-8"):
-            s = ln.split("#", 1)[0].strip()
-            if s.startswith("["):
-                cur = s.strip("[]").strip()
-            elif cur == section:
-                m = pat.match(s)
-                if m:
-                    return m.group(1) == "true"
-    except OSError:
-        pass
-    return default
+    return config_bool(section, key, default)
 
 
 def load_l3_cap(ladder_path):
@@ -243,6 +227,19 @@ PREDICATES = {
 
 
 def main():
+    # Keep this shipped command as the stable entry.  One policy key selects
+    # v2 observation/enforcement; cold_start remains the instant rollback.
+    policy_path = os.path.join(ROOT, "config", "orchestration_policy_v2.toml")
+    try:
+        import tomllib
+        with open(policy_path, "rb") as handle:
+            routing_mode = str(tomllib.load(handle).get("routing", {}).get(
+                "mode", "cold_start"))
+    except (OSError, ValueError):
+        routing_mode = "cold_start"
+    if routing_mode in ("shadow", "layered"):
+        from trigger_eval_v2 import main as v2_main
+        return v2_main(sys.argv[1:])
     ap = argparse.ArgumentParser(description="L1 trigger evaluator")
     ap.add_argument("--signals", required=True)
     ap.add_argument("--triggers", default="config/triggers.yaml")

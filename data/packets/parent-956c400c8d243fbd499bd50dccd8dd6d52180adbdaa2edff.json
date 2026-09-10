@@ -1,0 +1,23 @@
+{
+  "acceptance": [
+    "验证不会重复出生",
+    "验证空队列不制造任务"
+  ],
+  "authorized_paths": [
+    "harness/",
+    "tests/orchestration_v2/"
+  ],
+  "constraints": [
+    "read-only"
+  ],
+  "created_by": "parent_manifest_importer",
+  "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+  "goal": "只读复验 refill_consumer_v2.schedule_run 的跨进程锁、PID 存活判断、空队列行为和重复 Stop 合并。不得修改文件。",
+  "manifest_id": "loop-recovery-audit-20260813",
+  "packet_id": "parent-956c400c8d243fbd499bd50dccd8dd6d52180adbdaa2edff",
+  "parent_enabled": true,
+  "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+  "role": "worker",
+  "sandbox": "read-only",
+  "task_name": "补位执行器合并复验"
+}

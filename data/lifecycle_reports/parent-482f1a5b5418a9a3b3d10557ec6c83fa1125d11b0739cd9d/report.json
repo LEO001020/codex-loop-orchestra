@@ -1,0 +1,18 @@
+复验完成（全程只读）。结论与证据如下。
+
+**结论**：`terminal_packet_epilogue` 现有 2 个单元测试只覆盖 `normalize_legacy_reports` 的封装主路径与 run_id 失配路径；`run()`（锁获取、异常聚合、状态输出落盘）零测试覆盖。静态推演两用例均应与实现一致；pyc 时间戳证实当前版本已于 4:58:03 被 pytest 9.1.1/Python 3.14 收集导入；生产链路实测状态输出有效。
+
+**已覆盖**（tests/orchestration_v2/test_terminal_packet_epilogue.py）
+- 正向封装：`test_legacy_plain_report_requires_matching_completed_generation`（L7-24）——ledger RUNNING + roster completed/exit 0/run_id 匹配 + 纯文本 report → 封装并返回 `[p1]`，断言 packet_id/run_id/summary（L21-24）。对应实现 harness/terminal_packet_epilogue.py L35、L37-41、L43-45、L46-52、L53-58、L59。
+- 代际失配：`test_legacy_plain_report_rejects_stale_generation`（L27-39）——ledger `current_run_id="new"` vs roster `run_id="old"` → 不封装、原文件不变（L39）。对应实现 L41 的 str 比较。
+
+**缺口**
+- `normalize_legacy_reports` 未测分支：非 RUNNING/非 dict 条目（实现 L35）；job 缺失/非 dict/state≠completed（L37-38）；exit_code≠0 或缺失（L39，含 `int("0")` 强转未测）；job 缺 run_id（L40）；run_id 数值/字符串等价（L41）；report.json 缺失（L43-45）；已封装 envelope 跳过（L51-52）；非法 JSON/非 dict/`packet_id` 不匹配被重封装及 UnicodeDecodeError（L46-50、L56）；ledger/roster 缺失或结构损坏容错（L28-32）。
+- `run()` 零测试：锁获取与互斥（L67，`.terminal_packet.lock`）；三个步骤异常聚合为 `FAIL_VISIBLE`（L70/L75/L79-83 → L85-87）；状态文件写入与 schema 断言（L88-89，schema/ts/status/legacy_reports_wrapped/state_machine/refill，见 L64-65、L70、L75、L80）；`__main__`（L93-94）。
+
+**锁与状态输出的生产实证**
+- `data/orchestration/terminal_packet_status.json`（3808 B，05:07:39）与 `data/orchestration/terminal_epilogue.log` 最后一条完全一致：schema `codex-loop-terminal-packet/v1`、`status: PASS`、`legacy_reports_wrapped: []`、state_machine 33 包、refill idle——证明 L64-65/L88-89 链路有效（调度入口 lifecycle_supervisor.py:512，日志路径 L470）。
+- `.terminal_packet.lock` 存在（1 字节，由 orchestration_common.py L242-246 创建）；与 repair_plain_parent_reports.py:21 共享同一把锁。加锁序为 terminal_packet → progress_ledger（statemachine_v2.py:636）→ `.consumer.lock`（refill_consumer_v2.py:215），与 repair 脚本（repair_plain_parent_reports.py:21-22）同序，未见锁环；`orchestration_epilogue.py:128` 的 `.epilogue.lock` 不参与反向嵌套。
+- 注意：日志中 `FAIL_VISIBLE`（`state_machine: KeyError: 'history'`）条目 schema 为 `codex-loop-epilogue/v2`，属 orchestration_epilogue 路径，非本模块；terminal-packet 的 4 次运行全部 PASS。
+
+**运行证据与环境限制**：`tests/orchestration_v2/__pycache__/test_terminal_packet_epilogue.cpython-314-pytest-9.1.1.pyc` 与 `harness/__pycache__/terminal_packet_epilogue.cpython-314.pyc` 均为 04:58:03（测试文件 04:57:57 写入后 6 秒），证明当前版本被 Python 3.14 + pytest 9.1.1 收集导入。本会话沙箱只读且无法执行外部解释器（uv 缓存初始化失败、Python314 路径不可达、WSL 拒绝访问），故未在本会话实跑 pytest；上述为静态推演 + 编译产物 + 生产日志三重证据。

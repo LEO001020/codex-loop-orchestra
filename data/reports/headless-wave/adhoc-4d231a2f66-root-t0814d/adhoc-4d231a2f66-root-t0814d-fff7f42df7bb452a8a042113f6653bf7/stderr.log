@@ -1,0 +1,83 @@
+Reading additional input from stdin...
+2026-08-14T07:36:28.082481Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T07:36:38.102333Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T07:36:55.844503Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 4.9 seconds
+Output:
+python : 无法将“python”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，
+然后再试一次。
+所在位置 行:2 字符: 1
++ python -c "
++ ~~~~~~
+    + CategoryInfo          : ObjectNotFound: (python:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T07:37:17.057454Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 9.7 seconds
+Output:
+python3 : 无法将“python3”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确
+，然后再试一次。
+所在位置 行:2 字符: 1
++ python3 -c "print('ok')" 2>&1; py -3 -c "print('ok')" 2>&1
++ ~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (python3:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+py : 无法将“py”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后再试
+一次。
+所在位置 行:2 字符: 32
++ python3 -c "print('ok')" 2>&1; py -3 -c "print('ok')" 2>&1
++                                ~~
+    + CategoryInfo          : ObjectNotFound: (py:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T07:37:54.119909Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.2 seconds
+Output:
+
+2026-08-14T07:38:13.787348Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.5 seconds
+Output:
+where.exe : 信息: 用提供的模式无法找到文件。
+所在位置 行:2 字符: 1
++ where.exe python 2>&1; where.exe python3 2>&1; where.exe py 2>&1
++ ~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (信息: 用提供的模式无法找到文件。:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+where.exe : 信息: 用提供的模式无法找到文件。
+所在位置 行:2 字符: 24
++ where.exe python 2>&1; where.exe python3 2>&1; where.exe py 2>&1
++                        ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (信息: 用提供的模式无法找到文件。:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+where.exe : 信息: 用提供的模式无法找到文件。
+所在位置 行:2 字符: 48
++ where.exe python 2>&1; where.exe python3 2>&1; where.exe py 2>&1
++                                                ~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (信息: 用提供的模式无法找到文件。:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+2026-08-14T07:38:42.617603Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.6 seconds
+Output:
+所在位置 行:10 字符: 30
++         $ts = $obj.timestamp ?? $obj.ts ?? $obj.created_at ?? $obj.ti ...
++                              ~~
+表达式或语句中包含意外的标记“??”。
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : UnexpectedToken
+ 
+

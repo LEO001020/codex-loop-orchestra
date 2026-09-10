@@ -4,12 +4,15 @@
 #           each suite is hermetic (mktemp + trap cleanup) and asserts via
 #           exit codes per the F2 test standards.
 # ============================================================================
+import os
 import subprocess
 from pathlib import Path
 
 import pytest
 
 UNIT = Path(__file__).resolve().parent
+
+pytestmark = pytest.mark.skipif(os.name == "nt", reason="POSIX shell suites")
 
 
 @pytest.mark.parametrize("suite", ["test_worktree_pool.sh", "test_missing_check.sh"])

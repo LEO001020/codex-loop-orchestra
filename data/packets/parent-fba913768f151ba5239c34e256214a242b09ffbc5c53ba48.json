@@ -1,0 +1,23 @@
+{
+  "acceptance": [
+    "统计带身份任务数",
+    "不得编辑"
+  ],
+  "authorized_paths": [
+    "data/lifecycle/exec_roster.json",
+    "data/refill/parent_sessions.json"
+  ],
+  "constraints": [
+    "read-only"
+  ],
+  "created_by": "parent_manifest_importer",
+  "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+  "goal": "只读检查当前父10个以上running任务的parent_session_id和manifest_id没有丢失。",
+  "manifest_id": "p0-parent-final-backlog-20260814",
+  "packet_id": "parent-fba913768f151ba5239c34e256214a242b09ffbc5c53ba48",
+  "parent_enabled": true,
+  "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+  "role": "worker",
+  "sandbox": "read-only",
+  "task_name": "最终父身份回读"
+}

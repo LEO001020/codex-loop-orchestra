@@ -1,0 +1,24 @@
+Reading additional input from stdin...
+2026-08-14T11:11:04.145341Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T11:11:07.951463Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T11:11:19.753108Z ERROR codex_core::tools::router: error=unsupported call: read
+2026-08-14T11:11:19.753278Z ERROR codex_core::tools::router: error=unsupported call: read
+2026-08-14T11:12:41.902330Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 219ms)... turn_id=019ffff7-e62e-7da3-a2db-8726cd6d24c7 retries=1 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游网络连接失败, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T11:12:47.994296Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 426ms)... turn_id=019ffff7-e62e-7da3-a2db-8726cd6d24c7 retries=2 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游网络连接失败, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T11:13:40.753111Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

@@ -1,0 +1,370 @@
+{
+  "probe_id": "P-SQL1",
+  "question": "SQLite version gate [P0-1]: runtime 3.50.4 is WAL-reset affected — which journal profile for S on this machine, and does it survive crash/kill/multi-writer? (VOL-20 §4)",
+  "executed_at": "2026-09-02T12:03:30.017839+00:00",
+  "status": {
+    "s1_journal_profile": "PASS",
+    "s2_pysqlite3_fix_path": "DEGRADED",
+    "s3_crash_atomicity_a": "PASS",
+    "s4_kill_midcommit_b": "PASS",
+    "s5_multiproc_contention_c": "PASS",
+    "s6_networkfs_negative_d": "PASS",
+    "overall": "DEGRADED"
+  },
+  "environment": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "host": "DESKTOP-3L9C649",
+    "python": "3.14.3",
+    "sqlite_runtime": "3.50.4",
+    "venv_python": "E:\\zcode\\zloop-gen8\\.venv\\Scripts\\python.exe",
+    "cwd": "E:\\zcode\\zloop-gen8",
+    "zloop_data_redirect": "C:\\Users\\hzq00\\AppData\\Local\\Temp\\zloop-P-SQL1-lgwitbx3\\zloop-data",
+    "real_home_zloop_touched": false
+  },
+  "results": {
+    "s1_journal_profile": {
+      "question": "runtime sqlite 3.50.4 -> journal_profile() must enforce DELETE + EXTRA with wal_ok=False; verify with PRAGMA readback",
+      "python": "3.14.3",
+      "sqlite_runtime": "3.50.4",
+      "sqlite3_module_version": "(removed in Python 3.14)",
+      "journal_profile": {
+        "journal_mode": "DELETE",
+        "synchronous": "EXTRA",
+        "wal_ok": false,
+        "runtime_sqlite": "3.50.4",
+        "reason": "sqlite (3, 50, 4) is inside the WAL-reset affected range (3.7.0-3.51.2, below the 3.50.7 backport); DELETE+EXTRA enforced by gate (I22)"
+      },
+      "pragma_readback_on_real_connect": {
+        "journal_mode": "delete",
+        "synchronous_raw": 3,
+        "foreign_keys": 1,
+        "busy_timeout_ms": 5000,
+        "quick_check": "ok",
+        "synchronous": "EXTRA"
+      },
+      "compile_options": [
+        "ATOMIC_INTRINSICS=0",
+        "COMPILER=msvc-1944",
+        "DEFAULT_AUTOVACUUM",
+        "DEFAULT_CACHE_SIZE=-2000",
+        "DEFAULT_FILE_FORMAT=4",
+        "DEFAULT_JOURNAL_SIZE_LIMIT=-1",
+        "DEFAULT_MMAP_SIZE=0",
+        "DEFAULT_PAGE_SIZE=4096",
+        "DEFAULT_PCACHE_INITSZ=20",
+        "DEFAULT_RECURSIVE_TRIGGERS",
+        "DEFAULT_SECTOR_SIZE=4096",
+        "DEFAULT_SYNCHRONOUS=2",
+        "DEFAULT_WAL_AUTOCHECKPOINT=1000",
+        "DEFAULT_WAL_SYNCHRONOUS=2",
+        "DEFAULT_WORKER_THREADS=0",
+        "DIRECT_OVERFLOW_READ",
+        "ENABLE_FTS3",
+        "ENABLE_FTS4",
+        "ENABLE_FTS5",
+        "ENABLE_MATH_FUNCTIONS",
+        "ENABLE_RTREE",
+        "MALLOC_SOFT_LIMIT=1024",
+        "MAX_ATTACHED=10",
+        "MAX_COLUMN=2000",
+        "MAX_COMPOUND_SELECT=500",
+        "MAX_DEFAULT_PAGE_SIZE=8192",
+        "MAX_EXPR_DEPTH=1000",
+        "MAX_FUNCTION_ARG=1000",
+        "MAX_LENGTH=1000000000",
+        "MAX_LIKE_PATTERN_LENGTH=50000",
+        "MAX_MMAP_SIZE=0x7fff0000",
+        "MAX_PAGE_COUNT=0xfffffffe",
+        "MAX_PAGE_SIZE=65536",
+        "MAX_SQL_LENGTH=1000000000",
+        "MAX_TRIGGER_DEPTH=1000",
+        "MAX_VARIABLE_NUMBER=32766",
+        "MAX_VDBE_OP=250000000",
+        "MAX_WORKER_THREADS=8",
+        "MUTEX_W32",
+        "OMIT_AUTOINIT",
+        "SYSTEM_MALLOC",
+        "TEMP_STORE=1",
+        "THREADSAFE=1"
+      ],
+      "expected": {
+        "journal_mode": "DELETE",
+        "synchronous": "EXTRA",
+        "wal_ok": false
+      },
+      "matches_expected_gate": true
+    },
+    "s2_pysqlite3_fix_path": {
+      "question": "is pysqlite3 installable in the repo venv (fix path (a)) under Python 3.14 on Windows, and which sqlite does it ship?",
+      "venv_python": "E:\\zcode\\zloop-gen8\\.venv\\Scripts\\python.exe",
+      "pip_version": "pip 26.2.1 from E:\\zcode\\zloop-gen8\\.venv\\Lib\\site-packages\\pip (python 3.14) ",
+      "pip_install": {
+        "cmd": "E:\\zcode\\zloop-gen8\\.venv\\Scripts\\python.exe -m pip install pysqlite3",
+        "rc": 0,
+        "timeout": false,
+        "duration_s": 1.31,
+        "stdout_tail": "Requirement already satisfied: pysqlite3 in .\\.venv\\Lib\\site-packages (0.6.0)",
+        "stderr_tail": ""
+      },
+      "pip_index_versions": {
+        "rc": 0,
+        "stdout": "pysqlite3 (0.6.0)\r\nAvailable versions: 0.6.0, 0.5.4, 0.5.3, 0.5.2, 0.5.1, 0.5.0, 0.4.8, 0.4.7, 0.4.6, 0.4.5, 0.4.4, 0.4.3, 0.4.2, 0.4.1, 0.4.0, 0.3.0, 0.2.2, 0.2.1, 0.2.0, 0.1.4, 0.1.3, 0.1.2, 0.1.1, 0.1.0\r\n  INSTALLED: 0.6.0\r\n  LATEST:    0.6.0",
+        "stderr": "",
+        "note": "pip index is an experimental command; empty rc!=0 means unavailable"
+      },
+      "import_test": {
+        "rc": 0,
+        "module_sqlite_version": "3.51.1",
+        "stderr": ""
+      },
+      "shipped_sqlite_version": "3.51.1",
+      "shipped_version_passes_vol07_gate": false,
+      "pysqlite3_left_installed": true,
+      "classification": "installed_but_ships_affected_sqlite: a cp314/Windows wheel installed, but it bundles sqlite 3.51.1, still inside the WAL-reset affected range (3.7.0-3.51.2; fix is 3.51.3, backports 3.50.7/3.44.6) — it does NOT lift the gate",
+      "conclusion": "pysqlite3 installs cleanly under Python 3.14 on Windows (wheel exists), but it bundles sqlite 3.51.1 — still inside the WAL-reset affected range, so installing it does not lift the VOL-07 §3 gate. Fix path (a) as published today does not fix the problem; journal decision falls back to path (c)."
+    },
+    "s3_crash_atomicity_a": {
+      "question": "after os._exit(1) BEFORE commit: quick_check ok, uncommitted run row absent, committed rows survive",
+      "child_rc": 1,
+      "marker_written": true,
+      "child_stdout": "",
+      "child_stderr": "",
+      "journal_file_before_reopen": {
+        "exists": true,
+        "size_bytes": 21032,
+        "header_magic_valid_hot": false,
+        "note": "journal left by the killed transaction has a zeroed header (magic never synced at commit) -> NOT hot; SQLite ignores it and the DB file on disk was never dirtied pre-commit, so atomicity holds structurally"
+      },
+      "journal_file_after_reopen": true,
+      "after_reopen": {
+        "quick_check": "ok",
+        "runs_total": 0,
+        "runs_R999": 0,
+        "events_R999": 0,
+        "claims_committed_before_crash": 1,
+        "projects_rows": 1
+      },
+      "verdict": "uncommitted run row R999 absent; committed claim+project rows survived; quick_check ok. Leftover -journal file is inert (non-hot) garbage — harmless, next transaction overwrites it"
+    },
+    "s4_kill_midcommit_b": {
+      "question": "kill (taskkill /T /F) during 200 sequential committed create_claim mutations; DB must reopen clean with consistent counts",
+      "invariant": "after every kill+reopen: PRAGMA quick_check='ok' AND count(pending_binding_claims) == count(events WHERE kind='binding_claim_created') — each committed create_claim writes exactly one claim row + one event in a single transaction, so a torn commit must show up as a count mismatch or a failed quick_check",
+      "note": "this machine completes the 200-mutation loop in ~0.6s, so besides the random 0.5-2s delay kills, one deterministic attempt kills the child after a read-only connection witnesses >=50 committed claims, guaranteeing the kill lands mid-commit-loop",
+      "attempts": [
+        {
+          "attempt": 1,
+          "mode": "kill after random 0.5-2s delay",
+          "kill_delay_s": 0.551,
+          "child_alive_at_kill": true,
+          "taskkill": {
+            "rc": 128,
+            "output": " 错误: 无法终止 PID 44736 (属于 PID 42876 子进程)的进程。\r\n原因: 没有此任务的实例在运行。\r\r\n错误: 无法终止 PID 42876 (属于 PID 47816 子进程)的进程。\r\n原因: 没有此任务的实例在运行。"
+          },
+          "child_rc": 0,
+          "child_stdout": "COMPLETED-200\r\n",
+          "child_stderr": "",
+          "journal_file_before_reopen": false,
+          "quick_check": "ok",
+          "claims_committed_when_killed": 200,
+          "events_binding_claim_created": 200,
+          "invariant_holds": true
+        },
+        {
+          "attempt": 2,
+          "mode": "kill after random 0.5-2s delay",
+          "kill_delay_s": 1.213,
+          "child_alive_at_kill": false,
+          "taskkill": null,
+          "child_rc": 0,
+          "child_stdout": "COMPLETED-200\r\n",
+          "child_stderr": "",
+          "journal_file_before_reopen": false,
+          "quick_check": "ok",
+          "claims_committed_when_killed": 200,
+          "events_binding_claim_created": 200,
+          "invariant_holds": true
+        },
+        {
+          "attempt": 3,
+          "mode": "kill after random 0.5-2s delay",
+          "kill_delay_s": 0.754,
+          "child_alive_at_kill": true,
+          "taskkill": {
+            "rc": 128,
+            "output": " 错误: 无法终止 PID 44480 (属于 PID 47216 子进程)的进程。\r\n原因: 没有此任务的实例在运行。\r\r\n错误: 无法终止 PID 47216 (属于 PID 47816 子进程)的进程。\r\n原因: 没有此任务的实例在运行。"
+          },
+          "child_rc": 0,
+          "child_stdout": "COMPLETED-200\r\n",
+          "child_stderr": "",
+          "journal_file_before_reopen": false,
+          "quick_check": "ok",
+          "claims_committed_when_killed": 200,
+          "events_binding_claim_created": 200,
+          "invariant_holds": true
+        },
+        {
+          "attempt": 4,
+          "mode": "kill after random 0.5-2s delay",
+          "kill_delay_s": 1.2,
+          "child_alive_at_kill": false,
+          "taskkill": null,
+          "child_rc": 0,
+          "child_stdout": "COMPLETED-200\r\n",
+          "child_stderr": "",
+          "journal_file_before_reopen": false,
+          "quick_check": "ok",
+          "claims_committed_when_killed": 200,
+          "events_binding_claim_created": 200,
+          "invariant_holds": true
+        },
+        {
+          "attempt": 5,
+          "mode": "kill after random 0.5-2s delay",
+          "kill_delay_s": 0.701,
+          "child_alive_at_kill": true,
+          "taskkill": {
+            "rc": 128,
+            "output": " 错误: 无法终止 PID 43976 (属于 PID 36988 子进程)的进程。\r\n原因: 没有此任务的实例在运行。\r\r\n错误: 无法终止 PID 36988 (属于 PID 47816 子进程)的进程。\r\n原因: 没有此任务的实例在运行。"
+          },
+          "child_rc": 0,
+          "child_stdout": "COMPLETED-200\r\n",
+          "child_stderr": "",
+          "journal_file_before_reopen": false,
+          "quick_check": "ok",
+          "claims_committed_when_killed": 200,
+          "events_binding_claim_created": 200,
+          "invariant_holds": true
+        },
+        {
+          "attempt": 6,
+          "mode": "kill after random 0.5-2s delay",
+          "kill_delay_s": 1.062,
+          "child_alive_at_kill": false,
+          "taskkill": null,
+          "child_rc": 0,
+          "child_stdout": "COMPLETED-200\r\n",
+          "child_stderr": "",
+          "journal_file_before_reopen": false,
+          "quick_check": "ok",
+          "claims_committed_when_killed": 200,
+          "events_binding_claim_created": 200,
+          "invariant_holds": true
+        },
+        {
+          "attempt": 7,
+          "mode": "kill after random 0.5-2s delay",
+          "kill_delay_s": 0.716,
+          "child_alive_at_kill": true,
+          "taskkill": {
+            "rc": 128,
+            "output": " 错误: 无法终止 PID 46600 (属于 PID 46260 子进程)的进程。\r\n原因: 没有此任务的实例在运行。\r\r\n错误: 无法终止 PID 46260 (属于 PID 47816 子进程)的进程。\r\n原因: 没有此任务的实例在运行。"
+          },
+          "child_rc": 0,
+          "child_stdout": "COMPLETED-200\r\n",
+          "child_stderr": "",
+          "journal_file_before_reopen": false,
+          "quick_check": "ok",
+          "claims_committed_when_killed": 200,
+          "events_binding_claim_created": 200,
+          "invariant_holds": true
+        },
+        {
+          "attempt": 8,
+          "mode": "kill after random 0.5-2s delay",
+          "kill_delay_s": 0.815,
+          "child_alive_at_kill": true,
+          "taskkill": {
+            "rc": 128,
+            "output": " 错误: 没有找到进程 \"2368\"。"
+          },
+          "child_rc": 0,
+          "child_stdout": "COMPLETED-200\r\n",
+          "child_stderr": "",
+          "journal_file_before_reopen": false,
+          "quick_check": "ok",
+          "claims_committed_when_killed": 200,
+          "events_binding_claim_created": 200,
+          "invariant_holds": true
+        },
+        {
+          "attempt": 9,
+          "mode": "kill after read-only witness observed >=50 committed claims (deterministic mid-loop kill)",
+          "kill_delay_s": null,
+          "child_alive_at_kill": true,
+          "taskkill": {
+            "rc": 0,
+            "output": "成功: 已终止 PID 47048 (属于 PID 30960 子进程)的进程。\r\n成功: 已终止 PID 30960 (属于 PID 47816 子进程)的进程。 "
+          },
+          "child_rc": 1,
+          "child_stdout": "",
+          "child_stderr": "",
+          "journal_file_before_reopen": true,
+          "quick_check": "ok",
+          "claims_committed_when_killed": 192,
+          "events_binding_claim_created": 192,
+          "invariant_holds": true
+        }
+      ],
+      "accepted_attempt": 9,
+      "verdict": "mid-loop kill achieved; every killed DB reopened with quick_check ok and claim/event counts consistent — the in-flight (uncommitted) transaction left at most a non-hot journal and never tore committed state"
+    },
+    "s5_multiproc_contention_c": {
+      "question": "two processes x 30 committed create_claim mutations concurrently (busy_timeout=5000 from connect): total must be exactly 60 with no loss and quick_check ok",
+      "children": {
+        "A": {
+          "rc": 0,
+          "timeout": false,
+          "report": {
+            "tag": "A",
+            "committed": 30,
+            "error": null
+          },
+          "stdout": "CHILD-A-DONE committed=30 error=no\r\n",
+          "stderr": ""
+        },
+        "B": {
+          "rc": 0,
+          "timeout": false,
+          "report": {
+            "tag": "B",
+            "committed": 30,
+            "error": null
+          },
+          "stdout": "CHILD-B-DONE committed=30 error=no\r\n",
+          "stderr": ""
+        }
+      },
+      "after_join": {
+        "quick_check": "ok",
+        "claims_total": 60,
+        "events_binding_claim_created": 60
+      },
+      "invariant": "claims_total == 60 AND events == 60 AND each child reported committed=30 with no error",
+      "verdict": "all 60 mutations durable, no torn/lost rows under concurrent single-writer serialization"
+    },
+    "s6_networkfs_negative_d": {
+      "question": "zloop.db.connect() on \\\\nonexistent-server\\share\\x must refuse to open (proves we cannot silently open network paths)",
+      "unc_path": "\\\\nonexistent-server\\share\\x",
+      "zloop_connect_create": {
+        "opened": false,
+        "exception_type": "FileNotFoundError",
+        "message": "[WinError 53] 找不到网络路径。: '\\\\\\\\nonexistent-server\\\\share\\\\'"
+      },
+      "zloop_connect_no_create": {
+        "opened": false,
+        "exception_type": "SError",
+        "message": "control DB missing: \\\\nonexistent-server\\share\\x\\control.sqlite3"
+      },
+      "raw_sqlite3_connect": {
+        "opened": false,
+        "exception_type": "OperationalError",
+        "message": "unable to open database file"
+      },
+      "duration_s": 1.346,
+      "expected_failure_observed": true,
+      "caveat": "a *reachable* SMB share would still be openable by raw SQLite (see raw_sqlite3_connect): the network-FS ban is a zloop policy obligation (VOL-07 §2), not something the engine enforces for us; the unreachable-UNC case fails closed at the filesystem layer"
+    }
+  },
+  "fallback_triggered": "pysqlite3 fix path (a) does not lift the VOL-07 §3 version gate on this machine (installed_but_ships_affected_sqlite: a cp314/Windows wheel installed, but it bundles sqlite 3.51.1, still inside the WAL-reset affected range (3.7.0-3.51.2; fix is 3.51.3, backports 3.50.7/3.44.6) — it does NOT lift the gate) -> stay on VOL-07 §3 default: DELETE+EXTRA (path (c)); WAL postponed until a gate-passing sqlite is wired in",
+  "decision": "journal_mode=DELETE, synchronous=EXTRA for this machine (VOL-07 §3 v1 default path / D-1 path (c)): the runtime sqlite 3.50.4 is inside the WAL-reset affected range (3.7.0-3.51.2, below the 3.50.7 backport), and pysqlite3 — though it installs cleanly on cp314/Windows (wheel exists) — bundles sqlite 3.51.1, which is still inside the affected range, so fix path (a) does not lift the gate today. WAL is forbidden until the version gate passes (I22); zloop doctor must warn 'WAL available after SQLite upgrade (see VOL-07 §3)'. Remaining upgrade route: path (b) — bundle the sqlite.org 3.53.4 DLL and load it explicitly once a gate-passing build is wired in. Until then S relies on DELETE+EXTRA with hot-journal rollback semantics, which this probe validated under crash/kill/contention."
+}

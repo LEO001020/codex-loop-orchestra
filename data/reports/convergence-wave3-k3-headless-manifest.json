@@ -1,0 +1,68 @@
+{
+  "tasks": [
+    {
+      "task_id": "installer-test-gaps",
+      "task_name": "安装器测试缺口审计",
+      "prompt": "任务名：安装器测试缺口审计\n只读审计 tests/orchestration_v2 与 install.sh、install_v2.sh。检查是否自动覆盖dry-run零写、manifest缺文件fail-closed、备份、hooks保留非LOOP项、旧Sol gate替换、TOML校验、运行依赖闭包。不得修改文件、不得派生子agent。输出PASS或REDO；REDO列文件、行号、最小复现，<=700字。",
+      "cwd": "E:/codex-LOOP/codex-loop-s-f2",
+      "role": "verifier",
+      "sandbox": "read-only"
+    },
+    {
+      "task_id": "provider-profile-switch",
+      "task_name": "执行模型切换审计",
+      "prompt": "任务名：执行模型切换审计\n只读审计config/model_profiles.toml、orchestration_policy_v2.toml、agent_router.py、dispatch*.py和8765显示。确认v4f/glm/K3临时切换集中于profile，不需多处补丁，实际model可观测且不会误继承Sol。不得修改文件。输出PASS/REDO与路径行号，<=700字。",
+      "cwd": "E:/codex-LOOP/codex-loop-s-f2",
+      "role": "verifier",
+      "sandbox": "read-only"
+    },
+    {
+      "task_id": "opencodex-supervisor",
+      "task_name": "OpenCodex监督链审计",
+      "prompt": "任务名：OpenCodex监督链审计\n只读审计E:/codex-LOOP/.bootstrap/OpenCodex-Service-Supervisor.ps1及相关状态日志/健康探针。检查单实例、owner校验、故障阈值、冷却、日志轮转、ACL/前后台差异和上游504/ECONNRESET归因。不得重启服务或修改文件。输出PASS/REDO，区分当前健康与潜在P1，<=700字。",
+      "cwd": "E:/codex-LOOP/codex-loop-s-f2",
+      "role": "verifier",
+      "sandbox": "read-only"
+    },
+    {
+      "task_id": "monitor-watchdog",
+      "task_name": "8765恢复链审计",
+      "prompt": "任务名：8765恢复链审计\n只读审计E:/codex-LOOP/launchers/Register-Codex-LOOP-Monitor.ps1、Start-Codex-LOOP-Monitor.ps1及monitor服务入口。检查AtLogOn+周期恢复、IgnoreNew、隐藏启动、健康探针、重复watchdog和任务结果语义。不得更改计划任务。输出PASS/REDO及证据，<=700字。",
+      "cwd": "E:/codex-LOOP/codex-loop-s-f2",
+      "role": "verifier",
+      "sandbox": "read-only"
+    },
+    {
+      "task_id": "state-machine-contract",
+      "task_name": "状态机闭环审计",
+      "prompt": "任务名：状态机闭环审计\n只读审计harness/statemachine_v2.py、trigger_eval_v2.py、l2_consumer.py、orchestration_epilogue.py及transitions/triggers schema。检查DISPATCHABLE到验证/排序/终态、幂等、失败态、专用K3 consumer与generic refill边界。输出PASS/REDO及可复现P0/P1，<=700字。",
+      "cwd": "E:/codex-LOOP/codex-loop-s-f2",
+      "role": "verifier",
+      "sandbox": "read-only"
+    },
+    {
+      "task_id": "root-token-pressure",
+      "task_name": "根上下文与Token审计",
+      "prompt": "任务名：根上下文与Token审计\n只读审计root_turn_governor.py、result_reducer.py、short_result_validator.py、budget_controller.py、metering及策略。验证子agent只继承编译控制包而非根超长上下文，Sol token占比控制、K3扩充/V4执行链及1M/800k配置。输出PASS/REDO和设计缺口，<=800字。",
+      "cwd": "E:/codex-LOOP/codex-loop-s-f2",
+      "role": "verifier",
+      "sandbox": "read-only"
+    },
+    {
+      "task_id": "dual-plane-drift",
+      "task_name": "双平面漂移审计",
+      "prompt": "任务名：双平面漂移审计\n只读检查Windows E:/codex-LOOP/codex-loop-s-f2 与WSL /home/codexloop/codex-loop-s-f2 的managed manifest和SHA256策略。确认哪些差异应同步、哪些平台文件必须保留本地、同步后如何机械验收。不得写生产WSL。输出差异分类和PASS/REDO，<=800字。",
+      "cwd": "E:/codex-LOOP/codex-loop-s-f2",
+      "role": "verifier",
+      "sandbox": "read-only"
+    },
+    {
+      "task_id": "architecture-release-adversary",
+      "task_name": "架构发布反证审计",
+      "prompt": "任务名：架构发布反证审计\n只读对当前仓库做发布反证：寻找会导致Desktop崩溃、OpenCodex掉线、roleless Sol出生、虚假48并发、ipybox孤儿或补丁链失控的P0/P1。必须给调用链与行号，不能只凭旧文件存在推断。输出PASS或REDO，最多5项，<=900字。",
+      "cwd": "E:/codex-LOOP/codex-loop-s-f2",
+      "role": "verifier",
+      "sandbox": "read-only"
+    }
+  ]
+}

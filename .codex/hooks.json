@@ -1,0 +1,60 @@
+{
+  "hooks": {
+    "SubagentStart": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell.exe -NoLogo -NoProfile -NonInteractive -ExecutionPolicy Bypass -File \"E:\\codex-LOOP\\codex-loop-s-f2\\.codex\\hooks\\subagent_start_meter.ps1\"",
+            "commandWindows": "powershell.exe -NoLogo -NoProfile -NonInteractive -ExecutionPolicy Bypass -File \"E:\\codex-LOOP\\codex-loop-s-f2\\.codex\\hooks\\subagent_start_meter.ps1\"",
+            "timeout": 30,
+            "statusMessage": "Recording F2 subagent route (observation only)"
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [],
+    "Stop": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell.exe -NoLogo -NoProfile -NonInteractive -ExecutionPolicy Bypass -File \"E:\\codex-LOOP\\codex-loop-s-f2\\.codex\\hooks\\reconcile_subagent_metering.ps1\"",
+            "commandWindows": "powershell.exe -NoLogo -NoProfile -NonInteractive -ExecutionPolicy Bypass -File \"E:\\codex-LOOP\\codex-loop-s-f2\\.codex\\hooks\\reconcile_subagent_metering.ps1\"",
+            "timeout": 30,
+            "statusMessage": "Reconciling F2 rollout metering (observation only)"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [],
+    "PreToolUse": [
+      {
+        "matcher": "^(shell|shell_command|bash|local_shell|exec_command|functions\\.exec|run_terminal|terminal|web_search|search|grep|glob|mcp__|read_mcp_resource|list_mcp|read_many_files|read_file|list_files|pytest|test)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"E:/codex-LOOP/codex-loop-s-f2/hooks/sol_tool_gate_router.py\"",
+            "commandWindows": "py -3 \"E:\\codex-LOOP\\codex-loop-s-f2\\hooks\\sol_tool_gate_router.py\"",
+            "timeout": 10,
+            "statusMessage": "F2 Sol tool gate: dispatch L0 work to V4/K3"
+          }
+        ]
+      },
+      {
+        "matcher": ".*(spawn_agent|close_agent).*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"E:/codex-LOOP/codex-loop-s-f2/hooks/subagent_lifecycle.py\" --event PreToolUse",
+            "commandWindows": "py -3 \"E:\\codex-LOOP\\codex-loop-s-f2\\hooks\\subagent_lifecycle.py\" --event PreToolUse",
+            "timeout": 10,
+            "statusMessage": "Recording semantic task name before subagent spawn"
+          }
+        ]
+      }
+    ]
+  }
+}

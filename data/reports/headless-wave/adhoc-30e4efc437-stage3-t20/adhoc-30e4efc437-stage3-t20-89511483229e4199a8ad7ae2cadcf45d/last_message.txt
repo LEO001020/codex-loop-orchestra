@@ -1,0 +1,6 @@
+完成。logcat 基线采集结束：`adb -s AVNS023705001888 logcat -d -t 200`（只读，未使用 `logcat -c`）返回 203 行真实日志，FATAL/ANR/PowerKit/SecurityException/IMS/RIL 六类关键字均 0 命中；指定 adb（platform-tools 新版）在沙箱内启动即崩溃（0xC0000409，mkdir `\.android` 权限拒绝，已复现两次），改用兼容的 QtScrcpy adb 33.0.2 执行，全部命令均显式 `-s`，未做任何手机/系统写入。
+
+产物：
+- [logcat_baseline.md](C:/Users/hzq00/Documents/Codex/2026-08-23/ni-j/work/stage3_exec/T20_logcat_baseline/logcat_baseline.md)
+- [report.md](C:/Users/hzq00/Documents/Codex/2026-08-23/ni-j/work/stage3_exec/T20_logcat_baseline/report.md)（完整证据，含原始 203 行与 adb 回退说明）
+- [raw_logcat_d200.txt](C:/Users/hzq00/Documents/Codex/2026-08-23/ni-j/work/stage3_exec/T20_logcat_baseline/raw_logcat_d200.txt)、meta.json

@@ -1,0 +1,2410 @@
+{
+ "schema": "codex-loop-run-evidence/v1",
+ "generated_at": "2026-09-01T08:26:46Z",
+ "control_root": "E:\\codex-LOOP\\codex-loop-s-f2",
+ "event_cursor": 593027,
+ "canonical_state": "data/progress_ledger.json",
+ "events": "data/events.ndjson",
+ "counts": {
+  "packets": 64,
+  "decisions": 0
+ },
+ "how_to_query": {
+  "one_packet": "jq '.packets[\"<packet_id>\"]' data/evidence/index.json",
+  "packet_events": "jq 'select(.packet_id==\"<packet_id>\")' data/events.ndjson",
+  "all_decisions": "cat data/decisions/decisions.ndjsonl",
+  "note": "historical evidence is from its time; the ledger history_tail above carries each packet's later disposition (retried / dead-lettered / merged / …)"
+ },
+ "packets": {
+  "parent-033c6e0c1004afc40e21cb20a81a75df20ba99acf897e362": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "worker",
+   "task_name": "Native计数复核",
+   "manifest_id": "p0-sustained-final-review-20260814",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-033c6e0c1004afc40e21cb20a81a75df20ba99acf897e362-a0-ad1952d14fd34e4ba7c9b50c6c6638f7",
+   "history_tail": [
+    {
+     "ts": 1786686044.0366924,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786686441.492647,
+     "to": "REPORTED",
+     "via": "subagent_stop"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786686441.492647,
+    "to": "REPORTED",
+    "via": "subagent_stop"
+   },
+   "report": "data/reports/parent-033c6e0c1004afc40e21cb20a81a75df20ba99acf897e362/report.json"
+  },
+  "parent-03fdf32428fa9264abe7d4e985e11100dc23b7716e915f91": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "verifier",
+   "task_name": "Importer幂等复核",
+   "manifest_id": "p0-sustained-final-review-20260814",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-03fdf32428fa9264abe7d4e985e11100dc23b7716e915f91-a0-5cb39c941dbf41be9257ffbcf9765b05",
+   "history_tail": [
+    {
+     "ts": 1786686121.009653,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786686325.8373322,
+     "to": "REPORTED",
+     "via": "subagent_stop"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786686325.8373322,
+    "to": "REPORTED",
+    "via": "subagent_stop"
+   },
+   "report": "data/reports/parent-03fdf32428fa9264abe7d4e985e11100dc23b7716e915f91/report.json"
+  },
+  "parent-06741de82258d748925145896b0f4ecdf2118b70b4cee60e": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "worker",
+   "task_name": "发布完整性复核",
+   "manifest_id": "p0-sustained-final-review-20260814",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-06741de82258d748925145896b0f4ecdf2118b70b4cee60e-a0-18f377bd69534e37af86bdcba7d7fd7f",
+   "history_tail": [
+    {
+     "ts": 1786686044.0367982,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786686541.81194,
+     "to": "REPORTED",
+     "via": "subagent_stop"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786686541.81194,
+    "to": "REPORTED",
+    "via": "subagent_stop"
+   },
+   "report": "data/reports/parent-06741de82258d748925145896b0f4ecdf2118b70b4cee60e/report.json"
+  },
+  "parent-073b8e0554753b449481e532b02a6301b3e5b3346d63aec1": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "worker",
+   "task_name": "生命周期触发链复验",
+   "manifest_id": "loop-recovery-audit-20260813",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-073b8e0554753b449481e532b02a6301b3e5b3346d63aec1-a0-92ed53868774484eafe98715c1295506",
+   "history_tail": [
+    {
+     "ts": 1786567433.2773428,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567433.3552792,
+     "to": "DEAD_LETTER",
+     "via": "stale_run_id_ignored"
+    },
+    {
+     "ts": 1786567433.3553154,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567433.414214,
+     "to": "DEAD_LETTER",
+     "via": "stale_run_id_ignored"
+    },
+    {
+     "ts": 1786567433.414258,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567676.862635,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567705.8904402,
+     "to": "FAILED",
+     "via": "recover_historical_replay_incident"
+    },
+    {
+     "ts": 1786567984.9066777,
+     "to": "REPORTED",
+     "via": "repair_plain_parent_report"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786567984.9066777,
+    "to": "REPORTED",
+    "via": "repair_plain_parent_report"
+   },
+   "report": "data/reports/parent-073b8e0554753b449481e532b02a6301b3e5b3346d63aec1/report.json",
+   "prior_attempts": [
+    "data/reports/parent-073b8e0554753b449481e532b02a6301b3e5b3346d63aec1/previous/preexisting-1786567077734.json",
+    "data/reports/parent-073b8e0554753b449481e532b02a6301b3e5b3346d63aec1/previous/preexisting-1786567267579.json"
+   ]
+  },
+  "parent-08ce88879ae9b746e99035524ab031a690516633f3612734": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "verifier",
+   "task_name": "最终旧包隔离回读",
+   "manifest_id": "p0-parent-final-backlog-20260814",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-08ce88879ae9b746e99035524ab031a690516633f3612734-a0-870e64cf25514e78b6c9cc1b93144549",
+   "history_tail": [
+    {
+     "ts": 1786686541.8106706,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786686783.109671,
+     "to": "REPORTED",
+     "via": "subagent_stop"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786686783.109671,
+    "to": "REPORTED",
+    "via": "subagent_stop"
+   },
+   "report": "data/reports/parent-08ce88879ae9b746e99035524ab031a690516633f3612734/report.json"
+  },
+  "parent-09861641b1a75613703a8ac312233a6327d48a29b860cdea": {
+   "state": "DEAD_LETTER",
+   "attempts": 1,
+   "role": "verifier",
+   "task_name": "K3基线偏差审核",
+   "manifest_id": "auto-refill-proof-20260813",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-09861641b1a75613703a8ac312233a6327d48a29b860cdea-a1-2e9b861be395445aacddfd6b59a58f2a",
+   "history_tail": [
+    {
+     "ts": 1786568822.1548595,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786570494.5844939,
+     "to": "TIMED_OUT",
+     "via": "timeout"
+    },
+    {
+     "ts": 1786570494.7887237,
+     "to": "DISPATCHABLE",
+     "via": "retry_dispatch"
+    },
+    {
+     "ts": 1786570694.4998298,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786572493.0676448,
+     "to": "TIMED_OUT",
+     "via": "timeout"
+    },
+    {
+     "ts": 1786572493.2089832,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786572493.2089832,
+    "to": "DEAD_LETTER",
+    "via": "off_table_event"
+   },
+   "dead_letter": {
+    "path": "data/dead_letters/parent-09861641b1a75613703a8ac312233a6327d48a29b860cdea.json",
+    "reason": "off_table_event",
+    "ts": 1786572493.2090585
+   },
+   "duty_review": "data/duty_review/parent-09861641b1a75613703a8ac312233a6327d48a29b860cdea.json",
+   "sol_wake": [
+    "data/sol_wake/1786572493_parent-09861641b1a75613703a8ac312233a6327d48a29b860cdea.md"
+   ]
+  },
+  "parent-0b3a3a485fbea9ac6c4869ff7d96cddc34d308d1766a11ee": {
+   "state": "DEAD_LETTER",
+   "attempts": 1,
+   "role": "verifier",
+   "task_name": "K3 对抗式补位审计",
+   "manifest_id": "loop-recovery-audit-20260813",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-0b3a3a485fbea9ac6c4869ff7d96cddc34d308d1766a11ee-a1-b2650aaeb85b4bda8a653528e166d623",
+   "history_tail": [
+    {
+     "ts": 1786567432.9685197,
+     "to": "DEAD_LETTER",
+     "via": "stale_run_id_ignored"
+    },
+    {
+     "ts": 1786567433.3822997,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567705.890457,
+     "to": "RUNNING",
+     "via": "recover_historical_replay_incident"
+    },
+    {
+     "ts": 1786569133.788731,
+     "to": "TIMED_OUT",
+     "via": "timeout"
+    },
+    {
+     "ts": 1786569921.8637395,
+     "to": "DISPATCHABLE",
+     "via": "retry_dispatch"
+    },
+    {
+     "ts": 1786570190.091971,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786571987.381752,
+     "to": "TIMED_OUT",
+     "via": "timeout"
+    },
+    {
+     "ts": 1786571987.513587,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786571987.513587,
+    "to": "DEAD_LETTER",
+    "via": "off_table_event"
+   },
+   "dead_letter": {
+    "path": "data/dead_letters/parent-0b3a3a485fbea9ac6c4869ff7d96cddc34d308d1766a11ee.json",
+    "reason": "off_table_event",
+    "ts": 1786571987.513678
+   },
+   "duty_review": "data/duty_review/parent-0b3a3a485fbea9ac6c4869ff7d96cddc34d308d1766a11ee.json",
+   "sol_wake": [
+    "data/sol_wake/1786571987_parent-0b3a3a485fbea9ac6c4869ff7d96cddc34d308d1766a11ee.md"
+   ]
+  },
+  "parent-0bbb1c06c4fc3ad5a38979031e7b20f8419dc1929044510b": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "verifier",
+   "task_name": "8765父表复核",
+   "manifest_id": "p0-sustained-final-review-20260814",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-0bbb1c06c4fc3ad5a38979031e7b20f8419dc1929044510b-a0-bfa8409d45f8425eb707f3793c75f382",
+   "history_tail": [
+    {
+     "ts": 1786686141.3743236,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786686484.0111222,
+     "to": "REPORTED",
+     "via": "subagent_stop"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786686484.0111222,
+    "to": "REPORTED",
+    "via": "subagent_stop"
+   },
+   "report": "data/reports/parent-0bbb1c06c4fc3ad5a38979031e7b20f8419dc1929044510b/report.json"
+  },
+  "parent-190f79994c2bf914a0ea3552523cee51f10e7bf63de75c3d": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "worker",
+   "task_name": "回归套件结果复验",
+   "manifest_id": "auto-refill-proof-20260813",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-190f79994c2bf914a0ea3552523cee51f10e7bf63de75c3d-a0-b6937b34152741fc84baf21f969f194c",
+   "history_tail": [
+    {
+     "ts": 1786568822.155013,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786569097.9905682,
+     "to": "REPORTED",
+     "via": "subagent_stop"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786569097.9905682,
+    "to": "REPORTED",
+    "via": "subagent_stop"
+   },
+   "report": "data/reports/parent-190f79994c2bf914a0ea3552523cee51f10e7bf63de75c3d/report.json"
+  },
+  "parent-1e42a835aa8110ffb22a65acc79d9e5dc3953f074c472798": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "verifier",
+   "task_name": "Residual唤醒复核",
+   "manifest_id": "p0-sustained-final-review-20260814",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-1e42a835aa8110ffb22a65acc79d9e5dc3953f074c472798-a0-0e59dffc9b894015889808d7cac8cece",
+   "history_tail": [
+    {
+     "ts": 1786686150.0543993,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786686271.5384176,
+     "to": "REPORTED",
+     "via": "subagent_stop"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786686271.5384176,
+    "to": "REPORTED",
+    "via": "subagent_stop"
+   },
+   "report": "data/reports/parent-1e42a835aa8110ffb22a65acc79d9e5dc3953f074c472798/report.json"
+  },
+  "parent-22aebdf2be11a48dbb131af84b29ee682e6e926234066196": {
+   "state": "DEAD_LETTER",
+   "attempts": 1,
+   "role": "verifier",
+   "task_name": "K3持续补位链审计",
+   "manifest_id": "auto-refill-proof-20260813",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-22aebdf2be11a48dbb131af84b29ee682e6e926234066196-a1-38d98be2c72042bb9aebdc5ddc90b9d9",
+   "history_tail": [
+    {
+     "ts": 1786568822.1551278,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786570496.7132392,
+     "to": "TIMED_OUT",
+     "via": "timeout"
+    },
+    {
+     "ts": 1786570496.907133,
+     "to": "DISPATCHABLE",
+     "via": "retry_dispatch"
+    },
+    {
+     "ts": 1786570694.4998868,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786572494.639596,
+     "to": "TIMED_OUT",
+     "via": "timeout"
+    },
+    {
+     "ts": 1786572494.7653844,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786572494.7653844,
+    "to": "DEAD_LETTER",
+    "via": "off_table_event"
+   },
+   "dead_letter": {
+    "path": "data/dead_letters/parent-22aebdf2be11a48dbb131af84b29ee682e6e926234066196.json",
+    "reason": "off_table_event",
+    "ts": 1786572494.7654488
+   },
+   "duty_review": "data/duty_review/parent-22aebdf2be11a48dbb131af84b29ee682e6e926234066196.json",
+   "sol_wake": [
+    "data/sol_wake/1786572494_parent-22aebdf2be11a48dbb131af84b29ee682e6e926234066196.md"
+   ]
+  },
+  "parent-260b3e0d1cb1d10da6ed11a43c04178345d8898ee257b2bd": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "verifier",
+   "task_name": "Observer去重复核",
+   "manifest_id": "p0-sustained-final-review-20260814",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-260b3e0d1cb1d10da6ed11a43c04178345d8898ee257b2bd-a0-489b35f0518f4352b44f5fcfc8bb5dae",
+   "history_tail": [
+    {
+     "ts": 1786686150.0544677,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786686501.9610906,
+     "to": "REPORTED",
+     "via": "subagent_stop"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786686501.9610906,
+    "to": "REPORTED",
+    "via": "subagent_stop"
+   },
+   "report": "data/reports/parent-260b3e0d1cb1d10da6ed11a43c04178345d8898ee257b2bd/report.json"
+  },
+  "parent-27bb0f1c73dd82b71270c14d9a2b471316d023496df9a4c7": {
+   "state": "DEAD_LETTER",
+   "attempts": 1,
+   "role": "verifier",
+   "task_name": "K3 父停止安全审计",
+   "manifest_id": "loop-recovery-audit-20260813",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-27bb0f1c73dd82b71270c14d9a2b471316d023496df9a4c7-a1-09e0c8ec1b4242b084dce51b9ef6d2b6",
+   "history_tail": [
+    {
+     "ts": 1786567432.973528,
+     "to": "DEAD_LETTER",
+     "via": "stale_run_id_ignored"
+    },
+    {
+     "ts": 1786567433.3873732,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567705.8904622,
+     "to": "RUNNING",
+     "via": "recover_historical_replay_incident"
+    },
+    {
+     "ts": 1786569134.9631412,
+     "to": "TIMED_OUT",
+     "via": "timeout"
+    },
+    {
+     "ts": 1786569921.8658125,
+     "to": "DISPATCHABLE",
+     "via": "retry_dispatch"
+    },
+    {
+     "ts": 1786570190.0920966,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786571988.5791805,
+     "to": "TIMED_OUT",
+     "via": "timeout"
+    },
+    {
+     "ts": 1786571988.7057695,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786571988.7057695,
+    "to": "DEAD_LETTER",
+    "via": "off_table_event"
+   },
+   "dead_letter": {
+    "path": "data/dead_letters/parent-27bb0f1c73dd82b71270c14d9a2b471316d023496df9a4c7.json",
+    "reason": "off_table_event",
+    "ts": 1786571988.70584
+   },
+   "duty_review": "data/duty_review/parent-27bb0f1c73dd82b71270c14d9a2b471316d023496df9a4c7.json",
+   "sol_wake": [
+    "data/sol_wake/1786571988_parent-27bb0f1c73dd82b71270c14d9a2b471316d023496df9a4c7.md"
+   ]
+  },
+  "parent-2dc2ec6016a4479f121e2d84d250ee9da942153fe09d46bd": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "worker",
+   "task_name": "Parent停用复核",
+   "manifest_id": "p0-sustained-final-review-20260814",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-2dc2ec6016a4479f121e2d84d250ee9da942153fe09d46bd-a0-b0ae9344c0de4125a650202a39b196ed",
+   "history_tail": [
+    {
+     "ts": 1786686044.037058,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786686413.4578469,
+     "to": "REPORTED",
+     "via": "subagent_stop"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786686413.4578469,
+    "to": "REPORTED",
+    "via": "subagent_stop"
+   },
+   "report": "data/reports/parent-2dc2ec6016a4479f121e2d84d250ee9da942153fe09d46bd/report.json"
+  },
+  "parent-2ed1187bc8f3a38fe0588a42b6a97aefd4d73f4a21b11c46": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "worker",
+   "task_name": "Importer schema复验",
+   "manifest_id": "auto-refill-proof-20260813",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-2ed1187bc8f3a38fe0588a42b6a97aefd4d73f4a21b11c46-a0-bf772b92c3dc487ba3d2ba85d1dbc3da",
+   "history_tail": [
+    {
+     "ts": 1786568822.1552398,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786568832.3870454,
+     "to": "REPORTED",
+     "via": "subagent_stop"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786568832.3870454,
+    "to": "REPORTED",
+    "via": "subagent_stop"
+   },
+   "report": "data/reports/parent-2ed1187bc8f3a38fe0588a42b6a97aefd4d73f4a21b11c46/report.json"
+  },
+  "parent-2f736dfc6e3453605d8d2e7dfd6b18e5feb56a8bbcb878ca": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "verifier",
+   "task_name": "最终页面回读",
+   "manifest_id": "p0-parent-final-backlog-20260814",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-2f736dfc6e3453605d8d2e7dfd6b18e5feb56a8bbcb878ca-a0-800555f20d364dc69123c203289ce1a8",
+   "history_tail": [
+    {
+     "ts": 1786686541.8107638,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786686699.9014003,
+     "to": "REPORTED",
+     "via": "subagent_stop"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786686699.9014003,
+    "to": "REPORTED",
+    "via": "subagent_stop"
+   },
+   "report": "data/reports/parent-2f736dfc6e3453605d8d2e7dfd6b18e5feb56a8bbcb878ca/report.json"
+  },
+  "parent-31e2415bc7dd44088032a452c4dca8d0887e7e40b5056ac7": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "verifier",
+   "task_name": "Importer目标上限复核",
+   "manifest_id": "p0-sustained-final-review-20260814",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-31e2415bc7dd44088032a452c4dca8d0887e7e40b5056ac7-a0-7ef50ebbea9d48eea999f2eaf0d47792",
+   "history_tail": [
+    {
+     "ts": 1786686150.0545397,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786686332.6401184,
+     "to": "REPORTED",
+     "via": "subagent_stop"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786686332.6401184,
+    "to": "REPORTED",
+    "via": "subagent_stop"
+   },
+   "report": "data/reports/parent-31e2415bc7dd44088032a452c4dca8d0887e7e40b5056ac7/report.json"
+  },
+  "parent-3bb45433bd1465aadf071475ff598a902536239764871cbd": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "worker",
+   "task_name": "控制器真值复验",
+   "manifest_id": "auto-refill-proof-20260813",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-3bb45433bd1465aadf071475ff598a902536239764871cbd-a0-e1c718bd77154bfcb3226628f2e891c8",
+   "history_tail": [
+    {
+     "ts": 1786568822.155278,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786568822.1577258,
+     "to": "REPORTED",
+     "via": "subagent_stop"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786568822.1577258,
+    "to": "REPORTED",
+    "via": "subagent_stop"
+   },
+   "report": "data/reports/parent-3bb45433bd1465aadf071475ff598a902536239764871cbd/report.json"
+  },
+  "parent-3d18f03a13d3aac738ad892d6e6b89b249ddd7b297987bc2": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "worker",
+   "task_name": "事件命名空间复验",
+   "manifest_id": "loop-recovery-audit-20260813",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-3d18f03a13d3aac738ad892d6e6b89b249ddd7b297987bc2-a0-c08adeeb9b6c4fee99ce832d6a658037",
+   "history_tail": [
+    {
+     "ts": 1786567433.1195922,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567433.1246827,
+     "to": "DEAD_LETTER",
+     "via": "stale_run_id_ignored"
+    },
+    {
+     "ts": 1786567433.1989467,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567433.3112724,
+     "to": "DEAD_LETTER",
+     "via": "stale_run_id_ignored"
+    },
+    {
+     "ts": 1786567433.316759,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567646.5541632,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567705.8908274,
+     "to": "FAILED",
+     "via": "recover_historical_replay_incident"
+    },
+    {
+     "ts": 1786567984.9086416,
+     "to": "REPORTED",
+     "via": "repair_plain_parent_report"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786567984.9086416,
+    "to": "REPORTED",
+    "via": "repair_plain_parent_report"
+   },
+   "report": "data/reports/parent-3d18f03a13d3aac738ad892d6e6b89b249ddd7b297987bc2/report.json",
+   "prior_attempts": [
+    "data/reports/parent-3d18f03a13d3aac738ad892d6e6b89b249ddd7b297987bc2/previous/preexisting-1786567127784.json"
+   ]
+  },
+  "parent-3de85804c3824e463e8a6d31f5d40f059881cfafac7b4376": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "worker",
+   "task_name": "Terminal唤醒复核",
+   "manifest_id": "p0-sustained-final-review-20260814",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-3de85804c3824e463e8a6d31f5d40f059881cfafac7b4376-a0-c43006f83705468ebe52b68dda440f95",
+   "history_tail": [
+    {
+     "ts": 1786686044.0371187,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786686364.054912,
+     "to": "REPORTED",
+     "via": "subagent_stop"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786686364.054912,
+    "to": "REPORTED",
+    "via": "subagent_stop"
+   },
+   "report": "data/reports/parent-3de85804c3824e463e8a6d31f5d40f059881cfafac7b4376/report.json"
+  },
+  "parent-482f1a5b5418a9a3b3d10557ec6c83fa1125d11b0739cd9d": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "worker",
+   "task_name": "终态轻事务测试复验",
+   "manifest_id": "auto-refill-proof-20260813",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-482f1a5b5418a9a3b3d10557ec6c83fa1125d11b0739cd9d-a0-0c22a43888db463984064bb30e4cf38a",
+   "history_tail": [
+    {
+     "ts": 1786568822.1553729,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786569029.307242,
+     "to": "REPORTED",
+     "via": "subagent_stop"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786569029.307242,
+    "to": "REPORTED",
+    "via": "subagent_stop"
+   },
+   "report": "data/reports/parent-482f1a5b5418a9a3b3d10557ec6c83fa1125d11b0739cd9d/report.json"
+  },
+  "parent-496560e1632ee4d5d18cfb7a88f5d1775e08450cf8b7b761": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "worker",
+   "task_name": "事故恢复证据复验",
+   "manifest_id": "auto-refill-proof-20260813",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-496560e1632ee4d5d18cfb7a88f5d1775e08450cf8b7b761-a0-ffdc15fbfdcc45adbe953ab40ae00ab5",
+   "history_tail": [
+    {
+     "ts": 1786568822.1554856,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786568902.7690468,
+     "to": "REPORTED",
+     "via": "subagent_stop"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786568902.7690468,
+    "to": "REPORTED",
+    "via": "subagent_stop"
+   },
+   "report": "data/reports/parent-496560e1632ee4d5d18cfb7a88f5d1775e08450cf8b7b761/report.json"
+  },
+  "parent-4ac51d21f5c20bd28b5ddb3763a6ad21dbd655aab7898bae": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "worker",
+   "task_name": "事故账本修复复验",
+   "manifest_id": "loop-recovery-audit-20260813",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-4ac51d21f5c20bd28b5ddb3763a6ad21dbd655aab7898bae-a0-b07348c27ec544c489274ff21ac402eb",
+   "history_tail": [
+    {
+     "ts": 1786567433.1247287,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567433.1294696,
+     "to": "DEAD_LETTER",
+     "via": "stale_run_id_ignored"
+    },
+    {
+     "ts": 1786567433.2036395,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567433.277141,
+     "to": "DEAD_LETTER",
+     "via": "stale_run_id_ignored"
+    },
+    {
+     "ts": 1786567433.2828984,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567433.4340353,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567705.8910074,
+     "to": "FAILED",
+     "via": "recover_historical_replay_incident"
+    },
+    {
+     "ts": 1786567984.9105067,
+     "to": "REPORTED",
+     "via": "repair_plain_parent_report"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786567984.9105067,
+    "to": "REPORTED",
+    "via": "repair_plain_parent_report"
+   },
+   "report": "data/reports/parent-4ac51d21f5c20bd28b5ddb3763a6ad21dbd655aab7898bae/report.json",
+   "prior_attempts": [
+    "data/reports/parent-4ac51d21f5c20bd28b5ddb3763a6ad21dbd655aab7898bae/previous/preexisting-1786567078796.json"
+   ]
+  },
+  "parent-511f7f45176c44f1ef4cca73112d26eab42cc9987e17cd16": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "worker",
+   "task_name": "机械补位Consumer终验",
+   "manifest_id": "p0-live-refill-proof-20260814-1338",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-511f7f45176c44f1ef4cca73112d26eab42cc9987e17cd16-a0-9585a03adb1a47959d13c6acf9a2a0cb",
+   "history_tail": [
+    {
+     "ts": 1786685781.4246993,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786686082.5487552,
+     "to": "REPORTED",
+     "via": "subagent_stop"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786686082.5487552,
+    "to": "REPORTED",
+    "via": "subagent_stop"
+   },
+   "report": "data/reports/parent-511f7f45176c44f1ef4cca73112d26eab42cc9987e17cd16/report.json"
+  },
+  "parent-541ef2516651df6062d9d460e2c6ab60ac324db3b814dddc": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "worker",
+   "task_name": "权威代际复验",
+   "manifest_id": "auto-refill-proof-20260813",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-541ef2516651df6062d9d460e2c6ab60ac324db3b814dddc-a0-65f1270a4245476086cafa78a4e0d42d",
+   "history_tail": [
+    {
+     "ts": 1786568822.1556275,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786568928.8197515,
+     "to": "REPORTED",
+     "via": "subagent_stop"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786568928.8197515,
+    "to": "REPORTED",
+    "via": "subagent_stop"
+   },
+   "report": "data/reports/parent-541ef2516651df6062d9d460e2c6ab60ac324db3b814dddc/report.json"
+  },
+  "parent-5690d8d30d3898583fe7eb669bfe83121c4e29540957f742": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "verifier",
+   "task_name": "Starting不清债复核",
+   "manifest_id": "p0-sustained-final-review-20260814",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-5690d8d30d3898583fe7eb669bfe83121c4e29540957f742-a0-02aa1f43c3a844f483e3c5d7646d948c",
+   "history_tail": [
+    {
+     "ts": 1786686214.425476,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786686518.4085405,
+     "to": "REPORTED",
+     "via": "subagent_stop"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786686518.4085405,
+    "to": "REPORTED",
+    "via": "subagent_stop"
+   },
+   "report": "data/reports/parent-5690d8d30d3898583fe7eb669bfe83121c4e29540957f742/report.json"
+  },
+  "parent-6248856aa80395f22fcf028d6c925f9c9702c2cd540acbbc": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "verifier",
+   "task_name": "最终父债务状态回读",
+   "manifest_id": "p0-parent-final-backlog-20260814",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-6248856aa80395f22fcf028d6c925f9c9702c2cd540acbbc-a0-c036c0d083ad4e43bac7d3ac993f7e75",
+   "history_tail": [
+    {
+     "ts": 1786686541.810852,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786686679.2987483,
+     "to": "REPORTED",
+     "via": "subagent_stop"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786686679.2987483,
+    "to": "REPORTED",
+    "via": "subagent_stop"
+   },
+   "report": "data/reports/parent-6248856aa80395f22fcf028d6c925f9c9702c2cd540acbbc/report.json"
+  },
+  "parent-6249a9c80b217b551ef0f0961c3c235effb4f733cd14823f": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "verifier",
+   "task_name": "最终双面部署回读",
+   "manifest_id": "p0-parent-final-backlog-20260814",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-6249a9c80b217b551ef0f0961c3c235effb4f733cd14823f-a0-650df452c3fb4a2a87fb696ce104b324",
+   "history_tail": [
+    {
+     "ts": 1786686541.8109765,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786687198.0670404,
+     "to": "REPORTED",
+     "via": "subagent_stop"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786687198.0670404,
+    "to": "REPORTED",
+    "via": "subagent_stop"
+   },
+   "report": "data/reports/parent-6249a9c80b217b551ef0f0961c3c235effb4f733cd14823f/report.json"
+  },
+  "parent-6a2bf234788a10cdec092fbbc65c8c91819c149b37aa9de4": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "worker",
+   "task_name": "模型显式路由复验",
+   "manifest_id": "loop-recovery-audit-20260813",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-6a2bf234788a10cdec092fbbc65c8c91819c149b37aa9de4-a0-9aeba87336e4432888f7e007d9236045",
+   "history_tail": [
+    {
+     "ts": 1786567433.2772279,
+     "to": "DEAD_LETTER",
+     "via": "stale_run_id_ignored"
+    },
+    {
+     "ts": 1786567433.2883673,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567433.2941082,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567433.3710117,
+     "to": "DEAD_LETTER",
+     "via": "stale_run_id_ignored"
+    },
+    {
+     "ts": 1786567433.371074,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567508.016896,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567705.8911972,
+     "to": "FAILED",
+     "via": "recover_historical_replay_incident"
+    },
+    {
+     "ts": 1786567984.9123201,
+     "to": "REPORTED",
+     "via": "repair_plain_parent_report"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786567984.9123201,
+    "to": "REPORTED",
+    "via": "repair_plain_parent_report"
+   },
+   "report": "data/reports/parent-6a2bf234788a10cdec092fbbc65c8c91819c149b37aa9de4/report.json",
+   "prior_attempts": [
+    "data/reports/parent-6a2bf234788a10cdec092fbbc65c8c91819c149b37aa9de4/previous/preexisting-1786567079848.json",
+    "data/reports/parent-6a2bf234788a10cdec092fbbc65c8c91819c149b37aa9de4/previous/preexisting-1786567277545.json"
+   ]
+  },
+  "parent-6cb0f5dd7378e5f8695d85399aeffddc4cbe38c3e7bd332d": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "verifier",
+   "task_name": "Consumer公平复核",
+   "manifest_id": "p0-sustained-final-review-20260814",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-6cb0f5dd7378e5f8695d85399aeffddc4cbe38c3e7bd332d-a0-8105c4338fad4e0bb6d4de2b00024552",
+   "history_tail": [
+    {
+     "ts": 1786686272.695897,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786686605.0720937,
+     "to": "REPORTED",
+     "via": "subagent_stop"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786686605.0720937,
+    "to": "REPORTED",
+    "via": "subagent_stop"
+   },
+   "report": "data/reports/parent-6cb0f5dd7378e5f8695d85399aeffddc4cbe38c3e7bd332d/report.json"
+  },
+  "parent-6f1d14260e3d45a055ea180a95608c047106a584dc470220": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "worker",
+   "task_name": "Windows PID存活复验",
+   "manifest_id": "auto-refill-proof-20260813",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-6f1d14260e3d45a055ea180a95608c047106a584dc470220-a0-460d98aef4894daab0490dddec21ab19",
+   "history_tail": [
+    {
+     "ts": 1786568822.1557622,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786568848.3360791,
+     "to": "REPORTED",
+     "via": "subagent_stop"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786568848.3360791,
+    "to": "REPORTED",
+    "via": "subagent_stop"
+   },
+   "report": "data/reports/parent-6f1d14260e3d45a055ea180a95608c047106a584dc470220/report.json"
+  },
+  "parent-6fa91ab88baab83dd1829f6489ce2dfdc742f8c6f20e4bb5": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "worker",
+   "task_name": "Consumer身份复核",
+   "manifest_id": "p0-sustained-final-review-20260814",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-6fa91ab88baab83dd1829f6489ce2dfdc742f8c6f20e4bb5-a0-6851d7421ed043b4bfce2124c068886f",
+   "history_tail": [
+    {
+     "ts": 1786686044.0371704,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786686212.9980555,
+     "to": "REPORTED",
+     "via": "subagent_stop"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786686212.9980555,
+    "to": "REPORTED",
+    "via": "subagent_stop"
+   },
+   "report": "data/reports/parent-6fa91ab88baab83dd1829f6489ce2dfdc742f8c6f20e4bb5/report.json"
+  },
+  "parent-7510271a1651bcd3cfbbea64be94d168c3b52ae1432e413d": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "worker",
+   "task_name": "出生前失败债务复验",
+   "manifest_id": "auto-refill-proof-20260813",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-7510271a1651bcd3cfbbea64be94d168c3b52ae1432e413d-a0-924573bc2cdf41a4928b1607efe13360",
+   "history_tail": [
+    {
+     "ts": 1786568822.1559534,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786568942.6587298,
+     "to": "REPORTED",
+     "via": "subagent_stop"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786568942.6587298,
+    "to": "REPORTED",
+    "via": "subagent_stop"
+   },
+   "report": "data/reports/parent-7510271a1651bcd3cfbbea64be94d168c3b52ae1432e413d/report.json"
+  },
+  "parent-7a103429d908faf6532b0c3a64db8f6a86c9747aec21ad34": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "verifier",
+   "task_name": "Queue父维度复核",
+   "manifest_id": "p0-sustained-final-review-20260814",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-7a103429d908faf6532b0c3a64db8f6a86c9747aec21ad34-a0-a4747d989029498abd12619ea44fca34",
+   "history_tail": [
+    {
+     "ts": 1786686293.3979127,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786686463.0690804,
+     "to": "REPORTED",
+     "via": "subagent_stop"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786686463.0690804,
+    "to": "REPORTED",
+    "via": "subagent_stop"
+   },
+   "report": "data/reports/parent-7a103429d908faf6532b0c3a64db8f6a86c9747aec21ad34/report.json"
+  },
+  "parent-7e705a36d4431be17cf0c0109eadb5c015dc1d4cd52945c7": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "worker",
+   "task_name": "容量拒绝事件复验",
+   "manifest_id": "auto-refill-proof-20260813",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-7e705a36d4431be17cf0c0109eadb5c015dc1d4cd52945c7-a0-81e9a02f9e604eac9771dbb0fb2e9181",
+   "history_tail": [
+    {
+     "ts": 1786568822.1560616,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786569120.3722277,
+     "to": "REPORTED",
+     "via": "subagent_stop"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786569120.3722277,
+    "to": "REPORTED",
+    "via": "subagent_stop"
+   },
+   "report": "data/reports/parent-7e705a36d4431be17cf0c0109eadb5c015dc1d4cd52945c7/report.json"
+  },
+  "parent-8854a83c3a037dfdbdf3e7785055af728bfd9d957134b775": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "worker",
+   "task_name": "最终交付反证回读",
+   "manifest_id": "p0-parent-final-backlog-20260814",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-8854a83c3a037dfdbdf3e7785055af728bfd9d957134b775-a0-4e37fe2828924cecba066006d3c8e4c5",
+   "history_tail": [
+    {
+     "ts": 1786686541.8110478,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786686699.1980362,
+     "to": "REPORTED",
+     "via": "subagent_stop"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786686699.1980362,
+    "to": "REPORTED",
+    "via": "subagent_stop"
+   },
+   "report": "data/reports/parent-8854a83c3a037dfdbdf3e7785055af728bfd9d957134b775/report.json"
+  },
+  "parent-88d29579ff8e169c9a90861bf8fc161453070de4114d6f31": {
+   "state": "DEAD_LETTER",
+   "attempts": 0,
+   "role": "reviewer",
+   "task_name": "K3自动补位发布门",
+   "manifest_id": "auto-refill-proof-20260813",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-88d29579ff8e169c9a90861bf8fc161453070de4114d6f31-a0-691f9fd70cb548f2868e72c18fd95ff5",
+   "history_tail": [
+    {
+     "ts": 1786568822.156184,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786570506.623963,
+     "to": "TIMED_OUT",
+     "via": "timeout"
+    },
+    {
+     "ts": 1786570506.807736,
+     "to": "DEAD_LETTER",
+     "via": "budget_exhausted"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786570506.807736,
+    "to": "DEAD_LETTER",
+    "via": "budget_exhausted"
+   },
+   "dead_letter": {
+    "path": "data/dead_letters/parent-88d29579ff8e169c9a90861bf8fc161453070de4114d6f31.json",
+    "reason": "budget_exhausted",
+    "ts": 1786570506.7834384
+   }
+  },
+  "parent-890ad8d4e7f2a8b1d3108a73a2c5f531fb49d48a37f1aedf": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "worker",
+   "task_name": "UI余量债务复验",
+   "manifest_id": "auto-refill-proof-20260813",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-890ad8d4e7f2a8b1d3108a73a2c5f531fb49d48a37f1aedf-a0-93d4d3487e514efc96ae1fe045989155",
+   "history_tail": [
+    {
+     "ts": 1786568822.1562655,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786568859.789016,
+     "to": "REPORTED",
+     "via": "subagent_stop"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786568859.789016,
+    "to": "REPORTED",
+    "via": "subagent_stop"
+   },
+   "report": "data/reports/parent-890ad8d4e7f2a8b1d3108a73a2c5f531fb49d48a37f1aedf/report.json"
+  },
+  "parent-8ad44ad0b517a5b2ede9444b99f2ab5461ea3f229cc038b3": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "worker",
+   "task_name": "ipybox 承载边界复验",
+   "manifest_id": "loop-recovery-audit-20260813",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-8ad44ad0b517a5b2ede9444b99f2ab5461ea3f229cc038b3-a0-caa729790a9e4738ba99b0ee95cafb93",
+   "history_tail": [
+    {
+     "ts": 1786567433.2136135,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567433.3045824,
+     "to": "DEAD_LETTER",
+     "via": "stale_run_id_ignored"
+    },
+    {
+     "ts": 1786567433.3046281,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567433.3653986,
+     "to": "DEAD_LETTER",
+     "via": "stale_run_id_ignored"
+    },
+    {
+     "ts": 1786567433.3654373,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567452.9527614,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567705.891383,
+     "to": "FAILED",
+     "via": "recover_historical_replay_incident"
+    },
+    {
+     "ts": 1786567984.914163,
+     "to": "REPORTED",
+     "via": "repair_plain_parent_report"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786567984.914163,
+    "to": "REPORTED",
+    "via": "repair_plain_parent_report"
+   },
+   "report": "data/reports/parent-8ad44ad0b517a5b2ede9444b99f2ab5461ea3f229cc038b3/report.json",
+   "prior_attempts": [
+    "data/reports/parent-8ad44ad0b517a5b2ede9444b99f2ab5461ea3f229cc038b3/previous/preexisting-1786567090327.json",
+    "data/reports/parent-8ad44ad0b517a5b2ede9444b99f2ab5461ea3f229cc038b3/previous/preexisting-1786567273759.json"
+   ]
+  },
+  "parent-8c7954e45222e13f11219fc7f90cf885d5a707a9912faf38": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "worker",
+   "task_name": "Backoff唤醒复核",
+   "manifest_id": "p0-sustained-final-review-20260814",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-8c7954e45222e13f11219fc7f90cf885d5a707a9912faf38-a0-5fa0b1fe4d7d48a8b550a3d1c1ee980e",
+   "history_tail": [
+    {
+     "ts": 1786686047.2410705,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786686134.937336,
+     "to": "REPORTED",
+     "via": "subagent_stop"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786686134.937336,
+    "to": "REPORTED",
+    "via": "subagent_stop"
+   },
+   "report": "data/reports/parent-8c7954e45222e13f11219fc7f90cf885d5a707a9912faf38/report.json"
+  },
+  "parent-8d0a3b3bea01134cbfd223055dc4d67a30c56eedf7939a93": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "verifier",
+   "task_name": "机械补位Observer终验",
+   "manifest_id": "p0-live-refill-proof-20260814-1338",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-8d0a3b3bea01134cbfd223055dc4d67a30c56eedf7939a93-a0-d2236b9fb4634303833625e4af323e42",
+   "history_tail": [
+    {
+     "ts": 1786685828.2672844,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786686299.7459273,
+     "to": "REPORTED",
+     "via": "subagent_stop"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786686299.7459273,
+    "to": "REPORTED",
+    "via": "subagent_stop"
+   },
+   "report": "data/reports/parent-8d0a3b3bea01134cbfd223055dc4d67a30c56eedf7939a93/report.json"
+  },
+  "parent-920d02e22b3a395bc4f463f0020a395359a21d2496009c3a": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "verifier",
+   "task_name": "Exec进程代复核",
+   "manifest_id": "p0-sustained-final-review-20260814",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-920d02e22b3a395bc4f463f0020a395359a21d2496009c3a-a0-60932c0aa5f9469d825818a6acf4febb",
+   "history_tail": [
+    {
+     "ts": 1786686300.9697003,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786686489.1910303,
+     "to": "REPORTED",
+     "via": "subagent_stop"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786686489.1910303,
+    "to": "REPORTED",
+    "via": "subagent_stop"
+   },
+   "report": "data/reports/parent-920d02e22b3a395bc4f463f0020a395359a21d2496009c3a/report.json"
+  },
+  "parent-9336178547829260cb50b2af013cc3f12789db3fd6225bbc": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "worker",
+   "task_name": "补位消费锁复验",
+   "manifest_id": "auto-refill-proof-20260813",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-9336178547829260cb50b2af013cc3f12789db3fd6225bbc-a0-984cac5b2e5b474794f9e45197f35b83",
+   "history_tail": [
+    {
+     "ts": 1786568822.1563735,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786569015.497372,
+     "to": "REPORTED",
+     "via": "subagent_stop"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786569015.497372,
+    "to": "REPORTED",
+    "via": "subagent_stop"
+   },
+   "report": "data/reports/parent-9336178547829260cb50b2af013cc3f12789db3fd6225bbc/report.json"
+  },
+  "parent-94967141749513c8f7021493c23aa6c163006a8165e82846": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "worker",
+   "task_name": "回归测试证据复验",
+   "manifest_id": "loop-recovery-audit-20260813",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-94967141749513c8f7021493c23aa6c163006a8165e82846-a0-f6aa3814e35c4327a7bba6e842c781d2",
+   "history_tail": [
+    {
+     "ts": 1786567433.3111954,
+     "to": "DEAD_LETTER",
+     "via": "stale_run_id_ignored"
+    },
+    {
+     "ts": 1786567433.3114648,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567433.3821402,
+     "to": "DEAD_LETTER",
+     "via": "stale_run_id_ignored"
+    },
+    {
+     "ts": 1786567433.3921628,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567433.398002,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567460.84494,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567705.891551,
+     "to": "FAILED",
+     "via": "recover_historical_replay_incident"
+    },
+    {
+     "ts": 1786567984.916298,
+     "to": "REPORTED",
+     "via": "repair_plain_parent_report"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786567984.916298,
+    "to": "REPORTED",
+    "via": "repair_plain_parent_report"
+   },
+   "report": "data/reports/parent-94967141749513c8f7021493c23aa6c163006a8165e82846/report.json",
+   "prior_attempts": [
+    "data/reports/parent-94967141749513c8f7021493c23aa6c163006a8165e82846/previous/preexisting-1786567106867.json",
+    "data/reports/parent-94967141749513c8f7021493c23aa6c163006a8165e82846/previous/preexisting-1786567335288.json"
+   ]
+  },
+  "parent-956c400c8d243fbd499bd50dccd8dd6d52180adbdaa2edff": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "worker",
+   "task_name": "补位执行器合并复验",
+   "manifest_id": "loop-recovery-audit-20260813",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-956c400c8d243fbd499bd50dccd8dd6d52180adbdaa2edff-a0-1799b52ec9f44c489ab9441cfaef68a1",
+   "history_tail": [
+    {
+     "ts": 1786567433.3396792,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567433.3443215,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567433.3492854,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567433.4251246,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567433.4296186,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567683.5025396,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567705.8917184,
+     "to": "FAILED",
+     "via": "recover_historical_replay_incident"
+    },
+    {
+     "ts": 1786567984.9186478,
+     "to": "REPORTED",
+     "via": "repair_plain_parent_report"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786567984.9186478,
+    "to": "REPORTED",
+    "via": "repair_plain_parent_report"
+   },
+   "report": "data/reports/parent-956c400c8d243fbd499bd50dccd8dd6d52180adbdaa2edff/report.json",
+   "prior_attempts": [
+    "data/reports/parent-956c400c8d243fbd499bd50dccd8dd6d52180adbdaa2edff/previous/preexisting-1786566966031.json",
+    "data/reports/parent-956c400c8d243fbd499bd50dccd8dd6d52180adbdaa2edff/previous/preexisting-1786567181141.json",
+    "data/reports/parent-956c400c8d243fbd499bd50dccd8dd6d52180adbdaa2edff/previous/preexisting-1786567428070.json"
+   ]
+  },
+  "parent-9aa243d45f99231bd62d7f2f8596a17f26a044a068acd247": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "worker",
+   "task_name": "失败重试可见性复验",
+   "manifest_id": "loop-recovery-audit-20260813",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-9aa243d45f99231bd62d7f2f8596a17f26a044a068acd247-a0-94f7c19e1b7e4949b87030e7d885230a",
+   "history_tail": [
+    {
+     "ts": 1786567433.1613734,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567433.1664975,
+     "to": "DEAD_LETTER",
+     "via": "stale_run_id_ignored"
+    },
+    {
+     "ts": 1786567433.2289214,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567433.3343787,
+     "to": "DEAD_LETTER",
+     "via": "stale_run_id_ignored"
+    },
+    {
+     "ts": 1786567433.3345034,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567436.3802555,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567705.8918946,
+     "to": "FAILED",
+     "via": "recover_historical_replay_incident"
+    },
+    {
+     "ts": 1786567984.9209743,
+     "to": "REPORTED",
+     "via": "repair_plain_parent_report"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786567984.9209743,
+    "to": "REPORTED",
+    "via": "repair_plain_parent_report"
+   },
+   "report": "data/reports/parent-9aa243d45f99231bd62d7f2f8596a17f26a044a068acd247/report.json",
+   "prior_attempts": [
+    "data/reports/parent-9aa243d45f99231bd62d7f2f8596a17f26a044a068acd247/previous/preexisting-1786567173368.json"
+   ]
+  },
+  "parent-9b8227fed1e820b9d22994fec750d0394cedf8dce3e50af2": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "worker",
+   "task_name": "Importer真实backlog复核",
+   "manifest_id": "p0-sustained-final-review-20260814",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-9b8227fed1e820b9d22994fec750d0394cedf8dce3e50af2-a0-925cedb70fd04481aa2ecc915dfefb9e",
+   "history_tail": [
+    {
+     "ts": 1786686051.0855231,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786686303.0863354,
+     "to": "REPORTED",
+     "via": "subagent_stop"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786686303.0863354,
+    "to": "REPORTED",
+    "via": "subagent_stop"
+   },
+   "report": "data/reports/parent-9b8227fed1e820b9d22994fec750d0394cedf8dce3e50af2/report.json"
+  },
+  "parent-9d62ba2b8e2e26bfbed86630f72419a9b256bbd27cb60fa1": {
+   "state": "DEAD_LETTER",
+   "attempts": 0,
+   "role": "worker",
+   "task_name": "最终测试清单回读",
+   "manifest_id": "p0-parent-final-backlog-20260814",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-9d62ba2b8e2e26bfbed86630f72419a9b256bbd27cb60fa1-a0-5dfc0d832e564c7f802540c2f5cf21b7",
+   "history_tail": [
+    {
+     "ts": 1786686552.8786175,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786688344.9593997,
+     "to": "TIMED_OUT",
+     "via": "timeout"
+    },
+    {
+     "ts": 1786688345.1126094,
+     "to": "DEAD_LETTER",
+     "via": "budget_exhausted"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786688345.1126094,
+    "to": "DEAD_LETTER",
+    "via": "budget_exhausted"
+   },
+   "dead_letter": {
+    "path": "data/dead_letters/parent-9d62ba2b8e2e26bfbed86630f72419a9b256bbd27cb60fa1.json",
+    "reason": "budget_exhausted",
+    "ts": 1786688345.0958025
+   }
+  },
+  "parent-a4abfe36a67065292657b318a522c55577aae37a7de425da": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "worker",
+   "task_name": "双平面真值口径复验",
+   "manifest_id": "loop-recovery-audit-20260813",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-a4abfe36a67065292657b318a522c55577aae37a7de425da-a0-afbdb43fa86a4f34aee11e1f7406b5ea",
+   "history_tail": [
+    {
+     "ts": 1786567433.171398,
+     "to": "DEAD_LETTER",
+     "via": "stale_run_id_ignored"
+    },
+    {
+     "ts": 1786567433.2346895,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567433.2400115,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567433.3709657,
+     "to": "DEAD_LETTER",
+     "via": "stale_run_id_ignored"
+    },
+    {
+     "ts": 1786567433.376524,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567705.891901,
+     "to": "RUNNING",
+     "via": "recover_historical_replay_incident"
+    },
+    {
+     "ts": 1786567828.2582982,
+     "to": "DEAD_LETTER",
+     "via": "report_missing_on_stop"
+    },
+    {
+     "ts": 1786567984.923076,
+     "to": "REPORTED",
+     "via": "repair_plain_parent_report"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786567984.923076,
+    "to": "REPORTED",
+    "via": "repair_plain_parent_report"
+   },
+   "report": "data/reports/parent-a4abfe36a67065292657b318a522c55577aae37a7de425da/report.json",
+   "prior_attempts": [
+    "data/reports/parent-a4abfe36a67065292657b318a522c55577aae37a7de425da/previous/preexisting-1786567278618.json"
+   ],
+   "dead_letter": {
+    "path": "data/dead_letters/parent-a4abfe36a67065292657b318a522c55577aae37a7de425da.json",
+    "reason": "report_missing_on_stop",
+    "ts": 1786567828.2583718
+   },
+   "sol_wake": [
+    "data/sol_wake/1786567828_parent-a4abfe36a67065292657b318a522c55577aae37a7de425da.md"
+   ]
+  },
+  "parent-afc120497f27d2705abf2a34855dd9fb0fcdbffc21cd926f": {
+   "state": "DEAD_LETTER",
+   "attempts": 1,
+   "role": "verifier",
+   "task_name": "K3 路由发布复核",
+   "manifest_id": "loop-recovery-audit-20260813",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-afc120497f27d2705abf2a34855dd9fb0fcdbffc21cd926f-a1-467f8a17052d46a99fca90eda4d23d38",
+   "history_tail": [
+    {
+     "ts": 1786567433.027786,
+     "to": "DEAD_LETTER",
+     "via": "stale_run_id_ignored"
+    },
+    {
+     "ts": 1786567433.4037092,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567705.891906,
+     "to": "RUNNING",
+     "via": "recover_historical_replay_incident"
+    },
+    {
+     "ts": 1786569137.2187066,
+     "to": "TIMED_OUT",
+     "via": "timeout"
+    },
+    {
+     "ts": 1786569921.8678045,
+     "to": "DISPATCHABLE",
+     "via": "retry_dispatch"
+    },
+    {
+     "ts": 1786570190.092278,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786571989.6518385,
+     "to": "TIMED_OUT",
+     "via": "timeout"
+    },
+    {
+     "ts": 1786571989.8008,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786571989.8008,
+    "to": "DEAD_LETTER",
+    "via": "off_table_event"
+   },
+   "dead_letter": {
+    "path": "data/dead_letters/parent-afc120497f27d2705abf2a34855dd9fb0fcdbffc21cd926f.json",
+    "reason": "off_table_event",
+    "ts": 1786571989.800899
+   },
+   "duty_review": "data/duty_review/parent-afc120497f27d2705abf2a34855dd9fb0fcdbffc21cd926f.json",
+   "sol_wake": [
+    "data/sol_wake/1786571989_parent-afc120497f27d2705abf2a34855dd9fb0fcdbffc21cd926f.md"
+   ]
+  },
+  "parent-b3f312fdcbeba0b9ff7477aaf9e38f80239d9b5644e89290": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "worker",
+   "task_name": "最终借位状态回读",
+   "manifest_id": "p0-parent-final-backlog-20260814",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-b3f312fdcbeba0b9ff7477aaf9e38f80239d9b5644e89290-a0-b6ad6535b74e449881ae0f97587a3751",
+   "history_tail": [
+    {
+     "ts": 1786686552.8787732,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786686810.8790329,
+     "to": "REPORTED",
+     "via": "subagent_stop"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786686810.8790329,
+    "to": "REPORTED",
+    "via": "subagent_stop"
+   },
+   "report": "data/reports/parent-b3f312fdcbeba0b9ff7477aaf9e38f80239d9b5644e89290/report.json"
+  },
+  "parent-b465863d62d814dd779568ba9964b364a842ac60d5e0a472": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "worker",
+   "task_name": "父任务清单准入复验",
+   "manifest_id": "loop-recovery-audit-20260813",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-b465863d62d814dd779568ba9964b364a842ac60d5e0a472-a0-4284369f289f45c196c0e2476af17b62",
+   "history_tail": [
+    {
+     "ts": 1786567433.2998347,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567433.3552587,
+     "to": "DEAD_LETTER",
+     "via": "stale_run_id_ignored"
+    },
+    {
+     "ts": 1786567433.3610024,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567433.4088476,
+     "to": "DEAD_LETTER",
+     "via": "stale_run_id_ignored"
+    },
+    {
+     "ts": 1786567433.4088936,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567468.1870537,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567705.89207,
+     "to": "FAILED",
+     "via": "recover_historical_replay_incident"
+    },
+    {
+     "ts": 1786567984.9251966,
+     "to": "REPORTED",
+     "via": "repair_plain_parent_report"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786567984.9251966,
+    "to": "REPORTED",
+    "via": "repair_plain_parent_report"
+   },
+   "report": "data/reports/parent-b465863d62d814dd779568ba9964b364a842ac60d5e0a472/report.json",
+   "prior_attempts": [
+    "data/reports/parent-b465863d62d814dd779568ba9964b364a842ac60d5e0a472/previous/preexisting-1786566950078.json",
+    "data/reports/parent-b465863d62d814dd779568ba9964b364a842ac60d5e0a472/previous/preexisting-1786567080959.json",
+    "data/reports/parent-b465863d62d814dd779568ba9964b364a842ac60d5e0a472/previous/preexisting-1786567268693.json",
+    "data/reports/parent-b465863d62d814dd779568ba9964b364a842ac60d5e0a472/previous/preexisting-1786567361844.json"
+   ]
+  },
+  "parent-c098efe054ffc07b2adb0cce1dec7eba6f3ebe56cf10d694": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "worker",
+   "task_name": "父债务公式复核",
+   "manifest_id": "p0-sustained-final-review-20260814",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-c098efe054ffc07b2adb0cce1dec7eba6f3ebe56cf10d694-a0-417578bd9e8f478c99ba4fca01268991",
+   "history_tail": [
+    {
+     "ts": 1786686070.6435406,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786686484.011615,
+     "to": "REPORTED",
+     "via": "report_file_fallback"
+    },
+    {
+     "ts": 1786686484.3225043,
+     "to": "REPORTED",
+     "via": "late_subagent_stop_confirmed"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786686484.3225043,
+    "to": "REPORTED",
+    "via": "late_subagent_stop_confirmed"
+   },
+   "report": "data/reports/parent-c098efe054ffc07b2adb0cce1dec7eba6f3ebe56cf10d694/report.json"
+  },
+  "parent-c0f4413dd820b1ef5ca022cbafb72769b42dd9de9c23dd86": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "worker",
+   "task_name": "8765 监控语义复验",
+   "manifest_id": "loop-recovery-audit-20260813",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-c0f4413dd820b1ef5ca022cbafb72769b42dd9de9c23dd86-a0-f1f99e4c16f140e090659a904971ff8d",
+   "history_tail": [
+    {
+     "ts": 1786567433.2510328,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567433.3228385,
+     "to": "DEAD_LETTER",
+     "via": "stale_run_id_ignored"
+    },
+    {
+     "ts": 1786567433.3229036,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567433.4193542,
+     "to": "DEAD_LETTER",
+     "via": "stale_run_id_ignored"
+    },
+    {
+     "ts": 1786567433.4194012,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567705.8920755,
+     "to": "RUNNING",
+     "via": "recover_historical_replay_incident"
+    },
+    {
+     "ts": 1786567730.1649106,
+     "to": "DEAD_LETTER",
+     "via": "report_missing_on_stop"
+    },
+    {
+     "ts": 1786567984.9273949,
+     "to": "REPORTED",
+     "via": "repair_plain_parent_report"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786567984.9273949,
+    "to": "REPORTED",
+    "via": "repair_plain_parent_report"
+   },
+   "report": "data/reports/parent-c0f4413dd820b1ef5ca022cbafb72769b42dd9de9c23dd86/report.json",
+   "prior_attempts": [
+    "data/reports/parent-c0f4413dd820b1ef5ca022cbafb72769b42dd9de9c23dd86/previous/preexisting-1786567150062.json",
+    "data/reports/parent-c0f4413dd820b1ef5ca022cbafb72769b42dd9de9c23dd86/previous/preexisting-1786567379306.json"
+   ],
+   "dead_letter": {
+    "path": "data/dead_letters/parent-c0f4413dd820b1ef5ca022cbafb72769b42dd9de9c23dd86.json",
+    "reason": "report_missing_on_stop",
+    "ts": 1786567730.1650186
+   },
+   "sol_wake": [
+    "data/sol_wake/1786567730_parent-c0f4413dd820b1ef5ca022cbafb72769b42dd9de9c23dd86.md"
+   ]
+  },
+  "parent-c36169cc8f0b6dd50fb27a2dddc1e173075b2804d5c8d1af": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "worker",
+   "task_name": "Observer时效复核",
+   "manifest_id": "p0-sustained-final-review-20260814",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-c36169cc8f0b6dd50fb27a2dddc1e173075b2804d5c8d1af-a0-2b04c16545284fa8879fcfa7d87735c4",
+   "history_tail": [
+    {
+     "ts": 1786686084.2495098,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786686292.293459,
+     "to": "REPORTED",
+     "via": "subagent_stop"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786686292.293459,
+    "to": "REPORTED",
+    "via": "subagent_stop"
+   },
+   "report": "data/reports/parent-c36169cc8f0b6dd50fb27a2dddc1e173075b2804d5c8d1af/report.json"
+  },
+  "parent-c89a209b119dedfe42327484416468f1e8964de6bb514f0e": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "worker",
+   "task_name": "报告封装契约复验",
+   "manifest_id": "auto-refill-proof-20260813",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-c89a209b119dedfe42327484416468f1e8964de6bb514f0e-a0-08c08270bee343479d9f2513c233cc64",
+   "history_tail": [
+    {
+     "ts": 1786568822.1565723,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786569112.2782428,
+     "to": "REPORTED",
+     "via": "subagent_stop"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786569112.2782428,
+    "to": "REPORTED",
+    "via": "subagent_stop"
+   },
+   "report": "data/reports/parent-c89a209b119dedfe42327484416468f1e8964de6bb514f0e/report.json"
+  },
+  "parent-cbe5c01cb608e3bd96fa976b6879d0e54a4875af3ba0ba2e": {
+   "state": "DEAD_LETTER",
+   "attempts": 1,
+   "role": "verifier",
+   "task_name": "K3 恢复发布门",
+   "manifest_id": "loop-recovery-audit-20260813",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-cbe5c01cb608e3bd96fa976b6879d0e54a4875af3ba0ba2e-a1-00db12c9cb53405cbbf03e25973cb07f",
+   "history_tail": [
+    {
+     "ts": 1786567419.0020642,
+     "to": "RUNNING",
+     "via": "repair_live_roster_generation"
+    },
+    {
+     "ts": 1786567433.408742,
+     "to": "RUNNING",
+     "via": "generation_dispatch_confirmed"
+    },
+    {
+     "ts": 1786567705.892079,
+     "to": "RUNNING",
+     "via": "recover_historical_replay_incident"
+    },
+    {
+     "ts": 1786569138.3029125,
+     "to": "TIMED_OUT",
+     "via": "timeout"
+    },
+    {
+     "ts": 1786569921.8700683,
+     "to": "DISPATCHABLE",
+     "via": "retry_dispatch"
+    },
+    {
+     "ts": 1786570190.0923893,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786571990.6292243,
+     "to": "TIMED_OUT",
+     "via": "timeout"
+    },
+    {
+     "ts": 1786571990.7563856,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786571990.7563856,
+    "to": "DEAD_LETTER",
+    "via": "off_table_event"
+   },
+   "dead_letter": {
+    "path": "data/dead_letters/parent-cbe5c01cb608e3bd96fa976b6879d0e54a4875af3ba0ba2e.json",
+    "reason": "off_table_event",
+    "ts": 1786571990.7564483
+   },
+   "duty_review": "data/duty_review/parent-cbe5c01cb608e3bd96fa976b6879d0e54a4875af3ba0ba2e.json",
+   "sol_wake": [
+    "data/sol_wake/1786571990_parent-cbe5c01cb608e3bd96fa976b6879d0e54a4875af3ba0ba2e.md"
+   ]
+  },
+  "parent-cefda88c0a7a2bebb8fe6a83fe86f4d343ed86e29688d050": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "worker",
+   "task_name": "基线漂移边界复验",
+   "manifest_id": "loop-recovery-audit-20260813",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-cefda88c0a7a2bebb8fe6a83fe86f4d343ed86e29688d050-a0-4ab86065f02e4987839841680923dbd9",
+   "history_tail": [
+    {
+     "ts": 1786567433.1821306,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567433.1875803,
+     "to": "DEAD_LETTER",
+     "via": "stale_run_id_ignored"
+    },
+    {
+     "ts": 1786567433.2564895,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567433.3282745,
+     "to": "DEAD_LETTER",
+     "via": "stale_run_id_ignored"
+    },
+    {
+     "ts": 1786567433.3285465,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567560.5935345,
+     "to": "DEAD_LETTER",
+     "via": "off_table_event"
+    },
+    {
+     "ts": 1786567705.8922307,
+     "to": "FAILED",
+     "via": "recover_historical_replay_incident"
+    },
+    {
+     "ts": 1786567984.9292796,
+     "to": "REPORTED",
+     "via": "repair_plain_parent_report"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786567984.9292796,
+    "to": "REPORTED",
+    "via": "repair_plain_parent_report"
+   },
+   "report": "data/reports/parent-cefda88c0a7a2bebb8fe6a83fe86f4d343ed86e29688d050/report.json",
+   "prior_attempts": [
+    "data/reports/parent-cefda88c0a7a2bebb8fe6a83fe86f4d343ed86e29688d050/previous/preexisting-1786567162180.json"
+   ]
+  },
+  "parent-d961a7d408cee2de73866f573f14b22f645d7f473ebec94d": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "worker",
+   "task_name": "最终全局上限回读",
+   "manifest_id": "p0-parent-final-backlog-20260814",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-d961a7d408cee2de73866f573f14b22f645d7f473ebec94d-a0-2a72639caae6480699cb16684f8907af",
+   "history_tail": [
+    {
+     "ts": 1786686552.8789043,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786686677.8986628,
+     "to": "REPORTED",
+     "via": "subagent_stop"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786686677.8986628,
+    "to": "REPORTED",
+    "via": "subagent_stop"
+   },
+   "report": "data/reports/parent-d961a7d408cee2de73866f573f14b22f645d7f473ebec94d/report.json"
+  },
+  "parent-dab7edc251bcc51178b05fd514ef662ad0c9616946806143": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "verifier",
+   "task_name": "最终残余唤醒回读",
+   "manifest_id": "p0-parent-final-backlog-20260814",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-dab7edc251bcc51178b05fd514ef662ad0c9616946806143-a0-bc00b27e70f946b59afb69b799cdd41f",
+   "history_tail": [
+    {
+     "ts": 1786686552.879067,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786686892.2543437,
+     "to": "REPORTED",
+     "via": "subagent_stop"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786686892.2543437,
+    "to": "REPORTED",
+    "via": "subagent_stop"
+   },
+   "report": "data/reports/parent-dab7edc251bcc51178b05fd514ef662ad0c9616946806143/report.json"
+  },
+  "parent-de1236401d0938f1f10f67bbca3354f53ab6996239823b9f": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "worker",
+   "task_name": "全局容量复核",
+   "manifest_id": "p0-sustained-final-review-20260814",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-de1236401d0938f1f10f67bbca3354f53ab6996239823b9f-a0-e4f1534da0d143c594f57e96661d4e63",
+   "history_tail": [
+    {
+     "ts": 1786686305.1762295,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786686411.7479722,
+     "to": "REPORTED",
+     "via": "subagent_stop"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786686411.7479722,
+    "to": "REPORTED",
+    "via": "subagent_stop"
+   },
+   "report": "data/reports/parent-de1236401d0938f1f10f67bbca3354f53ab6996239823b9f/report.json"
+  },
+  "parent-e7594dc0863f78c29ed160d7cf9fd5639dcd732d133a6541": {
+   "state": "DEAD_LETTER",
+   "attempts": 0,
+   "role": "verifier",
+   "task_name": "K3重复出生对抗审计",
+   "manifest_id": "auto-refill-proof-20260813",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-e7594dc0863f78c29ed160d7cf9fd5639dcd732d133a6541-a0-d9bb13f5e20042cc92e62d7193dde3e8",
+   "history_tail": [
+    {
+     "ts": 1786568822.1567905,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786570511.151102,
+     "to": "TIMED_OUT",
+     "via": "timeout"
+    },
+    {
+     "ts": 1786570511.2998354,
+     "to": "DEAD_LETTER",
+     "via": "budget_exhausted"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786570511.2998354,
+    "to": "DEAD_LETTER",
+    "via": "budget_exhausted"
+   },
+   "dead_letter": {
+    "path": "data/dead_letters/parent-e7594dc0863f78c29ed160d7cf9fd5639dcd732d133a6541.json",
+    "reason": "budget_exhausted",
+    "ts": 1786570511.2801607
+   }
+  },
+  "parent-fa453673e7ff83ec2fc8324408c92cde2ab1503bf47bbc09": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "verifier",
+   "task_name": "Metadata贯通复核",
+   "manifest_id": "p0-sustained-final-review-20260814",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-fa453673e7ff83ec2fc8324408c92cde2ab1503bf47bbc09-a0-b711caedd23c44c5a3dc8ac24bc30a28",
+   "history_tail": [
+    {
+     "ts": 1786686307.8681414,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786686589.8453655,
+     "to": "REPORTED",
+     "via": "subagent_stop"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786686589.8453655,
+    "to": "REPORTED",
+    "via": "subagent_stop"
+   },
+   "report": "data/reports/parent-fa453673e7ff83ec2fc8324408c92cde2ab1503bf47bbc09/report.json"
+  },
+  "parent-fba913768f151ba5239c34e256214a242b09ffbc5c53ba48": {
+   "state": "REPORTED",
+   "attempts": 0,
+   "role": "worker",
+   "task_name": "最终父身份回读",
+   "manifest_id": "p0-parent-final-backlog-20260814",
+   "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+   "current_run_id": "parent-fba913768f151ba5239c34e256214a242b09ffbc5c53ba48-a0-c020204e43084f548af12951d88cb67a",
+   "history_tail": [
+    {
+     "ts": 1786686552.8792608,
+     "to": "RUNNING",
+     "via": "dispatched"
+    },
+    {
+     "ts": 1786687673.063643,
+     "to": "REPORTED",
+     "via": "subagent_stop"
+    }
+   ],
+   "last_transition": {
+    "ts": 1786687673.063643,
+    "to": "REPORTED",
+    "via": "subagent_stop"
+   },
+   "report": "data/reports/parent-fba913768f151ba5239c34e256214a242b09ffbc5c53ba48/report.json"
+  }
+ }
+}

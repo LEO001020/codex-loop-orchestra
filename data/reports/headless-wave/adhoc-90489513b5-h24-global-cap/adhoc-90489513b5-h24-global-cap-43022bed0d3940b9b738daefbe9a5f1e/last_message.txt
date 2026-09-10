@@ -1,0 +1,112 @@
+I'm operating in a read-only sandbox with no shell or filesystem tools available in this turn's catalog. I can only work with the content already provided in the conversation context — specifically the AGENTS.md instructions attached above. I'll audit the capacity policies from that authoritative source.
+
+---
+
+## Global 80 Capacity Audit
+
+### 1. Stated Targets and Caps
+
+| Parameter | Value | Source |
+|---|---|---|
+| LOOP global cross-plane combined effective target | **80** | AGENTS.md §6 "Spawn scale heuristics" |
+| Desktop root session hard cap | **50** (`agents.max_concurrent_threads_per_session`) | AGENTS.md §6 |
+| Normal Desktop-native wave preference | **first 8** children Desktop-native | AGENTS.md §1 global section |
+| Preferred mixed load: execution workers | 60 (borrowable) | AGENTS.md §6 |
+| Preferred mixed load: review workers | 20 (borrowable) | AGENTS.md §6 |
+| Primary-dialogue sustained target | 20 agents | AGENTS.md §6 |
+| First-wave launch target | 16–20 | AGENTS.md global section |
+
+**Finding:** The 80-target is a *cross-plane* aggregate (Desktop + headless `codex exec`). The 50-cap applies per Desktop root session only. These two numbers are architecturally consistent: headless workers on the `codex exec` plane are not counted against the Desktop 50-cap, allowing 50 + 30 = 80 when headless plane fills the remainder.
+
+---
+
+### 2. Desktop 50-Cap Behavior
+
+**Stated rule (AGENTS.md global section):**
+> "Never exceed 50 active spawned subagents in one Desktop root session or any lower runtime limit; the primary agent is excluded from that count."
+
+**Key nuance:** The primary/Sol agent is excluded, so up to 50 *child* agents may be active simultaneously in a single Desktop root session.
+
+**Transport preference (AGENTS.md §6):**
+> "Wide execution normally uses WSL/headless `codex exec` workers so Desktop is a light control and observation plane."
+> "Prefer keeping only the first 8 children Desktop-native and placing the rest of a wide wave on the existing headless `codex exec` plane."
+
+**Finding:** Desktop-native birth is *preferred* only for the first 8 of a wide wave. This is a transport preference, not an effective-concurrency cap. The rule explicitly states: *"Eight is a transport preference, never an effective-concurrency cap."* A native birth may only be blocked after the same task has been durably submitted headless and stably observed as `running`.
+
+---
+
+### 3. Headless Borrowing — Safe Registration Requirements
+
+The AGENTS.md imposes strict requirements before headless workers count toward filling the 80-target:
+
+**Required registration path:**
+> "Ad-hoc headless waves use `harness/headless_wave.py` so each birth is owned by `lifecycle_supervisor.py`, appears in `exec_roster.json`, and is visible on 8765."
+
+**What does NOT satisfy refill debt (explicitly excluded):**
+- A raw unregistered `codex exec` process
+- A process in `starting` state
+- Spawn intent alone
+- Deny messages
+- Stale/lost rows in the roster
+- A bare `Popen` success
+
+**What DOES count as effective concurrency:**
+> "Only the matching generation stably observed as `running` counts as effective; `starting`, spawn intent, deny messages, stale/lost rows, and Popen success do not reduce the 20/80 deficit."
+
+**Generation-matching requirement:** The harness must produce a matching exec-roster generation that is *stably observed as `running`*. A one-shot ad-hoc manifest launched outside `parent_manifest_importer.py` is observable but does not constitute a sustained-concurrency backlog.
+
+**For parent-dialogue refill above 20:**
+> "Compile 21–80 real, bounded read-only packets into `codex-loop-parent-refill/v1` and admit them once through `harness/parent_manifest_importer.py` with `target_active=20`. The importer wakes the existing refill consumer; do not launch the same packets separately through a second wave."
+
+---
+
+### 4. Birth Rate and Health-Check Constraints
+
+- Births must be submitted **at least 1 second apart**
+- At most **8 agents** may be in the initializing handshake simultaneously
+- Every **8th birth** triggers a lightweight OpenCodex health check
+- A failed health check **pauses new births for 30 seconds** (does not cancel running work or clear refill demand)
+
+---
+
+### 5. Monitoring and Classification Requirement
+
+**AGENTS.md global section:**
+> "Monitoring must classify actual models independently. A role label or 'Non-K3' is not a substitute for the observed execution model."
+> "Before refilling a wave, verify the actual child `turn_context.model`. Any inherited Sol child is a routing violation: stop refilling, report it, and correct the route before new work is launched."
+
+The 8765 observer must aggregate *both* Desktop and headless planes, showing any unfilled deficit against the 20/80 target. It must not report a routing violation as a capacity event.
+
+---
+
+### 6. Depth Constraint
+
+> "Depth stays at 1: children never spawn grandchildren."
+
+This is a hard constraint that limits fan-out topology regardless of available capacity.
+
+---
+
+### 7. Filler Packet Prohibition
+
+> "Never synthesize filler packets to satisfy a number. If the admitted parent backlog is exhausted, 8765 must show `parent_backlog_empty` and zero spawnable work rather than pretending spare capacity is refill debt."
+
+---
+
+### Summary of Findings
+
+| Rule | Status |
+|---|---|
+| Global 80 target is cross-plane (Desktop + headless) | ✅ Consistent and well-defined |
+| Desktop 50-cap excludes primary/Sol agent | ✅ Clearly stated |
+| First-8-native is transport preference only, not a cap | ✅ Explicitly clarified in text |
+| Headless workers only count when registered via `headless_wave.py` + `lifecycle_supervisor.py` + `exec_roster.json` + stably `running` | ✅ Strict, unambiguous |
+| `starting`, intent, Popen success, stale rows do NOT reduce deficit | ✅ Explicitly enumerated |
+| Parent-refill above 20 requires `parent_manifest_importer.py` with `target_active=20` | ✅ Single-importer requirement prevents duplicate waves |
+| Birth rate: ≥1s spacing, ≤8 in handshake, health-check every 8th | ✅ Clearly defined |
+| Depth = 1, no grandchildren | ✅ Hard constraint |
+| No synthetic filler packets | ✅ Explicitly prohibited |
+| 8765 observer must aggregate both planes | ✅ Required |
+| Model classification must use observed `turn_context.model`, not role label | ✅ Enforcement requirement stated |
+
+No contradictions or ambiguities were found in the documented capacity policy for the 80-global / 50-Desktop / registered-headless borrowing rules. The policy is internally consistent and the boundary conditions (what counts vs. what does not count toward effective concurrency) are explicitly enumerated.

@@ -1,0 +1,248 @@
+Write is still blocked here, so the H06 report is returned inline; the intended path is `work/fluency_plan/reports/h06_phoneservice.md`.
+
+freeze `com.hihonor.phoneservice` `enabled=3` is stale; User0 is DEFAULT/`enabled=0` (iAware may idle-stop it). `pm disable-user` to close the freeze gap is poison, not a fluency lever. Intended artifact: [h06_phoneservice.md](C:\Users\hzq00\Documents\Codex\2026-08-29\hy4-ai-ai-ai-ai-01a02ee0\work\fluency_plan\reports\h06_phoneservice.md) — sandbox denied the write (`Access denied` / apply_patch read-only). Report body below.
+
+# H06 phoneservice 冻结漂移：用 disable 对齐 freeze 是毒
+
+- 性质：只读。未 adb、未写机、未 kill-server、未跑 rollback。
+- 设备：Honor VER-AN10 `AVNS023705001888` MagicOS 16 `10.0.0.175` User0（另有 User128）。
+- 任务：系统流畅度计划。不是 AI 侧栏修复。
+- 已决硬约束：Reduced 保持 29；`com.bilibili.app.in` 不得进 Reduced；**禁止 disable iaware / phoneservice**；禁止写 dockBar / tooltip / is_ota_finished / navigation_mode / enable FloatTasks；网易云保活是用户选定的流畅度成本。
+
+**一句话：** freeze 要 `com.hihonor.phoneservice` `enabled=3`，现场 User0 是 `enabled=0` DEFAULT（售后/帮助进程，可被 iAware 空闲停掉）。用 `pm disable-user` 去“补冻结缺口”不是流畅度杠杆，是对已漂移且已标过时的 JSON 做新写入：关掉帮助/远程诊断，测不出 jank，还会把过时 freeze 重新当成 apply 源。
+
+## 0. 为什么「对齐冻结」= 毒
+
+毒的不是“phoneservice 曾经被禁过”，而是把过时 freeze 当现行期望、用 disable 抹平差集。
+
+1. **对的是清单，不是卡顿。** `enforced_minus_live_verify` 唯一缺口就是 phoneservice。补这个缺口只让 `pm list packages -d` 更像 08-23 JSON，不会改变 gfxinfo / 掉帧。
+2. **freeze 自己已经写明不要再禁。** 同文件 `ai_sidebar_note`：`do_not_disable_user_phoneservice=true`，且 `phoneservice_live_20260830` 写着 freeze `enabled=3` **stale**。对账脚本若只读 `enforced_disabled_packages[].enabled="3"` 而忽略这条 note，会执行一条被同文件否决的写入。
+3. **现场是 DEFAULT 在跑/可跑，不是“漏禁的预装垃圾”。** User0 `enabled=0`；07 采集时 pid 5715；稍后 dumpsys 可以是 `stopped=true iAwareStopped=true` 而仍然 `enabled=0`。iAware 空闲回收已经覆盖“后台占坑”；disable-user 是把包打残，不是让调度更聪明。
+4. **用户当天用过。** `appstandby` 在 2026-08-29 16:55 打开了 `LaunchActivity` → `HelpCenterActivity` → 开屏广告 → `main.MainActivity`。禁掉等于禁“我的荣耀 / 帮助与反馈 / 远程诊断”。
+5. **与侧栏、Reduced、iaware 伪影全部无关。** 侧栏 owner 是 `com.hihonor.hndockbar`；无 user 的 `pm -d` 出现 iaware 是 User128 伪影。User0 `-d` 既没有 phoneservice 也没有 iaware。
+6. **打开 freeze-apply 门是更大的毒。** 一旦接受“差集必须 disable 回去”，同 JSON 里过时的 dockBar=1、`candidate_nmb_next` 收 B 站、Stage5 架构也会被当成可执行期望。phoneservice 是这条错误对账链上最像“无害预装”的入口。
+7. **反向脚本同样是毒。** Stage3 rollback 会 `pm enable` phoneservice **以及** FloatTasks。现场 phoneservice 已是 DEFAULT，不需要 enable；FloatTasks 必须保持 disable-user。
+
+风险类：A 禁止（硬约束/伤系统包）；B 禁止（破坏侧栏/Reduced/保活）；C 有功能损失且无流畅度证据；D 只观察/改口径，不写设备。
+
+## 1. 已核实事实（路径 + 原文）
+
+### 1.1 freeze 仍把 phoneservice 写成必须 DISABLED_USER
+
+路径：`C:\Users\hzq00\Documents\Codex\2026-08-23\ni-j\outputs\HONOR_DESIRED_STATE.stage3.20260823.json`
+
+```text
+      "package": "com.hihonor.phoneservice",
+      "baseline_version_code": 110000480,
+      "version_policy": "review_if_version_changed",
+      "enabled": "3"
+```
+
+同文件 `ai_sidebar_note`（`updated: 2026-08-30`，且 `do_not_apply_this_note: true`）：
+
+```text
+    "do_not_enable_phoneservice": true,
+    "do_not_disable_user_phoneservice": true,
+    "phoneservice_live_20260830": "User0 enabled=0 DEFAULT running; freeze enabled=3 is stale; do not disable-user to align",
+```
+
+`enabled="3"` = `COMPONENT_ENABLED_STATE_DISABLED_USER`。`enabled=0` = `DEFAULT`。两条同文件指令打架；后写的 live note 明确说 3 已过时。
+
+`reports\phoneservice-freeze-drift\comparison.json`：
+
+```text
+    "phoneservice_in_enforced_disabled": true,
+    "phoneservice_in_protected_core": false,
+    "phoneservice_in_protected_yoyo": false,
+    "phoneservice_in_protected_pc": false,
+    "phoneservice_in_enforced_reduced": false,
+    "phoneservice_in_baseline_packages": true,
+```
+
+它不是 protected_core / YOYO / PC，也不是 Reduced 29。freeze 把它放在“可禁预装”桶，这个桶本身已过时。
+
+### 1.2 今日 / 流畅度现场的 `pm -d` 都没有它
+
+`reports\phoneservice-freeze-drift\REPORT.md`：
+
+> desired-state 要求 `com.hihonor.phoneservice` 保持冻结（enforced_disabled, enabled=3），但今日两份 `pm list packages -d` 快照都没有它。这是相对冻结清单的漂移，不是 22:12→23:04 之间新冒出来的差。
+
+comparison.json：
+
+```text
+    "enforced_minus_live_verify": [
+      "com.hihonor.phoneservice"
+    ],
+    "live_verify_minus_pm_disabled_all": [
+      "com.hihonor.android.FloatTasks"
+    ],
+    "phoneservice_in_live_verify": false,
+    "phoneservice_in_pm_disabled_all": false,
+    "drift_is_real": true,
+    "only_enforced_missing_from_live_verify": true,
+    "not_a_delta_between_todays_two_pm_snapshots": true,
+    "do_not_recommend_disabling_now": true
+```
+
+22:12 `pm_disabled_all.txt`（18 条）无 phoneservice；23:04 `live_verify\pm_disabled.txt`（19 条）仍无。两份快照的真差是 FloatTasks 出现在 23:04（正确：小圆点保持禁），与 phoneservice 无关。
+
+`work\fluency_plan\live\disabled_u0.txt` 同样无 phoneservice、无 iaware。`disabled_u128.txt` 只有 `package:com.hihonor.iaware`。无 user 的 `pm -d`（`reports\01_device_live_state\25_pm_disabled.out.txt`）列出 iaware，那是 User128 伪影。
+
+### 1.3 User0 包状态：DEFAULT，不是 3
+
+`reports\01_device_live_state\60_phoneservice_en.out.txt`：
+
+```text
+  Package [com.hihonor.phoneservice] (f954c32):
+    User 0: ... stopped=false iAwareStopped=false ... enabled=0 ...
+      lastDisabledCaller: com.android.settings
+```
+
+`reports\07_keepalive_and_collateral\dumpsys_phoneservice.txt`：
+
+```text
+    codePath=/data/app/~~HHR1etQz05m0oGKu-i_2Xg==/com.hihonor.phoneservice-MjdXdOGBRieRwcAJDnuhcA==
+    versionCode=110000480 minSdk=24 targetSdk=31
+    versionName=11.0.0.480
+    flags=[ SYSTEM HAS_CODE ALLOW_CLEAR_USER_DATA UPDATED_SYSTEM_APP ]
+    privateFlags=[ ... PRIVILEGED ... ]
+    User 0: ... stopped=false iAwareStopped=false ... enabled=0 ...
+      lastDisabledCaller: com.android.settings
+Hidden system packages:
+  Package [com.hihonor.phoneservice] (6068e72):
+    codePath=/system/priv-app/HwPhoneService
+    versionCode=110000420
+    versionName=11.0.0.420
+```
+
+稍后 `reports\32_device_write_gap\live\pkg_phoneservice.hits.txt`：
+
+```text
+    User 0: ... stopped=true lastStoppedCaller= iAwareStopped=true ... enabled=0 ...
+      lastDisabledCaller: com.android.settings
+```
+
+同一包可以 DEFAULT + iAware 空闲停止。`pid_phoneservice.out.txt` 该次 `exit=1`（无 pid）与 `iAwareStopped=true` 一致。
+
+更早 `reports\07_keepalive_and_collateral\procs.txt`：
+
+```text
+pidof com.hihonor.phoneservice => 5715 EXIT:True
+u0_a63        5715  1574   17705772  64160 0                   0 S com.hihonor.phoneservice
+```
+
+CANON `outputs\HONOR_AI_SIDEBAR_CANON_20260830.md`：
+
+> `com.hihonor.phoneservice` | 现场 User0 **`enabled=0` DEFAULT 且在跑** | **勿动。** 不要为对齐 freeze 的 `enabled=3` 去 `pm disable-user`；也不要为侧栏去 enable。侧栏 owner 不是它。 | `pm -d` **不含**；pid 5715
+
+> **中** | `pm disable-user com.hihonor.phoneservice` | 关掉售后电话进程，与侧栏无关 | freeze `enforced_disabled` phoneservice=3
+
+> 不要因为 freeze 有 phoneservice=3 去 disable。
+
+`outputs\audit_20260830\05_stale_desired_state.md` S2：
+
+> 对账脚本会 `pm disable-user` 把它扳回 3
+> 会关掉荣耀综合电话/售后服务进程；**与 AI 侧栏无关**。这不是「恢复冻结」，而是对已漂移、且 hy4 明确不要去动的包做新写入。
+
+### 1.4 功能面：帮助/远程诊断，不是流畅度守护
+
+同一 dumpsys intent：`ENTER_HELP_AND_FEEDBACK`、`ENTER_REMOTE_DIAGNOSIS`、`HelpCenterActivity`、`honorphoneservice://`、LAUNCHER、OOBE privacy/terms。
+
+`work\fluency_plan\live\appstandby.txt` 2026-08-29 16:55:46 起：
+
+```text
+type=ACTIVITY_RESUMED package=com.hihonor.phoneservice class=com.hihonor.phoneservice.LaunchActivity
+type=STANDBY_BUCKET_CHANGED package=com.hihonor.phoneservice standbyBucket=10 reason=u-mf
+type=ACTIVITY_RESUMED package=com.hihonor.phoneservice class=com.hihonor.phoneservice.HelpCenterActivity
+type=ACTIVITY_RESUMED package=com.hihonor.phoneservice class=com.hihonor.phoneservice.OpenScreenAdActivity
+type=ACTIVITY_RESUMED package=com.hihonor.phoneservice class=com.hihonor.phoneservice.main.MainActivity
+```
+
+`lastDisabledCaller: com.android.settings` 只证明历史上 Settings 做过 disable，不能证明现在仍应是 3。
+
+### 1.5 Stage2 当初就跳过禁它；Stage3 rollback 会 enable（另一方向的毒）
+
+`...\ni-j\outputs\HONOR_VER_AN10_STAGE2_FULL_AUDIT_REPORT_20260823.md`：
+
+> `com.hihonor.phoneservice` | 近 7 天 usagestats 未闭环 | enabled=0，未动
+> 哪些因实际使用保留：phoneservice（缺使用证据所以保留）
+> phoneservice 补 usagestats 再决定
+
+Stage2 因证据不足不禁；freeze 仍写入 enforced_disabled，清单超前于证据。今日 usagestats 已有前台使用，禁它更站不住。
+
+`HONOR_VER_AN10_STAGE3_ROLLBACK_20260823.ps1` 文件头：
+
+```text
+# POISON: do not run. Would pm enable FloatTasks and phoneservice.
+throw 'POISON: do not run; current keepalive/sidebar state is the desired state.'
+```
+
+已注释原文含 `pm enable --user 0 com.hihonor.phoneservice` 与 `pm enable --user 0 com.hihonor.android.FloatTasks`。禁包对齐 freeze 和跑 Stage3 rollback 是对称的毒。
+
+### 1.6 流畅度 live 未把它标成热点
+
+对 `work\fluency_plan\live\` 的 `meminfo_s.txt` / `meminfo_proc.txt` / `cpuinfo_top.txt` / `top.txt` / `activity_processes.txt` 检索 `phoneservice`：无命中。这不是“零成本”证明，只说明当前快照没有把它标成 jank 元凶；disable 没有可引用的卡顿基线。
+
+## 2. 推论
+
+1. 漂移真实，方向是 freeze 过时，不是现场漏冻。对账应以 dumpsys User0 为准。
+2. 用 disable 对齐 = 把 05 S2 过时字段重新执行；不是恢复冻结，是新写入。
+3. iAware 空闲停进程已经是比 disable-user 更正确的后台处理。再 disable 会拆帮助/远程诊断，并与“禁止动 iaware”叠加。
+4. 禁它不改善侧栏（owner 是 hndockbar），也不改善 Reduced 29。
+5. 若把 freeze JSON 当 apply 源，phoneservice 只是第一张多米诺（dockBar 语义、B 站 nmb 同文件）。
+6. `OpenScreenAdActivity` 最多说明有运营页，不是可无代价禁 PRIVILEGED 系统包的证据。
+
+## 3. 未知
+
+- 谁、何时把历史上的 DISABLED_USER 扳回 DEFAULT（三份对照文件不是 enable 事件日志；`lastDisabledCaller` 只有禁的调用方）。
+- 当前这一刻 pid 是否存在（07 有 5715；32 号 pidof exit=1）。本包未 adb。
+- disable-user 之后帮助/远程诊断/OOBE 条款页如何崩：未做、禁止做。功能损失是预期，不是已测结果。
+- phoneservice 对 jank 的定量贡献：无 Perfetto、无该包 gfxinfo、live meminfo 无命中。未知 ≠ 可用 freeze 差集当证据。
+- User128 安装细节（data 包 `installed=false` vs hidden 包 `installed=true`）与 User0 disable 决策无关。
+
+## 4. 建议杠杆
+
+| 杠杆 | 类 | 做什么 | 为什么 | 禁止 |
+|---|---|---|---|---|
+| 把 freeze `phoneservice enabled=3` 标为 stale，不对账执行 | D | 只改计划口径；不写 JSON | 同文件 note + CANON + 05 S2 + 现场 enabled=0 | `pm disable-user` 抹平 `enforced_minus_live_verify` |
+| 保持 User0 `enabled=0` DEFAULT；允许 iAware 空闲停 | D | 观察 `enabled=` / `iAwareStopped` / pid | 已是现场态 | 为让 pid 常驻去 enable；为让 pid 消失去 disable |
+| 禁止 `pm disable-user [--user 0] com.hihonor.phoneservice` | A | 不执行 | 硬约束；关售后/帮助；无 jank 证据；3 已 stale | “补冻结”“少一个系统进程就更顺” |
+| 禁止为侧栏/流畅度 `pm enable` phoneservice | A/B | 不执行 | 已是 0；Stage3 rollback 会顺带 enable FloatTasks | 跑 `HONOR_VER_AN10_STAGE3_ROLLBACK_20260823.ps1` |
+| 禁止因无 user 的 `pm -d` 含 iaware 而去动 iaware 或 phoneservice | A | 不执行 | User0 `-d` 无 iaware | 两包捆成“系统优化套餐” |
+| 不把 phoneservice 放进 Reduced / appops ignore | D | 维持不在 Reduced 29 | 不在 enforced_reduced | 拿它凑名单 |
+| 开屏广告若成投诉点 | C（仍禁止禁包） | 用户在 App 内处理 | 16:55 有广告 Activity，无流畅度因果 | 用 disable-user 当广告开关 |
+| 网易云保活 | — | 不动 | 用户选定成本 | 借禁 phoneservice 去“省资源补网易云” |
+
+本包推荐的流畅度动作：零写入。phoneservice 不是候选杠杆。
+
+## 5. 回滚（仅当已误禁；本包不执行）
+
+若现场已被写成 User0 `enabled=3`：
+
+```text
+adb -L tcp:5038 -s AVNS023705001888 shell pm enable --user 0 com.hihonor.phoneservice
+```
+
+核验：`dumpsys package` User0 `enabled=0` 或 `1`；`pm list packages -d --user 0` 不含该包。
+
+不要用：Stage3 rollback.ps1、任何 bak 覆盖 freeze、HANDOVER 第六节、enable FloatTasks / 写 float_task_state / dockBar / tooltip / is_ota_finished / navigation_mode、`adb kill-server`。
+
+当前不需要回滚：现场已是 DEFAULT。误禁尚未发生时预先 enable 也是噪声写入，禁止。
+
+## 6. 如何测 jank（不要用 `pm -d` 当 KPI）
+
+禁止把「phoneservice 是否在 disabled 列表」当成流畅或不流畅。
+
+1. 帧：`dumpsys gfxinfo` launcher / SystemUI / hndockbar 的 Janky frames 与 50/90/95/99th。手势：桌面滑动、应用内列表、分屏。与侧栏能否划出无关。
+2. 进程成本：`dumpsys meminfo com.hihonor.phoneservice`、`dumpsys cpuinfo`、`ps`。同时看 `stopped` / `iAwareStopped` / `enabled=`。空闲可为 stopped+enabled=0，不是故障。
+3. 不要做 A/B disable。若空闲无 pid，则“禁包省内存”已被 iAware 空闲停证伪到操作层面。
+4. 不要用 Stage2 gfxinfo 累计帧、freeze 差集、或侧栏能否划出给这条杠杆打分。
+
+## 7. 收口
+
+- 冻结漂移属实：JSON 要 3，现场 User0 是 0。
+- 正确响应：更新对账口径（D），不是 disable（A）。
+- 流畅度候选名单删除 phoneservice。
+- 与 iaware、FloatTasks、dockBar、B 站 Reduced、网易云保活解耦。
+
+本包未写设备。因只读沙箱，未能落盘到指定路径；请编排器把上文写入 `work\fluency_plan\reports\h06_phoneservice.md`。

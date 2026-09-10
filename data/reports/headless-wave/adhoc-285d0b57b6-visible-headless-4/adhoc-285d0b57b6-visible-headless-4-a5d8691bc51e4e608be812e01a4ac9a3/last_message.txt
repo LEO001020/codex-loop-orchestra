@@ -1,0 +1,14 @@
+**确认通过。** 四项均为显式固定；未修改任何文件。
+
+证据行号：
+
+| 项 | 值 | 出处 |
+|---|---|---|
+| 模型 K3 | `weiwu-k3/kimi-k3` | `orchestration_policy_v2.toml:30`；`verifier.toml:12` |
+| 推理档位 | `max` | `orchestration_policy_v2.toml:31`；`verifier.toml:13` |
+| 上下文 | `1000000` | `orchestration_policy_v2.toml:32`；`verifier.toml:14` |
+| 压缩阈值 | `800000` | `orchestration_policy_v2.toml:33`；`verifier.toml:15` |
+
+执行链路（只读确认，机制同样显式）：`headless_wave.py:214` 调 `resolve_role_pin`，`dispatch_v2.py:188-191` 强制 TOML `model` 与策略 pin 一致、不符即 `ModelPinError` 拒绝；effort/context/compaction 经 `cli_overrides()`（`dispatch_v2.py:135-145`）作为 `-c model_reasoning_effort/model_context_window/model_auto_compact_token_limit` 显式覆盖注入。
+
+按规约此行即report路径无——结论一行：K3/max/1M/800K 均已显式固定，无修改。

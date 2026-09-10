@@ -1,0 +1,54 @@
+Now I have all the data I need. Let me analyze the key concerns systematically.
+
+**Analysis:**
+
+**1. 文件计数：58 vs 57/57 的一致性**
+
+脚本在多处使用 `-eq 58`（本地预检和远端解包后均断言总文件数为 58）。但 `11_SHA256SUMS` 只有 **57 行**，即覆盖 57 个文件。第 58 个文件正是 `11_SHA256SUMS` 本身——它自校验地被排除在外，仅有 `10_MANIFEST.json` 的哈希出现在 SUMS 文件里。远端第二次 SSH 命令的输出字符串硬编码为 `REMOTE_SHA256SUMS=57/57 PASS`，与 `sha256sum -c 11_SHA256SUMS >/dev/null`（对 57 个文件实际验证）一致。这个 57/57 标注是**语义正确的**：57 条目全被校验，而 `11_SHA256SUMS` 本身通过 `EXPECTED_SUMS` 哈希单独固定，总文件数仍由 `find -eq 58` 守护。无逻辑漏洞。
+
+**2. 无覆盖（no-overwrite）保护**
+
+脚本在两处独立断言目标不存在：
+- 本地传输前：`"${SSH[@]}" "test ! -e '$REMOTE_TARGET'"`（第一次 SSH，纯检查）
+- 远端 heredoc 内：`test ! -e "$target"` 在 `mkdir "$incoming"` 之前再次执行
+
+这是双重屏障，**均已正确就位**。`mv -- "$incoming" "$target"` 是原子移动，目标目录在移动前已由第二个 `test ! -e` 保护。无覆盖风险。
+
+**3. incoming 目录清理**
+
+```bash
+cleanup() { rc=$?; if test $rc -ne 0; then rm -rf -- "$incoming"; fi; exit $rc; }
+trap cleanup EXIT
+```
+- 失败时：`incoming` 被 `rm -rf` 清除
+- 成功时：`mv -- "$incoming" "$target"` 将其重命名为最终目标，然后 `trap - EXIT` 解除 trap，`incoming` 路径此时已不存在（已变为 `$target`），不会被误删
+
+此外还有前置安全检查：
+```bash
+case "$incoming" in "$root"/.${ARTIFACT_NAME}.incoming.*) ;; *) exit 90 ;; esac
+test ! -e "$incoming"
+```
+先用 `case` 断言 `incoming` 路径符合预期模式（防止路径注入导致清理错误位置），再断言它不存在（防止 PID 复用冲突）。清理逻辑**完整且安全**。
+
+**4. 上传与部署的边界**
+
+脚本做的事：
+- 本地完整性预检（文件数、manifest 哈希、SUMS 哈希、逐文件校验）
+- `tar | ssh` 传输到 `$ARTIFACT_ROOT/$ARTIFACT_NAME`
+- 远端解包验证（文件数、manifest 哈希、SUMS 哈希、逐文件校验）
+- 远端第二次 SSH 做只读的落地后校验，打印路径和哈希摘要
+
+脚本不做的事：没有任何 `systemctl`、`service`、软链接切换、`install`、数据库迁移或任何执行/激活操作。远端 artifact 目录是 `/data/k3/p5_artifacts/`，与运行时部署路径严格分离。**上传/验证与部署之间的边界清晰、未被穿越**。
+
+---
+
+**复核结论（4 项全部通过）**
+
+| 审核项 | 结论 |
+|--------|------|
+| 无覆盖保护 | ✅ 双重 `test ! -e` 屏障，传输前和远端 heredoc 内各一次 |
+| incoming 清理 | ✅ `trap cleanup EXIT` + case 路径验证 + 成功后 `trap - EXIT` 逻辑完整 |
+| 57/57 与 58 文件计数一致性 | ✅ 57 条目由 SUMS 校验，`11_SHA256SUMS` 本身由 `EXPECTED_SUMS` 固定，总数由 `find -eq 58` 守护，无漏洞 |
+| 上传非部署边界 | ✅ 脚本止步于 artifact 存储目录，无任何激活、链接切换或服务操作 |
+
+无需修改，脚本在上述四个维度上均符合预期设计。

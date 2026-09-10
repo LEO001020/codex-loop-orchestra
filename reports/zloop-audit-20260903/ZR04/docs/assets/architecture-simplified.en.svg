@@ -1,0 +1,309 @@
+<svg width="1600" height="1220" id="architecture" class="theme-light" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1220" role="img" aria-labelledby="title desc">
+  <title id="title">ZCode LOOP Orchestra Simplified Architecture</title>
+  <desc id="desc">Keynote-style architecture of ZCode-ZLoop native multi-agent loop: pre-planning audit, physical concurrency, atomic rollback, and heterogeneous verification.</desc>
+  <defs>
+    <linearGradient id="pageGlow" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="var(--glow-a)"/>
+      <stop offset="1" stop-color="var(--glow-b)"/>
+    </linearGradient>
+    <filter id="shadowSoft" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="8" stdDeviation="14" flood-color="var(--shadow)" flood-opacity="0.10"/>
+    </filter>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--line-strong)"/>
+    </marker>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--blue)"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--green)"/>
+    </marker>
+    <marker id="arrowRed" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--red)"/>
+    </marker>
+  </defs>
+  <style>
+    #architecture{
+      --bg:#f7f7f5;--surface:#ffffff;--surface-2:#f0f1ef;--ink:#151619;--muted:#666a73;--faint:#989da6;
+      --line:#d9dce1;--line-strong:#8f98a5;--shadow:#7a8492;
+      --blue:#3e7df2;--blue-soft:#dfeafe;--blue-stroke:#b6c9ea;
+      --green:#3f8a67;--green-soft:#d7e8de;--green-stroke:#b7cfbf;
+      --violet:#8d6cb1;--violet-soft:#e6ddf1;--violet-stroke:#cab8de;
+      --amber:#9b7346;--amber-soft:#ecdfd1;--amber-stroke:#d7bda1;
+      --red:#c24b4b;--red-soft:#fbebeb;--red-stroke:#e8b5b5;
+      --entry-fill:#dce8fb;--entry-stroke:#b8cae7;
+      --control-fill:#ecdfd1;--control-stroke:#d6bca3;
+      --execute-fill:#d9e9df;--execute-stroke:#b7cfbf;
+      --verify-fill:#e7def0;--verify-stroke:#cbb8df;
+      --glow-a:#ffffff;--glow-b:#eef1f5;
+      font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text",Inter,"Microsoft YaHei","Noto Sans CJK SC","Segoe UI",Roboto,Arial,sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      #architecture{
+        --bg:#08090b;--surface:#111317;--surface-2:#171a1f;--ink:#f6f7f8;--muted:#a8aeb8;--faint:#737a86;
+        --line:#2a2f37;--line-strong:#737e8e;--shadow:#000000;
+        --blue:#86b1ea;--blue-soft:#1a2434;--blue-stroke:#425a7f;
+        --green:#7db995;--green-soft:#1b2b22;--green-stroke:#3b644b;
+        --violet:#b89ad6;--violet-soft:#2a2130;--violet-stroke:#664f79;
+        --amber:#d0ae82;--amber-soft:#2d241b;--amber-stroke:#6a543e;
+        --red:#e27a7a;--red-soft:#331d1d;--red-stroke:#844141;
+        --entry-fill:#1e2939;--entry-stroke:#445c82;
+        --control-fill:#31261d;--control-stroke:#73583d;
+        --execute-fill:#1d2b23;--execute-stroke:#426a52;
+        --verify-fill:#2b2231;--verify-stroke:#6a537a;
+        --glow-a:#0d1118;--glow-b:#090a0c;
+      }
+    }
+    .page{fill:var(--bg)} .decor{fill:url(#pageGlow)}
+    .title{fill:var(--ink);font-size:38px;font-weight:710;letter-spacing:-1.3px}
+    .subtitle{fill:var(--muted);font-size:16px;font-weight:430;letter-spacing:-0.15px}
+    .eyebrow{fill:var(--faint);font-size:12px;font-weight:700;letter-spacing:1.8px}
+    .stage{fill:var(--faint);font-size:13.5px;font-weight:760;letter-spacing:1.5px}
+    .node-title{fill:var(--ink);font-size:17.5px;font-weight:690;letter-spacing:-0.3px}
+    .node-sub{fill:var(--muted);font-size:12px;font-weight:460;line-height:1.4}
+    .node-badge{font-size:11px;font-weight:650}
+    .box{fill:var(--surface);stroke:var(--line);stroke-width:1}
+    .blue-card{fill:var(--entry-fill);stroke:var(--entry-stroke);stroke-width:1.2}
+    .amber-card{fill:var(--control-fill);stroke:var(--control-stroke);stroke-width:1.2}
+    .green-card{fill:var(--execute-fill);stroke:var(--execute-stroke);stroke-width:1.2}
+    .violet-card{fill:var(--verify-fill);stroke:var(--violet-stroke);stroke-width:1.2}
+    .red-card{fill:var(--red-soft);stroke:var(--red-stroke);stroke-width:1.2}
+    .connector{fill:none;stroke:var(--line-strong);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;marker-end:url(#arrow)}
+    .connector-blue{fill:none;stroke:var(--blue);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;marker-end:url(#arrowBlue)}
+    .connector-green{fill:none;stroke:var(--green);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;marker-end:url(#arrowGreen)}
+    .connector-red{fill:none;stroke:var(--red);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:5 5;marker-end:url(#arrowRed)}
+    .raised{filter:url(#shadowSoft)}
+    .foot{fill:var(--faint);font-size:11px;font-weight:500}
+  </style>
+
+  <rect class="page" width="1600" height="1220"/>
+  <circle class="decor" cx="1480" cy="20" r="280" opacity=".65"/>
+  <circle class="decor" cx="110" cy="1160" r="240" opacity=".5"/>
+
+  <!-- Header -->
+  <text class="eyebrow" x="72" y="52">SYSTEM ARCHITECTURE · SIMPLIFIED TOPOLOGY</text>
+  <text class="title" x="72" y="94">ZCode-ZLoop Native Triple-Audit &amp; Concurrency Loop</text>
+  <text class="subtitle" x="72" y="124">Pre-Planning Counter-Plan · 8–15 Async Worktree Concurrency · Atomic Staging Rollback · Independent GLM-5.3 Gate</text>
+
+  <!-- Metrics Bar -->
+  <g class="raised">
+    <rect class="box" x="72" y="152" rx="16" ry="16" width="330" height="76"/>
+    <text fill="var(--blue)" font-size="28" font-weight="750" x="96" y="195">8–15</text>
+    <text fill="var(--ink)" font-size="14.5" font-weight="650" x="175" y="184">Physical Concurrent Workers</text>
+    <text fill="var(--muted)" font-size="11.5" x="175" y="206">JIT Thread Pool + Non-Blocking poll()</text>
+    <rect x="72" y="152" width="4" height="76" rx="2" fill="var(--blue)"/>
+  </g>
+  <g class="raised">
+    <rect class="box" x="424" y="152" rx="16" ry="16" width="330" height="76"/>
+    <text fill="var(--green)" font-size="28" font-weight="750" x="448" y="195">-53.4%</text>
+    <text fill="var(--ink)" font-size="14.5" font-weight="650" x="556" y="184">Initial Input Token Reduction</text>
+    <text fill="var(--muted)" font-size="11.5" x="556" y="206">Pruned 14 Unneeded MCP/Skill Schemas</text>
+    <rect x="424" y="152" width="4" height="76" rx="2" fill="var(--green)"/>
+  </g>
+  <g class="raised">
+    <rect class="box" x="776" y="152" rx="16" ry="16" width="330" height="76"/>
+    <text fill="var(--violet)" font-size="28" font-weight="750" x="800" y="195">100%</text>
+    <text fill="var(--ink)" font-size="14.5" font-weight="650" x="888" y="184">Isolated Cross-Model Routing</text>
+    <text fill="var(--muted)" font-size="11.5" x="888" y="206">Gemini Execution × GLM-5.3 Audit</text>
+    <rect x="776" y="152" width="4" height="76" rx="2" fill="var(--violet)"/>
+  </g>
+  <g class="raised">
+    <rect class="box" x="1128" y="152" rx="16" ry="16" width="400" height="76"/>
+    <text fill="var(--amber)" font-size="28" font-weight="750" x="1152" y="195">293</text>
+    <text fill="var(--ink)" font-size="14.5" font-weight="650" x="1215" y="184">Automated Tests All Green</text>
+    <text fill="var(--muted)" font-size="11.5" x="1215" y="206">Invariants I1–I44 Fully Closed</text>
+    <rect x="1128" y="152" width="4" height="76" rx="2" fill="var(--amber)"/>
+  </g>
+
+  <!-- Flow Col 1: 任务入口与根协调 -->
+  <g class="raised">
+    <rect class="box" x="72" y="260" rx="20" ry="20" width="310" height="880"/>
+    <text class="stage" x="96" y="295">STAGE 1 · PLANNING &amp; DISPATCH</text>
+
+    <!-- User / Prompt -->
+    <rect class="blue-card" x="96" y="320" rx="14" ry="14" width="262" height="110"/>
+    <text class="node-title" x="116" y="352">User Requirement Input</text>
+    <text class="node-sub" x="116" y="376">Dispatch engineering / refactoring goal</text>
+    <text class="node-sub" x="116" y="396">Slice into bounded packets.json</text>
+
+    <!-- Root Agent -->
+    <rect class="box" x="96" y="460" rx="14" ry="14" width="262" height="150"/>
+    <text class="node-title" x="116" y="492">Root Session (Sole Authority)</text>
+    <text fill="var(--blue)" class="node-badge" x="116" y="514">Gemini 3.8 Flash (Provider 3f0e0bfa)</text>
+    <text class="node-sub" x="116" y="540">Sole cognitive and planning authority</text>
+    <text class="node-sub" x="116" y="562">Lean S1 pruned runtime (12.5k tok)</text>
+    <text class="node-sub" x="116" y="584">Executes zloop c2c prepare --role plan</text>
+
+    <!-- Gate 1: C2C-P -->
+    <rect class="violet-card" x="96" y="640" rx="14" ry="14" width="262" height="160"/>
+    <text class="node-title" x="116" y="672">Audit Gate 1 · Planning (C2C-P)</text>
+    <text fill="var(--violet)" class="node-badge" x="116" y="694">ChatGPT Web / Disjoint Fresh Thread</text>
+    <text class="node-sub" x="116" y="720">Lowest token cost, highest reasoning leverage</text>
+    <text class="node-sub" x="116" y="742">Challenges assumptions, complements web facts</text>
+    <text class="node-sub" x="116" y="764">Pass -> record c2c_recorded (role: plan)</text>
+
+    <!-- Wave Start Gate -->
+    <rect class="amber-card" x="96" y="830" rx="14" ry="14" width="262" height="130"/>
+    <text class="node-title" x="116" y="862">Wave Dispatch Gate</text>
+    <text class="node-sub" x="116" y="888">Mandatory for HIGH/CRITICAL risk</text>
+    <text class="node-sub" x="116" y="910">Missing plan record -> Blocked in PLANNING</text>
+    <text class="node-sub" x="116" y="932">Approved -> Launch concurrent workers</text>
+
+    <rect class="box" x="96" y="990" rx="14" ry="14" width="262" height="110"/>
+    <text class="node-title" x="116" y="1022">Control Store (S Engine)</text>
+    <text class="node-sub" x="116" y="1046">SQLite DELETE+EXTRA crash consistent</text>
+    <text class="node-sub" x="116" y="1066">busy_timeout=30s · CAS Token ownership</text>
+  </g>
+
+  <!-- Flow Col 2: 执行层 (8-15 Workers) -->
+  <g class="raised">
+    <rect class="box" x="424" y="260" rx="20" ry="20" width="360" height="880"/>
+    <text class="stage" x="448" y="295">STAGE 2 · ISOLATED CONCURRENCY</text>
+
+    <!-- Supervisor -->
+    <rect class="amber-card" x="448" y="320" rx="14" ry="14" width="312" height="110"/>
+    <text class="node-title" x="468" y="352">Cold Wave Supervisor</text>
+    <text class="node-sub" x="468" y="376">Deterministic process · Zero inference overhead</text>
+    <text class="node-sub" x="468" y="396">50ms staggered launch smoothing burst QPS</text>
+
+    <!-- Worker Pool -->
+    <rect class="box" x="448" y="460" rx="14" ry="14" width="312" height="520"/>
+    <text class="node-title" x="468" y="492">8–15 Isolated Worktrees</text>
+    <text class="node-sub" x="468" y="516">JIT thread pool dispatch · Non-blocking poll()</text>
+
+    <!-- Worker Cards -->
+    <rect class="green-card" x="468" y="540" rx="10" ry="10" width="272" height="65"/>
+    <text fill="var(--ink)" font-size="14.5" font-weight="650" x="484" y="567">Worker 1 (worktree_s01_p01)</text>
+    <text class="node-sub" x="484" y="587">write_scope fencing · index.lock backoff</text>
+
+    <rect class="green-card" x="468" y="620" rx="10" ry="10" width="272" height="65"/>
+    <text fill="var(--ink)" font-size="14.5" font-weight="650" x="484" y="647">Worker 2 (worktree_s01_p02)</text>
+    <text class="node-sub" x="484" y="667">Isolated workspace · 429 jittered retry</text>
+
+    <text fill="var(--muted)" font-size="18" font-weight="700" x="590" y="718">···</text>
+
+    <rect class="green-card" x="468" y="740" rx="10" ry="10" width="272" height="65"/>
+    <text fill="var(--ink)" font-size="14.5" font-weight="650" x="484" y="767">Worker 8 (worktree_s01_p08)</text>
+    <text class="node-sub" x="484" y="787">Emits filesystem delta &amp; candidate SHA</text>
+
+    <rect class="green-card" x="468" y="820" rx="10" ry="10" width="272" height="65"/>
+    <text fill="var(--ink)" font-size="14.5" font-weight="650" x="484" y="847">Worker 15 (worktree_s01_p15)</text>
+    <text class="node-sub" x="484" y="867">Full 15-way concurrency · Zero hang</text>
+
+    <rect class="blue-card" x="468" y="900" rx="10" ry="10" width="272" height="60"/>
+    <text fill="var(--ink)" font-size="14" font-weight="650" x="484" y="925">Worker Profile: zloop-worker</text>
+    <text class="node-sub" x="484" y="945">Lean 9-tool catalog · Zero MCP clutter</text>
+
+    <!-- Output Delta -->
+    <rect class="box" x="448" y="1000" rx="14" ry="14" width="312" height="100"/>
+    <text class="node-title" x="468" y="1032">Deterministic Delta Extraction</text>
+    <text class="node-sub" x="468" y="1056">Parsed from git status --porcelain=v2 -z</text>
+    <text class="node-sub" x="468" y="1076">Empty parent directories pruned upwards</text>
+  </g>
+
+  <!-- Flow Col 3: 物化与原子回滚防线 -->
+  <g class="raised">
+    <rect class="box" x="824" y="260" rx="20" ry="20" width="340" height="880"/>
+    <text class="stage" x="848" y="295">STAGE 3 · MATERIALIZATION &amp; DEFENSE</text>
+
+    <!-- Staging Tree -->
+    <rect class="box" x="848" y="320" rx="14" ry="14" width="292" height="120"/>
+    <text class="node-title" x="868" y="352">Staging Workspace (staging_ws)</text>
+    <text class="node-sub" x="868" y="376">Private stage branch worktree</text>
+    <text class="node-sub" x="868" y="396">Records clean parent_sha baseline before apply</text>
+    <text class="node-sub" x="868" y="416">Sequentially applies validated worker deltas</text>
+
+    <!-- Gate 2: Mechanical Acceptance -->
+    <rect class="violet-card" x="848" y="470" rx="14" ry="14" width="292" height="170"/>
+    <text class="node-title" x="868" y="502">Audit Gate 2 · Mechanical Acceptance</text>
+    <text fill="var(--violet)" class="node-badge" x="868" y="524">pytest / cargo test / linters / build</text>
+    <text class="node-sub" x="868" y="550">Mechanical reality > Model self-claims (I38)</text>
+    <text class="node-sub" x="868" y="572">Never trust model self-reports of passing</text>
+    <text class="node-sub" x="868" y="594">Pass -> Retain candidate commit, proceed</text>
+    <text class="node-sub" x="868" y="616">Fail -> Trigger immediate hard rollback!</text>
+
+    <!-- P0-2 Defense: Atomic Rollback -->
+    <rect class="red-card" x="848" y="670" rx="14" ry="14" width="292" height="170"/>
+    <text fill="var(--red)" font-size="16.5" font-weight="700" x="868" y="702">Poison-Proof Atomic Rollback</text>
+    <text class="node-sub" x="868" y="728">git reset --hard parent_sha</text>
+    <text class="node-sub" x="868" y="750">git clean -fdx scrubs untracked poison</text>
+    <text class="node-sub" x="868" y="772">Never leaves defective commit on Staging HEAD</text>
+    <text class="node-sub" x="868" y="794">Completely eliminates cascading poison avalanche</text>
+    <text class="node-sub" x="868" y="816">S-event records candidate SHA for evidence</text>
+
+    <rect class="box" x="848" y="870" rx="14" ry="14" width="292" height="110"/>
+    <text class="node-title" x="868" y="902">Packet State: MATERIALIZED</text>
+    <text class="node-sub" x="868" y="926">Atomic transition in SQLite S transaction</text>
+    <text class="node-sub" x="868" y="946">Stage current_snapshot pointer advances</text>
+
+    <rect class="box" x="848" y="1000" rx="14" ry="14" width="292" height="100"/>
+    <text class="node-title" x="868" y="1032">Observable Evidence (H0/H1)</text>
+    <text class="node-sub" x="868" y="1056">Immutable NDJSON journal append-only</text>
+    <text class="node-sub" x="868" y="1076">>4KB payloads spill to CAS blob store</text>
+  </g>
+
+  <!-- Flow Col 4: 结果审计与晋升合入 -->
+  <g class="raised">
+    <rect class="box" x="1204" y="260" rx="20" ry="20" width="324" height="880"/>
+    <text class="stage" x="1228" y="295">STAGE 4 · AUDIT &amp; CANONICAL PROMOTION</text>
+
+    <!-- Gate 3: C2C-A Result Audit -->
+    <rect class="violet-card" x="1228" y="320" rx="14" ry="14" width="276" height="240"/>
+    <text class="node-title" x="1248" y="352">Audit Gate 3 · Result Audit (C2C-A)</text>
+    <text fill="var(--violet)" class="node-badge" x="1248" y="374">Heterogeneous routing · P-HET1 verified</text>
+    <text class="node-sub" x="1248" y="400">Auditor: GLM-5.3 (Provider af9697f5)</text>
+    <text class="node-sub" x="1248" y="422">Fully-qualified provider routing (af9697f5)</text>
+    <text class="node-sub" x="1248" y="444">Read-only contract: never modifies files</text>
+    <text class="node-sub" x="1248" y="466">Evidence-only: reads diffs and test logs</text>
+    <text class="node-sub" x="1248" y="488">Strict JSON verdict: PASS or REJECT</text>
+    <text class="node-sub" x="1248" y="510">Or invoke ChatGPT fresh thread review</text>
+    <text class="node-sub" x="1248" y="532">Pass -> record c2c_recorded (role: result)</text>
+
+    <!-- Stage Promote Gate -->
+    <rect class="amber-card" x="1228" y="590" rx="14" ry="14" width="276" height="150"/>
+    <text class="node-title" x="1248" y="622">Canonical Promotion Gate</text>
+    <text class="node-sub" x="1248" y="648">Role-Aware Protection (D-25)</text>
+    <text class="node-sub" x="1248" y="670">Requires recorded role=result C2C event</text>
+    <text class="node-sub" x="1248" y="692">plan-role bypass attempt -> Rejected!</text>
+    <text class="node-sub" x="1248" y="714">result review verified -> Allow promotion</text>
+
+    <!-- Canonical Promotion -->
+    <rect class="green-card" x="1228" y="770" rx="14" ry="14" width="276" height="150"/>
+    <text class="node-title" x="1248" y="802">Canonical Fast-Forward Promotion</text>
+    <text class="node-sub" x="1248" y="828">Git physical oracle asserts clean HEAD</text>
+    <text class="node-sub" x="1248" y="850">Safe git merge --ff-only to staged SHA</text>
+    <text class="node-sub" x="1248" y="872">Canonical branch advances to staged commit</text>
+    <text class="node-sub" x="1248" y="894">Stage transitions to PROMOTED in 1 S tx</text>
+
+    <!-- Success Outcome -->
+    <rect class="box" x="1228" y="950" rx="14" ry="14" width="276" height="150"/>
+    <text class="node-title" x="1248" y="982">Production-Verified Deliverable</text>
+    <text class="node-sub" x="1248" y="1006">Zero poison leakage · Zero unauthorized write</text>
+    <text class="node-sub" x="1248" y="1026">Counter-plan, mechanical, &amp; heterogeneous verified</text>
+    <text class="node-sub" x="1248" y="1046">Fully reproducible &amp; observable history</text>
+    <text fill="var(--green)" font-weight="700" font-size="13" x="1248" y="1076">PRODUCTION GRADE VERIFIED</text>
+  </g>
+
+  <!-- Connectors -->
+  <path class="connector-blue" d="M 227 430 L 227 460"/>
+  <path class="connector-blue" d="M 227 610 L 227 640"/>
+  <path class="connector-blue" d="M 227 800 L 227 830"/>
+  <path class="connector-green" d="M 358 895 L 448 375"/>
+
+  <path class="connector" d="M 604 430 L 604 460"/>
+  <path class="connector" d="M 604 980 L 604 1000"/>
+  <path class="connector-green" d="M 760 1050 L 848 380"/>
+
+  <path class="connector" d="M 994 440 L 994 470"/>
+  <path class="connector-red" d="M 994 640 L 994 670"/>
+  <path class="connector-green" d="M 994 640 L 994 870"/>
+
+  <path class="connector-green" d="M 1140 925 L 1228 440"/>
+  <path class="connector" d="M 1366 560 L 1366 590"/>
+  <path class="connector-green" d="M 1366 740 L 1366 770"/>
+  <path class="connector-green" d="M 1366 920 L 1366 950"/>
+
+  <!-- Footer -->
+  <text class="foot" x="72" y="1175">ZCode-ZLoop Gen8 · Native Multi-Agent Orchestration Harness · Dual Heterogeneous AI Verification</text>
+  <text class="foot" x="1170" y="1175">Confidential &amp; Verified Architecture · Invariants I1–I44 Enforced</text>
+</svg>

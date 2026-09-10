@@ -1,0 +1,30 @@
+物化审计报告
+
+本次审计 `E:\zcode\zloop-gen8\src\zloop\materialize.py`，聚焦于任务包中定义的差异提取、授权路径、提交、验收、回滚、错误处理及数据丢失风险。以下为审计结论：
+
+### 核心结论与风险分析
+
+1.  **回滚边界风险（Rollback Boundary）**
+    -   `materialize_packet` 在 `_apply_delta` 失败时仅在 `rollback_on_failure` 为真时执行回滚。如果该标志为假，应用过程中的部分磁盘写入将无法自动清理。
+    -   在 `rollback_staging` 中使用了 `git clean -fdx`。该操作是破坏性的，会删除所有未追踪文件（包括未在 `.gitignore` 中的意外生成的构建缓存），若这些文件存在且未完全隔离在 `staging` 环境，则面临永久数据丢失风险。
+
+2.  **错误处理与缺陷（Error Handling & Defects）**
+    -   `_prune_empty_parents` 使用了一个宽泛的 `try...except OSError` 块，静默吞没了所有错误。若因权限不足导致无法清理，该函数无法报告错误，导致空目录残留，破坏了清理机制（P0-4 Fix）。
+    -   `_apply_delta` 并非原子操作。在出现应用中间错误时，即使随后调用了回滚，此时 staging 环境已经处于部分物理修改的脏状态。
+
+3.  **安全性（Security）**
+    -   `run_host_acceptance` 通过 `shell=True` 执行 `commands` 列表。由于验收命令来源于 `packet["acceptance"]`，如果数据源未被充分清理或校验，存在命令注入风险。
+
+### 分支与验收逻辑
+
+-   **Acceptance 不合格处理**：目前逻辑下，如果验收失败且设定了 `rollback_on_failure=True`，系统通过 `reset --hard` 将 staging 同步至 `parent_sha`。但验收结论已在 `store` 中记录，该记录作为证据保留，符合设计预期。
+-   **成功路径**：符合 VOL-10 规范，保证了 `MATERIALIZED` 状态的一致性更新（S mutation），即 Packet 状态与阶段快照指针同时更新。
+
+### 测试需求建议
+
+1.  需要添加针对 `_prune_empty_parents` 的负面测试，验证在权限受限目录下的清理行为（确保其能捕获并适度处理或记录错误）。
+2.  必须在受控环境下模拟 `_apply_delta` 中间环节发生磁盘/权限错误，验证 `materialize_packet` 是否成功恢复并回滚 staging 工作树至初始 SHA。
+3.  需加固 `run_host_acceptance` 的校验流程，限制验收命令字符串，避免潜在的 shell 注入。
+
+报告编号：FA09-AUDIT
+检查完成时间：2026-09-03

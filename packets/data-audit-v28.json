@@ -1,0 +1,12 @@
+{
+  "packet_id": "data-audit-v28",
+  "goal": "Audit and compare data integrity, schema, and contracts in V28_FABLE_PACKAGE_COMPLETE against G:\quant and E:\quant\_foundry. Assess: data ingestion, cache freshness, schema consistency, timezone/calendar alignment, deduplication logic, handling of missing values, train/test split stability, and input/output contracts. Document drift, reproducibility, and audit gaps.",
+  "authorized_paths": [
+    "C:/Users/hzq00/Downloads/pi-agent/回归本机：α1/gemini/V28_FABLE_PACKAGE_COMPLETE",
+    "G:/quant",
+    "E:/quant/_foundry",
+    "E:/codex-LOOP/codex-loop-s-f2/reports/independent_audit_v28"
+  ],
+  "acceptance": "Generate a comprehensive audit report (05_数据契约审计.md) identifying drift or reproducibility issues, severity assigned (Critical/High/Medium/Low), paths/lines cited for all findings. State knowns, unknowns, and verification gaps.",
+  "constraints": "Strictly read-only; no modifications to data; report ONLY to the specified report directory; no networking; single agent task; no further sub-delegation."
+}

@@ -1,0 +1,336 @@
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 9647)
+Exception occurred during processing of request from ('127.0.0.1', 9651)
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 11315)
+Exception occurred during processing of request from ('127.0.0.1', 9654)
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+Traceback (most recent call last):
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Traceback (most recent call last):
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "E:\codex-LOOP\launchers\loop_monitor_server.py", line 1112, in do_GET
+    # On Windows SO_REUSEADDR permits multiple unrelated processes to bind
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "E:\codex-LOOP\launchers\loop_monitor_server.py", line 1100, in send_bytes
+    for(const x of tasks){const tr=document.createElement('tr');for(const [value,cls] of [[x.name,''],[taskModel(x),'task-model'],[x.plane,'']]){const td=document.createElement('td');td.textContent=clean(value);td.className=cls;tr.append(td)}body.append(tr)}
+            ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+ConnectionAbortedError: [WinError 10053] 你的主机中的软件中止了一个已建立的连接。
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "E:\codex-LOOP\launchers\loop_monitor_server.py", line 1112, in do_GET
+    # On Windows SO_REUSEADDR permits multiple unrelated processes to bind
+----------------------------------------
+  File "E:\codex-LOOP\launchers\loop_monitor_server.py", line 1112, in do_GET
+    # On Windows SO_REUSEADDR permits multiple unrelated processes to bind
+  File "E:\codex-LOOP\launchers\loop_monitor_server.py", line 1112, in do_GET
+    # On Windows SO_REUSEADDR permits multiple unrelated processes to bind
+  File "E:\codex-LOOP\launchers\loop_monitor_server.py", line 1100, in send_bytes
+    for(const x of tasks){const tr=document.createElement('tr');for(const [value,cls] of [[x.name,''],[taskModel(x),'task-model'],[x.plane,'']]){const td=document.createElement('td');td.textContent=clean(value);td.className=cls;tr.append(td)}body.append(tr)}
+            ^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\codex-LOOP\launchers\loop_monitor_server.py", line 1100, in send_bytes
+    for(const x of tasks){const tr=document.createElement('tr');for(const [value,cls] of [[x.name,''],[taskModel(x),'task-model'],[x.plane,'']]){const td=document.createElement('td');td.textContent=clean(value);td.className=cls;tr.append(td)}body.append(tr)}
+            ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+  File "E:\codex-LOOP\launchers\loop_monitor_server.py", line 1100, in send_bytes
+    for(const x of tasks){const tr=document.createElement('tr');for(const [value,cls] of [[x.name,''],[taskModel(x),'task-model'],[x.plane,'']]){const td=document.createElement('td');td.textContent=clean(value);td.className=cls;tr.append(td)}body.append(tr)}
+            ^^^^^^^^^^^^^^^^^^^^^^
+ConnectionAbortedError: [WinError 10053] 你的主机中的软件中止了一个已建立的连接。
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+----------------------------------------
+ConnectionAbortedError: [WinError 10053] 你的主机中的软件中止了一个已建立的连接。
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+----------------------------------------
+ConnectionAbortedError: [WinError 10053] 你的主机中的软件中止了一个已建立的连接。
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 13436)
+Traceback (most recent call last):
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "E:\codex-LOOP\launchers\loop_monitor_server.py", line 1112, in do_GET
+    # On Windows SO_REUSEADDR permits multiple unrelated processes to bind
+  File "E:\codex-LOOP\launchers\loop_monitor_server.py", line 1100, in send_bytes
+    for(const x of tasks){const tr=document.createElement('tr');for(const [value,cls] of [[x.name,''],[taskModel(x),'task-model'],[x.plane,'']]){const td=document.createElement('td');td.textContent=clean(value);td.className=cls;tr.append(td)}body.append(tr)}
+            ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+ConnectionAbortedError: [WinError 10053] 你的主机中的软件中止了一个已建立的连接。
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 6740)
+Traceback (most recent call last):
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "E:\codex-LOOP\launchers\loop_monitor_server.py", line 1112, in do_GET
+    # On Windows SO_REUSEADDR permits multiple unrelated processes to bind
+  File "E:\codex-LOOP\launchers\loop_monitor_server.py", line 1100, in send_bytes
+    for(const x of tasks){const tr=document.createElement('tr');for(const [value,cls] of [[x.name,''],[taskModel(x),'task-model'],[x.plane,'']]){const td=document.createElement('td');td.textContent=clean(value);td.className=cls;tr.append(td)}body.append(tr)}
+            ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+ConnectionAbortedError: [WinError 10053] 你的主机中的软件中止了一个已建立的连接。
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 4432)
+Traceback (most recent call last):
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "E:\codex-LOOP\launchers\loop_monitor_server.py", line 1112, in do_GET
+    # On Windows SO_REUSEADDR permits multiple unrelated processes to bind
+  File "E:\codex-LOOP\launchers\loop_monitor_server.py", line 1100, in send_bytes
+    for(const x of tasks){const tr=document.createElement('tr');for(const [value,cls] of [[x.name,''],[taskModel(x),'task-model'],[x.plane,'']]){const td=document.createElement('td');td.textContent=clean(value);td.className=cls;tr.append(td)}body.append(tr)}
+            ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+ConnectionAbortedError: [WinError 10053] 你的主机中的软件中止了一个已建立的连接。
+----------------------------------------
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 10931)
+Exception occurred during processing of request from ('127.0.0.1', 10932)
+Traceback (most recent call last):
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+Traceback (most recent call last):
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "E:\codex-LOOP\launchers\loop_monitor_server.py", line 1112, in do_GET
+    # On Windows SO_REUSEADDR permits multiple unrelated processes to bind
+  File "E:\codex-LOOP\launchers\loop_monitor_server.py", line 1100, in send_bytes
+    for(const x of tasks){const tr=document.createElement('tr');for(const [value,cls] of [[x.name,''],[taskModel(x),'task-model'],[x.plane,'']]){const td=document.createElement('td');td.textContent=clean(value);td.className=cls;tr.append(td)}body.append(tr)}
+            ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionAbortedError: [WinError 10053] 你的主机中的软件中止了一个已建立的连接。
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------------------
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "E:\codex-LOOP\launchers\loop_monitor_server.py", line 1112, in do_GET
+    # On Windows SO_REUSEADDR permits multiple unrelated processes to bind
+  File "E:\codex-LOOP\launchers\loop_monitor_server.py", line 1100, in send_bytes
+    for(const x of tasks){const tr=document.createElement('tr');for(const [value,cls] of [[x.name,''],[taskModel(x),'task-model'],[x.plane,'']]){const td=document.createElement('td');td.textContent=clean(value);td.className=cls;tr.append(td)}body.append(tr)}
+            ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+ConnectionAbortedError: [WinError 10053] 你的主机中的软件中止了一个已建立的连接。
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 12034)
+Traceback (most recent call last):
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "E:\codex-LOOP\launchers\loop_monitor_server.py", line 1112, in do_GET
+    # On Windows SO_REUSEADDR permits multiple unrelated processes to bind
+  File "E:\codex-LOOP\launchers\loop_monitor_server.py", line 1100, in send_bytes
+    for(const x of tasks){const tr=document.createElement('tr');for(const [value,cls] of [[x.name,''],[taskModel(x),'task-model'],[x.plane,'']]){const td=document.createElement('td');td.textContent=clean(value);td.className=cls;tr.append(td)}body.append(tr)}
+            ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+ConnectionAbortedError: [WinError 10053] 你的主机中的软件中止了一个已建立的连接。
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 11405)
+Traceback (most recent call last):
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "E:\codex-LOOP\launchers\loop_monitor_server.py", line 1112, in do_GET
+    # On Windows SO_REUSEADDR permits multiple unrelated processes to bind
+  File "E:\codex-LOOP\launchers\loop_monitor_server.py", line 1100, in send_bytes
+    for(const x of tasks){const tr=document.createElement('tr');for(const [value,cls] of [[x.name,''],[taskModel(x),'task-model'],[x.plane,'']]){const td=document.createElement('td');td.textContent=clean(value);td.className=cls;tr.append(td)}body.append(tr)}
+            ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+ConnectionAbortedError: [WinError 10053] 你的主机中的软件中止了一个已建立的连接。
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 4045)
+Traceback (most recent call last):
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "E:\codex-LOOP\launchers\loop_monitor_server.py", line 1112, in do_GET
+    # On Windows SO_REUSEADDR permits multiple unrelated processes to bind
+  File "E:\codex-LOOP\launchers\loop_monitor_server.py", line 1100, in send_bytes
+    for(const x of tasks){const tr=document.createElement('tr');for(const [value,cls] of [[x.name,''],[taskModel(x),'task-model'],[x.plane,'']]){const td=document.createElement('td');td.textContent=clean(value);td.className=cls;tr.append(td)}body.append(tr)}
+            ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+ConnectionAbortedError: [WinError 10053] 你的主机中的软件中止了一个已建立的连接。
+----------------------------------------

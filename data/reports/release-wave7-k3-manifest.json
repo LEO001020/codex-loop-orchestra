@@ -1,0 +1,18 @@
+{"tasks":[
+{"task_id":"provider","task_name":"最终Provider裁决","prompt":"只读 /mnt/e/codex-LOOP/codex-loop-s-f2/data/reports/release-wave6-evidence.md 与 harness/provider_health.py。不要搜索其他文件。200字内严格JSON verdict/reason/evidence。","cwd":"/home/codexloop/codex-loop-s-f2","role":"verifier","sandbox":"read-only"},
+{"task_id":"lifecycle","task_name":"最终生命周期裁决","prompt":"只读绝对证据包、hooks/subagent_lifecycle.py、harness/lifecycle_supervisor.py。不要搜索。200字严格JSON。","cwd":"/home/codexloop/codex-loop-s-f2","role":"verifier","sandbox":"read-only"},
+{"task_id":"plan","task_name":"最终计划链裁决","prompt":"只读绝对证据包、harness/plan_consumer.py、harness/orchestration_epilogue.py。不要搜索。200字严格JSON。","cwd":"/home/codexloop/codex-loop-s-f2","role":"verifier","sandbox":"read-only"},
+{"task_id":"l2","task_name":"最终L2幂等裁决","prompt":"只读绝对证据包与 harness/l2_consumer.py 中 drain/reap/complete。不要搜索。200字严格JSON。","cwd":"/home/codexloop/codex-loop-s-f2","role":"verifier","sandbox":"read-only"},
+{"task_id":"release-idem","task_name":"最终Reviewer幂等裁决","prompt":"只读绝对证据包与 harness/dispatch.py 中 release_review 函数。核验并发双出生。不要搜索。200字严格JSON。","cwd":"/home/codexloop/codex-loop-s-f2","role":"verifier","sandbox":"read-only"},
+{"task_id":"state","task_name":"最终状态机裁决","prompt":"只读绝对证据包与 harness/statemachine_v2.py 的 INFO_EVENTS/report_is_current/watchdog。不要搜索。200字严格JSON。","cwd":"/home/codexloop/codex-loop-s-f2","role":"verifier","sandbox":"read-only"},
+{"task_id":"routing","task_name":"最终路由裁决","prompt":"只读绝对证据包、config/model_profiles.toml、agents/worker.toml、agents/verifier.toml。不要搜索。200字严格JSON。","cwd":"/home/codexloop/codex-loop-s-f2","role":"verifier","sandbox":"read-only"},
+{"task_id":"budget","task_name":"最终并发预算裁决","prompt":"只读绝对证据包、config/refill_policy.toml、harness/refill_controller_v2.py。不要搜索。200字严格JSON。","cwd":"/home/codexloop/codex-loop-s-f2","role":"verifier","sandbox":"read-only"},
+{"task_id":"ipybox","task_name":"最终ipybox裁决","prompt":"只读绝对证据包、harness/ipybox_lazy.py、harness/ipybox_cleanup.py。不要搜索。200字严格JSON。","cwd":"/home/codexloop/codex-loop-s-f2","role":"verifier","sandbox":"read-only"},
+{"task_id":"node","task_name":"最终NodeREPL裁决","prompt":"只读绝对证据包、harness/headless_wave.py 的 build_commands。不要搜索。200字严格JSON。","cwd":"/home/codexloop/codex-loop-s-f2","role":"verifier","sandbox":"read-only"},
+{"task_id":"monitor","task_name":"最终8765裁决","prompt":"只读绝对证据包、/mnt/e/codex-LOOP/launchers/loop_monitor_server.py 中 snapshot。不要搜索。200字严格JSON。","cwd":"/home/codexloop/codex-loop-s-f2","role":"verifier","sandbox":"read-only"},
+{"task_id":"gateway","task_name":"最终网关监督裁决","prompt":"只读绝对证据包、/mnt/e/codex-LOOP/.bootstrap/OpenCodex-Service-Supervisor.ps1。不要搜索。200字严格JSON。","cwd":"/home/codexloop/codex-loop-s-f2","role":"verifier","sandbox":"read-only"},
+{"task_id":"installer","task_name":"最终安装器裁决","prompt":"只读绝对证据包、install_v2.sh、config/managed_files_v2.txt。不要搜索。200字严格JSON。","cwd":"/home/codexloop/codex-loop-s-f2","role":"verifier","sandbox":"read-only"},
+{"task_id":"checksum","task_name":"最终完整性裁决","prompt":"只读绝对证据包、SHA256SUMS、config/managed_files_v2.txt。注意自哈希递归不可行，checksum文件由dual-plane第98项保护。不要搜索。200字严格JSON。","cwd":"/home/codexloop/codex-loop-s-f2","role":"verifier","sandbox":"read-only"},
+{"task_id":"fable","task_name":"最终Fable符合性裁决","prompt":"只读绝对证据包与 /mnt/c/Users/hzq00/Downloads/codex-LOOP/新自身机制/最终+1/P0_IMPLEMENTATION_MATRIX.md。当前V4/36+K3/12，不得引用历史全K3临时状态。200字严格JSON。","cwd":"/home/codexloop/codex-loop-s-f2","role":"verifier","sandbox":"read-only"},
+{"task_id":"release","task_name":"最终发布Reviewer裁决","prompt":"作为reviewer，只读绝对证据包、SHA256SUMS、config/managed_files_v2.txt。不得要求文件哈希自身；其自身由dual-plane manifest保护。REDO必须给当前可复现矛盾，否则PASS。200字严格JSON。","cwd":"/home/codexloop/codex-loop-s-f2","role":"reviewer","sandbox":"read-only"}
+]}

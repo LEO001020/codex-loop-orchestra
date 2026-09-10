@@ -1,0 +1,53 @@
+Reading additional input from stdin...
+2026-08-14T10:46:05.510471Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T10:46:12.911159Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T10:46:27.241786Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 3.2 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 53
++ rg --files E:\codex-LOOP\codex-loop-s-f2\metering | head -60
++                                                     ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T10:47:07.496429Z ERROR codex_core::tools::router: error=unsupported call: read
+2026-08-14T10:48:48.560990Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.5 seconds
+Output:
+rg: unrecognized flag --include
+
+similar flags that are available: --include-zero
+
+2026-08-14T10:49:21.663633Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 201ms)... turn_id=019fffe1-0820-7c63-8c79-1f053afc9f95 retries=1 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游网络连接失败, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T10:52:04.922128Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.2 seconds
+Output:
+
+2026-08-14T10:54:29.841690Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.1 seconds
+Output:
+
+2026-08-14T10:58:07.604765Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.2 seconds
+Output:
+
+2026-08-14T11:01:54.651785Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

@@ -1,0 +1,70 @@
+任务名：W1资源策略设计
+
+## W1 资源策略设计报告
+
+### 策略字段精确定义
+
+```
+policy_type:                     WAVE1_CUMULATIVE_ACTIVE_WALL_TIME_V1
+max_active_wall_seconds:         正整数（保守设定，见下文推荐值）
+starts_at:                       WAVE1_APPLIED
+checkpoint_semantics:            SEALED_PARTIAL_CHECKPOINT_RESUME_ONLY
+on_exhaustion:                   RESOURCE_EXHAUSTED_OWNER_ACTION_REQUIRED
+scientific_early_stop:           false
+candidate_count:                 174
+real_p5_labels_read_before_choice: false
+decision_basis:                  outcome-blind
+```
+
+---
+
+### 保守确定性策略选择（Pre-Arm）
+
+**推荐 `max_active_wall_seconds` 设定原则：**
+
+对于 174 个候选、单 Wave 累计活跃墙钟时间策略，保守上限应满足以下约束：
+
+1. **单候选预算上限** — 设每个候选分配的活跃墙钟时间上限为 `T_per`，则 `max_active_wall_seconds = 174 × T_per`。
+2. **保守倍率** — 取 `T_per` 为历史同类任务 p95 完成时间的 1.5 倍，而非均值，以吸收尾部延迟。
+3. **示例数值** — 若历史 p95 为 120s，则 `T_per = 180s`，`max_active_wall_seconds = 174 × 180 = 31,320s`（约 8.7 小时）。实际部署应根据真实 p95 替换。
+
+**确定性要求：**
+
+- 策略必须在 arm 之前完整指定，所有字段锁定，不得在执行期间动态调整上限。
+- 策略文档作为不可变快照随 Wave 一起密封（`SEALED`），与 `checkpoint_semantics: SEALED_PARTIAL_CHECKPOINT_RESUME_ONLY` 语义一致。
+
+---
+
+### 为何策略不能以结果为条件
+
+这是本设计的核心约束，原因有三个层面：
+
+**1. `real_p5_labels_read_before_choice: false` — 决策时无标签可读**
+
+策略选择发生于任何真实 p5 标签被读取之前。此时尚无任何结果信息存在于系统中，"条件化于结果"在信息论上是不可能的——条件事件的概率空间为空集。
+
+**2. `decision_basis: outcome-blind` — 架构层强制盲化**
+
+`outcome-blind` 不是建议，而是架构约束。策略引擎在 arm 阶段不向决策路径暴露任何候选执行结果、中间指标或反馈信号。即便策略设计者试图写入条件分支，执行层也会拒绝对结果字段的读取。
+
+**3. 科学有效性与反事实一致性**
+
+若允许策略依赖中间结果调整资源上限（即 "peek-then-adjust"），则：
+
+- **选择偏差**：运行时间短的候选（即结果快速出现者）会获得相对更宽松的后续资源，破坏候选间的资源公平性。
+- **反事实污染**：资源耗尽的截止点本身成为结果的函数，使得"在资源 X 下的表现"这一度量失去可重复性。
+- **`scientific_early_stop: false` 的意图延伸**：该字段已明确禁止基于中间结果的提前停止；结果条件化资源上限是同一类违规的泛化形式。
+
+**结论：** 策略必须是一个纯粹的、在 arm 前完全确定的函数，其输入仅为静态元数据（候选数量、历史时间分布、系统容量），输出为固定的 `max_active_wall_seconds`，与任何执行期观测值解耦。
+
+---
+
+### 检查点与耗尽语义摘要
+
+| 字段 | 值 | 含义 |
+|---|---|---|
+| `checkpoint_semantics` | `SEALED_PARTIAL_CHECKPOINT_RESUME_ONLY` | 耗尽时保存部分进度，但仅允许恢复，不允许重新参数化 |
+| `on_exhaustion` | `RESOURCE_EXHAUSTED_OWNER_ACTION_REQUIRED` | 耗尽后挂起，等待所有者显式干预，不自动扩容 |
+| `scientific_early_stop` | `false` | 禁止基于任何中间信号的提前终止 |
+
+这三者组合保证了：即便资源耗尽，系统也不会静默地改变实验条件，所有者必须主动决定是否以及如何继续，从而保持实验的可审计性。

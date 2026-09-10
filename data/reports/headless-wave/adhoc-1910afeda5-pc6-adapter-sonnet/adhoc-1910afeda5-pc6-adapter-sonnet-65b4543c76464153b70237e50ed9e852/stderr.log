@@ -1,0 +1,184 @@
+Reading additional input from stdin...
+2026-08-14T14:12:53.997139Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T14:12:56.223334Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T14:13:18.565439Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:13:35.190624Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 4.2 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 162
++ ... l','.json','.toml','.md','.txt')} | Select-Object FullName | head -80
++                                                                  ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T14:13:58.433259Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.9 seconds
+Output:
+
+FullName                                                                   
+--------                                                                   
+E:\VPS\build_direct_repair_release.py                                      
+E:\VPS\build_handoff_v2.py                                                 
+E:\VPS\build_terminalization_v2.py                                         
+E:\VPS\direct-repair-headless-wave-v1.json                                 
+E:\VPS\p5-alpha-execution-headless-wave-20260814.json                      
+E:\VPS\p5_cold_ssh_keys.txt                                                
+E:\VPS\p5_cold_ssh_keys_k3.txt                                             
+E:\VPS\P5_CURSOR_FABLE_HANDOFF_PROMPT_V1.txt                               
+E:\VPS\p5_finalize_hub_research_ready.py                                   
+E:\VPS\p5_seal_home_e2e_parser_attempt.py                                  
+E:\VPS\pc6_binance_materializer.py                                         
+E:\VPS\pc7-conditional-prewarm-headless-retry.json                         
+E:\VPS\pc7-conditional-prewarm-headless.json                               
+E:\VPS\pc7-headless-wave-manifest-2.json                                   
+E:\VPS\pc7-headless-wave-manifest-3.json                                   
+E:\VPS\pc7-headless-wave-manifest.json                                     
+E:\VPS\test_pc6_binance_materializer.py                                    
+E:\VPS\.gcloud\.last_survey_prompt.yaml                                    
+E:\VPS\.gcloud\.last_update_check.json                                     
+E:\VPS\cli-parser-dispatch-tests-20260813\README.md                        
+E:\VPS\cli-parser-dispatch-tests-20260813\run_tests.py                     
+E:\VPS\cli-parser-dispatch-tests-20260813\synthetic_harness.py             
+E:\VPS\cli-parser-dispatch-tests-20260813\test_cli_dispatch_synthetic.py   
+E:\VPS\cli-parser-dispatch-tests-20260813\test_cli_parser_synthetic.py     
+E:\VPS\direct_repair_stage\authority_runtime.py                            
+E:\VPS\direct_repair_stage\authority_store.py                              
+E:\VPS\direct_repair_stage\conditional_delegation.py                       
+E:\VPS\direct_repair_stage\P5_AMENDMENT_D_AUTONOMOUS_AUTHORITY_BRIDGE_V1.md
+E:\VPS\direct_repair_stage\t1_wave1_evaluator.py                           
+E:\VPS\direct_repair_stage\test_authority_store_v3.py                      
+E:\VPS\direct_repair_stage\test_migration_v3_rehearsal.py                  
+E:\VPS\direct_repair_stage\test_pc7_synthetic.py                           
+E:\VPS\direct_repair_stage\tests\test_authority_store_v3.py                
+E:\VPS\home-gpu\arm_codex_repair_canary.py                                 
+E:\VPS\home-gpu\arm_fable_one_time.py                                      
+E:\VPS\home-gpu\finalize_codex_repair_canary.py                            
+E:\VPS\home-gpu\finalize_fable_readiness.py                                
+E:\VPS\home-gpu\home_worker.py                                             
+E:\VPS\home-gpu\observe_codex_repair_canary.py                             
+E:\VPS\home-gpu\p5_home_watchdog.py                                        
+E:\VPS\home-gpu\evidence\.tmp_home_db_status.py                            
+E:\VPS\home-gpu\evidence\.tmp_hub_cli_ro.py                                
+E:\VPS\home-gpu\evidence\.tmp_hub_layout.txt                               
+E:\VPS\home-gpu\evidence\.tmp_hub_queue_ro_audit.py                        
+E:\VPS\home-gpu\evidence\.tmp_queue_db_ro.py                               
+E:\VPS\home-gpu\evidence\checkpoint_recovery_audit.py                      
+E:\VPS\home-gpu\evidence\checkpoint_recovery_audit_result.json             
+E:\VPS\home-gpu\evidence\home-baseline-count-audit-20260811T0340Z.json     
+E:\VPS\home-gpu\evidence\home_gpu_min_ready.json                           
+E:\VPS\home-gpu\evidence\home_worker_e2e_ready_for_fable.json              
+E:\VPS\home-gpu\evidence\hub_cli_source.txt                                
+E:\VPS\home-gpu\evidence\isolation_audit_hub_err.txt                       
+E:\VPS\home-gpu\evidence\isolation_audit_hub_out.txt                       
+E:\VPS\home-gpu\evidence\isolation_audit_hub_rc.txt                        
+E:\VPS\home-gpu\evidence\ps_full.txt                                       
+E:\VPS\home-gpu\evidence\ssh_probe.txt                                     
+E:\VPS\home-gpu\evidence\wsl_check1.txt                                    
+E:\VPS\home-gpu\evidence\wsl_check2.txt                                    
+E:\VPS\home-gpu\evidence\wsl_hub_queue_readonly.json                       
+E:\VPS\home-gpu\evidence\wsl_hub_queue_readonly2.json                      
+E:\VPS\home-gpu\evidence\wsl_process_check.txt                             
+E:\VPS\home-gpu\evidence\wsl_verify.txt                                    
+E:\VPS\home-gpu\evidence\_event_outbox_ro.py                               
+E:\VPS\home-gpu\evidence\_hub_err.txt                                      
+E:\VPS\home-gpu\evidence\_hub_isolation_audit_ro.py                        
+E:\VPS\home-gpu\evidence\_hub_out.txt                                      
+E:\VPS\home-gpu\evidence\_hub_rc.txt                                       
+E:\VPS\home-gpu\evidence\_hub_ro_read.py                                   
+E:\VPS\home-gpu\evidence\_job_state_ro.py                                  
+E:\VPS\home-gpu\evidence\_tmp_fable_chain_ro.py                            
+E:\VPS\hub-baseline-audit\counts.py                                        
+E:\VPS\hub-baseline-audit\hub_result_audit.py                              
+E:\VPS\hub-baseline-audit\states.py                                        
+E:\VPS\p5-boot-image-20260810T144519Z\gate.json                            
+E:\VPS\p5-boot-image-20260810T144519Z\image.json                           
+E:\VPS\p5-boot-image-20260810T144519Z\production-data-disk-after.json      
+E:\VPS\p5-boot-image-20260810T144519Z\production-instance-after.json       
+E:\VPS\p5-boot-image-20260810T144519Z\snapshot.json                        
+E:\VPS\p5-boot-image-20260810T144519Z\source-boot-disk-after.json          
+E:\VPS\p5-boot-image-preflight-20260810T144519Z\boot_disk.json             
+
+
+Get-ChildItem : 对路径“E:\VPS\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem -Path "E:\VPS" -Recurse -Depth 2 | Where-Object {$_.Ext ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\VPS\.pytest_cache:String) [Get-ChildItem], UnauthorizedAccessExcep 
+   tion
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+Get-ChildItem : 对路径“E:\VPS\direct_repair_stage\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem -Path "E:\VPS" -Recurse -Depth 2 | Where-Object {$_.Ext ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\VPS\direct_repair_stage\.pytest_cache:String) [Get-ChildItem], Una 
+   uthorizedAccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-14T14:14:08.837240Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-14T14:14:21.491656Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `command` at line 1 column 63
+2026-08-14T14:15:57.763659Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.9 seconds
+Output:
+
+FullName                                                                                                               
+--------                                                                                                               
+E:\VPS\.gcloud\hidden_gcloud_config_universe_descriptor_data_cache_configs.db                                          
+E:\VPS\reports\codex-fl13-qa-isolated-20260814-0445\owner-admin-cutover-final-20260814-recovery-v1\09_OWNER_CEREMONY...
+E:\VPS\reports\codex-fl14-qa-isolated-20260814-0450\owner-admin-cutover-final-20260814-recovery-v1\09_OWNER_CEREMONY...
+E:\VPS\reports\owner-admin-cutover-final-20260813\09_OWNER_CEREMONY_PREREQUISITES.md                                   
+E:\VPS\reports\owner-admin-cutover-final-20260814-recovery-v1\09_OWNER_CEREMONY_PREREQUISITES.md                       
+E:\VPS\reports\owner-admin-cutover-final-20260814-recovery-v1-fl14\09_OWNER_CEREMONY_PREREQUISITES.md                  
+E:\VPS\reports\owner-admin-cutover-final-20260814-recovery-v1-fl15\09_OWNER_CEREMONY_PREREQUISITES.md                  
+E:\VPS\reports\owner-admin-cutover-final-20260814-recovery-v1-fl16\09_OWNER_CEREMONY_PREREQUISITES.md                  
+E:\VPS\reports\owner-admin-cutover-final-20260814-recovery-v1-fl17\09_OWNER_CEREMONY_PREREQUISITES.md                  
+E:\VPS\reports\pc6-input-map-t1w1\probe8_fetch_pit.sh                                                                  
+E:\VPS\reports\pc6-input-map-t1w1\fetched\build_pit_universe.py                                                        
+E:\VPS\reports\pc6-input-map-t1w1\fetched\PIT_UNIVERSE_V1.json                                                         
+E:\VPS\reports\pc7-bound-object-gate-rerun-20260813\remote_fetch\P5_P3_PIT_UNIVERSE_EXECUTION_RULE_V1.md               
+E:\VPS\reports\pit-volume-causality-review\fetch_pit_code.sh                                                           
+
+
+Get-ChildItem : 对路径“E:\VPS\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem -Path "E:\VPS" -Recurse -Depth 3 -File | Where-Object { ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\VPS\.pytest_cache:String) [Get-ChildItem], UnauthorizedAccessExcep 
+   tion
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+Get-ChildItem : 对路径“E:\VPS\direct_repair_stage\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem -Path "E:\VPS" -Recurse -Depth 3 -File | Where-Object { ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\VPS\direct_repair_stage\.pytest_cache:String) [Get-ChildItem], Una 
+   uthorizedAccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-14T14:19:25.221209Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 202ms)... turn_id=01a0009e-5ee7-7da1-b4cd-23e70dd1b4ad retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T14:20:18.246147Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 387ms)... turn_id=01a0009e-5ee7-7da1-b4cd-23e70dd1b4ad retries=2 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T14:21:10.269164Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 765ms)... turn_id=01a0009e-5ee7-7da1-b4cd-23e70dd1b4ad retries=3 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T14:21:58.575093Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.457s)... turn_id=01a0009e-5ee7-7da1-b4cd-23e70dd1b4ad retries=4 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T14:22:48.088571Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 2.958s)... turn_id=01a0009e-5ee7-7da1-b4cd-23e70dd1b4ad retries=5 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T14:23:50.927268Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

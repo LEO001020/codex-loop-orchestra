@@ -1,0 +1,1112 @@
+Reading additional input from stdin...
+2026-08-15T06:50:17.656877Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-15T06:50:24.923050Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-15T06:51:05.494395Z ERROR codex_core::tools::router: error=unsupported call: read
+2026-08-15T06:51:18.952144Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:51:29.303065Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.9 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 25
++ dir E:\VPS /s /b 2>&1 | head -60
++                         ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-15T06:51:38.628577Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.1 seconds
+Output:
+Get-ChildItem : 找不到接受实际参数“/b”的位置形式参数。
+所在位置 行:2 字符: 1
++ dir E:\VPS /s /b 2>&1 | Select-Object -First 80
++ ~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) [Get-ChildItem]，ParameterBindingException
+    + FullyQualifiedErrorId : PositionalParameterNotFound,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-15T06:52:16.257279Z ERROR codex_core::tools::router: error=Exit code: 124
+Wall time: 10.4 seconds
+Total output lines: 4717
+Output:
+command timed out after 10364 milliseconds
+
+
+FullName : E:\VPS\direct-repair-headless-wave-v1.json
+
+FullName : E:\VPS\p5-alpha-execution-headless-wave-20260814.json
+
+FullName : E:\VPS\p5-alpha-execution-headless-wave2-20260814.json
+
+FullName : E:\VPS\pc7-conditional-prewarm-headless-retry.json
+
+FullName : E:\VPS\pc7-conditional-prewarm-headless.json
+
+FullName : E:\VPS\pc7-headless-wave-manifest-2.json
+
+FullName : E:\VPS\pc7-headless-wave-manifest-3.json
+
+FullName : E:\VPS\pc7-headless-wave-manifest.json
+
+FullName : E:\VPS\.gcloud\.last_update_check.json
+
+FullName : E:\VPS\.gcloud\legacy_credentials\hzq001020i@gmail.com\adc.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\.install\beta.snapshot.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\.install\core-win.snapshot.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\.install\core.snapshot.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\.install\gcloud-deps-windows-x86_64.snapshot.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\.install\gcloud-deps.snapshot.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\.install\ssh-tools-windows.snapshot.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\.install\ssh-tools.snapshot.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\core\config.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\core\universe_descriptor\default-universe-
+           descriptor.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\gapic_clients\aiplatform
+           _v1\gapic_metadata.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\gapic_clients\aiplatform
+           _v1beta1\gapic_metadata.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\gapic_clients\logging_v2
+           \gapic_metadata.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\gapic_clients\run_v2\gap
+           ic_metadata.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\gapic_clients\spanner_v1
+           \gapic_metadata.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\gapic_clients\storage_v2
+           \gapic_metadata.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\bq\translation\dialect_registry.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\boto3\data\cloudformation\2010-05-15\resource
+           s-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\boto3\data\cloudwatch\2010-08-01\resources-1.
+           json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\boto3\data\dynamodb\2012-08-10\resources-1.js
+           on
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\boto3\data\ec2\2014-10-01\resources-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\boto3\data\ec2\2015-03-01\resources-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\boto3\data\ec2\2015-04-15\resources-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\boto3\data\ec2\2015-10-01\resources-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\boto3\data\ec2\2016-04-01\resources-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\boto3\data\ec2\2016-09-15\resources-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\boto3\data\ec2\2016-11-15\resources-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\boto3\data\glacier\2012-06-01\resources-1.jso
+           n
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\boto3\data\iam\2010-05-08\resources-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\boto3\data\opsworks\2013-02-18\resources-1.js
+           on
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\boto3\data\s3\2006-03-01\resources-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\boto3\data\sns\2010-03-31\resources-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\boto3\data\sqs\2012-11-05\resources-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\endpoints.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\partitions.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\sdk-default-configuration.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\_retry.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\accessanalyzer\2019-11-01\endpo
+           int-rule-set-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\accessanalyzer\2019-11-01\pagin
+           ators-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\accessanalyzer\2019-11-01\pagin
+           ators-1.sdk-extras.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\accessanalyzer\2019-11-01\servi
+           ce-2.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\account\2021-02-01\endpoint-rul
+           e-set-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\account\2021-02-01\paginators-1
+           .json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\account\2021-02-01\service-2.js
+           on
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\acm\2015-12-08\endpoint-rule-se
+           t-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\acm\2015-12-08\paginators-1.jso
+           n
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\acm\2015-12-08\service-2.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\acm\2015-12-08\waiters-2.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\acm-pca\2017-08-22\endpoint-rul
+           e-set-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\acm-pca\2017-08-22\paginators-1
+           .json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\acm-pca\2017-08-22\service-2.js
+           on
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\acm-pca\2017-08-22\waiters-2.js
+           on
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\alexaforbusiness\2017-11-09\end
+           point-rule-set-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\alexaforbusiness\2017-11-09\pag
+           inators-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\alexaforbusiness\2017-11-09\ser
+           vice-2.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\amp\2020-08-01\endpoint-rule-se
+           t-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\amp\2020-08-01\paginators-1.jso
+           n
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\amp\2020-08-01\service-2.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\amp\2020-08-01\waiters-2.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\amplify\2017-07-25\endpoint-rul
+           e-set-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\amplify\2017-07-25\paginators-1
+           .json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\amplify\2017-07-25\service-2.js
+           on
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\amplifybackend\2020-08-11\endpo
+           int-rule-set-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\amplifybackend\2020-08-11\pagin
+           ators-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\amplifybackend\2020-08-11\servi
+           ce-2.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\amplifyuibuilder\2021-08-11\end
+           point-rule-set-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\amplifyuibuilder\2021-08-11\pag
+           inators-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\amplifyuibuilder\2021-08-11\ser
+           vice-2.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\amplifyuibuilder\2021-08-11\wai
+           ters-2.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\apigateway\2015-07-09\endpoint-
+           rule-set-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\apigateway\2015-07-09\paginator
+           s-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\apigateway\2015-07-09\service-2
+           .json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\apigatewaymanagementapi\2018-11
+           -29\endpoint-rule-set-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\apigatewaymanagementapi\2018-11
+           -29\paginators-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\apigatewaymanagementapi\2018-11
+           -29\service-2.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\apigatewayv2\2018-11-29\endpoin
+           t-rule-set-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\apigatewayv2\2018-11-29\paginat
+           ors-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\apigatewayv2\2018-11-29\service
+           -2.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\appconfig\2019-10-09\endpoint-r
+           ule-set-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\appconfig\2019-10-09\paginators
+           -1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\appconfig\2019-10-09\service-2.
+           json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\appconfigdata\2021-11-11\endpoi
+           nt-rule-set-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\appconfigdata\2021-11-11\pagina
+           tors-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\appconfigdata\2021-11-11\servic
+           e-2.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\appfabric\2023-05-19\endpoint-r
+           ule-set-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\appfabric\2023-05-19\paginators
+           -1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\appfabric\2023-05-19\service-2.
+           json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\appfabric\2023-05-19\waiters-2.
+           json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\appflow\2020-08-23\endpoint-rul
+           e-set-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\appflow\2020-08-23\paginators-1
+           .json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\appflow\2020-08-23\service-2.js
+           on
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\appintegrations\2020-07-29\endp
+           oint-rule-set-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\appintegrations\2020-07-29\pagi
+           nators-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\appintegrations\2020-07-29\serv
+           ice-2.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\application-autoscaling\2016-02
+           -06\endpoint-rule-set-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\application-autoscaling\2016-02
+           -06\paginators-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\application-autoscaling\2016-02
+           -06\service-2.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\application-insights\2018-11-25
+           \endpoint-rule-set-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\application-insights\2018-11-25
+           \paginators-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\application-insights\2018-11-25
+           \service-2.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\applicationcostprofiler\2020-09
+           -10\endpoint-rule-set-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\applicationcostprofiler\2020-09
+           -10\paginators-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\applicationcostprofiler\2020-09
+           -10\service-2.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\appmesh\2018-10-01\endpoint-rul
+           e-set-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\appmesh\2018-10-01\paginators-1
+           .json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\appmesh\2018-10-01\service-2.js
+           on
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\appmesh\2019-01-25\endpoint-rul
+           e-set-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\appmesh\2019-01-25\paginators-1
+           .json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\appmesh\2019-01-25\service-2.js
+           on
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\apprunner\2020-05-15\endpoint-r
+           ule-set-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\apprunner\2020-05-15\paginators
+           -1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\apprunner\2020-05-15\service-2.
+           json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\appstream\2016-12-01\endpoint-r
+           ule-set-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\appstream\2016-12-01\paginators
+           -1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\appstream\2016-12-01\service-2.
+           json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\appstream\2016-12-01\waiters-2.
+           json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\appsync\2017-07-25\endpoint-rul
+           e-set-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\appsync\2017-07-25\paginators-1
+           .json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\appsync\2017-07-25\service-2.js
+           on
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\arc-zonal-shift\2022-10-30\endp
+           oint-rule-set-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\arc-zonal-shift\2022-10-30\pagi
+           nators-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\arc-zonal-shift\2022-10-30\serv
+           ice-2.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\athena\2017-05-18\endpoint-rule
+           -set-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\athena\2017-05-18\paginators-1.
+           json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\athena\2017-05-18\service-2.jso
+           n
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\auditmanager\2017-07-25\endpoin
+           t-rule-set-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\auditmanager\2017-07-25\paginat
+           ors-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\auditmanager\2017-07-25\service
+           -2.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\autoscaling\2011-01-01\endpoint
+           -rule-set-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\autoscaling\2011-01-01\paginato
+           rs-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\autoscaling\2011-01-01\paginato
+           rs-1.sdk-extras.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\autoscaling\2011-01-01\service-
+           2.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\autoscaling-plans\2018-01-06\en
+           dpoint-rule-set-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\autoscaling-plans\2018-01-06\pa
+           ginators-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\autoscaling-plans\2018-01-06\se
+           rvice-2.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\b2bi\2022-06-23\endpoint-rule-s
+           et-1.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\b2bi\2022-06-23\paginators-1.js
+           on
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\b2bi\2022-06-23\service-2.json
+
+FullName : E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\backup\2018-11-15\endpoint-rule
+           -set-1.json
+
+FullName : E:\VPS\.tools\gcloud…48615 tokens truncated…: E:\VPS\.work\pc6-edit\p5_p3_s2a_data_engineering_v1\P5_P3_DATA_SEMANTICS_MATRIX_V1.json
+
+FullName : E:\VPS\.work\pc6-edit\p5_p3_s2a_data_engineering_v1\P5_P3_SOURCE_OBJECT_REEXTRACTION_V1.json
+
+FullName : E:\VPS\.work\pc6-edit\p5_p3_s2a_data_engineering_v1\P5_SPEC_CHANGE_REGISTRY_V1.json
+
+FullName : E:\VPS\.work\s1_live_fl20_r1_public\ceremony\P5_OWNER_CEREMONY_MACHINE_LIST_V5.json
+
+FullName : E:\VPS\home-gpu\evidence\checkpoint_recovery_audit_result.json
+
+FullName : E:\VPS\home-gpu\evidence\home-baseline-count-audit-20260811T0340Z.json
+
+FullName : E:\VPS\home-gpu\evidence\home_gpu_min_ready.json
+
+FullName : E:\VPS\home-gpu\evidence\home_worker_e2e_ready_for_fable.json
+
+FullName : E:\VPS\home-gpu\evidence\wsl_hub_queue_readonly.json
+
+FullName : E:\VPS\home-gpu\evidence\wsl_hub_queue_readonly2.json
+
+FullName : E:\VPS\home-gpu\evidence\windows-reboot\active.json
+
+FullName : E:\VPS\home-gpu\evidence\windows-reboot\latest-result.json
+
+FullName : E:\VPS\home-gpu\evidence\windows-reboot\20260810T190629Z\armed.json
+
+FullName : E:\VPS\home-gpu\evidence\windows-reboot\20260810T190629Z\result.json
+
+FullName : E:\VPS\home-gpu\evidence\wsl-shutdown-resume\20260810T190323Z\pre.json
+
+FullName : E:\VPS\home-gpu\evidence\wsl-shutdown-resume\20260810T190323Z\result.json
+
+FullName : E:\VPS\p5-boot-image-20260810T144519Z\gate.json
+
+FullName : E:\VPS\p5-boot-image-20260810T144519Z\image.json
+
+FullName : E:\VPS\p5-boot-image-20260810T144519Z\production-data-disk-after.json
+
+FullName : E:\VPS\p5-boot-image-20260810T144519Z\production-instance-after.json
+
+FullName : E:\VPS\p5-boot-image-20260810T144519Z\snapshot.json
+
+FullName : E:\VPS\p5-boot-image-20260810T144519Z\source-boot-disk-after.json
+
+FullName : E:\VPS\p5-boot-image-preflight-20260810T144519Z\boot_disk.json
+
+FullName : E:\VPS\p5-boot-image-preflight-20260810T144519Z\image_collision.json
+
+FullName : E:\VPS\p5-boot-image-preflight-20260810T144519Z\instance.json
+
+FullName : E:\VPS\p5-boot-image-preflight-20260810T144519Z\preflight.json
+
+FullName : E:\VPS\p5-boot-image-preflight-20260810T144519Z\snapshot_collision.json
+
+FullName : E:\VPS\p5-cold-canary-20260810-150058\cold-runtime.json
+
+FullName : E:\VPS\p5-cold-canary-20260810-150058\data-disk.json
+
+FullName : E:\VPS\p5-cold-canary-20260810-150058\data-disk.latest.json
+
+FullName : E:\VPS\p5-cold-canary-20260810-150058\production-data-disk.before.json
+
+FullName : E:\VPS\p5-cold-canary-20260810-150058\production-instance.before.json
+
+FullName : E:\VPS\p5-cold-canary-20260810-150058\source-image.json
+
+FullName : E:\VPS\p5-cold-canary-20260810-150058\source-snapshot.json
+
+FullName : E:\VPS\p5-cold-canary-20260810-150058\vm.json
+
+FullName : E:\VPS\p5-cold-canary-20260810-150058\vm.latest.json
+
+FullName : E:\VPS\p5-cold-canary-20260810-150058\cleanup\disk.after.unexpected.json
+
+FullName : E:\VPS\p5-cold-canary-20260810-150058\cleanup\disk.before.json
+
+FullName : E:\VPS\p5-cold-canary-20260810-150058\cleanup\production-data-disk.after.json
+
+FullName : E:\VPS\p5-cold-canary-20260810-150058\cleanup\production-instance.after.json
+
+FullName : E:\VPS\p5-cold-canary-20260810-150058\cleanup\result.json
+
+FullName : E:\VPS\p5-cold-canary-20260810-150058\cleanup\vm.after.unexpected.json
+
+FullName : E:\VPS\p5-cold-canary-20260810-150058\cleanup\vm.before.json
+
+FullName : E:\VPS\p5-data-snapshot-20260810-151108\snapshot.json
+
+FullName : E:\VPS\p5-fastpath-state-20260810T151305Z\cold-disk.json
+
+FullName : E:\VPS\p5-fastpath-state-20260810T151305Z\cold-vm.json
+
+FullName : E:\VPS\p5-fastpath-state-20260810T151305Z\data-disk.json
+
+FullName : E:\VPS\p5-fastpath-state-20260810T151305Z\instance.json
+
+FullName : E:\VPS\p5-fastpath-state-20260810T151305Z\interrupted-snapshot.json
+
+FullName : E:\VPS\p5-fastpath-state-20260810T151305Z\managed-instances.json
+
+FullName : E:\VPS\p5-fastpath-state-20260810T151305Z\mig.json
+
+FullName : E:\VPS\p5-fastpath-state-20260810T151305Z\summary.json
+
+FullName : E:\VPS\p5-fastpath-template-20260810\gate.json
+
+FullName : E:\VPS\p5-fastpath-template-20260810\new.json
+
+FullName : E:\VPS\p5-fastpath-template-20260810\mig-set\gate.json
+
+FullName : E:\VPS\p5-fastpath-template-20260810\mig-set\instances.after.json
+
+FullName : E:\VPS\p5-fastpath-template-20260810\mig-set\mig.after.json
+
+FullName : E:\VPS\p5-fastpath-template-20260810\mig-set\mig.before.json
+
+FullName : E:\VPS\p5-fastpath-template-20260810\mig-set\template.json
+
+FullName : E:\VPS\p5-fastpath-template-v3-20260810\gate.json
+
+FullName : E:\VPS\p5-fastpath-template-v3-20260810\new.json
+
+FullName : E:\VPS\p5-fastpath-template-v4-20260810\body.json
+
+FullName : E:\VPS\p5-fastpath-template-v4-20260810\gate.json
+
+FullName : E:\VPS\p5-fastpath-template-v4-20260810\insert-operation.json
+
+FullName : E:\VPS\p5-fastpath-template-v4-20260810\new.json
+
+FullName : E:\VPS\p5-filebrowser-tunnel\auto_recovery_canary.json
+
+FullName : E:\VPS\p5-filebrowser-tunnel\state.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\pre_gcp\address.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\pre_gcp\data-disk.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\pre_gcp\gate.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\pre_gcp\instance.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\pre_gcp\managed-instances.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\pre_gcp\mig.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\pre_gcp\snapshot.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\pre_gcp\template.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\deadlock-exception-preflight-20260810T175
+           919.263986091Z\address.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\deadlock-exception-preflight-20260810T175
+           919.263986091Z\data-disk.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\deadlock-exception-preflight-20260810T175
+           919.263986091Z\gate.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\deadlock-exception-preflight-20260810T175
+           919.263986091Z\instance.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\deadlock-exception-preflight-20260810T175
+           919.263986091Z\managed-errors.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\deadlock-exception-preflight-20260810T175
+           919.263986091Z\managed-instances.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\deadlock-exception-preflight-20260810T175
+           919.263986091Z\mig.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\deadlock-exception-preflight-20260810T175
+           919.263986091Z\snapshot.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\deadlock-exception-preflight-20260810T175
+           919.263986091Z\template-v4.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\deadlock-exception-preflight-20260810T175
+           919.263986091Z\zone-operations.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T173851Z\address.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T173851Z\data-disk.jso
+           n
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T173851Z\managed-error
+           s.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T173851Z\managed-insta
+           nces.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T173851Z\mig.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T173851Z\per-instance-
+           configs.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T173851Z\template-v4.j
+           son
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T173851Z\zone-operatio
+           ns.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T174126Z\address.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T174126Z\data-disk.jso
+           n
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T174126Z\instance.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T174126Z\managed-error
+           s.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T174126Z\managed-insta
+           nces.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T174126Z\mig.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T174126Z\per-instance-
+           configs.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T174126Z\template-v4.j
+           son
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T174126Z\terminal-summ
+           ary.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T174126Z\zone-operatio
+           ns.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T175121Z\address.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T175121Z\boot-disk.jso
+           n
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T175121Z\data-disk.jso
+           n
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T175121Z\instance.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T175121Z\managed-error
+           s.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T175121Z\managed-insta
+           nces.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T175121Z\mig.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T175121Z\per-instance-
+           configs.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T175121Z\template-v4.j
+           son
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T175121Z\terminal-summ
+           ary.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T175121Z\zone-operatio
+           ns.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T180629Z\address.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T180629Z\boot-disk.jso
+           n
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T180629Z\data-disk.jso
+           n
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T180629Z\instance.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T180629Z\managed-error
+           s.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T180629Z\managed-insta
+           nces.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T180629Z\mig.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T180629Z\per-instance-
+           configs.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T180629Z\template-v4.j
+           son
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T180629Z\terminal-summ
+           ary.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T180629Z\zone-operatio
+           ns.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T181836Z\address.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T181836Z\boot-disk.jso
+           n
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T181836Z\data-disk.jso
+           n
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T181836Z\instance.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T181836Z\managed-error
+           s.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T181836Z\managed-insta
+           nces.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T181836Z\mig.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T181836Z\per-instance-
+           configs.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T181836Z\template-v4.j
+           son
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T181836Z\terminal-summ
+           ary.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T181836Z\zone-operatio
+           ns.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\retarget-v4\mig.before.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\stuck-diag\instance.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\stuck-diag\managed-instances.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\stuck-diag\mig.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\stuck-diag\operations.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\stuck-diag\summary.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\superseding-recreate-v4-20260810T180415.4
+           27680492Z\authorization.json
+
+FullName : E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\superseding-recreate-v4-20260810T180415.4
+           27680492Z\terminal-summary.json
+
+FullName : E:\VPS\P5_CODEX_ALPHA_EXECUTION_LAYER_COMPLETION_V1\MANIFEST.json
+
+FullName : E:\VPS\P5_CODEX_ALPHA_EXECUTION_LAYER_COMPLETION_V1\SOURCES\P5_FROZEN_SCIENTIFIC_VERIFY_SET_20_V1.json
+
+FullName : E:\VPS\P5_CODEX_RESEARCH_ALPHA_FAST_PATH_V1\P5_CODEX_RESEARCH_ALPHA_FAST_PATH_V1\05_CODEX_RETURN_TEMPLATE.js
+           on
+
+FullName : E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\PACKAGE_MANIFEST.json
+
+FullName : E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\EVIDENCE_HISTORY\FL20_TARGET_DATA_PLANE_RESULTS.
+           json
+
+FullName : E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\EVIDENCE_HISTORY\P5_FROZEN_SCIENTIFIC_VERIFY_SET
+           _20_V1.json
+
+FullName : E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\EVIDENCE_HISTORY\P5_TARGET_COMPATIBILITY_CAPSULE
+           _V1.json
+
+FullName : E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\FROZEN_REFERENCE\AUTHORITY_CORE\P5_SPEC_MANIFEST
+           .json
+
+FullName : E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\FROZEN_REFERENCE\FROZEN_P3\P5_P3_H0_DISCOVERY_WA
+           VE1_CANDIDATE_LIST_V2.json
+
+FullName : E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\PROVENANCE\V2_PACKAGE_MANIFEST.json
+
+FullName : E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\STATE\P5_ACTIVATION_STATE_V2.json
+
+FullName : E:\VPS\P5_FAST_PATH_WORK\headless_preflight_wave.json
+
+FullName : E:\VPS\P5_FAST_PATH_WORK\headless_refill_01.json
+
+FullName : E:\VPS\P5_FAST_PATH_WORK\headless_refill_02_reasoning.json
+
+FullName : E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot\10_MANIFEST.json
+
+FullName : E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot\tcb\P5_AUTHORITY_DEPENDENCY_MANIFEST_V3.json
+
+FullName : E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot\tcb\P5_OWNER_PINNED_AUTHORITY_TCB_MANIFEST_V1.json
+
+FullName : E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot\tcb\bundle\scientific-root-20\P5_FROZEN_SCIENTIFIC_VERIFY_SET_
+           20_V1.json
+
+FullName : E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot\tcb\bundle\scientific-root-20\P5_P3_H0_DISCOVERY_WAVE1_CANDIDA
+           TE_LIST_V2.json
+
+FullName : E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot\tcb\bundle\scientific-root-20\P5_P3_H0_WAVE1_CANDIDATE_GRAMMAR
+           _SUBOBJECT_V1.json
+
+FullName : E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot\tcb\bundle\scientific-root-20\P5_P3_LISTING_EPISODE_LEDGER_V1.
+           json
+
+FullName : E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot\tcb\bundle\scientific-root-20\P5_P3_PERP_SPOT_IDENTITY_MAP_V1.
+           json
+
+FullName : E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot\tcb\bundle\scientific-root-20\P5_PC6_BINANCE_STRUCTURAL_QA_V1.
+           json
+
+FullName : E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot\tcb\bundle\scientific-root-20\P5_PC6_DATA_REVISION_LINEAGE_V3.
+           json
+
+FullName : E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot\tcb\platform\P5_PLATFORM_RUNTIME_MANIFEST_V1.json
+
+FullName : E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot_v2\10_MANIFEST.json
+
+FullName : E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot_v2\P5_OWNER_PINNED_AUTHORITY_TCB_MANIFEST_V1.json
+
+FullName : E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot_v2\P5_P3_H0_WAVE1_EVALUATION_ORDER_SUBOBJECT_V1.json
+
+FullName : E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot_v2\P5_PC6_EXECUTABLE_DATA_MANIFEST_V1.json
+
+FullName : E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot_v2\P5_PC6_EXECUTION_ADAPTER_CONTRACT_V2.json
+
+FullName : E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot_v2\P5_T1_PRECONDITION_V4_IMPLEMENTATION_MAP_V1.json
+
+FullName : E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot_v2\scientific-root-20\P5_FROZEN_SCIENTIFIC_VERIFY_SET_20_V1.js
+           on
+
+FullName : E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot_v2\scientific-root-20\P5_P3_H0_DISCOVERY_WAVE1_CANDIDATE_LIST_
+           V2.json
+
+FullName : E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot_v2\scientific-root-20\P5_P3_H0_WAVE1_CANDIDATE_GRAMMAR_SUBOBJE
+           CT_V1.json
+
+FullName : E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot_v2\scientific-root-20\P5_P3_LISTING_EPISODE_LEDGER_V1.json
+
+FullName : E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot_v2\scientific-root-20\P5_P3_PERP_SPOT_IDENTITY_MAP_V1.json
+
+FullName : E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot_v2\scientific-root-20\P5_PC6_DATA_REVISION_LINEAGE_V3.json
+
+FullName : E:\VPS\P5_FL20_PREDEPLOY_ACTIVATION_FIX_V1\MANIFEST.json
+
+FullName : E:\VPS\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\04_RETU
+           RN_EVIDENCE_TEMPLATE.json
+
+
+2026-08-15T06:52:57.251838Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 7.4 seconds
+Output:
+
+FullName                                                           
+--------                                                           
+E:\VPS\home-gpu\evidence\windows-reboot\20260810T190629Z\armed.json
+
+
+
+2026-08-15T06:53:17.479505Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 8.9 seconds
+Output:
+
+FullName                                                                                                               
+--------                                                                                                               
+E:\VPS\p5_pc6_remote_permissions_and_help.sh                                                                           
+E:\VPS\pc7-conditional-prewarm-headless-retry.json                                                                     
+E:\VPS\pc7-conditional-prewarm-headless.json                                                                           
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\model_armor                                  
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\accesscontextmanager\supported_permissions.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\accesscontextmanager\__pycache__\supported...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\vmware\dnsbindpermission.py                  
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\vmware\__pycache__\dnsbindpermission.cpyth...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\command_lib\model_armor                              
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\command_lib\compute\user_permission_troubleshooter.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\command_lib\compute\__pycache__\user_permission_tr...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\modelarmor                    
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\modelarmor\v1\modelarmor_v1...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\modelarmor\v1\modelarmor_v1...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\modelarmor\v1\__pycache__\m...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\modelarmor\v1\__pycache__\m...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\modelarmor\v1alpha\modelarm...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\modelarmor\v1alpha\modelarm...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\modelarmor\v1alpha\__pycach...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\modelarmor\v1alpha\__pycach...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\modelarmor\v1beta\modelarmo...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\modelarmor\v1beta\modelarmo...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\modelarmor\v1beta\__pycache...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\modelarmor\v1beta\__pycache...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\schemas\compute\alpha\Permission.yaml                
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\schemas\compute\alpha\PermissionConstraint.yaml      
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\schemas\compute\beta\Permission.yaml                 
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\schemas\compute\beta\PermissionConstraint.yaml       
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\schemas\networksecurity\v1alpha1\WildfireSubmissio...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\schemas\networksecurity\v1alpha1\WildfireSubmissio...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\model_armor                                                 
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\access_context_manager\supported_permissions                
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\active_directory\domains\migration\check_permissions.yaml   
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\agent_identity\auth_providers\test_iam_permissions.yaml     
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\agent_identity\connectors\test_iam_permissions.yaml         
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\addresses\test_iam_permissions.py                   
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\addresses\__pycache__\test_iam_permissions.cpytho...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\backend_buckets\test_iam_permissions.py             
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\backend_buckets\__pycache__\test_iam_permissions....
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\commitments\test_iam_permissions.yaml               
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\disks\test_iam_permissions.yaml                     
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\external_vpn_gateways\test_iam_permissions.py       
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\external_vpn_gateways\__pycache__\test_iam_permis...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\forwarding_rules\test_iam_permissions.py            
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\forwarding_rules\__pycache__\test_iam_permissions...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\health_checks\test_iam_permissions.py               
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\health_checks\__pycache__\test_iam_permissions.cp...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\health_sources\test_iam_permissions.yaml            
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\http_health_checks\test_iam_permissions.yaml        
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\instances\test_iam_permissions.py                   
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\instances\__pycache__\test_iam_permissions.cpytho...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\instance_groups\test_iam_permissions.yaml           
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\instance_groups\managed\test_iam_permissions.py     
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\instance_groups\managed\__pycache__\test_iam_perm...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\instance_templates\test_iam_permissions.yaml        
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\instant_snapshots\test_iam_permissions.py           
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\instant_snapshots\__pycache__\test_iam_permission...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\instant_snapshot_groups\test_iam_permissions.py     
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\instant_snapshot_groups\__pycache__\test_iam_perm...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\interconnects\test_iam_permissions.yaml             
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\interconnects\attachments\groups\test_iam_permiss...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\machine_images\test_iam_permissions.yaml            
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\networks\subnets\test_iam_permissions.yaml          
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\network_attachments\test_iam_permissions.yaml       
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\network_firewall_policies\test_iam_permissions.yaml 
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\recoverable_snapshots\test_iam_permissions.py       
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\recoverable_snapshots\__pycache__\test_iam_permis...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\reservations\test_iam_permissions.yaml              
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\reservations\blocks\test_iam_permissions.yaml       
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\reservations\sub_blocks\test_iam_permissions.py     
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\reservations\sub_blocks\__pycache__\test_iam_perm...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\routers\test_iam_permissions.yaml                   
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\snapshots\test_iam_permissions.yaml                 
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\snapshot_groups\test_iam_permissions.yaml           
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\sole_tenancy\node_groups\test_iam_permissions.yaml  
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\sole_tenancy\node_templates\test_iam_permissions....
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\ssl_certificates\test_iam_permissions.py            
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\ssl_certificates\__pycache__\test_iam_permissions...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\storage_pools\test_iam_permissions.yaml             
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\target_grpc_proxies\test_iam_permissions.yaml       
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\target_https_proxies\test_iam_permissions.yaml      
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\target_http_proxies\test_iam_permissions.yaml       
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\target_instances\test_iam_permissions.yaml          
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\target_pools\test_iam_permissions.yaml              
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\target_tcp_proxies\test_iam_permissions.py          
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\target_tcp_proxies\__pycache__\test_iam_permissio...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\vpn_gateways\test_iam_permissions.yaml              
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\compute\vpn_tunnels\test_iam_permissions.yaml               
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\design_center\spaces\test_iam_permissions.py                
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\design_center\spaces\__pycache__\test_iam_permissions.cpy...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\iam\list_testable_permissions.py                            
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\iam\__pycache__\list_testable_permissions.cpython-312.pyc   
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\network_security\security_profiles\wildfire_analysis\add_...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\network_security\security_profiles\wildfire_analysis\dele...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\network_security\security_profiles\wildfire_analysis\__py...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\network_security\security_profiles\wildfire_analysis\__py...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\vmware\dns_bind_permission                                  
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\devicefarm                                
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\verifiedpermissions                       
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\docker\api\swarm.py                                     
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\docker\api\__pycache__\swarm.cpython-312.pyc            
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\docker\models\swarm.py                                  
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\docker\models\__pycache__\swarm.cpython-312.pyc         
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\docker\types\swarm.py                                   
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\docker\types\__pycache__\swarm.cpython-312.pyc          
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\kubernetes\client\apis\admissionregistration_api.py     
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\kubernetes\client\apis\admissionregistration_v1beta1_...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\kubernetes\client\apis\__pycache__\admissionregistrat...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\kubernetes\client\apis\__pycache__\admissionregistrat...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\kubernetes\client\models\admissionregistration_v1beta...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\kubernetes\client\models\admissionregistration_v1beta...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\kubernetes\client\models\__pycache__\admissionregistr...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\kubernetes\client\models\__pycache__\admissionregistr...
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\api_lib\model_armor                                                  
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\api_lib\accesscontextmanager\supported_permissions.py                
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\api_lib\vmware\dnsbindpermission.py                                  
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\command_lib\model_armor                                              
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\command_lib\compute\user_permission_troubleshooter.py                
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\modelarmor                                    
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\modelarmor\v1\modelarmor_v1_client.py         
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\modelarmor\v1\modelarmor_v1_messages.py       
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\modelarmor\v1alpha\modelarmor_v1alpha_clien...
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\modelarmor\v1alpha\modelarmor_v1alpha_messa...
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\modelarmor\v1beta\modelarmor_v1beta_client.py 
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\modelarmor\v1beta\modelarmor_v1beta_message...
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\schemas\compute\alpha\Permission.yaml                                
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\schemas\compute\alpha\PermissionConstraint.yaml                      
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\schemas\compute\beta\Permission.yaml                                 
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\schemas\compute\beta\PermissionConstraint.yaml                       
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\schemas\networksecurity\v1alpha1\WildfireSubmissionRule.yaml         
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\schemas\networksecurity\v1alpha1\WildfireSubmissionRuleCustomFileT...
+E:\VPS\.tools\google-cloud-sdk\lib\surface\access_context_manager\supported_permissions                                
+E:\VPS\.tools\google-cloud-sdk\lib\surface\active_directory\domains\migration\check_permissions.yaml                   
+E:\VPS\.tools\google-cloud-sdk\lib\surface\agent_identity\auth_providers\test_iam_permissions.yaml                     
+E:\VPS\.tools\google-cloud-sdk\lib\surface\agent_identity\connectors\test_iam_permissions.yaml                         
+E:\VPS\.tools\google-cloud-sdk\lib\surface\compute\addresses\test_iam_permissions.py                                   
+E:\VPS\.tools\google-cloud-sdk\lib\surface\compute\backend_buckets\test_iam_permissions.py                             
+E:\VPS\.tools\google-cloud-sdk\lib\surface\compute\commitments\test_iam_permissions.yaml                               
+E:\VPS\.tools\google-cloud-sdk\lib\surface\compute\disks\test_iam_permissions.yaml                                     
+E:\VPS\.tools\google-cloud-sdk\lib\surface\compute\external_vpn_gateways\test_iam_permissions.py                       
+E:\VPS\.tools\google-cloud-sdk\lib\surface\compute\forwarding_rules\test_iam_permissions.py                            
+E:\VPS\.tools\google-cloud-sdk\lib\surface\compute\health_checks\test_iam_permissions.py                               
+E:\VPS\.tools\google-cloud-sdk\lib\surface\compute\health_sources\test_iam_permissions.yaml                            
+E:\VPS\.tools\google-cloud-sdk\lib\surface\compute\http_health_checks\test_iam_permissions.yaml                        
+E:\VPS\.tools\google-cloud-sdk\lib\surface\compute\instances\test_iam_permissions.py                                   
+E:\VPS\.tools\google-cloud-sdk\lib\surface\compute\instance_groups\test_iam_permissions.yaml                           
+E:\VPS\.tools\google-cloud-sdk\lib\surface\compute\instance_groups\managed\test_iam_permissions.py                     
+E:\VPS\.tools\google-cloud-sdk\lib\surface\compute\instance_templates\test_iam_permissions.yaml                        
+E:\VPS\.tools\google-cloud-sdk\lib\surface\compute\instant_snapshots\test_iam_permissions.py                           
+E:\VPS\.tools\google-cloud-sdk\lib\surface\compute\instant_snapshot_groups\test_iam_permissions.py                     
+E:\VPS\.tools\google-cloud-sdk\lib\surface\compute\interconnects\test_iam_permissions.yaml                             
+E:\VPS\.tools\google-cloud-sdk\lib\surface\compute\interconnects\attachments\groups\test_iam_permissions.yaml          
+E:\VPS\.tools\google-cloud-sdk\lib\surface\compute\machine_images\test_iam_permissions.yaml                            
+E:\VPS\.tools\google-cloud-sdk\lib\surface\compute\networks\subnets\test_iam_permissions.yaml                          
+E:\VPS\.tools\google-cloud-sdk\lib\surface\compute\network_attachments\test_iam_permissions.yaml                       
+E:\VPS\.tools\google-cloud-sdk\lib\surface\compute\network_firewall_policies\test_iam_permissions.yaml                 
+E:\VPS\.tools\google-cloud-sdk\lib\surface\compute\recoverable_snapshots\test_iam_permissions.py                       
+E:\VPS\.tools\google-cloud-sdk\lib\surface\compute\reservations\test_iam_permissions.yaml                              
+E:\VPS\.tools\google-cloud-sdk\lib\surface\compute\reservations\blocks\test_iam_permissions.yaml                       
+E:\VPS\.tools\google-cloud-sdk\lib\surface\compute\reservations\sub_blocks\test_iam_permissions.py                     
+E:\VPS\.tools\google-cloud-sdk\lib\surface\compute\routers\test_iam_permissions.yaml                                   
+E:\VPS\.tools\google-cloud-sdk\lib\surface\compute\snapshots\test_iam_permissions.yaml                                 
+E:\VPS\.tools\google-cloud-sdk\lib\surface\compute\snapshot_groups\test_iam_permissions.yaml                           
+E:\VPS\.tools\google-cloud-sdk\lib\surface\compute\sole_tenancy\node_groups\test_iam_permissions.yaml                  
+E:\VPS\.tools\google-cloud-sdk\lib\surface\compute\sole_tenancy\node_templates\test_iam_permissions.yaml               
+E:\VPS\.tools\google-cloud-sdk\lib\surface\compute\ssl_certificates\test_iam_permissions.py                            
+E:\VPS\.tools\google-cloud-sdk\lib\surface\compute\storage_pools\test_iam_permissions.yaml                             
+E:\VPS\.tools\google-cloud-sdk\lib\surface\compute\target_grpc_proxies\test_iam_permissions.yaml                       
+E:\VPS\.tools\google-cloud-sdk\lib\surface\compute\target_https_proxies\test_iam_permissions.yaml                      
+E:\VPS\.tools\google-cloud-sdk\lib\surface\compute\target_http_proxies\test_iam_permissions.yaml                       
+E:\VPS\.tools\google-cloud-sdk\lib\surface\compute\target_instances\test_iam_permissions.yaml                          
+E:\VPS\.tools\google-cloud-sdk\lib\surface\compute\target_pools\test_iam_permissions.yaml                              
+E:\VPS\.tools\google-cloud-sdk\lib\surface\compute\target_tcp_proxies\test_iam_permissions.py                          
+E:\VPS\.tools\google-cloud-sdk\lib\surface\compute\vpn_gateways\test_iam_permissions.yaml                              
+E:\VPS\.tools\google-cloud-sdk\lib\surface\compute\vpn_tunnels\test_iam_permissions.yaml                               
+E:\VPS\.tools\google-cloud-sdk\lib\surface\design_center\spaces\test_iam_permissions.py                                
+E:\VPS\.work\fl20_activation_closure_v1\owner-admin-cutover-final-20260815-alpha-data-plane-v1-fl20\tcb\bundle\P5_T1...
+E:\VPS\.work\fl20_activation_closure_v1\owner-admin-cutover-final-20260815-alpha-data-plane-v1-fl20\tcb\bundle\scien...
+E:\VPS\.work\fl20_activation_closure_v1\owner-admin-cutover-final-20260815-alpha-data-plane-v1-fl20-r1\tcb\bundle\P5...
+E:\VPS\.work\fl20_activation_closure_v1\owner-admin-cutover-final-20260815-alpha-data-plane-v1-fl20-r1\tcb\bundle\sc...
+E:\VPS\home-gpu\Arm-HomeGpuRebootCanary.ps1                                                                            
+E:\VPS\home-gpu\arm_codex_repair_canary.py                                                                             
+E:\VPS\home-gpu\arm_fable_one_time.py                                                                                  
+E:\VPS\home-gpu\evidence\windows-reboot\20260810T190629Z\armed.json                                                    
+E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot\tcb\bundle\scientific-root-20\P5_P3_T1_PRECONDITION_MATRIX_V4.md         
+E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot_v2\P5_P3_T1_PRECONDITION_MATRIX_V4.md                                    
+E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot_v2\P5_T1_PRECONDITION_V4_IMPLEMENTATION_MAP_V1.json                      
+E:\VPS\reports\pc7-account-permission-profile                                                                          
+E:\VPS\reports\pc7-prewarm-plan-20260813                                                                               
+E:\VPS\reports\runtime-prewarm-inventory                                                                               
+E:\VPS\reports\authority-store-v3-integration-test-20260813\.venv\Lib\site-packages\pip\_vendor\distlib\t64-arm.exe    
+E:\VPS\reports\authority-store-v3-integration-test-20260813\.venv\Lib\site-packages\pip\_vendor\distlib\w64-arm.exe    
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-execution-v1-fl19\tcb\bundle\P5_T1_PRECONDITION_V4_IMPLEMENT...
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-execution-v1-fl19\tcb\bundle\scientific-root-20\P5_P3_T1_PRE...
+E:\VPS\reports\pc7-bound-object-gate-rerun-20260813\remote_fetch\P5_P3_T1_PRECONDITION_MATRIX_V4.md                    
+
+
+
+2026-08-15T06:56:40.663336Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.3 seconds
+Output:
+Select-String : 找不到接受实际参数“arm\|arm_json|arm_path|arm_bytes|build_arm|write_arm|arm\[|seal\[|mission_id|generat
+ed_at_utc|security_governance_waiver”的位置形式参数。
+所在位置 行:2 字符: 1
++ Select-String -Path "E:\VPS\.work\fl20_activation_closure_v1\owner-ad ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) [Select-String]，ParameterBindingException
+    + FullyQualifiedErrorId : PositionalParameterNotFound,Microsoft.PowerShell.Commands.SelectStringCommand
+ 
+
+2026-08-15T06:58:48.374560Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 209ms)... turn_id=01a0042f-831d-7013-9635-375e8da9e829 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T06:59:34.228858Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 403ms)... turn_id=01a0042f-831d-7013-9635-375e8da9e829 retries=2 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T07:00:20.201961Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 858ms)... turn_id=01a0042f-831d-7013-9635-375e8da9e829 retries=3 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T07:01:18.769269Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.444s)... turn_id=01a0042f-831d-7013-9635-375e8da9e829 retries=4 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T07:02:48.828388Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 191ms)... turn_id=01a0042f-831d-7013-9635-375e8da9e829 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽

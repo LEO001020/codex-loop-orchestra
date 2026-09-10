@@ -1,0 +1,429 @@
+好的，我直接进入设计任务本身，无需工作区读取（该任务是纯算法设计，只读分析）。
+
+---
+
+# ALGORITHM — Admin 控制的 root AuthorizedKeysFile Agent Fingerprint 精确删除
+
+---
+
+## 一、总体流水线
+
+```
+INPUT
+  target_fingerprint   : string   # 要删除的 agent 公钥指纹，如 SHA256:xxx
+  sshd_config_path     : string   # 默认 /etc/ssh/sshd_config
+  owner_allowlist      : [string] # 允许修改的文件 owner UID/用户名列表
+  dry_run              : bool
+
+PIPELINE
+  Phase 0  验证调用权限 (必须 root/sudo)
+  Phase 1  解析 sshd_config → 收集所有 AuthorizedKeysFile 声明
+  Phase 2  逐声明展开 token → 真实路径列表
+  Phase 3  去重 + owner 过滤
+  Phase 4  对每个文件: 解析行 → 指纹匹配 → 原子改写
+  Phase 5  汇报 before/after 指纹集合
+
+FAIL-CLOSED 原则: 任何阶段发生不可恢复错误 → 回滚所有已写文件 → 以非零退出
+```
+
+---
+
+## 二、Phase 0 — 权限守卫
+
+```
+PRECONDITIONS:
+  - 当前进程 EUID == 0，否则 ABORT "must run as root"
+  - target_fingerprint 匹配 ^(MD5:|SHA256:)[A-Za-z0-9+/=:]+$，否则 ABORT
+  - sshd_config_path 存在且可读，否则 ABORT
+```
+
+---
+
+## 三、Phase 1 — 解析 AuthorizedKeysFile
+
+### 1.1 `sshd -T` 全局展开
+
+```
+cmd = ["sshd", "-T", "-C", "user=root,host=localhost,addr=127.0.0.1"]
+stdout = run(cmd)
+lines = [l for l in stdout if l.startswith("authorizedkeysfile ")]
+# 每行格式: "authorizedkeysfile <space-separated-patterns>"
+raw_patterns = []
+for line in lines:
+    raw_patterns.extend(line.split(None, 1)[1].split())
+```
+
+> `sshd -T` 已合并全局 + 默认值，无需手工解析 Include。
+
+### 1.2 per-principal Match 块收集
+
+```
+# 枚举系统用户（仅 root 管理的账户，或由 owner_allowlist 指定）
+for principal in principals_to_check:
+    cmd = ["sshd", "-T", "-C",
+           f"user={principal},host=localhost,addr=127.0.0.1"]
+    # 提取 authorizedkeysfile 行，追加到 raw_patterns（标注 principal）
+    # 若某 principal 得到不同的 pattern 集合，单独处理
+```
+
+---
+
+## 四、Phase 2 — Token 展开
+
+sshd `AuthorizedKeysFile` 支持以下 token（OpenSSH 9.x）：
+
+| Token | 展开为 |
+|-------|--------|
+| `%h`  | 目标用户 home 目录 |
+| `%u`  | 目标用户名 |
+| `%H`  | 被认证主机 hostname |
+| `%i`  | target user UID |
+| `%%`  | 字面量 `%` |
+
+```python
+def expand_token(pattern: str, user: str) -> str:
+    import pwd, socket
+    pw = pwd.getpwnam(user)
+    replacements = {
+        "%h": pw.pw_dir,
+        "%u": pw.pw_name,
+        "%H": socket.gethostname(),
+        "%i": str(pw.pw_uid),
+        "%%": "%",
+    }
+    # 按长度降序替换，避免 %% 先于 % 被消费
+    result = pattern
+    for tok, val in sorted(replacements.items(), key=lambda x: -len(x[0])):
+        result = result.replace(tok, val)
+    return result
+
+def resolve_path(pattern: str, user: str) -> Path:
+    expanded = expand_token(pattern, user)
+    p = Path(expanded)
+    if not p.is_absolute():
+        # 相对路径 → 相对于目标用户 home
+        home = Path(pwd.getpwnam(user).pw_dir)
+        p = home / p
+    return p.resolve()   # 解析软链接
+```
+
+---
+
+## 五、Phase 3 — 去重 + Owner 过滤
+
+```python
+seen_inodes = set()
+accepted_files = []
+
+for path in candidate_paths:
+    # 1. 统一规范化（已 resolve）
+    try:
+        stat = path.stat()
+    except FileNotFoundError:
+        continue  # 不存在的文件跳过（非错误）
+
+    inode_key = (stat.st_dev, stat.st_ino)
+    if inode_key in seen_inodes:
+        continue          # 硬链接去重
+    seen_inodes.add(inode_key)
+
+    # 2. owner 检查
+    file_owner = pwd.getpwuid(stat.st_uid).pw_name
+    if file_owner not in owner_allowlist and stat.st_uid != 0:
+        LOG.warning(f"skip {path}: owner={file_owner} not in allowlist")
+        continue
+
+    # 3. 权限位安全检查（世界可写 → 跳过，可疑）
+    if stat.st_mode & 0o002:
+        LOG.error(f"SKIP {path}: world-writable, refusing to touch")
+        continue
+
+    accepted_files.append(path)
+```
+
+---
+
+## 六、Phase 4 — 行级解析 + 原子改写
+
+### 6.1 行解析规则
+
+```
+authorized_keys 每行格式（RFC 4253 / sshd man page）：
+  [options] keytype base64key [comment]
+  或 空行 / # 注释
+
+合法 keytype:
+  ssh-rsa  ssh-dss  ecdsa-sha2-nistp256  ecdsa-sha2-nistp384
+  ecdsa-sha2-nistp521  ssh-ed25519  sk-ecdsa-sha2-nistp256@openssh.com
+  sk-ssh-ed25519@openssh.com
+
+options 可包含 command="..." restrict  port-forwarding 等
+→ 解析时必须正确处理 options 中的引号（"..."）以免误把 keytype 识别为 option
+```
+
+```python
+import re, subprocess
+
+KEYTYPES = {
+    "ssh-rsa", "ssh-dss",
+    "ecdsa-sha2-nistp256", "ecdsa-sha2-nistp384", "ecdsa-sha2-nistp521",
+    "ssh-ed25519",
+    "sk-ecdsa-sha2-nistp256@openssh.com",
+    "sk-ssh-ed25519@openssh.com",
+}
+
+def fingerprint_of_line(line: str) -> str | None:
+    """
+    用 ssh-keygen -l -f /dev/stdin 计算指纹，避免手写 base64+hash 逻辑。
+    返回 None 若行不是合法公钥行。
+    """
+    stripped = line.strip()
+    if not stripped or stripped.startswith("#"):
+        return None
+    # 快速判断是否含已知 keytype（options 段可能含引号，需跳过）
+    # 解析策略：用 ssh-keygen 直接验证，避免自行解析 options
+    try:
+        result = subprocess.run(
+            ["ssh-keygen", "-l", "-f", "/dev/stdin"],
+            input=stripped + "\n",
+            capture_output=True, text=True, timeout=5
+        )
+        if result.returncode != 0:
+            return None
+        # 输出格式: "2048 SHA256:xxx comment (RSA)"
+        parts = result.stdout.split()
+        if len(parts) >= 2:
+            return parts[1]   # SHA256:xxx
+    except Exception:
+        return None
+    return None
+```
+
+### 6.2 原子改写
+
+```python
+import os, tempfile, shutil
+
+def atomic_filter_file(path: Path, target_fp: str) -> dict:
+    """
+    返回 {"removed": int, "before_fps": set, "after_fps": set}
+    """
+    before_fps = set()
+    after_fps  = set()
+    kept_lines = []
+    removed    = 0
+
+    content = path.read_text(encoding="utf-8", errors="surrogateescape")
+    for line in content.splitlines(keepends=True):
+        fp = fingerprint_of_line(line)
+        if fp:
+            before_fps.add(fp)
+        if fp == target_fp:
+            removed += 1
+            # 不追加 → 删除该行
+        else:
+            kept_lines.append(line)
+            if fp:
+                after_fps.add(fp)
+
+    if removed == 0:
+        return {"removed": 0, "before_fps": before_fps, "after_fps": before_fps}
+
+    # 原子写：同目录 tmpfile → fsync → rename
+    dir_  = path.parent
+    fd, tmp_path = tempfile.mkstemp(dir=dir_, prefix=".akf_tmp_")
+    try:
+        with os.fdopen(fd, "w",
+                       encoding="utf-8", errors="surrogateescape") as f:
+            f.writelines(kept_lines)
+            f.flush()
+            os.fsync(f.fileno())
+        # 保留原文件权限 + owner
+        orig_stat = path.stat()
+        os.chmod(tmp_path, orig_stat.st_mode)
+        os.chown(tmp_path, orig_stat.st_uid, orig_stat.st_gid)
+        os.rename(tmp_path, path)   # POSIX 原子替换
+    except Exception:
+        try: os.unlink(tmp_path)
+        except: pass
+        raise   # 让上层回滚
+    return {"removed": removed, "before_fps": before_fps, "after_fps": after_fps}
+```
+
+### 6.3 回滚机制
+
+```python
+backups = {}   # path -> original bytes
+
+# 改写前备份
+for path in accepted_files:
+    backups[path] = path.read_bytes()
+
+# 改写期间任何异常 →
+def rollback():
+    for path, original in backups.items():
+        try:
+            fd, tmp = tempfile.mkstemp(dir=path.parent)
+            os.write(fd, original)
+            os.fsync(fd)
+            os.close(fd)
+            os.rename(tmp, path)
+        except Exception as e:
+            LOG.critical(f"rollback FAILED for {path}: {e}")
+```
+
+---
+
+## 七、Phase 5 — Before/After 汇报
+
+```
+REPORT FORMAT:
+  File: /root/.ssh/authorized_keys
+    before fingerprints: {SHA256:abc..., SHA256:def...}
+    after  fingerprints: {SHA256:def...}
+    removed lines: 1
+
+  File: /etc/ssh/authorized_keys
+    before fingerprints: {SHA256:abc..., SHA256:xyz...}
+    after  fingerprints: {SHA256:abc..., SHA256:xyz...}
+    removed lines: 0   (target not found)
+
+  Summary: removed target SHA256:xxx from N file(s)
+```
+
+---
+
+## FAIL_CLOSED_CASES
+
+| 场景 | 处理策略 |
+|------|---------|
+| `sshd -T` 退出非零 | ABORT（无法可靠获取文件列表） |
+| AuthorizedKeysFile 路径包含 shell glob（如 `~/.ssh/authorized_keys.d/*`） | sshd 本身不支持 glob；记录警告并跳过，不展开 |
+| `resolve()` 发现路径逃出 `/root` 或 `/home`（路径穿越） | ABORT 该文件并记录，不修改 |
+| 文件 world-writable（mode & 0o002） | SKIP + 告警 |
+| 文件 owner 不在 allowlist 且非 root | SKIP + 告警 |
+| `ssh-keygen -l` 解析超时（>5 s） | 将该行视为非公钥保留，不删除（保守） |
+| `os.rename` 失败（跨设备/tmpfs） | 触发全文件回滚，ABORT |
+| 同一 inode 被多个路径引用（硬链接） | 以 dev+ino 去重，只处理一次 |
+| 软链接指向的文件在 allowlist 外 | resolve() 后重新做 owner 检查 |
+| 多次运行（幂等性） | 指纹不存在时 removed=0，不视为错误 |
+| 文件不存在 | 非错误，跳过 |
+| 进程以非 root 运行 | Phase 0 立即 ABORT |
+| target_fingerprint 格式非法 | Phase 0 立即 ABORT |
+| authorized_keys 行包含 `command="ssh-keygen ..."` 等嵌入命令 | ssh-keygen -l -f /dev/stdin 仍能正确提取公钥段，不影响 |
+| 文件末尾无换行 | splitlines(keepends=True) 正确处理，无静默追加问题 |
+| 非 UTF-8 字节（罕见） | surrogateescape 确保往返安全 |
+
+---
+
+## MATCH_FIXTURES
+
+### Fixture 1 — 标准 ed25519，无 options
+```
+# input line
+ssh-ed25519 AAAA...key comment
+# expected fingerprint (由 ssh-keygen -l 输出)
+SHA256:xxxx...
+# target == SHA256:xxxx... → REMOVED
+```
+
+### Fixture 2 — options 前缀（command + restrict）
+```
+command="/usr/bin/agent-wrapper",restrict ssh-rsa AAAA...key agent@host
+# options 段含引号，ssh-keygen -l 能正确识别 keytype 位置 → 正常匹配
+```
+
+### Fixture 3 — 注释行和空行（不删除）
+```
+# This is a comment
+                          ← 空行
+ssh-ed25519 AAAA...other another-key
+# 只有 sha256 == target 的行被删除，注释/空行原样保留
+```
+
+### Fixture 4 — 同一 authorized_keys 含重复公钥（duplicate）
+```
+ssh-ed25519 AAAA...target-key copy1
+ssh-ed25519 AAAA...target-key copy2   ← 完全相同的公钥出现两次
+# 两行 fingerprint 相同 → 两行均删除（removed=2）
+# before_fps: {target, other_key}  after_fps: {other_key}
+```
+
+### Fixture 5 — AuthorizedKeysFile 含多 token
+```
+sshd_config:  AuthorizedKeysFile /etc/ssh/keys/%u .ssh/authorized_keys
+user=alice  → /etc/ssh/keys/alice  +  /home/alice/.ssh/authorized_keys
+user=root   → /etc/ssh/keys/root   +  /root/.ssh/authorized_keys
+# 每 (user, pattern) 组合独立展开和处理
+```
+
+### Fixture 6 — 硬链接去重
+```
+/root/.ssh/authorized_keys  → inode 1234
+/etc/ssh/authorized_keys    → inode 1234  (硬链接)
+# seen_inodes 在第二次发现 inode 1234 时跳过
+# 只写一次，结果一致
+```
+
+### Fixture 7 — 相对路径
+```
+AuthorizedKeysFile .ssh/authorized_keys
+user=alice → home=/home/alice → /home/alice/.ssh/authorized_keys
+# 非绝对路径拼接 home，再 resolve()
+```
+
+### Fixture 8 — Match 块 per-principal 覆盖
+```
+sshd_config:
+  AuthorizedKeysFile /etc/ssh/global_keys
+  Match User deploy
+    AuthorizedKeysFile /etc/ssh/deploy_keys /etc/ssh/global_keys
+
+sshd -T -C user=deploy → [/etc/ssh/deploy_keys, /etc/ssh/global_keys]
+sshd -T -C user=alice  → [/etc/ssh/global_keys]
+
+# /etc/ssh/global_keys 被两个 principal 引用 → inode 去重，处理一次
+```
+
+---
+
+## SHELL_PITFALLS
+
+1. **`sshd -T` 需要完整 `-C` 参数**  
+   省略 `-C user=...` 时，Match 块不被激活，per-principal 的 `AuthorizedKeysFile` 覆盖**不可见**。必须对每个受关注的用户单独调用。
+
+2. **`os.rename` 不跨文件系统**  
+   `tempfile.mkstemp` 必须在目标文件**同一目录（`dir=path.parent`）**创建，否则 `rename` 报 `EXDEV`。不能用 `/tmp`。
+
+3. **`path.resolve()` 会跟随软链接**  
+   展开后必须重新做 owner 检查。如果软链接目标的 owner 不在 allowlist，应拒绝，而不是依赖链接本身的 owner。
+
+4. **`%%` 展开顺序**  
+   必须先替换 `%%` → `\x00PERCENT\x00`（或类似占位符），展开其他 token 后再还原，防止 `%%u` 被错误展开为 `%` + 用户名。正确顺序：`%%` 最先处理，其他 token 在先。
+
+5. **`ssh-keygen -l -f /dev/stdin` 在某些系统上不支持 `/dev/stdin`**  
+   备用方案：写入 `NamedTemporaryFile`，确保 mode=0o600，用完即删。
+
+6. **行末换行符**  
+   `splitlines(keepends=True)` 保留原始 `\n`/`\r\n`，不引入多余换行或漏掉最后一行。禁止 `readlines()` 后用 `"\n".join()` 重组（会改变 `\r\n` 为 `\n`）。
+
+7. **`chown` 在 Python 中需要 `os.chown(path, uid, gid)`**  
+   `shutil.copy2` 或 `shutil.copystat` 不复制 owner；必须显式调用 `os.chown`。
+
+8. **`authorized_keys` 中的 `environment="VAR=..."` option**  
+   包含 `=` 号，不要用简单 `split("=")` 解析 keytype；全部委托给 `ssh-keygen -l` 避免手写解析器。
+
+9. **并发写保护**  
+   如果多个进程可能同时修改同一 `authorized_keys`，应使用 `flock(path, LOCK_EX)` 在读取前加锁，在 `rename` 后解锁。
+
+10. **`sshd -T` 可能输出 `AuthorizedKeysFile none`**  
+    显式检查 `none`（不区分大小写），遇到时跳过该条目，不尝试打开 `/etc/ssh/none`。
+
+---
+
+以上为完整算法设计，覆盖所有要求场景。核心决策要点：
+- 全程**委托 `ssh-keygen -l`** 做指纹计算，不自行解析 base64+SHA256
+- **`sshd -T -C`** 是唯一可靠的配置展开来源
+- **同目录 tmpfile + fsync + rename** 保证原子性
+- **inode 去重** 防止硬链接被写两次
+- **fail-closed**：任何解析歧义均保留行不删除

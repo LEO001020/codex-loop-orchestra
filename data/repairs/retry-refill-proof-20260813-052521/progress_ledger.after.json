@@ -1,0 +1,2530 @@
+{
+  "event_cursor": 408821,
+  "loop_state": "execution",
+  "loop_state_attestation": "k3:state_set:execution:fe77fk55owlouw6j",
+  "packets": {
+    "parent-073b8e0554753b449481e532b02a6301b3e5b3346d63aec1": {
+      "acceptance": [
+        "给出精确文件和行号",
+        "区分已验证事实与剩余风险"
+      ],
+      "attempts": 0,
+      "authorized_paths": [
+        "hooks/",
+        "harness/",
+        "config/",
+        ".codex/"
+      ],
+      "created_by": "parent_manifest_importer",
+      "current_run_id": "parent-073b8e0554753b449481e532b02a6301b3e5b3346d63aec1-a0-92ed53868774484eafe98715c1295506",
+      "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+      "goal": "只读复验 Desktop SubagentStop、SessionStart、Stop 到 packet-only refill actuator 的接线与失败可见性。不得修改文件。",
+      "history": [
+        {
+          "attempt": 0,
+          "run_id": "parent-073b8e0554753b449481e532b02a6301b3e5b3346d63aec1-a0-92ed53868774484eafe98715c1295506",
+          "to": "RUNNING",
+          "ts": 1786567419.0020428,
+          "via": "repair_live_roster_generation"
+        },
+        {
+          "current_run_id": "parent-073b8e0554753b449481e532b02a6301b3e5b3346d63aec1-a0-92ed53868774484eafe98715c1295506",
+          "event": "exec_failed",
+          "event_run_id": "parent-073b8e0554753b449481e532b02a6301b3e5b3346d63aec1-a0-771b81aa1dd6467799530ddab63f660d",
+          "to": "RUNNING",
+          "ts": 1786567432.8837485,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567432.8837914,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567432.9587967,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-073b8e0554753b449481e532b02a6301b3e5b3346d63aec1-a0-92ed53868774484eafe98715c1295506",
+          "event": "exec_failed",
+          "event_run_id": "parent-073b8e0554753b449481e532b02a6301b3e5b3346d63aec1-a0-9076a54b18c149baa1a236c3e6a33e16",
+          "to": "DEAD_LETTER",
+          "ts": 1786567432.9639437,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.0421479,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.0478823,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-073b8e0554753b449481e532b02a6301b3e5b3346d63aec1-a0-92ed53868774484eafe98715c1295506",
+          "event": "exec_failed",
+          "event_run_id": "parent-073b8e0554753b449481e532b02a6301b3e5b3346d63aec1-a0-ed5061d9987341bfb72ab70c4065ca5b",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.0525494,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.1143982,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-073b8e0554753b449481e532b02a6301b3e5b3346d63aec1-a0-92ed53868774484eafe98715c1295506",
+          "event": "exec_failed",
+          "event_run_id": "parent-073b8e0554753b449481e532b02a6301b3e5b3346d63aec1-a0-e1f5f212b58a462c8af22821f14ab30a",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.119553,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.187648,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.1934917,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-073b8e0554753b449481e532b02a6301b3e5b3346d63aec1-a0-92ed53868774484eafe98715c1295506",
+          "event": "subagent_stop",
+          "event_run_id": "parent-073b8e0554753b449481e532b02a6301b3e5b3346d63aec1-a0-9496d00dc51e4c4997235160ae18e007",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.2771957,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.2773428,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-073b8e0554753b449481e532b02a6301b3e5b3346d63aec1-a0-92ed53868774484eafe98715c1295506",
+          "event": "subagent_stop",
+          "event_run_id": "parent-073b8e0554753b449481e532b02a6301b3e5b3346d63aec1-a0-395e9b821f754557b9fbf8719d7d7103",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.3552792,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.3553154,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-073b8e0554753b449481e532b02a6301b3e5b3346d63aec1-a0-92ed53868774484eafe98715c1295506",
+          "event": "exec_failed",
+          "event_run_id": "parent-073b8e0554753b449481e532b02a6301b3e5b3346d63aec1-a0-0386989ac0124264b3f8b770e9ce4ac1",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.414214,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.414258,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567676.862635,
+          "via": "off_table_event"
+        },
+        {
+          "event_cursor": 374443,
+          "job_state": "completed",
+          "run_id": "parent-073b8e0554753b449481e532b02a6301b3e5b3346d63aec1-a0-92ed53868774484eafe98715c1295506",
+          "to": "FAILED",
+          "ts": 1786567705.8904402,
+          "via": "recover_historical_replay_incident"
+        },
+        {
+          "run_id": "parent-073b8e0554753b449481e532b02a6301b3e5b3346d63aec1-a0-92ed53868774484eafe98715c1295506",
+          "to": "REPORTED",
+          "ts": 1786567984.9066777,
+          "via": "repair_plain_parent_report"
+        }
+      ],
+      "manifest_id": "loop-recovery-audit-20260813",
+      "parent_enabled": true,
+      "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+      "pool_hint": "v4",
+      "role": "worker",
+      "sandbox": "read-only",
+      "state": "REPORTED",
+      "task_name": "生命周期触发链复验"
+    },
+    "parent-09861641b1a75613703a8ac312233a6327d48a29b860cdea": {
+      "acceptance": [
+        "区分必要修复与漂移",
+        "返回PASS或REDO"
+      ],
+      "attempts": 0,
+      "authorized_paths": [
+        "reports/",
+        "harness/",
+        "hooks/"
+      ],
+      "created_by": "parent_manifest_importer",
+      "current_run_id": "parent-09861641b1a75613703a8ac312233a6327d48a29b860cdea-a0-c717fd48cf0c440d8413ee07fd428c29",
+      "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+      "goal": "只读对照成功/Fable基线报告，判断本次改动是否恢复机制或继续堆补丁。",
+      "history": [
+        {
+          "t": 3,
+          "to": "RUNNING",
+          "ts": 1786568822.1548595,
+          "via": "dispatched"
+        }
+      ],
+      "manifest_id": "auto-refill-proof-20260813",
+      "parent_enabled": true,
+      "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+      "pool_hint": "k3",
+      "role": "verifier",
+      "sandbox": "read-only",
+      "state": "RUNNING",
+      "task_name": "K3基线偏差审核"
+    },
+    "parent-0b3a3a485fbea9ac6c4869ff7d96cddc34d308d1766a11ee": {
+      "acceptance": [
+        "给出最高风险反例",
+        "给出 PASS 或 REDO 结论"
+      ],
+      "attempts": 1,
+      "authorized_paths": [
+        "hooks/",
+        "harness/",
+        "config/",
+        "tests/"
+      ],
+      "created_by": "parent_manifest_importer",
+      "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+      "goal": "对当前恢复方案做对抗式只读审计，寻找会让自动补位再次衰减、重复出生或误用 Sol 的单点反例。不得修改文件。",
+      "history": [
+        {
+          "attempt": 0,
+          "run_id": "parent-0b3a3a485fbea9ac6c4869ff7d96cddc34d308d1766a11ee-a0-42af21385c354795943d673023c12d07",
+          "to": "RUNNING",
+          "ts": 1786567419.002049,
+          "via": "repair_live_roster_generation"
+        },
+        {
+          "current_run_id": "parent-0b3a3a485fbea9ac6c4869ff7d96cddc34d308d1766a11ee-a0-42af21385c354795943d673023c12d07",
+          "event": "exec_failed",
+          "event_run_id": "parent-0b3a3a485fbea9ac6c4869ff7d96cddc34d308d1766a11ee-a0-b98d6bab3155414c845005e9d170fd75",
+          "to": "RUNNING",
+          "ts": 1786567432.8883774,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567432.888403,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567432.964036,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-0b3a3a485fbea9ac6c4869ff7d96cddc34d308d1766a11ee-a0-42af21385c354795943d673023c12d07",
+          "event": "exec_failed",
+          "event_run_id": "parent-0b3a3a485fbea9ac6c4869ff7d96cddc34d308d1766a11ee-a0-2f8b379cdea545de9e272b8ffa4541e2",
+          "to": "DEAD_LETTER",
+          "ts": 1786567432.9685197,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.3822997,
+          "via": "off_table_event"
+        },
+        {
+          "event_cursor": 374443,
+          "job_state": "running",
+          "run_id": "parent-0b3a3a485fbea9ac6c4869ff7d96cddc34d308d1766a11ee-a0-42af21385c354795943d673023c12d07",
+          "to": "RUNNING",
+          "ts": 1786567705.890457,
+          "via": "recover_historical_replay_incident"
+        },
+        {
+          "t": 5,
+          "to": "TIMED_OUT",
+          "ts": 1786569133.788731,
+          "via": "timeout"
+        },
+        {
+          "t": 37,
+          "to": "DISPATCHABLE",
+          "ts": 1786569921.8637395,
+          "via": "retry_dispatch"
+        }
+      ],
+      "last_fail_class": "timeout",
+      "manifest_id": "loop-recovery-audit-20260813",
+      "parent_enabled": true,
+      "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+      "pool_hint": "k3",
+      "role": "verifier",
+      "sandbox": "read-only",
+      "state": "DISPATCHABLE",
+      "task_name": "K3 对抗式补位审计"
+    },
+    "parent-190f79994c2bf914a0ea3552523cee51f10e7bf63de75c3d": {
+      "acceptance": [
+        "列出通过数",
+        "标明未覆盖项"
+      ],
+      "attempts": 0,
+      "authorized_paths": [
+        "tests/",
+        "test_evidence_pytest_output.txt"
+      ],
+      "created_by": "parent_manifest_importer",
+      "current_run_id": "parent-190f79994c2bf914a0ea3552523cee51f10e7bf63de75c3d-a0-b6937b34152741fc84baf21f969f194c",
+      "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+      "goal": "只读核对本次 520+15 与后续定向测试结果、测试范围和跳过项。",
+      "history": [
+        {
+          "t": 3,
+          "to": "RUNNING",
+          "ts": 1786568822.155013,
+          "via": "dispatched"
+        },
+        {
+          "t": 4,
+          "to": "REPORTED",
+          "ts": 1786569097.9905682,
+          "via": "subagent_stop"
+        }
+      ],
+      "manifest_id": "auto-refill-proof-20260813",
+      "parent_enabled": true,
+      "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+      "pool_hint": "v4",
+      "role": "worker",
+      "sandbox": "read-only",
+      "state": "REPORTED",
+      "task_name": "回归套件结果复验"
+    },
+    "parent-22aebdf2be11a48dbb131af84b29ee682e6e926234066196": {
+      "acceptance": [
+        "给出端到端证据",
+        "指出丢唤醒风险"
+      ],
+      "attempts": 0,
+      "authorized_paths": [
+        "hooks/",
+        "harness/",
+        "tests/"
+      ],
+      "created_by": "parent_manifest_importer",
+      "current_run_id": "parent-22aebdf2be11a48dbb131af84b29ee682e6e926234066196-a0-8d195697efee40e08afc6aaf164b7d0d",
+      "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+      "goal": "只读审计 terminal edge 到 StateMachine 再到 packet refill 的持续补位闭环。",
+      "history": [
+        {
+          "t": 3,
+          "to": "RUNNING",
+          "ts": 1786568822.1551278,
+          "via": "dispatched"
+        }
+      ],
+      "manifest_id": "auto-refill-proof-20260813",
+      "parent_enabled": true,
+      "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+      "pool_hint": "k3",
+      "role": "verifier",
+      "sandbox": "read-only",
+      "state": "RUNNING",
+      "task_name": "K3持续补位链审计"
+    },
+    "parent-27bb0f1c73dd82b71270c14d9a2b471316d023496df9a4c7": {
+      "acceptance": [
+        "验证 stopped parent 不会重生",
+        "给出精确证据"
+      ],
+      "attempts": 1,
+      "authorized_paths": [
+        "hooks/subagent_lifecycle.py",
+        "harness/refill_consumer_v2.py",
+        "harness/parent_manifest_importer.py",
+        "tests/"
+      ],
+      "created_by": "parent_manifest_importer",
+      "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+      "goal": "只读审计 parent Stop、parent_sessions active 标记与 refill select_tasks，寻找父任务停止后错误重生的路径。不得修改文件。",
+      "history": [
+        {
+          "attempt": 0,
+          "run_id": "parent-27bb0f1c73dd82b71270c14d9a2b471316d023496df9a4c7-a0-d0ca0784448243db955795521ff62b77",
+          "to": "RUNNING",
+          "ts": 1786567419.0020514,
+          "via": "repair_live_roster_generation"
+        },
+        {
+          "current_run_id": "parent-27bb0f1c73dd82b71270c14d9a2b471316d023496df9a4c7-a0-d0ca0784448243db955795521ff62b77",
+          "event": "exec_failed",
+          "event_run_id": "parent-27bb0f1c73dd82b71270c14d9a2b471316d023496df9a4c7-a0-a0e18a330647490f87420025d3ebe784",
+          "to": "RUNNING",
+          "ts": 1786567432.8925695,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567432.8925922,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567432.9685884,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-27bb0f1c73dd82b71270c14d9a2b471316d023496df9a4c7-a0-d0ca0784448243db955795521ff62b77",
+          "event": "exec_failed",
+          "event_run_id": "parent-27bb0f1c73dd82b71270c14d9a2b471316d023496df9a4c7-a0-f744ba880f4a4de9a58a692e5c296fe3",
+          "to": "DEAD_LETTER",
+          "ts": 1786567432.973528,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.3873732,
+          "via": "off_table_event"
+        },
+        {
+          "event_cursor": 374443,
+          "job_state": "running",
+          "run_id": "parent-27bb0f1c73dd82b71270c14d9a2b471316d023496df9a4c7-a0-d0ca0784448243db955795521ff62b77",
+          "to": "RUNNING",
+          "ts": 1786567705.8904622,
+          "via": "recover_historical_replay_incident"
+        },
+        {
+          "t": 5,
+          "to": "TIMED_OUT",
+          "ts": 1786569134.9631412,
+          "via": "timeout"
+        },
+        {
+          "t": 37,
+          "to": "DISPATCHABLE",
+          "ts": 1786569921.8658125,
+          "via": "retry_dispatch"
+        }
+      ],
+      "last_fail_class": "timeout",
+      "manifest_id": "loop-recovery-audit-20260813",
+      "parent_enabled": true,
+      "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+      "pool_hint": "k3",
+      "role": "verifier",
+      "sandbox": "read-only",
+      "state": "DISPATCHABLE",
+      "task_name": "K3 父停止安全审计"
+    },
+    "parent-2ed1187bc8f3a38fe0588a42b6a97aefd4d73f4a21b11c46": {
+      "acceptance": [
+        "验证schema",
+        "验证幂等"
+      ],
+      "attempts": 0,
+      "authorized_paths": [
+        "harness/parent_manifest_importer.py",
+        "tests/orchestration_v2/"
+      ],
+      "created_by": "parent_manifest_importer",
+      "current_run_id": "parent-2ed1187bc8f3a38fe0588a42b6a97aefd4d73f4a21b11c46-a0-bf772b92c3dc487ba3d2ba85d1dbc3da",
+      "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+      "goal": "只读复验新 imported ledger entry 含 history/attempts 且幂等碰撞安全。",
+      "history": [
+        {
+          "t": 3,
+          "to": "RUNNING",
+          "ts": 1786568822.1552398,
+          "via": "dispatched"
+        },
+        {
+          "t": 4,
+          "to": "REPORTED",
+          "ts": 1786568832.3870454,
+          "via": "subagent_stop"
+        }
+      ],
+      "manifest_id": "auto-refill-proof-20260813",
+      "parent_enabled": true,
+      "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+      "pool_hint": "v4",
+      "role": "worker",
+      "sandbox": "read-only",
+      "state": "REPORTED",
+      "task_name": "Importer schema复验"
+    },
+    "parent-3bb45433bd1465aadf071475ff598a902536239764871cbd": {
+      "acceptance": [
+        "验证PID与TTL",
+        "验证estimated隔离"
+      ],
+      "attempts": 0,
+      "authorized_paths": [
+        "harness/refill_controller_v2.py",
+        "tests/orchestration_v2/"
+      ],
+      "created_by": "parent_manifest_importer",
+      "current_run_id": "parent-3bb45433bd1465aadf071475ff598a902536239764871cbd-a0-e1c718bd77154bfcb3226628f2e891c8",
+      "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+      "goal": "只读复验 controller 只计 live headless 和新鲜 native，不使用 UI estimated。",
+      "history": [
+        {
+          "t": 3,
+          "to": "RUNNING",
+          "ts": 1786568822.155278,
+          "via": "dispatched"
+        },
+        {
+          "t": 4,
+          "to": "REPORTED",
+          "ts": 1786568822.1577258,
+          "via": "subagent_stop"
+        }
+      ],
+      "manifest_id": "auto-refill-proof-20260813",
+      "parent_enabled": true,
+      "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+      "pool_hint": "v4",
+      "role": "worker",
+      "sandbox": "read-only",
+      "state": "REPORTED",
+      "task_name": "控制器真值复验"
+    },
+    "parent-3d18f03a13d3aac738ad892d6e6b89b249ddd7b297987bc2": {
+      "acceptance": [
+        "验证 canonical admission 边界",
+        "验证合法 off-table packet 仍 fail-visible"
+      ],
+      "attempts": 0,
+      "authorized_paths": [
+        "harness/statemachine.py",
+        "harness/statemachine_v2.py",
+        "tests/"
+      ],
+      "created_by": "parent_manifest_importer",
+      "current_run_id": "parent-3d18f03a13d3aac738ad892d6e6b89b249ddd7b297987bc2-a0-c08adeeb9b6c4fee99ce832d6a658037",
+      "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+      "goal": "只读复验 adhoc transport 事件不会再创建 canonical packet 或触发 off-table dead letter。不得修改文件。",
+      "history": [
+        {
+          "attempt": 0,
+          "run_id": "parent-3d18f03a13d3aac738ad892d6e6b89b249ddd7b297987bc2-a0-c08adeeb9b6c4fee99ce832d6a658037",
+          "to": "RUNNING",
+          "ts": 1786567419.0020523,
+          "via": "repair_live_roster_generation"
+        },
+        {
+          "current_run_id": "parent-3d18f03a13d3aac738ad892d6e6b89b249ddd7b297987bc2-a0-c08adeeb9b6c4fee99ce832d6a658037",
+          "event": "exec_failed",
+          "event_run_id": "parent-3d18f03a13d3aac738ad892d6e6b89b249ddd7b297987bc2-a0-72da56c572024caba2f69ac05f5ca4ed",
+          "to": "RUNNING",
+          "ts": 1786567432.8973742,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567432.8973968,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567432.973569,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-3d18f03a13d3aac738ad892d6e6b89b249ddd7b297987bc2-a0-c08adeeb9b6c4fee99ce832d6a658037",
+          "event": "exec_failed",
+          "event_run_id": "parent-3d18f03a13d3aac738ad892d6e6b89b249ddd7b297987bc2-a0-f520cebb82c04c91bda16116c8c709ba",
+          "to": "DEAD_LETTER",
+          "ts": 1786567432.978457,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.0526824,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-3d18f03a13d3aac738ad892d6e6b89b249ddd7b297987bc2-a0-c08adeeb9b6c4fee99ce832d6a658037",
+          "event": "exec_failed",
+          "event_run_id": "parent-3d18f03a13d3aac738ad892d6e6b89b249ddd7b297987bc2-a0-85261a8c14174d51975a997a46e30a71",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.0573123,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.1195922,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-3d18f03a13d3aac738ad892d6e6b89b249ddd7b297987bc2-a0-c08adeeb9b6c4fee99ce832d6a658037",
+          "event": "exec_failed",
+          "event_run_id": "parent-3d18f03a13d3aac738ad892d6e6b89b249ddd7b297987bc2-a0-a4162a6610ee405b89021d004b59c10d",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.1246827,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.1989467,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-3d18f03a13d3aac738ad892d6e6b89b249ddd7b297987bc2-a0-c08adeeb9b6c4fee99ce832d6a658037",
+          "event": "subagent_stop",
+          "event_run_id": "parent-3d18f03a13d3aac738ad892d6e6b89b249ddd7b297987bc2-a0-87125c2e6ff6459c9e208cf6e47d771b",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.3112724,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.316759,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567646.5541632,
+          "via": "off_table_event"
+        },
+        {
+          "event_cursor": 374443,
+          "job_state": "completed",
+          "run_id": "parent-3d18f03a13d3aac738ad892d6e6b89b249ddd7b297987bc2-a0-c08adeeb9b6c4fee99ce832d6a658037",
+          "to": "FAILED",
+          "ts": 1786567705.8908274,
+          "via": "recover_historical_replay_incident"
+        },
+        {
+          "run_id": "parent-3d18f03a13d3aac738ad892d6e6b89b249ddd7b297987bc2-a0-c08adeeb9b6c4fee99ce832d6a658037",
+          "to": "REPORTED",
+          "ts": 1786567984.9086416,
+          "via": "repair_plain_parent_report"
+        }
+      ],
+      "manifest_id": "loop-recovery-audit-20260813",
+      "parent_enabled": true,
+      "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+      "pool_hint": "v4",
+      "role": "worker",
+      "sandbox": "read-only",
+      "state": "REPORTED",
+      "task_name": "事件命名空间复验"
+    },
+    "parent-482f1a5b5418a9a3b3d10557ec6c83fa1125d11b0739cd9d": {
+      "acceptance": [
+        "列出覆盖与缺口",
+        "给出文件行号"
+      ],
+      "attempts": 0,
+      "authorized_paths": [
+        "harness/terminal_packet_epilogue.py",
+        "tests/orchestration_v2/"
+      ],
+      "created_by": "parent_manifest_importer",
+      "current_run_id": "parent-482f1a5b5418a9a3b3d10557ec6c83fa1125d11b0739cd9d-a0-0c22a43888db463984064bb30e4cf38a",
+      "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+      "goal": "只读复验 terminal_packet_epilogue 的单元测试、锁与状态输出，不得修改文件。",
+      "history": [
+        {
+          "t": 3,
+          "to": "RUNNING",
+          "ts": 1786568822.1553729,
+          "via": "dispatched"
+        },
+        {
+          "t": 4,
+          "to": "REPORTED",
+          "ts": 1786569029.307242,
+          "via": "subagent_stop"
+        }
+      ],
+      "manifest_id": "auto-refill-proof-20260813",
+      "parent_enabled": true,
+      "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+      "pool_hint": "v4",
+      "role": "worker",
+      "sandbox": "read-only",
+      "state": "REPORTED",
+      "task_name": "终态轻事务测试复验"
+    },
+    "parent-496560e1632ee4d5d18cfb7a88f5d1775e08450cf8b7b761": {
+      "acceptance": [
+        "列出证据目录",
+        "确认无删除"
+      ],
+      "attempts": 0,
+      "authorized_paths": [
+        "data/repairs/",
+        "harness/recover_parent_replay_incident.py",
+        "harness/repair_plain_parent_reports.py"
+      ],
+      "created_by": "parent_manifest_importer",
+      "current_run_id": "parent-496560e1632ee4d5d18cfb7a88f5d1775e08450cf8b7b761-a0-ffdc15fbfdcc45adbe953ab40ae00ab5",
+      "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+      "goal": "只读复验本次 repair 目录 before/after/quarantine 完整可恢复。",
+      "history": [
+        {
+          "t": 3,
+          "to": "RUNNING",
+          "ts": 1786568822.1554856,
+          "via": "dispatched"
+        },
+        {
+          "t": 4,
+          "to": "REPORTED",
+          "ts": 1786568902.7690468,
+          "via": "subagent_stop"
+        }
+      ],
+      "manifest_id": "auto-refill-proof-20260813",
+      "parent_enabled": true,
+      "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+      "pool_hint": "v4",
+      "role": "worker",
+      "sandbox": "read-only",
+      "state": "REPORTED",
+      "task_name": "事故恢复证据复验"
+    },
+    "parent-4ac51d21f5c20bd28b5ddb3763a6ad21dbd655aab7898bae": {
+      "acceptance": [
+        "确认没有删除工件",
+        "确认不匹配记录不会被移除"
+      ],
+      "attempts": 0,
+      "authorized_paths": [
+        "harness/repair_transport_deadletters.py",
+        "data/repairs/"
+      ],
+      "created_by": "parent_manifest_importer",
+      "current_run_id": "parent-4ac51d21f5c20bd28b5ddb3763a6ad21dbd655aab7898bae-a0-b07348c27ec544c489274ff21ac402eb",
+      "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+      "goal": "只读复验 transport dead-letter 修复脚本的选择条件、备份、工件保留和可恢复性。不得修改文件。",
+      "history": [
+        {
+          "attempt": 0,
+          "run_id": "parent-4ac51d21f5c20bd28b5ddb3763a6ad21dbd655aab7898bae-a0-b07348c27ec544c489274ff21ac402eb",
+          "to": "RUNNING",
+          "ts": 1786567419.0020533,
+          "via": "repair_live_roster_generation"
+        },
+        {
+          "current_run_id": "parent-4ac51d21f5c20bd28b5ddb3763a6ad21dbd655aab7898bae-a0-b07348c27ec544c489274ff21ac402eb",
+          "event": "exec_failed",
+          "event_run_id": "parent-4ac51d21f5c20bd28b5ddb3763a6ad21dbd655aab7898bae-a0-3a64cf3c1461404ba243523f0c705948",
+          "to": "RUNNING",
+          "ts": 1786567432.9015493,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567432.9015732,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567432.9785323,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-4ac51d21f5c20bd28b5ddb3763a6ad21dbd655aab7898bae-a0-b07348c27ec544c489274ff21ac402eb",
+          "event": "exec_failed",
+          "event_run_id": "parent-4ac51d21f5c20bd28b5ddb3763a6ad21dbd655aab7898bae-a0-881ad8acf86f402cb16d2913031f9159",
+          "to": "DEAD_LETTER",
+          "ts": 1786567432.983402,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.0573525,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-4ac51d21f5c20bd28b5ddb3763a6ad21dbd655aab7898bae-a0-b07348c27ec544c489274ff21ac402eb",
+          "event": "exec_failed",
+          "event_run_id": "parent-4ac51d21f5c20bd28b5ddb3763a6ad21dbd655aab7898bae-a0-1a57d5d7a735402fa99cb69d4c9add98",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.0622418,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.1247287,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-4ac51d21f5c20bd28b5ddb3763a6ad21dbd655aab7898bae-a0-b07348c27ec544c489274ff21ac402eb",
+          "event": "exec_failed",
+          "event_run_id": "parent-4ac51d21f5c20bd28b5ddb3763a6ad21dbd655aab7898bae-a0-d964816a04fe4856ace6aeb6d452a19e",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.1294696,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.2036395,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-4ac51d21f5c20bd28b5ddb3763a6ad21dbd655aab7898bae-a0-b07348c27ec544c489274ff21ac402eb",
+          "event": "subagent_stop",
+          "event_run_id": "parent-4ac51d21f5c20bd28b5ddb3763a6ad21dbd655aab7898bae-a0-6030eae4208e42978b239bdd69edfc5a",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.277141,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.2828984,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.4340353,
+          "via": "off_table_event"
+        },
+        {
+          "event_cursor": 374443,
+          "job_state": "completed",
+          "run_id": "parent-4ac51d21f5c20bd28b5ddb3763a6ad21dbd655aab7898bae-a0-b07348c27ec544c489274ff21ac402eb",
+          "to": "FAILED",
+          "ts": 1786567705.8910074,
+          "via": "recover_historical_replay_incident"
+        },
+        {
+          "run_id": "parent-4ac51d21f5c20bd28b5ddb3763a6ad21dbd655aab7898bae-a0-b07348c27ec544c489274ff21ac402eb",
+          "to": "REPORTED",
+          "ts": 1786567984.9105067,
+          "via": "repair_plain_parent_report"
+        }
+      ],
+      "manifest_id": "loop-recovery-audit-20260813",
+      "parent_enabled": true,
+      "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+      "pool_hint": "v4",
+      "role": "worker",
+      "sandbox": "read-only",
+      "state": "REPORTED",
+      "task_name": "事故账本修复复验"
+    },
+    "parent-541ef2516651df6062d9d460e2c6ab60ac324db3b814dddc": {
+      "acceptance": [
+        "验证重复代际不改状态",
+        "验证当前代际仍能终止"
+      ],
+      "attempts": 0,
+      "authorized_paths": [
+        "harness/statemachine_v2.py",
+        "tests/orchestration_v2/"
+      ],
+      "created_by": "parent_manifest_importer",
+      "current_run_id": "parent-541ef2516651df6062d9d460e2c6ab60ac324db3b814dddc-a0-65f1270a4245476086cafa78a4e0d42d",
+      "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+      "goal": "只读复验 current_run_id 对重复出生和迟到终态的抑制语义。",
+      "history": [
+        {
+          "t": 3,
+          "to": "RUNNING",
+          "ts": 1786568822.1556275,
+          "via": "dispatched"
+        },
+        {
+          "t": 4,
+          "to": "REPORTED",
+          "ts": 1786568928.8197515,
+          "via": "subagent_stop"
+        }
+      ],
+      "manifest_id": "auto-refill-proof-20260813",
+      "parent_enabled": true,
+      "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+      "pool_hint": "v4",
+      "role": "worker",
+      "sandbox": "read-only",
+      "state": "REPORTED",
+      "task_name": "权威代际复验"
+    },
+    "parent-6a2bf234788a10cdec092fbbc65c8c91819c149b37aa9de4": {
+      "acceptance": [
+        "给出命令边界上的模型与 effort 证据",
+        "指出任何继承路径"
+      ],
+      "attempts": 0,
+      "authorized_paths": [
+        "config/model_profiles.toml",
+        "agents/",
+        "harness/dispatch_v2.py",
+        "harness/headless_wave.py"
+      ],
+      "created_by": "parent_manifest_importer",
+      "current_run_id": "parent-6a2bf234788a10cdec092fbbc65c8c91819c149b37aa9de4-a0-9aeba87336e4432888f7e007d9236045",
+      "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+      "goal": "只读复验 worker 固定 V4 ultra、verifier/reviewer 固定 K3 max，且 refill 路径不存在默认或继承 Sol 子 agent。不得修改文件。",
+      "history": [
+        {
+          "attempt": 0,
+          "run_id": "parent-6a2bf234788a10cdec092fbbc65c8c91819c149b37aa9de4-a0-9aeba87336e4432888f7e007d9236045",
+          "to": "RUNNING",
+          "ts": 1786567419.0020545,
+          "via": "repair_live_roster_generation"
+        },
+        {
+          "current_run_id": "parent-6a2bf234788a10cdec092fbbc65c8c91819c149b37aa9de4-a0-9aeba87336e4432888f7e007d9236045",
+          "event": "exec_failed",
+          "event_run_id": "parent-6a2bf234788a10cdec092fbbc65c8c91819c149b37aa9de4-a0-a4f211b6e03a464da68f28402d01e239",
+          "to": "RUNNING",
+          "ts": 1786567432.9059865,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567432.9060113,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567432.98351,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-6a2bf234788a10cdec092fbbc65c8c91819c149b37aa9de4-a0-9aeba87336e4432888f7e007d9236045",
+          "event": "exec_failed",
+          "event_run_id": "parent-6a2bf234788a10cdec092fbbc65c8c91819c149b37aa9de4-a0-fdf992468b2b4f7d8a3a0553df082773",
+          "to": "DEAD_LETTER",
+          "ts": 1786567432.9881418,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.062275,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-6a2bf234788a10cdec092fbbc65c8c91819c149b37aa9de4-a0-9aeba87336e4432888f7e007d9236045",
+          "event": "exec_failed",
+          "event_run_id": "parent-6a2bf234788a10cdec092fbbc65c8c91819c149b37aa9de4-a0-cf53965239244936b32436492e03112c",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.0672874,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.129514,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-6a2bf234788a10cdec092fbbc65c8c91819c149b37aa9de4-a0-9aeba87336e4432888f7e007d9236045",
+          "event": "exec_failed",
+          "event_run_id": "parent-6a2bf234788a10cdec092fbbc65c8c91819c149b37aa9de4-a0-c712502ebfeb405b8913887a3d781d52",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.1349595,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.2085474,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-6a2bf234788a10cdec092fbbc65c8c91819c149b37aa9de4-a0-9aeba87336e4432888f7e007d9236045",
+          "event": "subagent_stop",
+          "event_run_id": "parent-6a2bf234788a10cdec092fbbc65c8c91819c149b37aa9de4-a0-86bc382da1d04474bfb2afb9ab0155e7",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.2772279,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.2883673,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.2941082,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-6a2bf234788a10cdec092fbbc65c8c91819c149b37aa9de4-a0-9aeba87336e4432888f7e007d9236045",
+          "event": "subagent_stop",
+          "event_run_id": "parent-6a2bf234788a10cdec092fbbc65c8c91819c149b37aa9de4-a0-a454a475ec2b4665baf80aad6563a2fb",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.3710117,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.371074,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567508.016896,
+          "via": "off_table_event"
+        },
+        {
+          "event_cursor": 374443,
+          "job_state": "completed",
+          "run_id": "parent-6a2bf234788a10cdec092fbbc65c8c91819c149b37aa9de4-a0-9aeba87336e4432888f7e007d9236045",
+          "to": "FAILED",
+          "ts": 1786567705.8911972,
+          "via": "recover_historical_replay_incident"
+        },
+        {
+          "run_id": "parent-6a2bf234788a10cdec092fbbc65c8c91819c149b37aa9de4-a0-9aeba87336e4432888f7e007d9236045",
+          "to": "REPORTED",
+          "ts": 1786567984.9123201,
+          "via": "repair_plain_parent_report"
+        }
+      ],
+      "manifest_id": "loop-recovery-audit-20260813",
+      "parent_enabled": true,
+      "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+      "pool_hint": "v4",
+      "role": "worker",
+      "sandbox": "read-only",
+      "state": "REPORTED",
+      "task_name": "模型显式路由复验"
+    },
+    "parent-6f1d14260e3d45a055ea180a95608c047106a584dc470220": {
+      "acceptance": [
+        "给出判活证据",
+        "列出剩余风险"
+      ],
+      "attempts": 0,
+      "authorized_paths": [
+        "harness/lifecycle_supervisor.py",
+        "harness/refill_consumer_v2.py",
+        "tests/"
+      ],
+      "created_by": "parent_manifest_importer",
+      "current_run_id": "parent-6f1d14260e3d45a055ea180a95608c047106a584dc470220-a0-460d98aef4894daab0490dddec21ab19",
+      "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+      "goal": "只读复验 terminal/refill actuator 在 Windows 上使用 GetExitCodeProcess 判活，查 PID reuse 风险。",
+      "history": [
+        {
+          "t": 3,
+          "to": "RUNNING",
+          "ts": 1786568822.1557622,
+          "via": "dispatched"
+        },
+        {
+          "t": 4,
+          "to": "REPORTED",
+          "ts": 1786568848.3360791,
+          "via": "subagent_stop"
+        }
+      ],
+      "manifest_id": "auto-refill-proof-20260813",
+      "parent_enabled": true,
+      "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+      "pool_hint": "v4",
+      "role": "worker",
+      "sandbox": "read-only",
+      "state": "REPORTED",
+      "task_name": "Windows PID存活复验"
+    },
+    "parent-7510271a1651bcd3cfbbea64be94d168c3b52ae1432e413d": {
+      "acceptance": [
+        "给出转移证据",
+        "验证不会转 Sol"
+      ],
+      "attempts": 0,
+      "authorized_paths": [
+        "harness/statemachine_v2.py",
+        "harness/lifecycle_supervisor.py",
+        "tests/"
+      ],
+      "created_by": "parent_manifest_importer",
+      "current_run_id": "parent-7510271a1651bcd3cfbbea64be94d168c3b52ae1432e413d-a0-924573bc2cdf41a4928b1607efe13360",
+      "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+      "goal": "只读复验 pre_spawn exec_failed 返回 DISPATCHABLE 且不误清 debt。",
+      "history": [
+        {
+          "t": 3,
+          "to": "RUNNING",
+          "ts": 1786568822.1559534,
+          "via": "dispatched"
+        },
+        {
+          "t": 4,
+          "to": "REPORTED",
+          "ts": 1786568942.6587298,
+          "via": "subagent_stop"
+        }
+      ],
+      "manifest_id": "auto-refill-proof-20260813",
+      "parent_enabled": true,
+      "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+      "pool_hint": "v4",
+      "role": "worker",
+      "sandbox": "read-only",
+      "state": "REPORTED",
+      "task_name": "出生前失败债务复验"
+    },
+    "parent-7e705a36d4431be17cf0c0109eadb5c015dc1d4cd52945c7": {
+      "acceptance": [
+        "验证状态不变",
+        "验证真实 off-table 仍可见"
+      ],
+      "attempts": 0,
+      "authorized_paths": [
+        "harness/statemachine_v2.py",
+        "tests/orchestration_v2/"
+      ],
+      "created_by": "parent_manifest_importer",
+      "current_run_id": "parent-7e705a36d4431be17cf0c0109eadb5c015dc1d4cd52945c7-a0-81e9a02f9e604eac9771dbb0fb2e9181",
+      "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+      "goal": "只读复验 dispatch_refused 与 spawn health 只作审计，不污染 canonical 状态。",
+      "history": [
+        {
+          "t": 3,
+          "to": "RUNNING",
+          "ts": 1786568822.1560616,
+          "via": "dispatched"
+        },
+        {
+          "t": 4,
+          "to": "REPORTED",
+          "ts": 1786569120.3722277,
+          "via": "subagent_stop"
+        }
+      ],
+      "manifest_id": "auto-refill-proof-20260813",
+      "parent_enabled": true,
+      "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+      "pool_hint": "v4",
+      "role": "worker",
+      "sandbox": "read-only",
+      "state": "REPORTED",
+      "task_name": "容量拒绝事件复验"
+    },
+    "parent-88d29579ff8e169c9a90861bf8fc161453070de4114d6f31": {
+      "acceptance": [
+        "验证terminal时间序列",
+        "验证模型显式路由"
+      ],
+      "attempts": 0,
+      "authorized_paths": [
+        "data/refill/",
+        "data/lifecycle/",
+        "data/orchestration/",
+        "harness/",
+        "tests/"
+      ],
+      "created_by": "parent_manifest_importer",
+      "current_run_id": "parent-88d29579ff8e169c9a90861bf8fc161453070de4114d6f31-a0-691f9fd70cb548f2868e72c18fd95ff5",
+      "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+      "goal": "只读发布审核：只有真实 terminal 自动启动本 manifest 才可 PASS，不接受手工 actuator 冒充。",
+      "history": [
+        {
+          "t": 3,
+          "to": "RUNNING",
+          "ts": 1786568822.156184,
+          "via": "dispatched"
+        }
+      ],
+      "manifest_id": "auto-refill-proof-20260813",
+      "parent_enabled": true,
+      "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+      "pool_hint": "k3",
+      "role": "reviewer",
+      "sandbox": "read-only",
+      "state": "RUNNING",
+      "task_name": "K3自动补位发布门"
+    },
+    "parent-890ad8d4e7f2a8b1d3108a73a2c5f531fb49d48a37f1aedf": {
+      "acceptance": [
+        "验证字段语义",
+        "验证页面文案"
+      ],
+      "attempts": 0,
+      "authorized_paths": [
+        "tests/unit/test_loop_monitor_server.py",
+        "data/refill/"
+      ],
+      "created_by": "parent_manifest_importer",
+      "current_run_id": "parent-890ad8d4e7f2a8b1d3108a73a2c5f531fb49d48a37f1aedf-a0-93d4d3487e514efc96ae1fe045989155",
+      "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+      "goal": "只读复验 8765 区分 headroom 与 demand-backed deficit。",
+      "history": [
+        {
+          "t": 3,
+          "to": "RUNNING",
+          "ts": 1786568822.1562655,
+          "via": "dispatched"
+        },
+        {
+          "t": 4,
+          "to": "REPORTED",
+          "ts": 1786568859.789016,
+          "via": "subagent_stop"
+        }
+      ],
+      "manifest_id": "auto-refill-proof-20260813",
+      "parent_enabled": true,
+      "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+      "pool_hint": "v4",
+      "role": "worker",
+      "sandbox": "read-only",
+      "state": "REPORTED",
+      "task_name": "UI余量债务复验"
+    },
+    "parent-8ad44ad0b517a5b2ede9444b99f2ab5461ea3f229cc038b3": {
+      "acceptance": [
+        "给出 plane/role 决策证据",
+        "确认未关闭 LOOP 的 ipybox 能力"
+      ],
+      "attempts": 0,
+      "authorized_paths": [
+        "config/",
+        "harness/dispatch_v2.py",
+        "harness/headless_wave.py",
+        "hooks/"
+      ],
+      "created_by": "parent_manifest_importer",
+      "current_run_id": "parent-8ad44ad0b517a5b2ede9444b99f2ab5461ea3f229cc038b3-a0-caa729790a9e4738ba99b0ee95cafb93",
+      "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+      "goal": "只读复验 ipybox 在 headless worker 按策略启用、K3 和 Desktop 按角色策略关闭，且本次补位修复未改 cleanup/lazy 本体。不得修改文件。",
+      "history": [
+        {
+          "attempt": 0,
+          "run_id": "parent-8ad44ad0b517a5b2ede9444b99f2ab5461ea3f229cc038b3-a0-caa729790a9e4738ba99b0ee95cafb93",
+          "to": "RUNNING",
+          "ts": 1786567419.0020552,
+          "via": "repair_live_roster_generation"
+        },
+        {
+          "current_run_id": "parent-8ad44ad0b517a5b2ede9444b99f2ab5461ea3f229cc038b3-a0-caa729790a9e4738ba99b0ee95cafb93",
+          "event": "exec_failed",
+          "event_run_id": "parent-8ad44ad0b517a5b2ede9444b99f2ab5461ea3f229cc038b3-a0-23b6cc97e58b42949ce166d7d304c87c",
+          "to": "RUNNING",
+          "ts": 1786567432.9102118,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567432.9102318,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567432.9881783,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-8ad44ad0b517a5b2ede9444b99f2ab5461ea3f229cc038b3-a0-caa729790a9e4738ba99b0ee95cafb93",
+          "event": "exec_failed",
+          "event_run_id": "parent-8ad44ad0b517a5b2ede9444b99f2ab5461ea3f229cc038b3-a0-db79d3617f1d4b15ba608253f2d2ca4e",
+          "to": "DEAD_LETTER",
+          "ts": 1786567432.9927945,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.067334,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-8ad44ad0b517a5b2ede9444b99f2ab5461ea3f229cc038b3-a0-caa729790a9e4738ba99b0ee95cafb93",
+          "event": "exec_failed",
+          "event_run_id": "parent-8ad44ad0b517a5b2ede9444b99f2ab5461ea3f229cc038b3-a0-29c1498088c94348a818113793d9f57e",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.0722842,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.1350055,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.1393356,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-8ad44ad0b517a5b2ede9444b99f2ab5461ea3f229cc038b3-a0-caa729790a9e4738ba99b0ee95cafb93",
+          "event": "exec_failed",
+          "event_run_id": "parent-8ad44ad0b517a5b2ede9444b99f2ab5461ea3f229cc038b3-a0-6db3b801e8b54b738f791872d1876f4d",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.1437824,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.2136135,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-8ad44ad0b517a5b2ede9444b99f2ab5461ea3f229cc038b3-a0-caa729790a9e4738ba99b0ee95cafb93",
+          "event": "subagent_stop",
+          "event_run_id": "parent-8ad44ad0b517a5b2ede9444b99f2ab5461ea3f229cc038b3-a0-f30457df4b894d8f8ac5f6ad5f40a782",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.3045824,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.3046281,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-8ad44ad0b517a5b2ede9444b99f2ab5461ea3f229cc038b3-a0-caa729790a9e4738ba99b0ee95cafb93",
+          "event": "subagent_stop",
+          "event_run_id": "parent-8ad44ad0b517a5b2ede9444b99f2ab5461ea3f229cc038b3-a0-328feb1730a84bcda117516408706d47",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.3653986,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.3654373,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567452.9527614,
+          "via": "off_table_event"
+        },
+        {
+          "event_cursor": 374443,
+          "job_state": "completed",
+          "run_id": "parent-8ad44ad0b517a5b2ede9444b99f2ab5461ea3f229cc038b3-a0-caa729790a9e4738ba99b0ee95cafb93",
+          "to": "FAILED",
+          "ts": 1786567705.891383,
+          "via": "recover_historical_replay_incident"
+        },
+        {
+          "run_id": "parent-8ad44ad0b517a5b2ede9444b99f2ab5461ea3f229cc038b3-a0-caa729790a9e4738ba99b0ee95cafb93",
+          "to": "REPORTED",
+          "ts": 1786567984.914163,
+          "via": "repair_plain_parent_report"
+        }
+      ],
+      "manifest_id": "loop-recovery-audit-20260813",
+      "parent_enabled": true,
+      "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+      "pool_hint": "v4",
+      "role": "worker",
+      "sandbox": "read-only",
+      "state": "REPORTED",
+      "task_name": "ipybox 承载边界复验"
+    },
+    "parent-9336178547829260cb50b2af013cc3f12789db3fd6225bbc": {
+      "acceptance": [
+        "验证锁范围",
+        "验证stable running"
+      ],
+      "attempts": 0,
+      "authorized_paths": [
+        "harness/refill_consumer_v2.py",
+        "harness/headless_wave.py",
+        "tests/"
+      ],
+      "created_by": "parent_manifest_importer",
+      "current_run_id": "parent-9336178547829260cb50b2af013cc3f12789db3fd6225bbc-a0-984cac5b2e5b474794f9e45197f35b83",
+      "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+      "goal": "只读复验 consumer lock 覆盖选择到 running 观察，防止双出生。",
+      "history": [
+        {
+          "t": 3,
+          "to": "RUNNING",
+          "ts": 1786568822.1563735,
+          "via": "dispatched"
+        },
+        {
+          "t": 4,
+          "to": "REPORTED",
+          "ts": 1786569015.497372,
+          "via": "subagent_stop"
+        }
+      ],
+      "manifest_id": "auto-refill-proof-20260813",
+      "parent_enabled": true,
+      "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+      "pool_hint": "v4",
+      "role": "worker",
+      "sandbox": "read-only",
+      "state": "REPORTED",
+      "task_name": "补位消费锁复验"
+    },
+    "parent-94967141749513c8f7021493c23aa6c163006a8165e82846": {
+      "acceptance": [
+        "列出已覆盖与缺口",
+        "给出测试文件定位"
+      ],
+      "attempts": 0,
+      "authorized_paths": [
+        "tests/",
+        "harness/",
+        "hooks/"
+      ],
+      "created_by": "parent_manifest_importer",
+      "current_run_id": "parent-94967141749513c8f7021493c23aa6c163006a8165e82846-a0-f6aa3814e35c4327a7bba6e842c781d2",
+      "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+      "goal": "只读核对本次相关测试覆盖是否包含 lifecycle trigger、coalescing、queue empty、transport namespace、stale roster 和 parent safety。不得修改文件或运行副作用测试。",
+      "history": [
+        {
+          "attempt": 0,
+          "run_id": "parent-94967141749513c8f7021493c23aa6c163006a8165e82846-a0-f6aa3814e35c4327a7bba6e842c781d2",
+          "to": "RUNNING",
+          "ts": 1786567419.002056,
+          "via": "repair_live_roster_generation"
+        },
+        {
+          "current_run_id": "parent-94967141749513c8f7021493c23aa6c163006a8165e82846-a0-f6aa3814e35c4327a7bba6e842c781d2",
+          "event": "exec_failed",
+          "event_run_id": "parent-94967141749513c8f7021493c23aa6c163006a8165e82846-a0-def71d4608ac4f718e23011ade820cba",
+          "to": "RUNNING",
+          "ts": 1786567432.9156861,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567432.9157097,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567432.992836,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567432.997911,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-94967141749513c8f7021493c23aa6c163006a8165e82846-a0-f6aa3814e35c4327a7bba6e842c781d2",
+          "event": "exec_failed",
+          "event_run_id": "parent-94967141749513c8f7021493c23aa6c163006a8165e82846-a0-e12266b9c1e947c6b7d4251821f6fab7",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.0032835,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.0723264,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-94967141749513c8f7021493c23aa6c163006a8165e82846-a0-f6aa3814e35c4327a7bba6e842c781d2",
+          "event": "exec_failed",
+          "event_run_id": "parent-94967141749513c8f7021493c23aa6c163006a8165e82846-a0-f20b755259914353b0cf5e4acca06653",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.0772696,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.1438441,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-94967141749513c8f7021493c23aa6c163006a8165e82846-a0-f6aa3814e35c4327a7bba6e842c781d2",
+          "event": "exec_failed",
+          "event_run_id": "parent-94967141749513c8f7021493c23aa6c163006a8165e82846-a0-71eb6891ea9d42048769930a697b4722",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.1494498,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.2183669,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-94967141749513c8f7021493c23aa6c163006a8165e82846-a0-f6aa3814e35c4327a7bba6e842c781d2",
+          "event": "subagent_stop",
+          "event_run_id": "parent-94967141749513c8f7021493c23aa6c163006a8165e82846-a0-f6ece38e5ed442949be17f4b030061fd",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.3111954,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.3114648,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-94967141749513c8f7021493c23aa6c163006a8165e82846-a0-f6aa3814e35c4327a7bba6e842c781d2",
+          "event": "subagent_stop",
+          "event_run_id": "parent-94967141749513c8f7021493c23aa6c163006a8165e82846-a0-80ab88771a95496ea6d3434d5c67c7a1",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.3821402,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.3921628,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.398002,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567460.84494,
+          "via": "off_table_event"
+        },
+        {
+          "event_cursor": 374443,
+          "job_state": "completed",
+          "run_id": "parent-94967141749513c8f7021493c23aa6c163006a8165e82846-a0-f6aa3814e35c4327a7bba6e842c781d2",
+          "to": "FAILED",
+          "ts": 1786567705.891551,
+          "via": "recover_historical_replay_incident"
+        },
+        {
+          "run_id": "parent-94967141749513c8f7021493c23aa6c163006a8165e82846-a0-f6aa3814e35c4327a7bba6e842c781d2",
+          "to": "REPORTED",
+          "ts": 1786567984.916298,
+          "via": "repair_plain_parent_report"
+        }
+      ],
+      "manifest_id": "loop-recovery-audit-20260813",
+      "parent_enabled": true,
+      "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+      "pool_hint": "v4",
+      "role": "worker",
+      "sandbox": "read-only",
+      "state": "REPORTED",
+      "task_name": "回归测试证据复验"
+    },
+    "parent-956c400c8d243fbd499bd50dccd8dd6d52180adbdaa2edff": {
+      "acceptance": [
+        "验证不会重复出生",
+        "验证空队列不制造任务"
+      ],
+      "attempts": 0,
+      "authorized_paths": [
+        "harness/",
+        "tests/orchestration_v2/"
+      ],
+      "created_by": "parent_manifest_importer",
+      "current_run_id": "parent-956c400c8d243fbd499bd50dccd8dd6d52180adbdaa2edff-a0-1799b52ec9f44c489ab9441cfaef68a1",
+      "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+      "goal": "只读复验 refill_consumer_v2.schedule_run 的跨进程锁、PID 存活判断、空队列行为和重复 Stop 合并。不得修改文件。",
+      "history": [
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567432.920014,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567432.9254248,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.0033522,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.0085585,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.0773098,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.0818539,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.1495209,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.1569943,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.223846,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.2680023,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.2725067,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.3396792,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.3443215,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.3492854,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.4251246,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.4296186,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567683.5025396,
+          "via": "off_table_event"
+        },
+        {
+          "event_cursor": 374443,
+          "job_state": "completed",
+          "run_id": "parent-956c400c8d243fbd499bd50dccd8dd6d52180adbdaa2edff-a0-1799b52ec9f44c489ab9441cfaef68a1",
+          "to": "FAILED",
+          "ts": 1786567705.8917184,
+          "via": "recover_historical_replay_incident"
+        },
+        {
+          "run_id": "parent-956c400c8d243fbd499bd50dccd8dd6d52180adbdaa2edff-a0-1799b52ec9f44c489ab9441cfaef68a1",
+          "to": "REPORTED",
+          "ts": 1786567984.9186478,
+          "via": "repair_plain_parent_report"
+        }
+      ],
+      "manifest_id": "loop-recovery-audit-20260813",
+      "parent_enabled": true,
+      "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+      "pool_hint": "v4",
+      "role": "worker",
+      "sandbox": "read-only",
+      "state": "REPORTED",
+      "task_name": "补位执行器合并复验"
+    },
+    "parent-9aa243d45f99231bd62d7f2f8596a17f26a044a068acd247": {
+      "acceptance": [
+        "验证 fail-visible 状态",
+        "验证不回退到 Sol"
+      ],
+      "attempts": 0,
+      "authorized_paths": [
+        "harness/",
+        "tests/orchestration_v2/",
+        "data/provider_health/"
+      ],
+      "created_by": "parent_manifest_importer",
+      "current_run_id": "parent-9aa243d45f99231bd62d7f2f8596a17f26a044a068acd247-a0-94f7c19e1b7e4949b87030e7d885230a",
+      "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+      "goal": "只读复验 actuator 启动失败、provider backoff、headless spawn failure 后 refill debt 不被伪清除并可在后续生命周期边重试。不得修改文件。",
+      "history": [
+        {
+          "attempt": 0,
+          "run_id": "parent-9aa243d45f99231bd62d7f2f8596a17f26a044a068acd247-a0-94f7c19e1b7e4949b87030e7d885230a",
+          "to": "RUNNING",
+          "ts": 1786567419.0020602,
+          "via": "repair_live_roster_generation"
+        },
+        {
+          "current_run_id": "parent-9aa243d45f99231bd62d7f2f8596a17f26a044a068acd247-a0-94f7c19e1b7e4949b87030e7d885230a",
+          "event": "exec_failed",
+          "event_run_id": "parent-9aa243d45f99231bd62d7f2f8596a17f26a044a068acd247-a0-d41c216e883246f1bd7782698f09fcfd",
+          "to": "RUNNING",
+          "ts": 1786567432.9320536,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567432.932083,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.0135448,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-9aa243d45f99231bd62d7f2f8596a17f26a044a068acd247-a0-94f7c19e1b7e4949b87030e7d885230a",
+          "event": "exec_failed",
+          "event_run_id": "parent-9aa243d45f99231bd62d7f2f8596a17f26a044a068acd247-a0-9fb1495fd2d540fcbb37c8eb4eede0a5",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.0180373,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.0864418,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-9aa243d45f99231bd62d7f2f8596a17f26a044a068acd247-a0-94f7c19e1b7e4949b87030e7d885230a",
+          "event": "exec_failed",
+          "event_run_id": "parent-9aa243d45f99231bd62d7f2f8596a17f26a044a068acd247-a0-7b830c87d76547ff8624c059a692aa20",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.0912528,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.1613734,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-9aa243d45f99231bd62d7f2f8596a17f26a044a068acd247-a0-94f7c19e1b7e4949b87030e7d885230a",
+          "event": "exec_failed",
+          "event_run_id": "parent-9aa243d45f99231bd62d7f2f8596a17f26a044a068acd247-a0-2bd1fe85b0074da0b364c86f3c036172",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.1664975,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.2289214,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-9aa243d45f99231bd62d7f2f8596a17f26a044a068acd247-a0-94f7c19e1b7e4949b87030e7d885230a",
+          "event": "subagent_stop",
+          "event_run_id": "parent-9aa243d45f99231bd62d7f2f8596a17f26a044a068acd247-a0-2c54a0c5dda74e229f07de897c03e441",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.3343787,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.3345034,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567436.3802555,
+          "via": "off_table_event"
+        },
+        {
+          "event_cursor": 374443,
+          "job_state": "completed",
+          "run_id": "parent-9aa243d45f99231bd62d7f2f8596a17f26a044a068acd247-a0-94f7c19e1b7e4949b87030e7d885230a",
+          "to": "FAILED",
+          "ts": 1786567705.8918946,
+          "via": "recover_historical_replay_incident"
+        },
+        {
+          "run_id": "parent-9aa243d45f99231bd62d7f2f8596a17f26a044a068acd247-a0-94f7c19e1b7e4949b87030e7d885230a",
+          "to": "REPORTED",
+          "ts": 1786567984.9209743,
+          "via": "repair_plain_parent_report"
+        }
+      ],
+      "manifest_id": "loop-recovery-audit-20260813",
+      "parent_enabled": true,
+      "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+      "pool_hint": "v4",
+      "role": "worker",
+      "sandbox": "read-only",
+      "state": "REPORTED",
+      "task_name": "失败重试可见性复验"
+    },
+    "parent-a4abfe36a67065292657b318a522c55577aae37a7de425da": {
+      "acceptance": [
+        "说明控制口径与 UI 估算口径的差异",
+        "指出潜在误计路径"
+      ],
+      "attempts": 0,
+      "authorized_paths": [
+        "harness/",
+        "tests/orchestration_v2/",
+        "data/refill/"
+      ],
+      "created_by": "parent_manifest_importer",
+      "current_run_id": "parent-a4abfe36a67065292657b318a522c55577aae37a7de425da-a0-afbdb43fa86a4f34aee11e1f7406b5ea",
+      "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+      "goal": "只读复验 refill controller 对 stale native、headless 双 PID 创建时间代际和 initializing/running 的计数语义。不得修改文件。",
+      "history": [
+        {
+          "attempt": 0,
+          "run_id": "parent-a4abfe36a67065292657b318a522c55577aae37a7de425da-a0-afbdb43fa86a4f34aee11e1f7406b5ea",
+          "to": "RUNNING",
+          "ts": 1786567419.0020611,
+          "via": "repair_live_roster_generation"
+        },
+        {
+          "current_run_id": "parent-a4abfe36a67065292657b318a522c55577aae37a7de425da-a0-afbdb43fa86a4f34aee11e1f7406b5ea",
+          "event": "exec_failed",
+          "event_run_id": "parent-a4abfe36a67065292657b318a522c55577aae37a7de425da-a0-df3421b9a06a402683e8b7a27efd9166",
+          "to": "RUNNING",
+          "ts": 1786567432.93653,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567432.9365559,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.0180807,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-a4abfe36a67065292657b318a522c55577aae37a7de425da-a0-afbdb43fa86a4f34aee11e1f7406b5ea",
+          "event": "exec_failed",
+          "event_run_id": "parent-a4abfe36a67065292657b318a522c55577aae37a7de425da-a0-850c1dff3a0e423a8662e4945edb8fd7",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.0227907,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.091302,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.0959117,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-a4abfe36a67065292657b318a522c55577aae37a7de425da-a0-afbdb43fa86a4f34aee11e1f7406b5ea",
+          "event": "exec_failed",
+          "event_run_id": "parent-a4abfe36a67065292657b318a522c55577aae37a7de425da-a0-b582c7bfaa9a4100b7e2f173b576533a",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.1006522,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.1665516,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-a4abfe36a67065292657b318a522c55577aae37a7de425da-a0-afbdb43fa86a4f34aee11e1f7406b5ea",
+          "event": "exec_failed",
+          "event_run_id": "parent-a4abfe36a67065292657b318a522c55577aae37a7de425da-a0-58db5485f46c4805bedc4ffe3fdb86e7",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.171398,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.2346895,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.2400115,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-a4abfe36a67065292657b318a522c55577aae37a7de425da-a0-afbdb43fa86a4f34aee11e1f7406b5ea",
+          "event": "subagent_stop",
+          "event_run_id": "parent-a4abfe36a67065292657b318a522c55577aae37a7de425da-a0-996b89316f104db7b86858df7ef0945a",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.3709657,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.376524,
+          "via": "off_table_event"
+        },
+        {
+          "event_cursor": 374443,
+          "job_state": "running",
+          "run_id": "parent-a4abfe36a67065292657b318a522c55577aae37a7de425da-a0-afbdb43fa86a4f34aee11e1f7406b5ea",
+          "to": "RUNNING",
+          "ts": 1786567705.891901,
+          "via": "recover_historical_replay_incident"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567828.2582982,
+          "via": "report_missing_on_stop"
+        },
+        {
+          "run_id": "parent-a4abfe36a67065292657b318a522c55577aae37a7de425da-a0-afbdb43fa86a4f34aee11e1f7406b5ea",
+          "to": "REPORTED",
+          "ts": 1786567984.923076,
+          "via": "repair_plain_parent_report"
+        }
+      ],
+      "manifest_id": "loop-recovery-audit-20260813",
+      "parent_enabled": true,
+      "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+      "pool_hint": "v4",
+      "role": "worker",
+      "sandbox": "read-only",
+      "state": "REPORTED",
+      "task_name": "双平面真值口径复验"
+    },
+    "parent-afc120497f27d2705abf2a34855dd9fb0fcdbffc21cd926f": {
+      "acceptance": [
+        "输出端到端证据链",
+        "确认无 roleless/default 子 agent"
+      ],
+      "attempts": 1,
+      "authorized_paths": [
+        "harness/",
+        "config/model_profiles.toml",
+        "agents/",
+        "tests/"
+      ],
+      "created_by": "parent_manifest_importer",
+      "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+      "goal": "只读复核 canonical packet 从 importer、controller、consumer、dispatcher、supervisor 到终态补位的模型路由和代际证据。不得修改文件。",
+      "history": [
+        {
+          "attempt": 0,
+          "run_id": "parent-afc120497f27d2705abf2a34855dd9fb0fcdbffc21cd926f-a0-d896449176014eb999693ff88185bab5",
+          "to": "RUNNING",
+          "ts": 1786567419.0020618,
+          "via": "repair_live_roster_generation"
+        },
+        {
+          "current_run_id": "parent-afc120497f27d2705abf2a34855dd9fb0fcdbffc21cd926f-a0-d896449176014eb999693ff88185bab5",
+          "event": "exec_failed",
+          "event_run_id": "parent-afc120497f27d2705abf2a34855dd9fb0fcdbffc21cd926f-a0-8f63a38ea76b4b79aac367c4b196f74e",
+          "to": "RUNNING",
+          "ts": 1786567432.9415045,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567432.9415247,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.02282,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-afc120497f27d2705abf2a34855dd9fb0fcdbffc21cd926f-a0-d896449176014eb999693ff88185bab5",
+          "event": "exec_failed",
+          "event_run_id": "parent-afc120497f27d2705abf2a34855dd9fb0fcdbffc21cd926f-a0-4d856bd7eba04436a7b7c6980b34c14e",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.027786,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.4037092,
+          "via": "off_table_event"
+        },
+        {
+          "event_cursor": 374443,
+          "job_state": "running",
+          "run_id": "parent-afc120497f27d2705abf2a34855dd9fb0fcdbffc21cd926f-a0-d896449176014eb999693ff88185bab5",
+          "to": "RUNNING",
+          "ts": 1786567705.891906,
+          "via": "recover_historical_replay_incident"
+        },
+        {
+          "t": 5,
+          "to": "TIMED_OUT",
+          "ts": 1786569137.2187066,
+          "via": "timeout"
+        },
+        {
+          "t": 37,
+          "to": "DISPATCHABLE",
+          "ts": 1786569921.8678045,
+          "via": "retry_dispatch"
+        }
+      ],
+      "last_fail_class": "timeout",
+      "manifest_id": "loop-recovery-audit-20260813",
+      "parent_enabled": true,
+      "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+      "pool_hint": "k3",
+      "role": "verifier",
+      "sandbox": "read-only",
+      "state": "DISPATCHABLE",
+      "task_name": "K3 路由发布复核"
+    },
+    "parent-b465863d62d814dd779568ba9964b364a842ac60d5e0a472": {
+      "acceptance": [
+        "列出准入不变量",
+        "验证不会从 UI 或历史 rollout 猜任务"
+      ],
+      "attempts": 0,
+      "authorized_paths": [
+        "harness/parent_manifest_importer.py",
+        "tests/orchestration_v2/"
+      ],
+      "created_by": "parent_manifest_importer",
+      "current_run_id": "parent-b465863d62d814dd779568ba9964b364a842ac60d5e0a472-a0-4284369f289f45c196c0e2476af17b62",
+      "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+      "goal": "只读复验 parent_manifest_importer 对显式角色、只读工作区、parent active、幂等和碰撞拒绝的约束。不得修改文件。",
+      "history": [
+        {
+          "attempt": 0,
+          "run_id": "parent-b465863d62d814dd779568ba9964b364a842ac60d5e0a472-a0-4284369f289f45c196c0e2476af17b62",
+          "to": "RUNNING",
+          "ts": 1786567419.0020626,
+          "via": "repair_live_roster_generation"
+        },
+        {
+          "current_run_id": "parent-b465863d62d814dd779568ba9964b364a842ac60d5e0a472-a0-4284369f289f45c196c0e2476af17b62",
+          "event": "exec_failed",
+          "event_run_id": "parent-b465863d62d814dd779568ba9964b364a842ac60d5e0a472-a0-b3b54b2dfbbd495da7776fd04fe73763",
+          "to": "RUNNING",
+          "ts": 1786567432.9454596,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567432.9454978,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.027892,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-b465863d62d814dd779568ba9964b364a842ac60d5e0a472-a0-4284369f289f45c196c0e2476af17b62",
+          "event": "exec_failed",
+          "event_run_id": "parent-b465863d62d814dd779568ba9964b364a842ac60d5e0a472-a0-1aea61514dd7450cbd652d25083aa248",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.0327928,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.100697,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-b465863d62d814dd779568ba9964b364a842ac60d5e0a472-a0-4284369f289f45c196c0e2476af17b62",
+          "event": "exec_failed",
+          "event_run_id": "parent-b465863d62d814dd779568ba9964b364a842ac60d5e0a472-a0-0b3881c58421480681786870c4a617f5",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.1053295,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.1714463,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-b465863d62d814dd779568ba9964b364a842ac60d5e0a472-a0-4284369f289f45c196c0e2476af17b62",
+          "event": "exec_failed",
+          "event_run_id": "parent-b465863d62d814dd779568ba9964b364a842ac60d5e0a472-a0-af9869d6fe4a4853b4437e1afe0ecefc",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.1758604,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.2446897,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-b465863d62d814dd779568ba9964b364a842ac60d5e0a472-a0-4284369f289f45c196c0e2476af17b62",
+          "event": "subagent_stop",
+          "event_run_id": "parent-b465863d62d814dd779568ba9964b364a842ac60d5e0a472-a0-0a59175530d84219b317e68d1025e0e7",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.2622366,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.2622714,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-b465863d62d814dd779568ba9964b364a842ac60d5e0a472-a0-4284369f289f45c196c0e2476af17b62",
+          "event": "subagent_stop",
+          "event_run_id": "parent-b465863d62d814dd779568ba9964b364a842ac60d5e0a472-a0-3b6c81891d034d45832085039dce21ef",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.2772732,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.2998347,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-b465863d62d814dd779568ba9964b364a842ac60d5e0a472-a0-4284369f289f45c196c0e2476af17b62",
+          "event": "subagent_stop",
+          "event_run_id": "parent-b465863d62d814dd779568ba9964b364a842ac60d5e0a472-a0-69c01a1fd4ff4d5896e4887df767cb5d",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.3552587,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.3610024,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-b465863d62d814dd779568ba9964b364a842ac60d5e0a472-a0-4284369f289f45c196c0e2476af17b62",
+          "event": "subagent_stop",
+          "event_run_id": "parent-b465863d62d814dd779568ba9964b364a842ac60d5e0a472-a0-8a1566d79312476a83394b873b3dabd1",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.4088476,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.4088936,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567468.1870537,
+          "via": "off_table_event"
+        },
+        {
+          "event_cursor": 374443,
+          "job_state": "completed",
+          "run_id": "parent-b465863d62d814dd779568ba9964b364a842ac60d5e0a472-a0-4284369f289f45c196c0e2476af17b62",
+          "to": "FAILED",
+          "ts": 1786567705.89207,
+          "via": "recover_historical_replay_incident"
+        },
+        {
+          "run_id": "parent-b465863d62d814dd779568ba9964b364a842ac60d5e0a472-a0-4284369f289f45c196c0e2476af17b62",
+          "to": "REPORTED",
+          "ts": 1786567984.9251966,
+          "via": "repair_plain_parent_report"
+        }
+      ],
+      "manifest_id": "loop-recovery-audit-20260813",
+      "parent_enabled": true,
+      "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+      "pool_hint": "v4",
+      "role": "worker",
+      "sandbox": "read-only",
+      "state": "REPORTED",
+      "task_name": "父任务清单准入复验"
+    },
+    "parent-c0f4413dd820b1ef5ca022cbafb72769b42dd9de9c23dd86": {
+      "acceptance": [
+        "验证 estimated 不冒充权威 running",
+        "验证双平面聚合"
+      ],
+      "attempts": 0,
+      "authorized_paths": [
+        "launchers/",
+        "tests/unit/",
+        "data/refill/"
+      ],
+      "created_by": "parent_manifest_importer",
+      "current_run_id": "parent-c0f4413dd820b1ef5ca022cbafb72769b42dd9de9c23dd86-a0-f1f99e4c16f140e090659a904971ff8d",
+      "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+      "goal": "只读复验 8765 对 Desktop estimated、headless live、stale native 和总目标/缺口的展示语义。不得修改文件。",
+      "history": [
+        {
+          "attempt": 0,
+          "run_id": "parent-c0f4413dd820b1ef5ca022cbafb72769b42dd9de9c23dd86-a0-f1f99e4c16f140e090659a904971ff8d",
+          "to": "RUNNING",
+          "ts": 1786567419.0020633,
+          "via": "repair_live_roster_generation"
+        },
+        {
+          "current_run_id": "parent-c0f4413dd820b1ef5ca022cbafb72769b42dd9de9c23dd86-a0-f1f99e4c16f140e090659a904971ff8d",
+          "event": "exec_failed",
+          "event_run_id": "parent-c0f4413dd820b1ef5ca022cbafb72769b42dd9de9c23dd86-a0-b8bf904616f54c529b20b594e24d888b",
+          "to": "RUNNING",
+          "ts": 1786567432.95003,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567432.9500613,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.0328434,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-c0f4413dd820b1ef5ca022cbafb72769b42dd9de9c23dd86-a0-f1f99e4c16f140e090659a904971ff8d",
+          "event": "exec_failed",
+          "event_run_id": "parent-c0f4413dd820b1ef5ca022cbafb72769b42dd9de9c23dd86-a0-405d1ed869dc4de7a73d8c1ee1b66dbe",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.0371566,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.1053815,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-c0f4413dd820b1ef5ca022cbafb72769b42dd9de9c23dd86-a0-f1f99e4c16f140e090659a904971ff8d",
+          "event": "exec_failed",
+          "event_run_id": "parent-c0f4413dd820b1ef5ca022cbafb72769b42dd9de9c23dd86-a0-afea71b951914f23857bf6ddbb3ab2e2",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.10953,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.1759355,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-c0f4413dd820b1ef5ca022cbafb72769b42dd9de9c23dd86-a0-f1f99e4c16f140e090659a904971ff8d",
+          "event": "exec_failed",
+          "event_run_id": "parent-c0f4413dd820b1ef5ca022cbafb72769b42dd9de9c23dd86-a0-ef4f33c006844eff8d02c5f3b62bca7c",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.1820464,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.2510328,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-c0f4413dd820b1ef5ca022cbafb72769b42dd9de9c23dd86-a0-f1f99e4c16f140e090659a904971ff8d",
+          "event": "subagent_stop",
+          "event_run_id": "parent-c0f4413dd820b1ef5ca022cbafb72769b42dd9de9c23dd86-a0-285457882f21406db8d485ca7d4a2780",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.3228385,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.3229036,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-c0f4413dd820b1ef5ca022cbafb72769b42dd9de9c23dd86-a0-f1f99e4c16f140e090659a904971ff8d",
+          "event": "subagent_stop",
+          "event_run_id": "parent-c0f4413dd820b1ef5ca022cbafb72769b42dd9de9c23dd86-a0-3e2ebe0474ea486589c74fd01ae44752",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.4193542,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.4194012,
+          "via": "off_table_event"
+        },
+        {
+          "event_cursor": 374443,
+          "job_state": "running",
+          "run_id": "parent-c0f4413dd820b1ef5ca022cbafb72769b42dd9de9c23dd86-a0-f1f99e4c16f140e090659a904971ff8d",
+          "to": "RUNNING",
+          "ts": 1786567705.8920755,
+          "via": "recover_historical_replay_incident"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567730.1649106,
+          "via": "report_missing_on_stop"
+        },
+        {
+          "run_id": "parent-c0f4413dd820b1ef5ca022cbafb72769b42dd9de9c23dd86-a0-f1f99e4c16f140e090659a904971ff8d",
+          "to": "REPORTED",
+          "ts": 1786567984.9273949,
+          "via": "repair_plain_parent_report"
+        }
+      ],
+      "manifest_id": "loop-recovery-audit-20260813",
+      "parent_enabled": true,
+      "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+      "pool_hint": "v4",
+      "role": "worker",
+      "sandbox": "read-only",
+      "state": "REPORTED",
+      "task_name": "8765 监控语义复验"
+    },
+    "parent-c89a209b119dedfe42327484416468f1e8964de6bb514f0e": {
+      "acceptance": [
+        "确认 packet_id/run_id 约束",
+        "确认 L2 不被改写"
+      ],
+      "attempts": 0,
+      "authorized_paths": [
+        "harness/lifecycle_supervisor.py",
+        "harness/terminal_packet_epilogue.py",
+        "tests/"
+      ],
+      "created_by": "parent_manifest_importer",
+      "current_run_id": "parent-c89a209b119dedfe42327484416468f1e8964de6bb514f0e-a0-08c08270bee343479d9f2513c233cc64",
+      "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+      "goal": "只读复验普通 parent final 到机器 report 的封装与 legacy 兼容，不得修改文件。",
+      "history": [
+        {
+          "t": 3,
+          "to": "RUNNING",
+          "ts": 1786568822.1565723,
+          "via": "dispatched"
+        },
+        {
+          "t": 4,
+          "to": "REPORTED",
+          "ts": 1786569112.2782428,
+          "via": "subagent_stop"
+        }
+      ],
+      "manifest_id": "auto-refill-proof-20260813",
+      "parent_enabled": true,
+      "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+      "pool_hint": "v4",
+      "role": "worker",
+      "sandbox": "read-only",
+      "state": "REPORTED",
+      "task_name": "报告封装契约复验"
+    },
+    "parent-cbe5c01cb608e3bd96fa976b6879d0e54a4875af3ba0ba2e": {
+      "acceptance": [
+        "返回 PASS/REDO",
+        "每个否决点必须有文件证据"
+      ],
+      "attempts": 1,
+      "authorized_paths": [
+        "hooks/",
+        "harness/",
+        "config/",
+        "tests/",
+        "data/refill/",
+        "data/repairs/"
+      ],
+      "created_by": "parent_manifest_importer",
+      "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+      "goal": "对本次 P0 自动补位恢复进行最终只读 release-gate 复核，重点检查真实 replacement、UI/控制器口径、queue debt 和事故可恢复性。不得修改文件。",
+      "history": [
+        {
+          "attempt": 0,
+          "run_id": "parent-cbe5c01cb608e3bd96fa976b6879d0e54a4875af3ba0ba2e-a0-20f904b245514f3b9cedbd4450f434c5",
+          "to": "RUNNING",
+          "ts": 1786567419.0020642,
+          "via": "repair_live_roster_generation"
+        },
+        {
+          "event_attempt": 0,
+          "to": "RUNNING",
+          "ts": 1786567433.408742,
+          "via": "generation_dispatch_confirmed"
+        },
+        {
+          "event_cursor": 374443,
+          "job_state": "running",
+          "run_id": "parent-cbe5c01cb608e3bd96fa976b6879d0e54a4875af3ba0ba2e-a0-20f904b245514f3b9cedbd4450f434c5",
+          "to": "RUNNING",
+          "ts": 1786567705.892079,
+          "via": "recover_historical_replay_incident"
+        },
+        {
+          "t": 5,
+          "to": "TIMED_OUT",
+          "ts": 1786569138.3029125,
+          "via": "timeout"
+        },
+        {
+          "t": 37,
+          "to": "DISPATCHABLE",
+          "ts": 1786569921.8700683,
+          "via": "retry_dispatch"
+        }
+      ],
+      "last_fail_class": "timeout",
+      "manifest_id": "loop-recovery-audit-20260813",
+      "parent_enabled": true,
+      "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+      "pool_hint": "k3",
+      "role": "verifier",
+      "sandbox": "read-only",
+      "state": "DISPATCHABLE",
+      "task_name": "K3 恢复发布门"
+    },
+    "parent-cefda88c0a7a2bebb8fe6a83fe86f4d343ed86e29688d050": {
+      "acceptance": [
+        "给出变更范围",
+        "标出任何超范围漂移"
+      ],
+      "attempts": 0,
+      "authorized_paths": [
+        "harness/",
+        "hooks/",
+        "config/",
+        "data/repairs/"
+      ],
+      "created_by": "parent_manifest_importer",
+      "current_run_id": "parent-cefda88c0a7a2bebb8fe6a83fe86f4d343ed86e29688d050-a0-4ab86065f02e4987839841680923dbd9",
+      "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+      "goal": "只读核对本次恢复仅触及自动补位链、状态机事件边界和真值计数，没有整包覆盖或修改 ipybox cleanup/lazy。不得修改文件。",
+      "history": [
+        {
+          "attempt": 0,
+          "run_id": "parent-cefda88c0a7a2bebb8fe6a83fe86f4d343ed86e29688d050-a0-4ab86065f02e4987839841680923dbd9",
+          "to": "RUNNING",
+          "ts": 1786567419.002065,
+          "via": "repair_live_roster_generation"
+        },
+        {
+          "current_run_id": "parent-cefda88c0a7a2bebb8fe6a83fe86f4d343ed86e29688d050-a0-4ab86065f02e4987839841680923dbd9",
+          "event": "exec_failed",
+          "event_run_id": "parent-cefda88c0a7a2bebb8fe6a83fe86f4d343ed86e29688d050-a0-170f08700383411e80299b317c25a53d",
+          "to": "RUNNING",
+          "ts": 1786567432.9538348,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567432.9538648,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.0371883,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-cefda88c0a7a2bebb8fe6a83fe86f4d343ed86e29688d050-a0-4ab86065f02e4987839841680923dbd9",
+          "event": "exec_failed",
+          "event_run_id": "parent-cefda88c0a7a2bebb8fe6a83fe86f4d343ed86e29688d050-a0-eee2d5b18377411ead00bc84970ec994",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.0420613,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.109579,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-cefda88c0a7a2bebb8fe6a83fe86f4d343ed86e29688d050-a0-4ab86065f02e4987839841680923dbd9",
+          "event": "exec_failed",
+          "event_run_id": "parent-cefda88c0a7a2bebb8fe6a83fe86f4d343ed86e29688d050-a0-f732d5353be0439a829d5d402387a5a3",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.114317,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.1821306,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-cefda88c0a7a2bebb8fe6a83fe86f4d343ed86e29688d050-a0-4ab86065f02e4987839841680923dbd9",
+          "event": "exec_failed",
+          "event_run_id": "parent-cefda88c0a7a2bebb8fe6a83fe86f4d343ed86e29688d050-a0-a1227e0d2a0f4f9293af13fe3810bd44",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.1875803,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.2564895,
+          "via": "off_table_event"
+        },
+        {
+          "current_run_id": "parent-cefda88c0a7a2bebb8fe6a83fe86f4d343ed86e29688d050-a0-4ab86065f02e4987839841680923dbd9",
+          "event": "subagent_stop",
+          "event_run_id": "parent-cefda88c0a7a2bebb8fe6a83fe86f4d343ed86e29688d050-a0-27bb8c69cf734e6f8ddfe13fbb0a9768",
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.3282745,
+          "via": "stale_run_id_ignored"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567433.3285465,
+          "via": "off_table_event"
+        },
+        {
+          "to": "DEAD_LETTER",
+          "ts": 1786567560.5935345,
+          "via": "off_table_event"
+        },
+        {
+          "event_cursor": 374443,
+          "job_state": "completed",
+          "run_id": "parent-cefda88c0a7a2bebb8fe6a83fe86f4d343ed86e29688d050-a0-4ab86065f02e4987839841680923dbd9",
+          "to": "FAILED",
+          "ts": 1786567705.8922307,
+          "via": "recover_historical_replay_incident"
+        },
+        {
+          "run_id": "parent-cefda88c0a7a2bebb8fe6a83fe86f4d343ed86e29688d050-a0-4ab86065f02e4987839841680923dbd9",
+          "to": "REPORTED",
+          "ts": 1786567984.9292796,
+          "via": "repair_plain_parent_report"
+        }
+      ],
+      "manifest_id": "loop-recovery-audit-20260813",
+      "parent_enabled": true,
+      "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+      "pool_hint": "v4",
+      "role": "worker",
+      "sandbox": "read-only",
+      "state": "REPORTED",
+      "task_name": "基线漂移边界复验"
+    },
+    "parent-e7594dc0863f78c29ed160d7cf9fd5639dcd732d133a6541": {
+      "acceptance": [
+        "返回PASS或REDO",
+        "给出最高风险反例"
+      ],
+      "attempts": 0,
+      "authorized_paths": [
+        "harness/",
+        "tests/",
+        "data/refill/"
+      ],
+      "created_by": "parent_manifest_importer",
+      "current_run_id": "parent-e7594dc0863f78c29ed160d7cf9fd5639dcd732d133a6541-a0-d9bb13f5e20042cc92e62d7193dde3e8",
+      "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+      "goal": "对 current_run_id 与 terminal refill 做只读对抗审计，寻找同 packet 重复出生反例。",
+      "history": [
+        {
+          "t": 3,
+          "to": "RUNNING",
+          "ts": 1786568822.1567905,
+          "via": "dispatched"
+        }
+      ],
+      "manifest_id": "auto-refill-proof-20260813",
+      "parent_enabled": true,
+      "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+      "pool_hint": "k3",
+      "role": "verifier",
+      "sandbox": "read-only",
+      "state": "RUNNING",
+      "task_name": "K3重复出生对抗审计"
+    }
+  },
+  "schema": "codex-loop-statemachine/v2",
+  "waves": []
+}

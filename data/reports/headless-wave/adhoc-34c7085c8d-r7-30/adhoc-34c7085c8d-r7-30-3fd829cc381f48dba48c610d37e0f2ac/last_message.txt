@@ -1,0 +1,26 @@
+验证完成。以下是完整结论：
+
+---
+
+**README 恢复复核结果：FAIL（README 与 prepatch 基线不一致）**
+
+**发现事项：**
+
+1. **`pyproject.toml` 缺席** ✅  
+   `Test-Path pyproject.toml` 返回 `False`，确认该文件不存在。
+
+2. **`README.md` 与 HEAD 基线不一致** ❌  
+   `git diff HEAD -- README.md` 输出了大量差异。工作树中的 README 包含多个相对于唯一基线提交（`f1d6eac Fable F2 delivery baseline`）新增的章节和修改内容，包括：
+   - 新增 CSV wave 流程说明段落
+   - ipybox enable steps 大幅重写（pip form / uvx form / Docker note）
+   - 新增 §4「Five-layer lifecycle reclamation」整章（约 45 行）
+   - 章节编号从 §4–§8 顺移至 §5–§9
+   - 新增 §10「Runtime Success Closure (2026-08-10)」整章
+   - 多处表格行内容更新（ipybox block 行、smoke gate assertions、TOML loading 模型名等）
+
+   当前 README SHA256：`0450233F762A0BAC8E95F8930BC127857C0437D19F6B4A57BBE2C044EC6B438C`  
+   HEAD 基线 `index 1a40fea` — 两者内容不同，**非字节一致**。
+
+3. **无 prepatch 恢复备份可比对**：backup 目录（`backup-20260811-*`、`backup-20260813-*`）均不含 README 文件；git stash 为空；仅有单一提交历史，无法取出"恢复前"快照。
+
+**结论：** README 已相对基线提交有实质性修改（添加了大量新内容），**不满足"字节一致于 prepatch 恢复源"的验收条件**。`pyproject.toml` 缺席条件满足。如需恢复至基线，需通过 `git checkout HEAD -- README.md` 操作（需写权限，当前沙箱为只读，无法执行）。

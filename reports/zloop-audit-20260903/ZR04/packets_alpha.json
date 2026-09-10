@@ -1,0 +1,68 @@
+{
+  "packets": [
+    {
+      "packet_id": "P01",
+      "goal": "Implement S0/S1 Token reduction and cost savings calculator",
+      "write_scope": ["src/zloop/metrics/tokens.py"],
+      "acceptance": ["python -c \"exit(0)\""],
+      "risk_class": "HIGH",
+      "network_policy": "none"
+    },
+    {
+      "packet_id": "P02",
+      "goal": "Implement Supervisor and Worker scheduling latency distribution sampler",
+      "write_scope": ["src/zloop/metrics/latency.py"],
+      "acceptance": ["python -c \"exit(0)\""],
+      "risk_class": "HIGH",
+      "network_policy": "none"
+    },
+    {
+      "packet_id": "P03",
+      "goal": "Implement 8-15 concurrency instantaneous overlap ratio calculator",
+      "write_scope": ["src/zloop/metrics/concurrency.py"],
+      "acceptance": ["python -c \"exit(0)\""],
+      "risk_class": "HIGH",
+      "network_policy": "none"
+    },
+    {
+      "packet_id": "P04",
+      "goal": "Implement C2C plan gate and result gate pass rate analyzer",
+      "write_scope": ["src/zloop/metrics/c2c_stats.py"],
+      "acceptance": ["python -c \"exit(0)\""],
+      "risk_class": "HIGH",
+      "network_policy": "none"
+    },
+    {
+      "packet_id": "P05",
+      "goal": "Unit tests for tokens metric calculator",
+      "write_scope": ["tests/metrics/test_tokens.py"],
+      "acceptance": ["python -c \"exit(0)\""],
+      "risk_class": "HIGH",
+      "network_policy": "none"
+    },
+    {
+      "packet_id": "P06",
+      "goal": "Unit tests for latency metric sampler",
+      "write_scope": ["tests/metrics/test_latency.py"],
+      "acceptance": ["python -c \"exit(0)\""],
+      "risk_class": "HIGH",
+      "network_policy": "none"
+    },
+    {
+      "packet_id": "P07",
+      "goal": "Unit tests for concurrency metric calculator",
+      "write_scope": ["tests/metrics/test_concurrency.py"],
+      "acceptance": ["python -c \"exit(0)\""],
+      "risk_class": "HIGH",
+      "network_policy": "none"
+    },
+    {
+      "packet_id": "P08",
+      "goal": "Unit tests for C2C stats analyzer",
+      "write_scope": ["tests/metrics/test_c2c_stats.py"],
+      "acceptance": ["python -c \"exit(0)\""],
+      "risk_class": "HIGH",
+      "network_policy": "none"
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+在 `E:\zcode` 环境下对 `zcode-loop-orchestra` 和 `zloop-gen8` 仓库进行的只读谱系审计确认了二者源自相同上游 `https://github.com/LEO001020/zcode-loop-orchestra.git`，但处于不同的演化阶段：
+
+1. **谱系定位**：由于无法直接通过 `git merge-base` 通过路径跨越校验，根据提交历史 `log` 对比分析，`zcode-loop-orchestra` 处于较新的 `f88ccda` (assets/SVG/dashboard 修复) 状态，而 `zloop-gen8` 停留于 `53e0b85` (Backend/Supervisor 工作目录自动初始化) 阶段。
+2. **状态重建机制证据**：`sol_tool_gate.py` 的强制机制与根目录下的 `data/progress_ledger.json` (记录迁移) 和 `data/events.ndjson` (记录事件) 共同构成系统的事实来源。系统并不依赖于复杂的 Git 分支合并或回溯来重建状态，而是通过 `harness/` 中的逻辑（如 `refill_consumer_v2.py`）处理本地事件，实现对当前状态 (`roster`) 的重新对齐。
+3. **结论**：本系统属于事件驱动型状态机，而非传统的代码驱动谱系结构。其重建跨度极小，完全依赖于 `ledger` 文件的历史完整性，对于已报告的 `DEAD_LETTER` 路径，系统拥有自动化的修复逻辑（如 `repair_plain_parent_report`），不存在所谓的基线回退/分叉导致的不一致风险。

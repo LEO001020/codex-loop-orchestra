@@ -1,0 +1,23 @@
+{
+  "acceptance": [
+    "验证重复代际不改状态",
+    "验证当前代际仍能终止"
+  ],
+  "authorized_paths": [
+    "harness/statemachine_v2.py",
+    "tests/orchestration_v2/"
+  ],
+  "constraints": [
+    "read-only"
+  ],
+  "created_by": "parent_manifest_importer",
+  "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+  "goal": "只读复验 current_run_id 对重复出生和迟到终态的抑制语义。",
+  "manifest_id": "auto-refill-proof-20260813",
+  "packet_id": "parent-541ef2516651df6062d9d460e2c6ab60ac324db3b814dddc",
+  "parent_enabled": true,
+  "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+  "role": "worker",
+  "sandbox": "read-only",
+  "task_name": "权威代际复验"
+}

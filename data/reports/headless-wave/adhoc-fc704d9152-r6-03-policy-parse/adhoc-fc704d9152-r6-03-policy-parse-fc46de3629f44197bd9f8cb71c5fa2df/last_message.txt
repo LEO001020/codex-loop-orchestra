@@ -1,0 +1,80 @@
+I now have all the data needed. Let me compile the audit findings:
+
+---
+
+## 策略解析一致性审计 — 结果报告
+
+### 审计目标
+
+验证 `refill_policy.toml` 与 `model_profiles.toml` 是否满足：
+- `target_total = 80`
+- `dialogue_target = 20`
+- Sonnet verifier ultra
+- 显式角色路由
+
+---
+
+### 1. `refill_policy.toml` — 并发目标
+
+| 字段 | 期望值 | 实测值 | 状态 |
+|------|--------|--------|------|
+| `dialogue_target` | 20 | 20 | ✅ 符合 |
+| `target_total` | 80 | 80 | ✅ 符合 |
+| `v4_target` | — | 60 | ✅ 有效 |
+| `k3_target` | — | 20 | ✅ 有效 |
+| `reservations_borrowable` | — | true | ✅ 有效 |
+
+`policy_version = "2026-08-13.dialogue-20-global-80"` 与数值一致，无矛盾。
+
+---
+
+### 2. `model_profiles.toml` — 活跃 profile 与 verifier
+
+**活跃 profile：** `active_profile = "sonnet46-all"`
+
+```toml
+[profiles.sonnet46-all]
+label = "Claude Sonnet 4.6 Execution + Review"
+execution_model = "weiwu/aws.claude-sonnet-4.6"
+execution_reasoning = "ultra"
+review_model = "weiwu/aws.claude-sonnet-4.6"
+review_reasoning = "ultra"
+```
+
+| 检查项 | 期望 | 实测 | 状态 |
+|--------|------|------|------|
+| verifier/review 模型 | Sonnet | `weiwu/aws.claude-sonnet-4.6` | ✅ 符合 |
+| review reasoning | ultra | `ultra` | ✅ 符合 |
+
+⚠️ **注意：** `roles_v2.yaml` 中 `verifier` 和 `reviewer` 角色的 `model_ref` 指向 `models.k3_model`，而 `orchestration_policy_v2.toml` 中 `k3_model = "weiwu/aws.claude-sonnet-4.6"`，`k3_reasoning = "ultra"`。这与当前活跃 profile 一致，但角色定义层面的 `model_ref` 名称仍是 `k3_model`（历史遗留命名），实际绑定的模型已是 Sonnet 4.6 ultra，**无功能性错误**。
+
+---
+
+### 3. 显式角色路由
+
+`roles_v2.yaml` 定义了完整的角色路由表，每个角色均显式绑定：
+
+| 角色 | 模型引用 | pool | 路由来源 |
+|------|----------|------|----------|
+| `sol` | `models.sol_model` (gpt-5.6-sol) | — | Desktop root only |
+| `executor` | `models.v4_model` (Sonnet 4.6) | v4 | `harness/l2_consumer.py` |
+| `scout` | `models.v4_model` | v4 | read-only |
+| `reviewer` | `models.k3_model` (Sonnet 4.6 ultra) | k3 | wave-end single spawn |
+| `verifier` | `models.k3_model` (Sonnet 4.6 ultra) | k3 | `dispatched_by: harness/l2_consumer.py`（自动，P0-2 修复） |
+| `plan_expander` | `models.k3_model` | k3 | `harness/orchestration/plan_pipeline.py` |
+| `duty_officer` | `models.v4_model` | v4 | trigger-based |
+
+✅ 所有角色均通过 `model_ref` 间接引用，**无硬编码模型字符串**，路由显式且可追溯。
+
+---
+
+### 汇总结论
+
+| 审计项 | 结果 |
+|--------|------|
+| `target_total = 80` | ✅ 通过 |
+| `dialogue_target = 20` | ✅ 通过 |
+| Sonnet verifier ultra | ✅ 通过（通过 `k3_model` 间接绑定 Sonnet 4.6 ultra） |
+| 显式角色路由 | ✅ 通过（roles_v2.yaml 完整定义，无继承默认模型） |
+
+**无阻断性不一致。** 唯一的观察是 `k3_model` 的命名与实际绑定的 Sonnet 4.6 模型存在语义偏差（历史命名），建议后续酌情重命名以提升可读性，但当前功能正确。

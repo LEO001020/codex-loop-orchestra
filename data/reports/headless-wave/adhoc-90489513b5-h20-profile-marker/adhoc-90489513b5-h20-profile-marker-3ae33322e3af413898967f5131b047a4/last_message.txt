@@ -1,0 +1,43 @@
+The evidence is complete. Here is the audit finding:
+
+---
+
+**审计结论：通过（无违规）**
+
+**被审计对象：** `data/governor/model_profile.json` — diagnostic profile marker
+
+---
+
+**1. Marker 是否在配置事务外部？✅ 是**
+
+在 `harness/model_profile.py` 的 `main()` 中，执行顺序如下：
+
+```
+validate_updates(...)        # 事务前检验
+apply_transaction(updates)   # ← 配置事务（原子写入所有受管文件）
+                             #   事务内含：model_profiles.toml, orchestration_policy_v2.toml,
+                             #   agents/*.toml, config/roles.yaml, .codex/config.toml 等
+marker = {...}
+atomic_write(root / "data" / "governor" / "model_profile.json", ...)  # ← marker 在此写入
+```
+
+`model_profile.json` 的写入发生在 `apply_transaction()` 返回之后（第 376 行），不在 `apply_transaction()` 的 `updates` 字典内，也不受其回滚保护覆盖。**Marker 明确处于事务边界之外。**
+
+---
+
+**2. Marker 是否被用作路由权威？✅ 否**
+
+全面搜索结果：`model_profile.json` 在整个代码库中只有两处引用，均在 `model_profile.py` 本身（第 87 行是 `model_profiles.toml` 路径，第 376 行是 marker 的写入点）。
+
+- `harness/agent_router.py`：路由决策完全依赖 `orchestration_policy_v2.toml` 中的 `[routing].mode` 和 `[models]` 节，不读取 `model_profile.json`。
+- `harness/layered_gate.py` / `hooks/sol_tool_gate_v2.py` / `harness/dispatch.py`：均无对 `model_profile.json` 的引用。
+- 六项 gate guard（`check_layered_gate_guards()`）：读取 `consumer_heartbeat.json`、`exactly_once_canary.json`、`layered_authorization.json`、`short_result_validator.json`、ledger schema、`rollback_mode` 配置——不包含 `model_profile.json`。
+
+**Marker 是纯诊断性记录（schema: `codex-loop-model-profile-state/v1`），仅记录本次切换的结果（profile 名、模型、推理强度、更新文件数、时间戳），不参与任何路由、gate guard 或策略决策。**
+
+---
+
+**3. 潜在注意事项（不构成违规，供参考）**
+
+- Marker 写入失败不会回滚已完成的配置事务（设计意图：配置写入已成功，诊断记录失败无害）；但若需要幂等性检查，调用方应自行验证 `model_profile.json` 的 `ts`/`profile` 字段是否与预期一致。
+- Marker 不受 `apply_transaction()` 的原子性保证，属于 best-effort 写入。

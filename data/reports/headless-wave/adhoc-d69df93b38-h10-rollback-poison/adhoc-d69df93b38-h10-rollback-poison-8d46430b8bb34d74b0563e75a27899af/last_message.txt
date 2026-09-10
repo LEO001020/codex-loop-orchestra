@@ -1,0 +1,334 @@
+Stage5/HANDOVER「回滚保活」、bak 覆盖 freeze、Stage3「恢复系统包」现在都不能当流畅度杠杆：会拆网易云、把 B 站加回 Reduced 29、或把小圆点/phoneservice 请回来；侧栏真毒是 `is_ota_finished=0` 与 `dockbar_tooltip_enabled=0`，不是 `dockBar`。
+
+只读沙箱拒绝写入 [h10_rollback_poison.md](C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/work/fluency_plan/reports/h10_rollback_poison.md)。未跑 adb / rollback / bak 覆盖。全文如下。
+
+# h10 回滚脚本毒性（系统流畅度计划，非侧栏修复）
+
+- stamp: 2026-08-30
+- device: Honor VER-AN10 `AVNS023705001888` MagicOS 16 `10.0.0.175`
+- 本包：只读。未跑 adb、未写手机、未 kill-server、未执行任何 rollback / bak 覆盖 / Reduced 重放。
+- 约束已定：Reduced 保持 29，`com.bilibili.app.in` 必须在 Reduced 外；勿 disable iaware / phoneservice；勿 put `dockBar` / tooltip / `is_ota_finished` / `navigation_mode`、勿 `pm enable FloatTasks`；网易云保活是用户选择的流畅度成本。
+
+风险分级（本包专用）：
+
+- **A** 立刻伤 AI 侧栏热区（`GestureNavDock` 门闩 / tooltip 胶囊）
+- **B** 立刻或经 Reduced 重放把 `com.bilibili.app.in` 打回 ignore，破坏「Reduced=29 且 B 站在外」
+- **C** 拆网易云保活（用户已接受的流畅度成本；当「减后台卡顿」去跑是方向反了）
+- **D** 看起来像流畅度/侧栏恢复，实为连带：FloatTasks 小圆点、phoneservice、iaware、Stage2 误加白名单
+
+## 1. 入口地图（脚本 / bak overlay / 文档粘贴）
+
+| 角色 | 路径 | 现行可执行性（2026-08-30 只读） |
+|---|---|---|
+| Stage5 回滚 | [HONOR_STAGE5_ROLLBACK_20260829.ps1](C:/Users/hzq00/Documents/Codex/2026-08-23/ni-j/outputs/HONOR_STAGE5_ROLLBACK_20260829.ps1) | 文件头已 `throw 'POISON...'`；原命令仍在注释块，可被复制 |
+| Stage5 主报告 §6 | [HONOR_STAGE5_KEEPALIVE_20260829.md](C:/Users/hzq00/Documents/Codex/2026-08-23/ni-j/outputs/HONOR_STAGE5_KEEPALIVE_20260829.md) | 仍列出 `whitelist -` + `POST_NOTIFICATION ignore` + bak 覆盖 |
+| Stage3 回滚 | [HONOR_VER_AN10_STAGE3_ROLLBACK_20260823.ps1](C:/Users/hzq00/Documents/Codex/2026-08-23/ni-j/outputs/HONOR_VER_AN10_STAGE3_ROLLBACK_20260823.ps1) 与同文 [stage3_rollback.ps1](C:/Users/hzq00/Documents/Codex/2026-08-23/ni-j/work/stage3_exec/E03_execute/stage3_rollback.ps1) | 同样 `throw POISON`；原 `pm enable FloatTasks/phoneservice` 在注释块 |
+| HANDOVER 「完整回滚」 | [HANDOVER_20260829.md](C:/Users/hzq00/Documents/Codex/2026-08-23/ni-j/outputs/HANDOVER_20260829.md) §2 回滚列 + 第六节代码块 | **粘贴路径仍活**：脚本 throw 拦不住 Markdown |
+| bak overlay（冻结覆盖） | 三份 `HONOR_DESIRED_STATE.stage3.20260823.json.bak_*` | 覆盖同名 freeze 后，桌面 Reduced 重放会按新名单 `appops ignore` |
+| Reduced 重放 | [HONOR-重启后恢复Reduced.cmd](C:/Users/hzq00/Desktop/HONOR-重启后恢复Reduced.cmd) → [HONOR_Reapply_Reduced.py](C:/Users/hzq00/Documents/Codex/HONOR_Reapply_Reduced.py) | **仍活**。只读 `enforced_reduced_packages` |
+| OTA 和解 | [reconcile_after_ota.py](C:/Users/hzq00/Documents/Codex/2026-08-23/ni-j/work/stage3_pkg/HONOR_VER_AN10_CODEX_STAGE3_AGGRESSIVE_OTA_RECONCILE/scripts/reconcile_after_ota.py) `--apply` | 读 freeze：`pm disable-user` + `appops ignore` + 对 `ensure_absent` 做 `whitelist -` |
+| 小圆点误恢复 | [restore_floattasks.py](C:/Users/hzq00/Documents/Codex/2026-08-23/ni-j/work/stage4_sidebar/restore_floattasks.py) | `pm enable FloatTasks`，并可能 `float_task_state 1` |
+| Stage5 正向脚本 | [HONOR_Stage5_KeepAlive.py](C:/Users/hzq00/Documents/Codex/2026-08-23/ni-j/work/stage5_keepalive/HONOR_Stage5_KeepAlive.py) | 不是 rollback，但 P5/P6 会 `settings put secure honor.globalWindow.dockBar 1` + `force-stop launcher` |
+| Stage2 回滚 | [HONOR_VER_AN10_STAGE2_ROLLBACK_20260823.ps1](C:/Users/hzq00/Documents/Codex/2026-08-23/ni-j/outputs/HONOR_VER_AN10_STAGE2_ROLLBACK_20260823.ps1)（与 `.BROKEN_WHITELIST_PLUS.ps1`、E02 `rollback.ps1` 同文） | **仍活**。无 B 站/侧栏键；BROKEN 会对 9 包 `whitelist +` |
+| Stage2 校正回滚 | [HONOR_VER_AN10_STAGE2_DELTA_ROLLBACK_CORRECTED.ps1](C:/Users/hzq00/Documents/Codex/2026-08-23/ni-j/outputs/HONOR_VER_AN10_STAGE2_DELTA_ROLLBACK_CORRECTED.ps1) | 只把 Stage2 Reduced 的 appops 设回 default + 6 个荣耀包 `pm default-state` |
+| 模板 | [rollback_draft.ps1](C:/Users/hzq00/Documents/Codex/2026-08-23/ni-j/work/stage2_continue/S40_rollback_plan/rollback_draft.ps1) | `prior_value=absent` → `whitelist -$pkg`；喂错 TSV 就会毒 |
+
+「bak overlay」在本仓不是 Android RRO overlay，而是用 bak JSON **覆盖**现行冻结文件。GKD `cmd overlay list` 与此无关。
+
+## 2. Verified facts（path + quote）
+
+### 2.1 现行应保持的现场
+
+[settings_secure.txt](C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/work/fluency_plan/live/settings_secure.txt) / [settings_global.txt](C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/work/fluency_plan/live/settings_global.txt)：
+
+```
+float_task_state=0
+honor.globalWindow.dockBar=0
+is_ota_finished=1
+navigation_mode=106
+dockbar_tooltip_enabled=1
+```
+
+[disabled_u0.txt](C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/work/fluency_plan/live/disabled_u0.txt)：
+
+```
+package:com.hihonor.android.FloatTasks
+```
+
+[deviceidle_wl.txt](C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/work/fluency_plan/live/deviceidle_wl.txt)（[date.txt](C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/work/fluency_plan/live/date.txt) `Sun Aug 30 02:09:37 CST 2026`）：
+
+```
+user,com.netease.cloudmusic,10252
+```
+
+该 02:09 dump **未出现** `com.bilibili.app.in`。更早只读摘录仍有 B 站白名单。
+
+[whitelist_hits.txt](C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/reports/保活现状/whitelist_hits.txt)：
+
+```
+user,com.bilibili.app.in,10384
+user,com.netease.cloudmusic,10252
+```
+
+[live_readonly.txt](C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/reports/06_rollback_poison/live_readonly.txt)：
+
+```
+cmd appops get com.bilibili.app.in RUN_ANY_IN_BACKGROUND: RUN_ANY_IN_BACKGROUND: allow
+am get-standby-bucket com.netease.cloudmusic = 5
+am get-standby-bucket com.bilibili.app.in = 5
+Uid mode: POST_NOTIFICATION: ignore
+POST_NOTIFICATION: allow
+```
+
+### 2.2 现行 freeze = Reduced 29，B 站不在名单
+
+[HONOR_DESIRED_STATE.stage3.20260823.json](C:/Users/hzq00/Documents/Codex/2026-08-23/ni-j/outputs/HONOR_DESIRED_STATE.stage3.20260823.json) `enforced_reduced_packages` 末项是小红书，无 B 站：
+
+```
+    {
+      "package": "com.xingin.xhs",
+      "user": 0,
+      "whitelist_policy": "ensure_absent_once"
+    }
+  ],
+```
+
+同文件 `keep_alive_background`：
+
+```
+      "package": "com.bilibili.app.in",
+      "reason": "B站后台播放：原在 enforced_reduced_packages，重放脚本会重新 ignore 后台",
+      "removed_from_reduced": "2026-08-29"
+```
+
+同文件仍把 phoneservice / FloatTasks 冻在 `enforced_disabled_packages`（`enabled: "3"`），`protected_core` 含 `com.hihonor.iaware`。`ai_sidebar_note`：
+
+```
+    "do_not_enable_phoneservice": true,
+    "do_not_cover_with_bak_before_stage5_keepalive": true,
+    "true_sidebar_latch": "secure is_ota_finished",
+    "dockbar_tooltip_enabled_do_not_put": "0",
+    "ai_sidebar_desired_value_note": "DO NOT settings put dockBar=1. Idle 0 is normal."
+```
+
+`candidate_nmb_next` **仍列** `com.bilibili.app.in`。那不是重放读取字段。
+
+[HONOR_Reapply_Reduced_20260829_025350.log](C:/Users/hzq00/Documents/Codex/logs/HONOR_Reapply_Reduced_20260829_025350.log)：
+
+```
+desired_count=29
+NOOP com.xingin.xhs
+write-settings skipped: no writes
+SUMMARY already=29 changed=0 missing=0 failed=0 writes=0
+```
+
+29 项 `already_ignore` 无 `com.bilibili.app.in`。
+
+### 2.3 bak overlay 会把 B 站加回 Reduced
+
+[bak_before_stage5_keepalive](C:/Users/hzq00/Documents/Codex/2026-08-23/ni-j/outputs/HONOR_DESIRED_STATE.stage3.20260823.json.bak_before_stage5_keepalive) 在小红书之后多一项：
+
+```
+    {
+      "package": "com.bilibili.app.in",
+      "user": 0,
+      "whitelist_policy": "ensure_absent_once"
+    }
+```
+
+bak n=30，现行 n=29，差集仅 B 站。bak **没有** `keep_alive_background`。
+
+[bak_before_restore_floattasks](C:/Users/hzq00/Documents/Codex/2026-08-23/ni-j/outputs/HONOR_DESIRED_STATE.stage3.20260823.json.bak_before_restore_floattasks) 同样 30 + B 站。
+
+[bak_before_keep_freq](C:/Users/hzq00/Documents/Codex/2026-08-23/ni-j/outputs/HONOR_DESIRED_STATE.stage3.20260823.json.bak_before_keep_freq) 更旧：Reduced 含 B 站 + `cn.com.langeasy.LangEasyLexis` + `com.deepseek.chat` + `com.moonshot.kimichat`（覆盖后会变成 33）。
+
+[HONOR_Reapply_Reduced.py](C:/Users/hzq00/Documents/Codex/HONOR_Reapply_Reduced.py)：
+
+```
+DESIRED = Path(r"C:\Users\hzq00\Documents\Codex\2026-08-23\ni-j\outputs\HONOR_DESIRED_STATE.stage3.20260823.json")
+Only write: cmd appops set --user 0 PKG RUN_ANY_IN_BACKGROUND ignore
+```
+
+桌面一键 [HONOR-重启后恢复Reduced.cmd](C:/Users/hzq00/Desktop/HONOR-重启后恢复Reduced.cmd)：
+
+```
+python "C:\Users\hzq00\Documents\Codex\HONOR_Reapply_Reduced.py"
+```
+
+因果（未执行，按代码）：bak 覆盖 freeze → `enforced_reduced_packages` 含 B 站 → 下次桌面 cmd 对 `com.bilibili.app.in` 执行 `RUN_ANY_IN_BACKGROUND ignore`。
+
+### 2.4 Stage5 回滚：流畅度伪装 = 拆网易云，外加 bak 教唆
+
+[HONOR_STAGE5_ROLLBACK_20260829.ps1](C:/Users/hzq00/Documents/Codex/2026-08-23/ni-j/outputs/HONOR_STAGE5_ROLLBACK_20260829.ps1) 头：
+
+```
+throw 'POISON: do not run; current keepalive/sidebar state is the desired state.'
+```
+
+被注释的原文：
+
+```
+Invoke-Adb shell cmd deviceidle whitelist -com.netease.cloudmusic
+Invoke-Adb shell cmd appops set com.netease.cloudmusic POST_NOTIFICATION ignore
+Invoke-Adb shell cmd appops write-settings
+# 注意：本脚本不会把 B站 加回 enforced_reduced_packages；如需一并还原，
+# 用 outputs\HONOR_DESIRED_STATE.stage3.20260823.json.bak_before_stage5_keepalive 覆盖同名文件。
+```
+
+[HONOR_STAGE5_KEEPALIVE_20260829.md](C:/Users/hzq00/Documents/Codex/2026-08-23/ni-j/outputs/HONOR_STAGE5_KEEPALIVE_20260829.md) §6 仍是同一组 adb 命令 +「恢复冻结文件：bak_before_stage5_keepalive」。
+
+这三条 **不改** `is_ota_finished` / tooltip / FloatTasks / navigation_mode；它们是「减保活 = 更流畅」的假杠杆。
+
+### 2.5 HANDOVER 第六节：保活回滚和侧栏回滚捆成一条
+
+[HANDOVER_20260829.md](C:/Users/hzq00/Documents/Codex/2026-08-23/ni-j/outputs/HANDOVER_20260829.md) 现有禁止横幅，但代码块仍可复制：
+
+```
+& $adb -L tcp:5038 -s $s shell cmd deviceidle whitelist -com.netease.cloudmusic
+& $adb -L tcp:5038 -s $s shell cmd appops set com.netease.cloudmusic POST_NOTIFICATION ignore
+& $adb -L tcp:5038 -s $s shell cmd appops write-settings
+& $adb -L tcp:5038 -s $s shell settings put global dockbar_tooltip_enabled 0
+& $adb -L tcp:5038 -s $s shell pm disable-user --user 0 com.hihonor.android.FloatTasks
+```
+
+另：用 `bak_before_stage5_keepalive` 覆盖同名文件（这会把 `com.bilibili.app.in` 加回 `enforced_reduced_packages`）。
+
+第二节回滚列把 `dockbar_tooltip_enabled 1 → 0` 写成「回滚」。相对现行正确态：tooltip 写 0 是 **A**；FloatTasks 再 disable 是 NOOP。
+
+### 2.6 Stage3 回滚：流畅度伪装 = 恢复系统包
+
+注释块原文：
+
+```
+Invoke-Adb @("shell","pm","enable","--user","0","com.hihonor.phoneservice")
+Invoke-Adb @("shell","pm","enable","--user","0","com.hihonor.android.FloatTasks")
+Invoke-Adb @("shell","cmd","appops","set","--user","0","com.bilibili.app.in","RUN_ANY_IN_BACKGROUND","default")
+```
+
+`pm enable FloatTasks` 与「小圆点保持关」相反。`pm enable phoneservice` 与「勿动 phoneservice」相反。对 B 站的 `appops ... default` **不是** Reduced 重放的 `ignore`。
+
+### 2.7 其它会再写侧栏/Reduced 的活脚本
+
+[HONOR_Stage5_KeepAlive.py](C:/Users/hzq00/Documents/Codex/2026-08-23/ni-j/work/stage5_keepalive/HONOR_Stage5_KeepAlive.py) P5/P6：
+
+```
+sh("shell", "settings", "put", "secure", DOCKBAR_KEY, "1")
+sh("shell", "am", "force-stop", "com.hihonor.android.launcher")
+```
+
+[restore_floattasks.py](C:/Users/hzq00/Documents/Codex/2026-08-23/ni-j/work/stage4_sidebar/restore_floattasks.py)：`pm enable --user 0` FloatTasks，并从 freeze `enforced_disabled_packages` 删掉该包。
+
+[reconcile_after_ota.py](C:/Users/hzq00/Documents/Codex/2026-08-23/ni-j/work/stage3_pkg/HONOR_VER_AN10_CODEX_STAGE3_AGGRESSIVE_OTA_RECONCILE/scripts/reconcile_after_ota.py) `--apply`：
+
+```
+shell(s,"pm","disable-user","--user","0",p)
+shell(s,"cmd","appops","set","--user","0",p,"RUN_ANY_IN_BACKGROUND","ignore")
+shell(s,"dumpsys","deviceidle","whitelist","-"+p)
+```
+
+若 freeze 已被 bak overlay 成 30+B 站，这条会把 B 站 ignore。B 站在 bak 里是 `ensure_absent_once`，`-whitelist` 对它不一定走；`appops ignore` **会走**。
+
+[CANON](C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/outputs/HONOR_AI_SIDEBAR_CANON_20260830.md)：
+
+```
+禁止跑 HONOR_STAGE5_ROLLBACK_20260829.ps1、HONOR_VER_AN10_STAGE3_ROLLBACK_20260823.ps1、HANDOVER 完整回滚、bak 覆盖。
+```
+
+唯一合法侧栏回滚（仅当用户明确不要侧栏，不是流畅度杠杆）：
+
+```
+adb -L tcp:5038 -s AVNS023705001888 shell settings put secure is_ota_finished 0
+```
+
+本流畅度计划 **禁止** 把这条当优化手段。
+
+## 3. 哪些「看起来能更流畅」的命令会再打破 B 站 Reduced 或 AI 侧栏
+
+| 伪装成流畅度的动作 | 实际命令 | 伤 Reduced 29 / B 站 | 伤 AI 侧栏 | 类 |
+|---|---|---|---|---|
+| 「回滚 Stage5 保活，少占后台」 | `deviceidle whitelist -com.netease.cloudmusic` + `POST_NOTIFICATION ignore` + `write-settings` | 否（不改 freeze） | 否 | **C** |
+| 「把冻结文件恢复到 Stage5 前，Reduced 更狠」 | 用 `bak_before_stage5_keepalive` 覆盖 freeze，再跑桌面 Reduced.cmd | **是**：B 站入 30 名单 → `ignore` | 否（bak 仍禁 FloatTasks，无 is_ota） | **B** |
+| 「恢复 keep_freq 前的 33 名单」 | 覆盖 `bak_before_keep_freq` | **是**：B 站 + 不背单词/Kimi/DeepSeek 回 Reduced | 否 | **B** |
+| 「关掉 dock tooltip / 悬浮提示减合成」 | `settings put global dockbar_tooltip_enabled 0` | 否 | **是**：SKU default 已是 1 | **A** |
+| 「OTA 没完成/清标志」或「回滚侧栏实验」 | `settings put secure is_ota_finished 0` | 否 | **是**：default 0；不建 `GestureNavDock` | **A** |
+| 「打开侧栏总开关让手势更跟手」 | `settings put secure honor.globalWindow.dockBar 1` | 否 | **违禁写入显示态**；空闲 0 正常 | **A**（纪律） |
+| 「改导航模式减误触」 | `settings put secure navigation_mode` 非 106 | 否 | **是**：切手势栈 | **A** |
+| 「恢复 FloatTasks 才能出 AI 栏」 | Stage3 / `restore_floattasks.py`：`pm enable FloatTasks` | 否 | 热区中性；**小圆点回来** | **D** |
+| 「把 phoneservice 启用对齐系统」 | Stage3 `pm enable phoneservice` | 否 | 否 | **D** |
+| 「为对齐 freeze enabled=3 而 disable phoneservice」 | `reconcile_after_ota.py --apply` | 否 | 否 | **D** |
+| 「禁 iaware 减调度开销」 | 无现成 rollback 这么写；`protected_core` 含 iaware | 否 | 否 | **D** |
+| 「Stage2 一键回滚 Reduced」 | BROKEN `dumpsys deviceidle whitelist +` 9 包 | 不直接动 B 站 | 否 | **D** |
+| Stage3 对 B 站 `appops default` | 注释块里那条 | **不是** ignore | 否 | 非 B |
+
+HANDOVER 第六节整段 = **C + A + B** 捆绑。FloatTasks disable 碰巧同向，不能洗白。
+
+## 4. Inferences
+
+1. Stage5/Stage3 `.ps1` 的 `throw` 只拦 `-File` 原名，不拦：从注释/HANDOVER/KEEPALIVE §6 复制命令、bak 文件覆盖、桌面 Reduced.cmd。
+2. B 站 Reduced 破坏是 **两步毒**：磁盘 overlay（bak）是延迟，桌面/OTA 重放才写 `ignore`。只覆盖不重放，AppOps 暂时仍可能是 allow。
+3. `candidate_nmb_next` 里的 B 站不会被 `HONOR_Reapply_Reduced.py` 读取；覆盖风险只来自 `enforced_reduced_packages`。
+4. 空闲 `dockBar=0` 不是侧栏坏了。把它 put 成 1 当流畅度修复，是把显示态当总开关。
+5. 网易云 `whitelist -` 在本计划里不是合法流畅度杠杆：约束已把它标成用户选择的成本。
+6. 02:09 `deviceidle_wl.txt` 有网易云、无 B 站，与更早 `whitelist_hits.txt` 不一致。本包未连设备，不能判定白名单是否变化；**Reduced 29 不含 B 站**仍由 freeze 正文直接支持。
+
+## 5. Unknowns
+
+- 本包未 adb：不能复核 02:09 之后的 live `appops get` / `dumpsys deviceidle whitelist` / `pm enable`。
+- 02:09 whitelist dump 缺 B 站：可能是状态变化，也可能是采集命令与全文 dump 不一致。要消未知：只读对照两份 whitelist，禁止 `whitelist ±`。
+- 若干 Reduced 29 包在 8-29 重放时是 ignore，同日 dumpsys 抽样为 allow（reboot 冲刷假说）。重放仍以 freeze 名单为准。
+- `throw` 之后若有人把注释块解开再跑，本包无法从磁盘证明没人做过。
+
+## 6. Recommended levers
+
+| 杠杆 | 做什么 | 不要做什么 | 类 |
+|---|---|---|---|
+| 冻结名单冻结 | 保持现行 `enforced_reduced_packages` 29，B 站只留在 `keep_alive_background` | 禁止任何 bak 覆盖同名 JSON；禁止把 `candidate_nmb_next` 的 B 站提升为 enforced | **B** 防护 |
+| Reduced 重放 | 仅在 freeze 仍是 29 且无 B 站时，才允许桌面 cmd 修 ignore 冲刷 | freeze 被 overlay 后禁止跑桌面 cmd / `reconcile_after_ota.py --apply` | **B** 防护 |
+| 网易云 | **不回滚**。当作已知流畅度成本观察 | 禁止 Stage5 rollback / HANDOVER 第六节前三行 | **C** |
+| 侧栏热区 | 观察 `is_ota_finished=1`、`tooltip=1`、`navigation_mode=106`、空闲 `dockBar=0` | 禁止 put 这四键；禁止 enable FloatTasks | **A** 防护 |
+| phoneservice / iaware | 保持现场：phoneservice DEFAULT 在跑；iaware 在 `protected_core` | 禁止 Stage3 enable、禁止为对齐 freeze 去 disable-user、禁止禁 iaware | **D** 防护 |
+| Stage2 回滚 | 不作为流畅度工具 | BROKEN 的 `whitelist +` 会加后台成本 | **D** |
+| 脚本守卫 | 维持 Stage5/Stage3 `throw`；文档粘贴路径另标禁止 | 不要改名为 `.POISON.ps1` 当唯一守卫 | 过程 |
+
+没有推荐「跑某条 rollback 来换流畅」。本包的正杠杆是 **不跑** 这些入口。
+
+## 7. Rollback（若有人已经跑了毒命令）
+
+只描述恢复方向，本包不执行。
+
+| 若已发生 | 恢复（需用户授权的后续写包） | 不要用 |
+|---|---|---|
+| bak 覆盖 freeze，Reduced 已变成 30/33 | 手工把 `enforced_reduced_packages` 恢复为 29 且不含 B 站；恢复 `keep_alive_background` | 再覆盖另一份 bak |
+| 已重放，B 站 `RUN_ANY_IN_BACKGROUND=ignore` | 确认 freeze 已无 B 站后，只对 `com.bilibili.app.in` 设回 allow（或 default）；不要对 `tv.danmaku.bili` 写 | 跑 Stage5 rollback |
+| 网易云被 `whitelist -` / 通知 ignore | 若用户仍要保活，才 `whitelist +` + 包级 `POST_NOTIFICATION allow` | 顺手 put tooltip/dockBar |
+| `tooltip=0` | 目标是回到 SKU default 1；流畅度计划不要主动 put | HANDOVER 第六节整段 |
+| `is_ota_finished=0` | 这是关热区。恢复 1 是侧栏写，不是流畅度杠杆 | 用 dockBar=1 冒充 |
+| FloatTasks 被 enable | `pm disable-user` + 保持 `float_task_state=0` | Stage3 rollback |
+| phoneservice 被 enable 或 disable-user | 以现场 dumpsys 为准拉回 DEFAULT 在跑；不要用 freeze `enabled=3` | Stage3 rollback / OTA reconcile |
+
+合法「不要 AI 侧栏」回滚仍只有 `settings put secure is_ota_finished 0`。**本流畅度计划不调用它。**
+
+## 8. How to measure jank
+
+只读指标，禁止为测 jank 去跑 rollback。
+
+守卫是否还在：
+
+1. freeze：`enforced_reduced_packages` 长度 29，名单无 `com.bilibili.app.in`。
+2. `cmd appops get com.bilibili.app.in RUN_ANY_IN_BACKGROUND` → allow（或 default≈allow），不是 ignore。
+3. `settings get`：`is_ota_finished=1`，`dockbar_tooltip_enabled=1`，`navigation_mode=106`，`float_task_state=0`，空闲 `dockBar` 为 0 或展开时 -1/1。
+4. `pm list packages -d` 含 `com.hihonor.android.FloatTasks`。
+5. 网易云：`dumpsys deviceidle whitelist` 含 `user,com.netease.cloudmusic,10252`；包级 `POST_NOTIFICATION: allow`。该项是成本观察，不是优化目标。
+
+卡顿本身：
+
+1. 同一手势路径重复 20 次：桌面滑、右缘慢滑停顿（确认热区仍在，不当修复去 put）、B 站/网易云前后台切换。
+2. `dumpsys gfxinfo <pkg> framestats`：关注 `Janky frames`、`Missed Vsync`、`Slow UI thread` / `Slow draw`；包范围：launcher、SystemUI、hndockbar、`com.bilibili.app.in`、`com.netease.cloudmusic`。
+3. 本仓已有采样：`work/fluency_plan/live/gfx_*.txt`、`sf.txt`、`loadavg.txt`、`top.txt`。对比 rollback **之前**这些文件，不要先跑脚本再采。
+4. 若怀疑 bak 已被 overlay：先 diff freeze vs 三份 bak 的 `enforced_reduced_packages`，再决定是否允许 Reduced 重放。jank 数字变好但 B 站变 ignore = **失败**。
+
+## 9. 本包未做
+
+- 未执行 rollback、bak 覆盖、appops/settings/pm 写、kill-server、adb。
+- 未改任何 `.ps1` / freeze / HANDOVER。
+- 目标文件因只读沙箱未落盘。

@@ -1,0 +1,23 @@
+结论：**“520+15”无法在磁盘上核验——仓库中不存在任何 “520 passed” 的 pytest 产物；唯一证据文件 [test_evidence_pytest_output.txt](E:/codex-LOOP/codex-loop-s-f2/test_evidence_pytest_output.txt) 记录的是历史运行的 “280 passed in 47.33s”（2026-08-10 12:38:56，且为未提交修改；HEAD f1d6eac 中同一文件记录的是 “154 passed in 19.96s”），与 520+15 均不符。**
+
+通过数（可核对范围）
+
+- 唯一 pytest 证据文件当前内容：`280 passed in 47.33s`，无 skipped/failed 行。Git 基线 f1d6eac 中该文件原为逐项日志：`154 passed in 19.96s`，覆盖 golden 7 + statemachine_paths 28 + unit 119，未含 orchestration_v2 与根目录 v2 套件。
+- “520+15”只出现在本包目标文本（[refill manifest](E:/codex-LOOP/codex-loop-s-f2/data/refill/parent-019feacd-auto-refill-proof.json)、packet json、progress_ledger、exec_roster），无任何配套 pytest 输出；全仓 `rg` 未命中 “520 passed/535 passed”。磁盘上唯一的 “15 passed” 是 [ipybox-headless-stability-20260810.md](E:/codex-LOOP/codex-loop-s-f2/reports/ipybox-headless-stability-20260810.md) 中的 “新增 context 定向后 15 passed”，与 520 无关联证据。
+
+测试范围（当前 tests/ 树，静态盘点）
+
+- 95 个 `test_*.py`：根 19、golden 5、orchestration_v2 27、statemachine_paths 2、unit 42；约 1145 个 `def test_`，23 个 parametrize 装饰器（实际收集数更高）；另有 2 个 ipybox smoke 脚本（非 pytest 收集）。
+- 根目录 19 个 v2 命名文件与 orchestration_v2 同名重复（fork 副本），`pytest tests/` 会双份收集。
+- 当前 [tests/conftest.py](E:/codex-LOOP/codex-loop-s-f2/tests/conftest.py) 未定义 `loop`/`repo_loop` fixture（全仓无定义），而 unit 30 个文件、golden 5 个、statemachine_paths 2 个依赖它 → 收集后 setup 会报 fixture not found，当前树无法产出全绿通过数。
+
+跳过项
+
+- Windows 平面跳过 POSIX 专属：unit/test_acceptance_replay.py、test_shell_suites.py、test_smoke_gate.py、test_smoke_gate_real.py、orchestration_v2/test_install_v2.py（skipif）。
+- Windows-only（WSL 跳过）：unit/test_opencodex_supervisor.py。
+- 运行时 pytest.skip：test_lifecycle_supervisor.py:160（Windows msvcrt 竞争）、test_loop_monitor_server.py:14（本平面无 host-overlay monitor）、test_path_id_safety.py:45（空 pid）。
+- 历史报告记录的跳过数（未在当前树重放）：wave6 14/21、wave3 10、wave2b 1、ipybox 1。
+
+后续定向测试（磁盘书面记录，报告自述 “evidence, not authority”）：ipybox 75/30/15；wave2b 102+1、140、103；wave3 432+10、WSL 433、installer 10；wave6 437+14、376+21、WSL 451、installer 14、lifecycle 18、monitor 14；k3 WSL unit 46；fable 26/23。
+
+未覆盖项：本沙箱无 python/py/python3/pytest，无法机械重放当前树；“520+15”的原始产物与构成；根目录与 orchestration_v2 重复文件的差异核对；v1 族因缺 loop fixture 不可收集；parametrize 展开后的真实收集数。

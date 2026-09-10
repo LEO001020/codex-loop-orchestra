@@ -1,0 +1,23 @@
+{
+  "acceptance": [
+    "计算双父并发反例",
+    "不得编辑"
+  ],
+  "authorized_paths": [
+    "harness/refill_controller_v2.py",
+    "config/refill_policy.toml"
+  ],
+  "constraints": [
+    "read-only"
+  ],
+  "created_by": "parent_manifest_importer",
+  "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+  "goal": "只读复核global target80、capacity和pool deficit不会突破上限。",
+  "manifest_id": "p0-sustained-final-review-20260814",
+  "packet_id": "parent-de1236401d0938f1f10f67bbca3354f53ab6996239823b9f",
+  "parent_enabled": true,
+  "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+  "role": "worker",
+  "sandbox": "read-only",
+  "task_name": "全局容量复核"
+}

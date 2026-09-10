@@ -1,0 +1,221 @@
+Reading additional input from stdin...
+2026-08-14T04:40:04.124905Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T04:40:10.752615Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T04:40:28.028441Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 3.1 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 29
++ rg --files E:\VPS\reports | head -60
++                             ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T04:40:59.698949Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+E:\VPS\reports\cursor-fable-takeover-20260813\TASK_REPORT_20260813.md
+E:\VPS\reports\canonical-v4-capture-20260813\summary.json
+E:\VPS\reports\canonical-v4-capture-20260813\probe_remote.sh
+E:\VPS\reports\canonical-v4-capture-20260813\P5_T1_STATISTICAL_AUTHORITY_PROPOSAL_V4.md
+E:\VPS\reports\canonical-v4-capture-20260813\P5_P3_H0_WAVE1_STATISTICAL_AUTHORITY_PROPOSAL_V4.md
+E:\VPS\reports\canonical-v4-capture-20260813\crosscheck_remote.sh
+E:\VPS\reports\canonical-v4-capture-20260813\crosscheck_remote.out.txt
+E:\VPS\reports\canonical-v4-capture-20260813\capture_remote.sh
+E:\VPS\reports\canonical-v4-capture-20260813\capture_remote.out.txt
+E:\VPS\reports\storage-network-preflight\REPORT.md
+E:\VPS\reports\storage-network-preflight\preflight_venv_cloud.sh
+E:\VPS\reports\storage-network-preflight\preflight_venv_cloud.log
+E:\VPS\reports\storage-network-preflight\preflight_sources.sh
+E:\VPS\reports\storage-network-preflight\preflight_sources.log
+E:\VPS\reports\storage-network-preflight\preflight_sa.sh
+E:\VPS\reports\storage-network-preflight\preflight_sa.log
+E:\VPS\reports\storage-network-preflight\preflight_remote.sh
+E:\VPS\reports\storage-network-preflight\preflight_remote.log
+E:\VPS\reports\storage-network-preflight\preflight_meta2.sh
+E:\VPS\reports\storage-network-preflight\preflight_meta2.log
+E:\VPS\reports\storage-network-preflight\preflight_meta.sh
+E:\VPS\reports\storage-network-preflight\preflight_meta.log
+E:\VPS\reports\storage-network-preflight\preflight_final.sh
+E:\VPS\reports\storage-network-preflight\preflight_final.log
+E:\VPS\reports\hardening-script-threat-model-20260813\report.md
+E:\VPS\reports\hardening-script-threat-model-20260813\probe_live_20260813.txt
+E:\VPS\reports\hardening-script-threat-model-20260813\probe_live3_20260813.txt
+E:\VPS\reports\hardening-script-threat-model-20260813\probe_live2_20260813.txt
+E:\VPS\reports\H0价格成交量可用性\report.md
+E:\VPS\reports\dependency-identity-freeze-review-20260813\smoke_wsl_run2.json
+E:\VPS\reports\H0价格成交量可用性\probe_f_out.txt
+E:\VPS\reports\H0价格成交量可用性\probe_f_gapchars.sh
+E:\VPS\reports\dependency-identity-freeze-review-20260813\smoke_wsl.json
+E:\VPS\reports\H0价格成交量可用性\probe_e_out.txt
+E:\VPS\reports\dependency-identity-freeze-review-20260813\smoke_win.json
+E:\VPS\reports\H0价格成交量可用性\probe_e_adjacency.sh
+E:\VPS\reports\dependency-identity-freeze-review-20260813\README.md
+E:\VPS\reports\H0价格成交量可用性\probe_d_out.txt
+E:\VPS\reports\dependency-identity-freeze-review-20260813\manifest.schema.json
+E:\VPS\reports\H0价格成交量可用性\probe_d_coverage.sh
+E:\VPS\reports\dependency-identity-freeze-review-20260813\example_manifest.json
+E:\VPS\reports\H0价格成交量可用性\probe_c_parquet_scan.sh
+E:\VPS\reports\dependency-identity-freeze-review-20260813\collect_identity.sh
+E:\VPS\reports\dependency-identity-freeze-review-20260813\collect_dist_identity.py
+E:\VPS\reports\H0价格成交量可用性\probe_c_out.txt
+E:\VPS\reports\H0价格成交量可用性\probe_b_out.txt
+E:\VPS\reports\H0价格成交量可用性\probe_b_artifacts.sh
+E:\VPS\reports\H0价格成交量可用性\probe_a_out.txt
+E:\VPS\reports\H0价格成交量可用性\probe_a_inventory.sh
+E:\VPS\reports\测试矩阵设计\report.md
+E:\VPS\reports\home-vectorized-screen-handler\report.md
+E:\VPS\reports\listing-ledger-reverify\probe3_output.txt
+E:\VPS\reports\listing-ledger-reverify\probe2_output.txt
+E:\VPS\reports\listing-ledger-reverify\probe2_delivery_sanity.sh
+E:\VPS\reports\listing-ledger-reverify\probe4_output.txt
+E:\VPS\reports\listing-ledger-reverify\probe4_identity_status.sh
+E:\VPS\reports\listing-ledger-reverify\REPORT.md
+E:\VPS\reports\listing-ledger-reverify\probe3_placeholder_bars.sh
+E:\VPS\reports\listing-ledger-reverify\probe_ledger_readonly.sh
+E:\VPS\reports\listing-ledger-reverify\probe_output.txt
+E:\VPS\reports\canonical-scope-closure-review-20260813\report.md
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\vps_run_01.sh
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\verify_ondisk.sh
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\SRC_user_arc.md
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\SRC_concurrency.md
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\ro_probe_regstate.sh
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\ro_probe_final.sh
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\remote_register_fl13.sh
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\remote_register.sh
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\remote_install_run_fl13.sh
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\remote_install.sh
+E:\VPS\reports\stage-syntax-review\findings.md
+E:\VPS\reports\funding-struct-review\report.md
+E:\VPS\reports\funding-struct-review\evidence_real_data.py
+E:\VPS\reports\delegation-resource-binding-design-20260813\REPORT.md
+E:\VPS\reports\测试矩阵覆盖审计\report.md
+E:\VPS\reports\测试矩阵覆盖审计\coverage_matrix.json
+E:\VPS\reports\proposal-v4-generation\src_P5_P3_STATISTICAL_TRIAL_AUTHORITY_PROPOSAL_V4.md
+E:\VPS\reports\proposal-v4-generation\src_P5_P3_H0_DISCOVERY_WAVE1_STATISTICAL_AUTHORITY_PROPOSAL_V4.md
+E:\VPS\reports\proposal-v4-generation\semantic_diff_v3_to_v4.md
+
+2026-08-14T04:41:10.237943Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+E:\VPS\reports\测试矩阵覆盖审计\coverage_matrix.json
+E:\VPS\reports\cursor-fable-takeover-20260813\ledger\SHARED_CONTEXT.md
+E:\VPS\reports\cursor-fable-takeover-20260813\ledger\SCHEDULING_LEDGER.md
+E:\VPS\reports\cursor-fable-takeover-20260813\ledger\POSTFIX_TRIAGE_V1.md
+E:\VPS\reports\cursor-fable-takeover-20260813\ledger\FIXLOOP7.md
+E:\VPS\reports\cursor-fable-takeover-20260813\ledger\FIXLOOP6.md
+E:\VPS\reports\cursor-fable-takeover-20260813\ledger\FIXLOOP5.md
+E:\VPS\reports\cursor-fable-takeover-20260813\ledger\FIXLOOP4.md
+E:\VPS\reports\cursor-fable-takeover-20260813\ledger\FIXLOOP3.md
+E:\VPS\reports\cursor-fable-takeover-20260813\ledger\FIXLOOP2.md
+E:\VPS\reports\cursor-fable-takeover-20260813\ledger\FINAL_STATE.md
+E:\VPS\reports\cursor-fable-takeover-20260813\ledger\FINAL_REVIEW_WAVE.md
+E:\VPS\reports\cursor-fable-takeover-20260813\ledger\DISPATCH_LOG_REVIEW_WAVE.md
+E:\VPS\reports\cursor-fable-takeover-20260813\ledger\DISPATCH_LOG_REVERIFY.md
+E:\VPS\reports\cursor-fable-takeover-20260813\ledger\DISPATCH_LOG.md
+E:\VPS\reports\cursor-fable-takeover-20260813\ledger\DEFECT_MAP.md
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\recovery-verify\VR_06.md
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\recovery-verify\VR_02.md
+E:\VPS\reports\funding-struct-review\report.md
+E:\VPS\reports\funding-struct-review\evidence_real_data.py
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\recovery-fixtures\_test_container_rx.sh
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\recovery-fixtures\verify_freeze.sh
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\recovery-fixtures\test_prune.sh
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\recovery-fixtures\STATIC_SUITE_RESULT.txt
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\recovery-fixtures\RUN_sudoers_F7-5.sh
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\recovery-fixtures\RUN_lib_common_F7.sh
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\recovery-fixtures\RUN_authrows_F7-7_F7-9.sh
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\recovery-fixtures\RUN_23_owner_sig.sh
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\recovery-fixtures\RUN_09_symlink.sh
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\recovery-fixtures\RUN_08_F7-8.sh
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\recovery-fixtures\RUN_04_F7-15_16_19.sh
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\recovery-fixtures\RUN_03_cluster.sh
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\recovery-fixtures\RUN_02_F7-1_6_18.sh
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\recovery-fixtures\RUN_01_cluster.sh
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\recovery-fixtures\refreeze13.sh
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\recovery-fixtures\refreeze10.sh
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\recovery-fixtures\FX_F7-8.md
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\recovery-fixtures\FX_F7-7.md
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\recovery-fixtures\FX_F7-5.md
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\recovery-fixtures\FX_F7-4.md
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\recovery-fixtures\FX_F7-11.md
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\recovery-fixtures\FX_F7-1.md
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\recovery-fixtures\FINAL_SYNTAX_GATE.sh
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\recovery-fixtures\check10.sh
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\recovery-verify\VR_lib.md
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\recovery-verify\VR_08.md
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\recovery-verify\VR_07.md
+E:\VPS\reports\linux-schema-v3-integration\__pycache__\test_p5_authority_schema_v2_to_v3.cpython-314.pyc
+E:\VPS\reports\linux-schema-v3-integration\test_p5_authority_schema_v2_to_v3.py
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\Xtests_quality.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\Xredteam_vectors.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\Xq_quoting.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\Xp_perms.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\Xprov_identities.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\Xport_tooling.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\Xo_ordering.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\Xi_idempotency.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\Xfc_failopen.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\Xe_errexit.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\Xcover_requirements.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\Wlib_common.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\W08_rollback.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\W07_fresh.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\W06_postverify.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\W05_terminate.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\W04_cutover.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\W03_deploy.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\W02_stage.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\W01b_preflight.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\VPS_STATE_SNAPSHOT.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\U35_canonical_bytes_local.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\U34_provenance.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\U33_cli_dispatch.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\U32_resource_policy_suite.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\U31_migration_replay.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\U30_authstore.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\U29_pc7.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\U28_pc6_materializer.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\U27_pc6_legacy.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\U26_scope_containment.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\U25_privkey_acceptance.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\U24_regrant_vector.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\U23_hardening_docs.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\U22_ceremony_selfverify.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\U21_release_identities.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\U20_scientific_immutability.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\U19_resource_policy.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\U18_ceremony_safety.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\U17_root_scope.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\U16_migration_determinism.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\U15_stale_k3.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\U14_service_ownership.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\U13_credential_domains.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\U12_resume_handoff.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\U11_ceremony_state_machine.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\U10_fixtures.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\U09_fresh_login.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\U08_rollback.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\U07_pubkey_interface.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\U06_accounts_uid.md
+
+2026-08-14T04:42:59.556140Z ERROR codex_core::tools::router: error=unsupported call: read
+2026-08-14T04:54:46.387409Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

@@ -1,0 +1,337 @@
+Reading additional input from stdin...
+2026-08-14T14:12:55.517292Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T14:12:56.447867Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T14:13:30.314161Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 7.6 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 49
++ rg -r "E:\codex-LOOP\codex-loop-s-f2" --files | head -60
++                                                 ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T14:13:52.821853Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 3 seconds
+Output:
+E:\codex-LOOP\codex-loop-s-f2\install.sh
+E:\codex-LOOP\codex-loop-s-f2\search_log.md
+E:\codex-LOOP\codex-loop-s-f2\AGENTS.md
+E:\codex-LOOP\codex-loop-s-f2\work_commencement_certificate.md
+E:\codex-LOOP\codex-loop-s-f2\VERSIONS.lock
+E:\codex-LOOP\codex-loop-s-f2\test_evidence_pytest_output.txt
+E:\codex-LOOP\codex-loop-s-f2\agents\worker.toml
+E:\codex-LOOP\codex-loop-s-f2\agents\verifier.toml
+E:\codex-LOOP\codex-loop-s-f2\agents\reviewer.toml
+E:\codex-LOOP\codex-loop-s-f2\agents\plan_expander.toml
+E:\codex-LOOP\codex-loop-s-f2\agents\duty_officer.toml
+E:\codex-LOOP\codex-loop-s-f2\schemas\short_result.schema.json
+E:\codex-LOOP\codex-loop-s-f2\schemas\plan_expander.schema.json
+E:\codex-LOOP\codex-loop-s-f2\schemas\decision_skeleton.schema.json
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\config\roles_v2.yaml
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\config\refill_policy.toml
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\config\orchestration_policy_v2.toml
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\config\loop_config_v2.toml
+E:\codex-LOOP\codex-loop-s-f2\hooks\__pycache__\subagent_lifecycle.cpython-314.pyc
+E:\codex-LOOP\codex-loop-s-f2\hooks\__pycache__\subagent_lifecycle.cpython-312.pyc
+E:\codex-LOOP\codex-loop-s-f2\hooks\__pycache__\sol_tool_gate_v2.cpython-314.pyc
+E:\codex-LOOP\codex-loop-s-f2\hooks\__pycache__\sol_tool_gate_router.cpython-314.pyc
+E:\codex-LOOP\codex-loop-s-f2\hooks\__pycache__\sol_tool_gate.cpython-314.pyc
+E:\codex-LOOP\codex-loop-s-f2\hooks\__pycache__\sol_tool_gate.cpython-312.pyc
+E:\codex-LOOP\codex-loop-s-f2\hooks\__pycache__\leaf_agent_spawn_gate.cpython-314.pyc
+E:\codex-LOOP\codex-loop-s-f2\hooks\__pycache__\desktop_spawn_guard.cpython-314.pyc
+E:\codex-LOOP\codex-loop-s-f2\hooks\subagent_start_meter.sh
+E:\codex-LOOP\codex-loop-s-f2\hooks\subagent_lifecycle.py
+E:\codex-LOOP\codex-loop-s-f2\hooks\sol_tool_gate_v2.py
+E:\codex-LOOP\codex-loop-s-f2\hooks\sol_tool_gate_router.py
+E:\codex-LOOP\codex-loop-s-f2\hooks\sol_tool_gate.py
+E:\codex-LOOP\codex-loop-s-f2\hooks\leaf_agent_spawn_gate.py
+E:\codex-LOOP\codex-loop-s-f2\hooks\hooks.json.example
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\test_windows_wsl_paths.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\test_trigger_eval_v2.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\test_token_meter_v2.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\test_statemachine_v2.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\test_sol_tool_gate_v2.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\test_smoke_all.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\test_short_result_validator.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\test_root_turn_governor.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\test_result_reducer.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\test_refill_controller_v2.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\test_lifecycle_supervisor_v2.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\test_layered_gate.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\test_layered_e2e.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\test_l2_consumer.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\test_governor_hysteresis.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\test_dispatch_v2.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\test_cold_start_rollback.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\test_budget_controller.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\test_agent_router.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\ipybox_supervisor_smoke.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\ipybox_parent_death_smoke.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\conftest.cpython-314.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\conftest.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\conftest.cpython-312-pytest-8.4.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\test_l2_consumer.py
+E:\codex-LOOP\codex-loop-s-f2\tests\test_governor_hysteresis.py
+E:\codex-LOOP\codex-loop-s-f2\tests\test_dispatch_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\test_cold_start_rollback.py
+E:\codex-LOOP\codex-loop-s-f2\tests\test_budget_controller.py
+E:\codex-LOOP\codex-loop-s-f2\tests\test_agent_router.py
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\hooks\sol_tool_gate_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\statemachine_paths\__pycache__\test_all_transitions.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\statemachine_paths\__pycache__\test_adversarial.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\statemachine_paths\test_all_transitions.py
+E:\codex-LOOP\codex-loop-s-f2\tests\statemachine_paths\test_adversarial.py
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\metering\model_token_share_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\__pycache__\test_verdict_check.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\__pycache__\test_verdict_aggregate.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\__pycache__\test_trigger_eval.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\__pycache__\test_summary_synth.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\__pycache__\test_subagent_lifecycle_hook.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\__pycache__\test_subagent_lifecycle_hook.cpython-312-pytest-8.4.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\__pycache__\test_statemachine.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\__pycache__\test_spawn_watchdog.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\__pycache__\test_sol_tool_gate.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\__pycache__\test_smoke_gate_real.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\__pycache__\test_smoke_gate.cpython-314-pytest-9.1.1.pyc
+
+2026-08-14T14:14:10.190170Z  WARN codex_sandboxing::violation: recorded sandbox violation: resource=filesystem backend=windows_sandbox reason=policy_denied path=unknown
+2026-08-14T14:14:10.190515Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2 seconds
+Output:
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\__pycache__\orchestration_common.cpython-314.pyc
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\__pycache__\lifecycle_supervisor_v2.cpython-314.pyc
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\__pycache__\layered_gate.cpython-314.pyc
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\__pycache__\l2_consumer.cpython-314.pyc
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\__pycache__\dispatch_v2.cpython-314.pyc
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\__pycache__\budget_controller.cpython-314.pyc
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\__pycache__\agent_router.cpython-314.pyc
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\trigger_eval_v2.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\statemachine_v2.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\short_result_validator.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\root_turn_governor.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\result_reducer.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\refill_controller_v2.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\orchestration_common.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\lifecycle_supervisor_v2.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\layered_gate.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\l2_consumer.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\dispatch_v2.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\budget_controller.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\agent_router.py
+E:\codex-LOOP\codex-loop-s-f2\tests\statemachine_paths\__pycache__\test_all_transitions.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\statemachine_paths\__pycache__\test_adversarial.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\statemachine_paths\test_all_transitions.py
+E:\codex-LOOP\codex-loop-s-f2\tests\statemachine_paths\test_adversarial.py
+E:\codex-LOOP\codex-loop-s-f2\reports\状态机发布闭环审计\verification_report.md
+E:\codex-LOOP\codex-loop-s-f2\tests\golden\__pycache__\test_g5_merge_conflict.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\golden\__pycache__\test_g4_path_violation.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\golden\__pycache__\test_g3_messy_failure.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\golden\__pycache__\test_g2_retry_success.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\golden\__pycache__\test_g1_two_packet_parallel.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\golden\test_g5_merge_conflict.py
+E:\codex-LOOP\codex-loop-s-f2\tests\golden\test_g4_path_violation.py
+E:\codex-LOOP\codex-loop-s-f2\tests\golden\test_g3_messy_failure.py
+E:\codex-LOOP\codex-loop-s-f2\tests\golden\test_g2_retry_success.py
+E:\codex-LOOP\codex-loop-s-f2\tests\golden\test_g1_two_packet_parallel.py
+E:\codex-LOOP\codex-loop-s-f2\tests\conftest.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_production_bridges.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_plan_consumer.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_parent_manifest_importer.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_meter_governor_contract.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_lifecycle_supervisor_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_layered_gate.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_layered_e2e.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_l2_consumer.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_install_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_governor_hysteresis.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_dispatch_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_cold_start_rollback.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_budget_controller.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_agent_router.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\conftest.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_sol_tool_gate_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_smoke_all.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_short_result_validator.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_root_turn_governor.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_result_reducer.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_refill_controller_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_refill_consumer_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_provider_health.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_token_meter_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_terminal_packet_epilogue.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_statemachine_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_statemachine_v1_retry_contract.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_windows_wsl_paths.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_trigger_eval_v2.py
+E:\codex-LOOP\codex-loop-s-f2\config\triggers_v2.yaml
+E:\codex-LOOP\codex-loop-s-f2\config\triggers.yaml
+E:\codex-LOOP\codex-loop-s-f2\config\statemachine_v2_transitions.json
+E:\codex-LOOP\codex-loop-s-f2\config\roles_v2.yaml
+E:\codex-LOOP\codex-loop-s-f2\config\roles.yaml
+E:\codex-LOOP\codex-loop-s-f2\config\retry_classes.yaml
+E:\codex-LOOP\codex-loop-s-f2\config\refill_policy.toml
+E:\codex-LOOP\codex-loop-s-f2\config\orchestration_policy_v2.toml
+E:\codex-LOOP\codex-loop-s-f2\config\orchestration_policy.toml
+E:\codex-LOOP\codex-loop-s-f2\config\model_profiles.toml
+E:\codex-LOOP\codex-loop-s-f2\config\managed_files_v2.txt
+E:\codex-LOOP\codex-loop-s-f2\config\loop_config_v2.toml
+E:\codex-LOOP\codex-loop-s-f2\config\ipybox_sandbox.json
+E:\codex-LOOP\codex-loop-s-f2\config\escalation_ladder.yaml
+E:\codex-LOOP\codex-loop-s-f2\config\config.toml.example
+
+2026-08-14T14:14:22.608607Z  WARN codex_sandboxing::violation: recorded sandbox violation: resource=filesystem backend=windows_sandbox reason=policy_denied path=unknown
+2026-08-14T14:14:22.608925Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.1 seconds
+Output:
+E:\codex-LOOP\codex-loop-s-f2\README.md
+E:\codex-LOOP\codex-loop-s-f2\tests\ipybox_parent_death_smoke.py
+E:\codex-LOOP\codex-loop-s-f2\config\triggers_v2.yaml
+E:\codex-LOOP\codex-loop-s-f2\config\triggers.yaml
+E:\codex-LOOP\codex-loop-s-f2\config\statemachine_v2_transitions.json
+E:\codex-LOOP\codex-loop-s-f2\config\roles_v2.yaml
+E:\codex-LOOP\codex-loop-s-f2\config\roles.yaml
+E:\codex-LOOP\codex-loop-s-f2\config\retry_classes.yaml
+E:\codex-LOOP\codex-loop-s-f2\config\refill_policy.toml
+E:\codex-LOOP\codex-loop-s-f2\config\orchestration_policy_v2.toml
+E:\codex-LOOP\codex-loop-s-f2\config\orchestration_policy.toml
+E:\codex-LOOP\codex-loop-s-f2\config\model_profiles.toml
+E:\codex-LOOP\codex-loop-s-f2\config\managed_files_v2.txt
+E:\codex-LOOP\codex-loop-s-f2\config\loop_config_v2.toml
+E:\codex-LOOP\codex-loop-s-f2\config\ipybox_sandbox.json
+E:\codex-LOOP\codex-loop-s-f2\config\escalation_ladder.yaml
+E:\codex-LOOP\codex-loop-s-f2\config\config.toml.example
+E:\codex-LOOP\codex-loop-s-f2\tests\golden\test_g3_messy_failure.py
+E:\codex-LOOP\codex-loop-s-f2\tests\golden\test_g2_retry_success.py
+E:\codex-LOOP\codex-loop-s-f2\tests\golden\test_g1_two_packet_parallel.py
+E:\codex-LOOP\codex-loop-s-f2\tests\conftest.py
+E:\codex-LOOP\codex-loop-s-f2\tests\golden\test_g5_merge_conflict.py
+E:\codex-LOOP\codex-loop-s-f2\tests\golden\test_g4_path_violation.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_plan_consumer.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_parent_manifest_importer.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_meter_governor_contract.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_lifecycle_supervisor_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_layered_gate.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_layered_e2e.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_l2_consumer.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_install_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_governor_hysteresis.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_dispatch_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_cold_start_rollback.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_budget_controller.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_agent_router.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\conftest.py
+E:\codex-LOOP\codex-loop-s-f2\backup-20260811-215706\config\refill_policy.toml
+E:\codex-LOOP\codex-loop-s-f2\backup-20260811-215706\config\orchestration_policy.toml
+E:\codex-LOOP\codex-loop-s-f2\data\validators\short_result_validator.json
+E:\codex-LOOP\codex-loop-s-f2\hooks\__pycache__\subagent_lifecycle.cpython-314.pyc
+E:\codex-LOOP\codex-loop-s-f2\hooks\__pycache__\subagent_lifecycle.cpython-312.pyc
+E:\codex-LOOP\codex-loop-s-f2\hooks\__pycache__\sol_tool_gate_v2.cpython-314.pyc
+E:\codex-LOOP\codex-loop-s-f2\hooks\__pycache__\sol_tool_gate_router.cpython-314.pyc
+E:\codex-LOOP\codex-loop-s-f2\hooks\__pycache__\sol_tool_gate.cpython-314.pyc
+E:\codex-LOOP\codex-loop-s-f2\hooks\__pycache__\sol_tool_gate.cpython-312.pyc
+E:\codex-LOOP\codex-loop-s-f2\hooks\__pycache__\leaf_agent_spawn_gate.cpython-314.pyc
+E:\codex-LOOP\codex-loop-s-f2\hooks\__pycache__\desktop_spawn_guard.cpython-314.pyc
+E:\codex-LOOP\codex-loop-s-f2\hooks\subagent_start_meter.sh
+E:\codex-LOOP\codex-loop-s-f2\hooks\subagent_lifecycle.py
+E:\codex-LOOP\codex-loop-s-f2\hooks\sol_tool_gate_v2.py
+E:\codex-LOOP\codex-loop-s-f2\hooks\sol_tool_gate_router.py
+E:\codex-LOOP\codex-loop-s-f2\hooks\sol_tool_gate.py
+E:\codex-LOOP\codex-loop-s-f2\hooks\leaf_agent_spawn_gate.py
+E:\codex-LOOP\codex-loop-s-f2\hooks\hooks.json.example
+E:\codex-LOOP\codex-loop-s-f2\tests\golden\__pycache__\test_g5_merge_conflict.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\golden\__pycache__\test_g4_path_violation.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\golden\__pycache__\test_g3_messy_failure.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\golden\__pycache__\test_g2_retry_success.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\golden\__pycache__\test_g1_two_packet_parallel.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\ipybox_supervisor_smoke.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_smoke_all.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_short_result_validator.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_root_turn_governor.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_result_reducer.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_refill_controller_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_refill_consumer_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_provider_health.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_production_bridges.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_terminal_packet_epilogue.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_statemachine_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_statemachine_v1_retry_contract.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_sol_tool_gate_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_trigger_eval_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_token_meter_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_windows_wsl_paths.py
+E:\codex-LOOP\codex-loop-s-f2\harness\parent_manifest_importer.py
+E:\codex-LOOP\codex-loop-s-f2\harness\orchestration_epilogue.py
+E:\codex-LOOP\codex-loop-s-f2\harness\orchestration_common.py
+E:\codex-LOOP\codex-loop-s-f2\backup-20260811-215927\tests\orchestration_v2\__pycache__\test_windows_wsl_paths.cpython-314-pytest-9.1.1.pyc
+
+2026-08-14T14:14:47.343284Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.1 seconds
+Output:
+
+2026-08-14T14:15:09.416758Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2 seconds
+Output:
+
+2026-08-14T14:15:49.314215Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1 seconds
+Output:
+
+2026-08-14T14:16:22.118725Z ERROR codex_core::tools::router: error=unsupported call: read
+2026-08-14T14:21:32.988859Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-14T14:22:35.007563Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.3 seconds
+Output:
+rg : rg: regex parse error:
+所在位置 行:2 字符: 1
++ rg -rn "\"active\": False\|active.*=.*False\|\"active\"\s*:\s*False\| ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (rg: regex parse error::String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+    (?:\)
+    ^
+error: unclosed group
+
+2026-08-14T14:26:56.028096Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.6 seconds
+Output:
+Select-String : 找不到接受实际参数“active\”的位置形式参数。
+所在位置 行:2 字符: 1
++ Select-String -Path "E:\codex-LOOP\codex-loop-s-f2\harness\lifecycle_ ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) [Select-String]，ParameterBindingException
+    + FullyQualifiedErrorId : PositionalParameterNotFound,Microsoft.PowerShell.Commands.SelectStringCommand
+ 
+
+2026-08-14T14:30:29.660040Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 183ms)... turn_id=01a0009e-64e0-7c43-9df3-0f268d0ec2fb retries=1 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T14:30:43.185975Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 379ms)... turn_id=01a0009e-64e0-7c43-9df3-0f268d0ec2fb retries=2 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T14:30:53.395222Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 805ms)... turn_id=01a0009e-64e0-7c43-9df3-0f268d0ec2fb retries=3 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T14:31:08.104403Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.527s)... turn_id=01a0009e-64e0-7c43-9df3-0f268d0ec2fb retries=4 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T14:31:22.308555Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 3.375s)... turn_id=01a0009e-64e0-7c43-9df3-0f268d0ec2fb retries=5 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T14:31:45.250962Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

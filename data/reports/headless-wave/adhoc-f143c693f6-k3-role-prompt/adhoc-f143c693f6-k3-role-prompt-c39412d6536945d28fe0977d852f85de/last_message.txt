@@ -1,0 +1,13 @@
+PASS
+
+已先读 evidence 包（[convergence-wave2b-k3-evidence.md](/E:/codex-LOOP/codex-loop-s-f2/data/reports/convergence-wave2b-k3-evidence.md)，其中 tester 明确指出 mcp 缺失属后续 WSL/安装轮，未计入本轮 B 失败），再核源码：
+
+显式 pin：四角色 TOML 硬 pin 且与 policy 一致（[worker.toml](/E:/codex-LOOP/codex-loop-s-f2/agents/worker.toml:43) V4 Flash ultra；[verifier.toml](/E:/codex-LOOP/codex-loop-s-f2/agents/verifier.toml:43) / [reviewer.toml](/E:/codex-LOOP/codex-loop-s-f2/agents/reviewer.toml:44) / [plan_expander.toml](/E:/codex-LOOP/codex-loop-s-f2/agents/plan_expander.toml:2) K3 max）；[dispatch_v2.py](/E:/codex-LOOP/codex-loop-s-f2/harness/dispatch_v2.py:157) 从 `[models]` 解析、TOML 不一致即 ModelPinError，模型永远走 CLI `-m` 覆盖。refill consumer 对无显式 role 或 pool/role 冲突 fail-visible 拒绝。
+
+Prompt 身份：TOML 各自带身份与返回约定；运行时 [dispatch_v2.py](/E:/codex-LOOP/codex-loop-s-f2/harness/dispatch_v2.py:554) 按 route/requested_role 强制身份行（Verifier BLOCK/ESCALATE、reviewer falsification、expander、Executor），显式 role 永不退化成 Executor prompt。
+
+Retry handle：[retry_classes.yaml](/E:/codex-LOOP/codex-loop-s-f2/config/retry_classes.yaml) 表驱动；[dispatch.py](/E:/codex-LOOP/codex-loop-s-f2/harness/dispatch.py:322) `previous_attempt_line` 只注入句柄（路径+retry class+attempts+受限 fix_hint），首次派发逐字节不变，v2 完整透传。
+
+Worktree/capture_report：普通 worker 经 `worktree_pool.sh` 分配 worktree 并在其中运行；v2 对 verifier/reviewer/plan_expander 置 capture_report=true（[dispatch_v2.py](/E:/codex-LOOP/codex-loop-s-f2/harness/dispatch_v2.py:526)），[dispatch.py](/E:/codex-LOOP/codex-loop-s-f2/harness/dispatch.py:478) 转 read-only detached（不分配 worktree，报告落卢卡 lifecycle_reports→rdir/report.json）。
+
+Kernel 触发（§5）：本审计为 ≤50 行输出的多文件只读审计，ipybbox 不适用。

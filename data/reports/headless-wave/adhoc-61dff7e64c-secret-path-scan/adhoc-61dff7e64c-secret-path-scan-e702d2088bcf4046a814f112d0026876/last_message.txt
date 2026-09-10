@@ -1,0 +1,23 @@
+Both files are written. Here is the final report:
+
+---
+
+**Scan complete. Verdict: PASS** (with cosmetic advisory)
+
+Scanned 230 files across the release at `E:\codex-LOOP\deliveries\codex-loop-github-open-source-20260820`. No real secrets, API keys, OAuth tokens, private keys, session cookies, or personal account data were found.
+
+**5 findings, none are real secrets:**
+
+| ID | Severity | Location | Description |
+|----|----------|----------|-------------|
+| F1 | LOW | `hooks/sol_tool_gate_router.py` line 38 | Code comment mentions `E:/codex-LOOP` (author dev drive). Not used at runtime. Cosmetic cleanup recommended before public release. |
+| F2 | INFO | `LICENSE-SELECTION-REQUIRED.md` line 5 | Internal repo name `codex-loop-s-f2`. Pre-existing license gate item. |
+| F3 | INFO | `tests/conftest.py` docstring | Same repo name in docstring. |
+| F4 | INFO | `config/requirements.toml` line 11 | `C:\Users\you\…` — explicit documentation placeholder. |
+| F5 | INFO | Multiple config/agent TOMLs | Model routing IDs (`weiwu/…`, `alibaba-token-plan/…`) — provider namespace labels, not credentials. |
+
+**All critical categories returned NONE:** personal username `hzq00`, `C:\Users\hzq00`, `/home/codexloop`, staging/delivery paths, API keys (`sk-`, `ghp_`, `github_pat_`, JWT), hardcoded credential values, base64 blobs in configs, `.env`/`.pem`/`.key` files, runtime `data/`/`sessions/`/`secrets/` directories, and provider account IDs.
+
+Output artifacts written to cwd:
+- `REPORT.md` — full narrative findings
+- `RESULT.json` — structured verdict, findings array, negative-check evidence commands

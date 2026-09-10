@@ -1,0 +1,568 @@
+Reading additional input from stdin...
+2026-08-14T11:10:50.101675Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T11:10:56.328348Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T11:11:07.396698Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+所在位置 行:2 字符: 18
++ cd E:\codex-LOOP && git config --list --local | Select-String "hook"  ...
++                  ~~
+标记“&&”不是此版本中的有效语句分隔符。
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : InvalidEndOfLine
+ 
+
+2026-08-14T11:11:17.102378Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.6 seconds
+Output:
+fatal: --local can only be used inside a git repository
+
+2026-08-14T11:11:45.363586Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2 seconds
+Output:
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 70
++ ... -ChildItem E:\codex-LOOP -Force -Directory | Select-Object Name | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=.audit-f...51c9b085012680}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 70
++ ... -ChildItem E:\codex-LOOP -Force -Directory | Select-Object Name | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=.bootstrap}:PSObject) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 70
++ ... -ChildItem E:\codex-LOOP -Force -Directory | Select-Object Name | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=.codex}:PSObject) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 70
++ ... -ChildItem E:\codex-LOOP -Force -Directory | Select-Object Name | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=.fable-install-test-20260813}:PSObject) [Get-Content]，Parameter
+    BindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 70
++ ... -ChildItem E:\codex-LOOP -Force -Directory | Select-Object Name | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=.fable-install-test-20260813-wsl}:PSObject) [Get-Content]，Param
+    eterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 70
++ ... -ChildItem E:\codex-LOOP -Force -Directory | Select-Object Name | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=.pytest_cache}:PSObject) [Get-Content]，ParameterBindingExceptio
+    n
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 70
++ ... -ChildItem E:\codex-LOOP -Force -Directory | Select-Object Name | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=.tmp-global-hook-test-20260810}:PSObject) [Get-Content]，Paramet
+    erBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 70
++ ... -ChildItem E:\codex-LOOP -Force -Directory | Select-Object Name | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=.tmp-loc...97185229fcbcbf}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 70
++ ... -ChildItem E:\codex-LOOP -Force -Directory | Select-Object Name | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=.tmp-loc...d732aba88a6229}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 70
++ ... -ChildItem E:\codex-LOOP -Force -Directory | Select-Object Name | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=acceptance-evidence}:PSObject) [Get-Content]，ParameterBindingEx
+    ception
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 70
++ ... -ChildItem E:\codex-LOOP -Force -Directory | Select-Object Name | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=archives}:PSObject) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 70
++ ... -ChildItem E:\codex-LOOP -Force -Directory | Select-Object Name | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=audit_manifests}:PSObject) [Get-Content]，ParameterBindingExcept
+    ion
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 70
++ ... -ChildItem E:\codex-LOOP -Force -Directory | Select-Object Name | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=backups}:PSObject) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 70
++ ... -ChildItem E:\codex-LOOP -Force -Directory | Select-Object Name | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=codex-home}:PSObject) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 70
++ ... -ChildItem E:\codex-LOOP -Force -Directory | Select-Object Name | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=codex-loop-s-f2}:PSObject) [Get-Content]，ParameterBindingExcept
+    ion
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 70
++ ... -ChildItem E:\codex-LOOP -Force -Directory | Select-Object Name | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=codex-sqlite}:PSObject) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 70
++ ... -ChildItem E:\codex-LOOP -Force -Directory | Select-Object Name | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=data}:PSObject) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 70
++ ... -ChildItem E:\codex-LOOP -Force -Directory | Select-Object Name | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=deliveries}:PSObject) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 70
++ ... -ChildItem E:\codex-LOOP -Force -Directory | Select-Object Name | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=guards}:PSObject) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 70
++ ... -ChildItem E:\codex-LOOP -Force -Directory | Select-Object Name | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=handoff}:PSObject) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 70
++ ... -ChildItem E:\codex-LOOP -Force -Directory | Select-Object Name | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=hl-loop-v3}:PSObject) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 70
++ ... -ChildItem E:\codex-LOOP -Force -Directory | Select-Object Name | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=inputs}:PSObject) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 70
++ ... -ChildItem E:\codex-LOOP -Force -Directory | Select-Object Name | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=K3OC-CDX...TION-PACK-v2.3}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 70
++ ... -ChildItem E:\codex-LOOP -Force -Directory | Select-Object Name | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=launchers}:PSObject) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 70
++ ... -ChildItem E:\codex-LOOP -Force -Directory | Select-Object Name | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=logs}:PSObject) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 70
++ ... -ChildItem E:\codex-LOOP -Force -Directory | Select-Object Name | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=open-source}:PSObject) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 70
++ ... -ChildItem E:\codex-LOOP -Force -Directory | Select-Object Name | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=package}:PSObject) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 70
++ ... -ChildItem E:\codex-LOOP -Force -Directory | Select-Object Name | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=private-quarantine}:PSObject) [Get-Content]，ParameterBindingExc
+    eption
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 70
++ ... -ChildItem E:\codex-LOOP -Force -Directory | Select-Object Name | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=quarantine}:PSObject) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 70
++ ... -ChildItem E:\codex-LOOP -Force -Directory | Select-Object Name | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=recovery-staging}:PSObject) [Get-Content]，ParameterBindingExcep
+    tion
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 70
++ ... -ChildItem E:\codex-LOOP -Force -Directory | Select-Object Name | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=release-candidates}:PSObject) [Get-Content]，ParameterBindingExc
+    eption
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 70
++ ... -ChildItem E:\codex-LOOP -Force -Directory | Select-Object Name | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=reports}:PSObject) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 70
++ ... -ChildItem E:\codex-LOOP -Force -Directory | Select-Object Name | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=reports-同步ACL残留}:PSObject) [Get-Content]，ParameterBindingEx
+cept    ion
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 70
++ ... -ChildItem E:\codex-LOOP -Force -Directory | Select-Object Name | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=runtime}:PSObject) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 70
++ ... -ChildItem E:\codex-LOOP -Force -Directory | Select-Object Name | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=source}:PSObject) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 70
++ ... -ChildItem E:\codex-LOOP -Force -Directory | Select-Object Name | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=staging}:PSObject) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 70
++ ... -ChildItem E:\codex-LOOP -Force -Directory | Select-Object Name | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=state}:PSObject) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 70
++ ... -ChildItem E:\codex-LOOP -Force -Directory | Select-Object Name | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=test-runs}:PSObject) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 70
++ ... -ChildItem E:\codex-LOOP -Force -Directory | Select-Object Name | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=toolcache}:PSObject) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 70
++ ... -ChildItem E:\codex-LOOP -Force -Directory | Select-Object Name | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=venv}:PSObject) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 70
++ ... -ChildItem E:\codex-LOOP -Force -Directory | Select-Object Name | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=worktrees}:PSObject) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 70
++ ... -ChildItem E:\codex-LOOP -Force -Directory | Select-Object Name | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=wsl}:PSObject) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+
+2026-08-14T11:12:37.600869Z ERROR codex_core::tools::router: error=unsupported call: read
+2026-08-14T11:12:42.941766Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 181ms)... turn_id=019ffff7-af58-74a2-800c-824718622e15 retries=1 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游网络连接失败, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T11:13:00.848353Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-14T11:15:29.937184Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 3.1 seconds
+Output:
+py : 无法将“py”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后再试
+一次。
+所在位置 行:2 字符: 1
++ py -3 -c "import sys; print(sys.version)"
++ ~~
+    + CategoryInfo          : ObjectNotFound: (py:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T11:15:46.080636Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 3.9 seconds
+Output:
+python3 : 无法将“python3”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确
+，然后再试一次。
+所在位置 行:2 字符: 1
++ python3 -c "import sys; print(sys.version)" 2>&1; python -c "import s ...
++ ~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (python3:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+python : 无法将“python”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，
+然后再试一次。
+所在位置 行:2 字符: 51
++ python3 -c "import sys; print(sys.version)" 2>&1; python -c "import s ...
++                                                   ~~~~~~
+    + CategoryInfo          : ObjectNotFound: (python:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T11:16:32.064809Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.7 seconds
+Output:
+No Python at '"C:\Users\hzq00\AppData\Local\Programs\Python\Python312\python.exe'
+
+2026-08-14T11:17:08.746385Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+
+2026-08-14T11:17:22.873042Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+
+2026-08-14T11:17:34.247070Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.1 seconds
+Output:
+where.exe : 信息: 用提供的模式无法找到文件。
+所在位置 行:2 字符: 1
++ where.exe python 2>&1; where.exe python3 2>&1; where.exe py 2>&1
++ ~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (信息: 用提供的模式无法找到文件。:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+where.exe : 信息: 用提供的模式无法找到文件。
+所在位置 行:2 字符: 24
++ where.exe python 2>&1; where.exe python3 2>&1; where.exe py 2>&1
++                        ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (信息: 用提供的模式无法找到文件。:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+where.exe : 信息: 用提供的模式无法找到文件。
+所在位置 行:2 字符: 48
++ where.exe python 2>&1; where.exe python3 2>&1; where.exe py 2>&1
++                                                ~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (信息: 用提供的模式无法找到文件。:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+2026-08-14T11:18:16.076042Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.7 seconds
+Output:
+所在位置 行:2 字符: 37
++ "C:\Program Files\Git\bin\bash.exe" -lc "which jq; jq --version" 2>&1
++                                     ~~~
+表达式或语句中包含意外的标记“-lc”。
+所在位置 行:2 字符: 41
++ "C:\Program Files\Git\bin\bash.exe" -lc "which jq; jq --version" 2>&1
++                                         ~~~~~~~~~~~~~~~~~~~~~~~~
+表达式或语句中包含意外的标记“"which jq; jq --version"”。
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : UnexpectedToken
+ 
+
+2026-08-14T11:18:30.999332Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.3 seconds
+Output:
+/usr/bin/bash: line 1: jq: command not found
+which: no python3 in (/c/Users/hzq00/bin:/mingw64/bin:/usr/local/bin:/usr/bin:/bin:/mingw64/bin:/usr/bin:/c/Users/hzq00/bin:/c/Users/hzq00/.codex/tmp/arg0/codex-arg0yYghAS:/c/Users/hzq00/AppData/Roaming/npm/node_modules/@openai/codex/node_modules/@openai/codex-win32-x64/vendor/x86_64-pc-windows-msvc/codex-path:/c/Users/hzq00/.codex/tmp/arg0/codex-arg0KbQDUE:/c/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/c/Program Files (x86)/Common Files/Oracle/Java/java8path:/c/Program Files (x86)/Common Files/Oracle/Java/javapath:/c/WINDOWS/system32/WBEM:/c/WINDOWS/system32/WBEM:/c/WINDOWS/system32/WBEM:/c/WINDOWS/system32/WBEM:/c/WINDOWS/system32/WBEM:/c/WINDOWS/system32/WBEM:/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.8/bin:/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.8/libnvvp:/c/WINDOWS/system32:/c/WINDOWS:/c/WINDOWS/System32/Wbem:/c/WINDOWS/System32/WindowsPowerShell/v1.0:/c/WINDOWS/System32/OpenSSH:/c/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR:/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/c/Program Files/dotnet:/c/Program Files/Crucial/Crucial Storage Executive:/c/Program Files/NVIDIA Corporation/Nsight Compute 2025.1.1:/c/Program Files/Common Files/OFX/Plugins/LensNode.ofx.bundle/Contents/Win64:/c/Users/hzq00/AppData/Local/Microsoft/WindowsApps:/c/Program Files (x86)/dotnet:/g/Program Files/AOMEI/AOMEI Backupper/6.20.0:/c/Users/hzq00/AppData/Local/Programs/Python/Python314/Scripts:/c/Users/hzq00/AppData/Local/Programs/Python/Python314:/c/Users/hzq00/AppData/Local/Programs/Python/Launcher:/c/Program Files/Calibre2:/c/Program Files/Seelen/Seelen UI:/cmd:/c/Program Files/nodejs:/e/Program Files/cursor/resources/app/bin:/e/Program Files/Qoder/bin:/c/Program Files/GitHub CLI:/c/Users/hzq00/AppData/Local/Programs/Jan/resources/bin:/c/Users/hzq00/AppData/Local/Programs/Python/Python312/Scripts:/c/Users/hzq00/AppData/Local/Programs/Python/Python312:/c/Users/hzq00/.kimi-code/bin:/g/Program Files/Psycho�S?��?��?��:/g/Program Files/PsychoPy/DLLs:/g/Program Files/CatPawAI/bin:/c/Users/hzq00/AppData/Roaming/npm:/c/cunzhi:/c/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/c/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/git/cmd:/c/Users/hzq00/AppData/Local/OpenAI/Codex/bin/fda9f910656130f4:/c/Program Files/WindowsApps/OpenAI.Codex_26.803.5235.0_x64__2p2nqsd0c76g0/app/resources:/usr/bin/vendor_perl:/usr/bin/core_perl)
+which: no py in (/c/Users/hzq00/bin:/mingw64/bin:/usr/local/bin:/usr/bin:/bin:/mingw64/bin:/usr/bin:/c/Users/hzq00/bin:/c/Users/hzq00/.codex/tmp/arg0/codex-arg0yYghAS:/c/Users/hzq00/AppData/Roaming/npm/node_modules/@openai/codex/node_modules/@openai/codex-win32-x64/vendor/x86_64-pc-windows-msvc/codex-path:/c/Users/hzq00/.codex/tmp/arg0/codex-arg0KbQDUE:/c/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/c/Program Files (x86)/Common Files/Oracle/Java/java8path:/c/Program Files (x86)/Common Files/Oracle/Java/javapath:/c/WINDOWS/system32/WBEM:/c/WINDOWS/system32/WBEM:/c/WINDOWS/system32/WBEM:/c/WINDOWS/system32/WBEM:/c/WINDOWS/system32/WBEM:/c/WINDOWS/system32/WBEM:/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.8/bin:/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.8/libnvvp:/c/WINDOWS/system32:/c/WINDOWS:/c/WINDOWS/System32/Wbem:/c/WINDOWS/System32/WindowsPowerShell/v1.0:/c/WINDOWS/System32/OpenSSH:/c/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR:/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/c/Program Files/dotnet:/c/Program Files/Crucial/Crucial Storage Executive:/c/Program Files/NVIDIA Corporation/Nsight Compute 2025.1.1:/c/Program Files/Common Files/OFX/Plugins/LensNode.ofx.bundle/Contents/Win64:/c/Users/hzq00/AppData/Local/Microsoft/WindowsApps:/c/Program Files (x86)/dotnet:/g/Program Files/AOMEI/AOMEI Backupper/6.20.0:/c/Users/hzq00/AppData/Local/Programs/Python/Python314/Scripts:/c/Users/hzq00/AppData/Local/Programs/Python/Python314:/c/Users/hzq00/AppData/Local/Programs/Python/Launcher:/c/Program Files/Calibre2:/c/Program Files/Seelen/Seelen UI:/cmd:/c/Program Files/nodejs:/e/Program Files/cursor/resources/app/bin:/e/Program Files/Qoder/bin:/c/Program Files/GitHub CLI:/c/Users/hzq00/AppData/Local/Programs/Jan/resources/bin:/c/Users/hzq00/AppData/Local/Programs/Python/Python312/Scripts:/c/Users/hzq00/AppData/Local/Programs/Python/Python312:/c/Users/hzq00/.kimi-code/bin:/g/Program Files/Psycho�S?��?��?��:/g/Program Files/PsychoPy/DLLs:/g/Program Files/CatPawAI/bin:/c/Users/hzq00/AppData/Roaming/npm:/c/cunzhi:/c/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/c/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/git/cmd:/c/Users/hzq00/AppData/Local/OpenAI/Codex/bin/fda9f910656130f4:/c/Program Files/WindowsApps/OpenAI.Codex_26.803.5235.0_x64__2p2nqsd0c76g0/app/resources:/usr/bin/vendor_perl:/usr/bin/core_perl)
+which: no jq in (/c/Users/hzq00/bin:/mingw64/bin:/usr/local/bin:/usr/bin:/bin:/mingw64/bin:/usr/bin:/c/Users/hzq00/bin:/c/Users/hzq00/.codex/tmp/arg0/codex-arg0yYghAS:/c/Users/hzq00/AppData/Roaming/npm/node_modules/@openai/codex/node_modules/@openai/codex-win32-x64/vendor/x86_64-pc-windows-msvc/codex-path:/c/Users/hzq00/.codex/tmp/arg0/codex-arg0KbQDUE:/c/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/c/Program Files (x86)/Common Files/Oracle/Java/java8path:/c/Program Files (x86)/Common Files/Oracle/Java/javapath:/c/WINDOWS/system32/WBEM:/c/WINDOWS/system32/WBEM:/c/WINDOWS/system32/WBEM:/c/WINDOWS/system32/WBEM:/c/WINDOWS/system32/WBEM:/c/WINDOWS/system32/WBEM:/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.8/bin:/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.8/libnvvp:/c/WINDOWS/system32:/c/WINDOWS:/c/WINDOWS/System32/Wbem:/c/WINDOWS/System32/WindowsPowerShell/v1.0:/c/WINDOWS/System32/OpenSSH:/c/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR:/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/c/Program Files/dotnet:/c/Program Files/Crucial/Crucial Storage Executive:/c/Program Files/NVIDIA Corporation/Nsight Compute 2025.1.1:/c/Program Files/Common Files/OFX/Plugins/LensNode.ofx.bundle/Contents/Win64:/c/Users/hzq00/AppData/Local/Microsoft/WindowsApps:/c/Program Files (x86)/dotnet:/g/Program Files/AOMEI/AOMEI Backupper/6.20.0:/c/Users/hzq00/AppData/Local/Programs/Python/Python314/Scripts:/c/Users/hzq00/AppData/Local/Programs/Python/Python314:/c/Users/hzq00/AppData/Local/Programs/Python/Launcher:/c/Program Files/Calibre2:/c/Program Files/Seelen/Seelen UI:/cmd:/c/Program Files/nodejs:/e/Program Files/cursor/resources/app/bin:/e/Program Files/Qoder/bin:/c/Program Files/GitHub CLI:/c/Users/hzq00/AppData/Local/Programs/Jan/resources/bin:/c/Users/hzq00/AppData/Local/Programs/Python/Python312/Scripts:/c/Users/hzq00/AppData/Local/Programs/Python/Python312:/c/Users/hzq00/.kimi-code/bin:/g/Program Files/Psycho�S?��?��?��:/g/Program Files/PsychoPy/DLLs:/g/Program Files/CatPawAI/bin:/c/Users/hzq00/AppData/Roaming/npm:/c/cunzhi:/c/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/c/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/git/cmd:/c/Users/hzq00/AppData/Local/OpenAI/Codex/bin/fda9f910656130f4:/c/Program Files/WindowsApps/OpenAI.Codex_26.803.5235.0_x64__2p2nqsd0c76g0/app/resources:/usr/bin/vendor_perl:/usr/bin/core_perl)
+
+2026-08-14T11:18:46.900371Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.1 seconds
+Output:
+which: no python in (/c/Users/hzq00/bin:/mingw64/bin:/usr/local/bin:/usr/bin:/bin:/mingw64/bin:/usr/bin:/c/Users/hzq00/bin:/c/Users/hzq00/.codex/tmp/arg0/codex-arg0yYghAS:/c/Users/hzq00/AppData/Roaming/npm/node_modules/@openai/codex/node_modules/@openai/codex-win32-x64/vendor/x86_64-pc-windows-msvc/codex-path:/c/Users/hzq00/.codex/tmp/arg0/codex-arg0KbQDUE:/c/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/c/Program Files (x86)/Common Files/Oracle/Java/java8path:/c/Program Files (x86)/Common Files/Oracle/Java/javapath:/c/WINDOWS/system32/WBEM:/c/WINDOWS/system32/WBEM:/c/WINDOWS/system32/WBEM:/c/WINDOWS/system32/WBEM:/c/WINDOWS/system32/WBEM:/c/WINDOWS/system32/WBEM:/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.8/bin:/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.8/libnvvp:/c/WINDOWS/system32:/c/WINDOWS:/c/WINDOWS/System32/Wbem:/c/WINDOWS/System32/WindowsPowerShell/v1.0:/c/WINDOWS/System32/OpenSSH:/c/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR:/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/c/Program Files/dotnet:/c/Program Files/Crucial/Crucial Storage Executive:/c/Program Files/NVIDIA Corporation/Nsight Compute 2025.1.1:/c/Program Files/Common Files/OFX/Plugins/LensNode.ofx.bundle/Contents/Win64:/c/Users/hzq00/AppData/Local/Microsoft/WindowsApps:/c/Program Files (x86)/dotnet:/g/Program Files/AOMEI/AOMEI Backupper/6.20.0:/c/Users/hzq00/AppData/Local/Programs/Python/Python314/Scripts:/c/Users/hzq00/AppData/Local/Programs/Python/Python314:/c/Users/hzq00/AppData/Local/Programs/Python/Launcher:/c/Program Files/Calibre2:/c/Program Files/Seelen/Seelen UI:/cmd:/c/Program Files/nodejs:/e/Program Files/cursor/resources/app/bin:/e/Program Files/Qoder/bin:/c/Program Files/GitHub CLI:/c/Users/hzq00/AppData/Local/Programs/Jan/resources/bin:/c/Users/hzq00/AppData/Local/Programs/Python/Python312/Scripts:/c/Users/hzq00/AppData/Local/Programs/Python/Python312:/c/Users/hzq00/.kimi-code/bin:/g/Program Files/Psycho�S?��?��?��:/g/Program Files/PsychoPy/DLLs:/g/Program Files/CatPawAI/bin:/c/Users/hzq00/AppData/Roaming/npm:/c/cunzhi:/c/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/c/Users/hzq00/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/git/cmd:/c/Users/hzq00/AppData/Local/OpenAI/Codex/bin/fda9f910656130f4:/c/Program Files/WindowsApps/OpenAI.Codex_26.803.5235.0_x64__2p2nqsd0c76g0/app/resources:/usr/bin/vendor_perl:/usr/bin/core_perl)
+ls: cannot access '/c/Users/hzq00/AppData/Local/Programs/Python/Python314/python*': No such file or directory
+ls: cannot access '/c/Users/hzq00/AppData/Local/Programs/Python/Python312/python*': No such file or directory
+
+2026-08-14T11:19:06.620807Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+
+2026-08-14T11:20:01.284085Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+& : 无法将“C:\Program Files\WindowsApps\OpenAI.Codex_26.803.5235.0_x64__2p2nqsd0c76g0\app\resources\python”项识别为 cmd
+let、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后再试一次。
+所在位置 行:2 字符: 3
++ & "C:\Program Files\WindowsApps\OpenAI.Codex_26.803.5235.0_x64__2p2nq ...
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (C:\Program File...esources\python:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+& : 无法将“C:\Users\hzq00\AppData\Local\OpenAI\Codex\bin\fda9f910656130f4\python”项识别为 cmdlet、函数、脚本文件或可运行
+程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后再试一次。
+所在位置 行:2 字符: 119
++ ... ion 2>&1; & "C:\Users\hzq00\AppData\Local\OpenAI\Codex\bin\fda9f91065 ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (C:\Users\hzq00\...656130f4\python:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T11:20:58.286183Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+
+2026-08-14T11:22:38.530950Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+False
+False
+False
+Test-Path : 拒绝访问。
+所在位置 行:2 字符: 1
++ Test-Path "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\pyt ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (C:\Users\hzq00\...n314\python.exe:String) [Test-Path], UnauthorizedAc 
+   cessException
+    + FullyQualifiedErrorId : ItemExistsUnauthorizedAccessError,Microsoft.PowerShell.Commands.TestPathCommand
+ 
+Test-Path : 拒绝访问。
+所在位置 行:2 字符: 80
++ ... ython.exe"; Test-Path "C:\Users\hzq00\AppData\Local\Programs\Python\P ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (C:\Users\hzq00\...n312\python.exe:String) [Test-Path], UnauthorizedAc 
+   cessException
+    + FullyQualifiedErrorId : ItemExistsUnauthorizedAccessError,Microsoft.PowerShell.Commands.TestPathCommand
+ 
+Test-Path : 拒绝访问。
+所在位置 行:2 字符: 159
++ ... ython.exe"; Test-Path "C:\Users\hzq00\AppData\Local\Programs\Python\L ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (C:\Users\hzq00\...Launcher\py.exe:String) [Test-Path], UnauthorizedAc 
+   cessException
+    + FullyQualifiedErrorId : ItemExistsUnauthorizedAccessError,Microsoft.PowerShell.Commands.TestPathCommand
+ 
+
+2026-08-14T11:23:22.528603Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+
+2026-08-14T11:29:03.280575Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+
+2026-08-14T11:31:30.272209Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

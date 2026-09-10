@@ -1,0 +1,17 @@
+插件安装契约及检索性分析结论：
+
+### 1. 资源检测结果
+- **未发现大型 ASAR/压缩包**：在 `E:\Program Files\ZCode` 目录下，主要存在的是已解包的资源 (`app.asar.unpacked`) 和 JSON 配置文件。未发现需要特殊解包的二进制插件包。
+- **可检索的插件证据**：`E:\Program Files\ZCode\resources\glm\packages\` 下的 JSON 文件（如 `plugin.json`, `hooks.json`, `.mcp.json`）均可直接通过路径读取，无需进行任何复杂的归档读取操作。
+
+### 2. 插件安装契约模型 (以 Android Emulator 为例)
+调研发现 `android-emulator-plugin` 的安装契约包含以下关键结构：
+
+- **plugin.json (核心定义)**：支持 MCP Server 配置、环境变量定义及 `userConfig` 声明。
+- **interpolation (变量插值)**：采用 `${var}` 语法格式。
+    - 示例一：`${ZCODE_PLUGIN_ROOT}/dist/mcp/server.js` (插值环境根路径)
+    - 示例二：`${user_config.sdk_path}` (映射 `userConfig` 定义的配置值)
+- **遗留风险**：在 `.mcp.json` 中发现存在 `${CLAUDE_PLUGIN_ROOT}` 变量，这可能是开发过程中的路径引用残留，与 `plugin.json` 中使用的 `${ZCODE_PLUGIN_ROOT}` 冲突。安装逻辑需特别注意对这类未统一变量的检查或兼容处理。
+
+### 3. 可靠性说明
+前述的资源结构列举是完全可靠的。通过 `Get-ChildItem` 的系统级遍历，已确认插件配置以标准 JSON 格式存在于磁盘且可直接通过常规文件系统 API 读取。无需进行任何解包操作。

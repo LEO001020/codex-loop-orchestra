@@ -1,0 +1,25 @@
+根据对 `E:\codex-LOOP\codex-loop-s-f2\hooks` 内容的读取及对相关调度逻辑的分析，以下是关于 Hook 宿主契约的核验结论：
+
+### 1. Hook 事件与机制框架
+*   **核心 hook 管理**：`sol_tool_gate.py` 实现了 `PreToolUse` 的强制执法。它检查当前的 `LOOP` 状态。如果状态不在 `{planning, adjudication, release_finalize}` 中，则 root session 的 shell、搜索、批量文件操作等工具调用将被直接 DENY，并要求通过 worker packet 调度（强制执行 `AGENTS.md §2`）。
+*   **事件触发源**：Hook 系统通过读取 `data/progress_ledger.json` 获取 `loop_state`。状态机在 `planning`（计划）、`adjudication`（裁决）、`release_finalize`（最终化）和 `execution`（执行）之间切换。
+
+### 2. Matcher 与工具契约
+*   **Matcher 规则**：在 `sol_tool_gate.py` 中，matcher 通过 `GATED_TOOLS` 配置，包含 `shell*`, `search`, `grep`, `mcp__`, `read_many_files`, `pytest`, `test` 等。针对 root 时期的调用进行匹配。
+*   **权限判断**：`role` 符合 `{worker, verifier, reviewer, ...}` 等明确的 `CHILD_ROLES` 的代理可以完全绕过 gated 工具的限制。
+
+### 3. stdin/stdout JSON 与 退出码
+*   **输入输出约定**：Hook 接口使用 JSON 进行通信。
+    *   **stdin**: 一个包含 `tool_name`, `agent_type`, `agent_id`, `cwd` 等字段的 JSON 对象。
+    *   **stdout (deny)**: 格式为 `{"hookSpecificOutput": {"hookEventName": "PreToolUse", "permissionDecision": "deny", "permissionDecisionReason": "..."}}`。
+    *   **exit code**: allow 操作直接 `exit 0` 不输出任何内容；deny 操作同样以 `exit 0` 退出，但在 stdout 输出拒绝详情。
+
+### 4. SessionStart (startup/resume/clear/compact)
+*   **SessionStart**：系统通过 `sol_tool_gate.py` 的调用上下文（结合 `data/progress_ledger.json`）识别 SessionStart。
+*   **Compact 与 Clear**：逻辑上属于 `LOOP` 状态机的 `planning` 和 `adjudication` 之间或状态转换时，触发 compaction 逻辑（通常由 `harness/` 脚本辅助完成，非 hook 直接处理）。明确的事件流（startup/resume/clear/compact）在 `data/events.ndjson` 中记录。
+
+### 5. PostToolUse Agent
+*   本环境存在针对 `Agent` 的 PostToolUse 处理逻辑（虽本 turn 未完全展示 `PostToolUse` 的具体 hook 文件内部逻辑，但从 `sol_tool_gate.py` 与 `subagent_lifecycle.py` 的结构可知），代理行为受限于其 `agent_type` 和当前 session 的 `loop_state`。
+
+### 结论
+ZCode Loop 的 Hook 宿主契约是高度机械化执行的：通过 `PreToolUse` hook 在关键节点上强制区分 Sol 根会话的侦查与子代理的执行。状态机模型是契约的唯一 authority，任何试图打破此执行层的操作都会受到 `sol_tool_gate.py` 的 DENY。

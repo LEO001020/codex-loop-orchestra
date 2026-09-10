@@ -1,0 +1,228 @@
+Reading additional input from stdin...
+2026-08-16T16:14:52.130356Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-16T16:15:02.217594Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-16T16:15:06.847968Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 129
++ ... ude="*.cmd" --include="*.json" --include="*.md" -l 2>$null | head -60
++                                                                  ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-16T16:15:21.953447Z  WARN codex_sandboxing::violation: recorded sandbox violation: resource=filesystem backend=windows_sandbox reason=policy_denied path=unknown
+2026-08-16T16:15:21.953645Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.6 seconds
+Output:
+E:\codex-LOOP\worktrees\implementation\verify\runner.py
+E:\codex-LOOP\worktrees\implementation\verify\report.py
+E:\codex-LOOP\worktrees\implementation\verify\outcome.py
+E:\codex-LOOP\worktrees\implementation\verify\images\verifier.Dockerfile
+E:\codex-LOOP\worktrees\implementation\verify\collector.py
+E:\codex-LOOP\worktrees\implementation\verify\baseline.py
+E:\codex-LOOP\worktrees\implementation\tools\__pycache__\p5_v5_proposal.cpython-312.pyc
+E:\codex-LOOP\worktrees\implementation\tools\validate_work_packages.py
+E:\codex-LOOP\worktrees\implementation\tools\run_probes.py
+E:\codex-LOOP\worktrees\implementation\tools\run_in_boundary.py
+E:\codex-LOOP\worktrees\implementation\tools\reap_run.py
+E:\codex-LOOP\worktrees\implementation\tools\preflight.py
+E:\codex-LOOP\worktrees\implementation\tools\p5_v5_proposal.py
+E:\codex-LOOP\worktrees\implementation\tools\no_skeletons.py
+E:\codex-LOOP\worktrees\implementation\tools\no_forbidden_paths.py
+E:\codex-LOOP\worktrees\implementation\tools\lock_inputs.py
+E:\codex-LOOP\worktrees\implementation\tools\evidence_pack.py
+E:\codex-LOOP\worktrees\implementation\tools\codex_home_guard.py
+E:\codex-LOOP\worktrees\implementation\tools\bootstrap_implementer.ps1
+E:\codex-LOOP\worktrees\implementation\toolchain.json
+E:\codex-LOOP\worktrees\implementation\tests\__pycache__\test_v5_proposal.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\worktrees\implementation\tests\tools\__pycache__\test_no_forbidden_paths.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\worktrees\implementation\tests\tools\__pycache__\test_lock_inputs.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\worktrees\implementation\tests\tools\test_worktree_bootstrap.py
+E:\codex-LOOP\worktrees\implementation\tests\tools\test_toolchain_resolution.py
+E:\codex-LOOP\worktrees\implementation\tests\tools\test_no_forbidden_paths.py
+E:\codex-LOOP\worktrees\implementation\tests\tools\test_lock_inputs.py
+E:\codex-LOOP\worktrees\implementation\tests\test_v5_proposal.py
+E:\codex-LOOP\worktrees\implementation\tests\sandbox\__pycache__\test_reaper.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\worktrees\implementation\tests\sandbox\__pycache__\test_job_tree.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\worktrees\implementation\tests\sandbox\__pycache__\test_env.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\worktrees\implementation\tests\sandbox\__pycache__\test_codex_home_guard.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\worktrees\implementation\tests\sandbox\test_reaper.py
+E:\codex-LOOP\worktrees\implementation\tests\sandbox\test_layout.py
+E:\codex-LOOP\worktrees\implementation\tests\sandbox\test_job_tree.py
+E:\codex-LOOP\worktrees\implementation\tests\sandbox\test_env.py
+E:\codex-LOOP\worktrees\implementation\tests\sandbox\test_codex_home_guard.py
+E:\codex-LOOP\worktrees\implementation\tests\mutants\__pycache__\test_registry.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\worktrees\implementation\tests\mutants\__pycache__\test_m4_guard_behavior.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\worktrees\implementation\tests\mutants\test_registry.py
+E:\codex-LOOP\worktrees\implementation\tests\mutants\test_m4_guard_behavior.py
+E:\codex-LOOP\worktrees\implementation\tests\mutants\registry.py
+E:\codex-LOOP\worktrees\implementation\tests\m5\__pycache__\test_wire_adapter.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\worktrees\implementation\tests\m5\__pycache__\test_snapshot.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\worktrees\implementation\tests\m5\__pycache__\test_schema_pin.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\worktrees\implementation\tests\m5\__pycache__\test_role_home.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\worktrees\implementation\tests\m5\__pycache__\test_gateway.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\worktrees\implementation\tests\m5\__pycache__\test_client.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\worktrees\implementation\tests\m5\__pycache__\test_binary_identity.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\worktrees\implementation\tests\m5\__pycache__\test_approvals.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\worktrees\implementation\tests\m5\test_wire_adapter.py
+E:\codex-LOOP\worktrees\implementation\tests\m5\test_snapshot.py
+E:\codex-LOOP\worktrees\implementation\tests\m5\test_schema_pin.py
+E:\codex-LOOP\worktrees\implementation\tests\m5\test_role_home.py
+E:\codex-LOOP\worktrees\implementation\tests\m5\test_gateway.py
+E:\codex-LOOP\worktrees\implementation\tests\m5\test_client.py
+E:\codex-LOOP\worktrees\implementation\tests\m5\test_binary_identity.py
+E:\codex-LOOP\worktrees\implementation\tests\m5\test_approvals.py
+E:\codex-LOOP\worktrees\implementation\tests\m4\__pycache__\test_report.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\worktrees\implementation\tests\m4\__pycache__\test_mockapp.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\worktrees\implementation\tests\m4\__pycache__\test_container_spec.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\worktrees\implementation\tests\m4\__pycache__\test_collector.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\worktrees\implementation\tests\m4\__pycache__\test_adjudicator.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\worktrees\implementation\tests\m4\__pycache__\test_ac_isolation.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\worktrees\implementation\tests\m4\test_report.py
+E:\codex-LOOP\worktrees\implementation\tests\m4\test_mockapp.py
+E:\codex-LOOP\worktrees\implementation\tests\m4\test_container_spec.py
+E:\codex-LOOP\worktrees\implementation\tests\m4\test_collector.py
+E:\codex-LOOP\worktrees\implementation\tests\m4\test_baseline.py
+E:\codex-LOOP\worktrees\implementation\tests\m4\test_adjudicator.py
+E:\codex-LOOP\worktrees\implementation\tests\m4\test_ac_isolation.py
+E:\codex-LOOP\worktrees\implementation\tests\m3\__pycache__\test_safe_walk.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\worktrees\implementation\tests\m3\__pycache__\test_manifests.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\worktrees\implementation\tests\m3\__pycache__\test_git_capture.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\worktrees\implementation\tests\m3\__pycache__\test_dedup.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\worktrees\implementation\tests\m3\__pycache__\test_candidate_manifest.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\worktrees\implementation\tests\m3\test_safe_walk.py
+E:\codex-LOOP\worktrees\implementation\tests\m3\test_manifests.py
+E:\codex-LOOP\worktrees\implementation\tests\m3\test_git_capture.py
+E:\codex-LOOP\worktrees\implementation\tests\m3\test_dedup.py
+
+2026-08-16T16:15:29.759118Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.5 seconds
+Output:
+E:\codex-LOOP\audit_read.ps1
+E:\codex-LOOP\package\tools\Start-ImplementerCodex.ps1
+E:\codex-LOOP\package\tools\Initialize-K3OCLoopWorkspace.ps1
+E:\codex-LOOP\audit_list.ps1
+E:\codex-LOOP\archives\pre-shortcut-native-fix-20260810T061732\Codex LOOP F2 WSL-bad.lnk
+E:\codex-LOOP\worktrees\implementation\tools\bootstrap_implementer.ps1
+E:\codex-LOOP\backups\shortcuts\20260816-233531\Codex LOOP F2.lnk
+E:\codex-LOOP\archives\pre-codex-desktop-shortcut-20260810T054234\Codex LOOP F2 CLI.lnk
+E:\codex-LOOP\open-source\codex-loop\tools\run_all.ps1
+E:\codex-LOOP\open-source\codex-loop\tools\install_desktop_shortcut.ps1
+E:\codex-LOOP\K3OC-CDX-LOOP-CODEX-EXECUTION-PACK-v2.3\tools\Start-ImplementerCodex.ps1
+E:\codex-LOOP\K3OC-CDX-LOOP-CODEX-EXECUTION-PACK-v2.3\tools\Initialize-K3OCLoopWorkspace.ps1
+E:\codex-LOOP\open-source\codex-loop\tests\integration\Test-PublicInstaller.ps1
+E:\codex-LOOP\open-source\codex-loop\installer\Uninstall-CodexLoop.ps1
+E:\codex-LOOP\open-source\codex-loop\installer\Test-CodexLoop.ps1
+E:\codex-LOOP\open-source\codex-loop\installer\Start-CodexLoop.ps1
+E:\codex-LOOP\open-source\codex-loop\installer\Install-CodexLoop.ps1
+E:\codex-LOOP\hl-loop-v3\tools\run_all.ps1
+E:\codex-LOOP\hl-loop-v3\tools\install_desktop_shortcut.ps1
+E:\codex-LOOP\do_extract2.ps1
+E:\codex-LOOP\do_extract.ps1
+E:\codex-LOOP\hl-loop-v3\deploy\verify-hl-loop.ps1
+E:\codex-LOOP\hl-loop-v3\deploy\start-hl-loop-desktop.vbs
+E:\codex-LOOP\hl-loop-v3\deploy\start-hl-loop-desktop.ps1
+E:\codex-LOOP\hl-loop-v3\deploy\launch-hl-loop.ps1
+E:\codex-LOOP\launchers\Start-Codex-LOOP-Monitor.ps1
+E:\codex-LOOP\launchers\Start-Codex-LOOP-Monitor-Hidden.vbs
+E:\codex-LOOP\launchers\Start-Codex-LOOP-Desktop.ps1
+E:\codex-LOOP\launchers\Set-Codex-LOOP-Mode.ps1
+E:\codex-LOOP\launchers\Register-Codex-LOOP-Monitor.ps1
+E:\codex-LOOP\launchers\loop_model.ps1
+E:\codex-LOOP\launchers\Codex-LOOP-F2.ps1
+E:\codex-LOOP\test-runs\opencodex-validation-20260808-052937\codex-loop\tools\run_all.ps1
+E:\codex-LOOP\handoff\pro-model-k3oc-loop-20260803T0909145450817Z\package\tools\Start-ImplementerCodex.ps1
+E:\codex-LOOP\handoff\pro-model-k3oc-loop-20260803T0909145450817Z\package\tools\Initialize-K3OCLoopWorkspace.ps1
+E:\codex-LOOP\test-runs\opencodex-validation-20260808-052937\codex-loop\tools\install_desktop_shortcut.ps1
+E:\codex-LOOP\test-runs\installer-validation-20260808-050353\codex-loop\tools\run_all.ps1
+E:\codex-LOOP\test-runs\installer-validation-20260808-050353\codex-loop\tools\install_desktop_shortcut.ps1
+E:\codex-LOOP\test-runs\opencodex-validation-20260808-052937\codex-loop\tests\integration\Test-PublicInstaller.ps1
+E:\codex-LOOP\worktrees\app-v3-manifest\tools\bootstrap_implementer.ps1
+E:\codex-LOOP\test-runs\opencodex-validation-20260808-052937\codex-loop\installer\Uninstall-CodexLoop.ps1
+E:\codex-LOOP\test-runs\opencodex-validation-20260808-052937\codex-loop\installer\Test-CodexLoop.ps1
+E:\codex-LOOP\test-runs\opencodex-validation-20260808-052937\codex-loop\installer\Start-CodexLoop.ps1
+E:\codex-LOOP\test-runs\opencodex-validation-20260808-052937\codex-loop\installer\Install-CodexLoop.ps1
+E:\codex-LOOP\handoff\pro-model-k3oc-loop-20260803T0909145450817Z\implementation\tools\bootstrap_implementer.ps1
+E:\codex-LOOP\deliveries\fable-audit-20260810\stage\codex-loop-s-f2-fable-audit-20260810\host-overlay\launchers\Start-Codex-LOOP-Monitor.ps1
+E:\codex-LOOP\deliveries\fable-audit-20260810\stage\codex-loop-s-f2-fable-audit-20260810\host-overlay\bootstrap\build-fable-audit-package.ps1
+E:\codex-LOOP\test-runs\installer-validation-20260808-050338\codex-loop\tools\run_all.ps1
+E:\codex-LOOP\test-runs\installer-validation-20260808-050338\codex-loop\tools\install_desktop_shortcut.ps1
+E:\codex-LOOP\test-runs\opencodex-validation-20260808-052856\codex-loop\tools\run_all.ps1
+E:\codex-LOOP\test-runs\opencodex-validation-20260808-052856\codex-loop\tools\install_desktop_shortcut.ps1
+E:\codex-LOOP\test-runs\opencodex-validation-20260808-052856\codex-loop\tests\integration\Test-PublicInstaller.ps1
+E:\codex-LOOP\test-runs\opencodex-validation-20260808-052856\codex-loop\installer\Uninstall-CodexLoop.ps1
+E:\codex-LOOP\test-runs\opencodex-validation-20260808-052856\codex-loop\installer\Test-CodexLoop.ps1
+E:\codex-LOOP\test-runs\opencodex-validation-20260808-052856\codex-loop\installer\Start-CodexLoop.ps1
+E:\codex-LOOP\test-runs\opencodex-validation-20260808-052856\codex-loop\installer\Install-CodexLoop.ps1
+E:\codex-LOOP\test-runs\installer-validation-20260808-050338\codex-loop\installer\Uninstall-CodexLoop.ps1
+E:\codex-LOOP\test-runs\installer-validation-20260808-050338\codex-loop\installer\Test-CodexLoop.ps1
+E:\codex-LOOP\test-runs\installer-validation-20260808-050338\codex-loop\installer\Start-CodexLoop.ps1
+E:\codex-LOOP\test-runs\installer-validation-20260808-050338\codex-loop\installer\Install-CodexLoop.ps1
+E:\codex-LOOP\test-runs\opencodex-validation-20260808-052818\codex-loop\tools\run_all.ps1
+E:\codex-LOOP\test-runs\opencodex-validation-20260808-052818\codex-loop\tools\install_desktop_shortcut.ps1
+E:\codex-LOOP\test-runs\opencodex-validation-20260808-052818\codex-loop\tests\integration\Test-PublicInstaller.ps1
+E:\codex-LOOP\test-runs\opencodex-validation-20260808-052818\codex-loop\installer\Uninstall-CodexLoop.ps1
+E:\codex-LOOP\test-runs\opencodex-validation-20260808-052818\codex-loop\installer\Test-CodexLoop.ps1
+E:\codex-LOOP\test-runs\opencodex-validation-20260808-052818\codex-loop\installer\Start-CodexLoop.ps1
+E:\codex-LOOP\test-runs\opencodex-validation-20260808-052818\codex-loop\installer\Install-CodexLoop.ps1
+E:\codex-LOOP\test-runs\installer-validation-20260808-050353\codex-loop\installer\Uninstall-CodexLoop.ps1
+E:\codex-LOOP\test-runs\installer-validation-20260808-050353\codex-loop\installer\Test-CodexLoop.ps1
+E:\codex-LOOP\test-runs\installer-validation-20260808-050353\codex-loop\installer\Start-CodexLoop.ps1
+E:\codex-LOOP\test-runs\installer-validation-20260808-050353\codex-loop\installer\Install-CodexLoop.ps1
+E:\codex-LOOP\venv\Scripts\deactivate.bat
+E:\codex-LOOP\venv\Scripts\Activate.ps1
+E:\codex-LOOP\venv\Scripts\activate.bat
+E:\codex-LOOP\release-candidates\codex-loop-0.1.0-test-preview-20260808\verification\codex-loop-0.1.0-test-preview\tools\run_all.ps1
+E:\codex-LOOP\release-candidates\codex-loop-0.1.0-test-preview-20260808\verification\codex-loop-0.1.0-test-preview\tools\install_desktop_shortcut.ps1
+E:\codex-LOOP\reports\fable-local-env-diff-20260813\gen_host_diffs.ps1
+E:\codex-LOOP\reports\fable-local-env-diff-20260813\gen_focus_diffs2.ps1
+E:\codex-LOOP\reports\fable-local-env-diff-20260813\gen_focus_diffs.ps1
+E:\codex-LOOP\release-candidates\codex-loop-0.1.0-test-preview-20260808\verification\codex-loop-0.1.0-test-preview\tests\integration\Test-PublicInstaller.ps1
+E:\codex-LOOP\release-candidates\codex-loop-0.1.0-test-preview-20260808\verification\codex-loop-0.1.0-test-preview\installer\Uninstall-CodexLoop.ps1
+E:\codex-LOOP\release-candidates\codex-loop-0.1.0-test-preview-20260808\verification\codex-loop-0.1.0-test-preview\installer\Test-CodexLoop.ps1
+E:\codex-LOOP\release-candidates\codex-loop-0.1.0-test-preview-20260808\verification\codex-loop-0.1.0-test-preview\installer\Start-CodexLoop.ps1
+E:\codex-LOOP\release-candidates\codex-loop-0.1.0-test-preview-20260808\verification\codex-loop-0.1.0-test-preview\installer\Install-CodexLoop.ps1
+E:\codex-LOOP\runtime\rebase-sequence.ps1
+E:\codex-LOOP\release-candidates\codex-loop-0.1.0-test-preview-20260808\codex-loop-0.1.0-test-preview\tools\run_all.ps1
+E:\codex-LOOP\release-candidates\codex-loop-0.1.0-test-preview-20260808\codex-loop-0.1.0-test-preview\tools\install_desktop_shortcut.ps1
+E:\codex-LOOP\release-candidates\codex-loop-0.1.0-test-preview-20260808\codex-loop-0.1.0-test-preview\tests\integration\Test-PublicInstaller.ps1
+E:\codex-LOOP\release-candidates\codex-loop-0.1.0-test-preview-20260808\codex-loop-0.1.0-test-preview\installer\Uninstall-CodexLoop.ps1
+E:\codex-LOOP\release-candidates\codex-loop-0.1.0-test-preview-20260808\codex-loop-0.1.0-test-preview\installer\Test-CodexLoop.ps1
+E:\codex-LOOP\release-candidates\codex-loop-0.1.0-test-preview-20260808\codex-loop-0.1.0-test-preview\installer\Start-CodexLoop.ps1
+E:\codex-LOOP\release-candidates\codex-loop-0.1.0-test-preview-20260808\codex-loop-0.1.0-test-preview\installer\Install-CodexLoop.ps1
+E:\codex-LOOP\release-candidates\codex-loop-0.1.0-test-preview-20260808\archive-input\codex-loop-0.1.0-test-preview\tools\run_all.ps1
+E:\codex-LOOP\release-candidates\codex-loop-0.1.0-test-preview-20260808\archive-input\codex-loop-0.1.0-test-preview\tools\install_desktop_shortcut.ps1
+E:\codex-LOOP\release-candidates\codex-loop-0.1.0-test-preview-20260808\archive-input\codex-loop-0.1.0-test-preview\tests\integration\Test-PublicInstaller.ps1
+E:\codex-LOOP\release-candidates\codex-loop-0.1.0-test-preview-20260808\archive-input\codex-loop-0.1.0-test-preview\installer\Uninstall-CodexLoop.ps1
+E:\codex-LOOP\release-candidates\codex-loop-0.1.0-test-preview-20260808\archive-input\codex-loop-0.1.0-test-preview\installer\Test-CodexLoop.ps1
+E:\codex-LOOP\release-candidates\codex-loop-0.1.0-test-preview-20260808\archive-input\codex-loop-0.1.0-test-preview\installer\Start-CodexLoop.ps1
+E:\codex-LOOP\release-candidates\codex-loop-0.1.0-test-preview-20260808\archive-input\codex-loop-0.1.0-test-preview\installer\Install-CodexLoop.ps1
+E:\codex-LOOP\venv\Lib\site-packages\win32comext\axscript\test\debugTest.vbs
+E:\codex-LOOP\venv\Lib\site-packages\win32com\test\testInterp.vbs
+E:\codex-LOOP\venv\Lib\site-packages\win32com\test\testDictionary.vbs
+E:\codex-LOOP\venv\Lib\site-packages\debugpy\_vendored\pydevd\pydevd_attach_to_process\windows\compile_windows.bat
+
+2026-08-16T16:18:55.771115Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.7 seconds
+Output:
+
+2026-08-16T16:19:22.699452Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.5 seconds
+Output:
+
+2026-08-16T16:20:50.181124Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 181ms)... turn_id=01a00b5a-c138-7493-8a32-86aa708b0c0c retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-16T16:21:37.368654Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 398ms)... turn_id=01a00b5a-c138-7493-8a32-86aa708b0c0c retries=2 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-16T16:22:24.728103Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 825ms)... turn_id=01a00b5a-c138-7493-8a32-86aa708b0c0c retries=3 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-16T16:23:16.483178Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.706s)... turn_id=01a00b5a-c138-7493-8a32-86aa708b0c0c retries=4 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-16T16:25:25.930532Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+def _acquire(path: Path) -> bool:
+    lock = args.root / "state" / "desktop-runtime" / "g3-monitor.lockdir"
+    if not _acquire(lock):
+
+2026-08-16T16:26:38.893799Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 210ms)... turn_id=01a00b5a-c138-7493-8a32-86aa708b0c0c retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-16T16:27:43.018681Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 198ms)... turn_id=01a00b5a-c138-7493-8a32-86aa708b0c0c retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽

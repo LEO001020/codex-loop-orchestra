@@ -1,0 +1,18 @@
+Reading additional input from stdin...
+2026-08-14T05:38:25.308764Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T05:38:31.621393Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T05:38:43.290450Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-14T05:38:51.480104Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:39:00.684110Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:39:12.404800Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:39:25.837702Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:39:49.000437Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:40:30.942306Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)

@@ -1,0 +1,16 @@
+**结论**：`freshness` 不读状态文件 mtime，只取各 JSON 内嵌 `updated_at`（唯一用 mtime 的是 Desktop rollout）。STALE 是 5 秒硬编码阈值对"事件驱动源"的误报。
+
+**计算链**（`E:\codex-LOOP\launchers\loop_monitor_server.py`）：
+- L411-423：roster 合并 WSL+Windows（L415-420，Windows 为 overlay，同 key 取较新）；`refill_dir` 仅指 WSL `root/data/refill`——Windows 的 `data/refill/refill_state.json`（mtime 19:47:08）从未被读。
+- L442/483-484/519-521/549-550/552-554：`updated` 收集 native 行、exec 行 heartbeat、rollout、四文档级 `updated_at`。
+- L572-573：`age = now - max(updated)`；L584 `age>5` 且 running>0 → L585 STALE。
+
+**刷新链**：
+1. Desktop native：`hooks/subagent_lifecycle.py` L202/L405 仅事件写（Start/Stop），无心跳；
+2. Headless：`harness/lifecycle_supervisor.py` L174 每次写 `updated_at`，L563-566 每 1s 心跳——exec_roster 是唯一稳定 <5s 的源；
+3. rollout：`scan_rollout_subagents` L376-378 用文件 mtime，仅工具事件刷新；
+4. 计划任务：`Start/Register-Codex-LOOP-Monitor.ps1` 只在 healthz 失败时重启服务，不刷新数据；当前未查到已注册任务，8765 监听 PID 45208 自 14:09 运行。
+
+**根因**：5s 阈值假设存在 1Hz 心跳源。当仅剩 Desktop 子代理安静运行（无工具事件、无 headless 心跳、无 WSL refill）时 age 必超 5s → 误报 STALE。当前 LIVE 全靠 4 个 Windows headless supervisor 的 1s 心跳支撑，波次一结束即复现。
+
+**最小修复**：`loop_monitor_server.py:584` 将硬编码 5s 改为按源区分（如 `STALE_AFTER_S=30`，headless 心跳天然 <5s，仅避免事件源误伤）；并在 L421-423 增加 Windows `refill_state.json` 兜底读取。已只读核查，未改文件。

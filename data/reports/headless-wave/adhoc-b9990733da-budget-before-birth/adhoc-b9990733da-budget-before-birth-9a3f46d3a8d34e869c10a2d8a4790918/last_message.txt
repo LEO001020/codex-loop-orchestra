@@ -1,0 +1,13 @@
+**REDO** — 只读审计完成，未生成子 agent、未改文件。
+
+1. **[严重] 出生后失败 → 活子被回收且无归属**：`dispatch.py:529-539` 在 Popen 成功后才执行 `exec_supervisor_started`(537) 与 `record_spawn_and_gate`(539)；health_gate 每第 8 次出生可能抛 `BirthThrottleError`（`dispatch.py:204-212,260-261`），throttle 写盘可抛 OSError。此时 `dispatch_single` 抛异常，`dispatch_v2.py:527-533` 一律 reclaim 预留，且 `v2:539` 的 `record_run_role` 被跳过 → 活子代理预算被回收、run_id 不进 run_role_map，恰是 `v2:511-512` 注释声称要防的 "unaccounted live child"。应以 Popen 成功为界：出生后异常只归因、不 reclaim。
+
+2. **[严重] 完成路径零回收**：全仓仅 `v2:532/539` 两个失败回收点；lifecycle_supervisor/statemachine/csv_reconcile 均无 `budget.reclaim` 调用（`budget_controller.py:305-319` 只经 CLI 457-459 暴露）。且 `record_usage` 无生产调用者（仅 CLI 448-456/测试）→ consumed 恒 0、成功代理的 allocated 永久锁死、pool_returned 永不回流，与 `budget_controller.py:18-20` 的 reclaim/redistribute 设计相悖。
+
+3. **[严重] v1 直通路径无预留、无归属**：`dispatch.py` main→`dispatch_single`(797)、`dispatch_csv`(543-613，spawn_agents_on_csv 直接出生)、`dispatch_release_review`(752-760) 均不调 register_agent/reclaim；run_role_map 唯一写入方是 `v2:317-326` → csv/release-review 子代理"出生前零登记"、meter 归属缺失。
+
+4. **[中] 空池超发**：`budget_controller.py:234` 当 role_pool+pool==0 时 `grant=want` 全额授予，allocated 可超 ceiling，未 fail-closed。
+
+5. **[低] run_id 一致性**：主路径一致（v2:490-491 → v1:470-472 透传 → v2:539 返回）。但 v2:534 只查非空、不校验 `== reservation_id`（v1:472 兜底 `new_run_id` 会使预留/归属分裂）；失败路径(1)下同一 run_id 在 lifecycle 存活却无归属；`v2._record_spawn_time`(572-578) 为死代码（v1:523 已写 spawn_times）。
+
+结论：主链路 reserve→spawn 顺序正确，但出生后异常路径存在活子 reclaim + 归因丢失，且成功/直通路径完全无 reclaim 与归因，需 REDO。

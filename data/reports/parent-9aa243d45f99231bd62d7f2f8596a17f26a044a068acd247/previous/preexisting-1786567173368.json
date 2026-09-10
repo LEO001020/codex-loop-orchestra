@@ -1,0 +1,26 @@
+验证完成。结论：PASS — actuator 运行失败（rc=3）、provider backoff、headless spawn 失败三种路径都不会伪清除 refill debt，且每个后续生命周期边都会重新探测并保留债务，全程无 Sol 回退。
+
+证据链：
+
+1. Actuator 失败 fail-visible 且不清债
+- [orchestration_epilogue.py](E:/codex-LOOP/codex-loop-s-f2/harness/orchestration_epilogue.py:106) 将非零 actuator rc 记为 `refill: actuator rc=%d` 并把 epilogue 置为 `FAIL_VISIBLE`。
+- 实测 [epilogue_status.json](E:/codex-LOOP/codex-loop-s-f2/data/orchestration/epilogue_status.json)（ts 1786566948.8）：`"status":"FAIL_VISIBLE"`、`errors:["refill: actuator rc=3"]`，且 refill before/after 均为 `refill_required=true`、`deficit=16(v4:12,k3:4)`、`refilled=false` — 波次 rc=3 后债务原样保留。
+- Hook 启动失败路径 [subagent_lifecycle.py](E:/codex-LOOP/codex-loop-s-f2/hooks/subagent_lifecycle.py:80) 抛异常时审计 `refill_actuator_failed` 并返回 None，不谎报成功；由 [test_subagent_lifecycle_hook.py:527](E:/codex-LOOP/codex-loop-s-f2/tests/unit/test_subagent_lifecycle_hook.py:527) 钉死。
+
+2. Provider backoff 只挡出生、不清债、可重试
+- [k3.json](E:/codex-LOOP/codex-loop-s-f2/data/provider_health/k3.json) 实测 `unhealthy/upstream_5xx/504/rc=124`，其 stderr 日志含 `unexpected status 504 Gateway Timeout … /v1/responses`。
+- [headless_wave.py:441](E:/codex-LOOP/codex-loop-s-f2/harness/headless_wave.py:441) 对 backoff 任务只返回 `provider_backoff`，不 launch；实测 04:35 两轮波次中 4 个 K3 任务均为 `provider_backoff`、12 个 V4 为 `already_active`，随后 `refill_required` 事件连续 6 次重发且 deficit 恒为 16。
+- [dispatch_v2.py:374](E:/codex-LOOP/codex-loop-s-f2/harness/dispatch_v2.py:374) 记 `k3_unavailable_debt_retained` 并抛 `retryable=True`；[test_l2_consumer.py:119](E:/codex-LOOP/codex-loop-s-f2/tests/orchestration_v2/test_l2_consumer.py:119) 证明 backoff 期间不 claim、过期后恢复 dispatch。
+
+3. Headless spawn 失败不清债
+- [headless_wave.py:193](E:/codex-LOOP/codex-loop-s-f2/harness/headless_wave.py:193) 只认 `running` 为有效并发，`starting`/`spawn_failed` 均不视为成功交接；注释明确 "must not clear any external refill debt. Do not auto-retry"。
+- [refill_controller_v2.py:309](E:/codex-LOOP/codex-loop-s-f2/harness/refill_controller_v2.py:309) `initializing` 预留容量但不清债；[test_refill_controller_v2.py:182](E:/codex-LOOP/codex-loop-s-f2/tests/orchestration_v2/test_refill_controller_v2.py:182) 及 [test_lifecycle_supervisor.py:202](E:/codex-LOOP/codex-loop-s-f2/tests/unit/test_lifecycle_supervisor.py:202) 分别钉住 "initializing 不清债" 与 "post-spawn 错误不再误标 spawn_failed"。
+- 注：roster 中 `adhoc-20516a9185-policy-*` 历史行（08-12 17:38）存在 running→spawn_failed 的旧版记录；现版代码 [lifecycle_supervisor.py:703](E:/codex-LOOP/codex-loop-s-f2/harness/lifecycle_supervisor.py:703) 只在 pre_spawn 标 spawn_failed，且无论哪种终态 refill 会计都不计 running，债务均保留。
+
+4. 后续生命周期边持续重试（实测闭环）
+- 最新状态（ts 1786567143.7）`refill_state.json` 仍 `refill_required=true`、deficit/pending=16(k3:4)；k3.json 被新 504 超时续期 backoff 至 1786567294.7 — 失败→backoff→保留债务→下一生命周期边（SubagentStop/Stop/SessionStart/close，[subagent_lifecycle.py:445/572/616/807](E:/codex-LOOP/codex-loop-s-f2/hooks/subagent_lifecycle.py:445)）再探测，闭环持续运转。
+
+5. 不退回 Sol
+- refill/headless 通道无任何 Sol/默认模型分支；无显式 role 的 DISPATCHABLE 包直接 `RefillConsumerError`（[refill_consumer_v2.py:121](E:/codex-LOOP/codex-loop-s-f2/harness/refill_consumer_v2.py:121)）；[test_dispatch_v2.py:169](E:/codex-LOOP/codex-loop-s-f2/tests/orchestration_v2/test_dispatch_v2.py:169) 断言 ledger 含 `k3_unavailable_debt_retained` 且无 `k3_unavailable_sol_fallback`。
+
+未修改任何文件。

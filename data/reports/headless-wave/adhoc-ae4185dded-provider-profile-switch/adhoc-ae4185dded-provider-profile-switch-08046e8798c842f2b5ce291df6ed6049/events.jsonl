@@ -1,0 +1,10 @@
+{"type":"thread.started","thread_id":"019ff5c1-c82a-7662-a688-d85bd4bf8987"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"我先确认可用的多代理 spawn 接口与显式模型路由能力，然后按 LOOP 纪律把这个只读审计拆成几个 worker 包并行下发。"}}
+{"type":"error","message":"Reconnecting... 1/5 (stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch())"}
+{"type":"error","message":"Reconnecting... 2/5 (unexpected status 502 Bad Gateway: Provider error 502, url: http://127.0.0.1:10100/v1/responses)"}
+{"type":"error","message":"Reconnecting... 3/5 (unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses)"}
+{"type":"error","message":"Reconnecting... 4/5 (unexpected status 502 Bad Gateway: Provider error 502, url: http://127.0.0.1:10100/v1/responses)"}
+{"type":"error","message":"Reconnecting... 5/5 (unexpected status 502 Bad Gateway: Provider error 502, url: http://127.0.0.1:10100/v1/responses)"}
+{"type":"error","message":"unexpected status 502 Bad Gateway: Provider error 502, url: http://127.0.0.1:10100/v1/responses"}
+{"type":"turn.failed","error":{"message":"unexpected status 502 Bad Gateway: Provider error 502, url: http://127.0.0.1:10100/v1/responses"}}

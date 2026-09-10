@@ -1,0 +1,43 @@
+Reading additional input from stdin...
+2026-08-14T08:26:27.503063Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T08:26:35.582647Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T08:36:49.298214Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 181ms)... turn_id=019fff61-3190-7880-9251-dca0b81b9a1a retries=1 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T08:41:07.125787Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 420ms)... turn_id=019fff61-3190-7880-9251-dca0b81b9a1a retries=2 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T08:45:59.404668Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 807ms)... turn_id=019fff61-3190-7880-9251-dca0b81b9a1a retries=3 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T08:51:07.008303Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.695s)... turn_id=019fff61-3190-7880-9251-dca0b81b9a1a retries=4 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T08:52:51.601387Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 3.51s)... turn_id=019fff61-3190-7880-9251-dca0b81b9a1a retries=5 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+2026-08-14T08:53:28.236321Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.9 seconds
+Output:
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-4d231a2f66-root-ipybox
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-b9990733da-ipybox-plane
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-eb7d587e94-ipybox-hook-drift
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-4d231a2f66-root-ipybox\adhoc-4d231a2f66-root-ipybox-2a0180ae69624750a645a8ac16b4a41b
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-b9990733da-ipybox-plane\adhoc-b9990733da-ipybox-plane-afe8ccd088a248b493479b5bc8e39986
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-eb7d587e94-ipybox-hook-drift\adhoc-eb7d587e94-ipybox-hook-drift-06bf0f85675a4b1394ff2b850a9e30c3
+E:\codex-LOOP\codex-loop-s-f2\reports\ipybox-final-lifecycle-audit
+Get-ChildItem : 对路径“E:\codex-LOOP\codex-loop-s-f2\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem -Recurse -Force -Directory -Filter 'archive-files' | Se ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\codex-LOOP\c...2\.pytest_cache:String) [Get-ChildItem], Unauthoriz 
+   edAccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+Get-ChildItem : 对路径“E:\codex-LOOP\codex-loop-s-f2\tests\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem -Recurse -Force -Directory -Filter 'archive-files' | Se ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\codex-LOOP\c...s\.pytest_cache:String) [Get-ChildItem], Unauthoriz 
+   edAccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+

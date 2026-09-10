@@ -1,0 +1,73 @@
+{
+  "detail": {
+    "event": "subagent_stop",
+    "from_state": "DEAD_LETTER"
+  },
+  "packet_id": "parent-4ac51d21f5c20bd28b5ddb3763a6ad21dbd655aab7898bae",
+  "prior_history": [
+    {
+      "to": "DEAD_LETTER",
+      "ts": 1786567432.9785323,
+      "via": "off_table_event"
+    },
+    {
+      "current_run_id": "parent-4ac51d21f5c20bd28b5ddb3763a6ad21dbd655aab7898bae-a0-b07348c27ec544c489274ff21ac402eb",
+      "event": "exec_failed",
+      "event_run_id": "parent-4ac51d21f5c20bd28b5ddb3763a6ad21dbd655aab7898bae-a0-881ad8acf86f402cb16d2913031f9159",
+      "to": "DEAD_LETTER",
+      "ts": 1786567432.983402,
+      "via": "stale_run_id_ignored"
+    },
+    {
+      "to": "DEAD_LETTER",
+      "ts": 1786567433.0573525,
+      "via": "off_table_event"
+    },
+    {
+      "current_run_id": "parent-4ac51d21f5c20bd28b5ddb3763a6ad21dbd655aab7898bae-a0-b07348c27ec544c489274ff21ac402eb",
+      "event": "exec_failed",
+      "event_run_id": "parent-4ac51d21f5c20bd28b5ddb3763a6ad21dbd655aab7898bae-a0-1a57d5d7a735402fa99cb69d4c9add98",
+      "to": "DEAD_LETTER",
+      "ts": 1786567433.0622418,
+      "via": "stale_run_id_ignored"
+    },
+    {
+      "to": "DEAD_LETTER",
+      "ts": 1786567433.1247287,
+      "via": "off_table_event"
+    },
+    {
+      "current_run_id": "parent-4ac51d21f5c20bd28b5ddb3763a6ad21dbd655aab7898bae-a0-b07348c27ec544c489274ff21ac402eb",
+      "event": "exec_failed",
+      "event_run_id": "parent-4ac51d21f5c20bd28b5ddb3763a6ad21dbd655aab7898bae-a0-d964816a04fe4856ace6aeb6d452a19e",
+      "to": "DEAD_LETTER",
+      "ts": 1786567433.1294696,
+      "via": "stale_run_id_ignored"
+    },
+    {
+      "to": "DEAD_LETTER",
+      "ts": 1786567433.2036395,
+      "via": "off_table_event"
+    },
+    {
+      "current_run_id": "parent-4ac51d21f5c20bd28b5ddb3763a6ad21dbd655aab7898bae-a0-b07348c27ec544c489274ff21ac402eb",
+      "event": "subagent_stop",
+      "event_run_id": "parent-4ac51d21f5c20bd28b5ddb3763a6ad21dbd655aab7898bae-a0-6030eae4208e42978b239bdd69edfc5a",
+      "to": "DEAD_LETTER",
+      "ts": 1786567433.277141,
+      "via": "stale_run_id_ignored"
+    },
+    {
+      "to": "DEAD_LETTER",
+      "ts": 1786567433.2828984,
+      "via": "off_table_event"
+    },
+    {
+      "to": "DEAD_LETTER",
+      "ts": 1786567433.4340353,
+      "via": "off_table_event"
+    }
+  ],
+  "reason": "off_table_event",
+  "ts": 1786567433.4342303
+}

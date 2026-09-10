@@ -1,0 +1,24 @@
+{
+  "acceptance": [
+    "列P0/P1/通过",
+    "不得编辑"
+  ],
+  "authorized_paths": [
+    "harness/refill_controller_v2.py",
+    "harness/refill_consumer_v2.py",
+    "harness/parent_manifest_importer.py"
+  ],
+  "constraints": [
+    "read-only"
+  ],
+  "created_by": "parent_manifest_importer",
+  "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+  "goal": "只读给出当前P0修复是否仍有未完成必需项，明确不能用空backlog解释成调度故障。",
+  "manifest_id": "p0-parent-final-backlog-20260814",
+  "packet_id": "parent-8854a83c3a037dfdbdf3e7785055af728bfd9d957134b775",
+  "parent_enabled": true,
+  "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+  "role": "worker",
+  "sandbox": "read-only",
+  "task_name": "最终交付反证回读"
+}

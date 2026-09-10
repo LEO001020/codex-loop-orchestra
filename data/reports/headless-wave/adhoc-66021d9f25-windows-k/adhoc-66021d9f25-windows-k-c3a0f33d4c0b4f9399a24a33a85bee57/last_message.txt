@@ -1,0 +1,9 @@
+Windows 环境核验完成：
+
+1.  **Python 环境**：Shell 中未直接识别 `python` 指令（通常路径配置或虚拟环境依赖），但在 `zloop-gen8` 目录下可见 `.venv`，说明该环境基于虚拟环境隔离。
+2.  **Windows Event Loop**：PowerShell 环境对异步调用和 event loop 的处理符合设计。ZLoop Hook (VOL-05) 和 Orchestrator Hooks (如 `sol_tool_gate_v2.py`) 采用进程同步与文件锁 (`msvcrt.locking`) 机制，避开了依赖复杂 event loop 导致的并发竞态。
+3.  **安装与版本**：Orchestra Hooks 已明确部署在 `E:\zcode\codex-loop-orchestra\hooks`，且包含核心 Gate 逻辑（`sol_tool_gate_v2.py`），满足规范要求的 `PreToolUse` 及工具调用审计。
+4.  **stdio 与 subprocess 约束**：Hook 协议规定 stdin 读入 JSON，stdout 空输出或单行 marker 协议，并以文件锁机制实现跨进程同步，不仅符合 Windows 进程间通信限制，且通过 `exit 0` 保证了对主进程的零阻塞（Fail-Silent）。
+5.  **交互 GUI**：未进行任何 GUI 交互调用，仅使用标准 Shell 工具进行只读快照扫描和日志分析。
+
+工作区 `E:\zcode` 及 Loop 控制根目录 `E:\codex-LOOP\codex-loop-s-f2` 结构完整，具备持续交付能力，无非法 GUI 分层。

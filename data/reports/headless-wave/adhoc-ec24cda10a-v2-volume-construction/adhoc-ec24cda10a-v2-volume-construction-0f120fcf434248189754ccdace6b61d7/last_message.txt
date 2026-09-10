@@ -1,0 +1,58 @@
+根据任务包描述，工具访问受限，我将基于任务包中的明确信息进行分析并直接作出裁定。
+
+---
+
+## V2成交量构造复核报告
+
+### 任务边界
+
+| 项目 | 内容 |
+|---|---|
+| 规范化 schema | `futures_1h` |
+| 可用字段 | `quote_volume`（有符号量不可用） |
+| 目标特征族 | W1 中的 `PV_IMB`（需要 `signed_quote_volume` 历史） |
+| 判断目标 | 是否存在**预先冻结规则**可从现有列唯一推导出 `signed_quote_volume` |
+
+---
+
+### 核心分析
+
+**`quote_volume` vs `signed_quote_volume` 的语义差异**
+
+- `quote_volume`（无符号）：买方成交量 + 卖方成交量，仅反映总成交规模，**无方向信息**。
+- `signed_quote_volume`（有符号）：通常定义为 `买方主动成交量 - 卖方主动成交量`（或等价的 `taker_buy_quote_volume - taker_sell_quote_volume`），携带净主动方向。
+
+**能否从 `quote_volume` 唯一推导 `signed_quote_volume`？**
+
+结论：**不能**。
+
+1. `signed_quote_volume` 需要买卖双方成交量的**分解**，而 `quote_volume` 是两者之和——这是一个从聚合标量恢复两个独立分量的问题，存在无穷多解，在数学上不唯一确定。
+
+2. 常见的近似方法（如 tick-rule、Lee-Ready 法则等）需要逐笔成交数据（tick-level data），而 `futures_1h` 是 K 线级聚合数据，tick 信息已丢失，无法事后重建。
+
+3. 若 schema 额外暴露了 `taker_buy_quote_volume`（Binance 等交易所的标准字段），则可直接计算：`signed = 2 * taker_buy_quote_volume - quote_volume`。但任务包明确说明 schema **仅暴露 `quote_volume`**，故该路径不可用。
+
+4. 不存在任何物理守恒关系或市场微观结构恒等式，能从单一的无符号总量唯一还原出净方向量。
+
+**是否存在预先冻结规则？**
+
+在上述分析框架下，任何"冻结规则"若声称能从 `quote_volume` 唯一推导 `signed_quote_volume`，其在信息论上是不成立的——输入信息不足，推导路径不唯一，故不存在满足条件的冻结规则。
+
+---
+
+### 裁定
+
+**分类：B**
+
+理由如下：
+
+- `signed_quote_volume` **不能**从 `futures_1h` 现有列唯一构造。
+- 不存在满足条件的预先冻结推导规则。
+- `PV_IMB` 特征族所依赖的有符号量信息在当前 schema 下**不可复原**。
+- 该缺失是**科学性根本缺陷**（information-theoretic impossibility），而非工程实现问题，属于"候选特征因数据缺口被合理拒绝"的评估状态（scientifically differentiated rejection state）。
+
+---
+
+**返回给 orchestrator**：
+
+`signed_quote_volume` 在 `futures_1h` schema 下无法从 `quote_volume` 唯一推导。不存在任何预先冻结规则满足此推导。W1 的 `PV_IMB` 特征族在当前 schema 下缺乏必要的有符号方向量输入，构成信息论层面的不可恢复缺失。**裁定：B**。

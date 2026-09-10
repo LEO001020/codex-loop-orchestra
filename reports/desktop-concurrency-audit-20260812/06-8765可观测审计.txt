@@ -1,0 +1,26 @@
+结论：**8765 混合显示在数据通道上基本真实，但 `deficit` 不在 API 中，`initializing` 可能掩盖卡死，且 `preferred=0/48` 是临时策略覆盖、不是波次-16 目标。**
+
+**已验证事实**
+- 服务真实运行：`loop_monitor_server.py` 监听 `127.0.0.1:8765`（`netstat` PID 42340，`/healthz` 200）。后端实现位于 `E:\codex-LOOP\launchers\loop_monitor_server.py`（默认端口见行653）。
+- 运行时读取三类权威源后合并：Desktop 原生子代理（`native_roster.json`，行220-450）、headless `codex exec`（`exec_roster.json`，行461-490）、以及 Desktop rollout JSONL 兜底（`scan_rollout_subagents`，行276-358，含 PC 重启 fence）。
+- 混合并发计算真实：`counts.running` = Desktop running（行443）+ exec running（行470）+ 未匹配 rollout fallback 估计（行512）；`initializing` 仅计 pending/starting（行429/468），不含 running。
+- pool/target 显示来自 `refill_policy.toml`（行533-547）。当前探测：`target=48`，但 `preferred={v4:0,k3:48}`（行538）——**假设**：这是“临时 all-K3 路线”策略覆写，把 36/12 波次16临时全切成 K3；真实首选波16/reserve 仍在 `config/refill_policy.toml`（36/12）。
+- Desktop 16-spawn 崩溃场景下，rollout fallback 会把未在 roster 中的 rollout 计为 `estimated` 且叠加到 `running`（行512-513），并在 UI 中标 `open~`（行522）；测试 `tests/unit/test_loop_monitor_server.py` 已覆盖 fallback 可见性。
+
+**主要漏洞**
+- **`deficit`（target−running）未由 API 计算/返回**；UI 只显示 target 与各 pool，不显示缺口值。
+- **`initializing` 无 TTL/卡死识别**：pending/spawning 若永久不转 running，会一直保持 initializing（行414/429/468），掩盖卡死的 native 波次。
+- `preferred={0,48}` 在 UI（行604-607）把 display 目标都改到 K3，**假设**会让用户误以为 16 波次=48 K3，违背“16 波次、总48” 的原生目标。
+
+**最小修复建议**
+1. 在 `snapshot()` 返回 `deficit = {pool: max(0, pref[p] − counts.pool[p]), total: max(0, target − counts.running)}`，仅读计算。
+2. `initializing` 加展示 TTL 或独立“stuck initializing”计数，超出 TTL 标明为疑似卡死。
+3. UI 对 `preferred=0/48` 增加“临时政策”横幅，或恢复显示波次-16 目标并另列“当前 K3 临时上限 48”。
+
+**证据**
+- `E:\codex-LOOP\launchers\loop_monitor_server.py`（行220-358、414-551、649-658）
+- `E:\codex-LOOP\codex-loop-s-f2\config\refill_policy.toml`
+- `E:\codex-LOOP\codex-loop-s-f2\harness\refill_controller.py`（行212-260）
+- `E:\codex-LOOP\codex-loop-s-f2\hooks\subagent_lifecycle.py`（行47-60）
+- `E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_loop_monitor_server.py`
+- 实测：`http://127.0.0.1:8765/api/status` 返回 counts/target；`127.0.0.1:10100/healthz` ok；8765 监听 PID 42340。

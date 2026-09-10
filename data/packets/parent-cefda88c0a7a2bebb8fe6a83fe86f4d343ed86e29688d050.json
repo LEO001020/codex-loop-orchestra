@@ -1,0 +1,25 @@
+{
+  "acceptance": [
+    "给出变更范围",
+    "标出任何超范围漂移"
+  ],
+  "authorized_paths": [
+    "harness/",
+    "hooks/",
+    "config/",
+    "data/repairs/"
+  ],
+  "constraints": [
+    "read-only"
+  ],
+  "created_by": "parent_manifest_importer",
+  "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+  "goal": "只读核对本次恢复仅触及自动补位链、状态机事件边界和真值计数，没有整包覆盖或修改 ipybox cleanup/lazy。不得修改文件。",
+  "manifest_id": "loop-recovery-audit-20260813",
+  "packet_id": "parent-cefda88c0a7a2bebb8fe6a83fe86f4d343ed86e29688d050",
+  "parent_enabled": true,
+  "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+  "role": "worker",
+  "sandbox": "read-only",
+  "task_name": "基线漂移边界复验"
+}

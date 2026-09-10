@@ -1,0 +1,56 @@
+.......................................F..F.........                     [100%]
+================================== FAILURES ===================================
+____________________ test_toml_without_model_fails_visibly ____________________
+tests\unit\test_dispatch_model_pin.py:135: in test_toml_without_model_fails_visibly
+    assert "missing model" in p.stderr
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   TypeError: argument of type 'NoneType' is not a container or iterable
+_______________ test_csv_mode_with_unpinned_toml_fails_visibly ________________
+tests\unit\test_dispatch_model_pin.py:172: in test_csv_mode_with_unpinned_toml_fails_visibly
+    assert "missing model" in p.stderr
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   TypeError: argument of type 'NoneType' is not a container or iterable
+============================== warnings summary ===============================
+tests/unit/test_dispatch_model_pin.py::test_toml_without_model_fails_visibly
+  C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\site-packages\_pytest\threadexception.py:58: PytestUnhandledThreadExceptionWarning: Exception in thread Thread-32 (_readerthread)
+  
+  Traceback (most recent call last):
+    File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+      self._context.run(self.run)
+      ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+    File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\threading.py", line 1024, in run
+      self._target(*self._args, **self._kwargs)
+      ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\subprocess.py", line 1613, in _readerthread
+      buffer.append(fh.read())
+                    ~~~~~~~^^
+  UnicodeDecodeError: 'gbk' codec can't decode byte 0x94 in position 168: illegal multibyte sequence
+  
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+    warnings.warn(pytest.PytestUnhandledThreadExceptionWarning(msg))
+
+tests/unit/test_dispatch_model_pin.py::test_csv_mode_with_unpinned_toml_fails_visibly
+  C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\site-packages\_pytest\threadexception.py:58: PytestUnhandledThreadExceptionWarning: Exception in thread Thread-38 (_readerthread)
+  
+  Traceback (most recent call last):
+    File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+      self._context.run(self.run)
+      ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+    File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\threading.py", line 1024, in run
+      self._target(*self._args, **self._kwargs)
+      ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    File "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\Lib\subprocess.py", line 1613, in _readerthread
+      buffer.append(fh.read())
+                    ~~~~~~~^^
+  UnicodeDecodeError: 'gbk' codec can't decode byte 0x94 in position 168: illegal multibyte sequence
+  
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+    warnings.warn(pytest.PytestUnhandledThreadExceptionWarning(msg))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/unit/test_dispatch_model_pin.py::test_toml_without_model_fails_visibly
+FAILED tests/unit/test_dispatch_model_pin.py::test_csv_mode_with_unpinned_toml_fails_visibly
+2 failed, 50 passed, 2 warnings in 14.59s

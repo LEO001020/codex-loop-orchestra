@@ -1,0 +1,51 @@
+扫描完成。以下为本轮（第二波工件定位，只读）对 PC7 handoff 相关 canonical artifact 的定位与 sha256 清单；全程未写入、未读取真实 P5 return label、未执行科学流程。
+
+## 1. PC6 可执行代码（本机存在，E:\VPS）
+
+| 文件 | 大小 | SHA-256 |
+|---|---|---|
+| `E:\VPS\pc6_binance_materializer.py` | 51034 | `163e4f84a87ce2385e25fe783a89e89c722e961249f19c6513956e0646149c73` |
+| `E:\VPS\test_pc6_binance_materializer.py` | 12899 | `4582dd9b80098dee7a1d6d1e2206e84ae4393c66759c2c2013784362b8d8d40c` |
+
+## 2. PC6 canonical 数据工件（final_aae2b2b1，共 6 件）
+
+依据 `p5_pc6_remote_final_gate.sh` 与 `final-repo-state-readback`：canonical 集合为远端 worktree `/data/k3/worktrees/p5-codex-pc6-binance-data-materialization-v1` 中 `artifacts/pc6_binance_data_materialization_v1_final_aae2b2b1/`，提交 `b5585d48`。本机只有 2 件快照（`remote_` 前缀），其余 4 件本地缺失：
+
+| 工件 | 本机路径 | SHA-256 | 状态 |
+|---|---|---|---|
+| P5_PC6_EXECUTABLE_DATA_MANIFEST_V1.json | `E:\VPS\reports\两种View实物复验\remote_P5_PC6_EXECUTABLE_DATA_MANIFEST_V1.json` | `83bb417e8d28318019124d59830c3e667765f65cb7fba7a68c5fb7bebe2b5eb3` | 本地快照（4983540 B） |
+| P5_PC6_PRECOMPUTABLE_STRUCTURAL_VIEWS_V1.json | `E:\VPS\reports\两种View实物复验\remote_P5_PC6_PRECOMPUTABLE_STRUCTURAL_VIEWS_V1.json` | `75326cba4c509a411f455ece0b2c5ee11289f1dde1d82bd087055c1ea17e16b5` | 本地快照（1180 B） |
+| P5_P3_LISTING_EPISODE_LEDGER_V1.json | — | N/A | 本地缺失（仅远端） |
+| P5_P3_PERP_SPOT_IDENTITY_MAP_V1.json | — | N/A | 本地缺失（仅远端） |
+| P5_PC6_BINANCE_STRUCTURAL_QA_V1.json | — | N/A | 本地缺失（仅远端） |
+| P5_PC6_DATA_REVISION_LINEAGE_V3.json | — | N/A | 本地缺失（仅远端） |
+
+非 canonical 旧版本存在于 `E:\VPS\.work\pc6-edit\artifacts\pc6_temporal_closure_v2\`，如 `P5_PC6_DATA_REVISION_LINEAGE_V2.json`（V2，非 V3，`23ffa071…`）等 12 个 V1/V2 工件，不应作为 PC7 handoff 绑定对象（可能构成版本冲突源）。
+
+## 3. PC7 波次 manifest（handoff 控制输入）
+
+| 文件 | SHA-256 |
+|---|---|
+| `E:\VPS\pc7-headless-wave-manifest.json` | `ebb9a97240b341453f48c376278dbef3eb2dcc733226d9ed3d406c5325762cd0` |
+| `E:\VPS\pc7-headless-wave-manifest-2.json` | `526a54d9cc59d7ada3629033d83af991153faa434a2d2f7a4b21e647d76703fb` |
+
+## 4. Canonical LOOP 仓库（E:\codex-LOOP\codex-loop-s-f2）
+
+- Git identity（从 `.git/HEAD` 直接读取，git CLI 因沙箱属主校验被拒）：`main` @ `f1d6eac7ada14333581988aa01735d9f013804fa`
+- 哈希绑定清单 `SHA256SUMS`：`7229cb8e8f8bcd43190d60d78e74eab3096712edfea1e7b9a43aae51928bfb97`
+- 抽查 4 项全部 MATCH：VERSIONS.lock、install.sh、config/model_profiles.toml、harness/headless_wave.py；注意 `AGENTS.md` 未纳入 SHA256SUMS（观察项）。
+
+## 5. Handoff 归档
+
+| 文件 | SHA-256 |
+|---|---|
+| `E:\codex-LOOP\handoff\K3OC-CDX-LOOP-PRO-MODEL-HANDOFF-v2.3-20260803.zip` | `b76f070103443e62dbd13b704e705e1b9bdb8aea4d5945257950f23f1212faae` |
+| `E:\codex-LOOP\K3OC-CDX-LOOP-CODEX-EXECUTION-PACK-v2.3.zip` | `48dc5be3ca31d7b05ed5fddd713fc5cd8a7c5cfc2e2b5e2eef88ffd9533ee2f0` |
+| `E:\VPS\research-memory-v1-final.tar.gz` | `d5d403c00403a9e8f7c7e48a0bdb3ddbba81a7aa508609e043727d87ee7b3567` |
+| `E:\VPS\p5-source-20260810T153334Z.tar.gz`（最新源包） | `9622e64a166280683b4faca976c46ae83cc668d07c79b659c6a703bb75a606e8`（与侧车 `.sha256` 一致） |
+
+## 6. 缺失的 P5 附件（PC7 审查依赖，历史审计已确认缺失）
+
+`E:\VPS\workspace\attachments\` 下预期的 `P5_NEXT_AGENT_BRIEFING.md`、`P5_NEXT_AGENT_EXECUTION_PROMPT.md`、`P5_v2_1_FINAL_OWNER_FREEZE_PACKAGE.md` 均不存在，无法给出 sha256（此前 briefing/ExecutionPrompt/FreezePackage 三份附件审计结论一致：UNKNOWN）。
+
+**结论**：PC7 handoff 的关键绑定对象——PC6 代码与测试、2 件 manifest 快照、波次 manifest、canonical 仓库 SHA256SUMS 均定位成功；4 件 canonical 数据工件与 3 件 P5 附件在本机不可见，需远端 `/data/k3` 或上游补充后才能完成完整哈希绑定。

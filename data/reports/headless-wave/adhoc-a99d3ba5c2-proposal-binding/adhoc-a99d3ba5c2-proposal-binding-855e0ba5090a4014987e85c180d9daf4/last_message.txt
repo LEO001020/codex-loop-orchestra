@@ -1,0 +1,61 @@
+Byte-identical confirmed. Now I have all data needed to answer definitively. Let me compile the complete findings:
+
+---
+
+## 结果报告：提案绑定判定
+
+### EXACT_MATCH_LOCATIONS
+
+**d150 app-v3 manifest 哈希 (`d150843963d5eaba04016fbbb709c95ef7487c1a5320978a908a68ac76ca269c`) 已内嵌于 T1 和 W1 的 V5 suffix 中：**
+
+| 文件 | 位置 | 哈希确认 |
+|---|---|---|
+| `reports/direct-repair-release-build-20260813/P5_T1_STATISTICAL_AUTHORITY_PROPOSAL_V5.md` | suffix JSON 字段 `production_app_manifest_sha256` | ✓ 精确匹配 |
+| `reports/direct-repair-release-build-20260813/P5_P3_H0_WAVE1_STATISTICAL_AUTHORITY_PROPOSAL_V5.md` | suffix JSON 字段 `production_app_manifest_sha256` | ✓ 精确匹配 |
+| `reports/owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18/proposals/P5_T1_STATISTICAL_AUTHORITY_PROPOSAL_V5.md` | 同字段 | ✓ 字节完全一致（sha256 `7f2fc279...`） |
+| `reports/owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18/proposals/P5_P3_H0_WAVE1_STATISTICAL_AUTHORITY_PROPOSAL_V5.md` | 同字段 | ✓ 字节完全一致（sha256 `d74536b1...`） |
+
+`P5_PRODUCTION_APP_V3_MANIFEST_V1.json` 的 SHA256 机械验证结果：`D150843963D5EABA04016FBBB709C95EF7487C1A5320978A908A68AC76CA269C` — 与 suffix 内嵌值完全一致。
+
+---
+
+### V6_REQUIRED: **NO**
+
+d150 app-v3 manifest 绑定**已存在**于当前授权的 T1/W1 V5 文件中（direct-repair-release-build 版本，schema `p5-authority-proposal-v5-identity-suffix/1`）。这些文件已被 fl18 cutover 包按字节复制，是当前最终版本。无需 V6 来添加此绑定。
+
+> 注意区分：`reports/v5-prefix-generator-20260813/` 下的早期 V5 文件（schema `v5-prefix-1`）**不含** d150 绑定，但那是被 direct-repair-release-build 版本所取代的旧版本，不是当前生效文件。
+
+---
+
+### PREFIX_RULE
+
+当前生效 V5 的 prefix 规则（schema `p5-authority-proposal-v5-identity-suffix/1`）：
+
+- **V5 = V4 exact bytes（字节完全前缀）+ identity-only suffix**
+- suffix 布局：`LF + ---V5-IDENTITY-ONLY-SUFFIX-BEGIN--- + LF + 单行 JSON envelope + LF + ---V5-IDENTITY-ONLY-SUFFIX-END--- + LF`
+- `body_prefix.sha256` == `sha256(V4)`，`body_prefix.bytes` == `len(V4)`，由 suffix JSON 中内嵌引用锁定
+- **禁止**：对 V4 正文区域进行任何编辑（包括填写 `<PC7_FREEZE_CAPTURE_ON_K3>` 等 placeholder）
+- V5 文件字节数 = V4 字节数 + suffix 字节数（T1: 3577+1351=4928；W1: 5240+1373=6613）
+
+---
+
+### ROOT_REPIN_FIELDS
+
+当前 T1/W1 V5 suffix 中包含的所有 root engineering binding 字段（完整枚举，均在 `---V5-IDENTITY-ONLY-SUFFIX-BEGIN/END---` 之间的单行 JSON 中）：
+
+| 字段 | T1 值 | W1 值 |
+|---|---|---|
+| `production_app_manifest_sha256` | `d150843963d5eaba04016fbbb709c95ef7487c1a5320978a908a68ac76ca269c` | 同上（相同） |
+| `implementation_commit` | `39b2b1204d8cc72e25af23da2c60004c7b10a62e` | 同上（相同） |
+| `interpreter_sha256` | `1643dacd9feaedc58f3cc581e4d22577dfe25c09b10282936186ccf0f2e61118` | 同上（相同） |
+| `dependency_manifest_sha256` | `308b52bd7a505e7c5b0fb1bb660c6234321a928e2da39cdc68c347fdde19e1fe` | 同上（相同） |
+| `authority_runtime_sha256` | `0c5cbbd4468a86cfa55967bf7464cbda3d139856555f5e99bdcc8d248bf61be0` | 同上（相同） |
+| `authority_store_sha256` | `ee57286b24f17939b181b4b5600ac876b872ad2892d14149b8a865194bc1dc7d` | 同上（相同） |
+| `delegation_runtime_sha256` | `b0f2723853da5309f367705576983ef84e96dcc1fef2f3885e9a87b4ceea94f2` | 同上（相同） |
+| `amendment_d_sha256` | `c419cbdc0bc26670d5c18b37f183a9cd3481b00680f0b10d3176e482ef1d5be4` | 同上（相同） |
+| `schema_migration_sha256` | `df5e2762c9bd1923efc7e87a7e80285c440a282a23b0d9fdfa77c66a339efda9` | 同上（相同） |
+| `evaluator_sha256` | `1ff19be86007843c102a04ea6aeec651cee761e3077ac6c87ac1aca247e6fb7d` | 同上（相同） |
+| `body_prefix.sha256` (V4 lock) | `6ef20bff3efdc495d387576ed3ace338a3021419bae60abb93142c1bb7830d0d` | `14abb76893072dd5c0c3d02d60b30d8aa4a6d6a20ffc8156cbef85dabb379647` |
+| `body_prefix.bytes` | 3577 | 5240 |
+
+所有 root engineering binding 字段均已内嵌于现有 V5 suffix 中，不缺少任何字段，不需要 V6。

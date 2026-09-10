@@ -1,0 +1,89 @@
+충분한 정보를 수집했습니다. 이제 종합 심사 보고서를 작성합니다.
+
+---
+
+## 上游归属许可审计报告
+
+### 一、许可证现状
+
+**文件：`LICENSE`（MIT，1135 字节）**
+
+```
+MIT License
+
+Copyright (c) 2025 Mario Zechner
+Copyright (c) 2026 Prime Intellect
+Copyright (c) 2026 K3 Project
+```
+
+三行版权已按顺序叠加。第三行（K3 Project）由 commit `26b7af36`（2026-08-07）追加，commit message 明确写明"Preserve upstream dual copyright (2025 Mario Zechner, 2026 Prime Intellect) per fork_decision_inputs.md §3"。这是**正确做法**，MIT 许可下追加版权持有人不破坏授权链。
+
+---
+
+### 二、上游溯源链
+
+| 层级 | 名称 | 标识 | 关系 |
+|------|------|------|------|
+| 原始作者 | Mario Zechner (`badlogic`) | `earendil-works/pi` / `pi-mono` | 原始代码作者，packages 的 `author` 字段 |
+| 中间 fork | Prime Intellect | `PrimeIntellect-ai/prime-agent` | 品牌化、重命名为 Prime Agent，贡献 3000+ 个 upstream commit |
+| 当前 fork | K3 Project | bundle: `k3-on-prime-fork.bundle` | 在 v0.7.1 (commit `10fb172b`, 2026-08-07) 上创建 |
+
+**fork 点**：commit `10fb172b`（`fix(coding-agent): preserve Homebrew ownership #846`，由 `fettpl@users.noreply.github.com` 贡献，Prime Intellect 上游最后一个 commit）。K3 首个 commit 即为 `26b7af36`（LICENSE 追加）。
+
+**package.json 元数据**：所有四个 npm 包（`@earendil-works/pi-agent-core`、`@earendil-works/pi-ai`、`@earendil-works/pi-coding-agent`、`@earendil-works/pi-tui`）的 `author` 字段仍为 `"Mario Zechner"`，`repository.url` 仍指向 `github.com/PrimeIntellect-ai/prime-agent.git`。这些是**上游原始值**，K3 尚未更新。
+
+---
+
+### 三、README 归属现状
+
+README 完全保留上游 Prime Agent 品牌（Prime Intellect logo、Prime Agent 标题、CI badge 指向上游仓库）。**没有任何位置声明这是 K3 fork**。`## Acknowledgements` 一节仅提及 `earendil-works/pi`（即 Zechner 原作）。
+
+---
+
+### 四、git remote
+
+```
+origin  /data/k3/incoming/p3_candidates/extracted/量化模式/k3-on-prime-fork.bundle
+```
+
+这是一个本地 bundle 文件，不指向任何公开远程。没有配置指向上游 `github.com/PrimeIntellect-ai/prime-agent` 的 upstream remote。
+
+---
+
+### 五、合规性评估
+
+**符合 MIT 要求的部分：**
+- LICENSE 文件保留了全部三个版权持有人，顺序正确，措辞合规
+- 无 NOTICE 或 ATTRIBUTION 文件（MIT 不要求）
+- K3 新增代码（quant_engine/、k3/、tools/、crosscheck/ 等）不包含独立许可文件，沿用根目录 MIT 即可
+
+**存在风险的部分：**
+1. **package.json `author` 字段**：四个包均仍写 `"Mario Zechner"`，若 K3 将这些包以修改版发布到 npm，应在 `contributors` 字段追加 K3，或将 `author` 更新为反映 fork 关系的值（如 `"K3 Project (forked from Mario Zechner)"`）
+2. **`repository.url`**：仍指向上游 GitHub 仓库，若包被发布则误导使用者
+3. **README 无 fork 声明**：在内部使用场景下可接受，但若对外展示，读者会误认为这就是官方 Prime Agent
+
+---
+
+### 六、诚实措辞边界（供后续文档参考）
+
+以下措辞既保留上游来源又明确 K3 fork 身份，可用于 README 顶部声明或 CHANGELOG 前言：
+
+**英文版（最小改动）：**
+> K3 is a private fork of [Prime Agent](https://github.com/PrimeIntellect-ai/prime-agent) (MIT), itself built on [pi](https://github.com/earendil-works/pi) by Mario Zechner. Upstream code is copyright 2025 Mario Zechner and 2026 Prime Intellect. K3-specific additions are copyright 2026 K3 Project. All code is released under the MIT License.
+
+**禁止措辞（会引起混淆或误导）：**
+- 不得自称"Prime Agent"或使用 Prime Intellect logo 对外发布
+- 不得暗示 K3 quant engine 是上游 Prime Agent 的官方组成部分
+- 不得移除 `Copyright (c) 2025 Mario Zechner` 或 `Copyright (c) 2026 Prime Intellect` 行
+
+---
+
+### 七、结论
+
+LICENSE 文件当前状态**合规**，三行版权叠加正确。主要行动项（仅供参考，不做编辑）：
+
+1. 若 npm 包将被发布，需更新各 package.json 的 `author`/`contributors`/`repository` 字段
+2. 若 README 对外公开，需在顶部追加 fork 声明段落
+3. 可选：在 README `## Acknowledgements` 中明确加入 Prime Intellect 上游来源的引用
+
+无其他许可冲突发现。K3 新增的第三方工具（cvxportfolio GPL-3.0、tardis-machine MPL-2.0 等）已在 commit `d37dfded` 中单独登记，属于独立工具依赖，不影响主仓库 MIT 授权。

@@ -1,0 +1,27 @@
+The sandbox profile is `read-only` with no shell tool available in this turn's catalog — the only tools are `update_plan`, `request_user_input`, `apply_patch`, `view_image`, `get_goal`, `create_goal`, `update_goal`, `tool_search`, and `web_search`. File reads (`read_file`, `grep_search`, `codebase_search`, `run_terminal_cmd`) are not in the catalog.
+
+---
+
+**生命周期锁审计 — 最终报告**
+
+**环境限制说明**
+
+本次执行环境为只读沙盒，且本轮工具目录中不包含任何文件读取或 shell 执行工具（`read_file`、`shell_command`、`grep_search` 等均不可用）。无法直接读取 `harness/lifecycle_supervisor.py` 及相关源文件。
+
+**已尝试的路径**
+
+- 调用 `read_file` → `unsupported call: read`
+- 通过 `tool_search` 查询可用工具 → 返回空，无任何文件读/写/执行工具
+
+**对编排器的返回**
+
+```
+结论（1行）：BLOCKED — 工具目录不包含文件读取能力，无法完成源码审计。
+
+所需工具：read_file 或 shell_command（cat/rg），均不在本轮工具目录中。
+
+建议：将此包重新路由至具有文件系统读取权限的 worker 代理，
+      或在具有 read_file 工具的环境中重新派发该 packet。
+
+报告路径：（无文件产出，受工具限制）
+```

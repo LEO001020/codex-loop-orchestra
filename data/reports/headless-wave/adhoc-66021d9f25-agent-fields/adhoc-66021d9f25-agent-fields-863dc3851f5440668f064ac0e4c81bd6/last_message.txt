@@ -1,0 +1,24 @@
+根据对 `E:\codex-LOOP\codex-loop-s-f2\hooks` 目录和 `E:\zcode\zloop-spec\VOL-05-HOOK-BINDING.md` 的核验，现将 Hook 宿主契约情况汇总如下：
+
+### 1. Hook 事件与机制
+- **主要 Hook 入口**：通过 `sol_tool_gate.py`（针对 PreToolUse）、`subagent_lifecycle.py` 和 `root_agent_spawn_gate.py` 等实现事件监听与拦截。
+- **Matcher 逻辑**：Hook 系统通过读取 stdin 的 JSON 输入，根据 `hook_event_name` 分派处理逻辑，而不依赖 args，确保了事件处理的安全性与一致性。
+- **stdin/stdout 与退出码**：
+    - **Stdout JSON**：所有交互通过 JSON 序列化 stdin 与 stdout 进行，stdout 输出受到最大字节限制（规范要求 32768 字节）。
+    - **退出码**：Hook 严格要求退出码必须为 0，以防止 Hook 本身的故障导致业务流程终止或异常，故障均采用丢弃或静默记录，不阻塞主流程。
+
+### 2. SessionStart 事件 (Startup/Resume/Clear/Compact)
+Session 管理通过 `Hook-Binding` 子系统绑定：
+- **Startup/Resume**：仅当 session ID 确切绑定时触发，严禁匹配最近的 active run。
+- **Clear**：默认配置下不产生输出。
+- **Compact**：专门针对 `exact bound session` 注入有界的摘要信息，禁止任何 repo-wide 扫描或模型调用。
+
+### 3. PostToolUse 与 Agent
+- **PostToolUse** 是唯一同时持有 `session_id` 与结构化 `tool_response` 的位置。Hook 系统在此点对 Agent 的动作进行记录与审计。
+- **Agent 约束**：所有 Spawning (`root_agent_spawn_gate.py`, etc.) 均有严格的代理边界核验。
+
+### 4. 其它技术约束
+- **延迟预算**：Hook 调用 inline 计数于工程目标，P95 的响应延迟（非硬 gate）为 startup 600ms 以下，其余事件在 300-500ms 之间。Hook 逻辑中严禁网络调用、模型调用、Repo 扫描或复杂历史搜索。
+- **失败语义**：Hook 系统设计遵循双向故障隔离，任何异常（包括磁盘满、ACL 错误、非法 JSON）均应在不拖死主调分支的情况下静默返回 exit 0。
+
+该 Hook 系统作为 L2 层级子系统，其规范性与安全性（如对 stdin JSON 的校验、对模型调用的限制、以及对 exit 0 的一致性要求）均已在 `VOL-05` 规格及各 Python 实现脚本中明确。

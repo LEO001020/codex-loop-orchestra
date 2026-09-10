@@ -1,0 +1,53 @@
+Now I have all the information needed. Let me compile the final audit report.
+
+**Summary of findings — hard-coded old K3/V4 model assertions in active code and tests (excluding backup/ and historical baselines):**
+
+---
+
+## Profile Drift Audit — Findings
+
+**Active profile:** `v4f-sonnet-review`  
+**Execution model:** `weiwu/deepseek-v4-flash`  
+**Review model:** `weiwu/aws.claude-sonnet-4.6`  
+**Old pinned review model (previous era):** `weiwu-k3/kimi-k3`
+
+---
+
+### 1. Runtime code — hard-coded stale K3 default (will silently revert to old model if a profile entry lacks `review_model`)
+
+- `E:\codex-LOOP\codex-loop-s-f2\harness\model_profile.py:103` — `item.get("review_model", "weiwu-k3/kimi-k3")` — fallback default bakes old K3 model string; any new profile missing `review_model` silently inherits it
+- `E:\codex-LOOP\codex-loop-s-f2\harness\model_profile.py:347` — same stale fallback in the `list` display formatter
+
+### 2. Runtime code — gate classification gap (functional drift: sonnet reviewer gets deny instead of pass)
+
+- `E:\codex-LOOP\codex-loop-s-f2\hooks\sol_tool_gate.py:44–51` — `MODEL_FAMILY` dict contains `"weiwu-k3/kimi-k3": "k3"` but **missing** `"weiwu/aws.claude-sonnet-4.6"` entry; the current review model is unrecognized by the gate and gets a DENY
+
+### 3. Runtime code — metering classification gap (sonnet reviewer tokens unclassified)
+
+- `E:\codex-LOOP\codex-loop-s-f2\metering\model_token_share.py:41` — `MODEL_BUCKET` contains `"weiwu-k3/kimi-k3": "verifier"` but **missing** `"weiwu/aws.claude-sonnet-4.6"` entry; current reviewer session tokens fall into unclassified bucket
+
+### 4. Config — stale model string in escalation_ladder bearer annotation
+
+- `E:\codex-LOOP\codex-loop-s-f2\config\escalation_ladder.yaml:62` — `bearer: "agents/verifier.toml (weiwu-k3/kimi-k3, cross-family L2, max reasoning)"` — verifier.toml now pins sonnet, not K3
+
+### 5. Config — stale comment in orchestration_common.py docstring
+
+- `E:\codex-LOOP\codex-loop-s-f2\harness\orchestration_common.py:15–16` — docstring says `"current temporary deployment pins execution = weiwu-k3/kimi-k3"` — execution model is now `weiwu/deepseek-v4-flash` and review is `weiwu/aws.claude-sonnet-4.6`
+
+### 6. Tests — hard-coded K3 model in fixture/assertion (would fail if K3 pool coverage were asserted against active profile)
+
+- `E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_sol_tool_gate.py:17` — `K3 = "weiwu-k3/kimi-k3"` used as test fixture model; no corresponding sonnet coverage in `test_v4_and_k3_are_not_gated`
+- `E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_loop_monitor_server.py:80` — `assert result["tasks"][0]["model"] == "weiwu-k3/kimi-k3"` — direct equality assertion against old model string
+- `E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\conftest.py:137,152` — fixture hard-codes `"weiwu-k3/kimi-k3"` for K3 model in test environment setup
+- `E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_model_profile.py:43,44,45,47,49,95` — hard-coded `"weiwu-k3/kimi-k3"` in expected profile tuples for `glm`, `k3-only`, `v4f`, `sonnet46-dual` profiles and WSL reviewer assertion; note line 95 asserts review model is K3 after switching to `sonnet46-dual` — correct for that profile, but adjacent test coverage for `v4f-sonnet-review` is absent
+- `E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_release_review_route.py:82,99,139,145,153` — hard-coded `"weiwu-k3/kimi-k3"` for reviewer role in release review route test fixtures
+- `E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_refill_controller.py` (multiple lines: 231, 287) — K3 pool counts built with `weiwu-k3/kimi-k3`
+- `E:\codex-LOOP\codex-loop-s-f2\tests\test_refill_controller_v2.py:52,134,183` and `tests\orchestration_v2\test_refill_controller_v2.py:53,157,208` — `classify_pool("weiwu-k3/kimi-k3") == "k3"` assertion and pool-count fixtures using K3 model string
+
+---
+
+**Highest-severity items (runtime drift, not just test coverage gaps):**
+
+1. `hooks/sol_tool_gate.py:50` — `MODEL_FAMILY` missing `weiwu/aws.claude-sonnet-4.6`; active reviewer gets gated/denied
+2. `metering/model_token_share.py:41` — `MODEL_BUCKET` missing `weiwu/aws.claude-sonnet-4.6`; reviewer tokens mis-bucketed
+3. `harness/model_profile.py:103` — stale `"weiwu-k3/kimi-k3"` default fallback for `review_model`

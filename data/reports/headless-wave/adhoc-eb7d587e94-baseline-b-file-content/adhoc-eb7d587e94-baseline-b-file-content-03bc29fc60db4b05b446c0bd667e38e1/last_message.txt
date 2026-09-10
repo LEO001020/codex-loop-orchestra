@@ -1,0 +1,63 @@
+现在我已经获得了全面的比较信息，可以整理输出结果：
+
+---
+
+## B基线内容哈希比较报告
+
+**基线路径：** `deliveries/fable-audit-20260810/stage/…/source/codex-loop-s-f2`  
+**当前路径：** `codex-loop-s-f2`
+
+---
+
+### 1. 同路径内容变化（哈希不同）
+
+| 文件 | 变化要点 | 风险 |
+|------|----------|------|
+| `config/refill_policy.toml` | `target_total` 48→80；`v4_target` 36→60；`k3_target` 12→20；新增 `dialogue_target=20`、`meta.policy_version`；低水位全面上调 | **P0** — 并发上限扩大近2倍，未同步更新则调度逻辑静默错误 |
+| `config/roles.yaml` | `executor/scout/duty_officer` 模型从 `weiwu/deepseek-v4-flash` 改为 `weiwu/aws.claude-sonnet-4.6`；`reviewer/verifier` 从 `weiwu-k3/kimi-k3 max` 改为 `weiwu/aws.claude-sonnet-4.6 ultra`；`plan_expander` 角色新增 | **P0** — 路由角色全部换模型，K3独立审核层消失，费用模型、延迟特性根本性改变 |
+| `harness/dispatch.py` | 行数744→908；新增 `import shutil`；`RELEASE_REVIEW_MODEL` 常量消失，改为 `release_review_model()` 从TOML动态读取（`dispatch.py:49`）；新增 `release_review_pins()` 校验函数（`~L60`）；新增 `budget_block` 返回码3（`~L882`）；sol_budget_block集成 | P1 — 模型引用方式改变，若TOML缺失则失败可见而非回退 |
+| `harness/statemachine.py` | 行数411→446；事件游标修复：原`open(cursor_f).write(str(os.path.getsize(...)))`（基线`statemachine.py:400-403`）改为 `consumed = f.tell()` 后持久化（`~L421`）；新增 `orchestration_epilogue` 调用（`~L432`） | **P1** — 修复了游标跳跃导致并发事件静默丢失的竞态（P1-8） |
+| `hooks/sol_tool_gate.py` | `MODEL_FAMILY` 新增 `alibaba-token-plan/glm-5.2` 和 `weiwu/glm-5.2` 两个v4别名（`~L46-47`）；其余逻辑未变 | P1 — 新模型别名不在表中则走"family unknown"分支被错放 |
+| `hooks/subagent_lifecycle.py` | 行数646→834；新增 `ctypes`/`wintypes` 导入（`~L13`）；新增 `cold_reconcile()` 冷启动对账函数（`~L642-660`）；新增 `process_matches()` PID防复用校验（Windows GetProcessTimes，`~L663-700`）；新增原子写超时重试逻辑 | P1 — 无此修复则冷启动后运行中进程状态可能遗留，PID复用导致误判存活 |
+| `metering/model_token_share.py` | `KNOWN_MODELS` 新增 `alibaba-token-plan/glm-5.2` 和 `weiwu/glm-5.2` 两个worker别名（`~L42-43`）；其余保持 | P1 — 缺少则新别名token计费落入unknown桶 |
+| `harness/lifecycle_supervisor.py` | 行数545→837；新增 `publish_report()` 安全副本函数（`~L574-604`）；新增 `l2_consumer` L2幂等完成路径（`~L698-714`）；新增 `budget_controller.reclaim()` 调用（`~L790-797`）；新增 `schedule_epilogue` / `schedule_run` finally块（`~L780-790`）；新增 `proc_start_ticks()` 跨平台PID令牌（`~L548-571`） | **P0/P1** — 缺少budget reclaim则预算不归还池，缺少report路径校验则写可逃出owned roots |
+
+---
+
+### 2. 仅当前新增的核心代码（基线无对应文件）
+
+| 新文件 | 行数 | 定位 | 风险 |
+|--------|------|------|------|
+| `harness/statemachine_v2.py` | 757 | 26条原有转换全保留 + 12条新转换(t27-t38)；修复P1-8游标竞态；修复P1-9看门狗盲区 | **P0** — 若未切换使用则P0-3 dead-letter仍走off-table路径 |
+| `harness/dispatch_v2.py` | 672 | 修复P0-5.1：sol_budget_block原本比较dispatch角色模型（永远非Sol模型，等于null gate）；v2改为比较meter驱动的BLOCK状态 | **P0** — 原dispatch.py的budget gate实为空操作 |
+| `harness/refill_controller_v2.py` | 691 | 修复P0-6：K3池demand计数缺失（原始代码只写v4 pool，K3配额被V4永久借用） | **P0** — K3 starve问题 |
+| `harness/budget_controller.py` | 477 | 三层token预算：全局配额/任务预算/轮次阶梯；BATS注入；回收/再分配 | P1 |
+| `harness/root_turn_governor.py` | 560 | 取代 `sol_tool_gate.py`；修复P0-5：planning租约到期；状态需attestation；Sol share HIGH时拦截 | **P0** |
+| `harness/lifecycle_supervisor_v2.py` | 375 | 修复P0-7：success条件改为 `rc==0 AND report.exists() AND validate_short_result()==OK`；隔离非法report | **P0** |
+| `harness/short_result_validator.py` | 355 | 机械校验500token/8findings/additionalProperties=false/revision guard | **P0**（P0-7依赖） |
+| `harness/result_reducer.py` | 491 | AdjudicationPacket聚合；Sol收到有界摘要而非原始返回 | P1 |
+| `harness/agent_router.py` | 537 | layered模式K3优先路由；K3不可用时降级有记录原因码 | P1 |
+| `harness/l2_consumer.py` | 1006 | L2幂等消费；校验revision；拒绝非法结果 | P1 |
+| `hooks/sol_tool_gate_v2.py` | 433 | 与 `root_turn_governor.py` 配套的v2工具门（PreToolUse hook） | P0 |
+| `metering/model_token_share_v2.py` | 653 | 修复P0-4.4：run_role_map attribution；K3 demand side-effect | P1 |
+| `harness/headless_wave.py` | 507 | 有界task manifest的headless wave启动器 | P1 |
+| `config/model_profiles.toml` | 32 | 模型档位配置；`model_profile.py`读取 | P1 |
+| `install_v2.sh` | — | manifest驱动部署；基线只有 `install.sh` | P1 |
+| `agents/plan_expander.toml` | 21 | 新增plan_expander角色TOML | P1 |
+
+---
+
+### 3. 可能P0/P1总结
+
+**P0（已修复，若未部署则仍存在）：**
+- `config/refill_policy.toml:7` — policy_version+并发参数变更，若旧版运行则refill_controller读错数字
+- `config/roles.yaml:35-65` — 全角色模型替换，K3审核层消失
+- `harness/dispatch_v2.py:1` — 原 `dispatch.py` sol_budget_block为无效gate（`dispatch.py:44` `RELEASE_REVIEW_MODEL`硬编码已移除）
+- `harness/refill_controller_v2.py:1` — K3池demand从未写入（原 `refill_controller.py` P0-6）
+- `harness/lifecycle_supervisor_v2.py:1` / `harness/short_result_validator.py:1` — 无schema校验的child结果可传播（P0-7）
+- `hooks/sol_tool_gate_v2.py` / `harness/root_turn_governor.py` — planning永久豁免未封堵（P0-5）
+
+**P1（修复有效，旧版仍有隐患）：**
+- `harness/statemachine.py:421` — 游标写法从 `getsize()` 改为 `f.tell()`，修复P1-8并发写丢事件
+- `hooks/subagent_lifecycle.py:663` — 新增Windows PID防复用令牌（GetProcessTimes），修复冷启动误判
+- `hooks/sol_tool_gate.py:46-47` — 新模型别名缺少则family-unknown分支逻辑错误

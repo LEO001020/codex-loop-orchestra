@@ -1,0 +1,48 @@
+Reading additional input from stdin...
+2026-08-14T08:08:08.243885Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T08:08:17.368747Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T08:15:03.678267Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 217ms)... turn_id=019fff50-6b96-76e2-ab5e-3472d4626cdc retries=1 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T08:19:50.435349Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 411ms)... turn_id=019fff50-6b96-76e2-ab5e-3472d4626cdc retries=2 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T08:22:02.016902Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 186ms)... turn_id=019fff50-6b96-76e2-ab5e-3472d4626cdc retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+2026-08-14T08:22:50.101370Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.2 seconds
+Output:
+Select-String : 找不到路径“E:\codex-LOOP\config\orchestration_policy_v2.toml”，因为该路径不存在。
+所在位置 行:2 字符: 1
++ Select-String -Path E:\codex-LOOP\config\orchestration_policy_v2.toml ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (E:\codex-LOOP\c..._policy_v2.toml:String) [Select-String], ItemNotFound 
+   Exception
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.SelectStringCommand
+ 
+
+2026-08-14T08:23:51.923902Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 3.8 seconds
+Output:
+
+FullName                                                                                  
+--------                                                                                  
+E:\codex-LOOP\codex-loop-s-f2\config\model_profiles.toml                                  
+E:\codex-LOOP\recovery-staging\prepatch-20260814-1318-candidate\config\model_profiles.toml
+E:\codex-LOOP\.audit-fable-20260813-fe139077266b42b6bf51c9b085012680\codex-loop-s-f2-or...
+E:\codex-LOOP\.fable-install-test-20260813-wsl\config\orchestration_policy_v2.toml        
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\config\orchestration_policy_v2.toml  
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\config\orchestration_policy_v2.toml         
+E:\codex-LOOP\codex-loop-s-f2\config\orchestration_policy_v2.toml                         
+E:\codex-LOOP\recovery-staging\prepatch-20260814-1318-candidate\config\orchestration_po...
+E:\codex-LOOP\staging\fable-orchestration-v2-audit-20260811\codex-loop-s-f2-orchestrati...
+
+
+
+2026-08-14T08:28:56.346893Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 204ms)... turn_id=019fff50-6b96-76e2-ab5e-3472d4626cdc retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+2026-08-14T08:36:51.821543Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 417ms)... turn_id=019fff50-6b96-76e2-ab5e-3472d4626cdc retries=2 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider response-header timeout after 200000ms during web-search, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T08:41:06.606282Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 738ms)... turn_id=019fff50-6b96-76e2-ab5e-3472d4626cdc retries=3 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T08:45:59.438272Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.577s)... turn_id=019fff50-6b96-76e2-ab5e-3472d4626cdc retries=4 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses

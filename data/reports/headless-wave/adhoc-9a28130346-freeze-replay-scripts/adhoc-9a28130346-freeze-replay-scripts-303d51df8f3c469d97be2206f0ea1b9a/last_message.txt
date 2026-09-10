@@ -1,0 +1,75 @@
+ni-j 无任何 `.ps1` 会 `ConvertFrom-Json` 后 apply；真正「读 desired-state JSON 再打设备」的只有 3 个 `.py`：日常 `HONOR_Reapply_Reduced.py`（只 ignore `enforced_reduced_packages`）、`reconcile_after_ota.py --apply`（disable-user + ignore + 摘白名单）、一次性 `restore_keep_freq.py`（门闩 JSON 后把硬编码三包改 default）。沙箱只读，未能写入 [43_freeze_replay_scripts.md](/C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/outputs/audit_20260830/43_freeze_replay_scripts.md)；对照 [34_json_replay_consumers.md](/C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/outputs/audit_20260830/34_json_replay_consumers.md)。
+
+证据：`C:\Users\hzq00\Documents\Codex\HONOR_Reapply_Reduced.py` L20/L96-118/L228；桌面 `C:\Users\hzq00\Desktop\HONOR-重启后恢复Reduced.cmd`；ni-j 副本 `...\work\stage4_replay\HONOR_Reapply_Reduced.py`（多 L199-200 的 33 警告）；`...\scripts\reconcile_after_ota.py` L100-107/L134-157；`...\work\stage4_keep_freq\restore_keep_freq.py` L59/L89；`HONOR_Stage5_KeepAlive.py` L29 `DESIRED=` 后无 `json.load`；全部 `.ps1` 对 `HONOR_DESIRED_STATE` 仅 Stage5 rollback L4 注释；上次实跑 `C:\Users\hzq00\Documents\Codex\logs\HONOR_Reapply_Reduced_20260829_025350.log`。
+
+---
+
+# 冻结重放脚本清单（只读，2026-08-30）
+
+范围：ni-j 内 `.ps1/.py`，外加桌面/Codex 根目录实际入口。未执行 replay / `--apply` / rollback / `settings put` / `pm` / `appops set`。
+
+主 JSON：`C:\Users\hzq00\Documents\Codex\2026-08-23\ni-j\outputs\HONOR_DESIRED_STATE.stage3.20260823.json`
+
+**一行：ni-j 没有会 `ConvertFrom-Json` 后 apply 的 `.ps1`；真正「读 desired-state JSON 再打设备」的只有 3 个 `.py`（日常 Reduced 重放、OTA `--apply` 对账、keep_freq 一次性），其余要么只读、要么硬编码写入、要么先写设备再改 JSON。**
+
+## 1. 真正「读 JSON → apply」
+
+| # | 脚本 | 读哪个 JSON / 哪些键 | apply 命令 | 触发 | 备注 |
+|---|---|---|---|---|---|
+| 1 | `C:\Users\hzq00\Documents\Codex\HONOR_Reapply_Reduced.py` | 硬编码 `DESIRED=...HONOR_DESIRED_STATE.stage3.20260823.json`；`json.loads` 后只取 `enforced_reduced_packages` | 每包 `cmd appops set --user 0 PKG RUN_ANY_IN_BACKGROUND ignore`；本轮确有写入才 `cmd appops write-settings`。源码声明 Never: `pm` / `settings put` / whitelist / reboot / kill-server | 日常入口：桌面 `HONOR-重启后恢复Reduced.cmd` → 该 py；薄包装 `HONOR_Reapply_Reduced.ps1` 也只 `python` 这份 | **生产重放器。** 不读 disabled / dockBar / keep_alive。从名单删包不会自动 allow。bak 覆盖 freeze 后再跑会把 B 站打回 ignore。上次实跑 `logs\HONOR_Reapply_Reduced_20260829_025350.log`：`desired_count=29` 全 NOOP |
+| 2 | `C:\Users\hzq00\Documents\Codex\2026-08-23\ni-j\work\stage4_replay\HONOR_Reapply_Reduced.py` | 同 #1 | 同 #1 | **无桌面入口**；是 #1 的工作区副本 | SHA256 不同：多一行 `desired_count != 33` WARNING（L199-200）。逻辑同 #1，日常不走这条 |
+| 3 | `C:\Users\hzq00\Documents\Codex\2026-08-23\ni-j\work\stage3_pkg\HONOR_VER_AN10_CODEX_STAGE3_AGGRESSIVE_OTA_RECONCILE\scripts\reconcile_after_ota.py` | `--desired`（默认 **seed.json**，不是现行 freeze）；`json.loads` 后读 `enforced_disabled_packages` / `enforced_reduced_packages` / `whitelist_policy` / `baseline_*` | **仅 `--apply`：** `pm disable-user --user 0 PKG`；`cmd appops set ... RUN_ANY_IN_BACKGROUND ignore`；`whitelist_policy==ensure_absent` 时 `dumpsys deviceidle whitelist -PKG`。`--audit` 只出 proposed JSON。`--freeze` 回写 JSON 不打设备 | 现存调用 `p7_p8.py` / `reconcile_again.py` 都是 `--audit --desired freeze` | **唯一通用 JSON 对账 apply 引擎。** 对现行 freeze `--apply` 会把现场 enabled≠3 的包（phoneservice）扳回 disable-user。无 `settings put` |
+| 4 | `C:\Users\hzq00\Documents\Codex\2026-08-23\ni-j\work\stage4_keep_freq\restore_keep_freq.py` | `json.loads(FREEZE)`，要求 KEEP 三包仍在 `enforced_reduced_packages`，再改 JSON | 硬编码三包 `cmd appops set --user 0 PKG RUN_ANY_IN_BACKGROUND default` + `appops write-settings` | 历史一次性（mtime 2026-08-24 01:27） | JSON 当门闩+回写；apply 目标是硬编码「不背单词/Kimi/DeepSeek」。三包已不在 Reduced 会 `SystemExit` 不写设备 |
+
+启动器（不 parse JSON）：
+
+```
+C:\Users\hzq00\Desktop\HONOR-重启后恢复Reduced.cmd
+  python "C:\Users\hzq00\Documents\Codex\HONOR_Reapply_Reduced.py"
+
+C:\Users\hzq00\Documents\Codex\HONOR_Reapply_Reduced.ps1
+  & python $py     # 同一份 py；自身无 ConvertFrom-Json
+```
+
+## 2. ni-j `.ps1`：零个「读 JSON 再 apply」
+
+全仓 12 个 `.ps1` 对 `HONOR_DESIRED_STATE` 的唯一命中是 Stage5 rollback **注释**，没有 `ConvertFrom-Json`。
+
+| 文件 | 是否读 JSON | 设备写入 | 分类 |
+|---|---|---|---|
+| `outputs\HONOR_STAGE5_ROLLBACK_20260829.ps1` | 否。头部要人用 bak **覆盖文件** | 硬编码：网易云 `whitelist -` + `POST_NOTIFICATION ignore` | 毒回滚；覆盖 bak 本身不打设备，要再跑 #1 才伤 B 站 AppOps |
+| `outputs\HONOR_VER_AN10_STAGE3_ROLLBACK_20260823.ps1` | 否 | 硬编码 `pm enable` phoneservice/FloatTasks 等 + 5 包 `appops default`（含 B 站） | 与 `work\stage3_exec\E03_execute\stage3_rollback.ps1` **SHA256 相同** |
+| Stage2 `*ROLLBACK*.ps1` / `rollback_draft.ps1` / `CORRECTED_STAGE2_DELTA_ROLLBACK.ps1` | 否 | Stage2 名单；不引用 stage3 freeze | 勿当冻结重放 |
+| `E04_uninstall\restart_adb.ps1` / `T27...\cleanup_probes.ps1` | 否 | 非 desired-state | 无关 |
+
+## 3. 易混：读 JSON 但不 apply / apply 但不读 JSON
+
+读 JSON、不打设备：`work\stage4_live\collect_live.py`；`E03_execute\reconcile_again.py`（`--audit`）；`E03_execute\p7_p8.py`（读 seed 后**生成/覆盖** freeze，再 `--audit`，再跑会丢掉 Stage5 字段）；`T27_ota175_pkgdiff\collect.py` / `t27_capture.py`；`T28*_yoyo_pc\check_yoyo_pc.py` / `finalize.py`。
+
+声明读 JSON、实际不读：`work\stage5_keepalive\HONOR_Stage5_KeepAlive.py` — `DESIRED=` 只出现 L8 注释 + L29 赋值，从未 `open`/`json.load`；真实写入是硬编码 `KEEP_ALIVE=["com.netease.cloudmusic","com.bilibili.app.in"]`、`settings put secure honor.globalWindow.dockBar 1`、`am force-stop launcher`。
+
+先打设备、再改 JSON（不是按 JSON apply）：`work\stage4_sidebar\restore_floattasks.py` — 先硬编码 `pm enable FloatTasks`，必要时 `settings put secure float_task_state 1`，之后才 `json.loads(FREEZE)` 把 FloatTasks 从 `enforced_disabled_packages` 删掉并回写。
+
+名字像重放、读的不是 desired-state JSON：`E03_execute\reapply_reduced.py` 读 `HONOR_VER_AN10_STAGE2_APPOPS_IGNORE.txt`；`waveA_disable.py` 硬编码 `pm disable-user com.hihonor.phoneservice`。
+
+hy4：`outputs\audit_20260830\_30_*.py`、`work\sidebar_fix\reports\_extract_desired.py` 只抽字段写报告，零 apply。
+
+## 4. 字段 → 哪个脚本会打到设备
+
+| JSON 字段 | #1/#2 Reduced 重放 | #3 `--apply` | #4 keep_freq | Stage5 py / rollback.ps1 |
+|---|---|---|---|---|
+| `enforced_reduced_packages` | **会 ignore**（只对名单内；删除项不自动 allow） | 会 ignore；`ensure_absent` 还会摘白名单 | 仅当 KEEP 三包仍在名单时把它们 `default` | 否 |
+| `enforced_disabled_packages` | 否 | **会 `pm disable-user`**（enabled≠3） | 否 | 否（Stage3 rollback.ps1 是硬编码 **enable**） |
+| `ai_sidebar_*` / dockBar | 否 | 否 | 否 | Stage5 py **硬编码 put 1**，不读 JSON |
+| `keep_alive_background` / `candidate_nmb_next` | 否 | 否 | 否 | 否 |
+| `float_task_state` | 否 | 否 | 否 | `restore_floattasks.py` 硬编码 put 1 |
+
+## 5. 禁止当冻结重放去跑
+
+1. 桌面 Reduced cmd / `HONOR_Reapply_Reduced.py` — 除非明确只要把现行 `enforced_reduced_packages` 打成 ignore。
+2. `reconcile_after_ota.py --apply`（对 freeze 或 seed）— phoneservice / FloatTasks disable-user。
+3. `restore_floattasks.py` / Stage3 `*_ROLLBACK_*.ps1` — enable 小圆点。
+4. `HONOR_Stage5_KeepAlive.py` / `HONOR_STAGE5_ROLLBACK_20260829.ps1` — 不读 JSON；后者再叠加 bak 覆盖会让下次 #1 伤 B 站。
+5. `p7_p8.py` — 会覆盖现行 freeze 文件。
+
+未决：本包未重跑计划任务/Run 键（34 已核无自启）；不确定是否还有桌面快捷方式指向 ni-j 副本而非 Codex 根目录那份 py。

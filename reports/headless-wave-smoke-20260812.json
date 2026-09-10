@@ -1,0 +1,36 @@
+{
+  "tasks": [
+    {
+      "task_id": "visible-headless-1",
+      "task_name": "Headless出生确认",
+      "prompt": "任务名：Headless出生确认\n只读检查 harness/headless_wave.py：确认出生只有在 exec_roster 匹配 run_id 且状态 starting/running 后才计为成功。不得修改文件。返回一行结论和证据行号。",
+      "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+      "role": "verifier",
+      "sandbox": "read-only"
+    },
+    {
+      "task_id": "visible-headless-2",
+      "task_name": "8765合并确认",
+      "prompt": "任务名：8765合并确认\n只读检查 E:\\codex-LOOP\\launchers\\loop_monitor_server.py：确认 Windows 和 WSL exec_roster 按最新状态合并且不会重复计数。不得修改文件。返回一行结论和证据行号。",
+      "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+      "role": "verifier",
+      "sandbox": "read-only"
+    },
+    {
+      "task_id": "visible-headless-3",
+      "task_name": "并发债务确认",
+      "prompt": "任务名：并发债务确认\n只读检查全局 AGENTS.md 与 refill_controller_v2.py：确认 denied/intended birth 不会被当作 running，且8只是承载偏好而非有效并发上限。不得修改文件。返回一行结论和证据行号。",
+      "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+      "role": "verifier",
+      "sandbox": "read-only"
+    },
+    {
+      "task_id": "visible-headless-4",
+      "task_name": "模型固定确认",
+      "prompt": "任务名：模型固定确认\n只读检查 headless_wave.py、agents/verifier.toml 与 orchestration_policy_v2.toml：确认实际模型K3、max、1M上下文、800K压缩均显式固定。不得修改文件。返回一行结论和证据行号。",
+      "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+      "role": "verifier",
+      "sandbox": "read-only"
+    }
+  ]
+}

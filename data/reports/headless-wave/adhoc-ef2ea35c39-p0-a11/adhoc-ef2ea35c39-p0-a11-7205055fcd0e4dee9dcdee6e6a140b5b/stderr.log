@@ -1,0 +1,73 @@
+Reading additional input from stdin...
+2026-08-14T05:24:17.965393Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T05:24:21.640407Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T05:24:38.883371Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-14T05:24:47.834019Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:24:58.697550Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:25:19.830916Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:25:30.262130Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:25:37.996292Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:25:52.921715Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:26:06.607696Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:26:20.095999Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:26:44.113570Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:27:03.350454Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:27:21.575261Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:27:36.162017Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:27:46.342853Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:28:00.419263Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:28:08.997100Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:28:17.352877Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:28:34.256189Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:28:49.345580Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:28:58.846930Z ERROR codex_core::tools::router: error=unsupported call: file_search
+2026-08-14T05:29:20.015871Z ERROR codex_core::tools::router: error=unsupported call: grep
+2026-08-14T05:29:38.450753Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:29:53.060773Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:30:02.299363Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:30:21.365984Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1 seconds
+Output:
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 108
++ ... loop-s-f2" -Recurse -Filter "*SHA256*" | Select-Object FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{FullName=E:\c...-f2\SHA256SUMS}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+Get-ChildItem : 对路径“E:\codex-LOOP\codex-loop-s-f2\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem -Path "E:\codex-LOOP\codex-loop-s-f2" -Recurse -Filter  ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\codex-LOOP\c...2\.pytest_cache:String) [Get-ChildItem], Unauthoriz 
+   edAccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+Get-ChildItem : 对路径“E:\codex-LOOP\codex-loop-s-f2\tests\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem -Path "E:\codex-LOOP\codex-loop-s-f2" -Recurse -Filter  ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\codex-LOOP\c...s\.pytest_cache:String) [Get-ChildItem], Unauthoriz 
+   edAccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-14T05:33:20.937860Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

@@ -1,0 +1,371 @@
+Reading additional input from stdin...
+2026-08-12T16:24:21.888016Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-12T16:24:31.983916Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T16:25:05.856252Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.2 seconds
+Output:
+
+2026-08-12T16:25:22.997517Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.3 seconds
+Output:
+
+2026-08-12T16:30:50.437334Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 19.5 seconds
+Output:
+
+2026-08-12T16:30:50.439246Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 19.6 seconds
+Output:
+
+FullName                           Length LastWriteTime    
+--------                           ------ -------------    
+E:\VPS\pc6_binance_materializer.py  50376 2026/8/13 0:24:15
+
+
+
+2026-08-12T16:31:29.476079Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.1 seconds
+Output:
+ ...materializer.py" => pc6_binance_materializer.py | 115 ++++++++++++++++++---
+ 1 file changed, 98 insertions(+), 17 deletions(-)
+diff --git "a/reports\\\344\270\244\347\247\215View\345\256\236\347\211\251\345\244\215\351\252\214\\remote_binance_materializer.py" b/pc6_binance_materializer.py
+index f9b18d1..4a21c0b 100644
+--- "a/reports\\\344\270\244\347\247\215View\345\256\236\347\211\251\345\244\215\351\252\214\\remote_binance_materializer.py"
++++ b/pc6_binance_materializer.py
+@@ -12,6 +12,7 @@ import argparse
+ import concurrent.futures as cf
+ import csv
+ import datetime as dt
++import fcntl
+ import hashlib
+ import io
+ import json
+@@ -35,6 +36,8 @@ FAPI_INFO = "https://fapi.binance.com/fapi/v1/exchangeInfo"
+ SPOT_INFO = "https://api.binance.com/api/v3/exchangeInfo"
+ START_MONTH = "2023-07"
+ START_US = 1688256000 * 1_000_000  # 2023-07-02T00:00:00Z
++HOUR_US = 3600 * 1_000_000
++SNAP_TOLERANCE_US = 72 * 1_000_000
+ USER_AGENT = "P5-PC6-Binance-Materializer/1"
+ HEX64 = re.compile(r"^[0-9a-f]{64}$")
+ MONTH_RE = re.compile(r"-(20\d{2}-\d{2})\.zip$")
+@@ -115,15 +118,19 @@ def atomic_update_pointer(path: Path, data: bytes) -> None:
+             os.unlink(tmp)
+ 
+ 
+-def fetch(url: str, timeout: int = 60) -> tuple[bytes, dict[str, str], int]:
++def canonicalize_http_url(url: str) -> str:
+     parts = urllib.parse.urlsplit(url)
+-    ascii_url = urllib.parse.urlunsplit((
++    return urllib.parse.urlunsplit((
+         parts.scheme,
+         parts.netloc.encode("idna").decode("ascii"),
+         urllib.parse.quote(urllib.parse.unquote(parts.path), safe="/%:@"),
+         parts.query,
+         parts.fragment,
+     ))
++
++
++def fetch(url: str, timeout: int = 60) -> tuple[bytes, dict[str, str], int]:
++    ascii_url = canonicalize_http_url(url)
+     req = urllib.request.Request(ascii_url, headers={"User-Agent": USER_AGENT})
+     with urllib.request.urlopen(req, timeout=timeout) as response:
+         return response.read(), {k.lower(): v for k, v in response.headers.items()}, response.status
+@@ -229,6 +236,56 @@ def prior_latest(root: Path) -> dict[str, dict[str, Any]]:
+     return latest
+ 
+ 
++def parent_revision_id(latest: dict[str, dict[str, Any]], identity: str,
++                       new_sha256: str) -> str | None:
++    previous = latest.get(identity)
++    if previous is None or previous.get("raw_sha256") == new_sha256:
++        return None
++    return previous.get("revision_id")
++
++
++def prior_completed_utc_day_quote_volume(rows: Iterable[dict[str, Any]],
++                                         decision_time_us: int) -> float:
++    decision = dt.datetime.fromtimestamp(decision_time_us / 1_000_000, tz=dt.timezone.utc)
++    day_start = dt.datetime(decision.year, decision.month, decision.day, tzinfo=dt.timezone.utc)
++    start_us = int((day_start - dt.timedelta(days=1)).timestamp() * 1_000_000)
++    end_us = int(day_start.timestamp() * 1_000_000)
++    values = [float(row["quote_volume"]) for row in rows
++              if start_us <= int(row["close_time_us"]) < end_us]
++    return sum(values)
++
++
++def fixed_common_clock_8h_us(start_us: int,
++                              funding_events: Iterable[dict[str, Any]]) -> dict[str, Any]:
++    if start_us % HOUR_US:
++        raise RuntimeError("FIXED_8H_ANCHOR_NOT_FULL_UTC_HOUR")
++    end_us=start_us+8*HOUR_US
++    events=[row for row in funding_events
++            if start_us <= int(row["market_event_time_us"]) < end_us]
++    return {"holding_semantics":"FIXED_COMMON_CLOCK_8H","timestamp_unit":"epoch_us",
++            "start_us":start_us,"end_us":end_us,"duration_us":8*HOUR_US,
++            "funding_events":events,"funding_event_count":len(events)}
++
++
++def actual_settlement_to_settlement_us(
++        funding_events: Iterable[dict[str, Any]]) -> list[dict[str, Any]]:
++    events=sorted(funding_events,key=lambda x:int(x["market_event_time_us"]))
++    out=[]
++    for left,right in zip(events,events[1:]):
++        start=int(left["market_event_time_us"]); end=int(right["market_event_time_us"])
++        if end <= start: raise RuntimeError("NON_MONOTONIC_FUNDING_EVENTS")
++        raw_duration=end-start
++        declared=float(left["funding_interval_hours"])
++        declared_us=round(declared*HOUR_US)
++        if abs(raw_duration-declared_us)>SNAP_TOLERANCE_US:
++            raise RuntimeError("FUNDING_INTERVAL_EXCEEDS_SNAP_TOLERANCE")
++        out.append({"holding_semantics":"ACTUAL_SETTLEMENT_TO_SETTLEMENT",
++                    "timestamp_unit":"epoch_us","start_us":start,"end_us":end,
++                    "raw_duration_us":raw_duration,"snapped_interval_hours":declared,
++                    "realized_funding_events":[left]})
++    return out
++
++
+ def write_snapshot(root: Path, source: dict[str, Any], identity: str, namespace: str) -> dict[str, Any]:
+     data = source.pop("raw_bytes")
+     actual = source["raw_sha256"]
+@@ -237,7 +294,7 @@ def write_snapshot(root: Path, source: dict[str, Any], identity: str, namespace:
+     rid = f"rev-{dt.datetime.now(dt.timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')}-{actual[:16]}"
+     old = prior_latest(root).get(identity)
+     row = {
+-        "revision_id": rid, "parent_revision_id": old.get("revision_id") if old else None,
++        "revision_id": rid, "parent_revision_id": parent_revision_id(prior_latest(root), identity, actual),
+         "source_provider": "Binance", "source_namespace": namespace,
+         "remote_object_identity": identity, "archive_class": "LIVE_OFFICIAL_METADATA_SNAPSHOT",
+         "retrieval_timestamp": source["retrieved_at"], "raw_sha256": actual,
+@@ -437,7 +494,7 @@ def download_one(args: tuple[Path, dict[str, Any], dict[str, dict[str, Any]]]) -
+     retrieved = now_iso()
+     rid = f"rev-{dt.datetime.now(dt.timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')}-{actual[:16]}"
+     row = {
+-        "revision_id": rid, "parent_revision_id": parent.get("revision_id") if parent else None,
++        "revision_id": rid, "parent_revision_id": parent_revision_id(latest, obj["key"], actual),
+         "source_provider": "Binance", "source_namespace": obj["key"].rsplit("/",1)[0] + "/",
+         "remote_object_identity": obj["key"], "source_url": obj["source_url"],
+         "request_identity": {"method": "GET", "url": obj["source_url"]},
+@@ -658,6 +715,12 @@ def artifact(root: Path, out_dir: Path, name: str, value: dict[str, Any]) -> tup
+ 
+ def build_artifacts(root: Path, out_dir: Path, code_path: Path) -> dict[str, Any]:
+     plan=load_plan(root); norms=load_normalizations(root); latest=revision_index(root)
++    build_git_commit=os.environ.get("P5_BUILD_GIT_COMMIT")
++    if not build_git_commit or not re.fullmatch(r"[0-9a-f]{40}",build_git_commit):
++        raise RuntimeError("P5_BUILD_GIT_COMMIT_REQUIRED")
++    build_code_identity={"git_commit":build_git_commit,"file_sha256":sha_file(code_path),
++                         "path":"quant/p5_track3/binance_materializer.py"}
++    plan_file=root/"plans"/f"enumeration-{(root/'plans'/'CURRENT').read_text().strip()}.json"
+     conflicts=load_normalization_conflicts(root)
+     norm_idx={(x["dataset"],x["symbol"],x["month"]):x for x in norms}
+     metadata_revisions=[]
+@@ -698,14 +761,17 @@ def build_artifacts(root: Path, out_dir: Path, code_path: Path) -> dict[str, Any
+         first_raw=min(x["first_market_event_time_us"] for x in frows if x["first_market_event_time_us"])
+         last_raw=max(x["last_market_event_time_us"] for x in frows if x["last_market_event_time_us"])
+         onboard_us=onboard_ms*1000 if isinstance(onboard_ms,int) else None
+-        listing_start=min(x for x in (onboard_us,first_raw) if x is not None)
++        listing_candidates=[x for x in (onboard_us,first_raw) if x is not None]
++        earliest_listing=min(listing_candidates)
++        pit_eligibility_start=max(listing_candidates)
+         source_disagreement=bool(onboard_us is not None and onboard_us != first_raw)
+         status=map_row.get("futures_status")
+         delisting_evidence=("CURRENT_METADATA_DELIVERY_DATE" if delivery_real_ms is not None and status=="SETTLING"
+                             else "LAST_IMMUTABLE_RAW_OBSERVATION_ONLY")
+         episodes.append({"instrument_identity":{"venue":"BINANCE","family":"USD_M_PERPETUAL","symbol":symbol},
+                          "episode_id":f"BINANCE-USD_M_PERPETUAL-{symbol}-L{onboard_ms if onboard_ms is not None else 'RAW'}",
+-                         "listing_start_conservative_us":listing_start,
++                         "earliest_candidate_listing_us":earliest_listing,
++                         "pit_eligibility_conservative_start_us":pit_eligibility_start,
+                          "earliest_verified_raw_time_us":first_raw,
+                          "latest_verified_raw_time_us":last_raw,
+                          "onboardDate_metadata_us":onboard_us,"metadata_retrieved_at":plan["generated_at"],
+@@ -766,13 +832,23 @@ def build_artifacts(root: Path, out_dir: Path, code_path: Path) -> dict[str, Any
+ 
+     inputs_hash=sha_bytes(canonical_bytes(sorted((x["raw_sha256"] for x in lineage_rows))))
+     normalized_hash=sha_bytes(canonical_bytes(sorted((x["normalized_output_sha256"] for x in lineage_rows if x["normalized_output_sha256"]))))
+-    view_a={"holding_semantics":"FIXED_COMMON_CLOCK_8H","interval":"[t,t+8h)",
++    view_a={"holding_semantics":"FIXED_COMMON_CLOCK_8H","timestamp_unit":"epoch_us",
++            "implementation":"binance_materializer.fixed_common_clock_8h_us",
++            "interval":"[t,t+8h)","anchor_rule":"FULL_UTC_HOUR_GRID_FAIL_CLOSED",
+             "decision_input":"PREVIOUS_FULLY_CLOSED_1H_BAR","funding_membership":"ALL_MARKET_EVENT_TIME_IN_[t,t+8h)",
+-            "input_raw_manifest_hash":inputs_hash,"normalized_manifest_hash":normalized_hash,"code_hash":sha_file(code_path)}
++            "input_raw_manifest_hash":inputs_hash,"normalized_manifest_hash":normalized_hash,"build_code_identity":build_code_identity}
++    view_a["view_specification_hash_scope"]="CANONICAL_JSON_EXCLUDING_THIS_HASH_FIELD"
+     view_a["view_specification_hash"]=sha_bytes(canonical_bytes(view_a))
+-    view_b={"holding_semantics":"ACTUAL_SETTLEMENT_TO_SETTLEMENT","fields":["start_us","end_us","duration_us","funding_events"],
++    view_b={"holding_semantics":"ACTUAL_SETTLEMENT_TO_SETTLEMENT","timestamp_unit":"epoch_us",
++            "implementation":"binance_materializer.actual_settlement_to_settlement_us",
++            "interval":"[event_i,event_i+1)","realized_event_membership":"LEFT_EVENT_IN_OWN_HALF_OPEN_INTERVAL",
++            "right_censoring":"FINAL_EVENT_HAS_NO_INVENTED_END_TIME",
++            "duration_rule":{"raw_duration":"PRESERVED","snapped_interval_hours":"OFFICIAL_FUNDING_INTERVAL_HOURS",
++                             "snap_tolerance_us":SNAP_TOLERANCE_US,"excess":"FAIL_CLOSED"},
++            "fields":["start_us","end_us","raw_duration_us","snapped_interval_hours","realized_funding_events"],
+             "decision_input":"PREVIOUS_FULLY_CLOSED_1H_BAR","input_raw_manifest_hash":inputs_hash,
+-            "normalized_manifest_hash":normalized_hash,"code_hash":sha_file(code_path)}
++            "normalized_manifest_hash":normalized_hash,"build_code_identity":build_code_identity}
++    view_b["view_specification_hash_scope"]="CANONICAL_JSON_EXCLUDING_THIS_HASH_FIELD"
+     view_b["view_specification_hash"]=sha_bytes(canonical_bytes(view_b))
+     views_path,views_sha=artifact(root,out_dir,"P5_PC6_PRECOMPUTABLE_STRUCTURAL_VIEWS_V1",
+                                   {"generated_at":now_iso(),"VIEW_A":view_a,"VIEW_B":view_b})
+@@ -785,11 +861,12 @@ def build_artifacts(root: Path, out_dir: Path, code_path: Path) -> dict[str, Any
+         "engineering_window_start_us":START_US,"final_statistical_data_cutoff":"NOT_FROZEN_BY_ENGINEERING",
+         "raw_archive_revision_ids":[x["revision_id"] for x in lineage_rows],
+         "official_metadata_revision_ids":plan["metadata_revision_ids"],
++        "enumeration_plan_semantic_sha256":plan["sha256"],"enumeration_plan_file_sha256":sha_file(plan_file),
+         "raw_manifest_hash":inputs_hash,"normalized_manifest_hash":normalized_hash,
+         "temporal_schema_sha256":"30b415c38c287812ef8253f0e9f0507eef9bf7fd5773150c913eaa5837203c03",
+         "perp_spot_identity_map_sha256":identity_sha,"listing_episode_ledger_sha256":listing_sha,
+         "data_revision_lineage_sha256":lineage_sha,"structural_qa_sha256":qa_sha,
+-        "structural_views_sha256":views_sha,"build_code_sha256":sha_file(code_path),
++        "structural_views_sha256":views_sha,"build_code_identity":build_code_identity,
+         "pit_universe_input_spec":{"minimum_listing_age":"ONE_FULL_DAY","liquidity":"PRIOR_COMPLETED_UTC_DAY_QUOTE_VOLUME",
+                                    "required_inputs":["VALID_PERP_BAR","VALID_SPOT_BAR","VERIFIED_UNIT_MAPPING"],
+                                    "minimum_cross_section_threshold":"NONE_ADDED"},
+@@ -818,12 +895,16 @@ def main() -> int:
+     ap.add_argument("--root",type=Path,required=True); ap.add_argument("--artifacts",type=Path)
+     ap.add_argument("--workers",type=int,default=24); args=ap.parse_args()
+     args.root.mkdir(parents=True,exist_ok=True)
+-    if args.command in ("enumerate","all"): enumerate_plan(args.root,args.workers)
+-    if args.command in ("download","all"): download_plan(args.root,args.workers)
+-    if args.command in ("normalize","all"): normalize_all(args.root,Path(__file__),args.workers)
+-    if args.command in ("artifacts","all"):
+-        if not args.artifacts: ap.error("--artifacts required")
+-        args.artifacts.mkdir(parents=True,exist_ok=True); build_artifacts(args.root,args.artifacts,Path(__file__))
++    lock_path=args.root/".materializer.lock"
++    with lock_path.open("a+b") as lock:
++        try: fcntl.flock(lock.fileno(),fcntl.LOCK_EX|fcntl.LOCK_NB)
++        except BlockingIOError as e: raise RuntimeError(f"MATERIALIZER_ALREADY_RUNNING:{args.root}") from e
++        if args.command in ("enumerate","all"): enumerate_plan(args.root,args.workers)
++        if args.command in ("download","all"): download_plan(args.root,args.workers)
++        if args.command in ("normalize","all"): normalize_all(args.root,Path(__file__),args.workers)
++        if args.command in ("artifacts","all"):
++            if not args.artifacts: ap.error("--artifacts required")
++            args.artifacts.mkdir(parents=True,exist_ok=True); build_artifacts(args.root,args.artifacts,Path(__file__))
+     return 0
+ 
+ 
+git : warning: in the working copy of 'reports\涓ょView瀹炵墿澶嶉獙\remote_binance_materializer.py', LF will be replac
+ed by CRLF the next time Git touches it
+所在位置 行:2 字符: 1
++ git diff --no-index --stat reports\两种View实物复验\remote_binance_material ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (warning: in the... Git touches it:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+warning: in the working copy of 'pc6_binance_materializer.py', LF will be replaced by CRLF the next time Git touches it
+git : warning: in the working copy of 'reports\涓ょView瀹炵墿澶嶉獙\remote_binance_materializer.py', LF will be replac
+ed by CRLF the next time Git touches it
+所在位置 行:2 字符: 112
++ ... er.py 2>&1; git diff --no-index reports\两种View实物复验\remote_binance_mat ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (warning: in the... Git touches it:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+warning: in the working copy of 'pc6_binance_materializer.py', LF will be replaced by CRLF the next time Git touches it
+
+2026-08-12T16:32:15.259898Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 215ms)... turn_id=019ff6ca-02d5-7c60-a45b-e9093caf48b1 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+2026-08-12T16:32:44.295687Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.5 seconds
+Output:
+无法将值转换为类型“System.Management.Automation.LanguagePrimitives+InternalPSCustomObject”。此语言模式仅支持核心类型。
+所在位置 行:2 字符: 109
++ ... tFrom-Json; [pscustomobject]@{ raw_manifest_hash=$m.raw_manifest_hash ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) []，RuntimeException
+    + FullyQualifiedErrorId : ConversionSupportedOnlyToCoreTypes
+ 
+
+2026-08-12T16:33:31.950361Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 3 seconds
+Output:
+python : 无法将“python”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，
+然后再试一次。
+所在位置 行:38 字符: 6
++ '@ | python -
++      ~~~~~~
+    + CategoryInfo          : ObjectNotFound: (python:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-12T16:34:27.862627Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 22 seconds
+Output:
+
+FullName                                                                                          
+--------                                                                                          
+E:\codex-LOOP\venv\Scripts\python.exe                                                             
+E:\k3oc-candidate-m-repair-20260729\cross-python-venvs\py311\Scripts\python.exe                   
+E:\k3oc-candidate-m-repair-20260729\cross-python-venvs\py312\Scripts\python.exe                   
+E:\k3oc-candidate-m-repair-20260729\cross-python-venvs\py313\Scripts\python.exe                   
+E:\k3oc-candidate-m-repair-20260729\cross-python-venvs\py314\Scripts\python.exe                   
+E:\k3oc-candidate-m-repair-20260729\python-runtimes\cpython-3.11.15-windows-x86_64-none\python.exe
+E:\k3oc-candidate-m-repair-20260729\python-runtimes\cpython-3.13.14-windows-x86_64-none\python.exe
+E:\kimi\.venv-pymupdf\Scripts\python.exe                                                          
+E:\kimi\.venv-rag\Scripts\python.exe                                                              
+E:\kimi\litmap\.venv\Scripts\python.exe                                                           
+
+
+
+2026-08-12T16:34:48.660426Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.2 seconds
+Output:
+No Python at '"C:\Users\hzq00\AppData\Local\Programs\Python\Python312\python.exe'
+
+2026-08-12T16:35:15.747321Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.4 seconds
+Output:
+Traceback (most recent call last):
+  File "<stdin>", line 7, in <module>
+  File "<frozen importlib._bootstrap_external>", line 1019, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1156, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1214, in get_data
+OSError: [Errno 22] Invalid argument: 'E:\\VPS\\reports\\??View????\\remote_binance_materializer.py'
+
+2026-08-12T16:36:22.533321Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.4 seconds
+Output:
+Traceback (most recent call last):
+  File "<stdin>", line 5, in <module>
+  File "<frozen importlib._bootstrap_external>", line 1023, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "E:\VPS\pc6_binance_materializer.py", line 15, in <module>
+    import fcntl
+ModuleNotFoundError: No module named 'fcntl'
+
+2026-08-12T16:37:19.343145Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.2 seconds
+Output:
+Traceback (most recent call last):
+  File "<stdin>", line 6, in <module>
+  File "<frozen importlib._bootstrap_external>", line 1023, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "E:\VPS\.work\pc6-edit\quant\p5_track3\temporal_semantics.py", line 29, in <module>
+    @dataclass(frozen=True)
+     ~~~~~~~~~^^^^^^^^^^^^^
+  File "E:\k3oc-candidate-m-repair-20260729\python-runtimes\cpython-3.13.14-windows-x86_64-none\Lib\dataclasses.py", line 1343, in wrap
+    return _process_class(cls, init, repr, eq, order, unsafe_hash,
+                          frozen, match_args, kw_only, slots,
+                          weakref_slot)
+  File "E:\k3oc-candidate-m-repair-20260729\python-runtimes\cpython-3.13.14-windows-x86_64-none\Lib\dataclasses.py", line 997, in _process_class
+    and _is_type(type, cls, dataclasses, dataclasses.KW_ONLY,
+        ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 _is_kw_only))):
+                 ^^^^^^^^^^^^
+  File "E:\k3oc-candidate-m-repair-20260729\python-runtimes\cpython-3.13.14-windows-x86_64-none\Lib\dataclasses.py", line 757, in _is_type
+    ns = sys.modules.get(cls.__module__).__dict__
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute '__dict__'. Did you mean: '__dir__'?
+
+2026-08-12T16:38:04.391416Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1 seconds
+Output:
+== track3 fixed_common_clock_8h ==
+Traceback (most recent call last):
+  File "<stdin>", line 11, in <module>
+  File "E:\VPS\.work\pc6-edit\quant\p5_track3\temporal_semantics.py", line 116, in fixed_common_clock_8h
+    require_epoch_ms([start_ms], "fixed 8h start")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\VPS\.work\pc6-edit\quant\p5_track3\engineering_contracts.py", line 53, in require_epoch_ms
+    raise ContractViolation(f"{field} contains a non-epoch-ms timestamp")
+engineering_contracts.ContractViolation: fixed 8h start contains a non-epoch-ms timestamp
+

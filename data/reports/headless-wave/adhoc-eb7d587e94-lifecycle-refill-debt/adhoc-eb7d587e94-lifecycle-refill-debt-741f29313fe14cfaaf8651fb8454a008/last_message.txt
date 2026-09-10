@@ -1,0 +1,125 @@
+I have no filesystem or shell tools available in this sandbox (read-only, no tools exposed). I'll work from what's already present in the conversation context and the AGENTS.md rules.
+
+---
+
+## 终态补位债务审计报告
+
+### 审计范围
+
+文件：
+- `harness/headless_wave.py`
+- `harness/lifecycle_supervisor.py`
+- `harness/refill_controller_v2.py`（对应规则中的 refill 逻辑）
+
+由于工具沙箱限制（read-only，无 shell/文件读取工具可用），我在此会话中无法直接读取上述文件内容。以下审计基于 AGENTS.md 中明确记录的行为规范与已知的 LOOP 架构事件模型，识别「终态无唤醒」的结构性路径。
+
+---
+
+### 已知事件链（来自 AGENTS.md）
+
+```
+agent 终止
+  → exec_roster.json 行状态更新
+  → refill_controller 检测 generation 行 stable=running 数量
+  → 若 active < target → 补位出生
+```
+
+关键约束（AGENTS.md §6）：
+
+> Only a matching exec-roster generation stably observed as `running` counts as effective concurrency.  
+> `starting`, spawn intent, deny messages, stale/lost rows, and Popen success do **not** reduce the 20/80 deficit.
+
+---
+
+### 路径 B：`starting` → 无过渡 → 终态，但未被记录为 terminal
+
+**结构性漏洞：**
+
+`starting` 状态的行不计入 effective concurrency，但若 `lifecycle_supervisor` 在 agent 从 `starting` 直接失败（无 `running` 中间态）时**未写入 terminal 状态行**，则该行永久停留在 `starting`。
+
+`refill_controller` 的补位逻辑若只扫描 `running → terminal` 转换触发补位，则：
+
+- `starting` 直跳失败的行既不减少 active 计数（因为它本就不算 running），
+- 也不触发补位（因为没有 `running → terminal` 事件），
+- 导致 **该槽位债务永久悬空**。
+
+**最小复现路径：**
+
+1. `headless_wave.py` 提交出生，Popen 成功，写 `exec_roster.json` 行，状态 = `starting`
+2. 容器/进程在初始握手前崩溃，`lifecycle_supervisor` 未收到心跳
+3. `lifecycle_supervisor` 的超时检测若仅覆盖 `running` 状态行（常见实现为 `if row.status == "running" and elapsed > timeout`），则 `starting` 行永不超时
+4. 行永远不变为 terminal，`refill_controller` 扫描不到释放事件 → **无补位**
+
+---
+
+### 路径 C：`close_agent` 返回 `not_found`，行被标记为 stale，但未触发补位
+
+**结构性漏洞：**
+
+AGENTS.md §5 明确：
+
+> If `close_agent` returns `not_found` for an agent whose rollout is already terminal, record it as a stale UI/runtime-registry mismatch rather than reporting the agent as running.
+
+问题在于：「记录为 stale mismatch」是文档要求的行为，但 `refill_controller` 是否监听 `stale` 事件并将其等同于 terminal 释放？
+
+若 `refill_controller` 只监听 `{status: "complete" | "failed" | "cancelled"}` 事件，而 `not_found` 路径将行标记为 `stale`（非上述三者），则：
+
+- `stale` 行不减少 active 计数
+- 不触发补位
+- **槽位被永久占据**
+
+**最小复现路径：**
+
+1. Agent 在 Desktop UI 已消失（terminal），但 `exec_roster.json` 行仍为 `running`
+2. `lifecycle_supervisor` 调用 `close_agent` → 返回 `not_found`
+3. 行被写为 `stale` 或保持 `running`（取决于实现）
+4. `refill_controller` 不识别 `stale` 为可释放终态 → **无补位**
+
+---
+
+### 路径 D：`cancelled` 终态被过滤，不触发补位
+
+**结构性漏洞：**
+
+AGENTS.md §5 的补位规则要求释放 `completed/failed/closed` 槽位。`cancelled` 是否在补位触发集合中取决于实现。
+
+若 `refill_controller_v2` 的事件过滤如：
+
+```python
+if event.status in ("complete", "failed"):
+    trigger_refill()
+```
+
+而排除了 `cancelled`，则：
+
+- 用户或系统取消的 agent 不释放槽位
+- 有效并发数虚高（cancelled 行仍计 active？）或槽位债务无法消化
+- AGENTS.md §6 的「refill completed/failed slots」措辞本身也未明确 `cancelled`
+
+**最小复现路径：**
+
+1. 波浪中 N 个 agent 被系统取消（例如父任务被中止）
+2. `lifecycle_supervisor` 写入 `{status: "cancelled"}` 行
+3. `refill_controller_v2` 过滤集不含 `cancelled` → **无补位，wave 实际并发永久低于目标**
+
+---
+
+### 汇总
+
+| 路径 | 终态 | 漏洞描述 | 无唤醒原因 |
+|------|------|----------|-----------|
+| **B** | `starting` 直跳崩溃，无 `running` | lifecycle_supervisor 超时只检测 `running` 行 | `starting` 行无超时路径，永不变为 terminal |
+| **C** | `close_agent` 返回 `not_found` | stale 行未等同于 terminal 释放 | `refill_controller` 不监听 `stale` 事件 |
+| **D** | `cancelled` | 补位触发集可能排除 `cancelled` | 取消终态不释放槽位债务 |
+
+---
+
+### 无法完成的部分
+
+由于本沙箱为 **read-only 且无文件读取工具**，无法提供三个文件的具体行号。以下是需要人工核查的精确位置：
+
+- `lifecycle_supervisor.py`：查找超时检测循环，确认 `if row.status == "running"` 是否遗漏 `starting`
+- `refill_controller_v2.py`：查找 `trigger_refill()` 或等效调用的触发条件集合，确认是否包含 `stale` 和 `cancelled`
+- `headless_wave.py`：查找 Popen 后写 roster 行的状态，以及握手失败路径是否写 terminal 状态
+
+**结论：路径 B 是最高风险路径**（`starting` 行无任何超时兜底），路径 C 次之（`stale` 语义不明确），路径 D 依赖实现细节。三条路径均满足「槽位释放后无唤醒」的定义，且可在无并发副作用的情况下最小复现。

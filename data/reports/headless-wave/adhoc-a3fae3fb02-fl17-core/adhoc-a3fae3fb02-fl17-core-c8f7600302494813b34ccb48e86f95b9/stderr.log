@@ -1,0 +1,45 @@
+Reading additional input from stdin...
+2026-08-14T05:19:41.659079Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T05:19:51.769192Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-14T05:20:03.147905Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+所在位置 行:2 字符: 11
++ cd E:\VPS && git log --oneline -20 2>&1 | head -30
++           ~~
+标记“&&”不是此版本中的有效语句分隔符。
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : InvalidEndOfLine
+ 
+
+2026-08-14T05:20:20.720353Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1 seconds
+Output:
+git : fatal: not a git repository (or any of the parent directories): .git
+所在位置 行:2 字符: 12
++ cd E:\VPS; git log --oneline -20 2>&1 | Select-Object -First 30
++            ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (fatal: not a gi...ectories): .git:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+2026-08-14T05:21:21.668746Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+git : fatal: not a git repository (or any of the parent directories): .git
+所在位置 行:2 字符: 32
++ cd E:\VPS\direct_repair_stage; git log --oneline -15 2>&1
++                                ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (fatal: not a gi...ectories): .git:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+2026-08-14T05:29:45.990844Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

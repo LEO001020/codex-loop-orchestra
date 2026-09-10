@@ -1,0 +1,5 @@
+Stage5 保活仍在机上的流畅相关层只有三件：网易云 doze 用户白名单（bucket=5）、网易云包级 POST_NOTIFICATION=allow、B站移出 Reduced 29；侧栏写入与 Stage5 回滚/bak 覆盖禁止当流畅杠杆。
+
+write blocked: `work/fluency_plan/reports/h02_stage5_keepalive.md` 未落盘。apply_patch 与 Set-Content 均被 read-only sandbox 拒绝（`writing is blocked by read-only sandbox; rejected by user approval settings` / `Access to the path ... is denied`）。同目录已有 d01–d08 / l01–l10，但无 h01/h02。未跑 adb、未写手机、未执行回滚。
+
+目标路径：`C:\Users\hzq00\Documents\Codex\2026-08-29\hy4-ai-ai-ai-ai-01a02ee0\work\fluency_plan\reports\h02_stage5_keepalive.md`

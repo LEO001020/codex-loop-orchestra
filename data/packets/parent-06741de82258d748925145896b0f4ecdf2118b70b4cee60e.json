@@ -1,0 +1,24 @@
+{
+  "acceptance": [
+    "不得修改任何文件",
+    "返回证据路径"
+  ],
+  "authorized_paths": [
+    "SHA256SUMS",
+    "data/governor/",
+    "reports/"
+  ],
+  "constraints": [
+    "read-only"
+  ],
+  "created_by": "parent_manifest_importer",
+  "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+  "goal": "只读核验本轮SHA256SUMS、双平面哈希、受管备份和核心回归结果，形成最终交付证据。",
+  "manifest_id": "p0-sustained-final-review-20260814",
+  "packet_id": "parent-06741de82258d748925145896b0f4ecdf2118b70b4cee60e",
+  "parent_enabled": true,
+  "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+  "role": "worker",
+  "sandbox": "read-only",
+  "task_name": "发布完整性复核"
+}

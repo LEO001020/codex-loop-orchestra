@@ -1,0 +1,30 @@
+以下是本次只读核验的完整结论：
+
+---
+
+## VPS 发布哈希核验结果
+
+### 88d9c8f9 的身份
+`88d9c8f99aab0818d378bb0cc77739be07892da7dfcdfdeaa3ae2e19270fd094` 是 `11_SHA256SUMS` 文件自身的 SHA256，覆盖包内 17 个清单跟踪文件，对应 **fix-loop-13 最终冻结版本**。
+
+### 本地两份副本状态
+
+| 副本 | 路径 | self-hash | 内部自洽 |
+|---|---|---|---|
+| main | `reports/owner-admin-cutover-final-20260814-recovery-v1/` | **32b91a24**... | 17/17 OK |
+| qa-isolated | `reports/codex-fl13-qa-isolated-20260814-0445/.../` | **88d9c8f9** ✓ | 17/17 OK |
+
+两份副本**各自内部都自洽**（`sha256sum -c 17/17 OK`），但彼此不同。main 副本在 fl13 freeze 之后（2026-08-14 04:50–04:53 UTC）被继续修改了 4 个文件（`00_READ_ME_FIRST.md`、`01_PRE_CUTOVER_READONLY_PREFLIGHT.sh`、`tests/functional_fixtures.sh`、`tests/test_static_invariants.py`），形成了新的自洽版本（self-hash=32b91a24），但尚无对应发布/注册记录。
+
+### 发布脚本保护机制
+`publish_fl13.sh` 在发布前会本地比对 `sha256(11_SHA256SUMS) == 88d9c8f9`，若使用当前 main 副本运行会触发 `MISMATCH_ABORT`，守卫有效。`remote_install_run_fl13.sh` 同样在远端安装时执行双重校验。
+
+### VPS 在线状态（本地无法直达，记录层）
+根据 `RECOVERY_FIX_STATE_V1.json` 和 `FINAL_REMEDIATION_REPORT_V1.md`：
+- `/data/k3/p5_artifacts/owner-admin-cutover-final-20260814-recovery-v1` → VER1, cc57430e（已发布，superseded）
+- `/data/k3/p5_artifacts/owner-admin-cutover-final-20260814-recovery-v1-fl13` → **VER2, 88d9c8f9**（已发布，dr-xr-xr-x，sha256sum -c 17/17 OK at install，LOC2 CREATED）
+
+Research Memory 注册完整（VER1+VER2+LOC1+LOC2 均 CREATED，verify/rebuild-check/runtime_gate 全 PASS，event_count=3064）。
+
+### 重要限制
+**VPS 在线文件无法通过本地只读手段核实**——`/data/k3/p5_artifacts/` 是远端路径，需执行 `codex-fl13-vps-readonly-probe-20260814.sh`（SSH only-read）才能确认在线字节与记录一致。本次核验范围内未发现同路径异字节或缺失文件的本地证据。

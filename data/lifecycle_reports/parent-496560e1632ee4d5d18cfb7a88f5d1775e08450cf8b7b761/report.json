@@ -1,0 +1,14 @@
+**结论：PASS — 本次 repair 证据完整可恢复，未发现删除；唯一注意点是 044730 目录为空壳（首次失败残留，无数据丢失），且修复后 replay 仍继续产生 2 个新 dead letter（非原件的删除）。**
+
+证据目录（`data/repairs/` 共 6 个）：
+
+- `parent-replay-incident-20260813-044825` — 完整：`progress_ledger.before/after.json`（UTF-8 合法 JSON，event_cursor 374443 前后一致）、`repair_manifest.json`、`quarantine/`。隔离物与清单完全一致：dead_letters 15/15、sol_wake 39/39，0 差异；15 个 dead letter 内容均 `reason=off_table_event`。after-ledger 状态与清单 16/16 一致（FAILED=10, RUNNING=6）。
+- `plain-parent-reports-20260813-045304` — 完整：before/after ledger（cursor 375026 一致）+ manifest + `reports.before/` 12 个 `.bin` 原始纯文本报告与清单 repaired 12 项一一对应（0 缺失/0 多余）；12 个现网 `report.json` 均为合法包裹 JSON（packet_id 匹配、status=done），after-ledger 全部 REPORTED。
+- `parent-replay-incident-20260813-044730` — 空壳：仅 `quarantine/dead_letters/`、`quarantine/sol_wake/` 两个空目录，无 before/after/manifest（修复脚本崩溃残留，未移动任何文件，无丢失）。
+- `parent-ledger-schema-20260813-044338` — before/after + manifest，JSON 均合法。
+- `transport-deadletters-20260813-042738` — before/after + manifest，JSON 均合法。
+- `stale-terminal-marker-20260813-050158` — 仅 5 字节 pid 文件。
+
+无删除核验：39 个隔离 sol_wake 与 13 个原件 dead letter 在现网目录中 0 残留；`reports.before/*.bin` 保留全部原始报告字节（无一可解析为 JSON，确系原始纯文本）。现网 `data/dead_letters/` 存在 2 个与清单同名的文件（`parent-a4abfe36…` 04:50:28、`parent-c0f4413d…` 04:48:50），mtime 均晚于修复完成时刻（04:48:25）且字节数不同（2251/2525 vs 隔离件 2351/2626），属修复后 replay 继续触发 off-table 事件的新建件，非原件被删。
+
+工具脚本均在位：`harness/recover_parent_replay_incident.py`（5940 B）、`harness/repair_plain_parent_reports.py`（3738 B）。全程只读，未写任何文件。

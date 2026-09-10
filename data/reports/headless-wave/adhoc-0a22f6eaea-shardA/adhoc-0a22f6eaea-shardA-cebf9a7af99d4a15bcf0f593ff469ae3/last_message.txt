@@ -1,0 +1,145 @@
+分片A完成：dispatch 链路核心由 dispatch.py(物理派发+v1)与 dispatch_v2.py(决策层+v2)双层构成，模型 pin 最终来自 config/model_profiles.toml 经 model_profile.py 原子写入各 agent TOML，dispatch 层只读 TOML 并经 CLI `-m/-c` 注入；发现 8 条代码级问题（含竞态、硬编码、异常吞并、死代码），详见下文。
+
+---
+
+## 1) 每文件一句话职责
+
+| 文件 | 职责 |
+|---|---|
+| `dispatch.py` | v1 物理派发器：读 packet、分配 worktree、构建 `codex exec` 命令、经 lifecycle_supervisor 启动子进程，含节流/健康门/CSV 批量 pack/release-review 硬路由。 |
+| `dispatch_v2.py` | v2 决策层：路由决策(`AgentRouter`)、预算门(`sol_budget_block_v2`)、角色 pin 解析、ipybox 策略，最终桥接到 v1 `dispatch_single` 执行物理派发。 |
+| `agent_router.py` | 三模式(cold_start/shadow/layered)确定性路由器：动作→Route 枚举映射，含 7 项 gate guard 与机械信号置信度校准器。 |
+| `model_route_manager.py` | 模型目录/路由管理器：临时切换到 grok-v4p profile、备份/恢复、OpenCodex 目录策展与同步。 |
+| `model_profile.py` | 原子模型 profile 切换：将 model_profiles.toml 中 active profile 的 execution/review 模型+effort 原子写入 orchestration_policy_v2.toml、agents/*.toml、config.toml、roles.yaml、OpenCodex 目录。 |
+| `routing_mode.py` | routing.mode 原子切换与回滚演练：set 前校验 layered 授权 marker（sha256 绑定），rehearse 验证 cold_start 回滚可还原。 |
+| `root_turn_governor.py` | Root 会话 PreToolUse 治理 hook：有界 planning lease、attested loop-state、Sol token 份额滞回门、预算阶梯、break-glass 审计。 |
+| `duty_route.py` | DUTY_REVIEW 仲裁出口：spawn duty_officer 或读入 ruling，经 duty_gate.py 校验后追加 duty_retryable/fixable/terminal 事件（幂等）。 |
+| `duty_gate.py` | Duty ruling 白名单门：校验 class/evidence/confidence/fix_hint，合法 fixable ruling 持久化供 dispatch.py 拼接 hint。 |
+| `duty_driver.py` | DUTY_REVIEW 驱动：drain data/duty_review/ 票据或单包仲裁，调 duty_route.adjudicate()，rc 1=terminal 2=usage 3=幂等跳过。 |
+
+## 2) 链路调用关系（函数级）
+
+**主派发流（v2 决策 → v1 物理）**
+```
+main (dispatch_v2.py:649)
+  └→ DispatcherV2.dispatch (:474)
+       └→ decide (:378) → AgentRouter.route_action (agent_router.py:~300)
+       └→ sol_budget_block_v2 (:250) → governor.loop_state / meter_status / hysteresis.band
+       └→ _spawn (:477)
+            ├→ resolve_role_pin (:159) → OrchestrationPolicy.model_pin
+            ├→ build_exec_command (:426) → ipybox_enabled_for (:224) + dispatch.resolve_codex_binary
+            └→ import dispatch as dispatch_v1 → dispatch_v1.dispatch_single (dispatch.py:491)
+                 ├→ agent_overrides (:75) → agent_toml_path (:60) + context_overrides (:99)
+                 ├→ before_spawn (:245) → observed_birth_counts (:196) → RefillControllerV2.read_roster_counts
+                 ├→ allocate_worktree (:439) → bash worktree_pool.sh allocate
+                 ├→ spawn_prompt (:398) → previous_attempt_line (:352) → 读 duty_rulings/<pid>.json
+                 ├→ ipybox_enabled_for (:117)
+                 ├→ record_spawn_time (:413)
+                 ├→ append_event (:142)
+                 └→ launch_supervisor (:470) → supervisor_command (:446) → Popen(lifecycle_supervisor.py)
+```
+
+**Duty 链路**
+```
+main (duty_driver.py)
+  ├→ load_tickets / materialize_error
+  └→ duty_route.adjudicate (duty_route.py)
+       ├→ spawn_ruling → dispatch.agent_overrides("duty_officer") → subprocess.run(codex exec)
+       ├→ gate_ruling → subprocess.run(duty_gate.py) → [duty_gate.main → persist_fix_hint]
+       └→ append_event / prior_outcome
+```
+
+**Profile 切换链路（pin 的源头）**
+```
+model_route_manager.main → run_profile → subprocess(model_profile.py set <name>)
+model_profile.main → load_profiles → profile_values → project_updates (写 orchestration_policy_v2.toml [models], agents/*.toml, roles.yaml, config.toml)
+                   → global_updates (写 ~/.codex/agents/*.toml, opencodex-catalog.json, ~/.opencodex/config.json)
+                   → validate_updates → apply_transaction → atomic_write(data/governor/model_profile.json marker)
+```
+
+**Governor hook 链路**
+```
+main (root_turn_governor.py) → RootTurnGovernor.evaluate
+  ├→ loop_state() → _attested_state → _iter_attestations
+  ├→ meter_status() → 读 data/usage/model_token_share.json
+  ├→ hysteresis.observe/band → 读/写 data/governor/hysteresis.json
+  └→ budget_state() → 读 data/budget/active.json
+```
+
+**Routing mode 链路**
+```
+routing_mode.main → set_mode → layered_authorized (读 data/governor/layered_authorization.json, sha256 绑定)
+                  → rehearse (写 data/governor/rollback_rehearsal.json)
+```
+
+## 3) worker/verifier/reviewer 派发方式与模型 pin 来源
+
+**Pin 传播链（唯一真相源）**
+1. `config/model_profiles.toml` 定义 profiles（如 glm53f: `execution_model=spanagent/glm-5.3-flash`, `review_model` 同, reasoning=max）
+2. `model_profile.py:project_updates` 将其原子写入：
+   - `config/orchestration_policy_v2.toml` 的 `[models]` v4_model/v4_reasoning/k3_model/k3_reasoning
+   - `agents/worker.toml` & `agents/duty_officer.toml` → execution_model
+   - `agents/reviewer.toml` / `agents/verifier.toml` / `agents/plan_expander.toml` → review_model
+   - `config/roles.yaml`（executor/scout/duty_officer→execution, reviewer/verifier/plan_expander→review）
+   - `~/.codex/config.toml` `[agents]` default_subagent_model
+3. dispatch 运行时读回：
+   - v1 路径：`dispatch.py:agent_overrides(role)` 读 `agents/<role>.toml` 的 `model`/`model_reasoning_effort`/`sandbox_mode`，拼成 `["-m", model, "-c", "model_reasoning_effort=<effort>"]` CLI 覆盖。
+   - v2 路径：`dispatch_v2.py:resolve_role_pin(role)` 先查 `policy.model_pin(family)`（来自 orchestration_policy_v2.toml `[models]`），再读 role TOML 做**一致性校验**（TOML model ≠ policy pin → `ModelPinError` fail-visible），最终 `RolePin.cli_overrides()` 生成同格式 CLI 参数。
+
+**角色→注入点映射**
+| 角色 | 派发入口 | TOML | 沙箱 | prompt 角色行 |
+|---|---|---|---|---|
+| worker | `dispatch_single(role="worker")` 或 v2 `decide→V4_DIRECT` | `agents/worker.toml` | workspace-write（v1 默认） | "You are an Executor." |
+| verifier | v2 `K3_VERIFY` 或 v1 `--role verifier` | `agents/verifier.toml` | read-only（v2 k3 family 默认） | "You are an L2 Verifier (BLOCK/ESCALATE power only…)" |
+| reviewer | `dispatch_release_review` 或 v2 `--role reviewer` | `agents/reviewer.toml` | read-only（v1 RELEASE_REVIEW_SANDBOX） | "You are the release-gate Reviewer…" |
+| duty_officer | `duty_route.spawn_ruling` | `agents/duty_officer.toml` | TOML sandbox | "You are the Duty Officer…" |
+
+**release-review 硬路由额外 pin**：`dispatch.py:release_review_pins()` 读 `agents/reviewer.toml` + `orchestration_policy_v2.toml [models]` 的 k3_model/k3_reasoning，要求二者一致且 sandbox=read-only，否则 `sys.exit(1)` fail-closed。override 直接用 policy 期望值（非 TOML 值），确保即使 TOML 漂移也用 policy pin。
+
+## 4) 代码级问题（≥3 条，共 8 条）
+
+**P1 竞态：spawn_times.json 无锁写**
+- `dispatch.py:413-425` (`record_spawn_time`)
+- 依据：函数直接 `json.load` → 修改 → 写 tmp → `os.replace`，无文件锁。对比同文件 `update_throttle_state`（:180）和 `dispatch_v2.record_run_role`（:312）都用了 `file_lock`。多进程并发 dispatch 同一 packet（或不同 packet 但同一文件）会丢失对方的写入（last-writer-wins）。
+
+**P2 异常吞并：BirthThrottleError 被当作 spawn 失败**
+- `dispatch_v2.py:560-570`（`_spawn` 中的 `except (OSError, RuntimeError, SystemExit, ValueError)`）
+- 依据：`BirthThrottleError` 是 `RuntimeError` 子类（dispatch.py:51），v1 `dispatch_single` 内 `before_spawn` 抛出它时，v2 会 catch 并调用 `budget.reclaim(reservation_id)` 后 raise `DispatchBlocked("spawn failed: …")`。但节流拒绝（可重试、packet 仍 DISPATCHABLE）与真实 spawn 失败语义不同，reclaim 预算reservation 的逻辑对节流场景也不该触发（节流发生在物理 birth 前，reservation 尚未消耗）。且事件会标记 `exec_failed` 而非 `spawn_throttled`。
+
+**P3 死代码/注释不符：dispatch_v2.build_exec_command 构建的 cmd 从未用于实际 spawn**
+- `dispatch_v2.py:426-443`（`build_exec_command`）+ `:477-558`（`_spawn`）
+- 依据：`_spawn` 调 `self.build_exec_command(...)` 得到 `cmd, pin`，但随后实际调用 `dispatch_v1.dispatch_single(...)`（:536），v1 内部重新构建完整命令（dispatch.py:564-571）。v2 的 `cmd` 仅用于 `detail` 里的 `"ipybox_enabled": "mcp_servers.ipybox.enabled=true" in " ".join(cmd)`（:524）字符串匹配——这是对构建出的命令做子串检查而非对实际执行命令的检查。v1 也会独立调 `ipybox_enabled_for`（dispatch.py:562），两处逻辑可能不一致（v2 传 `plane=self.plane`，v1 用 `os.name=="nt"` 判断）。若 v2 判定 ipybox=True 但 v1 判定 False（如 Windows 上 v2 `detect_plane` 返回 DESKTOP_NATIVE→False，v1 `os.name=="nt"`→False，一致；但 WSL 上 v2 WSL_HEADLESS + role=worker→True，v1 `os.name=="nt"`→False），实际执行命令的 ipybox 与 detail 记录不符。
+
+**P4 硬编码：SOL_MODELS 白名单内嵌代码**
+- `dispatch.py:31`：`SOL_MODELS = {"snaillmou/grok-4.6", "gpt-5.6-sol", "gpt-5.6"}`
+- 依据：`sol_budget_block` 用它判断是否为 Sol 模型。模型 ID 应来自 config（如 orchestration_policy_v2.toml `[models].sol`），而非硬编码集合。若 Sol 模型换名或新增，此集合不会自动更新，导致 budget gate 对新 Sol 模型失效。
+
+**P5 竞态：model_route_manager 临时切换 marker 检查与写入非原子**
+- `model_route_manager.py` `enable_temporary()` 函数
+- 依据：先 `MARKER.is_file()` 检查，然后 `backup_runtime()`（耗时操作），最后 `atomic_json(MARKER, marker)`。两个并发 `enable-grok` 调用都可通过检查，各自备份+写 marker，第二个会覆盖第一个的 previous_profile，导致 restore 恢复到错误 profile。
+
+**P6 与注释不符：agent_router gate guard 文档说 six，实际 7 项**
+- `agent_router.py` `GateGuard` 枚举定义 7 个成员（CONSUMER_HEARTBEAT_FRESH … LAYERED_AUTHORIZATION_CURRENT），但 `check_layered_gate_guards` 的 docstring 两处写 "six gate guards" / "ALL six"。
+- 依据：枚举成员计数即可验证；LAYERED_AUTHORIZATION_CURRENT 是后加的第 7 项，docstring 未同步。
+
+**P7 竞态：duty_route.append_event 无锁写 events.ndjson**
+- `duty_route.py` 顶部 `append_event()` 函数
+- 依据：该函数直接 `open(..., "a")` + write，无 `locked()`。对比 `dispatch.py:append_event`（:142）和 `duty_route.adjudicate` 内部使用的同路径写（通过 `locked`）。虽然 `adjudicate` 的关键 claim 段用了锁，但 spawn_ruling 失败时 except 分支里的 `append_event(pid, event, ...)` 不在锁内，与其他进程的 append 可能交错。实际上 NDJSON append 模式在 POSIX 下小 write 通常原子，但 Windows 上无 O_APPEND 原子性保证，且此处是 `a` 模式 + `write()` 单次调用，通常安全——但与 dispatch.py 的做法（显式锁）不一致，属于风格/正确性风险。
+
+**P8 部分回滚：model_profile.apply_transaction 只回滚已完整写入的文件**
+- `model_profile.py` `apply_transaction()` 函数
+- 依据：`written` 列表在 `atomic_write(path, text)` 成功后才 append。若 `atomic_write` 内部 `os.replace` 成功但 `tmp.unlink` 失败（或 `os.replace` 本身抛异常但 tmp 已写），该 path 不进 `written`，回滚循环跳过它，留下半写状态。注释说 "best effort; surface every failed restore" 但实现只对 `written` 里的做恢复，对写入过程中失败的目标文件不恢复。
+
+## 5) 不确定之处
+
+1. **`OrchestrationPolicy.model_pin(family)` 的具体实现**未读（在 `orchestration_common.py`），无法确认 `[models].v4_model` 等键名解析与 `sol` family pin 的确切键名。dispatch_v2 的 `ROLE_FAMILY` 无 "sol" 条目（只有 worker/scout/duty_officer→v4, verifier/reviewer/plan_expander→k3），但 `sol_budget_block_v2` 检查 `role_pin.family == "sol"`——此分支当前不可达（无角色映射到 sol family），除非 `resolve_role_pin` 对 role="sol" 有效，而 `ROLE_FAMILY` 未含 "sol"。这可能意味着 Sol-model dispatch 只能通过 route=SOL_ADJUDICATE 触发 budget gate，而非通过 role family。**不确定**这是有意设计还是遗漏。
+
+2. **`BudgetController.register_agent/reclaim`** 与 `RefillControllerV2` 的交互未读源码，无法确认 reservation 泄漏窗口的精确时长。
+
+3. **`lifecycle_supervisor.locked`** 的实现（文件锁 vs advisory lock）未读，无法确认 Windows 上跨进程文件锁语义是否可靠。
+
+4. **duty_gate.py `persist_fix_hint` 写 `data/duty_rulings/<pid>.json` 无原子写**（直接 `json.dump` + close，无 tmp+rename）。若 dispatch.py 的 `previous_attempt_line` 正在读该文件，可能读到半写 JSON。但 dispatch 侧有 `except (OSError, ValueError): pass` 容错，所以后果仅是 hint 丢失，不 crash。**不确定**是否算高优先级。
+
+5. **CSV 批量模式**（`dispatch_csv`）的 `instruction` 模板里 `{worktree}` 等占位符由 spawn_agents_on_csv 工具填充，但该工具在本环境不可见（非 Python 函数），无法验证其是否存在及行为。
+
+6. **`dispatch.py` L~540 注释说 "K3 verifier output captured via codex exec -o is a read-only, detached job"**，但 `detached_readonly` 的触发条件是 `bool(readonly_cwd) or (capture_report and role in ("verifier","reviewer","plan_expander"))`。v1 CLI `--role verifier` 时 `capture_report=False`，verifier 仍走 worktree 分支。只有 v2/l2_consumer 路径传 `capture_report=True` 才触发。注释暗示所有 K3 verifier 都 readonly，实际只对特定调用方成立。

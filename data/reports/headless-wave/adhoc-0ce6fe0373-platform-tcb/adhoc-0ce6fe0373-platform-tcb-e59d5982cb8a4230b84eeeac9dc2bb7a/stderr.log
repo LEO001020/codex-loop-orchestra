@@ -1,0 +1,20 @@
+Reading additional input from stdin...
+2026-08-14T07:41:15.796589Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T07:41:21.730877Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T07:41:40.874673Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-14T07:42:01.109325Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T07:42:35.132629Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T07:42:43.410033Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T07:43:06.350521Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T07:43:26.608324Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T07:43:43.525871Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T07:44:05.740491Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 210ms)... turn_id=019fff37-d0fb-7f91-a141-56006eb5beb1 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+2026-08-14T07:44:26.755075Z ERROR codex_core::tools::router: error=unsupported call: glob

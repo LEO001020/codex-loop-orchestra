@@ -43,6 +43,10 @@ NEGATIVE_VERDICTS = {"CHANGES_REQUIRED", "CHANGES_REQUESTED", "REJECTED"}
 def main():
     ap = argparse.ArgumentParser(description="verdict algebraic closure check")
     ap.add_argument("--verdict", required=True, help="reviewer verdict JSON")
+    ap.add_argument("--dispatch-record", default=None,
+                    help="optional controlled release-review dispatch record "
+                         "(data/release_review/w<N>.json); when given the "
+                         "report's provenance must match it exactly")
     args = ap.parse_args()
     try:
         data = json.load(open(args.verdict, encoding="utf-8"))
@@ -53,6 +57,27 @@ def main():
     errors = []
     verdict = data.get("verdict")
     findings = data.get("findings", [])
+    # Provenance against the controlled dispatch record (release-review
+    # route): the report must echo run_id/model/effort/wave of the record.
+    if args.dispatch_record:
+        try:
+            rec = json.load(open(args.dispatch_record, encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as exc:
+            print("usage error: cannot read dispatch record: %s" % exc,
+                  file=sys.stderr)
+            sys.exit(2)
+        if not isinstance(rec, dict):
+            errors.append("DISPATCH_RECORD_INVALID: record must be a JSON object")
+            rec = {}
+        prov = data.get("provenance")
+        if not isinstance(prov, dict):
+            errors.append("PROVENANCE_MISSING: report must carry a provenance "
+                          "object when a dispatch record is supplied")
+        else:
+            for field in ("run_id", "model", "effort", "wave"):
+                if prov.get(field) != rec.get(field):
+                    errors.append("PROVENANCE_MISMATCH: %s %r != record %r"
+                                  % (field, prov.get(field), rec.get(field)))
     if verdict not in LEGAL_VERDICTS:
         errors.append("ILLEGAL_VERDICT: %r not in %s" % (verdict, sorted(LEGAL_VERDICTS)))
     if not isinstance(findings, list):

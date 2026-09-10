@@ -1,0 +1,49 @@
+I now have all the evidence needed. Here is the complete verification:
+
+---
+
+**验证结论：`parent_backlog_empty` 语义正确，deficit/spawnable 均为零，不产生虚假任务**
+
+### 代码路径追踪
+
+**触发条件**（`refill_controller_v2.py:479–480`）：
+
+```
+elif queued_total <= 0:
+    parent_reason = "parent_backlog_empty"
+```
+
+`queued_total` 是该 parent session 在 ledger 中处于 `DISPATCHABLE` 状态的 packet 总数之和。只有在该值严格为零时才进入此分支，即没有任何可调度的 packet。
+
+**此时 deficit 和 spawnable 的值**：
+
+`parent_debt` 由 `min(queued_total, max(0, parent_target - parent_running))` 计算（`controller_v2.py:464`），`queued_total == 0` → `parent_debt == 0`。  
+`parent_spawn_total` 由 `min(parent_debt, ...)` 计算（`controller_v2.py:469–472`），`parent_debt == 0` → `parent_spawn_total == 0`。
+
+因此写入 `parent_states` 的字段（`controller_v2.py:493–494`）：
+- `"deficit": 0`
+- `"spawnable": {"total": 0, "v4": 0, "k3": 0}`
+
+**consumer 如何响应**（`refill_consumer_v2.py`）：
+
+`select_tasks()` 从 `state["parents"][parent_id]["spawnable"]` 读取每个 parent 的允许数量（第 264–267 行），`spawnable.total == 0` → `parent_remaining[parent_id] == {"v4": 0, "k3": 0}`，在 packet 选择循环中 `parent_remaining[parent_id][pool] <= 0` 的检查会跳过所有该 parent 下的 packet，**零个任务被选入 wave**。  
+`build_manifest()` 因为 `tasks` 为空返回 `None`，`run_once()` 直接返回 `{"status": "idle"}`，不写 manifest，不触发 `headless_wave`。
+
+### 与"用户要求工作期持续20"的区分
+
+AGENTS.md 第 107–109 行的规范如下：
+
+> 如果 admitted parent backlog 已耗尽，8765 必须显示 `parent_backlog_empty` 和零 spawnable work，而不是假装备用容量是 refill debt。
+
+这一规则针对的是 **parent 注入的 read-only packet backlog** 消耗完毕的情况，属于"主动补充的外部任务池已空"。
+
+用户要求的"持续 20 个 agent"由 **全局 `deficit_total`** 驱动（`controller_v2.py:434`），该值由真实运行中的 worker 数量与 policy target 差距决定，和 parent 的 `spawnable` 字段完全独立，走不同的计算分支和不同的 `remaining` bucket。
+
+| 维度 | parent_backlog_empty | 用户要求的持续20 |
+|------|----------------------|-----------------|
+| 控制字段 | `parent_states[id].spawnable` | 全局 `state.deficit` |
+| 来源 | parent 注入 packet 队列为空 | 全局 `queue_empty == False` 且运行数 < target |
+| 行为 | 该 parent 不再产生新 birth | 全局继续补充至目标 |
+| 是否制造任务 | 否（`parent_remaining` 锁零） | 按真实 DISPATCHABLE packet 补充 |
+
+**结论**：`parent_backlog_empty` 时，该 parent session 的 `deficit == 0`、`spawnable.total == 0`，consumer 不会选择任何任务，不会制造虚假 birth。全局的用户工作期持续-20 机制由独立的 `state.deficit` 驱动，两者语义上完全解耦，实现正确。

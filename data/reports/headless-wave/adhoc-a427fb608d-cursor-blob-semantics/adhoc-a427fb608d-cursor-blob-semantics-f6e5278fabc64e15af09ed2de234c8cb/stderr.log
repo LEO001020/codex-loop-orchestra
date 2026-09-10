@@ -1,0 +1,331 @@
+Reading additional input from stdin...
+2026-08-16T15:06:05.383658Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-16T15:06:09.673836Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-16T15:06:24.627674Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-16T15:06:24.627812Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-16T15:06:38.244652Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+Get-ChildItem : 拒绝访问。
+所在位置 行:2 字符: 1
++ Get-ChildItem "C:\Users\hzq00\AppData\Roaming\npm\node_modules\@bitky ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [Get-ChildItem], UnauthorizedAccessException
+    + FullyQualifiedErrorId : System.UnauthorizedAccessException,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-16T15:07:33.483225Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 125
++ ... npm\node_modules\@bitkyc08\opencodex" --no-heading -n 2>&1 | head -80
++                                                                  ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-16T15:07:33.490387Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 111
++ ... -08-16\opencodex-web-oauth-oauth-json-web" --no-heading -n | head -60
++                                                                  ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-16T15:07:54.261082Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+
+2026-08-16T15:07:54.272237Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+rg : rg: C:\Users\hzq00\AppData\Roaming\npm\node_modules\@bitkyc08\opencodex: IO error for operation on C:\Users\hzq00\
+AppData\Roaming\npm\node_modules\@bitkyc08\opencodex: 鎷掔粷璁块棶銆?(os error 5)
+所在位置 行:2 字符: 1
++ rg -i "blob|upload|attachment" "C:\Users\hzq00\AppData\Roaming\npm\no ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (rg: C:\Users\hz...棶銆?(os error 5):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+2026-08-16T15:08:02.603323Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-16T15:08:02.610802Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-16T15:09:22.669084Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+
+2026-08-16T15:09:22.686792Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+
+2026-08-16T15:09:33.664975Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+
+2026-08-16T15:09:33.682843Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+
+2026-08-16T15:09:43.588207Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.5 seconds
+Output:
+cmd : 拒绝访问。
+所在位置 行:2 字符: 1
++ cmd /c "dir C:\Users\hzq00\AppData\Roaming\npm\node_modules\@bitkyc08 ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (拒绝访问。:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+2026-08-16T15:09:58.821806Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.7 seconds
+Output:
+
+2026-08-16T15:09:58.843175Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+
+2026-08-16T15:10:08.803500Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.7 seconds
+Output:
+
+2026-08-16T15:10:08.879612Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+False
+Test-Path : 拒绝访问。
+所在位置 行:2 字符: 1
++ Test-Path "$env:APPDATA\npm\node_modules\@bitkyc08\opencodex\src\oaut ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (C:\Users\hzq00\...\oauth\store.ts:String) [Test-Path], UnauthorizedAc 
+   cessException
+    + FullyQualifiedErrorId : ItemExistsUnauthorizedAccessError,Microsoft.PowerShell.Commands.TestPathCommand
+ 
+
+2026-08-16T15:10:19.456402Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+
+2026-08-16T15:10:19.490063Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+
+2026-08-16T15:10:24.043981Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-16T15:10:32.159694Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.5 seconds
+Output:
+无法调用方法。此语言模式仅支持核心类型的方法调用。
+所在位置 行:2 字符: 1
++ [System.IO.File]::ReadAllText("$env:APPDATA\npm\node_modules\@bitkyc0 ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : MethodInvocationNotSupportedInConstrainedLanguage
+ 
+
+2026-08-16T15:10:45.029022Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+rg : rg: C:\Users\hzq00\AppData\Roaming\npm\node_modules\@bitkyc08\opencodex: IO error for operation on C:\Users\hzq00\
+AppData\Roaming\npm\node_modules\@bitkyc08\opencodex: 鎷掔粷璁块棶銆?(os error 5)
+所在位置 行:2 字符: 1
++ rg -i "blob|upload|attachment" "$env:APPDATA\npm\node_modules\@bitkyc ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (rg: C:\Users\hz...棶銆?(os error 5):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+2026-08-16T15:10:45.033486Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+rg : rg: C:\Users\hzq00\AppData\Roaming\npm\node_modules\@bitkyc08\opencodex\src: IO error for operation on C:\Users\hz
+q00\AppData\Roaming\npm\node_modules\@bitkyc08\opencodex\src: 鎷掔粷璁块棶銆?(os error 5)
+所在位置 行:2 字符: 1
++ rg -i "blob" "$env:APPDATA\npm\node_modules\@bitkyc08\opencodex\src"  ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (rg: C:\Users\hz...棶銆?(os error 5):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+2026-08-16T15:11:18.776140Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+
+2026-08-16T15:11:18.849475Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+Get-Content : 对路径“C:\Users\hzq00\.opencodex\responses-state.json”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-Content "C:\Users\hzq00\.opencodex\responses-state.json" 2>&1 | S ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (C:\Users\hzq00\...nses-state.json:String) [Get-Content], Unauthorized 
+   AccessException
+    + FullyQualifiedErrorId : GetContentReaderUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+
+2026-08-16T15:11:32.551763Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+Get-Content : 对路径“C:\Users\hzq00\.opencodex\codex-runtime.json”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-Content "C:\Users\hzq00\.opencodex\codex-runtime.json" 2>&1 | Sel ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (C:\Users\hzq00\...ex-runtime.json:String) [Get-Content], Unauthorized 
+   AccessException
+    + FullyQualifiedErrorId : GetContentReaderUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+
+2026-08-16T15:11:32.565133Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+Get-Content : 对路径“C:\Users\hzq00\.opencodex\config.json”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-Content "C:\Users\hzq00\.opencodex\config.json" 2>&1 | Select-Obj ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (C:\Users\hzq00\.opencodex\config.json:String) [Get-Content], Unauthor 
+   izedAccessException
+    + FullyQualifiedErrorId : GetContentReaderUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+
+2026-08-16T15:12:09.479079Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+
+2026-08-16T15:12:21.806652Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+
+2026-08-16T15:12:21.812793Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+
+2026-08-16T15:12:34.617464Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+C:\Users\hzq00\.opencodex\catalog-backup.json
+C:\Users\hzq00\.opencodex\catalog-backup-1cb76d2e85414f59.json
+C:\Users\hzq00\.opencodex\usage.jsonl
+rg : rg: C:\Users\hzq00\.opencodex\admin-api-token: 鎷掔粷璁块棶銆?(os error 5)
+所在位置 行:2 字符: 1
++ rg -i "blob|upload|attachment" "C:\Users\hzq00\.opencodex" -l 2>&1 |  ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (rg: C:\Users\hz...棶銆?(os error 5):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+rg: C:\Users\hzq00\.opencodex\auth.json: 鎷掔粷璁块棶銆?(os error 5)
+rg: C:\Users\hzq00\.opencodex\auth.json.bak-20260816-035320-before-cursor-import: 鎷掔粷璁块棶銆?(os error 5)
+rg: C:\Users\hzq00\.opencodex\auth.json.bak-20260816-162211-before-enterprise-cursor-import: 鎷掔粷璁块棶銆?(os error 5
+)
+rg: C:\Users\hzq00\.opencodex\auth.json.bak-20260816-162519-before-enterprise-cache-import: 鎷掔粷璁块棶銆?(os error 5)
+rg: C:\Users\hzq00\.opencodex\codex-accounts.json: 鎷掔粷璁块棶銆?(os error 5)
+rg: C:\Users\hzq00\.opencodex\codex-quota-cache.json: 鎷掔粷璁块棶銆?(os error 5)
+rg: C:\Users\hzq00\.opencodex\codex-runtime.json: 鎷掔粷璁块棶銆?(os error 5)
+rg: C:\Users\hzq00\.opencodex\config.json: 鎷掔粷璁块棶銆?(os error 5)
+rg: C:\Users\hzq00\.opencodex\ocx.pid: 鎷掔粷璁块棶銆?(os error 5)
+rg: C:\Users\hzq00\.opencodex\opencodex-tray-offline.ico: 鎷掔粷璁块棶銆?(os error 5)
+rg: C:\Users\hzq00\.opencodex\opencodex-tray-online.ico: 鎷掔粷璁块棶銆?(os error 5)
+rg: C:\Users\hzq00\.opencodex\opencodex-tray-warning.ico: 鎷掔粷璁块棶銆?(os error 5)
+rg: C:\Users\hzq00\.opencodex\opencodex-tray.ps1: 鎷掔粷璁块棶銆?(os error 5)
+rg: C:\Users\hzq00\.opencodex\opencodex-tray.vbs: 鎷掔粷璁块棶銆?(os error 5)
+rg: C:\Users\hzq00\.opencodex\responses-state-spill: 鎷掔粷璁块棶銆?(os error 5)
+rg: C:\Users\hzq00\.opencodex\responses-state.json: 鎷掔粷璁块棶銆?(os error 5)
+rg: C:\Users\hzq00\.opencodex\runtime-port.json: 鎷掔粷璁块棶銆?(os error 5)
+rg: C:\Users\hzq00\.opencodex\service-state.json: 鎷掔粷璁块棶銆?(os error 5)
+rg: C:\Users\hzq00\.opencodex\tray-state.json: 鎷掔粷璁块棶銆?(os error 5)
+
+2026-08-16T15:13:12.631086Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+{"requestId":"ocx-msvu9d37-1fg","timestamp":1786886792323,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":107,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+{"requestId":"ocx-msvu9d7n-1fi","timestamp":1786886792483,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":75,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+{"requestId":"ocx-msvu9dep-1fj","timestamp":1786886792737,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":83,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+{"requestId":"ocx-msvu9djr-1fk","timestamp":1786886792919,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":91,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+{"requestId":"ocx-msvu9dut-1fl","timestamp":1786886793317,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":88,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+{"requestId":"ocx-msvu9dy6-1fm","timestamp":1786886793438,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":79,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+{"requestId":"ocx-msvu9eo7-1fn","timestamp":1786886794375,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":213,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+{"requestId":"ocx-msvu9eud-1fo","timestamp":1786886794597,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":398,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+{"requestId":"ocx-msvu9gi4-1fr","timestamp":1786886796748,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":146,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+{"requestId":"ocx-msvu9gml-1fs","timestamp":1786886796909,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":95,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+{"requestId":"ocx-msvu9gpe-1ft","timestamp":1786886797010,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":64,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+{"requestId":"ocx-msvu9gr9-1fu","timestamp":1786886797077,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":51,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+{"requestId":"ocx-msvu9gsr-1fv","timestamp":1786886797131,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":47,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+{"requestId":"ocx-msvu9gu5-1fw","timestamp":1786886797181,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":51,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+{"requestId":"ocx-msvu9gvn-1fx","timestamp":1786886797235,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":49,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+{"requestId":"ocx-msvu9gx4-1fy","timestamp":1786886797288,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":63,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+{"requestId":"ocx-msvu9h1n-1fz","timestamp":1786886797451,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":65,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+{"requestId":"ocx-msvu9h3l-1g0","timestamp":1786886797521,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":67,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+{"requestId":"ocx-msvu9h5m-1g1","timestamp":1786886797594,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":56,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+{"requestId":"ocx-msvu9h7a-1g2","timestamp":1786886797654,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":60,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+{"requestId":"ocx-msvu9h92-1g3","timestamp":1786886797718,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":52,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+{"requestId":"ocx-msvu9hal-1g4","timestamp":1786886797773,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":45,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+{"requestId":"ocx-msvu9hsc-1g9","timestamp":1786886798412,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":92,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+{"requestId":"ocx-msvu9igh-1gc","timestamp":1786886799281,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":185,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+{"requestId":"ocx-msvu9l8r-1gl","timestamp":1786886802891,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":285,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+{"requestId":"ocx-msvu9pc9-1gq","timestamp":1786886808201,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":120,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+{"requestId":"ocx-msvu9pfo-1gr","timestamp":1786886808324,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":97,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+{"requestId":"ocx-msvu9plg-1gs","timestamp":1786886808532,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":103,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+{"requestId":"ocx-msvu9poq-1gt","timestamp":1786886808650,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":109,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+{"requestId":"ocx-msvu9t2w-1h2","timestamp":1786886813048,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":2405,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+{"requestId":"ocx-msvu9t33-1h3","timestamp":1786886813055,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":2401,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+{"requestId":"ocx-msvu9u20-1h4","timestamp":1786886814312,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":1146,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+{"requestId":"ocx-msvu9v1t-1h6","timestamp":1786886815601,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"gpt-5.6-sol","requestedEffort":"low","configuredServiceTier":"default","status":502,"durationMs":114,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+{"requestId":"ocx-msvu9vci-1h9","timestamp":1786886815986,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":76,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+{"requestId":"ocx-msvu9vfj-1ha","timestamp":1786886816095,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":117,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+{"requestId":"ocx-msvu9vix-1hb","timestamp":1786886816217,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":80,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+{"requestId":"ocx-msvu9vn0-1hd","timestamp":1786886816364,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"gpt-5.6-sol","requestedEffort":"low","configuredServiceTier":"default","status":502,"durationMs":34,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+{"requestId":"ocx-msvu9vpi-1he","timestamp":1786886816454,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":98,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+{"requestId":"ocx-msvu9vt8-1hf","timestamp":1786886816588,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":99,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+{"requestId":"ocx-msvu9vw9-1hg","timestamp":1786886816697,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":81,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+
+2026-08-16T15:13:33.360982Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+125338:{"requestId":"ocx-msvu9d37-1fg","timestamp":1786886792323,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":107,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+125339:{"requestId":"ocx-msvu9d7n-1fi","timestamp":1786886792483,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":75,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+125341:{"requestId":"ocx-msvu9dep-1fj","timestamp":1786886792737,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":83,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+125346:{"requestId":"ocx-msvu9djr-1fk","timestamp":1786886792919,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":91,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+125347:{"requestId":"ocx-msvu9dut-1fl","timestamp":1786886793317,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":88,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+125348:{"requestId":"ocx-msvu9dy6-1fm","timestamp":1786886793438,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":79,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+125352:{"requestId":"ocx-msvu9eo7-1fn","timestamp":1786886794375,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":213,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+125353:{"requestId":"ocx-msvu9eud-1fo","timestamp":1786886794597,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":398,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+125355:{"requestId":"ocx-msvu9gi4-1fr","timestamp":1786886796748,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":146,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+125356:{"requestId":"ocx-msvu9gml-1fs","timestamp":1786886796909,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":95,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+
+2026-08-16T15:13:33.396356Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+{"requestId":"ocx-msvu9d37-1fg","timestamp":1786886792323,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":107,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+{"requestId":"ocx-msvu9d7n-1fi","timestamp":1786886792483,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":75,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+{"requestId":"ocx-msvu9dep-1fj","timestamp":1786886792737,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":83,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+{"requestId":"ocx-msvu9djr-1fk","timestamp":1786886792919,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":91,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+{"requestId":"ocx-msvu9dut-1fl","timestamp":1786886793317,"provider":"cursor","model":"grok-4.6","admissionKind":"loopback","inboundProtocol":"responses","conversationId":"46245bd961bb8ab208bfecdfb44cb6ad","resolvedModel":"grok-4.6","requestedModel":"weiwu/aws.claude-sonnet-4.6","requestedEffort":"max","configuredServiceTier":"default","status":502,"durationMs":88,"usageStatus":"unreported","errorCode":"upstream_server_error","terminalStatus":"failed","closeReason":"terminal","upstreamError":"Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."}
+
+2026-08-16T15:14:28.656955Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

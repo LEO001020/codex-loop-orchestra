@@ -1,0 +1,100 @@
+{
+  "tasks": [
+    {
+      "task_id": "h01-local-json-snapshots",
+      "task_name": "本地JSON快照盘点",
+      "role": "worker",
+      "sandbox": "read-only",
+      "cwd": "E:\\VPS",
+      "prompt": "任务名：本地JSON快照盘点\n只读。在 E:\\VPS 和 C:\\Users\\hzq00 下找 ALPHA_STATE.json FORWARD_REGISTER.json DISPATCH_LEDGER.jsonl 及类似研究数据快照。跳过 zip/tar 解压。返回路径、大小、mtime、是否含时间字段。禁止打印密钥。一行结论+证据。"
+    },
+    {
+      "task_id": "h02-existing-gateway-code",
+      "task_name": "现有网关代码检索",
+      "role": "worker",
+      "sandbox": "read-only",
+      "cwd": "E:\\VPS",
+      "prompt": "任务名：现有网关代码检索\n只读。在 E:\\VPS 搜索 vps_secure_gateway.py, /api/v1/exec, Flask 443, X-Secret, HMAC gateway。跳过巨大 zip。返回是否已有实现、路径、是否含命令执行。不要复述任何硬编码密钥值。"
+    },
+    {
+      "task_id": "h03-ssh-scripts",
+      "task_name": "现有SSH脚本盘点",
+      "role": "worker",
+      "sandbox": "read-only",
+      "cwd": "E:\\VPS",
+      "prompt": "任务名：现有SSH脚本盘点\n只读。在 E:\\VPS 找 ssh/scp/gcloud compute ssh 脚本，提取 user@host、密钥路径、常用远程命令。不要打印私钥。返回可复用的登录命令。"
+    },
+    {
+      "task_id": "h04-nginx-templates",
+      "task_name": "仓库nginx模板",
+      "role": "worker",
+      "sandbox": "read-only",
+      "cwd": "E:\\VPS",
+      "prompt": "任务名：仓库nginx模板\n只读。搜索 nginx.conf、caddy、systemd unit、gunicorn 模板。返回可复用片段路径，不要发明不存在的文件。"
+    },
+    {
+      "task_id": "h05-wsl-ssh",
+      "task_name": "WSL侧SSH可用性",
+      "role": "worker",
+      "sandbox": "read-only",
+      "cwd": "E:\\VPS",
+      "prompt": "任务名：WSL侧SSH可用性\n只读。若 wsl 可用，检查 wsl 内 ssh、python3、nginx。不要登录 VPS 做变更。返回 WSL 发行版和工具是否存在。"
+    },
+    {
+      "task_id": "h06-cloud-client-contract",
+      "task_name": "云端客户端调用契约",
+      "role": "worker",
+      "sandbox": "read-only",
+      "cwd": "E:\\VPS",
+      "prompt": "任务名：云端客户端调用契约\n只读设计。为云端工作区写最小 Python 客户端契约：GET/POST 拉取 start/end 数据片段，强制 TLS 校验，HMAC 头不含明文密钥。不要连接外网。返回函数签名和错误处理。"
+    },
+    {
+      "task_id": "h07-dataset-timerange",
+      "task_name": "时间范围过滤语义",
+      "role": "worker",
+      "sandbox": "read-only",
+      "cwd": "E:\\VPS",
+      "prompt": "任务名：时间范围过滤语义\n只读。定义 dataset 时间切片：ISO-8601 UTC start/end，inclusive/exclusive，max window，max bytes。针对 jsonl vs json array。返回拒绝规则。"
+    },
+    {
+      "task_id": "h08-least-privilege",
+      "task_name": "最小权限用户模型",
+      "role": "worker",
+      "sandbox": "read-only",
+      "cwd": "E:\\VPS",
+      "prompt": "任务名：最小权限用户模型\n只读设计。给出 systemd DynamicUser 或专用用户、无 sudo、数据目录只读 ACL、日志目录可写的最小权限模型。不要在 VPS 上创建用户。"
+    },
+    {
+      "task_id": "h09-adversarial-api",
+      "task_name": "对抗性API审查",
+      "role": "verifier",
+      "sandbox": "read-only",
+      "cwd": "E:\\VPS",
+      "prompt": "任务名：对抗性API审查\n只读。列出该 HTTPS 数据片段 API 的绕过面：路径穿越、symlink、JSON 空格签名、重放、大包、方法混淆。每条给缓解。禁止给出可运行 exploit。"
+    },
+    {
+      "task_id": "h10-tls-pinning",
+      "task_name": "自签证书钉扎方案",
+      "role": "worker",
+      "sandbox": "read-only",
+      "cwd": "E:\\VPS",
+      "prompt": "任务名：自签证书钉扎方案\n只读。若无公网域名，给出自签证书+SPKI pin 的客户端校验方案，禁止 verify=False。返回 openssl 生成命令要点和 Python ssl 用法。"
+    },
+    {
+      "task_id": "h11-audit-log-schema",
+      "task_name": "审计日志schema",
+      "role": "worker",
+      "sandbox": "read-only",
+      "cwd": "E:\\VPS",
+      "prompt": "任务名：审计日志schema\n只读。设计网关审计 JSONL：时间、key_id、nonce、dataset、start、end、status、bytes、latency、源IP。禁止记录密钥和签名。返回字段表。"
+    },
+    {
+      "task_id": "h12-rate-limit",
+      "task_name": "速率与资源限制",
+      "role": "worker",
+      "sandbox": "read-only",
+      "cwd": "E:\\VPS",
+      "prompt": "任务名：速率与资源限制\n只读。给出每 key 速率、并发、body 上限、响应上限、超时、slowloris 防护在 nginx 的配置要点。不要部署。"
+    }
+  ]
+}

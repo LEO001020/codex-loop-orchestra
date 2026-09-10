@@ -1,0 +1,22 @@
+结论：本次恢复的写面与宣称范围一致——仅触及自动补位链、状态机事件边界和真值计数三类目标文件，未发现整包覆盖，`harness/ipybox_cleanup.py` 与 `harness/ipybox_lazy.py` 未被修改。
+
+变更范围（依据 2026-08-13 04:10–04:45 全树 mtime 扫描 + 恢复审计清单 `data/refill/parent-019feacd-loop-recovery-audit.json`）：
+
+1. 自动补位链
+- [hooks/subagent_lifecycle.py](E:/codex-LOOP/codex-loop-s-f2/hooks/subagent_lifecycle.py)（04:14:46）：`recompute_refill` 接 controller、`schedule_refill_actuator` 接 `refill_consumer_v2.schedule_run`
+- [harness/refill_consumer_v2.py](E:/codex-LOOP/codex-loop-s-f2/harness/refill_consumer_v2.py)（04:16:48）、[harness/refill_controller_v2.py](E:/codex-LOOP/codex-loop-s-f2/harness/refill_controller_v2.py)（04:20:53）、[harness/lifecycle_supervisor.py](E:/codex-LOOP/codex-loop-s-f2/harness/lifecycle_supervisor.py)（04:25:20）
+
+2. 状态机事件边界
+- [harness/statemachine_v2.py](E:/codex-LOOP/codex-loop-s-f2/harness/statemachine_v2.py)（04:14:46）、[harness/statemachine.py](E:/codex-LOOP/codex-loop-s-f2/harness/statemachine.py)（04:15:44）：事件游标续读、INFO_EVENTS、canonical 准入/off-table 边界
+
+3. 真值计数
+- [harness/dispatch.py](E:/codex-LOOP/codex-loop-s-f2/harness/dispatch.py) 与 [harness/dispatch_v2.py](E:/codex-LOOP/codex-loop-s-f2/harness/dispatch_v2.py)（04:32:56）：显式 role→route 钉死、K3 债务保留（`k3_unavailable_debt_retained`）、实际模型/进程代际计数（`_process_start_token`、`NATIVE_RUNNING_TTL_SECONDS=1800`）
+- [harness/repair_transport_deadletters.py](E:/codex-LOOP/codex-loop-s-f2/harness/repair_transport_deadletters.py)（04:27:21）+ 台账修复产物 `data/repairs/transport-deadletters-20260813-042738/`
+
+关键佐证：
+- 有直接修复前基线（`codex-loop-s-f2/` 内层副本 01:22）的三个文件 diff 均为有界定点修改：dispatch_v2 +153/−74、refill_controller_v2 +76/−7、statemachine_v2 +74/−34，无整文件/整包替换迹象。
+- 修复清单 `repair_manifest.json`：`apply:true`、selected_count=93、remaining_packets=0；before 台账 93 行全部为 `DEAD_LETTER` 且 history 全部为 `off_table_event`，工件事物（dead_letters + sol_wake）全部保留，仅 `data/progress_ledger.json` 被改写。
+- `ipybox_cleanup.py`（8/10 22:28）与 `ipybox_lazy.py`（8/10 21:59）mtime 远早于恢复窗口，且不出现在窗口写集合中；dispatch_v2 只读取 `ipybox.*` 策略键并生成 `mcp_servers.ipybox.enabled=` 命令行，不触碰两个模块本体。
+- 窗口内 config/、metering/、AGENTS.md、install*、SHA256SUMS 均无写入；同步更新的 5 个测试文件（test_statemachine_v2、test_refill_consumer_v2、test_refill_controller_v2、test_subagent_lifecycle_hook、test_lifecycle_supervisor）与上述模块一一对应，属同范围伴随修改。
+
+超范围漂移：未发现代码层面的越界写入。窗口内 `data/` 下的其余变化（events.ndjson、progress_ledger 二次写入并纳入 16 个 parent-* 审计包、refill/router/budget/lifecycle 运行时状态、token ledger）均为状态机/补位链正常运行态，不是恢复代码改动。残余局限：subagent_lifecycle.py、refill_consumer_v2.py、lifecycle_supervisor.py 无恢复前快照可做行级 diff（证据为 mtime+锁步测试+内容归属），且删除检测仅覆盖快照所含文件集（git 未显示任何已跟踪删除）。

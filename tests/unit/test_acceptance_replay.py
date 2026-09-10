@@ -9,8 +9,13 @@
 #        immutability), and a failing acceptance command fails replay (rc 1).
 # ============================================================================
 import json
+import os
+
+import pytest
 
 from conftest import PY
+
+pytestmark = pytest.mark.skipif(os.name == "nt", reason="POSIX bash path contract")
 
 
 def replay_sh(loop, mode, packet, tree, oracle):

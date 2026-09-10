@@ -1,0 +1,324 @@
+Stage2/3 never wrote animation scale, navigation_mode, or refresh-rate keys; live values are still default 1.0 / Honor 106 / APS 120Hz. File write to [h09_anim_settings.md](/C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/work/fluency_plan/reports/h09_anim_settings.md) was denied by the read-only sandbox (`Access denied` / `apply_patch` rejected). Report body follows.
+
+# h09 动画 / 缩放 / 手势 / 刷新率键历史
+
+- 性质：只读摘录。未 adb、未 `settings put`、未跑 rollback、未杀 adb。
+- 任务：从 ni-j Stage2/3 报告 + hy4 `settings_global/secure/system` dump，抽出动画缩放、`navigation_mode`、刷新率相关键：谁写过、现值、能不能当流畅杠杆。
+- 设备：HONOR VER-AN10 `AVNS023705001888` / MagicOS 16 `10.0.0.175`。
+- 计划：SYSTEM FLUENCY，不是 AI 侧栏修复。
+- 已冻结约束：Reduced 保持 29；`com.bilibili.app.in` 不得加回 Reduced；禁止禁 iaware / phoneservice；禁止写 dockBar / tooltip / `is_ota_finished` / `navigation_mode` / FloatTasks enable；网易云保活是用户选择的流畅成本。
+
+一行结论：Stage2/3 从未写过动画缩放、`navigation_mode` 或刷新率键；现场三档动画仍是默认 `1.0`、手势模式仍是 Honor `106`、面板已在 120Hz。流畅计划不要关动画、不要改导航、不要用 AOSP `peak_refresh_rate` 去拧 Honor APS。
+
+## 0. 已碰 vs 只观察到
+
+| 分类 | 结论 |
+|---|---|
+| Stage2 实际写入 | 29 包 `RUN_ANY_IN_BACKGROUND=ignore` + 6 个荣耀包 `pm disable-user`。零 `settings put`。 |
+| Stage3 实际写入 | reboot/OTA 175、AppOps 重放、phoneservice disable（后来已漂移回 enabled）、Wave B 4 包 disable、NMB3 5 包 ignore、360 卸载、Perfetto/gfxinfo 测量、freeze JSON。账本动作只有 `appops_set_ignore` / `pm_disable_user` / `pm_enable_user` / `pm_uninstall_user0`。零动画/刷新/`navigation_mode`。 |
+| 08-24/08-29 侧栏会话写过、但本包禁止再写 | `honor.globalWindow.dockBar`、`dockbar_tooltip_enabled`、`float_task_state`、`is_ota_finished`、FloatTasks enable/disable。这些不是流畅杠杆。 |
+| 明确从未写入 | `window_animation_scale` / `transition_animation_scale` / `animator_duration_scale` / `navigation_mode` / `hw_screen_freq*` / `aps_display_*` / `peak_refresh_rate` / `min_refresh_rate`。dumpsys 多为 `generation:1` + `defaultSystemSet:true`。 |
+
+风险级（本包口径）：A 可逆、用户可感知但低破坏；B 可逆但改手感/耗电；C 未在本机验证、可能空转或打架；D 已裁定 must NOT。
+
+## 1. 核实事实（path + quote）
+
+### 1.1 Stage2/3 没碰动画、导航、刷新率
+
+Stage2 全审计「做了什么」表：
+
+来源 `C:\Users\hzq00\Documents\Codex\2026-08-23\ni-j\outputs\HONOR_VER_AN10_STAGE2_FULL_AUDIT_REPORT_20260823.md`
+
+> 未改 netpolicy / 未做 ART compile / 未做 Perfetto 设备侧录制
+
+写入类别只有 NMB Reduced 29、UAD disable-user。无 settings 行。
+
+Stage2 续执行报告同样只有 AppOps + `pm disable-user`，回滚语义是 `appops … default` 与 `pm default-state`。
+
+Stage3 账本动作直方图（当场数过 `HONOR_VER_AN10_STAGE3_LEDGER_20260823.tsv`）：`appops_set_ignore=63`，`pm_disable_user=5`，`pm_enable_user=1`，`pm_uninstall_user0=1`。无 `settings`。
+
+Stage3 终报保护集：
+
+来源 `C:\Users\hzq00\Documents\Codex\2026-08-23\ni-j\outputs\HONOR_VER_AN10_STAGE3_FINAL_REPORT_20260823.md`
+
+> 未碰 powergenie / iaware / ddmp / launcher / systemui / phone / YOYO / PC。
+
+Stage3 freeze 旁路明确钉死导航模式：
+
+来源 `C:\Users\hzq00\Documents\Codex\2026-08-23\ni-j\outputs\HONOR_DESIRED_STATE.stage3.20260823.json`
+
+> `"navigation_mode_do_not_change": "106"`
+
+hy4 摘录 `work/fluency_plan/reports/d02_stage3_desired.md`：
+
+> 四份来源中 **零处** `window_animation_scale` / `transition_animation_scale` / `animator_duration_scale`，JSON 也无 animation 键。
+
+写入清单 `reports/journal-write-inventory/table.md` 的 settings 行只有 `float_task_state`、`dockBar`、`dockbar_tooltip_enabled`。没有动画缩放、`navigation_mode`、刷新率。
+
+hy4 本仓写入审计 `reports/本仓写入/03_this_workspace_writes.md`：
+
+> 本仓 **没有任何** `settings put` … `navigation_mode` 的 Python argv。
+>
+> 禁止项含 `settings put secure navigation_mode`
+
+### 1.2 三档动画缩放 = 默认 1.0，从未被 shell 写
+
+`settings list global`（sidebar dump 与 fluency live dump 同值）：
+
+来源 `work/sidebar_fix/settings_global_all.txt` L169–171 / L1483 / L1591；同文 `work/fluency_plan/live/settings_global.txt`、`work/fluency_plan/live/refresh_settings.txt`
+
+> `animation_remain_times=0,0,0`
+> `animator_duration_scale=1.0`
+> `enable_back_animation=0`
+> `transition_animation_scale=1.0`
+> `window_animation_scale=1.0`
+
+单键 get：`work/fluency_plan/live/anim_window.txt` / `anim_transition.txt` / `anim_animator.txt`
+
+> `1.0`
+
+dumpsys 所有权，来源 `reports/01_device_live_state/15_dumpsys_settings.full.txt`：
+
+> `_id:9698 name:window_animation_scale pkg:android value:1.0 default:1.0 defaultSystemSet:true notPreservedInRestore`
+> `_id:9700 name:transition_animation_scale pkg:android value:1.0 default:1.0 defaultSystemSet:true notPreservedInRestore`
+> `_id:9701 name:animator_duration_scale pkg:android value:1.0 default:1.0 defaultSystemSet:true`
+> `_id:1197743 name:enable_back_animation pkg:com.android.settings value:0 default:0 defaultSystemSet:true`
+> `_id:990398 name:animation_remain_times pkg:com.android.systemui value:0,0,0 default:0,0,0 defaultSystemSet:true`
+> `setting: transition_animation_scale generation:1`
+> `setting: animator_duration_scale generation:1`
+> `setting: enable_back_animation generation:1`
+> `setting: animation_remain_times generation:1`
+
+同份 dumpsys：`development_settings_enabled=1`（开发者选项已开，所以这三档键存在且可读；不等于有人改过缩放）。本包 grep **没有**找到 `setting: window_animation_scale generation:` 行；值行仍是 default 1.0。
+
+Secure 侧动画相关，仍是默认：
+
+> `settings_secure_all.txt`：`animator_user_transition_type=0`、`animator_user_transition_type_default=0`、`gesture_home_animator=0`
+> dumpsys：`_id:2829 name:gesture_home_animator pkg:android value:0 default:0 defaultSystemSet:true`
+> `_id:639270 name:animator_user_transition_type pkg:com.android.settings value:0 default:0 defaultSystemSet:true`
+
+ROM 动画 prop（只读，非 settings；`work/fluency_plan/live/props_all.txt`）：
+
+> `[msc.launcher.app_launch_animation_right_angle]: [false]`
+> `[msc.launcher.unlock_animation_level]: [0]`
+> `[msc.systemanimation.backexit_effects]: [1]`
+
+### 1.3 `navigation_mode` = 106，generation 1，禁止改
+
+> `work/sidebar_fix/settings_secure_all.txt`：`navigation_mode=106`
+> `work/sidebar_fix/settings_keys.txt`：`secure navigation_mode = 106 rc=0`
+> `work/sidebar_fix/set_secure_navigation_mode.txt`：`106`
+> `work/fluency_plan/live/settings_secure.txt`：`navigation_mode=106`
+
+dumpsys：
+
+> `_id:648333 name:navigation_mode pkg:com.android.systemui value:106 default:106 defaultSystemSet:true`
+> `setting: navigation_mode generation:1`
+
+配套手势位（同 dump）：
+
+> `_id:34872 name:secure_gesture_navigation pkg:com.android.settings value:1 default:1 defaultSystemSet:true`
+> `_id:46 name:secure_gesture_navigation_horizontalswitch pkg:android value:1 default:1 defaultSystemSet:true notPreservedInRestore`
+
+hy4 核验 `outputs/audit_20260830/14_navigation_mode.md` / `reports/navigation_mode勿改核验/verify.md`：
+
+> 上一轮未写该键（generation:1，owner SystemUI）。禁止 `settings put secure navigation_mode`。
+> `106 = 荣耀全面屏手势`；AOSP 公开枚举是 0/1/2。
+
+多窗手势（已开，Stage2/3 未写；HANDOVER 也说「本来就开着」）：
+
+> `settings_keys.txt`：`secure multi_win_gesture_status = 1`
+> dumpsys：`_id:4222 name:multi_win_gesture_status pkg:com.hihonor.hndockbar value:1 default:1 defaultSystemSet:true`
+> `honor_multi_win_dynamic_effect = null`
+
+### 1.4 刷新率：Honor `hw_screen_*` / APS 在，AOSP `peak_refresh_rate` 空
+
+Global APS / 高刷能力（`settings_global_all.txt` L195–201 / L937–939）：
+
+> `aps_display_resolution=3`
+> `aps_display_style=0`
+> `aps_init_height=2344`
+> `aps_init_width=2156`
+> `hw_screen_freq_list=60 90 120`
+> `hw_screen_high_freq=120`
+
+dumpsys 所有权：
+
+> `_id:696 name:aps_display_resolution pkg:com.hihonor.android.hnaps value:3 default:3 defaultSystemSet:true`
+> `_id:235 name:aps_display_style pkg:com.hihonor.android.hnaps value:0 default:0 defaultSystemSet:true`
+> `_id:1198714 name:hw_screen_high_freq pkg:com.hihonor.android.hnaps value:120 default:120 defaultSystemSet:true`
+> `_id:1198715 name:hw_screen_freq_list pkg:com.hihonor.android.hnaps value:60 90 120 default:60 90 120 defaultSystemSet:true`
+> `setting: hw_screen_high_freq generation:1`
+> `setting: aps_display_resolution generation:1`
+> `setting: aps_display_style generation:1`
+
+Secure 用户高刷开关：
+
+> `settings_secure_all.txt`：`hw_screen_freq=1`
+> dumpsys：`_id:639271 name:hw_screen_freq pkg:com.android.settings value:1 default:1 defaultSystemSet:true`
+> `setting: hw_screen_freq generation:1`
+
+AOSP 刷新键没有值：
+
+> `work/fluency_plan/live/peak_refresh.txt` / `min_refresh.txt` / `user_refresh.txt` / `smart_refresh.txt`：均为 `null`
+> `settings list system|global|secure` 的 refresh grep（`live/refresh_settings.txt`）没有 `peak_refresh_rate=` 行
+> dumpsys 只有 generation 注册、没有 `_id … name:peak_refresh_rate … value:`：
+> `_Backing store for type:SETTINGS_SYSTEM user:0` 内 `setting: peak_refresh_rate generation:1`
+
+Display / SurfaceFlinger 现场（`work/fluency_plan/live/display.txt` / `sf.txt`）：
+
+> 内屏 `2156 x 2344`，`supportedRefreshRates [60.000004, 120.00001, 120.00001, 120.00001, 90.0, 40.0, 30.000002]`
+> `mActiveModeId=2`（120Hz 档），`mActiveRenderFrameRate=120.00001`
+> `userPreferredModeId -1`
+> `mVrrSupported= false`；SF `vrrConfig=N/A`
+> `RefreshRateData {defaultRefreshRate: 60, defaultPeakRefreshRate: 0, …}`
+> SF 驻留：`120.00 Hz: 0d07:50:35.341`，`60.00 Hz: 0d01:55:00.376`，`90.00 Hz: 0d00:06:01.607`，`30.00 Hz: 0d00:08:26.544`，`40.00 Hz: 0d00:00:02.796`
+> `activeFrameRateMode={fps=120.00 Hz … peakRefreshRate=120.00 Hz}`
+> `displayManagerPolicy={… primaryRanges={physical=[120.00 Hz, 120.00 Hz], render=[120.00 Hz, 120.00 Hz]} …}`
+> `peak-refresh-rate         : 120.00 Hz`
+> `FPS min:120 max:120 cur:120`
+
+APS / SF prop（`props_all.txt` / `props_aps.txt`）：
+
+> `[persist.sys.aps.camera_30hz]: [1]`
+> `[persist.sys.aps.defaultWidth]: [2156]`
+> `[sys.aps.defaultmaxfps]: [120]`
+> `[sys.aps.new_video_dyn_fps]: [1]`
+> `[sys.aps.video_dynamic_fps]: [1]`
+> `[sys.aps.power_mode]: [2]`
+> `[ro.surface_flinger.use_content_detection_for_refresh_rate]: [true]`
+> `[ro.surface_flinger.game_default_frame_rate_override]: [60]`
+> `[ro.surface_flinger.enable_frame_rate_override]: [false]`
+> `[debug.sf.high_fps_early_phase_offset_ns]: [-4000000]`（及其它 high_fps phase offset；ROM 默认，非本仓写入）
+
+hndockbar 帧率策略（侧栏 dump，非 settings 写入），`work/sidebar_fix/logcat_hits.txt`：
+
+> `FrameRateManager: [GetSkipFpsPolicy] visible pkg:com.hihonor.hndockbar(inactiveFps:60, activeFps:120)`
+
+### 1.5 历史 jank 测量（改键前的基线，不是因果）
+
+Stage2 累计 gfxinfo（终报自己说不能当优化因果），`HONOR_VER_AN10_STAGE2_FULL_AUDIT_REPORT_20260823.md` §8：
+
+> launcher post：26207 frames，jank 1044（3.98%），p50/p90/p99 = 7/12/48 ms
+> SystemUI post：39616 frames，jank 4815（12.15%），p50/p90/p99 = 10/22/81 ms
+
+Stage3 受控短场景（测量，不是改动画）：
+
+> PRE_WAVE_A：launcher 381 / jank 12（3.15%）p50 7 / p90 18 / p99 81；SystemUI 166 / jank 15（9.04%）p50 8 / p90 23 / p99 61
+> POST_STAGE3：launcher 473 / jank 12（2.54%）p50 9 / p90 12 / p99 42；SystemUI 99 / jank 3（3.03%）p50 12 / p90 16 / p99 69
+> 这是同场景、不同时长的前后对比，不是实验室级 A/B。…不能把因果全归到禁 5 个 HONOR 包。
+
+hy4 live 累计（`work/fluency_plan/live/gfx_launcher.txt` / `gfx_systemui.txt`，`Stats since` 不同，禁止减百分比）：
+
+> launcher 57612 frames，jank 2603（4.52%），p50/p90/p99 = 7/13/44 ms，deadline missed 2603
+> SystemUI 74020 frames，jank 9044（12.22%），p50/p90/p99 = 7/19/69 ms，deadline missed 9044
+
+## 2. 推断
+
+1. 动画缩放不是卡顿来源。三档都在 AOSP/Honor 默认 `1.0`，transition/animator `generation:1`，owner=`android`。Stage2/3/侧栏会话都没写过。把「开发者选项 → 动画缩放到 0.5/0」当成流畅修复，是在动一条从未被动过的默认路径。
+2. 导航模式不是流畅杠杆。`106` 是 SystemUI 默认全面屏手势；`GestureNavDock` / 返回热区挂在同一 `NavigationModeController`。改成 AOSP 0/1/2 会切手势栈，不是「更顺的全面屏」。
+3. 刷新率路径是 Honor APS（`com.hihonor.android.hnaps`）+ `hw_screen_freq=1`，不是 AOSP `peak_refresh_rate`。list/get 都拿不到 `peak_refresh_rate` 值，但 SF 已锁在 120–120。往 SYSTEM 表 `put peak_refresh_rate 120` 很大概率空转或与 hnaps 打架。
+4. 现场已经在高刷。`hw_screen_freq=1`、`hw_screen_high_freq=120`、SF `cur:120`、驻留时间 120Hz ≫ 60Hz。再「打开 120Hz」没有增量；把刷新拧到 60 只会让 jank 更显眼。
+5. `enable_back_animation=0` 是默认。打开预测性返回动画是新 UX，不是 Stage2/3 遗留开关，也不是已验证的流畅增益。
+6. `aps_display_resolution=3` 的数值语义未在授权文件钉死。分辨率 init 2156×2344 与内屏一致；3 更像 Honor APS 档位枚举，不是「缩放 3x」。不要当 density/分辨率杠杆乱拧。
+
+## 3. 未知
+
+1. Honor `hw_screen_freq` 枚举表：现场 `1` + 高刷 120 强烈暗示「智能/高刷新开」，但授权 dump 没有 `0=60 / 1=120 / 2=智能` 的官方表。未做（也不该做）对照实验。
+2. `peak_refresh_rate` 为何只出现在 generation registry、没有 value 行：可能是 DisplayModeDirector 注册了空键，Honor 改走 `hw_screen_*`。未在源码里核对。
+3. `aps_display_style=0` / `aps_display_resolution=3` 的产品名（智能分辨率 / 省电分辨率）未在本包交叉到 Settings UI 文案。
+4. `gesture_home_animator`、`animator_user_transition_type`、`honor_multi_win_dynamic_effect=null`：无写入、无反编译结论；语义不明。
+5. `AOD_FOR_CHANGE_DISPLAY_MODE`：sidebar dump=`1`，fluency live dump=`0`。这是 AOD 显示策略漂移，不是动画缩放，本包不当刷新杠杆。
+6. 未允许把 `navigation_mode` 从 106 改走再改回，因此「切栈」是代码路径推断，不是本机 A/B。
+7. `sys.aps.power_mode=2` 的产品档位未知；persist APS prop 是否用户设置可改未知。不要 `setprop`。
+8. dumpsys generation 表未检出 `window_animation_scale` 的 `setting:` 行（transition/animator 有 `generation:1`）。值行仍是 default 1.0；不确定是 dump 换行漏检还是该键未进 registry。
+
+## 4. 推荐杠杆（只谈本包范围内的键）
+
+| 杠杆 | 现状 | 建议 | 风险 |
+|---|---|---|---|
+| 不要 `settings put secure navigation_mode …` | 106 / default 106 / gen 1 | 保持。改它切手势栈，毁返回/Home/`GestureNavDock` | D |
+| 不要写 dockBar / tooltip / `is_ota_finished` / FloatTasks enable | 侧栏会话已碰过 | 流畅计划禁写。不是动画问题 | D |
+| 不要禁 iaware / phoneservice | 保护集 | 已裁定 | D |
+| 不要把 B 站加回 Reduced；不要撤网易云保活 | 用户选择 | 保活成本 ≠ 动画成本 | D |
+| 不要 `settings put global window/transition/animator_*_scale 0` 或 `0.5` 当「已验证流畅修复」 | 三档默认 1.0，从未写过 | 关动画只缩短过渡时长，不修 SystemUI 12% 累计 jank，且会让 120Hz 手势/侧栏过渡看起来「瞬切」。若用户明确要「更快的过渡」才允许 0.5 单变量实验 | 0.5 = B；0 = C（OEM 动画/侧栏过渡可能毛刺） |
+| 不要 `enable_back_animation=1` | 默认 0 | 预测性返回在 Honor 手势栈上未测 | C |
+| 不要写 `peak_refresh_rate` / `min_refresh_rate` / `user_refresh_rate` | get=`null`，无 value 行 | Honor 不走这张表 | C（空转或与 hnaps 打架） |
+| 不要改 `hw_screen_freq` / `hw_screen_high_freq` / `aps_display_*` | 已是 1 / 120 / 默认 APS | 降到 60 会伤流畅；升档没有增量；APS 分辨率语义不明 | 降刷 B（伤流畅）；乱写 APS C/D |
+| 不要 `setprop persist.sys.aps.*` / `debug.sf.*` | ROM 默认 | 非 settings、难回滚、可打 Display pipeline | D |
+| 不要写 `gesture_home_animator` / `honor_multi_win_dynamic_effect` / `policy_control` | 0 / null / null | 无证据 | D |
+| 可做的流畅动作（本包不执行） | — | 保持 120Hz 现状；用受控 gfxinfo/Perfetto 找谁 jank（SystemUI 累计 12% vs launcher ~4%），而不是拧动画缩放 | 测量 = A |
+
+若将来用户明确要求「过渡更快」的唯一低风险实验（仍须另开写权限包，本包不写）：
+
+1. 只改 `animator_duration_scale` 一个键：`1.0 → 0.5`。
+2. 固定手势场景测 gfxinfo（见 §6）。
+3. 无效或不适立即回 `1.0`。
+4. 不要三档一起清零。
+
+这不是 Stage2/3 遗留债，是新 UX 偏好。
+
+## 5. 回滚
+
+这些键从未被本系列写入，正常回滚集是空的。若后续误写，按默认值回，且不要跑 HANDOVER §6 / Stage5 rollback / Stage3 rollback（那些脚本会动保活、tooltip、FloatTasks）。
+
+| 键 | 表 | 误写后恢复 |
+|---|---|---|
+| `window_animation_scale` | global | `settings put global window_animation_scale 1.0` |
+| `transition_animation_scale` | global | `settings put global transition_animation_scale 1.0` |
+| `animator_duration_scale` | global | `settings put global animator_duration_scale 1.0` |
+| `enable_back_animation` | global | `settings put global enable_back_animation 0` |
+| `navigation_mode` | secure | 不要用 rollback 脚本碰。若已被改走：目标是 `106`，但必须当手势栈重建，可能需要用户在设置里再选一次全面屏。本包禁止先写再救。 |
+| `hw_screen_freq` | secure | `1` |
+| `hw_screen_high_freq` | global | `120` |
+| `hw_screen_freq_list` | global | `60 90 120` |
+| `aps_display_resolution` / `aps_display_style` | global | `3` / `0`（仅当确认是误写；默认就是这个） |
+| `peak_refresh_rate` / `min_refresh_rate` | system | delete 该键，不要留脏值（当前 get=`null`） |
+| dockBar / tooltip / `is_ota_finished` / FloatTasks | — | 禁止当动画回滚去写 |
+
+ADB 纪律（若将来写）：只允许 `adb -L tcp:5038 -s AVNS023705001888`。禁止 `kill-server`。
+
+## 6. 怎么测 jank（不要用累计 gfxinfo 宣称「优化成功」）
+
+Stage2 自己已经否决了 21 小时累计对比。Stage3 的做法才可复用。
+
+协议（只读测量；写 `/data/misc/perfetto-configs` 需另开授权，本包不跑）：
+
+1. 亮屏、固定内屏展开、电量 >20%、`low_power=0`（现场已是 0）。
+2. 记录刷新基线：`dumpsys SurfaceFlinger` 的 `renderRate` / `FPS min/max/cur`；`settings get secure hw_screen_freq` 仍应为 `1`。
+3. `dumpsys gfxinfo com.hihonor.android.launcher reset` 与 `com.android.systemui reset`（若设备支持；Stage3 已确认 reset 可用）。
+4. 同一手势脚本：Home → 桌面横滑 → Recents → 任务滑 → Home → 下拉（Stage3 PRE/POST 场景）。不要把侧栏滑动、GKD、网易云播放混进同一段。
+5. 立刻再 dump gfxinfo，只看 reset 之后的 Total frames / Janky% / p50 p90 p99 / Missed Vsync / Frame deadline missed。
+6. 若要归因：Perfetto 配置放到 `/data/misc/perfetto-configs`（Stage3：`/data/local/tmp` 会 errno 13）。
+7. 禁止用 hy4 live 的 57612 / 74020 帧累计去减 Stage2 的 26207 / 39616。PID、`Stats since`、uptime 都不同。
+8. 0 帧窗口的 `4950ms` 分位是 dumpsys 哨兵，不是卡顿。
+9. 若实验动画 0.5x：必须同一场景、同一刷新（120Hz），只改一个 scale；回 1.0 再测一遍。成功标准是 deadline missed 下降且用户不觉得侧栏/返回「瞬切」，不是「动画变短所以更流畅」。
+
+现成对照数字（只当基线，不当本包已优化证据）：
+
+| 来源 | launcher jank | SystemUI jank | 备注 |
+|---|---|---|---|
+| Stage3 PRE 受控 | 3.15%（381 帧） | 9.04%（166 帧） | 可复现场景 |
+| Stage3 POST 受控 | 2.54%（473 帧） | 3.03%（99 帧） | 非实验室 A/B |
+| Stage2 累计 post | 3.98% | 12.15% | 分母被时间稀释 |
+| hy4 live 累计 | 4.52% | 12.22% | 过程累计，含高输入延迟计数 |
+
+SystemUI 累计 ~12% + `High input latency` 很大，更像输入/组合路径，不像「动画 1.0 太慢」。先测再决定要不要动 scale。
+
+## 7. 给流畅计划的落地句
+
+- 动画三档：已是 1.0 默认，Stage2/3 没动。不要当待办去关。
+- 手势：`navigation_mode=106` + `secure_gesture_navigation=1`。D 类，禁止写。
+- 刷新：Honor `hw_screen_freq=1` / `hw_screen_high_freq=120`，SF 已 120Hz。不要用 AOSP peak/min_refresh_rate 去「打开高刷」。
+- 真正还没做、且本包不批准的「关动画」是新动作，不是历史债。
+
+写失败日志（末段）：
+
+```
+Set-Content: Access to the path
+'C:\Users\hzq00\Documents\Codex\2026-08-29\hy4-ai-ai-ai-ai-01a02ee0\work\fluency_plan\reports\h09_anim_settings.md'
+is denied.
+apply_patch rejected: writing is blocked by read-only sandbox; rejected by user approval settings
+```
+
+目标路径（未落地）：`C:\Users\hzq00\Documents\Codex\2026-08-29\hy4-ai-ai-ai-ai-01a02ee0\work\fluency_plan\reports\h09_anim_settings.md`

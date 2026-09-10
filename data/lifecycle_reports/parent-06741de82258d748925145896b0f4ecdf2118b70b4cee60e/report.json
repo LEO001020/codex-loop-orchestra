@@ -1,0 +1,62 @@
+以下是本轮发布完整性复核的最终证据摘要：
+
+---
+
+## 发布完整性复核结论
+
+**总体判定：PASS（含已知开放缺陷，尚未进入发布状态）**
+
+### 1. SHA256SUMS — 完整性清单
+
+- 清单共覆盖 **103 个受管文件**（agents/、config/、harness/、hooks/、metering/、schemas/、tests/ 等主要模块全纳入）。
+- 与双平面哈希记录的 `managed_files: 104` 差值为 1，属于 Windows/WSL 清单对比正常边界（清单本身的入口计数方式差异），双平面哈希自身状态为 **PASS**（`mismatches: []`）。
+- `policy_sha256`（`49b1dfc8...`）与 `SHA256SUMS` 中 `config/orchestration_policy_v2.toml` 的哈希值一致，策略文件未被篡改。
+
+### 2. 双平面哈希（`data/governor/dual_plane_hash.json`）
+
+| 字段 | 值 |
+|---|---|
+| 状态 | **PASS** |
+| Windows 清单哈希 | `c507749...` |
+| WSL 清单哈希 | `c507749...`（完全一致） |
+| 受管文件数 | 104 |
+| 不匹配条目 | 0 |
+| 时间戳 | 2026-08-14 13:29（本轮最新） |
+
+Windows/WSL 双平面哈希完全一致，无跨平台漂移。
+
+### 3. 受管备份与授权状态（`layered_authorization.json`）
+
+所有 **13 项授权条件均为 `ok: true`**，关键项包括：
+
+- `rollback_rehearsal`：exact-byte 回滚验排 6779s 前通过，`rollback_rehearsal.json` 中前后 `policy_sha256` 一致（`16e5747a...`）
+- `dual_plane_hash`：Windows/WSL 清单哈希一致
+- `k3_model_pinned`：K3 模型已固定（`weiwu-k3/kimi-k3`）
+- `statemachine_schema`：12 个必要状态迁移全部声明
+- `provider_health`：K3 提供方 52s 前健康
+- `meter_v2_fresh`：计量新鲜（218s 分母 10362403）
+
+状态机当前治理状态已通过 `state_attestations.ndjsonl` 记录为 `execution`，理由为 `fable_v2_integration_audit_complete`。
+
+### 4. 核心回归结果（`reports/limited-retry-release-gate/report.md`）
+
+最近一份发布门报告（2026-08-13 06:05–07:15）发现 **3 条结构性缺陷，均真实存在，均未修复**：
+
+1. **pre_spawn 无限重试回路**：`exec_failed(phase=pre_spawn)` 直接被状态机守卫回 `DISPATCHABLE`，完全绕过 `retry.py`，`attempts` 永远为 0，`PRE_SPAWN_FAILURE_MAX=3` 是唯一截流但无类别信息。
+2. **TIMED_OUT 无主循环路由 + 双预算冲突**：`orchestration_epilogue` 未调用 `route_terminal_retries`；`TIMEOUT_RETRY_MAX=1`（状态机）与 `timeout.max_retries=2`（retry_classes.yaml）不一致；超时计数器另存 `timeout_retry_counters.json`，账本漂移。
+3. **breaker 虚计 + dispatch_refused 非 FAILED**：`has_retry_dispatch` 在 `breaker` 记录之后查，同包重复调用虚计熔断；`DispatchBlocked` 被归为 INFO 事件，不进 FAILED 路径。
+
+报告给出了最小改动清单（涉及 `retry.py`、`statemachine_v2.py`、`orchestration_epilogue.py`、`lifecycle_supervisor.py` 等 8 处）但**当前均未应用**。
+
+### 综合结论
+
+| 维度 | 状态 |
+|---|---|
+| SHA256SUMS 覆盖完整性 | ✅ 103 条，全模块覆盖 |
+| 双平面哈希一致 | ✅ PASS，0 mismatch |
+| 受管备份/回滚可用 | ✅ exact-byte 回滚验证通过 |
+| 分层授权 | ✅ 13/13 条件通过 |
+| 核心回归缺陷 | ⚠️ 3 条已确认开放缺陷，未修复 |
+| 发布就绪 | ❌ 缺陷修复后方可发布 |
+
+**证据路径**：`SHA256SUMS`、`data/governor/dual_plane_hash.json`、`data/governor/layered_authorization.json`、`data/governor/rollback_rehearsal.json`、`data/governor/state_attestations.ndjsonl`、`reports/limited-retry-release-gate/report.md`

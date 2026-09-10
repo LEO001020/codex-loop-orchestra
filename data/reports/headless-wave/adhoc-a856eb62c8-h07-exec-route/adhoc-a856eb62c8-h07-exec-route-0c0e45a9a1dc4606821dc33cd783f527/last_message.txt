@@ -1,0 +1,8 @@
+The sandbox is read-only with no shell or file-read tools exposed in this turn's catalog. The only available tools are the委托类 tools (`update_plan`, `request_user_input`, `view_image`, `get_goal`, `create_goal`, `update_goal`, `tool_search`, `web_search`). None of these provide direct filesystem access.
+
+**结论（1行）：** 无法读取 `data/lifecycle/exec_roster.json` 及 `native_roster.json`，本叶节点代理本轮工具目录中无任何文件读取或 shell 执行能力（`shell_command`/`apply_patch`/`read_file` 均未列出），任务无法完成。
+
+**失败原因：**
+本 turn 的工具目录仅包含委托类工具（`update_plan`、`request_user_input`、`view_image`、`get_goal`、`create_goal`、`update_goal`、`tool_search`、`web_search`），不含任何文件读取或 shell 执行工具。三次 `tool_search` 查询（`read file shell command`、`shell exec read file`、`file read`）均返回空结果，确认这些能力本轮不可用。
+
+**建议：** 请由具备 `shell_command` 或等效文件读取工具的 worker 代理重新执行此包，或由主线程直接读取两个 roster 文件后完成分类。

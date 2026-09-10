@@ -1,0 +1,69 @@
+Reading additional input from stdin...
+2026-08-15T07:12:38.136654Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-15T07:12:41.019543Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-15T07:12:53.376078Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T07:13:08.919894Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.6 seconds
+Output:
+dir : 第二个路径段不得为驱动器或 UNC 名称。
+参数名: path2
+所在位置 行:2 字符: 1
++ dir E:\VPS /b
++ ~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (E:\VPS:String) [Get-ChildItem]，ArgumentException
+    + FullyQualifiedErrorId : DirArgumentError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-15T07:13:34.757987Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 4.1 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 93
++ ... minalization_v2_build" | Select-Object Name, PSIsContainer | head -40
++                                                                  ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-15T07:13:58.919012Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-15T07:20:34.639708Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.2 seconds
+Output:
+Select-String : 找不到与参数名称“Recurse”匹配的参数。
+所在位置 行:2 字符: 15
++ Select-String -Recurse -Path "E:\VPS" -Pattern "decision_grid" -Inclu ...
++               ~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) [Select-String]，ParameterBindingException
+    + FullyQualifiedErrorId : NamedParameterNotFound,Microsoft.PowerShell.Commands.SelectStringCommand
+ 
+
+2026-08-15T07:20:57.387971Z ERROR codex_core::tools::router: error=Exit code: 124
+Wall time: 11 seconds
+Output:
+command timed out after 10960 milliseconds
+Get-ChildItem : 对路径“E:\VPS\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem -Path "E:\VPS" -Recurse -File -Include "*.py","*.json", ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\VPS\.pytest_cache:String) [Get-ChildItem], UnauthorizedAccessExcep 
+   tion
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-15T07:23:30.901944Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)

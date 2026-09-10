@@ -1,0 +1,90 @@
+Now I have the complete picture. Here is the full analysis:
+
+---
+
+## V2坏JSON复核 — 报告
+
+### 发现摘要
+
+`statemachine_v2.py` 中存在**一个确认的行为缺陷**，且**测试覆盖缺口**与之对应。
+
+---
+
+### 坏JSON的处理路径（精确代码位置）
+
+#### `step()` 读取事件循环（第 684–687 行）
+
+```python
+try:
+    ev = json.loads(stripped)
+except ValueError:
+    ev = {"packet_id": "malformed",
+          "event": "unparseable", "raw": stripped[:200]}
+self.apply_event(led, ev)
+```
+
+当 `events.ndjson` 中某行无法解析为 JSON 时，v2 构造一个合成事件：
+- `packet_id = "malformed"` （合法标识符，通过 `PACKET_ID_RE` 校验）
+- `event = "unparseable"`
+
+随后调用 `apply_event(led, ev)`。
+
+---
+
+#### `apply_event()` 对该合成事件的处理（第 391–407 行）
+
+```python
+pid = ev.get("packet_id", "?")       # → "malformed"
+name = ev.get("event", "?")          # → "unparseable"
+if isinstance(pid, str) and pid.startswith(("l2v-", "v2job-")):
+    return None   # 不命中
+if name in INFO_EVENTS:
+    return None   # "unparseable" 不在 INFO_EVENTS，不命中
+if pid not in led["packets"] and name not in {"planned", "skeleton_ready"}:
+    return None   # ← 命中！"malformed" 不在 led["packets"]，"unparseable" 不是 planned/skeleton_ready
+```
+
+**结论：合成事件在第三个守卫被静默丢弃，返回 `None`，不产生 DEAD_LETTER，不产生 SOL_WAKE，完全无声。**
+
+---
+
+### v1 vs v2 行为对比
+
+| 版本 | 坏JSON处理逻辑 | 可见性 |
+|---|---|---|
+| **v1** `statemachine.py:232–234` | 检测到 `name == "unparseable"` 后立即调用 `to_dead_letter(led, pid, "unparseable_event_line", ...)` | ✅ DEAD_LETTER + SOL_WAKE，fail-visible |
+| **v2** `statemachine_v2.py:684–687` + `apply_event:405–407` | 合成事件命中 "未知 packet_id + 非 planned/skeleton_ready" 守卫，静默返回 `None` | ❌ 完全无声，无 DEAD_LETTER |
+
+v1 在 `apply_event` 中有一个 **专用提前检测**（`if name == "unparseable": to_dead_letter(...)`），该分支在 v2 的 `apply_event` 重构中被**删除**，却没有同等替代逻辑。
+
+---
+
+### 测试覆盖缺口
+
+| 测试文件 | 是否覆盖 v2 坏JSON |
+|---|---|
+| `tests/unit/test_statemachine.py:140–144` | 仅针对 v1 `statemachine.py`，期望 `states["malformed"] == "DEAD_LETTER"` |
+| `tests/test_statemachine_v2.py` | **无** malformed/unparseable 测试 |
+| `tests/orchestration_v2/test_statemachine_v2.py` | **无** malformed/unparseable 测试 |
+
+v2 的两个测试文件均未包含任何断言坏JSON导致 DEAD_LETTER 或任何 fail-visible 结果的测试用例。
+
+---
+
+### 缺陷分类
+
+| 属性 | 分类 |
+|---|---|
+| **类型** | 行为回归（v2 失去 v1 的 fail-visible 保证） |
+| **严重性** | P1（静默失效违反 LOOP 的 "fail-visible, never silent" 原则） |
+| **根因** | `apply_event` v2 中删除了 v1 第 232–234 行的 `unparseable` 专用提前处理分支 |
+| **影响** | 坏JSON行被静默跳过，cursor 正常推进，不产生任何告警或 DEAD_LETTER |
+| **修复方向** | 在 v2 `apply_event` 的 `INFO_EVENTS` 检查之后（或在构造合成事件后直接在 `step()` 内）增加 `if name == "unparseable": to_dead_letter(...)` 分支，并补充对应测试 |
+
+---
+
+**路径引用：**
+- 缺陷代码：[`harness/statemachine_v2.py`](E:/codex-LOOP/codex-loop-s-f2/harness/statemachine_v2.py) 第 684–687 行（`step()`），第 391–407 行（`apply_event()` 守卫）
+- v1 参考实现：[`harness/statemachine.py`](E:/codex-LOOP/codex-loop-s-f2/harness/statemachine.py) 第 232–234 行
+- 缺失测试：[`tests/test_statemachine_v2.py`](E:/codex-LOOP/codex-loop-s-f2/tests/test_statemachine_v2.py)，[`tests/orchestration_v2/test_statemachine_v2.py`](E:/codex-LOOP/codex-loop-s-f2/tests/orchestration_v2/test_statemachine_v2.py)
+- 现有 v1 测试（仅覆盖 v1）：[`tests/unit/test_statemachine.py:140`](E:/codex-LOOP/codex-loop-s-f2/tests/unit/test_statemachine.py)

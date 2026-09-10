@@ -1,0 +1,90 @@
+Reading additional input from stdin...
+2026-08-16T15:12:40.100568Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-16T15:12:49.842356Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-16T15:12:54.661514Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-16T15:13:03.644094Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-16T15:13:14.569793Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-16T15:13:26.752472Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-16T15:13:51.939762Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.2 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 63
++ ... hildItem -Path "E:\codex-LOOP" -Recurse -Depth 3 -Name | head -100 |  ...
++                                                              ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-16T15:14:02.342071Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 103
++ ... -Recurse -Depth 3 -Name | Select-Object -First 150 | Out-String | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (.analysis
+.aud...n_policy.toml
+:PSObject) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+
+2026-08-16T15:15:10.758660Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-16T15:21:22.131004Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1 seconds
+Output:
+
+FullName                                         
+--------                                         
+E:\codex-LOOP\codex-loop-s-f2\harness\dispatch.py
+
+
+Get-ChildItem : 对路径“E:\codex-LOOP\codex-loop-s-f2\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem -Path "E:\codex-LOOP\codex-loop-s-f2" -Filter "dispatch ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\codex-LOOP\c...2\.pytest_cache:String) [Get-ChildItem], Unauthoriz 
+   edAccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+Get-ChildItem : 对路径“E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem -Path "E:\codex-LOOP\codex-loop-s-f2" -Filter "dispatch ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\codex-LOOP\c...2\.pytest_cache:String) [Get-ChildItem], Unauthoriz 
+   edAccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+Get-ChildItem : 对路径“E:\codex-LOOP\codex-loop-s-f2\tests\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem -Path "E:\codex-LOOP\codex-loop-s-f2" -Filter "dispatch ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\codex-LOOP\c...s\.pytest_cache:String) [Get-ChildItem], Unauthoriz 
+   edAccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-16T15:27:08.232789Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 187ms)... turn_id=01a00b21-cf03-78a1-be6e-1248031a3ba6 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-16T15:27:57.216279Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 421ms)... turn_id=01a00b21-cf03-78a1-be6e-1248031a3ba6 retries=2 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-16T15:28:17.038855Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 791ms)... turn_id=01a00b21-cf03-78a1-be6e-1248031a3ba6 retries=3 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-16T15:28:25.329996Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.711s)... turn_id=01a00b21-cf03-78a1-be6e-1248031a3ba6 retries=4 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-16T15:28:37.785639Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 2.966s)... turn_id=01a00b21-cf03-78a1-be6e-1248031a3ba6 retries=5 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-16T15:28:53.066207Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

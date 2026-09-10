@@ -1,0 +1,28 @@
+Reading additional input from stdin...
+2026-08-14T05:24:04.991209Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T05:24:10.841019Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T05:24:36.177742Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `command` at line 1 column 81
+2026-08-14T05:24:45.710124Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:25:02.671038Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:25:19.459421Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:25:27.951548Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:25:42.326667Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:26:02.261472Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-14T05:26:17.706855Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:26:48.576511Z ERROR codex_core::tools::router: error=unsupported call: grep
+2026-08-14T05:27:13.211815Z ERROR codex_core::tools::router: error=unsupported call: grep
+2026-08-14T05:27:31.885528Z ERROR codex_core::tools::router: error=unsupported call: grep
+2026-08-14T05:27:43.292001Z ERROR codex_core::tools::router: error=unsupported call: codebase_search
+2026-08-14T05:27:51.064602Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:28:06.885294Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:28:24.278847Z ERROR codex_core::tools::router: error=resources/read failed: resources/read failed for `ipybox` (file://E:\codex-LOOP\codex-loop-s-f2): Mcp error: 0: Unknown resource: file:///E:/codex-LOOP/codex-loop-s-f2
+2026-08-14T05:28:32.437146Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:29:39.135920Z ERROR codex_core::tools::router: error=unsupported call: CallMcpTool

@@ -1,0 +1,20 @@
+**结论：两条路径已正确区分，验收通过。**
+
+具体证据如下：
+
+`schedule_followup_if_debt`（第239–251行）是唯一的调度出口，它在 `run_once` 末尾被调用，参数 `failed=bool(rc)`：
+
+```python
+def schedule_followup_if_debt(root, state, *, failed, source):
+    if int((state.get("deficit") or {}).get("total", 0) or 0) <= 0:
+        return None
+    if failed:
+        return schedule_retry_if_debt(root, state, source=source)   # 失败路径
+    return schedule_delayed_run(Path(root), wake_at=time.time() + 1.0, source=source)  # 成功路径
+```
+
+**失败路径**（`failed=True`，即 `rc != 0`）：进入 `schedule_retry_if_debt`，该函数从 `data/provider_health/*.json` 读取所有 `backoff_until`，取最大值 `max(now+30, backoff_until+1)`，再调用 `schedule_delayed_run`。delay 由实际 provider backoff 决定，最短 30 秒，完整遵守 provider backoff。
+
+**成功路径**（`failed=False`，即 `rc == 0`）：直接以 `wake_at=time.time() + 1.0` 调用 `schedule_delayed_run`，仅等待 **1 秒**，不读 provider_health，不走 30 秒慢路径。
+
+两条路径互斥、分支清晰，代码已满足"失败时仍使用 provider backoff，成功残余不走 30 秒慢路径"的要求，且该文件未被修改（read-only 约束已遵守）。

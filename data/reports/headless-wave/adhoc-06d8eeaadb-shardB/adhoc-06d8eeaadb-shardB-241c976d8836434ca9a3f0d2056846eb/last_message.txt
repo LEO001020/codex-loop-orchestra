@@ -1,0 +1,98 @@
+第 1 行一行结论：已逐行读完分片 B 全部 10 个 harness 源码文件，链路是 lifecycle_supervisor(进程边界)+statemachine(v1/v2 状态机)+terminal epilogue(refill 调度)组成，文件级与函数级调用关系如下，并给出代码级问题清单。
+
+---
+
+## 1) 每文件一句话职责
+
+| 文件 | 行数/大小 | 职责 |
+|---|---|---|
+| `lifecycle_supervisor.py` | 848 行 / 40.6 KB | 单个 `codex exec` 子进程的全生命周期监督器：spawn（Windows Job Object / POSIX 进程组）、心跳轮询、cancel/timeout 树杀、report 发布（v1 路径） |
+| `lifecycle_supervisor_v2.py` | v2 结果边界层 | schema 校验 short result、隔离坏报告、固定字段 receipt、CSV 摘要有界化、单一 verdict 通道 |
+| `statemachine.py` | 25.6 KB | v1 状态机：23 条转换、事件游标、watchdog、replan 上限、wave_check |
+| `statemachine_v2.py` | 40.7 KB | v2 状态机：37 条转换（EXPAND_K3/L2_VERIFY/L2_RANK 新状态）、导入期表格自校验、run_id 消歧 |
+| `terminal_packet_epilogue.py` | 8 KB | terminal 事件调度、refill 请求、budget 收尾 |
+
+---
+
+## 2) 调用关系（函数级）
+
+```
+lifecycle_supervisor.py run()
+  ├─ Store.update()                # roster 状态机，locked() 串行化
+  ├─ schedule_epilogue()           # terminal 边缘触发 terminal_packet_epilogue.py
+  └─ provider_health.record_*()    # 成功/失败记录
+
+statemachine.py main()
+  ├─ apply_event()                 # 23 条转换分发
+  ├─ watchdog()                    # RUNNING 超时检测
+  └─ reconcile()                   # report 文件兜底
+
+statemachine_v2.py StateMachine.step()
+  ├─ apply_event()                 # 37 条转换（t1-t38）
+  ├─ watchdog()                    # 带 synthetic spawn ts 兜底
+  └─ wave_check()                  # manifest/parent_session 作用域
+```
+
+lifecycle_supervisor 与 statemachine 之间通过 `data/events.ndjson` 事件流解耦（非直接函数调用）。
+
+---
+
+## 3) 模型 pin 来源
+
+| 注入点 | 位置 | 方式 |
+|---|---|---|
+| `lifecycle_supervisor.py` | `base = {... "model": args.model ...}` (~L688) | 命令行 `--model` 参数透传 |
+| `lifecycle_supervisor_v2.py` | receipt 只含 `packet_id/status/report_path`，不携带 model | v2 不参与模型 pin，仅结果校验 |
+
+派发层从 `config/model_profiles.toml` 读取 active profile（当前 `glm53f`），将 `execution_model` 写入 spawn 命令行。**代码中无任何处校验 `args.model` 与 profile pin 一致**——若调用方传错模型，supervisor 照常启动。
+
+---
+
+## 4) 代码级问题（≥3 条）
+
+**P1（高）— 路径遍历防护依赖单个正则，但 `safe_pid_filename` 仅在部分写路径前调用**
+`statemachine.py:249-253` / `statemachine_v2.py:~418`
+```python
+PACKET_ID_RE = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]{0,95}\Z")
+```
+`to_dead_letter`/`sol_wake`/`l4_summary` 均先校验再写，但 v2 中 `to_dead_letter` 内部调用 `sol_wake` 时已二次校验，而 `wave_check` 中的 `led["packets"]` 遍历**未校验**直接用于 `os.path.join`（若 ledger 被外部工具污染）。属防御纵深缺口。
+
+**P2（中）— v1 watchdog 游标竞态（P1-8 修复只落在 v2）**
+`statemachine.py:~401-403`（v1）：
+```python
+consumed = os.path.getsize(E("events.ndjson"))  # ← watchdog append 之后
+```
+watchdog 自己 append 的 `timeout` 事件后，游标跳到 `getsize()`——**并发写入方在 read-loop 结束与 getsize 之间 append 的事件会被永久跳过**。v2 已修复（`f.tell()`），v1 未同步。
+
+**P3（中）— v2 `apply_event` 对 `exec_failed` 的 pre_spawn 分支依赖 `detail` 字典，但无 schema 校验**
+`statemachine_v2.py:~528`：
+```python
+if (name == "exec_failed" and detail.get("phase") == "pre_spawn" ...
+```
+`detail` 来自事件 JSON，若上游事件格式漂移（例如 lifecycle_supervisor 未来改动 detail 结构），该分支静默失效（落到 off-table → DEAD_LETTER），无显式告警。与注释"fail-visible"精神不完全一致——失败方向是对的，但原因变成了 off-table 而非 pre_spawn 重试语义。
+
+**P4（低）— `bound_csv_summary` 默认 2000 字符上限是隐式策略**
+`lifecycle_supervisor_v2.py:~317`：`max_chars: int = 2000` 是函数默认值，无配置来源。若 profile 层想调整此上限，只能改代码（v2 的其他界如 `max_tokens=500` 同理），与"profile 决定行为"的路由纪律有轻微张力。
+
+**P5（低）— `Receipt.to_json()` 的固定大小断言在构造时未强制**
+`lifecycle_supervisor_v2.py:~110`：
+```python
+if len(body) > 200 * CHARS_PER_TOKEN:
+    raise ValueError(...)
+```
+仅靠 `Receipt` 构造方自律。若 `packet_id` 含超长字符串（>200 字符），断言在序列化时才触发，属"延迟失败"。实际风险低（packet_id 来自受控输入）。
+
+---
+
+## 5) 不确定之处
+
+1. **`provider_health` 模块源码未读**（不在分片清单内），`record_failure/record_success` 的降级行为仅从调用方注释推断。
+2. **`budget_controller.BudgetController.reclaim` 的幂等性**：supervisor 的 `finally` 块调用它，但该模块不在本分片，无法确认 reclaim 是否真的幂等（注释声称是）。
+3. **v1 与 v2 的切换开关**（`routing.mode == "layered"`）实际部署时是否已置为 layered，需读 `config/orchestration_policy_v2.toml` 才能确认——该文件不在本分片授权路径内。
+
+---
+
+**分片文件清单（已逐一阅读，共 10 个）**：
+`lifecycle_supervisor.py`(848), `lifecycle_supervisor_v2.py`(531), `statemachine.py`(25.6K), `statemachine_v2.py`(40.7K), `terminal_packet_epilogue.py`(8K), `orchestration_epilogue.py`(5.8K), `plan_consumer.py`(10.9K), `l2_consumer.py`(44K), `trigger_eval.py`(17.2K), `trigger_eval_v2.py`(20.8K)
+
+**报告文件**：`reports/harness调度盘点-分片B/`（本次只读，未写文件，清单以本回复为准）

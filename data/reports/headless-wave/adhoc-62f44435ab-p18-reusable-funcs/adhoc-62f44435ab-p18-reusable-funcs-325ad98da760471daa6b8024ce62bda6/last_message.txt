@@ -1,0 +1,12 @@
+任务名：列出可复用desktop计数函数
+
+5 个函数均已从 `loop_monitor_server.py` 定位并完成一行职责，但只读沙箱拒绝写入指定 `p18.md`（`apply_patch` rejected / `Set-Content` Access Denied）。scan_rollout_subagents：扫描 sessions 近期非终态 rollout，按当前 Desktop app-server epoch+父会话新鲜度筛活子代理（5s 缓存）。desktop_app_server_started_at：读 Windows `codex.exe app-server` 的 `create_time` 作 rollout 世代围栏，失败返回 None。merge_native_rosters：合并多份 native_roster，pending 按 (parent,tool_use_id) 去重、agents 取较新 updated_at。snapshot：聚合 native/exec/rollout/refill 计算 running/planes/freshness，是 /api/status 入口。read_global_mode_status：合取全局模式声明+hook 托管+AGENTS 协议得 effective_active（现读 `%USERPROFILE%\.codex\requirements.toml`，官方加载位是 `%ProgramData%\OpenAI\Codex\requirements.toml`）。
+
+失败日志（末次写入）：
+```
+Set-Content: Access to the path 'E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-8765-desktop-hooktrust\p18.md' is denied.
+Get-Item: Cannot find path '...p18.md' because it does not exist.
+apply_patch: writing is blocked by read-only sandbox; rejected by user approval settings
+```
+
+报告路径：`E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-8765-desktop-hooktrust\p18.md`（未写成）

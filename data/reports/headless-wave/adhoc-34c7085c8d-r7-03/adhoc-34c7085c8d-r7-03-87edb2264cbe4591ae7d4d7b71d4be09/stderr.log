@@ -1,0 +1,81 @@
+Reading additional input from stdin...
+2026-08-14T14:12:28.871263Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T14:12:33.709993Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T14:12:55.334307Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 5.3 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 81
++ ... \codex-LOOP\codex-loop-s-f2\tests --include="*.py" -l 2>&1 | head -40
++                                                                  ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T14:13:07.761537Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.3 seconds
+Output:
+rg : rg: unrecognized flag --include
+所在位置 行:2 字符: 1
++ rg -n "48|36|12" E:\codex-LOOP\codex-loop-s-f2\tests --include="*.py" ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (rg: unrecognized flag --include:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+similar flags that are available: --include-zero
+
+2026-08-14T14:14:28.781475Z ERROR codex_core::tools::router: error=unsupported call: read
+2026-08-14T14:19:11.491621Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.6 seconds
+Output:
+Get-Content : 找不到路径“E:\codex-LOOP\codex-loop-s-f2\pytest.ini”，因为该路径不存在。
+所在位置 行:2 字符: 1
++ Get-Content E:\codex-LOOP\codex-loop-s-f2\pytest.ini 2>&1; Get-Conten ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (E:\codex-LOOP\codex-loop-s-f2\pytest.ini:String) [Get-Content], ItemNot 
+   FoundException
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+Get-Content : 找不到路径“E:\codex-LOOP\codex-loop-s-f2\setup.cfg”，因为该路径不存在。
+所在位置 行:2 字符: 60
++ ... t.ini 2>&1; Get-Content E:\codex-LOOP\codex-loop-s-f2\setup.cfg 2>&1; ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (E:\codex-LOOP\codex-loop-s-f2\setup.cfg:String) [Get-Content], ItemNotF 
+   oundException
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+Get-Content : 找不到路径“E:\codex-LOOP\codex-loop-s-f2\pyproject.toml”，因为该路径不存在。
+所在位置 行:2 字符: 118
++ ... p.cfg 2>&1; Get-Content E:\codex-LOOP\codex-loop-s-f2\pyproject.toml  ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (E:\codex-LOOP\c...\pyproject.toml:String) [Get-Content], ItemNotFoundEx 
+   ception
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+
+2026-08-14T14:20:17.634248Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.9 seconds
+Output:
+
+2026-08-14T14:21:10.706187Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.7 seconds
+Output:
+
+2026-08-14T14:24:46.339591Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

@@ -1,0 +1,58 @@
+I now have a complete and clear picture of the tree. Here is the canonical audit result:
+
+---
+
+**Canonical tree boundary audit — PASS (with noted non-source pollution)**
+
+**Canonical git root:** `E:\codex-LOOP\codex-loop-s-f2` — confirmed by `git rev-parse --show-toplevel`.
+
+**Git-tracked source tree (69 files)** is clean and scoped to:
+
+| Directory | Role |
+|---|---|
+| `agents/` | Role profiles (worker, reviewer, verifier, duty_officer, plan_expander) |
+| `config/` | Base configs — only original v1 files tracked; v2 and model_profiles are **untracked** |
+| `harness/` | Core orchestration scripts (original v1 set) |
+| `hooks/` | Only `subagent_start_meter.sh` tracked |
+| `metering/` | `e0_annotate.py`, `usage_reconcile.py` |
+| `schemas/` | Not tracked — present on disk as untracked |
+| `tests/` | golden/, statemachine_paths/, unit/ (v1 subset), mock_codex/ |
+| Root files | `AGENTS.md`, `install.sh`, `README.md`, `SHA256SUMS`, `VERSIONS.lock` |
+
+**Findings on nested history, backups, and recovery staging:**
+
+**① Three top-level backup directories — untracked, not in canonical boundary:**
+- `backup-20260811-215706/` — contains snapshot of `config/` (2 files)
+- `backup-20260811-215927/` — contains snapshot of `tests/orchestration_v2/` (3 py files + pycache)
+- `backup-20260813-012318/` — contains snapshots of `config/`, `harness/`, `hooks/`, `metering/` (14 files)
+
+None are git-tracked. They are pre-edit safety snapshots placed by agents and are not part of the canonical source. No deletion has been performed per task constraints.
+
+**② Nested `codex-loop-s-f2/` directory — untracked, not in canonical boundary:**  
+A full shadow copy of the `v2` module set lives at `E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\`. It contains `config/`, `harness/`, `hooks/`, `metering/`, `tests/` and 75+ Python files. This is **not a symlink, not a git worktree** — it's a plain directory deposited by a previous agent as a staging area. It is entirely untracked and lies outside canonical source boundaries.
+
+**③ `C?/` directory — untracked, stray temp clone:**  
+`E:\codex-LOOP\codex-loop-s-f2\C?\` is a malformed path artifact (appears to be a Windows path-encoding failure when writing `C:/`). It contains a complete stray git clone at `C?\Users\hzq00\AppData\Local\Temp\codex-loop-repo-check\.git\` with its own commit history. This is entirely untracked and outside the canonical boundary. It contains a `.git/` directory with git history, constituting nested history.
+
+**④ `data/reports/headless-wave/` recovery/history-named report directories:**  
+Six directories with names containing `backup`, `recovery`, or `history` exist under `data/reports/headless-wave/`. These are LOOP agent report artifacts (each contains a single result file), not code snapshots or staging areas. They are non-canonical runtime data, not source.
+
+**ipybox — excluded (confirmed):**  
+No `ipybox/` runtime directory exists. Only harness support files (`ipybox_cleanup.py`, `ipybox_lazy.py`, `config/ipybox_sandbox.json`) and a test smoke file are present; no ipybox kernel directory or active staging.
+
+**K3 tests — excluded (confirmed):**  
+No files matching `*k3*` exist in `tests/`. The `reports/k3_concurrent_audit_20260812.md` is a report artifact, not a test file.
+
+**Summary verdict:**
+
+| Item | Status |
+|---|---|
+| Canonical source (git-tracked, 69 files) | ✅ Clean, correctly bounded |
+| `backup-*` dirs (3) | ⚠️ Untracked non-source; safe to remove when no longer needed |
+| Nested `codex-loop-s-f2/` dir | ⚠️ Untracked shadow staging copy; lies outside canonical boundary |
+| `C?/` stray temp clone with nested `.git/` | ⚠️ Untracked; contains nested git history (the `.git` inside the clone); outside canonical boundary |
+| `data/reports/` history-named dirs | ℹ️ Runtime report artifacts; not source; expected data/ content |
+| ipybox | ✅ No runtime directory; support files only |
+| K3 tests | ✅ None present in `tests/` |
+
+No files were deleted or modified. All three problematic top-level directories (`backup-*`, `codex-loop-s-f2/`, `C?/`) are confirmed untracked by git and are excluded from the canonical source boundary. The nested git history lives solely inside `C?\...\codex-loop-repo-check\.git\` and has no effect on the root repo's history.

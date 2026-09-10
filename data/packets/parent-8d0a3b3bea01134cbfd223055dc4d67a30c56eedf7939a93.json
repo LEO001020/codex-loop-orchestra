@@ -1,0 +1,25 @@
+{
+  "acceptance": [
+    "报告当前父target/running/pending/deficit/spawnable",
+    "确认使用max而非sum",
+    "不得编辑任何文件"
+  ],
+  "authorized_paths": [
+    "harness/refill_controller_v2.py",
+    "data/refill/",
+    "data/lifecycle/"
+  ],
+  "constraints": [
+    "read-only"
+  ],
+  "created_by": "parent_manifest_importer",
+  "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+  "goal": "只读验证跨平面observer覆盖在当前父对话18/20时使controller计算真实缺口2且不会把Desktop与headless重复相加，返回refill_state与源码行号证据。",
+  "manifest_id": "p0-live-refill-proof-20260814-1338",
+  "packet_id": "parent-8d0a3b3bea01134cbfd223055dc4d67a30c56eedf7939a93",
+  "parent_enabled": true,
+  "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+  "role": "verifier",
+  "sandbox": "read-only",
+  "task_name": "机械补位Observer终验"
+}

@@ -33,7 +33,7 @@ enabled = true
 
 # Max concurrently open spawned-agent threads, excluding the primary thread.
 # (New canonical key name; `max_threads` is the legacy alias.)
-max_concurrent_threads_per_session = 4
+max_concurrent_threads_per_session = 50
 
 # Max nesting depth for spawned agent threads (root session = depth 0).
 # 1 = Sol may spawn children; children may NOT spawn grandchildren.
@@ -42,10 +42,20 @@ max_depth = 1
 # Per-worker timeout in seconds for CSV batch jobs (spawn_agents_on_csv).
 job_max_runtime_seconds = 1800
 
+# LOOP wave widths, pool reservations, low-water hysteresis, and idle reclaim
+# are package policy, not Codex-native [agents] keys.  They live only in
+# config/orchestration_policy_v2.toml and config/refill_policy.toml; placing
+# scalar custom keys here makes Codex interpret them as AgentRoleToml entries.
+
 # Defaults for spawned subagents when the spawn call and the agent TOML
 # do not select a model/effort. Agent TOML file values take precedence.
-default_subagent_model = "gpt-5.6-luna"
-default_subagent_reasoning_effort = "low"
+default_subagent_model = "antigravity/gemini3.8flash"
+default_subagent_reasoning_effort = "max"
+
+[lifecycle]
+# Zero-model process supervisor owns every single-mode codex exec handle.
+supervisor_enabled = true
+stop_grace_seconds = 10
 
 # ----------------------------------------------------------------------------
 # F2 toggle 1/3 — EscalationKit passthrough (single-key switch)
@@ -74,32 +84,65 @@ passthrough_enabled = false
 enforce = false
 
 # ----------------------------------------------------------------------------
-# F2 toggle 3/3 — ipybox persistent kernel (uncomment block to enable)
+# F2 toggle 3/3 — ipybox persistent kernel (uncomment ONE block to enable)
 # ----------------------------------------------------------------------------
 # The ipybox MCP server provides a persistent Python kernel for large-output
 # in-process digestion (>5,000 tok output) and compression-immune cross-call
-# state. DISABLED by default in the F2 cold start form.
+# state. DISABLED by default in the F2 cold start form (spec §3.6).
 #
-# TO ENABLE (single action — uncomment the block below):
-#   1. Ensure Docker is installed and the image is pulled:
-#        docker pull ghcr.io/gradion-ai/ipybox:latest   # pin tag per VERSIONS.lock
-#   2. Uncomment every line of the [mcp_servers.ipybox] block.
+# VERIFIED FORM (install test 2026-08-10, ipybox 0.9.2 — REAL):
+#   ipybox 0.9.2 ships a CLI that runs directly as a stdio MCP server:
+#       ipybox --workspace <dir>
+#   Verified end-to-end: initialize / tools list (register_mcp_server,
+#   install_package, execute_ipython_cell, reset) / cell execution /
+#   cross-cell state persistence, and Codex spawns it at session start.
+#
+# CRITICAL DEPENDENCY PIN (VERSION_BOUND — do not skip):
+#   ipybox 0.9.2 is INCOMPATIBLE with mcp 2.0.0 (its dependency mcpygen 0.1.4
+#   imports streamablehttp_client, removed in mcp 2.x -> ImportError on start).
+#   Always install/run with the constraint  mcp<2  (resolves to mcp 1.x).
+#   This pin may be dropped once a future ipybox/mcpygen release fixes it.
+#
+# TO ENABLE — Option 1, pip form (PREFERRED; verified in install test):
+#   1. pip install ipybox "mcp<2"        # ipybox 0.9.2 + mcp 1.x, pin per VERSIONS.lock
+#   2. Uncomment every line of the [mcp_servers.ipybox] block below.
 #   3. Restart the Codex session (config is read at session start).
 #
+# [mcp_servers.ipybox]
+# enabled = false  # Desktop control plane; headless dispatch overrides true per worker
+# command = "ipybox"
+# args = ["--workspace", "./data"]
+# startup_timeout_sec = 60
+# tool_timeout_sec = 120
+#
+# TO ENABLE — Option 2, uvx form (ALTERNATIVE; no persistent pip install,
+# verified runnable; the --with pin applies the mcp<2 constraint per run):
+#
+# [mcp_servers.ipybox]
+# command = "uvx"
+# args = ["--with", "mcp<2", "ipybox", "--workspace", "./data"]
+# startup_timeout_sec = 120
+# tool_timeout_sec = 120
+#
+# Option 3, Docker image — kernel-runtime-container form ONLY (fallback;
+# requires an extra MCP bridge, NOT a drop-in stdio MCP server):
+#   The image ghcr.io/gradion-ai/ipybox:latest is a KERNEL RUNTIME CONTAINER
+#   (jupyter kernelgateway :8888 + ipybox resource server :8900) managed by
+#   the ipybox Python library's container-execution API. The image does NOT
+#   contain the ipybox module and does NOT speak stdio MCP — running it with
+#   `docker run -i ...` as an MCP server FAILS (verified negative result,
+#   install report §4-A). Use it only behind the pip/uvx-installed ipybox
+#   host process (which provides the MCP bridge); do not wire `command =
+#   "docker"` directly into [mcp_servers.ipybox].
+#
 # SECURITY GUARDRAILS (spec §10 S7 — do not relax):
-#   - Docker isolation; the kernel does NOT inherit Codex sandbox_mode.
-#   - Default deny egress: no network access from the kernel container.
-#   - Credential dirs (~/.aws, ~/.ssh, .env files) are NEVER mounted.
+#   - ipybox is a second execution boundary; the kernel does NOT inherit
+#     Codex sandbox_mode. (0.9.2's --sandbox option uses Anthropic
+#     sandbox-runtime for kernel isolation; Docker isolation applies only
+#     to the Option-3 kernel-runtime-container form.)
+#   - Default deny egress: no network access from the kernel.
+#   - Credential dirs (~/.aws, ~/.ssh, .env files) are NEVER mounted or
+#     passed into the workspace; --workspace points at ./data only.
 #   - mcpygen external tool calls stay disabled in phase 1.
 #   - Cell code enters the session log and is locally readable.
 #   - Discipline: print <= 50 lines; return variable-name handles, not bodies.
-#
-# [mcp_servers.ipybox]
-# command = "docker"
-# args = [
-#   "run", "--rm", "-i",
-#   "--network", "none",
-#   "--workdir", "/workspace",
-#   "--mount", "type=bind,source=${PWD}/data,target=/workspace/data",
-#   "ghcr.io/gradion-ai/ipybox:latest",
-# ]

@@ -1,0 +1,168 @@
+2026-08-15T06:08:11.652764Z  WARN sqlx::query: slow statement: execution time exceeded alert threshold summary="DELETE FROM logs WHERE …" db.statement="\n\nDELETE FROM logs WHERE ts < ?\n" rows_affected=32514 rows_returned=0 elapsed=2.609073s elapsed_secs=2.609073 slow_threshold=1s
+Reading additional input from stdin...
+2026-08-15T06:08:12.250574Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-15T06:08:13.142925Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-15T06:08:15.692619Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-15T06:08:33.237668Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-15T06:08:39.931923Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-15T06:08:47.529795Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-15T06:09:00.460728Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+dir : 第二个路径段不得为驱动器或 UNC 名称。
+参数名: path2
+所在位置 行:2 字符: 1
++ dir "E:\VPS\P5_CODEX_RESEARCH_ALPHA_FAST_PATH_V1" /b
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (E:\VPS\P5_CODEX...HA_FAST_PATH_V1:String) [Get-ChildItem]，ArgumentExce
+    ption
+    + FullyQualifiedErrorId : DirArgumentError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-15T06:09:07.132813Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:09:17.785278Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:09:28.496946Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:09:43.489914Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:09:50.679281Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:09:58.518392Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:10:05.786826Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:10:18.123817Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:10:25.182162Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:10:33.681283Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:10:41.037706Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:10:49.515840Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:10:58.052367Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:11:05.992498Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:11:13.994504Z ERROR codex_core::tools::router: error=unsupported call: codebase_search
+2026-08-15T06:11:19.598217Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:11:34.947440Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:11:44.958556Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:11:52.687466Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:11:59.403384Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:12:05.901420Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:12:14.426610Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:12:23.068432Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:12:36.456318Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:12:47.392488Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:12:53.064484Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:13:00.192256Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:13:07.453676Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:13:15.996995Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:13:23.998628Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:13:31.091799Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:13:38.361849Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:14:33.348330Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:14:40.855046Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:14:48.198977Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:14:54.938627Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:15:01.433401Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:15:19.166545Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:15:31.195618Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:15:38.497492Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:15:47.009323Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:15:54.519685Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:16:01.905536Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:16:12.259783Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:16:22.394918Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:16:28.987654Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:16:37.724840Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:16:44.625886Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:16:51.570438Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:17:03.071274Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:17:16.814398Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:17:34.566940Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:17:45.918107Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:17:52.423998Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:18:02.309006Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:18:14.295630Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:18:21.283731Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:18:28.091679Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:18:41.303428Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:18:50.990148Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:18:57.455088Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:19:05.159660Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:19:12.057994Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:19:18.165897Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:19:25.776899Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:19:35.393301Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:19:42.618757Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:19:49.708759Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:19:56.741165Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:20:07.740193Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:20:15.775409Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:20:28.986084Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:20:36.432836Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:20:43.941075Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:20:50.923281Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:20:57.935933Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:21:05.263464Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:21:18.956451Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:21:25.813737Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:21:33.700923Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:21:41.574553Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:21:47.633334Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:21:59.566573Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:22:13.108014Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:22:20.800930Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:22:27.238673Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:22:34.370615Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:22:46.466003Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:22:55.384293Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:23:02.448583Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:23:11.017335Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:23:25.547818Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:23:33.882449Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:23:41.978970Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:23:53.447576Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:24:03.921505Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:24:11.834293Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:24:20.511327Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:24:28.273688Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:24:37.564966Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:24:45.278474Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:24:53.539749Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:25:00.503962Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:25:07.065525Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:25:19.489961Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:25:35.719016Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:25:49.632945Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:25:57.408565Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:26:05.165904Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:26:17.691097Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:26:25.691533Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:26:38.582279Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:26:45.612422Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:26:53.105865Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:27:06.198341Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:27:18.576206Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:27:25.870061Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:27:34.277609Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:27:43.724235Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 196ms)... turn_id=01a00408-fa40-7be0-a646-2e04ccb3e1a2 retries=1 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-15T06:27:49.448940Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 412ms)... turn_id=01a00408-fa40-7be0-a646-2e04ccb3e1a2 retries=2 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-15T06:27:55.472188Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 815ms)... turn_id=01a00408-fa40-7be0-a646-2e04ccb3e1a2 retries=3 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-15T06:28:01.757718Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.599s)... turn_id=01a00408-fa40-7be0-a646-2e04ccb3e1a2 retries=4 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-15T06:28:08.637680Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 2.986s)... turn_id=01a00408-fa40-7be0-a646-2e04ccb3e1a2 retries=5 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-15T06:28:23.101332Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

@@ -1,0 +1,105 @@
+Stage5 把热区归给 launcher；交接已改口到 SystemUI，但仍否认 bind。后续 dumpsys 用 `GestureNavDock` 归属和 `client=SystemUI` 足以证伪 Stage5。沙箱只读，完整报告如下。
+
+# Stage5 热区归属证伪
+
+**结论：Stage5「热区由 launcher 持有、hndockbar 建热区窗、SystemUI 未 bind DockMainService」已证伪。运行时热区窗名是 SystemUI 的 `GestureNavDock`；展开时 bind client 只有 `com.android.systemui`。**
+
+精确原句不存在「热区在 launcher 不在 SystemUI」这一整句。Stage5 写的是 launcher 持有热区并识别边缘手势；同日交接反而写「热区在 SystemUI，不在 launcher」，但仍把 Stage4 的 SystemUI bind 判错。证伪对象是 Stage5 架构，不是交接那句。
+
+## 1. Stage5 原文（被证伪的命题）
+
+路径：[HONOR_STAGE5_KEEPALIVE_20260829.md](C:\Users\hzq00\Documents\Codex\2026-08-23\ni-j\outputs\HONOR_STAGE5_KEEPALIVE_20260829.md)
+
+```
+Stage4 报告写「AI 侧边栏 = com.hihonor.hndockbar，DockMainService 仍被 SystemUI 绑定」。**这一条不成立。**
+…
+- dumpsys activity services 里完全没有 hndockbar 的绑定记录
+- `com.hihonor.hndockbar` 的 AIDL 与热区由 **桌面 launcher**（`com.hihonor.android.launcher`，HnLauncher6.apk）持有：launcher 里能找到 `IDockAidlInterface`、`initHotArea`、`isInHotArea`、`FloatWindowBootsActivity`
+
+你从边缘内滑
+   ↓
+launcher（HnLauncher6）识别边缘手势
+   ↓  startService
+com.hihonor.hndockbar/.DockMainService
+   ↓
+hndockbar 自己创建热区窗口与侧边栏 UI
+```
+
+同文件还把「桌面已重启重建热区」写进结论表，并用 `am force-stop com.hihonor.android.launcher` 当作热区重建手段。这是把 APK 字符串命中（`initHotArea`）当成了运行时命中窗归属。
+
+## 2. 交接原文（已改口窗归属，仍否认 bind）
+
+路径：[HANDOVER_20260829.md](C:\Users\hzq00\Documents\Codex\2026-08-23\ni-j\outputs\HANDOVER_20260829.md) L101–102；同源：[HONOR_AI_SIDEBAR_LOGCAT_20260829.md](C:\Users\hzq00\Documents\Codex\2026-08-23\ni-j\outputs\HONOR_AI_SIDEBAR_LOGCAT_20260829.md) L56
+
+```
+关键点：**热区在 SystemUI，不在 launcher，也不在 hndockbar。**
+Stage4 报告说「DockMainService 被 SystemUI 绑定」是错的。
+```
+
+LOGCAT 当时的窗观察是：`dumpsys window windows` 只有 `GestureNavAnim` / `GestureSildeOut`，「没有任何 dock 热区窗口」。那是 `is_ota_finished=0` 时 `GestureNavDock` 尚未出现的失败态，不是「热区永远不在 SystemUI 窗口里」。
+
+## 3. 证伪 A：窗名 `GestureNavDock` 属 SystemUI，不是 launcher
+
+路径：[windows_full.txt](C:\Users\hzq00\Documents\Codex\2026-08-29\hy4-ai-ai-ai-ai-01a02ee0\work\sidebar_fix\live_verify\windows_full.txt) L73–75, L89, L1794  
+对照：[windows_after_ota.txt](C:\Users\hzq00\Documents\Codex\2026-08-29\hy4-ai-ai-ai-ai-01a02ee0\work\sidebar_fix\live_now\windows_after_ota.txt) L73–75  
+对照：[window_blocks.txt](C:\Users\hzq00\Documents\Codex\2026-08-29\hy4-ai-ai-ai-ai-01a02ee0\work\sidebar_fix\pull_fail\window_blocks.txt) L1–3
+
+```
+Window #2 Window{b11e067 u0 GestureNavDock}:
+  mSession=Session{c028f6 4036:u0a10084}
+  mOwnerUid=10084 showForAllUsers=true package=com.android.systemui appop=NONE
+  mAttrs={(2090,270)(90x348) … ty=NAVIGATION_BAR_PANEL
+  Frames: frame=[2090,270][2180,618]
+InputDispatcher visible:
+  b11e067 GestureNavDock, frame=[Rect(2090, 270 - 2180, 618)],
+  touchableRegion=SkRegion((2090,270,2180,618)), alpha=1.0
+```
+
+同一 dumpsys 里 launcher 的邻窗是底部 `Taskbar`（`package=com.hihonor.android.launcher` uid=10112），几何 `[0,1943][2156,2344]`，不是右边 90×348 热区。OTA 后 token 换成 `7ee90bd`，包名仍是 `com.android.systemui`。
+
+语义分层（勿混）：
+
+| 窗名 | 包 | 角色 |
+|---|---|---|
+| GestureNavDock | SystemUI | 真正拦边滑的热区细条 |
+| GestureNavAnim / GestureSildeOut | SystemUI | 动画/滑出容器，不是热区 |
+| Taskbar | launcher | 底栏，不是右缘热区 |
+| HnDockBarFloatWindow | hndockbar | 展开后的侧栏 UI，不是热区 |
+
+`HnDockBarStripView.<init>` 把窗口 title 设成 `"GestureNavDock"`（见 [priority.md](C:\Users\hzq00\Documents\Codex\2026-08-29\hy4-ai-ai-ai-ai-01a02ee0\reports\dock-vs-back-edge\priority.md)）。Stage5 说「hndockbar 自己创建热区窗口」与窗名/owner 都不符。
+
+## 4. 证伪 B：后续 bind `client=SystemUI`，client 不是 launcher
+
+空闲：`svc_hndockbar.txt` = `(nothing)` — 这是 Stage5 误判「没有绑定」的取样时刻。  
+慢滑后：[svc_hndockbar_after_swipe.txt](C:\Users\hzq00\Documents\Codex\2026-08-29\hy4-ai-ai-ai-ai-01a02ee0\work\sidebar_fix\live_verify\svc_hndockbar_after_swipe.txt)
+
+```
+* ServiceRecord{1b627bf u0 com.hihonor.hndockbar/.DockMainService c:com.android.systemui}
+  intent={act=com.hihonor.hndockbar.IDockAidlInterface cmp=com.hihonor.hndockbar/.DockMainService}
+  recentCallingPackage=com.android.systemui
+  recentCallingUid=10084
+  isBindService:true
+  * Client AppBindRecord{… 4036:com.android.systemui/u0a84}
+  binding=AppBindRecord{… DockMainService:com.android.systemui}
+```
+
+全程无 `com.hihonor.android.launcher` 作为 client。空闲无 ServiceRecord 只说明 `showDock()` 才 bind、随后 `unBindDockbarServiceDelayed()` 拆掉，不能证伪 SystemUI 绑定。现场摘要：[HONOR_AI_SIDEBAR_STATUS_20260829.md](C:\Users\hzq00\Documents\Codex\2026-08-29\hy4-ai-ai-ai-ai-01a02ee0\outputs\HONOR_AI_SIDEBAR_STATUS_20260829.md)「立刻 bind `hndockbar/.DockMainService`（client=SystemUI）」；语义：[bind_semantics.md](C:\Users\hzq00\Documents\Codex\2026-08-29\hy4-ai-ai-ai-ai-01a02ee0\reports\DockMainService绑定语义\bind_semantics.md)。
+
+## 5. 命题对照
+
+| 命题 | 出处 | 后续证据 | 判定 |
+|---|---|---|---|
+| 热区由 launcher 持有；launcher 识别边缘手势 | Stage5 L87, L94 | `GestureNavDock` owner=SystemUI uid=10084 | **伪** |
+| hndockbar 自己创建热区窗口 | Stage5 L98 | 热区窗名/session 都是 SystemUI；hndockbar 窗是展开后的 `HnDockBarFloatWindow` | **伪** |
+| DockMainService 未被 SystemUI 绑定 | Stage5 L81–85；HANDOVER L102 | 慢滑后 `c:com.android.systemui` / Client=systemui pid 4036 | **伪**（空闲取样偏误） |
+| 热区在 SystemUI，不在 launcher | HANDOVER L101；LOGCAT L56 | 与 `GestureNavDock` owner 一致 | **成立**（但对准的是 Left/SildeOut，不是 Dock 窗） |
+| force-stop launcher 会重建热区 | Stage5 L17, L120 | 热区窗 session 是 SystemUI 4036，不是 launcher 7721 | **伪** |
+
+正确链路：SystemUI `HnDockBarStripView` 建 `GestureNavDock` → 右缘慢滑 `showDock()` → SystemUI bind `hndockbar/.DockMainService` → `HnDockBarFloatWindow`。launcher 最多是底栏/`START_DOCKMAIN` 权限持有者之一，不是热区命中窗。
+
+## 未决未知
+
+- 本回合未对设备做新 dumpsys（只读、禁止写设备）；证伪依赖 08-29 23:08 慢滑快照与之后的窗口 dump。未证明「任意时刻」launcher 都绝不会成为第二 client。
+- launcher APK 里确实有 `initHotArea` / `isInHotArea` 字符串（Stage5 扫描）。那只说明 dex 有符号，不能推出运行时热区窗 owner；这些符号对应哪条死代码/别的浮窗路径，本包未反编译 launcher。
+- `windows_after_gesture.txt` 把 hndockbar 的 uid/package 拼到 `GestureNavDock` 名下，是摘要污染；完整 dump 仍是 SystemUI。
+- 未能把报告写入 `outputs/audit_20260830/10_stage5_hotarea.md`：当前沙箱只读。

@@ -1,0 +1,18 @@
+{
+  "schema": "codex-loop-headless-wave/v1",
+  "wave_id": "zcode-install-truth-20260905",
+  "tasks": [
+    {"task_id":"exe-version","task_name":"ZCode可执行文件","cwd":"E:\\Program Files\\ZCode","role":"worker","sandbox":"read-only","prompt":"只读检查 E:\\Program Files\\ZCode\\ZCode.exe 的文件版本、产品版本、签名/元数据及安装目录结构。不要启动GUI。最终自然语言列出直接证据、推断和未知；禁止引用E:\\codex-LOOP或旧报告。"},
+    {"task_id":"resources-map","task_name":"ZCode资源地图","cwd":"E:\\Program Files\\ZCode","role":"worker","sandbox":"read-only","prompt":"只读枚举 resources 下与CLI、commands、hooks、agents、plugins、MCP、schemas、docs相关的真实安装资源，给出关键绝对路径与作用。不要递归输出整个树，不启动GUI，不引用LOOP报告。"},
+    {"task_id":"cli-commands","task_name":"ZCode内置命令","cwd":"E:\\Program Files\\ZCode","role":"worker","sandbox":"read-only","prompt":"只读从安装资源/打包代码/本地文档核验ZCode内置slash commands，重点查/goal、/clear、/compact、/resume及Agent。不要启动ZCode GUI；若CLI帮助可能开GUI则不要调用。自然语言给路径和匹配证据。"},
+    {"task_id":"goal-search","task_name":"Goal安装证据","cwd":"E:\\Program Files\\ZCode","role":"worker","sandbox":"read-only","prompt":"专项只读搜索E:\\Program Files\\ZCode安装内容中goal命令、goal continuation、goal schema或字符串；区分零命中、压缩资源不可检索和真正不存在。再对照C:\\Users\\hzq00\\.zcode但不要引用LOOP reports。"},
+    {"task_id":"hook-schema","task_name":"Hook安装契约","cwd":"E:\\Program Files\\ZCode","role":"worker","sandbox":"read-only","prompt":"只读从ZCode安装资源核验hook事件列表、matcher、stdin字段、stdout schema、additionalContext、退出码和SessionStart触发源。优先安装文件中的schema/docs/代码字符串；自然语言列证据。"},
+    {"task_id":"agent-schema","task_name":"Agent安装契约","cwd":"E:\\Program Files\\ZCode","role":"worker","sandbox":"read-only","prompt":"只读从安装资源核验plugin agent frontmatter支持字段：name,description,model,tools,injectAgentsMd,thoughtLevel,maxTurns等；区分官方schema证据与候选插件自述。自然语言列证据。"},
+    {"task_id":"plugin-schema","task_name":"Plugin安装契约","cwd":"E:\\Program Files\\ZCode","role":"worker","sandbox":"read-only","prompt":"只读核验ZCode安装中的plugin manifest、command、agent、hook和MCP声明schema，以及变量插值支持。给具体安装路径/匹配片段，不引用LOOP reports。"},
+    {"task_id":"mcp-contract","task_name":"MCP安装契约","cwd":"E:\\Program Files\\ZCode","role":"worker","sandbox":"read-only","prompt":"只读核验安装资源中的MCP配置形状、stdio/http支持、插件根变量、primary/subagent继承或隔离语义。仅报告安装证据，不从R8反推事实。"},
+    {"task_id":"continuation","task_name":"Continuation安装契约","cwd":"E:\\Program Files\\ZCode","role":"worker","sandbox":"read-only","prompt":"只读调查Stop hook continuation、最大次数、resume/compact后上下文注入等宿主机制。给安装文件路径或明确未知，禁止启动GUI。"},
+    {"task_id":"asar-layout","task_name":"ASAR与可检索性","cwd":"E:\\Program Files\\ZCode","role":"worker","sandbox":"read-only","prompt":"只读判断resources是否使用app.asar/压缩包，哪些证据可直接检索，哪些需安全读取归档目录。禁止解包写文件；可使用只读列举。说明前述零命中是否可靠。"},
+    {"task_id":"host-vs-checkout","task_name":"宿主与仓库边界","cwd":"E:\\Program Files\\ZCode","role":"worker","sandbox":"read-only","prompt":"只读比较安装宿主证据与E:\\zcode\\zcode-loop-orchestra、E:\\zcode\\zloop-gen8的插件自述，指出哪些主张只是仓库内容而非ZCode支持。自然语言列出关键矛盾。"},
+    {"task_id":"independent-verdict","task_name":"安装事实独立裁决","cwd":"E:\\Program Files\\ZCode","role":"worker","sandbox":"read-only","prompt":"独立只读从E:\\Program Files\\ZCode和C:\\Users\\hzq00\\.zcode核验/goal、hooks、agent字段、plugin/MCP及版本。不得引用E:\\codex-LOOP报告或其他agent。按confirmed/refuted/partial/unknown自然语言总结最高影响事实。"}
+  ]
+}

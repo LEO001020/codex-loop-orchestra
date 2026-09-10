@@ -1,0 +1,59 @@
+Reading additional input from stdin...
+2026-08-14T05:19:40.035722Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T05:19:42.106610Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T05:20:08.582484Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 6.7 seconds
+Output:
+
+FullName                                                                                                        
+--------                                                                                                        
+E:\VPS\reports\codex-fl13-qa-isolated-20260814-0445\owner-admin-cutover-final-20260814-recovery-v1\lib\common.sh
+E:\VPS\reports\codex-fl14-qa-isolated-20260814-0450\owner-admin-cutover-final-20260814-recovery-v1\lib\common.sh
+E:\VPS\reports\owner-admin-cutover-final-20260813\lib\common.sh                                                 
+E:\VPS\reports\owner-admin-cutover-final-20260814-recovery-v1\lib\common.sh                                     
+E:\VPS\reports\owner-admin-cutover-final-20260814-recovery-v1-fl14\lib\common.sh                                
+E:\VPS\reports\owner-admin-cutover-final-20260814-recovery-v1-fl15\lib\common.sh                                
+E:\VPS\reports\owner-admin-cutover-final-20260814-recovery-v1-fl16\lib\common.sh                                
+E:\VPS\reports\owner-admin-cutover-final-20260814-recovery-v1-fl17\lib\common.sh                                
+
+
+
+2026-08-14T05:20:49.028389Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 4.8 seconds
+Output:
+E:\VPS\reports\owner-admin-cutover-final-20260814-recovery-v1-fl15\lib\common.sh
+Get-ChildItem : 对路径“E:\VPS\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem -Path "E:\VPS" -Recurse -Filter "common.sh" | Sort-Obje ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\VPS\.pytest_cache:String) [Get-ChildItem], UnauthorizedAccessExcep 
+   tion
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+Get-ChildItem : 对路径“E:\VPS\direct_repair_stage\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem -Path "E:\VPS" -Recurse -Filter "common.sh" | Sort-Obje ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\VPS\direct_repair_stage\.pytest_cache:String) [Get-ChildItem], Una 
+   uthorizedAccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-14T05:21:10.335829Z ERROR codex_core::tools::router: error=unsupported call: read
+2026-08-14T05:24:36.699458Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

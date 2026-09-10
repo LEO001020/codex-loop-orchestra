@@ -1,0 +1,24 @@
+审计完成（只读，无子agent、无写入）。
+
+**已验证事实**
+
+1. headless 路径（`harness/lifecycle_supervisor.py`）：终态完整（L32 五终态），Windows 用 Job Object 挂死回收（L238-340），POSIX 冷启动 killpg 回收孤儿（L588-605），exec 侧无 PID 复用风险（proc_start_ticks，L405）；同 packet 重试用 run_id/attempt 换代（L106-112）。
+2. Desktop 侧（`hooks/subagent_lifecycle.py`）：影子花名册+终态双通道（SubagentStop L447；SessionStart rollout 终态标记冷对账 L531-558），身份冲突 fail-closed（L214-232），close 只记幂等 close_requests.ndjson，host close_agent 唯一释放方。
+3. 计数：refill_controller 只把 `running` 记入有效并发，native+exec 合并按池计数。
+4. 当前磁盘态干净：refill_state.json active=0、目标48（config/refill_policy.toml）。
+
+**主要漏洞**
+
+1. **计数真相不闭环（最高危）**：hook 自承不读 Desktop 运行时（L5-7）。SubagentStart 事件丢/error>丢失（hook fail-open，L633-638）→影子 running 少计→guard 的 native≥8 依据失真，16 原生集中 IAB 路由场景可复现。
+2. **重复身份**：pending 无 agent_id，多候选时 FIFO 认领（L407 `candidates[0]`），并发出生可错配 task_name；同 agent_id 重 Start 被静默保留旧值（L386-387 提前 return）。
+3. **孤儿**：PreToolUse 点火但 Start 永不来的 pending 仅靠 600s TTL 惰性清理；Desktop 崩溃后 running 条目若无 rollout 终态标记则永不转 terminal，占计数但无 host 释放请求。
+4. desktop_spawn_guard 源码缺失，仅 314 pyc，配置无引用，属未纳管临时件。
+
+**最小修复建议**
+
+1. guard 的计数必须以 refill_controller.read_roster_state() 的 running 为准（它已对账 native+exec），并叠加 Desktop 权威线程数上限 8；超出部分立即转 headless 换发，不改有效并发。
+2. subagent_start 错配防护：多 pending 且无 rollout 精确命中时置 `unmapped` 而非 FIFO 认领；同 id 重 Start 记 identity_replay 审计。
+3. SessionStart 冷对账补一条：rollout 无终态但父会话已终止 → 强制 terminal+queue_close（fail-visible dead-letter）。
+4. 将 desktop_spawn_guard 源码纳入 hooks/ 并挂 config，或退役以 refill 水线取代。
+
+**事实 vs 假设**：事实=上述代码/状态文件证据；"16 原生触发 IAB 路由与 ptype=browser 崩溃的因果链"为用户提供背景，本仓库无崩溃日志佐证，列为假设。

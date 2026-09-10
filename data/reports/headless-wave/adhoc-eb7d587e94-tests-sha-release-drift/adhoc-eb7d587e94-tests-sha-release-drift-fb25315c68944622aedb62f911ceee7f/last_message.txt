@@ -1,0 +1,42 @@
+Now I have a clear picture. Let me compile the findings:
+
+**哈希漂移审计结果（2026-08-14）**
+
+---
+
+## 一、已确认的哈希漂移（历史 SHA256SUMS 已失效）
+
+比对 SHA256SUMS 与当前磁盘文件，**5 个受管文件存在 hash 不一致**：
+
+| 文件 | SHA256SUMS 记录 | 当前实际 |
+|------|-----------------|---------|
+| `agents/plan_expander.toml` | `04a6b82f...` | `206211cb...` ✗ |
+| `agents/reviewer.toml` | `c8df9a02...` | `bb163a7a...` ✗ |
+| `agents/verifier.toml` | `32c14a47...` | `bf3f33ec...` ✗ |
+| `config/model_profiles.toml` | `ea3ae371...` | `10210fac...` ✗ |
+| `config/orchestration_policy_v2.toml` | `49b1dfc8...` | `9d8d3ab6...` ✗ |
+| `config/roles.yaml` | `1bc0ca2e...` | `0373a493...` ✗ |
+
+另：SHA256SUMS 自身未被 managed_files_v2.txt 以外文件自验，无自洽守护。
+
+所有 `harness/`、`hooks/`、`metering/` Python 源文件哈希**全部匹配**，核心执行层未漂移。
+
+---
+
+## 二、P0/P1 路径无测试覆盖
+
+以 `config/managed_files_v2.txt` 为 P0/P1 边界，以下源文件**无对应测试**：
+
+- `harness/duty_driver.py` — 无 `test_duty_driver.py`（duty 调度执行路径，P1）
+- `harness/e0_annotate.py` — 无 `test_e0_annotate.py`（E0 事件注解，P1）
+- `harness/ipybox_cleanup.py` / `ipybox_lazy.py` — 无测试（kernel 侧路径，P1）
+- `recover_parent_replay_incident.py` / `repair_*.py`（3 个 repair 脚本）— 无测试（修复路径，P1）
+
+---
+
+## 三、结论
+
+1. **历史 green 对 agents/config 层已失效**：6 个受管文件 hash 已漂移，任何依赖 SHA256SUMS 校验的 gate（如 `dual_plane_hash.py`、`manifest-identity-gate`）会在运行时**拒绝**这批文件或产生误报。
+2. **执行核心层（harness/hooks/metering）未漂移**，测试 green 在代码层面仍有效。
+3. **无覆盖的 P1 路径**：`duty_driver`、`e0_annotate`、`ipybox_{cleanup,lazy}`、以及全部 `repair_*` 脚本共 7 个文件缺失测试。这些路径若被 LOOP 触发（kernel 懒启动、repair 修复事件）将无回归保护。
+4. **建议**：立即用当前磁盘值重新生成 SHA256SUMS，并为上述 7 个无覆盖路径补写最小 smoke 测试。

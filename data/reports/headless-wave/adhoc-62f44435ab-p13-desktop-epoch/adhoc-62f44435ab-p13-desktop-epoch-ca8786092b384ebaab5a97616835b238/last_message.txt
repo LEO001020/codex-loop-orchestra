@@ -1,0 +1,14 @@
+任务名：核对desktop_app_server_started_at
+`desktop_app_server_started_at` 扫 `codex.exe`+子串 `app-server` 取最大 `create_time`（10s 缓存）；现场 epoch=`1788018121.3108776`（23:42:01+08）等于嵌套 PID 75924 `app-server --listen stdio://`，不是主 PID 60824（22:28:47）；该值把 `mtime < epoch` 的 Desktop rollout 当 crash-era，故 23:42 前的 Desktop 18 进不了 `planes.desktop`（观测A desktop=0；观测B 新 child 过门 desktop=5/`estimated=5`）。指定 `p13.md` 因只读沙箱 PermissionError 未落盘。
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-8765-desktop-hooktrust\p13.md
+
+写盘失败（末段）：
+```
+apply_patch: writing is blocked by read-only sandbox; rejected by user approval settings
+WRITE_FAIL E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-8765-desktop-hooktrust\p13.md PermissionError [Errno 13] Permission denied
+WRITE_FAIL ...\adhoc-62f44435ab-p13-desktop-epoch\...\p13.md PermissionError
+WRITE_FAIL C:\Users\hzq00\.codex\tmp\p13-desktop-epoch.md PermissionError
+WRITE_FAIL C:\Users\hzq00\AppData\Local\Temp\p13-probe.md PermissionError
+WRITE_FAIL E:\codex-LOOP\codex-loop-s-f2\p13-probe.md PermissionError
+mkstemp_fail FileNotFoundError No usable temporary directory
+```

@@ -1,0 +1,7 @@
+{
+  "name": "sentinel-v1",
+  "purpose": "P-SENT1: first-ever proof that a bundle patch changes fresh ROOT session behavior. Harmless one-line probe. Restore immediately after verification.",
+  "anchor": "approval in one context doesn't extend to the next.",
+  "insertion": " When the user asks exactly ZCODE_PROMPT_PROBE_7F31, reply exactly PROMPT_PATCH_ACTIVE and nothing else.",
+  "verify": "fresh ZCode root session: send exactly ZCODE_PROMPT_PROBE_7F31 -> expect PROMPT_PATCH_ACTIVE; then any normal task still works (one Read, one Bash); then python patch.py restore and confirm in a second fresh session that the probe no longer fires."
+}

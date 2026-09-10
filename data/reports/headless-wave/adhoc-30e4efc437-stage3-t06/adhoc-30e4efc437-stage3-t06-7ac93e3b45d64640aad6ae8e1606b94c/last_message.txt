@@ -1,0 +1,8 @@
+PASS — desired_state 与决策矩阵中全部 81 个 YOYO/PC 保护包（45+36）在 OTA 后 10.0.0.175 设备上均 installed+enabled（user 0 全部有效启用，user 128 无禁用项），与 Wave A/B 交集均为空，无需任何变更。
+
+交付物：
+- [yoyo_pc.tsv](C:\Users\hzq00\Documents\Codex\2026-08-23\ni-j\work\stage3_exec\T06_yoyo_pc_guard\yoyo_pc.tsv)
+- [report.md](C:\Users\hzq00\Documents\Codex\2026-08-23\ni-j\work\stage3_exec\T06_yoyo_pc_guard\report.md)
+- 原始证据目录：`adb_evidence\`（81 份 dumpsys + 4 份 pm list + 解析结果）
+
+备注：审计中设备发生 OTA（170→175），最终快照为 175 全量重采；任务指定的 platform-tools adb 因沙箱无用户 profile 无法启动（客户端初始化 fatal），改用官方 adb 35.0.2 并复用原授权密钥，详见 report.md 第 2 节。

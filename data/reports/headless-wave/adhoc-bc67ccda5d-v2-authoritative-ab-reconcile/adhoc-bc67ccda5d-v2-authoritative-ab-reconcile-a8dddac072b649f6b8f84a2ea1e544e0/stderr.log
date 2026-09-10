@@ -1,0 +1,131 @@
+Reading additional input from stdin...
+2026-08-15T07:23:38.523071Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-15T07:23:43.701247Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-15T07:24:13.291071Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 3.1 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 64
++ ... t-ChildItem E:\VPS -Recurse -File | Select-Object FullName | head -80
++                                                                  ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-15T07:24:48.134064Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1 seconds
+Output:
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\.install\beta.snapshot.json
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\.install\core-win.snapshot.json
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\.install\core.snapshot.json
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\.install\gcloud-deps-windows-x86_64.snapshot.json
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\.install\gcloud-deps.snapshot.json
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\.install\ssh-tools-windows.snapshot.json
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\.install\ssh-tools.snapshot.json
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\bin\bootstrapping\bootstrapping.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\bin\bootstrapping\install.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\bin\bootstrapping\java_dev_appserver.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\bin\bootstrapping\setup.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\bin\bootstrapping\__init__.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\bin\dev_appserver.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\data\cli\gcloud_completions.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\deb\mapping\command_mapping.yaml
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\deb\mapping\component_mapping.yaml
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\accesscontextmanager\acm_printer.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\accesscontextmanager\authorized_orgs.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\accesscontextmanager\cloud_bindings.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\accesscontextmanager\levels.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\accesscontextmanager\policies.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\accesscontextmanager\supported_permissions.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\accesscontextmanager\supported_services.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\accesscontextmanager\util.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\accesscontextmanager\zones.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\accesscontextmanager\__init__.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\access_approval\requests.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\access_approval\service_account.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\access_approval\settings.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\access_approval\__init__.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\active_directory\exceptions.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\active_directory\__init__.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\agentic_applications\client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\agentic_applications\token_brokers.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\agentic_applications\__init__.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\ai\custom_jobs\client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\ai\custom_jobs\__init__.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\ai\deployment_resource_pools\client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\ai\deployment_resource_pools\__init__.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\ai\endpoints\client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\ai\endpoints\prediction_streamer.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\ai\endpoints\__init__.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\ai\hp_tuning_jobs\client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\ai\hp_tuning_jobs\__init__.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\ai\indexes\client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\ai\indexes\__init__.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\ai\index_endpoints\client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\ai\index_endpoints\__init__.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\ai\models\client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\ai\models\__init__.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\ai\model_garden\client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\ai\model_garden\__init__.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\ai\model_monitoring_jobs\client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\ai\model_monitoring_jobs\__init__.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\ai\persistent_resources\client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\ai\persistent_resources\__init__.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\ai\recommender\util.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\ai\recommender\__init__.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\ai\serverless_ray_jobs\client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\ai\serverless_ray_jobs\__init__.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\ai\tensorboards\client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\ai\tensorboards\__init__.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\ai\tensorboard_experiments\client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\ai\tensorboard_experiments\__init__.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\ai\tensorboard_runs\client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\ai\tensorboard_runs\__init__.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\ai\tensorboard_time_series\client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\ai\tensorboard_time_series\__init__.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\ai\tuning_jobs\client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\ai\tuning_jobs\__init__.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\ai\operations.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\ai\util.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\ai\__init__.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\alloydb\api_util.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\alloydb\backup_operations.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\alloydb\cluster_operations.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\alloydb\endpoint_operations.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\alloydb\instance_operations.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\alloydb\__init__.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\apigee\base.py
+Get-ChildItem : 对路径“E:\VPS\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem E:\VPS -Recurse -File -Include "*.py","*.md","*.txt","* ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\VPS\.pytest_cache:String) [Get-ChildItem], UnauthorizedAccessExcep 
+   tion
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-15T07:34:00.052512Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 213ms)... turn_id=01a0044e-0b02-7412-87d6-07527f4b51a7 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T07:34:46.204068Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 391ms)... turn_id=01a0044e-0b02-7412-87d6-07527f4b51a7 retries=2 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T07:36:17.550921Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 208ms)... turn_id=01a0044e-0b02-7412-87d6-07527f4b51a7 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T07:37:13.491909Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 405ms)... turn_id=01a0044e-0b02-7412-87d6-07527f4b51a7 retries=2 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T07:38:05.078782Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 804ms)... turn_id=01a0044e-0b02-7412-87d6-07527f4b51a7 retries=3 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T07:39:30.065781Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.694s)... turn_id=01a0044e-0b02-7412-87d6-07527f4b51a7 retries=4 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T07:40:18.660140Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 3.078s)... turn_id=01a0044e-0b02-7412-87d6-07527f4b51a7 retries=5 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T07:40:43.901958Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

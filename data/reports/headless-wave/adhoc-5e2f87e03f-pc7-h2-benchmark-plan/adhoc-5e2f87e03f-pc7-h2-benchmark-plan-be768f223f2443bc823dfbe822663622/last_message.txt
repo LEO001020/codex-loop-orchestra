@@ -1,0 +1,78 @@
+盘点完成。以下是第二波 benchmark 路径审计的只读结论（全程未执行任何科学数据/写入；远程路径仅来自本地留存证据，因沙箱无 SSH 密钥且网络受限，无法在线复核）。
+
+# 结论概览
+
+Full-path synthetic benchmark 的本地测量面已存在且自洽：`E:\VPS\.work\pc6-edit\quant\p5_track3\` 含完整 D0→D1→D2 工厂与候选循环基准，`E:\VPS\pc6_binance_materializer.py` 含数据物化 CLI 与 manifest 生成，`E:\VPS\home-gpu\home_worker.py` 含 checkpoint/resume 状态机。**HAC 与 LB_LEVEL 系 feature 公式在本工作区无任何实现证据（确认缺口）**，与同波 `pc7-h2-hac-operators`/`pc7-h2-feature-formulas` 任务的"返回缺口"预期一致。
+
+# 八大测量入口逐项盘点
+
+## 1. Startup（启动）
+
+| 入口 | 位置 | 说明 |
+|---|---|---|
+| 工厂全路径 | `E:\VPS\.work\pc6-edit\quant\p5_track3\run_track3.py:27` `main()` | 唯一线性编排入口：golden vectors → null oracle（不通过即 `FAIL_CLOSED_GOLDEN_OR_ORACLE`，exit 2）→ D0 manifest → D1（instrument_master/spec_epochs/funding/mark/index/OI）→ D2 → `track3_build_summary.json`；summary 含 `started_at/finished_at`，即全路径 wall-clock 天然测量点 |
+| 物化 CLI | `E:\VPS\pc6_binance_materializer.py:901` `main()` | `command ∈ {enumerate, download, normalize, artifacts, all}`，五个可独立计时的阶段 |
+| Worker 冷启 | `E:\VPS\home-gpu\home_worker.py:759` `main()` | 子命令 `init/checkpoint/effect-canary/queue-poll/dataloader-smoke/gpu-smoke/verify/supervise`；`boot_id` 取 `/proc/sys/kernel/random/boot_id`，`supervise --once` 为可重复的冷启探针 |
+| Hub 控制面 | `E:\VPS\tmp_probe\hubsrc\quant\p5_infra\hub_daemon.py`、`hub_cli.py` | 队列守护进程与 CLI（lease/poll/result），远程 boot 链脚本见同树 `hub\install_p0_boot_chain.sh`、`p5_startup_tail.sh` |
+| 注册网关（远程） | `/usr/local/bin/researchctl → /data/k3/research/app-v1-20260811T024500Z/p5_infra/researchctl.py` | 语法与幂等键行为已由 `E:\VPS\reports\researchctl-syntax\report.md` 记录 |
+
+## 2. Manifest
+
+- `d0_manifest.py:53` `build_d0_manifest()` → `P5_TRACK3_D0_RAW_IMMUTABLE_MANIFEST`：每原始 parquet 的 sha256/大小/行数/schema/retrieval_time，并与 collector `_manifests/*.jsonl` 交叉校验（`checksum_mismatches_vs_collector_manifest`）。
+- 物化 manifest：`pc6_binance_materializer.py:716` `build_artifacts()` 产出 `P5_PC6_EXECUTABLE_DATA_MANIFEST_V1`（逐 symbol×month 的 funding/futures_1h/spot_1h 归一化 revision hash、`build_code_sha256=a7b73050…`、`bar_causality=PREVIOUS_FULLY_CLOSED_1H_BAR_ONLY`）与 `P5_PC6_PRECOMPUTABLE_STRUCTURAL_VIEWS_V1`。本地实物副本：[remote_P5_PC6_EXECUTABLE_DATA_MANIFEST_V1.json](E:/VPS/reports/两种View实物复验/remote_P5_PC6_EXECUTABLE_DATA_MANIFEST_V1.json)、[remote_P5_PC6_PRECOMPUTABLE_STRUCTURAL_VIEWS_V1.json](E:/VPS/reports/两种View实物复验/remote_P5_PC6_PRECOMPUTABLE_STRUCTURAL_VIEWS_V1.json)。
+- 统一 lineage 侧车：`lineage.py:80` `write_lineage_sidecar()` → `<artifact>.lineage.json`（canonical_id/run_class/campaign/content_sha256/source_refs）。
+- Worker 侧：`home_worker.py:502-514` 把 `dataset_manifest_sha` 随 `--manifest-json` 上报 hub。
+
+## 3. Features
+
+- 入口：`d2_features.py:62` `build_features()` → `funding_rate_last_known / funding_ann_last_known / basis_rel / clamp_bound_frac_30d`；含 D3 读取防护（`D3AccessViolation`，白名单仅 3 个 D1 文件）、formula-epoch/interval_at_t 门（`gated_out_rows`）、PIT 不变量 `available_at >= hour_close`；输出写 `D2_ROOT/revisions/<P5_DATA_REVISION_ID>`（write-once），artifact `P5-TRACK3-D2-FUNDING-BASIS-FEATURES-1H-V1`。
+- 合成 fixture：`golden_vectors.py` GV-05/06/07（clamp/basis/known_at 绑定）；`null_oracle.py:19` `gen_universe(seed=20260812)`（已知 epoch 真值+漏结算+钳制+PIT 延迟，12 个合成 symbol）。
+- **缺口**：`LB_LEVEL / BASIS_CHANGE / BASIS_PERSISTENCE / PV / PV_VAR / PV_IMB / PV_IMB_VAR / DAMIHUD / BM_EQ70 / BASIS_ACCEL` 公式实现在本工作区任何文件均不存在（仅 `pc6_binance_materializer.py:885-886` 出现分支就绪名 `P3_H0_*`）。可能在远端 `p5_lane_f`，本沙箱不可达。
+
+## 4. Candidate loop
+
+- 入口：`pc6_edit\quant\p5_track3\pc6_benchmark.py:12` `run(candidate_count, n_symbols, n_cycles, seed=20260812)`，CLI：`python pc6_benchmark.py --candidate-count N --n-symbols N --n-cycles N`。合成 start-state（log_basis/volume，同形、无市场 label），按 batch=64 计算 level/change/persistence/EW 去均值结构原语，不评分。
+- 测量输出：`elapsed_wall_seconds / io_contribution_seconds / peak_rss_kib / candidate_throughput_per_second / candidate_cell_throughput_per_second`，并声明 `classification=ENGINEERING_MEASUREMENT_ONLY`、`real_market_data_read=False`、`return_performance_computed=False`。
+- 已有基准实物：[P5_PC6_CPU_WAVE1_BENCHMARK_V1.json](E:/VPS/.work/pc6-edit/artifacts/pc6_temporal_closure_v2/P5_PC6_CPU_WAVE1_BENCHMARK_V1.json)：2184×190 面板（414,960 cells），candidate 128/512/2048，吞吐 189.6→380.5 candidates/s，峰值 RSS 712,980 KiB，资源包络建议 1 GiB RSS/评估进程、GPU `NOT_DEMONSTRATED`。
+- LOOP 侧：`E:\codex-LOOP\worktrees\implementation\capture\candidate_manifest.py:74` `build_candidate_manifest()`（capability→candidate manifest，CAS 摘要）。远端候选清单 V2（count=174、sha256=c2ed58…）仅见于 exec_roster 引用，本地无实物。
+
+## 5. HAC
+
+**确认缺口**：对 `.work / tmp_probe / home-gpu / reports / codex-loop-s-f2 / LOOP worktrees` 全量检索，`Bartlett|HAC|newey|west|overlap floor|INFOM|四状态结果FSM` 零命中；`run_track3.py` 与 `null_oracle.py` 均无统计机制。最近证据仅为文档层（`p3_stack_design.md:85-135` 提到 t 值/事件聚簇纪律，无代码）。远端 `p5_lane_f`（d4_seal.py/fsm_lint.py 等）无法从沙箱验证——建议以同波 hac-operators 包的结论为准。
+
+## 6. Checkpoint
+
+- Worker 状态机：`home_worker.py:104-220`——SQLite `checkpoints` 表（id/seq/payload_json/payload_sha256/committed_at，seq 从 1 连续）、`CHECKPOINT_INTERVAL_SECONDS=600`、escrow 文件 `latest_checkpoint.json`（atomic_json）；`processing_effects` 幂等、`supervisor_state` 心跳。
+- CLI：`home_worker.py checkpoint --reason <...>`、`effect-canary --replays N`（重复应用只落 1 行）、`verify`。
+- 只读审计入口：[checkpoint_recovery_audit.py](E:/VPS/home-gpu/evidence/checkpoint_recovery_audit.py)（`mode=ro`、integrity、链连续性、escrow-vs-DB 匹配、duplicate/lost 指标；记录结果 `status=PASS`，journal_mode=wal）。
+- **缺口**：p5_track3 工厂本身无阶段 checkpoint——崩溃恢复语义 = D0 只读重跑 + D1/D2 write-once（`write_d2` 用 `exist_ok=False`，中途崩溃会留下半写 revision 目录，无恢复入口）。
+
+## 7. Resume
+
+- LOOP 侧（最完整的 resume 语义）：`E:\codex-LOOP\worktrees\implementation\store\resume.py`——`resume()` 三态分类 `NOOP_RETURN_ORIGINAL / CLEAN_AND_RETRY_SAME_STAGE / KILL_TREE_DISCARD_PARTIAL_RETRY`；`resume_with_reconciled_projection()` 先 `jsonl_export.reconcile_export/materialize_missing` 对账再分类；production 禁止远程 transport。配套测试 `tests\m1\test_resume.py`、`tests\m0\test_resume_spec.py`。
+- Worker 侧：无显式 resume 命令；恢复 = boot_id 变化 + checkpoint 链 + effect 幂等（`queue_polls` 按 boot_id 记录），WSL 重启恢复探针见 `Complete-WslShutdownResumeCanary.ps1` 等。
+- Track3：resume = 幂等重跑（D0 只读 + write-once），无独立入口。
+
+## 8. Serialization
+
+- `lineage.py`：`sha256_file/bytes/json`、`write_json_artifact`（JSON indent=1、sort_keys）、`write_lineage_sidecar`。
+- `d1_build.py:343` `write_d1_table()`：pyarrow parquet（`preserve_index=False`）+ `P5-TRACK3-D1-<NAME>-V1` 侧车；`d2_features.py:161` `write_d2()`：revisions 目录 write-once parquet。
+- `pc6_binance_materializer.py`：`canonical_bytes/sha_bytes/sha_file`、`atomic_write_once`（:81）、`atomic_update_pointer`（:106）、revision 归一化（timestamp unit 规则）。
+- Worker：`canonical_json+sha`、atomic escrow、SQLite WAL。
+- 确定性测试入口：`test_track3.py` 28 项（`E:\VPS\reports\测试矩阵设计\report.md` 已逐行编号，含 `test_duplicate_ingestion_is_deterministic`、`test_actual_parquet_temporal_schema`、`test_actual_artifact_hashes_and_readiness`）；`E:\VPS\test_pc6_binance_materializer.py` 另含 `test_raw_write_once_behavior`、`test_same_path_new_bytes_parent_preservation_logic`、`test_fixed_8h_funding_aggregation_membership` 等 ~28 项（`fixture_revision`/`make_zip` 为合成 fixture）。
+
+# 可复用的全路径合成基准装配点
+
+1. 门控全路径：`P5_DATA_REVISION_ID=<token> python run_track3.py`（golden+oracle 前置门 → D0/D1/D2 → summary 带起止时间），配合 `python -m pytest test_track3.py` 作为 fixture 门。
+2. 候选循环：`python pc6_benchmark.py --candidate-count 128|512|2048 --n-symbols 190 --n-cycles 2184`（与已有 V1 基准同形可对比）。
+3. 物化路径：`python pc6_binance_materializer.py all`（本地为 dry 侧；真实物化在远端 `/data/k3`）。
+4. 生命周期路径：`home_worker.py checkpoint / effect-canary / verify / supervise --once` + `checkpoint_recovery_audit.py`。
+
+# 主要缺口清单（阻塞 full-path 完整性）
+
+1. **HAC（Bartlett/overlap 0/2/20/INFO FSM/四状态结果 FSM）**：本地无实现、无 fixture——benchmark 无法覆盖该段。
+2. **LB_LEVEL 系 feature 公式**：本地无实现；当前仅能测 d2_features 的 funding/basis 四个特征。
+3. **Track3 阶段 checkpoint/resume**：工厂无断点续跑，只能整段重跑。
+4. **远程面不可达**：`/data/k3/p5-worktree/quant/p5_lane_f`、`/data/k3/data/pit/track3`、researchctl 均无本沙箱 SSH 密钥，远端增量（2026-08-12 后）无法核实。
+
+以上全部为只读盘点；未运行任何科学数据，未写入任何文件。

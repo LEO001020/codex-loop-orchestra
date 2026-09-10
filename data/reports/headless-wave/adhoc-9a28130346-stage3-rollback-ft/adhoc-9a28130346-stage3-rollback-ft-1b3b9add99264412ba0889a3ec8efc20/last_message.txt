@@ -1,0 +1,76 @@
+Stage3 回滚脚本会 `pm enable --user 0 com.hihonor.android.FloatTasks`；因只读沙箱未能落盘，全文如下。
+
+# 38 Stage3 回滚是否 enable FloatTasks
+
+只读。未执行该 `.ps1`，未 `settings put` / `pm` / `appops set` / rollback / `kill-server`。
+
+## 1 行结论
+
+**是。** `HONOR_VER_AN10_STAGE3_ROLLBACK_20260823.ps1` L8 会 `pm enable --user 0 com.hihonor.android.FloatTasks`；相对当前应保留的 `disable-user` 这是毒命令，禁止跑。
+
+## 脚本身份
+
+| 项 | 值 |
+|---|---|
+| 主文件 | [HONOR_VER_AN10_STAGE3_ROLLBACK_20260823.ps1](C:/Users/hzq00/Documents/Codex/2026-08-23/ni-j/outputs/HONOR_VER_AN10_STAGE3_ROLLBACK_20260823.ps1) |
+| 副本 | [stage3_rollback.ps1](C:/Users/hzq00/Documents/Codex/2026-08-23/ni-j/work/stage3_exec/E03_execute/stage3_rollback.ps1) |
+| 字节 | 1421 |
+| LastWriteTime | 2026-08-23 23:30:53 |
+| SHA256（两份相同） | `5B25DD7568C6E6167D2B1041CA75DEF5257441E3C487CE5F105D0E2B0CA328F2` |
+| 设备钉死 | `$s = "AVNS023705001888"` |
+| adb 二进制 | `C:\Users\hzq00\Downloads\platform-tools-latest-windows\platform-tools\adb.exe`（**未**钉 `-L tcp:5038`） |
+
+本工作区无该文件副本；历史树两份哈希一致。
+
+## 全文（15 行）
+
+```
+ 1|# Stage 3 rollback - CORRECTED style
+ 2|# Never use deviceidle whitelist + for Reduced packages.
+ 3|$adb = "C:\Users\hzq00\Downloads\platform-tools-latest-windows\platform-tools\adb.exe"
+ 4|$s = "AVNS023705001888"
+ 5|function Invoke-Adb([string[]]$Args) { & $adb -s $s @Args }
+ 6|Invoke-Adb @("shell","pm","enable","--user","0","com.hihonor.phoneservice")  # restore Wave A phoneservice
+ 7|Invoke-Adb @("shell","pm","enable","--user","0","com.hihonor.livewallpaper.paradise")  # restore com.hihonor.livewallpaper.paradise
+ 8|Invoke-Adb @("shell","pm","enable","--user","0","com.hihonor.android.FloatTasks")  # restore com.hihonor.android.FloatTasks
+ 9|Invoke-Adb @("shell","pm","enable","--user","0","com.hihonor.hnmusicplayer")  # restore com.hihonor.hnmusicplayer
+10|Invoke-Adb @("shell","pm","enable","--user","0","com.hihonor.hnvideoplayer")  # restore com.hihonor.hnvideoplayer
+11|Invoke-Adb @("shell","cmd","appops","set","--user","0","com.openai.chatgpt","RUN_ANY_IN_BACKGROUND","default")
+12|Invoke-Adb @("shell","cmd","appops","set","--user","0","com.ss.android.ugc.aweme","RUN_ANY_IN_BACKGROUND","default")
+13|Invoke-Adb @("shell","cmd","appops","set","--user","0","com.taptap","RUN_ANY_IN_BACKGROUND","default")
+14|Invoke-Adb @("shell","cmd","appops","set","--user","0","com.xingin.xhs","RUN_ANY_IN_BACKGROUND","default")
+15|Invoke-Adb @("shell","cmd","appops","set","--user","0","com.bilibili.app.in","RUN_ANY_IN_BACKGROUND","default")
+```
+
+L8 展开即：
+
+```
+adb -s AVNS023705001888 shell pm enable --user 0 com.hihonor.android.FloatTasks
+```
+
+注释写 `# restore com.hihonor.android.FloatTasks`。不是 `pm default-state`，也不是 `pm disable-user`。
+
+## 命令表
+
+| L | argv | 对当前应保留 |
+|---|---|---|
+| 8 | `pm enable --user 0 com.hihonor.android.FloatTasks` | **毒**：会把小圆点包从 `enabled=3` / `pm -d` 拉回 enable |
+| 6 | `pm enable` phoneservice | 中性-冻结漂移；现行 `do_not_enable_phoneservice=true`，但这条是 enable |
+| 7 | `pm enable` livewallpaper.paradise | 中性-杂项 |
+| 9 | `pm enable` hnmusicplayer | 中性-侧栏/保活外 |
+| 10 | `pm enable` hnvideoplayer | 中性-侧栏/保活外 |
+| 11–15 | `cmd appops set … RUN_ANY_IN_BACKGROUND default`（chatgpt / 抖音 / taptap / 小红书 / B站） | 对网易云 whitelist / POST_NOTIFICATION **中性**；B站这条是 `default` 不是 `ignore` |
+
+脚本内 **没有**：`settings put`、`float_task_state`、`is_ota_finished`、`dockbar_tooltip_enabled`、`honor.globalWindow.dockBar`、`navigation_mode`、`dumpsys deviceidle whitelist`、`kill-server`。
+
+## 对照现场应保留
+
+[01_device_live_state.md](C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/outputs/audit_20260830/01_device_live_state.md)：User0 FloatTasks `enabled=3 lastDisabledCaller=shell:1000`，`pm -d` 含该包，`secure float_task_state=0`。
+
+[06_rollback_poison.md](C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/outputs/audit_20260830/06_rollback_poison.md) §D / 禁止清单第 7 条：不要跑 Stage3 rollback（会 `pm enable FloatTasks`）。侧栏热区机制对此命令中性（已证伪「必须 enable 才能出栏」），但仍会把小圆点请回来。
+
+[26_float_task_state_table.md](C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/outputs/audit_20260830/26_float_task_state_table.md)：纠正后策略是 FloatTasks 保持禁用 + `secure float_task_state=0`。本脚本只 enable 包，不写 `float_task_state`。
+
+## 本包未做
+
+未跑脚本，未对设备发 `pm enable`。沙箱只读，未能写入 [38_stage3_ft_rollback.md](C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/outputs/audit_20260830/38_stage3_ft_rollback.md)。

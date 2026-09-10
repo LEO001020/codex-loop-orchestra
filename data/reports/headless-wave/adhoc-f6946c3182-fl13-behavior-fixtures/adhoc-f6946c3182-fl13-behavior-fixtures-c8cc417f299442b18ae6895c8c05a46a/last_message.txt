@@ -1,0 +1,91 @@
+I now have a complete and verified picture. Here is the full audit report:
+
+---
+
+## 行为夹具覆盖核验报告
+
+### 关键前提：两类测试的性质分类
+
+| 测试文件 | 类型 | 方法 |
+|---|---|---|
+| `tests/test_static_invariants.py` | **源码 grep（静态断言）** | `read_text()` 读取脚本字节，用 `in`/`re.search` 断言 token 存在 |
+| `tests/functional_fixtures.sh` | **真正的行为夹具** | source `common.sh`，在 `mktemp -d` 临时目录创建fixture文件，通过 `expect_fail`/`expect_ok` 子shell调用真实函数 |
+
+**结论：** F7-20、F7-21、F7-22 及 fix-loop-13 的所有 case 均定义在 `test_static_invariants.py` 中，属于**源码 grep**，而非行为夹具执行。`functional_fixtures.sh` 是唯一真正的行为夹具，但它只覆盖 `lib/common.sh` 中的密钥验证函数（`reject_if_private_key`、`validate_ssh_public_key`、`validate_ed25519_raw_public_key`），不覆盖 preflight/deploy 的运行时逻辑。
+
+---
+
+### F7-20、F7-21、F7-22 覆盖矩阵
+
+| Case ID | 断言 token | 在文件中存在? | 类型 | 判定 |
+|---|---|---|---|---|
+| `deploy_exact_set` | `"EXTRA"` in DEPLOY, `PYC/CACHE` in DEPLOY | ✅ | 源码grep | PASS（静态） |
+| `deploy_manifest_driven` | `manifest-driven install` in DEPLOY, blanket `cp -a` **absent** | ✅ | 源码grep | PASS（静态） |
+| `deploy_install_readonly` (F7-20/23) | `chmod -R a-w`, `chown -R root:root "$APP_V3_DIR"` | ✅ | 源码grep | PASS（静态） |
+| `f10_install_rehash` | `HASH-MISMATCH-INSTALLED` in DEPLOY | ✅ | 源码grep | PASS（静态） |
+| `preflight_root_trusted_sweep` (F7-21) | `root-trusted artifact` + `agent_can_write()` in PRE | ✅ | 源码grep | PASS（静态） |
+| `preflight_ld_preload_sweep` (F7-21) | `ld.so.preload` + `ld.so.conf` in PRE | ✅ | 源码grep | PASS（静态） |
+| `preflight_root_path_hijack` (F7-21) | `root PATH/lib dir agent-writable` in PRE | ✅ | 源码grep | PASS（静态） |
+| `preflight_container_root_mount` (F7-22) | `(M=\|;)/->` + `USERNS=host` + `containerd` in PRE | ✅ | 源码grep | PASS（静态） |
+| `f8_container_escape` (F7-22扩展) | `PID=host` + `USERNS=host` + `unconfined` in PRE | ✅ | 源码grep | PASS（静态） |
+| `f8_container_sockets` (F7-22扩展) | `containerd` + `/run/docker.sock` in PRE | ✅ | 源码grep | PASS（静态） |
+
+---
+
+### fix-loop-13 allowlist 负向测试矩阵
+
+| Case ID | 断言 token | 存在? | 负向测试类型 | 判定 |
+|---|---|---|---|---|
+| `f13_setuid_polkit1_path` | `/usr/lib/polkit-1/polkit-agent-helper-1` in PRE | ✅ | 源码grep（allowlist 包含该路径） | PASS（静态） |
+| `f13_setuid_utempter` | `utempter/utempter` in PRE | ✅ | 源码grep | PASS（静态） |
+| `f13_extra_setuid_knob` | `P5_EXTRA_SETUID_ALLOW` in PRE | ✅ | 源码grep | PASS（静态） |
+| `f13_cap_allow_list` | `CAP_ALLOW` + `gst-ptp-helper` in PRE | ✅ | 源码grep | PASS（静态） |
+| `f13_extra_cap_knob` | `P5_EXTRA_CAP_ALLOW` in PRE | ✅ | 源码grep | PASS（静态） |
+| `f13_cap_stock_exempt_gated` | `stock cap-bearing binary (allowlisted dangerous caps, root-owned, not agent-writable)` + `cap_agentwritable` in PRE | ✅ | 源码grep | PASS（静态） |
+
+---
+
+### 重点逻辑核查：preflight 中的关键负向判断路径
+
+以下逻辑已在源码中逐字确认（不是行为夹具，但 token 覆盖精确）：
+
+**Docker false（`P=false`）/ `M=../->` 首中尾三态：**
+- docker inspect 格式串中 `P=true` 触发 OPEN，`P=false` 不进入该分支 → **正确，false 不误报**
+- mount 路径 `(M=|;)/->` 匹配 host 根挂载（首条）；`(M=|;)/(etc|root|proc|sys|boot|var/lib/docker)->` 匹配子树（中/尾）；`/etc/(shadow|gshadow|sudoers)` 匹配具名危险文件 → **三层递进，f10-1 收窄了误报**
+
+**docker.sock：**
+- world-writable（`-perm -002`）→ `note_open "docker.sock is WORLD-writable"` ✅
+- group-writable + agent 在 owning group → `note_open "docker.sock group-writable and agent is in owning group"` ✅
+- group-writable 但 agent 不在该 group → `note_warn`（--strict 下升级）✅
+
+**privileged / host-namespace：**
+- `P=true|PID=host|IPC=host|USERNS=host|SYS_ADMIN|...|\[ALL\]|unconfined` → `note_open "privileged/host-namespace/..."` ✅
+
+**unknown setuid / allowlisted-but-writable：**
+- 不在 `$ALLOW` 列表 → `note_open "unexpected setuid/setgid binary (not allowlisted)"` ✅
+- **在 allowlist 中但 world-writable** → 仍 `note_open "world-writable setuid binary"` ✅（检查在 allowlist 跳过之后独立执行）
+- **在 allowlist 中但 group-writable 且 agent 在 owning group** → 仍 `note_open "setuid binary group-writable by an agent group"` ✅
+- f13 cap allowlist 豁免条件：必须同时满足 `cap_agentwritable=no` **且** `root-owned` **且** 在 `$CAP_ALLOW` 中，三者缺一则 OPEN ✅
+
+---
+
+### 发现的覆盖缺口
+
+| 缺口 | 描述 | 风险 |
+|---|---|---|
+| **行为夹具不覆盖 preflight 运行时逻辑** | `functional_fixtures.sh` 只测试 `common.sh` 密钥函数。allowlist 旁路逻辑（allowlisted-but-writable）、`agent_can_write()` symlink 规范化、`cap_agentwritable` 多路径判断，均无行为夹具执行 | 中：静态 grep 能证明代码在文件里，但不能证明运行时分支正确触发 |
+| **F7-22 容器检查无运行时 fixture** | `docker inspect` 格式化输出解析（`P=true|USERNS=host` 等）仅有静态 token grep，没有用 mock docker inspect 输出验证 grep 表达式行为 | 中：正则有边界错误的风险无法被静态 grep 捕捉 |
+| **allowlisted-but-writable 的完整负向路径无 fixture** | 静态测试只断言 `world-writable setuid binary` 和 `setuid binary group-writable by an agent group` 字符串在文件中存在，没有 fixture 文件实际触发该 code path | 低-中：字符串在，但分支顺序错误（先 allowlist 跳过，再 writability 检查）需要行为验证 |
+| **`f13_extra_setuid_knob` / `f13_extra_cap_knob` 无注入测试** | 只断言变量名出现，不验证扩展后的 allowlist 实际参与 case 匹配 | 低 |
+
+---
+
+### 最终裁定
+
+| 项目 | 判定 |
+|---|---|
+| F7-20 静态覆盖 | **PASS**（源码 grep，所有 token 存在） |
+| F7-21 静态覆盖 | **PASS**（源码 grep，所有 token 存在） |
+| F7-22 静态覆盖 | **PASS**（源码 grep，所有 token 存在） |
+| fix-loop-13 allowlist 负向静态覆盖 | **PASS**（源码 grep，所有 token 存在；allowlisted-but-writable 路径代码逻辑正确） |
+| 行为夹具（真正运行时执行）覆盖 F7-20/21/22 及 f13 | **REDO** — `functional_fixtures.sh` 不覆盖这些区域；建议补充以下行为夹具：(1) mock `docker inspect` 输出 → 验证容器逃逸 grep 正则；(2) 临时 fixture 目录内构造 world-writable setuid 和 allowlisted-but-group-writable 场景 → 验证 preflight 分支；(3) 构造 agent-writable cap 文件 → 验证 `cap_agentwritable` 路径 |

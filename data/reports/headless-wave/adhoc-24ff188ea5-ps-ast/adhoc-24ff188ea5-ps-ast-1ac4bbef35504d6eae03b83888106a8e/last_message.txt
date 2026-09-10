@@ -1,0 +1,99 @@
+两个文件内容已完整读取并带行号。现在进行系统性语法树逐项复核：
+
+---
+
+## 复核结果
+
+**总结论：OK**
+
+---
+
+### 一、引号使用
+
+**Start-Codex-LOOP-Desktop.ps1**
+
+| 行号 | 引号类型 | 内容 | 判断 |
+|------|----------|------|------|
+| 3 | 单引号 `'E:\codex-LOOP'` | 字面路径，无需插值 | ✅ 正确 |
+| 7 | 单引号 `'Stop'` | 字面量 | ✅ 正确 |
+| 8 | 单引号 `'E:\codex-LOOP\launchers\Set-Codex-LOOP-Mode.ps1'` | 含反斜杠路径，单引号防止转义 | ✅ 正确 |
+| 9 | 单引号 | 同上 | ✅ 正确 |
+| 12 | 双引号 `"Target workspace does not exist: $TargetWorkspace"` | 需要变量插值 | ✅ 正确 |
+| 22–25 | 单引号数组元素（`'-NoProfile'` 等字面字符串） | 字面量 | ✅ 正确 |
+| 24 | `'-File', $monitorLauncher` | `-File` 是字面量单引号，`$monitorLauncher` 是变量展开 | ✅ 正确 |
+| 25 | 单引号 `'E:\codex-LOOP'` | 字面工作目录 | ✅ 正确 |
+| 32 | 双引号 `"Codex LOOP opened target workspace: $absolute"` | 需要插值 | ✅ 正确 |
+
+**Set-Codex-LOOP-Mode.ps1**
+
+| 行号 | 引号类型 | 内容 | 判断 |
+|------|----------|------|------|
+| 4 | 单引号列表 | ValidateSet 字面量 | ✅ 正确 |
+| 9–12 | 单引号路径 | 字面量路径 | ✅ 正确 |
+| 22–27 | switch 分支单引号 | 字面量字符串比较与赋值 | ✅ 正确 |
+| 31 | 双引号 `"Codex LOOP global mode action failed: $Mode"` | 需插值 | ✅ 正确 |
+| 35、38、41 | 单引号 Write-Host 信息 | 无需插值 | ✅ 正确 |
+
+引号策略全部一致、正确：需要插值用双引号，字面量用单引号。**无引号问题。**
+
+---
+
+### 二、`-File` 参数
+
+第 22–25 行（`Start-Codex-LOOP-Desktop.ps1`）：
+
+```powershell
+Start-Process -FilePath 'powershell.exe' -WindowStyle Hidden -ArgumentList @(
+    '-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass',
+    '-File', $monitorLauncher
+) -WorkingDirectory 'E:\codex-LOOP'
+```
+
+- `-File` 作为数组中单独的字符串元素，与 `$monitorLauncher`（下一个元素）被 PowerShell 拼装成 `powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File <路径>` 的正确参数序列。
+- `$monitorLauncher` 在第 9 行已赋值为绝对路径，不含空格时无需额外引号；而通过数组传递给 `Start-Process -ArgumentList` 时，PowerShell 会自动处理各元素间的分隔，**不会发生参数合并问题**。
+- 注意：若路径含空格，`$monitorLauncher` 展开后传给 powershell.exe 时可能需要额外的 `"` 包裹。但当前路径 `E:\codex-LOOP\launchers\Start-Codex-LOOP-Monitor.ps1` **不含空格**，此处 **OK**。
+
+---
+
+### 三、`-TargetWorkspace` 参数
+
+第 3 行声明：`[string]$TargetWorkspace = 'E:\codex-LOOP'`
+
+- 类型为 `[string]`，默认值合法。
+- 第 11 行 `Test-Path -LiteralPath $TargetWorkspace` ：使用 `-LiteralPath` 避免通配符，正确。
+- 第 29 行 `[IO.Path]::GetFullPath($TargetWorkspace)` ：将路径规范化为绝对路径，合理。
+- `$TargetWorkspace` 没有直接传递给 `Set-Codex-LOOP-Mode.ps1`（该脚本有自己的根路径硬编码），因此不存在跨脚本参数传递歧义。
+
+**`-TargetWorkspace` 处理正确，无问题。**
+
+---
+
+### 四、错误传播
+
+**Start-Codex-LOOP-Desktop.ps1：**
+
+- 第 7 行 `$ErrorActionPreference = 'Stop'`：将所有非终止性错误升级为终止性错误，建立了正确的错误边界。
+- 第 12 行 `throw`：显式抛出，路径不存在时立即终止。
+- 第 15 行 `& $modeLauncher -Mode Activate`：用 `&` 调用脚本。注释（第 16–19 行）明确说明**不检查 `$LASTEXITCODE`**，理由是 PS 脚本调用不设置 `$LASTEXITCODE`；若 `Set-Codex-LOOP-Mode.ps1` 抛出异常，`$ErrorActionPreference = 'Stop'` 会把异常向上传播到调用者。**逻辑正确。**
+- `Start-Process` 调用（第 22–25 行）启动监控进程为后台进程，不捕获其退出码，这是有意为之（监控器为可选组件，第 21 行先检查文件是否存在）。**无问题。**
+
+**Set-Codex-LOOP-Mode.ps1：**
+
+- 第 8 行 `$ErrorActionPreference = 'Stop'`：同上。
+- 第 15 行 `(Get-Command py.exe -ErrorAction Stop).Source`：Python 不可用时主动终止，**正确**。
+- 第 29 行 `& $python @pythonArgs $tool $action ...`：调用外部进程（python），**随后第 30–32 行正确检查 `$LASTEXITCODE`**（外部进程使用 `$LASTEXITCODE`，PS 脚本使用异常，两者分别处理，互不混淆）。**正确。**
+
+**错误传播链路：** `Start-Codex-LOOP-Desktop.ps1` → `& $modeLauncher`（PS 脚本，异常传播） → `Set-Codex-LOOP-Mode.ps1` → `& $python`（外部进程，`$LASTEXITCODE` 检查后 `throw`）。全链路均有错误捕获，**无断链。**
+
+---
+
+### 综合结论
+
+**✅ OK**
+
+两个文件的引号策略、`-File` 用法、`-TargetWorkspace` 处理、错误传播四个维度均无语法或逻辑问题。具体证据汇总：
+
+- **引号**：字面量用单引号，含变量插值用双引号，全文一致，无混用。
+- **`-File`**（第 24 行）：作为 `ArgumentList` 数组独立元素传递，路径无空格，语义正确。
+- **`-TargetWorkspace`**（第 3、11、29 行）：声明、验证、使用三处均正确，用 `-LiteralPath` 避免通配符歧义。
+- **错误传播**：两文件均设 `$ErrorActionPreference = 'Stop'`；`Set-Codex-LOOP-Mode.ps1` 对外部进程用 `$LASTEXITCODE` 检查后 `throw`，对 PS 脚本调用用异常机制；调用者注释中已明确说明不混用两种机制，逻辑清晰无断链。

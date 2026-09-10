@@ -1,0 +1,41 @@
+Reading additional input from stdin...
+2026-08-16T15:06:10.769774Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-16T15:06:20.875941Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-16T15:09:07.713280Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.7 seconds
+Output:
+Get-Content : 对路径“C:\Users\hzq00\.opencodex\codex-quota-cache.json”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-Content "C:\Users\hzq00\.opencodex\codex-quota-cache.json" -Raw
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (C:\Users\hzq00\...uota-cache.json:String) [Get-Content], Unauthorized 
+   AccessException
+    + FullyQualifiedErrorId : GetContentReaderUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+
+2026-08-16T15:09:17.656162Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.7 seconds
+Output:
+Get-Content : 对路径“C:\Users\hzq00\.opencodex\codex-runtime.json”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-Content "C:\Users\hzq00\.opencodex\codex-runtime.json" -Raw
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (C:\Users\hzq00\...ex-runtime.json:String) [Get-Content], Unauthorized 
+   AccessException
+    + FullyQualifiedErrorId : GetContentReaderUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+
+2026-08-16T15:10:54.548808Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 186ms)... turn_id=01a00b1b-de2f-7cc3-bb0c-83472d53aab6 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-16T15:11:40.312292Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 422ms)... turn_id=01a00b1b-de2f-7cc3-bb0c-83472d53aab6 retries=2 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-16T15:12:26.575430Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 833ms)... turn_id=01a00b1b-de2f-7cc3-bb0c-83472d53aab6 retries=3 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-16T15:13:13.114431Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.647s)... turn_id=01a00b1b-de2f-7cc3-bb0c-83472d53aab6 retries=4 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-16T15:14:00.784954Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 2.943s)... turn_id=01a00b1b-de2f-7cc3-bb0c-83472d53aab6 retries=5 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-16T15:14:51.582136Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

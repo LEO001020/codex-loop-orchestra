@@ -1,0 +1,7 @@
+{
+  "packet_id": "Q34",
+  "goal": "任务名：NMB批后验收\n读取after AppOps/whitelist/services/jobs/alarm/cpu/logcat；异常则回滚当前批，不重启手机。",
+  "authorized_paths": "C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\NMB_HONOR_AUDIT_20260822-222255\\after\\",
+  "acceptance": "写入：appops_run_any_in_background.txt, deviceidle_whitelist.txt, activity_processes.txt, activity_services.txt, jobscheduler.txt, alarm.txt, validation.md。每项结论必须可由命令/来源复核；未知一律 KEEP/SKIP。",
+  "constraints": "严格遵守 C:\\Users\\hzq00\\.codex\\attachments\\5cc0ecca-1d9e-4979-83f0-e0281ec312eb\\pasted-text.txt；只允许合同明确的 RUN_ANY_IN_BACKGROUND 与 DeviceIdle user whitelist 变更及精确回滚；严禁任何 netpolicy、disable/uninstall/clear/force-stop、系统/HONOR/特殊角色修改；所有 adb 显式 -s SERIAL；不得创建子代理。"
+}

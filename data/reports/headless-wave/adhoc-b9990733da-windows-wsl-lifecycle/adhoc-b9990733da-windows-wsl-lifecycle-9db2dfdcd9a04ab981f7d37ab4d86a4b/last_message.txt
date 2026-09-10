@@ -1,0 +1,12 @@
+审计完成，未修改任何文件。三个文件已通读（lifecycle_supervisor.py 667行、headless_wave.py 406行、subagent_lifecycle.py 747行），结论如下：
+
+**PASS**（主机制正确，附2处非阻断提示）
+
+- Windows锁：supervisor L44-80、hook L109-143 均用 `msvcrt.locking(LK_NBLCK)` 单字节锁+指数退避+10s超时+finally解锁，正确。
+- 原子替换：两处 atomic_json（L83-119、L146-171）均 tmp+fsync+`os.replace`+PermissionError重试5s，正确；publish_report L497-502 无重试但可接受。
+- Job Object：L349-441 `CREATE_SUSPENDED→AssignProcess→ResumeThread` 无竞态，`KILL_ON_JOB_CLOSE`+TerminateProcess回退（L397-413），无悬挂孤儿。
+- 孤儿回收：Windows 靠关闭Job句柄杀全树（L366-367、L433-441、L637-639）；POSIX 冷启动 L688-704 killpg+启动令牌防PID复用，正确。
+- 双平面roster：exec_roster v2（Store L131-176，代际守卫 L151-162）与 native_roster v1 各持独立锁；parent_stop L562-572 同锁读exec roster，一致。
+
+提示1：headless_wave.py L105-126 `process_alive` 未比对创建令牌，L129-145 recover_live_supervisor 存在PID复用误判为running的风险，建议改用已存的 `supervisor_proc_start_ticks`。
+提示2：hook L186-189 的 events_path 与 main_events_path 指向同一文件，但 audit（L212）与 main（L216）用不同锁；且 headless 事件写 data/events.ndjson（supervisor L136），双平面事件分裂，消费者需兼容两种schema。

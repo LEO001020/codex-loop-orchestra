@@ -1,0 +1,93 @@
+I now have all the data needed for a complete audit. Here is the report:
+
+---
+
+## Manifest Generation Policy Audit Report
+
+**审计日期：** 2026-08-14  
+**审计范围：** DISPATCHABLE packet policy、scoped wave checks、zero-pending ledger  
+
+---
+
+### 一、DISPATCHABLE packet 当前状态
+
+**结论：PASS — ledger 中零个 DISPATCHABLE packet**
+
+扫描 `data/progress_ledger.json`（64个packet），状态分布如下：
+
+| State | Count |
+|---|---|
+| REPORTED | 55 |
+| DEAD_LETTER | 9 |
+| **DISPATCHABLE** | **0** |
+
+work_queue 同样已完全清空：`{"v4": 0, "k3": 0, "parents": {}}`，`queue_empty: true`，`refill_required: false`。
+
+---
+
+### 二、旧 manifest 的 DISPATCHABLE packet 隔离性验证
+
+**结论：PASS — 旧 manifest packet 无法被新 manifest 父节点选取**
+
+各 manifest 的 packet 状态分布：
+
+| Manifest | REPORTED | DEAD_LETTER |
+|---|---|---|
+| `loop-recovery-audit-20260813` | 12 | 4 |
+| `auto-refill-proof-20260813` | 12 | 4 |
+| `p0-live-refill-proof-20260814-1338` | 2 | 0 |
+| `p0-parent-final-backlog-20260814` | 9 | 1 |
+| `p0-sustained-final-review-20260814` | 20 | 0 |
+
+旧 manifest（`loop-recovery-audit`、`auto-refill-proof`）的 packet 全部处于 REPORTED 或 DEAD_LETTER，无一处于 DISPATCHABLE。即使存在 DISPATCHABLE，双重 manifest_id 严格相等守卫（`queue_sync_ledger` 第248行、`select_tasks` 第310行）也能阻止它们被当前活跃 manifest `p0-parent-final-backlog-20260814` 的父节点选取：
+
+- `queue_sync_ledger`：若 `parent.get("manifest_id") != item.get("manifest_id")` 则 `continue`，不计入 ready 计数。
+- `select_tasks`：同样的相等判断，不进入 buckets，不被 dispatch。
+- 唯一的例外情况 `None/None` 也已在代码注释中显式说明为 legacy 兼容路径，不影响现有有 manifest_id 的 packet。
+
+---
+
+### 三、Scoped Wave Check（父节点维度）
+
+**结论：PASS — 父节点 pending/deficit 均为零，reason 正确**
+
+当前唯一注册父节点：
+
+```
+parent_session_id: 019feacd-184e-7472-9f11-ea364c22e595
+manifest_id: p0-parent-final-backlog-20260814
+active: true
+target_active: 20
+pending: {v4:0, k3:0, total:0}
+deficit: 0
+spawnable: {total:0}
+reason: at_parent_target (或 parent_backlog_empty，随 observer 快照变化)
+```
+
+父节点维度没有任何 refill debt，不会触发新的 dispatch 波次。
+
+---
+
+### 四、Zero-Pending Ledger 确认
+
+**结论：PASS — 消费序列对齐，actuator 稳定空转**
+
+从 `data/orchestration/refill_requests.json`：`requested_seq = consumed_seq = 387`，无未消费请求。
+
+最近 14 次 `queue_sync_ledger` 调用均返回 `{"v4": 0, "k3": 0}`，每次均产生 `"status": "idle"` 结果，无 manifest 生成。active running 总数从 Observer 读取，在本窗口内波动于 19–73（反映其他平面 K3 任务自然完成），不属于 LOOP 本平面的 DISPATCHABLE 队列问题。
+
+---
+
+### 五、策略版本一致性
+
+`refill_state.json` 中 `policy_version = "2026-08-13.dialogue-20-global-80"`，与 `config/refill_policy.toml` 的 `[meta] policy_version` 完全一致，policy_mtime 也匹配，无强制重算触发。
+
+---
+
+### 六、风险发现与观察
+
+**观察（非阻断）：** exec_roster.json 中有 646 行状态为 `"running"` 的条目，但这些是历史累积的 roster 行，不是当前存活进程。Controller 通过 `_process_generation_alive(pid, ticks)` 的进程代数验证过滤掉了死亡条目，Observer 快照是实际运行数的权威来源。这一现象是正常的历史记录积累，不影响 DISPATCHABLE 选取逻辑。
+
+---
+
+**总结：** 旧 manifest 的 DISPATCHABLE packet 隔离机制完整，双重 manifest_id 严格相等守卫在 `queue_sync_ledger`（controller）和 `select_tasks`（consumer）两处均已实施。当前 ledger 零 DISPATCHABLE，工作队列零 pending，refill actuator 稳定空转，无新 manifest 生成，策略版本一致。本轮审计未发现需要修复的策略缺陷。

@@ -1,0 +1,22 @@
+{
+  "tasks": [
+    {
+      "task_id": "stage2-a04r",
+      "task_name": "安全脚本构建",
+      "role": "worker",
+      "cwd": "C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\work\\stage2_20260823-000955\\adjudication\\A04R",
+      "sandbox": "workspace-write",
+      "allow_write": true,
+      "prompt": "任务名：安全脚本构建\n读取 C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\work\\stage2_20260823-000955\\adjudication\\A02R\\APPROVED_ACTIONS.tsv、BLOCKED_ACTIONS.tsv、report.md 与ZIP验收模板。仅为5项已批准的只读/设备门/工作区动作生成 C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\work\\stage2_20260823-000955\\adjudication\\A04R\\execute_stage2_safe.ps1、actions.jsonl模板、rollback.ps1、report.md。脚本默认DryRun，-Execute执行；机械断言不得包含任何设备/Windows状态写命令、reboot、perfetto trace录制或BLOCKED动作。不得执行脚本。\n只允许写当前cwd；禁止修改设备/系统、重启或子代理。最终一行结论+report路径。"
+    },
+    {
+      "task_id": "stage2-a05r",
+      "task_name": "安全清单验证",
+      "role": "verifier",
+      "cwd": "C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\work\\stage2_20260823-000955\\adjudication\\A05R",
+      "sandbox": "workspace-write",
+      "allow_write": true,
+      "prompt": "任务名：安全清单验证\n读取A02R输出、A01/A03/S20报告与ZIP。验证APPROVED确实只有5项零设备写动作，28类写动作全部BLOCK；检查是否遗漏危险命令或当前漂移。输出READY/BLOCK到 C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\work\\stage2_20260823-000955\\adjudication\\A05R\\report.md。禁止执行。\n只允许写当前cwd；禁止修改设备/系统、重启或子代理。最终一行结论+report路径。"
+    }
+  ]
+}

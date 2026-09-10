@@ -1,0 +1,43 @@
+Reading additional input from stdin...
+2026-08-14T11:10:58.915450Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T11:11:01.404159Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T11:11:14.789154Z ERROR codex_core::tools::router: error=unsupported call: read
+2026-08-14T11:11:14.789296Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:11:30.495529Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 4.4 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 62
++ ... ChildItem E:\codex-LOOP\codex-loop-s-f2 -Recurse -Name | head -80 | c ...
++                                                              ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T11:12:43.116130Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 213ms)... turn_id=019ffff7-d1cc-7650-9dfd-cd8fa32be3ed retries=1 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游网络连接失败, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T11:15:11.722643Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-14T11:22:27.439228Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

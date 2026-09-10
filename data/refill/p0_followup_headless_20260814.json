@@ -1,0 +1,9 @@
+{
+  "schema": "codex-loop-headless-audit/v1",
+  "tasks": [
+    {"task_id":"f01-manifest-mismatch","task_name":"错配manifest反证","role":"worker","parent_session_id":"019feacd-184e-7472-9f11-ea364c22e595","manifest_id":"p0-followup-headless-20260814","cwd":"E:/codex-LOOP/codex-loop-s-f2","prompt":"任务名：错配manifest反证。基于以下已观测证据做独立逻辑审计：parent_sessions 当前 manifest=p0-parent-final-backlog-20260814；审计 headless 的 manifest=p0-readonly-audit-headless-20260814；8765 仍把这些审计任务计入同一父 running，refill_controller 用 observer.parents.running 覆盖父计数。判断这是否能掩盖 active manifest 的真实 deficit。无需读文件也应完成；返回最小复现与等级，不得改文件。"},
+    {"task_id":"f02-empty-backlog-semantics","task_name":"空backlog语义反证","role":"worker","parent_session_id":"019feacd-184e-7472-9f11-ea364c22e595","manifest_id":"p0-followup-headless-20260814","cwd":"E:/codex-LOOP/codex-loop-s-f2","prompt":"任务名：空backlog语义反证。独立判断：target=20、running<20、pending=0、queue_empty=true 时 deficit=0 是否正确；再给出 pending>0 时应满足的必要不变量。区分 sustained concurrency 目标与无意义 filler。无需外部工具，返回形式化不变量和反例。"},
+    {"task_id":"f03-spawnable-zero-wake","task_name":"容量释放再唤醒反证","role":"worker","parent_session_id":"019feacd-184e-7472-9f11-ea364c22e595","manifest_id":"p0-followup-headless-20260814","cwd":"E:/codex-LOOP/codex-loop-s-f2","prompt":"任务名：容量释放再唤醒反证。已知日志出现 deficit>0、spawnable=0 后 residual pass 返回 idle 且不再安排 wake；系统依赖后续 lifecycle terminal 外部触发。审计是否存在容量随后释放但 terminal hook 丢失/未热加载时永久欠债路径。给出 P0/P1、最小复现、应有不变量；不得改文件。"},
+    {"task_id":"f04-observer-contract","task_name":"observer父计数契约","role":"worker","parent_session_id":"019feacd-184e-7472-9f11-ea364c22e595","manifest_id":"p0-followup-headless-20260814","cwd":"E:/codex-LOOP/codex-loop-s-f2","prompt":"任务名：observer父计数契约。设计一个最小只读契约：8765 对全局 running 可计所有有效任务，但对某 active parent 的 running 必须满足 parent_session_id 与哪一些字段匹配，才能安全清除该父 debt。覆盖 manifest_id 缺失、旧 manifest、native 无 metadata、rollout fallback。返回 fail-closed 规则和兼容性影响。"}
+  ]
+}

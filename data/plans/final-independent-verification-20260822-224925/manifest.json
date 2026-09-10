@@ -1,0 +1,184 @@
+{
+  "tasks": [
+    {
+      "task_id": "final-v01",
+      "task_name": "任务A四包状态",
+      "role": "verifier",
+      "cwd": "C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\FINAL_INDEPENDENT_VERIFICATION_20260822-224925\\V01",
+      "sandbox": "workspace-write",
+      "allow_write": true,
+      "prompt": "实时确认四包 present、user0 enabled numeric state、disabled列表和重启后状态。\n只读独立验证。目标设备HONOR VER-AN10，ADB C:\\Users\\hzq00\\Downloads\\platform-tools-latest-windows\\platform-tools\\adb.exe，预期serial AVNS023705001888、user0。所有adb命令必须显式 -s；禁止任何appops set、deviceidle +/-、pm状态修改、netpolicy mutation、重启、杀进程或其他写操作；不得创建子代理。读取任务A C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\HONOR_MAGICOS_DEBLOAT_AUDIT_20260822-212526 和任务B C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\NMB_HONOR_AUDIT_20260822-222255。必须把可复核命令、关键证据、PASS/BLOCK写入当前cwd的report.md，最终回复一行结论+路径。"
+    },
+    {
+      "task_id": "final-v02",
+      "task_name": "任务A动作归因",
+      "role": "verifier",
+      "cwd": "C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\FINAL_INDEPENDENT_VERIFICATION_20260822-224925\\V02",
+      "sandbox": "workspace-write",
+      "allow_write": true,
+      "prompt": "核对四包外是否有本任务新增禁用迹象，区分预先disabled包；依据journal/after。\n只读独立验证。目标设备HONOR VER-AN10，ADB C:\\Users\\hzq00\\Downloads\\platform-tools-latest-windows\\platform-tools\\adb.exe，预期serial AVNS023705001888、user0。所有adb命令必须显式 -s；禁止任何appops set、deviceidle +/-、pm状态修改、netpolicy mutation、重启、杀进程或其他写操作；不得创建子代理。读取任务A C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\HONOR_MAGICOS_DEBLOAT_AUDIT_20260822-212526 和任务B C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\NMB_HONOR_AUDIT_20260822-222255。必须把可复核命令、关键证据、PASS/BLOCK写入当前cwd的report.md，最终回复一行结论+路径。"
+    },
+    {
+      "task_id": "final-v03",
+      "task_name": "任务A回滚审计",
+      "role": "verifier",
+      "cwd": "C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\FINAL_INDEPENDENT_VERIFICATION_20260822-224925\\V03",
+      "sandbox": "workspace-write",
+      "allow_write": true,
+      "prompt": "逐行审计rollback.ps1/sh是否按逆序恢复default状态、dry-run和ADB serial/user正确。\n只读独立验证。目标设备HONOR VER-AN10，ADB C:\\Users\\hzq00\\Downloads\\platform-tools-latest-windows\\platform-tools\\adb.exe，预期serial AVNS023705001888、user0。所有adb命令必须显式 -s；禁止任何appops set、deviceidle +/-、pm状态修改、netpolicy mutation、重启、杀进程或其他写操作；不得创建子代理。读取任务A C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\HONOR_MAGICOS_DEBLOAT_AUDIT_20260822-212526 和任务B C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\NMB_HONOR_AUDIT_20260822-222255。必须把可复核命令、关键证据、PASS/BLOCK写入当前cwd的report.md，最终回复一行结论+路径。"
+    },
+    {
+      "task_id": "final-v04",
+      "task_name": "任务A日志一致性",
+      "role": "verifier",
+      "cwd": "C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\FINAL_INDEPENDENT_VERIFICATION_20260822-224925\\V04",
+      "sandbox": "workspace-write",
+      "allow_write": true,
+      "prompt": "核对actions.jsonl、approved清单、after状态与FINAL_REPORT逐包一致。\n只读独立验证。目标设备HONOR VER-AN10，ADB C:\\Users\\hzq00\\Downloads\\platform-tools-latest-windows\\platform-tools\\adb.exe，预期serial AVNS023705001888、user0。所有adb命令必须显式 -s；禁止任何appops set、deviceidle +/-、pm状态修改、netpolicy mutation、重启、杀进程或其他写操作；不得创建子代理。读取任务A C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\HONOR_MAGICOS_DEBLOAT_AUDIT_20260822-212526 和任务B C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\NMB_HONOR_AUDIT_20260822-222255。必须把可复核命令、关键证据、PASS/BLOCK写入当前cwd的report.md，最终回复一行结论+路径。"
+    },
+    {
+      "task_id": "final-v05",
+      "task_name": "YOYO保护核验",
+      "role": "verifier",
+      "cwd": "C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\FINAL_INDEPENDENT_VERIFICATION_20260822-224925\\V05",
+      "sandbox": "workspace-write",
+      "allow_write": true,
+      "prompt": "实时检查关键YOYO/AI包未disabled，报告任何异常。\n只读独立验证。目标设备HONOR VER-AN10，ADB C:\\Users\\hzq00\\Downloads\\platform-tools-latest-windows\\platform-tools\\adb.exe，预期serial AVNS023705001888、user0。所有adb命令必须显式 -s；禁止任何appops set、deviceidle +/-、pm状态修改、netpolicy mutation、重启、杀进程或其他写操作；不得创建子代理。读取任务A C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\HONOR_MAGICOS_DEBLOAT_AUDIT_20260822-212526 和任务B C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\NMB_HONOR_AUDIT_20260822-222255。必须把可复核命令、关键证据、PASS/BLOCK写入当前cwd的report.md，最终回复一行结论+路径。"
+    },
+    {
+      "task_id": "final-v06",
+      "task_name": "PC保护核验",
+      "role": "verifier",
+      "cwd": "C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\FINAL_INDEPENDENT_VERIFICATION_20260822-224925\\V06",
+      "sandbox": "workspace-write",
+      "allow_write": true,
+      "prompt": "实时检查HonorSuite/PhoneLink/HONOR Connect关键包未disabled。\n只读独立验证。目标设备HONOR VER-AN10，ADB C:\\Users\\hzq00\\Downloads\\platform-tools-latest-windows\\platform-tools\\adb.exe，预期serial AVNS023705001888、user0。所有adb命令必须显式 -s；禁止任何appops set、deviceidle +/-、pm状态修改、netpolicy mutation、重启、杀进程或其他写操作；不得创建子代理。读取任务A C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\HONOR_MAGICOS_DEBLOAT_AUDIT_20260822-212526 和任务B C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\NMB_HONOR_AUDIT_20260822-222255。必须把可复核命令、关键证据、PASS/BLOCK写入当前cwd的report.md，最终回复一行结论+路径。"
+    },
+    {
+      "task_id": "final-v07",
+      "task_name": "核心状态核验",
+      "role": "verifier",
+      "cwd": "C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\FINAL_INDEPENDENT_VERIFICATION_20260822-224925\\V07",
+      "sandbox": "workspace-write",
+      "allow_write": true,
+      "prompt": "检查SystemUI/Launcher/Phone/iAware及核心包启用/运行状态。\n只读独立验证。目标设备HONOR VER-AN10，ADB C:\\Users\\hzq00\\Downloads\\platform-tools-latest-windows\\platform-tools\\adb.exe，预期serial AVNS023705001888、user0。所有adb命令必须显式 -s；禁止任何appops set、deviceidle +/-、pm状态修改、netpolicy mutation、重启、杀进程或其他写操作；不得创建子代理。读取任务A C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\HONOR_MAGICOS_DEBLOAT_AUDIT_20260822-212526 和任务B C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\NMB_HONOR_AUDIT_20260822-222255。必须把可复核命令、关键证据、PASS/BLOCK写入当前cwd的report.md，最终回复一行结论+路径。"
+    },
+    {
+      "task_id": "final-v08",
+      "task_name": "错误日志核验",
+      "role": "verifier",
+      "cwd": "C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\FINAL_INDEPENDENT_VERIFICATION_20260822-224925\\V08",
+      "sandbox": "workspace-write",
+      "allow_write": true,
+      "prompt": "只读检查重启后近期logcat严重模式，区分历史噪声与重复系统错误。\n只读独立验证。目标设备HONOR VER-AN10，ADB C:\\Users\\hzq00\\Downloads\\platform-tools-latest-windows\\platform-tools\\adb.exe，预期serial AVNS023705001888、user0。所有adb命令必须显式 -s；禁止任何appops set、deviceidle +/-、pm状态修改、netpolicy mutation、重启、杀进程或其他写操作；不得创建子代理。读取任务A C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\HONOR_MAGICOS_DEBLOAT_AUDIT_20260822-212526 和任务B C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\NMB_HONOR_AUDIT_20260822-222255。必须把可复核命令、关键证据、PASS/BLOCK写入当前cwd的report.md，最终回复一行结论+路径。"
+    },
+    {
+      "task_id": "final-v09",
+      "task_name": "任务B四包AppOps",
+      "role": "verifier",
+      "cwd": "C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\FINAL_INDEPENDENT_VERIFICATION_20260822-224925\\V09",
+      "sandbox": "workspace-write",
+      "allow_write": true,
+      "prompt": "实时读取四包user0 RUN_ANY_IN_BACKGROUND raw并解释当前模式。\n只读独立验证。目标设备HONOR VER-AN10，ADB C:\\Users\\hzq00\\Downloads\\platform-tools-latest-windows\\platform-tools\\adb.exe，预期serial AVNS023705001888、user0。所有adb命令必须显式 -s；禁止任何appops set、deviceidle +/-、pm状态修改、netpolicy mutation、重启、杀进程或其他写操作；不得创建子代理。读取任务A C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\HONOR_MAGICOS_DEBLOAT_AUDIT_20260822-212526 和任务B C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\NMB_HONOR_AUDIT_20260822-222255。必须把可复核命令、关键证据、PASS/BLOCK写入当前cwd的report.md，最终回复一行结论+路径。"
+    },
+    {
+      "task_id": "final-v10",
+      "task_name": "任务BWhitelist",
+      "role": "verifier",
+      "cwd": "C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\FINAL_INDEPENDENT_VERIFICATION_20260822-224925\\V10",
+      "sandbox": "workspace-write",
+      "allow_write": true,
+      "prompt": "实时读取DeviceIdle whitelist，确认Bilibili/Twitter/Coolapk/Alipay最终成员关系。\n只读独立验证。目标设备HONOR VER-AN10，ADB C:\\Users\\hzq00\\Downloads\\platform-tools-latest-windows\\platform-tools\\adb.exe，预期serial AVNS023705001888、user0。所有adb命令必须显式 -s；禁止任何appops set、deviceidle +/-、pm状态修改、netpolicy mutation、重启、杀进程或其他写操作；不得创建子代理。读取任务A C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\HONOR_MAGICOS_DEBLOAT_AUDIT_20260822-212526 和任务B C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\NMB_HONOR_AUDIT_20260822-222255。必须把可复核命令、关键证据、PASS/BLOCK写入当前cwd的report.md，最终回复一行结论+路径。"
+    },
+    {
+      "task_id": "final-v11",
+      "task_name": "任务B派生状态",
+      "role": "verifier",
+      "cwd": "C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\FINAL_INDEPENDENT_VERIFICATION_20260822-224925\\V11",
+      "sandbox": "workspace-write",
+      "allow_write": true,
+      "prompt": "独立按NMB定义推导四包Auto/Unrestricted，核对报告结论。\n只读独立验证。目标设备HONOR VER-AN10，ADB C:\\Users\\hzq00\\Downloads\\platform-tools-latest-windows\\platform-tools\\adb.exe，预期serial AVNS023705001888、user0。所有adb命令必须显式 -s；禁止任何appops set、deviceidle +/-、pm状态修改、netpolicy mutation、重启、杀进程或其他写操作；不得创建子代理。读取任务A C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\HONOR_MAGICOS_DEBLOAT_AUDIT_20260822-212526 和任务B C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\NMB_HONOR_AUDIT_20260822-222255。必须把可复核命令、关键证据、PASS/BLOCK写入当前cwd的report.md，最终回复一行结论+路径。"
+    },
+    {
+      "task_id": "final-v12",
+      "task_name": "任务B多用户作用域",
+      "role": "verifier",
+      "cwd": "C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\FINAL_INDEPENDENT_VERIFICATION_20260822-224925\\V12",
+      "sandbox": "workspace-write",
+      "allow_write": true,
+      "prompt": "确认user128存在、四包是否安装其中、user0 AppOps作用域与DeviceIdle影响。\n只读独立验证。目标设备HONOR VER-AN10，ADB C:\\Users\\hzq00\\Downloads\\platform-tools-latest-windows\\platform-tools\\adb.exe，预期serial AVNS023705001888、user0。所有adb命令必须显式 -s；禁止任何appops set、deviceidle +/-、pm状态修改、netpolicy mutation、重启、杀进程或其他写操作；不得创建子代理。读取任务A C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\HONOR_MAGICOS_DEBLOAT_AUDIT_20260822-212526 和任务B C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\NMB_HONOR_AUDIT_20260822-222255。必须把可复核命令、关键证据、PASS/BLOCK写入当前cwd的report.md，最终回复一行结论+路径。"
+    },
+    {
+      "task_id": "final-v13",
+      "task_name": "任务B回滚审计",
+      "role": "verifier",
+      "cwd": "C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\FINAL_INDEPENDENT_VERIFICATION_20260822-224925\\V13",
+      "sandbox": "workspace-write",
+      "allow_write": true,
+      "prompt": "逐行审计NMB rollback.ps1/sh能否恢复default AppOps和原whitelist。\n只读独立验证。目标设备HONOR VER-AN10，ADB C:\\Users\\hzq00\\Downloads\\platform-tools-latest-windows\\platform-tools\\adb.exe，预期serial AVNS023705001888、user0。所有adb命令必须显式 -s；禁止任何appops set、deviceidle +/-、pm状态修改、netpolicy mutation、重启、杀进程或其他写操作；不得创建子代理。读取任务A C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\HONOR_MAGICOS_DEBLOAT_AUDIT_20260822-212526 和任务B C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\NMB_HONOR_AUDIT_20260822-222255。必须把可复核命令、关键证据、PASS/BLOCK写入当前cwd的report.md，最终回复一行结论+路径。"
+    },
+    {
+      "task_id": "final-v14",
+      "task_name": "任务B日志一致性",
+      "role": "verifier",
+      "cwd": "C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\FINAL_INDEPENDENT_VERIFICATION_20260822-224925\\V14",
+      "sandbox": "workspace-write",
+      "allow_write": true,
+      "prompt": "核对actions.jsonl、proposed_changes、after与FINAL_REPORT，关注支付宝重启恢复。\n只读独立验证。目标设备HONOR VER-AN10，ADB C:\\Users\\hzq00\\Downloads\\platform-tools-latest-windows\\platform-tools\\adb.exe，预期serial AVNS023705001888、user0。所有adb命令必须显式 -s；禁止任何appops set、deviceidle +/-、pm状态修改、netpolicy mutation、重启、杀进程或其他写操作；不得创建子代理。读取任务A C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\HONOR_MAGICOS_DEBLOAT_AUDIT_20260822-212526 和任务B C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\NMB_HONOR_AUDIT_20260822-222255。必须把可复核命令、关键证据、PASS/BLOCK写入当前cwd的report.md，最终回复一行结论+路径。"
+    },
+    {
+      "task_id": "final-v15",
+      "task_name": "后台数据不变量",
+      "role": "verifier",
+      "cwd": "C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\FINAL_INDEPENDENT_VERIFICATION_20260822-224925\\V15",
+      "sandbox": "workspace-write",
+      "allow_write": true,
+      "prompt": "只读检查四包netpolicy当前状态和计划/日志中是否出现netpolicy mutation。\n只读独立验证。目标设备HONOR VER-AN10，ADB C:\\Users\\hzq00\\Downloads\\platform-tools-latest-windows\\platform-tools\\adb.exe，预期serial AVNS023705001888、user0。所有adb命令必须显式 -s；禁止任何appops set、deviceidle +/-、pm状态修改、netpolicy mutation、重启、杀进程或其他写操作；不得创建子代理。读取任务A C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\HONOR_MAGICOS_DEBLOAT_AUDIT_20260822-212526 和任务B C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\NMB_HONOR_AUDIT_20260822-222255。必须把可复核命令、关键证据、PASS/BLOCK写入当前cwd的report.md，最终回复一行结论+路径。"
+    },
+    {
+      "task_id": "final-v16",
+      "task_name": "特殊角色不变量",
+      "role": "verifier",
+      "cwd": "C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\FINAL_INDEPENDENT_VERIFICATION_20260822-224925\\V16",
+      "sandbox": "workspace-write",
+      "allow_write": true,
+      "prompt": "检查四包是否IME/Accessibility/NotificationListener/VPN/DeviceAdmin/Companion；检查合同保护角色未被修改。\n只读独立验证。目标设备HONOR VER-AN10，ADB C:\\Users\\hzq00\\Downloads\\platform-tools-latest-windows\\platform-tools\\adb.exe，预期serial AVNS023705001888、user0。所有adb命令必须显式 -s；禁止任何appops set、deviceidle +/-、pm状态修改、netpolicy mutation、重启、杀进程或其他写操作；不得创建子代理。读取任务A C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\HONOR_MAGICOS_DEBLOAT_AUDIT_20260822-212526 和任务B C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\NMB_HONOR_AUDIT_20260822-222255。必须把可复核命令、关键证据、PASS/BLOCK写入当前cwd的report.md，最终回复一行结论+路径。"
+    },
+    {
+      "task_id": "final-v17",
+      "task_name": "禁止操作扫描",
+      "role": "verifier",
+      "cwd": "C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\FINAL_INDEPENDENT_VERIFICATION_20260822-224925\\V17",
+      "sandbox": "workspace-write",
+      "allow_write": true,
+      "prompt": "扫描两审计目录plan/journal/rollback/report中的uninstall/clear/force-stop/settings/device_config/setprop等禁止动作。\n只读独立验证。目标设备HONOR VER-AN10，ADB C:\\Users\\hzq00\\Downloads\\platform-tools-latest-windows\\platform-tools\\adb.exe，预期serial AVNS023705001888、user0。所有adb命令必须显式 -s；禁止任何appops set、deviceidle +/-、pm状态修改、netpolicy mutation、重启、杀进程或其他写操作；不得创建子代理。读取任务A C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\HONOR_MAGICOS_DEBLOAT_AUDIT_20260822-212526 和任务B C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\NMB_HONOR_AUDIT_20260822-222255。必须把可复核命令、关键证据、PASS/BLOCK写入当前cwd的report.md，最终回复一行结论+路径。"
+    },
+    {
+      "task_id": "final-v18",
+      "task_name": "设备重启持久性",
+      "role": "verifier",
+      "cwd": "C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\FINAL_INDEPENDENT_VERIFICATION_20260822-224925\\V18",
+      "sandbox": "workspace-write",
+      "allow_write": true,
+      "prompt": "基于boot time、实时状态与after证据确认两任务结果确实经过重启验证。\n只读独立验证。目标设备HONOR VER-AN10，ADB C:\\Users\\hzq00\\Downloads\\platform-tools-latest-windows\\platform-tools\\adb.exe，预期serial AVNS023705001888、user0。所有adb命令必须显式 -s；禁止任何appops set、deviceidle +/-、pm状态修改、netpolicy mutation、重启、杀进程或其他写操作；不得创建子代理。读取任务A C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\HONOR_MAGICOS_DEBLOAT_AUDIT_20260822-212526 和任务B C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\NMB_HONOR_AUDIT_20260822-222255。必须把可复核命令、关键证据、PASS/BLOCK写入当前cwd的report.md，最终回复一行结论+路径。"
+    },
+    {
+      "task_id": "final-v19",
+      "task_name": "任务A对抗审查",
+      "role": "verifier",
+      "cwd": "C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\FINAL_INDEPENDENT_VERIFICATION_20260822-224925\\V19",
+      "sandbox": "workspace-write",
+      "allow_write": true,
+      "prompt": "独立尝试推翻任务A完成结论，列出任何证据缺口并给PASS/BLOCK。\n只读独立验证。目标设备HONOR VER-AN10，ADB C:\\Users\\hzq00\\Downloads\\platform-tools-latest-windows\\platform-tools\\adb.exe，预期serial AVNS023705001888、user0。所有adb命令必须显式 -s；禁止任何appops set、deviceidle +/-、pm状态修改、netpolicy mutation、重启、杀进程或其他写操作；不得创建子代理。读取任务A C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\HONOR_MAGICOS_DEBLOAT_AUDIT_20260822-212526 和任务B C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\NMB_HONOR_AUDIT_20260822-222255。必须把可复核命令、关键证据、PASS/BLOCK写入当前cwd的report.md，最终回复一行结论+路径。"
+    },
+    {
+      "task_id": "final-v20",
+      "task_name": "任务B对抗审查",
+      "role": "verifier",
+      "cwd": "C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\FINAL_INDEPENDENT_VERIFICATION_20260822-224925\\V20",
+      "sandbox": "workspace-write",
+      "allow_write": true,
+      "prompt": "独立尝试推翻任务B完成结论，特别判断三包Auto、支付宝Unrestricted和零Reduced是否成立。\n只读独立验证。目标设备HONOR VER-AN10，ADB C:\\Users\\hzq00\\Downloads\\platform-tools-latest-windows\\platform-tools\\adb.exe，预期serial AVNS023705001888、user0。所有adb命令必须显式 -s；禁止任何appops set、deviceidle +/-、pm状态修改、netpolicy mutation、重启、杀进程或其他写操作；不得创建子代理。读取任务A C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\HONOR_MAGICOS_DEBLOAT_AUDIT_20260822-212526 和任务B C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\NMB_HONOR_AUDIT_20260822-222255。必须把可复核命令、关键证据、PASS/BLOCK写入当前cwd的report.md，最终回复一行结论+路径。"
+    }
+  ]
+}

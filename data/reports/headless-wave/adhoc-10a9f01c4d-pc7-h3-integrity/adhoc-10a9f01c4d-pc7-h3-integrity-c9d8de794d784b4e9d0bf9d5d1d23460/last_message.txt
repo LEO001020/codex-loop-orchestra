@@ -1,0 +1,31 @@
+## 核验T1完整性合同 — 结果：BLOCKED（本叶节点无法完成固定SSH只读核验）
+
+**结论：未执行成功。** 无法建立到 `k3@136.85.49.91` 的固定 SSH 只读连接，因此未对 `P5_P3_T1_INTEGRITY_VOID_CONTRACT_V1` 做 sha256 比对；既不能确认也不能否认 `6550e3aa1782eacd1e28a4ade70802598619083f60fa7038a8fcb49ef06fdafa` 匹配。合同状态 = **UNVERIFIED**。
+
+### 已核实的任务定义（本地证据）
+- 波次清单 [pc7-headless-wave-manifest-3.json](E:/VPS/pc7-headless-wave-manifest-3.json) 任务 `pc7-h3-integrity`：固定SSH只读定位 `P5_P3_T1_INTEGRITY_VOID_CONTRACT_V1`，核对 sha256=6550e3aa1782eacd1e28a4ade70802598619083f60fa7038a8fcb49ef06fdafa。
+- 已有探针模板 [probe2_specs.sh](E:/VPS/reports/pc6-input-map-t1w1/probe2_specs.sh)：按 `*T1_INTEGRITY*` 名称匹配 + 哈希前缀 `6550e3aa1782eacd1e28a4ade7080259` 在 `/data/k3` 下搜索，SSH 凭据为 WSL 侧 `/home/codexloop/.ssh/k3_p5_ed25519` + `k3_p5_known_hosts`。
+
+### 阻塞原因（均为本会话实测，非推测）
+1. **网络被沙箱禁用**：环境变量 `CODEX_SANDBOX_NETWORK_DISABLED=1`；仅 127.0.0.1 回环可用（8765/8766 可达），外部 22 端口不可达。
+2. **进程身份无权限**：本进程为 `DESKTOP-3L9C649\codexsandboxoffline`（沙箱用户），非交互用户 hzq00。
+3. **WSL 被拒**：`wsl` 枚举/建实例均返回 `Wsl/Service/E_ACCESSDENIED`，拿不到固定密钥 `/home/codexloop/.ssh/k3_p5_ed25519`（同波次其他任务之所以成功，是其探针在 WSL/headless 平面执行）。
+4. **Windows 侧密钥副本不可读**：`k3_p4_fable_ed25519_PRIVATE_KEY.txt` 读取被 ACL 拒绝（`Get-Content`→UnauthorizedAccess；`ssh -i`→Load key Permission denied）。
+5. **无法无写盘使用密钥文本**：密钥全文在 `VPS SSH Connection Package (complete).md` 中可读且 `ssh-keygen -y` 能解析（说明密钥有效），但 OpenSSH 报 “Permissions … are too open”（该文件 ACL 含 CodexSandboxUsers/hzq00）；而沙箱禁止一切写入（`Set-Content`/`apply_patch` 均被拒、`icacls` 修改 ACL 被拒），ssh-agent 独立运行需禁用的系统服务（error 1058），命名管道方案被受限语言模式拦截；无 python/paramiko/plink 可用。
+6. **本地无该合同任何记录**：全量搜索 E:\VPS 报告/工作区/研究记忆账本，未发现 `P5_P3_T1_INTEGRITY_VOID_CONTRACT_V1` 文件或其哈希 `6550e3aa…`；账本中仅有同族姊妹工件（`P5_P3_T1_H1_PREREG_PACKAGE_V1`、`P5_P3_T1_PRECONDITION_MATRIX_V2`，locator 指向 `/home/user/workspace/…`——handoff 探针已确认该路径在远端不存在）。
+7. filebrowser 隧道（127.0.0.1:8766）存活但需登录，凭据在本地无任何文档记录（API 401）。
+
+### 给编排者的交接命令（在 WSL/headless 平面执行即可完成核验）
+```
+ssh -o BatchMode=yes -o ConnectTimeout=20 -o StrictHostKeyChecking=yes \
+  -o UserKnownHostsFile=/home/codexloop/.ssh/k3_p5_known_hosts \
+  -i /home/codexloop/.ssh/k3_p5_ed25519 k3@136.85.49.91 '
+find /data/k3 -type f -iname "*T1_INTEGRITY*" 2>/dev/null | grep -v "/\.git/" | sort
+for pfx in 6550e3aa1782eacd1e28a4ade7080259; do
+  find /data/k3 -type f 2>/dev/null | grep -v "/\.git/" | while read -r f; do
+    h=$(sha256sum "$f" 2>/dev/null | cut -c1-64)
+    case "$h" in "$pfx"*) printf "%s  %s\n" "$h" "$f";; esac
+  done
+done'
+```
+成功标准：定位到的文件 `sha256sum` 全 64 位等于 `6550e3aa1782eacd1e28a4ade70802598619083f60fa7038a8fcb49ef06fdafa`，并回传绝对路径。

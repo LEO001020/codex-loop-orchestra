@@ -1,0 +1,120 @@
+Now I have everything needed. Let me compile the complete audit report:
+
+---
+
+## 8765 双平面聚合审计报告
+
+### 一、数据源读取与双平面合并
+
+**Desktop-native（原生）：**
+- `merge_native_rosters()` 合并 WSL 侧 `data/lifecycle/native_roster.json` 与 Windows 侧同路径文件，取各 `agent_id` 中 `updated_at` 较新的行。**✓ 正确**
+
+**Headless CLI（无头）：**
+- `merge_exec_rosters()` 合并两侧 `exec_roster.json`，按各 job 的 `max(updated_at, heartbeat_at, started_at)` 取较新行。**✓ 正确**
+
+**Desktop rollout fallback：**
+- `scan_rollout_subagents()` 扫描 `~/.codex/sessions/` 下 `rollout-*.jsonl`，要求文件 mtime < 6小时、parent 组在 600 秒内有活动、parent 与 child 均非 terminal、且文件 mtime >= 当前 app-server 启动时间。**✓ 正确**
+
+**双平面计入逻辑：**
+- native agents `status==running` → `planes["desktop"] += 1`
+- exec jobs `state==running` → `planes["headless"] += 1`
+- rollout fallback（仅在 `agent_id` 不在 native 已知 ID 集合中时）→ `planes["desktop"] += 1`，同时设 `counts["estimated"] += 1`
+
+### 二、实际模型分类
+
+**`read_rollout_model()`：** 解析 `turn_context` 事件中的 `model` 字段——这是唯一从实际 turn_context 证据读取运行时模型的地方。缓存以文件 mtime 为 key。**✓ 正确**
+
+**`effective_model()` 回退规则（仅在没有 runtime 证据时使用）：**
+- reviewer/verifier/plan_expander 角色 → 使用 `execution_profile["review_model"]`
+- worker/duty_officer/executor/scout 角色 → 使用 `execution_profile["model"]`
+
+当前活跃配置为 `v4f-sonnet-review`：
+- 执行模型 = `weiwu/deepseek-v4-flash`
+- 审核模型 = `weiwu/aws.claude-sonnet-4.6`
+
+**⚠️ 发现问题 1：Sonnet 4.6 的 `pool_for()` 分类偏差**
+
+`pool_for("weiwu/aws.claude-sonnet-4.6", "reviewer")` 的路径：
+1. 不含 `gpt-5.6-sol` / `gpt-5.5-sol` → 跳过
+2. 不含 `k3` → 跳过
+3. 不含 `glm-5.2` 或 `deepseek-v4` → 跳过
+4. 角色含 `reviewer` → 命中 **→ 返回 `"k3"`**
+
+但 `model_family("weiwu/aws.claude-sonnet-4.6")` → 命中 `"claude-sonnet-4.6"` → **返回 `"sonnet"`**
+
+结果：**同一个 Sonnet 4.6 审核任务在 `pools` 字典里计入 `k3`（错误），但在 `models` 字典里计入 `sonnet`（正确）。** 两个计数器不一致。`preferred["k3"] = 20` 的利用率会被高估，即使没有任何真正的 K3 任务运行。
+
+**`model_family()` 与 `pool_for()` 对各模型的分类矩阵：**
+
+| 模型 | model_family → | pool_for (有 model) → | pool_for (无 model+reviewer 角色) → |
+|---|---|---|---|
+| `weiwu/deepseek-v4-flash` | `v4` | `v4` | `k3` |
+| `weiwu/aws.claude-sonnet-4.6` | `sonnet` | `other` | `k3` |
+| `weiwu-k3/kimi-k3` | `k3` | `k3` | `k3` |
+| `gpt-5.6-sol` | `sol` | `sol` | `sol` |
+
+### 三、stale 过滤
+
+**Stale native：**
+- 条件：`status=="running"` 且该 `agent_id` 不在当前 rollout 扫描结果中，且 `updated_at` 距今 > 30 秒 → 标记为 `stale_native`，不计入 `running`，不计入任何 plane。**✓ 正确**
+
+**Stale headless：**
+- 条件：`state in {starting, running}` 且 `max(heartbeat_at, updated_at)` 为 0 或距今 > 30 秒 → 标记为 `stale_headless`，不计入 `running`，不计入 `planes["headless"]`。**✓ 正确**
+
+**Rollout crash-era 过滤：**
+- rollout mtime < `desktop_app_server_started_at` 时跳过，防止 Desktop 崩溃前的旧 rollout 充当活跃并发。**✓ 正确**
+
+**Freshness 标签逻辑：**
+- headless 任务若存在且 `headless_age > 30s` → `STALE`（以心跳为准，因为无头任务承诺定期心跳）。
+- desktop-only 情形下，若每个展示的 desktop 任务都有对应的 rollout 证据且 `desktop_started_at` 不为 None → `QUIET`；否则 → `STALE`。
+
+**⚠️ 发现问题 2：`headless_updated` 列表构建范围过宽**
+
+```python
+for key in ("updated_at", "heartbeat_at"):
+    if isinstance(row.get(key), (int, float)):
+        updated.append(float(row[key]))
+        if state in {"starting", "running", "stale_headless"}:
+            headless_updated.append(float(row[key]))
+```
+
+当一个 job 变为 `stale_headless` 时，其旧的 heartbeat 时间戳仍然被追加进 `headless_updated`，从而拉低 `headless_age`，使 STALE 判断延迟触发。这是一个轻微的反向保护偏差——单元测试 `test_stale_headless_heartbeat_is_not_hidden_by_fresh_refill` 通过是因为测试使用了时间 mock（`time.time() = 100`、heartbeat = 20），确保 age = 80s > 30s，即便 stale_headless 时间戳也被计入，80s 足够大。但在 heartbeat 约在 25 秒前的边界情况下可能掩盖 STALE 状态。
+
+### 四、目标 80 数学
+
+**target 计算来源优先级（从高到低）：**
+1. `concurrency.target_total`（来自 `refill_policy.toml`） = **80** ✓
+2. `refill.get("target_total")`（来自 `refill_state.json`）
+3. 默认值 80
+
+当前 `refill_policy.toml` 明确声明 `target_total = 80`，确保策略部署后即使 `refill_state.json` 记录了旧值也不会影响目标展示。
+
+**headroom 计算：**`max(0, target - counts["running"])` — 这是容量空间，不是 demand-backed 的 deficit，两者分别暴露。**✓ 正确**
+
+**preferred 计算：**
+- 非 all-K3 路由：`v4_target = 60`，`k3_target = 20`，均来自 policy。
+- all-K3 路由（执行模型 pool 为 k3 时）：`{"v4": 0, "k3": 80}`，避免混用时的错误超量警告。**✓ 正确**
+
+**⚠️ 发现问题 3：preferred 实际体现 Sonnet 4.6 审核任务的分配不一致**
+
+当前活跃配置 `v4f-sonnet-review` 的 `pool_for(review_model)` = `pool_for("weiwu/aws.claude-sonnet-4.6", "reviewer")` = `"k3"`，但 preferred 目标中无 `sonnet` 桶。这意味着运行中的 Sonnet 4.6 审核任务会计入 `pools["k3"]`，从而使 `pools["k3"]` 超过 preferred `k3_target=20` 的上限，尽管没有任何 kimi-k3 任务。监控仪表盘不会为此报警（preferred 是展示性的，不是断路器），但会误导人工判断。
+
+### 五、ipybox 过滤
+
+**结论：monitor server (`loop_monitor_server.py`) 本身不涉及 ipybox。** ipybox 是 `headless_wave.py` 的启动参数（`mcp_servers.ipybox.enabled=true/false`），由 `ipybox_enabled_for(role, plane, policy, task)` 控制，通过 `orchestration_policy_v2.toml` 的 `[ipybox]` 节决定各场景的启用/禁用状态（Desktop native: **disabled**；WSL headless worker: **enabled**；K3 plan/verify: **disabled** unless task needs code exec）。
+
+8765 dashboard 不读取、不过滤、不展示 ipybox 状态——与任务要求相符，不是缺陷。
+
+### 六、K3 测试过滤
+
+**结论：单元测试文件 `test_loop_monitor_server.py` 中的测试使用了 `weiwu-k3/kimi-k3` 模型的 rollout，但这些是功能正确性测试，不是 K3 集成测试。** 8765 dashboard 本身无 K3 测试过滤逻辑，也不需要——dashboard 是只读观测工具，模型测试在独立的 pytest 套件中。
+
+---
+
+### 摘要：已发现的问题
+
+| # | 严重性 | 位置 | 问题描述 |
+|---|---|---|---|
+| 1 | **中** | `pool_for()` vs `model_family()` | 活跃配置 `v4f-sonnet-review` 下，Sonnet 4.6 审核任务计入 `pools["k3"]`（因角色回退路径），但计入 `models["sonnet"]`，两者不一致；`pools["k3"]` 会在无任何真正 K3 任务时虚假超出 preferred target。 |
+| 2 | **低** | `headless_updated` 列表构建 | `stale_headless` 状态的 job 时间戳仍被追加到 `headless_updated`，在边界情况下可能延迟 STALE 标签的触发（约 25–30s 范围内）。 |
+| 3 | **低** | preferred 桶没有 `sonnet` | preferred 只有 `v4` 和 `k3` 桶，无法准确表达当前 Sonnet 4.6 审核池的容量目标。 |

@@ -1,0 +1,35 @@
+Reading additional input from stdin...
+2026-08-14T14:47:42.780793Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T14:47:47.087957Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T14:48:10.034654Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-14T14:48:10.034863Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:48:20.879299Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:48:50.064711Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:48:59.275244Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:49:15.362886Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:49:24.345397Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:49:40.048419Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:50:14.888536Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:50:26.139260Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:50:39.331057Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:50:52.253684Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.1 seconds
+Output:
+dir : 第二个路径段不得为驱动器或 UNC 名称。
+参数名: path2
+所在位置 行:2 字符: 1
++ dir E:\VPS /b
++ ~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (E:\VPS:String) [Get-ChildItem]，ArgumentException
+    + FullyQualifiedErrorId : DirArgumentError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-14T14:51:16.004357Z ERROR codex_core::tools::router: error=unsupported call: glob

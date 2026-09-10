@@ -1,0 +1,31 @@
+{
+  "needs_decision": [],
+  "packets": [
+    {
+      "authorized_paths": [
+        "config/orchestration_policy.toml"
+      ],
+      "acceptance": [
+        "The packet performs read-only operations only; no files can be created, modified, or deleted.",
+        "The existence and readability of config/orchestration_policy.toml is confirmed.",
+        "A report is written to reports/plan-pipeline-smoke-p1/ summarizing the verification result and any failures."
+      ],
+      "packet_id": "plan-pipeline-smoke-p1",
+      "goal": "Verify the LOOP plan pipeline smoke by confirming that the evidence root config/orchestration_policy.toml is present and readable, without changing any files, services, or processes.",
+      "allowed_side_effects": [],
+      "dependencies": [],
+      "artifacts": [],
+      "risk_tags": [
+        "low"
+      ],
+      "decision_refs": [
+        "d-one-packet"
+      ],
+      "evidence_refs": [
+        "config/orchestration_policy.toml"
+      ]
+    }
+  ],
+  "control_packet_id": "plan-pipeline-smoke-c1",
+  "decision_skeleton_id": "plan-pipeline-smoke-d1"
+}

@@ -1,0 +1,86 @@
+Reading additional input from stdin...
+2026-08-14T07:43:02.477595Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T07:43:05.719627Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T07:44:03.854482Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 4.1 seconds
+Output:
+
+FullName                                                                                                               
+--------                                                                                                               
+E:\codex-LOOP\.audit-fable-20260813-fe139077266b42b6bf51c9b085012680\codex-loop-s-f2-orchestration-v2-20260810\confi...
+E:\codex-LOOP\.audit-fable-20260813-fe139077266b42b6bf51c9b085012680\codex-loop-s-f2-orchestration-v2-20260810\harne...
+E:\codex-LOOP\.audit-fable-20260813-fe139077266b42b6bf51c9b085012680\codex-loop-s-f2-orchestration-v2-20260810\harne...
+E:\codex-LOOP\.fable-install-test-20260813-wsl\config\refill_policy.toml                                               
+E:\codex-LOOP\.fable-install-test-20260813-wsl\harness\refill_controller_v2.py                                         
+E:\codex-LOOP\.fable-install-test-20260813-wsl\harness\__pycache__\refill_controller_v2.cpython-314.pyc                
+E:\codex-LOOP\codex-loop-s-f2\backup-20260811-215706\config\refill_policy.toml                                         
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\config\refill_policy.toml                                         
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\harness\refill_controller_v2.py                                   
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\config\refill_policy.toml                                                
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\refill_controller_v2.py                                          
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\__pycache__\refill_controller_v2.cpython-314.pyc                 
+E:\codex-LOOP\codex-loop-s-f2\config\refill_policy.toml                                                                
+E:\codex-LOOP\codex-loop-s-f2\data\orchestration\refill_actuator.log                                                   
+E:\codex-LOOP\codex-loop-s-f2\data\orchestration\refill_requests.json                                                  
+E:\codex-LOOP\codex-loop-s-f2\data\refill\refill_state.json                                                            
+E:\codex-LOOP\codex-loop-s-f2\data\refill\refill_state.json.48056.tmp                                                  
+E:\codex-LOOP\codex-loop-s-f2\harness\refill_consumer_v2.py                                                            
+E:\codex-LOOP\codex-loop-s-f2\harness\refill_controller.py                                                             
+E:\codex-LOOP\codex-loop-s-f2\harness\refill_controller_v2.py                                                          
+E:\codex-LOOP\codex-loop-s-f2\harness\__pycache__\refill_consumer_v2.cpython-314.pyc                                   
+E:\codex-LOOP\codex-loop-s-f2\harness\__pycache__\refill_controller.cpython-312.pyc                                    
+E:\codex-LOOP\codex-loop-s-f2\harness\__pycache__\refill_controller.cpython-314.pyc                                    
+E:\codex-LOOP\codex-loop-s-f2\harness\__pycache__\refill_controller_v2.cpython-314.pyc                                 
+E:\codex-LOOP\data\refill\refill_state.json                                                                            
+E:\codex-LOOP\deliveries\fable-audit-20260810\stage\codex-loop-s-f2-fable-audit-20260810\source\codex-loop-s-f2\conf...
+E:\codex-LOOP\deliveries\fable-audit-20260810\stage\codex-loop-s-f2-fable-audit-20260810\source\codex-loop-s-f2\harn...
+E:\codex-LOOP\recovery-staging\prepatch-20260814-1318-candidate\config\refill_policy.toml                              
+E:\codex-LOOP\recovery-staging\prepatch-20260814-1318-candidate\harness\refill_consumer_v2.py                          
+E:\codex-LOOP\recovery-staging\prepatch-20260814-1318-candidate\harness\refill_controller.py                           
+E:\codex-LOOP\recovery-staging\prepatch-20260814-1318-candidate\harness\refill_controller_v2.py                        
+E:\codex-LOOP\staging\fable-orchestration-v2-audit-20260811\codex-loop-s-f2-orchestration-v2-20260810\config\refill_...
+E:\codex-LOOP\staging\fable-orchestration-v2-audit-20260811\codex-loop-s-f2-orchestration-v2-20260810\harness\refill...
+E:\codex-LOOP\staging\fable-orchestration-v2-audit-20260811\codex-loop-s-f2-orchestration-v2-20260810\harness\__pyca...
+
+
+
+2026-08-14T07:44:54.715332Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 3.9 seconds
+Output:
+python : 无法将“python”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，
+然后再试一次。
+所在位置 行:18 字符: 6
++ '@ | python -
++      ~~~~~~
+    + CategoryInfo          : ObjectNotFound: (python:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T07:45:28.650921Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 10.7 seconds
+Output:
+
+2026-08-14T07:46:32.802366Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+error: Failed to initialize cache at `C:\Users\hzq00\AppData\Local\uv\cache`
+  Caused by: failed to create directory `C:\Users\hzq00\AppData\Local\uv\cache`: 当文件已存在时，无法创建该文件。 (os error 183)
+
+2026-08-14T07:47:16.548203Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.6 seconds
+Output:
+error: Failed to initialize cache at `.uv-cache-tmp`
+  Caused by: failed to create directory `E:\codex-LOOP\.uv-cache-tmp`: 拒绝访问。 (os error 5)
+
+2026-08-14T07:52:11.883996Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 189ms)... turn_id=019fff39-71b1-7c93-9aa2-082c4ad8febf retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+2026-08-14T07:54:37.806632Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 192ms)... turn_id=019fff39-71b1-7c93-9aa2-082c4ad8febf retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+2026-08-14T08:02:54.253364Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 194ms)... turn_id=019fff39-71b1-7c93-9aa2-082c4ad8febf retries=1 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T08:07:30.426465Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 423ms)... turn_id=019fff39-71b1-7c93-9aa2-082c4ad8febf retries=2 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses

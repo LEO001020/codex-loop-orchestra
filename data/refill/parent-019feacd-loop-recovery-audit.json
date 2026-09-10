@@ -1,0 +1,140 @@
+{
+  "schema": "codex-loop-parent-refill/v1",
+  "manifest_id": "loop-recovery-audit-20260813",
+  "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+  "parent_state": "active",
+  "enabled": true,
+  "target_active": 16,
+  "cwd": "E:/codex-LOOP/codex-loop-s-f2",
+  "mode": "read-only",
+  "tasks": [
+    {
+      "task_id": "lifecycle-trigger",
+      "task_name": "生命周期触发链复验",
+      "goal": "只读复验 Desktop SubagentStop、SessionStart、Stop 到 packet-only refill actuator 的接线与失败可见性。不得修改文件。",
+      "authorized_paths": ["hooks/", "harness/", "config/", ".codex/"],
+      "acceptance": ["给出精确文件和行号", "区分已验证事实与剩余风险"],
+      "role": "worker", "sandbox": "read-only"
+    },
+    {
+      "task_id": "actuator-coalescing",
+      "task_name": "补位执行器合并复验",
+      "goal": "只读复验 refill_consumer_v2.schedule_run 的跨进程锁、PID 存活判断、空队列行为和重复 Stop 合并。不得修改文件。",
+      "authorized_paths": ["harness/", "tests/orchestration_v2/"],
+      "acceptance": ["验证不会重复出生", "验证空队列不制造任务"],
+      "role": "worker", "sandbox": "read-only"
+    },
+    {
+      "task_id": "roster-truth",
+      "task_name": "双平面真值口径复验",
+      "goal": "只读复验 refill controller 对 stale native、headless 双 PID 创建时间代际和 initializing/running 的计数语义。不得修改文件。",
+      "authorized_paths": ["harness/", "tests/orchestration_v2/", "data/refill/"],
+      "acceptance": ["说明控制口径与 UI 估算口径的差异", "指出潜在误计路径"],
+      "role": "worker", "sandbox": "read-only"
+    },
+    {
+      "task_id": "transport-namespace",
+      "task_name": "事件命名空间复验",
+      "goal": "只读复验 adhoc transport 事件不会再创建 canonical packet 或触发 off-table dead letter。不得修改文件。",
+      "authorized_paths": ["harness/statemachine.py", "harness/statemachine_v2.py", "tests/"],
+      "acceptance": ["验证 canonical admission 边界", "验证合法 off-table packet 仍 fail-visible"],
+      "role": "worker", "sandbox": "read-only"
+    },
+    {
+      "task_id": "parent-admission",
+      "task_name": "父任务清单准入复验",
+      "goal": "只读复验 parent_manifest_importer 对显式角色、只读工作区、parent active、幂等和碰撞拒绝的约束。不得修改文件。",
+      "authorized_paths": ["harness/parent_manifest_importer.py", "tests/orchestration_v2/"],
+      "acceptance": ["列出准入不变量", "验证不会从 UI 或历史 rollout 猜任务"],
+      "role": "worker", "sandbox": "read-only"
+    },
+    {
+      "task_id": "model-pins",
+      "task_name": "模型显式路由复验",
+      "goal": "只读复验 worker 固定 V4 ultra、verifier/reviewer 固定 K3 max，且 refill 路径不存在默认或继承 Sol 子 agent。不得修改文件。",
+      "authorized_paths": ["config/model_profiles.toml", "agents/", "harness/dispatch_v2.py", "harness/headless_wave.py"],
+      "acceptance": ["给出命令边界上的模型与 effort 证据", "指出任何继承路径"],
+      "role": "worker", "sandbox": "read-only"
+    },
+    {
+      "task_id": "ipybox-boundary",
+      "task_name": "ipybox 承载边界复验",
+      "goal": "只读复验 ipybox 在 headless worker 按策略启用、K3 和 Desktop 按角色策略关闭，且本次补位修复未改 cleanup/lazy 本体。不得修改文件。",
+      "authorized_paths": ["config/", "harness/dispatch_v2.py", "harness/headless_wave.py", "hooks/"],
+      "acceptance": ["给出 plane/role 决策证据", "确认未关闭 LOOP 的 ipybox 能力"],
+      "role": "worker", "sandbox": "read-only"
+    },
+    {
+      "task_id": "monitor-semantics",
+      "task_name": "8765 监控语义复验",
+      "goal": "只读复验 8765 对 Desktop estimated、headless live、stale native 和总目标/缺口的展示语义。不得修改文件。",
+      "authorized_paths": ["launchers/", "tests/unit/", "data/refill/"],
+      "acceptance": ["验证 estimated 不冒充权威 running", "验证双平面聚合"],
+      "role": "worker", "sandbox": "read-only"
+    },
+    {
+      "task_id": "deadletter-repair",
+      "task_name": "事故账本修复复验",
+      "goal": "只读复验 transport dead-letter 修复脚本的选择条件、备份、工件保留和可恢复性。不得修改文件。",
+      "authorized_paths": ["harness/repair_transport_deadletters.py", "data/repairs/"],
+      "acceptance": ["确认没有删除工件", "确认不匹配记录不会被移除"],
+      "role": "worker", "sandbox": "read-only"
+    },
+    {
+      "task_id": "test-evidence",
+      "task_name": "回归测试证据复验",
+      "goal": "只读核对本次相关测试覆盖是否包含 lifecycle trigger、coalescing、queue empty、transport namespace、stale roster 和 parent safety。不得修改文件或运行副作用测试。",
+      "authorized_paths": ["tests/", "harness/", "hooks/"],
+      "acceptance": ["列出已覆盖与缺口", "给出测试文件定位"],
+      "role": "worker", "sandbox": "read-only"
+    },
+    {
+      "task_id": "failure-retry",
+      "task_name": "失败重试可见性复验",
+      "goal": "只读复验 actuator 启动失败、provider backoff、headless spawn failure 后 refill debt 不被伪清除并可在后续生命周期边重试。不得修改文件。",
+      "authorized_paths": ["harness/", "tests/orchestration_v2/", "data/provider_health/"],
+      "acceptance": ["验证 fail-visible 状态", "验证不回退到 Sol"],
+      "role": "worker", "sandbox": "read-only"
+    },
+    {
+      "task_id": "baseline-drift",
+      "task_name": "基线漂移边界复验",
+      "goal": "只读核对本次恢复仅触及自动补位链、状态机事件边界和真值计数，没有整包覆盖或修改 ipybox cleanup/lazy。不得修改文件。",
+      "authorized_paths": ["harness/", "hooks/", "config/", "data/repairs/"],
+      "acceptance": ["给出变更范围", "标出任何超范围漂移"],
+      "role": "worker", "sandbox": "read-only"
+    },
+    {
+      "task_id": "k3-adversarial",
+      "task_name": "K3 对抗式补位审计",
+      "goal": "对当前恢复方案做对抗式只读审计，寻找会让自动补位再次衰减、重复出生或误用 Sol 的单点反例。不得修改文件。",
+      "authorized_paths": ["hooks/", "harness/", "config/", "tests/"],
+      "acceptance": ["给出最高风险反例", "给出 PASS 或 REDO 结论"],
+      "role": "verifier", "sandbox": "read-only"
+    },
+    {
+      "task_id": "k3-parent-safety",
+      "task_name": "K3 父停止安全审计",
+      "goal": "只读审计 parent Stop、parent_sessions active 标记与 refill select_tasks，寻找父任务停止后错误重生的路径。不得修改文件。",
+      "authorized_paths": ["hooks/subagent_lifecycle.py", "harness/refill_consumer_v2.py", "harness/parent_manifest_importer.py", "tests/"],
+      "acceptance": ["验证 stopped parent 不会重生", "给出精确证据"],
+      "role": "verifier", "sandbox": "read-only"
+    },
+    {
+      "task_id": "k3-route-review",
+      "task_name": "K3 路由发布复核",
+      "goal": "只读复核 canonical packet 从 importer、controller、consumer、dispatcher、supervisor 到终态补位的模型路由和代际证据。不得修改文件。",
+      "authorized_paths": ["harness/", "config/model_profiles.toml", "agents/", "tests/"],
+      "acceptance": ["输出端到端证据链", "确认无 roleless/default 子 agent"],
+      "role": "verifier", "sandbox": "read-only"
+    },
+    {
+      "task_id": "k3-release-gate",
+      "task_name": "K3 恢复发布门",
+      "goal": "对本次 P0 自动补位恢复进行最终只读 release-gate 复核，重点检查真实 replacement、UI/控制器口径、queue debt 和事故可恢复性。不得修改文件。",
+      "authorized_paths": ["hooks/", "harness/", "config/", "tests/", "data/refill/", "data/repairs/"],
+      "acceptance": ["返回 PASS/REDO", "每个否决点必须有文件证据"],
+      "role": "verifier", "sandbox": "read-only"
+    }
+  ]
+}

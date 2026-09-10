@@ -1,0 +1,103 @@
+{
+  "probe_id": "P-WS1",
+  "executed_at": "2026-09-02T11:50:54.887863+00:00",
+  "status": "PASS",
+  "status_note": "PASS = probe produced data, not that worktree_fast is safe",
+  "findings": {
+    "worktree_create": {
+      "ok": true,
+      "latency_ms": 129.7,
+      "stderr_summary": "Preparing worktree (detached HEAD bc6f424)",
+      "detached_head": true,
+      "content_present": true
+    },
+    "git_admin_isolation_worktree_fast": {
+      "attempt": "git update-ref refs/heads/probe-branch HEAD (cwd=worktree)",
+      "succeeded": true,
+      "stderr": "",
+      "shared_ref_visible_from_canonical_repo": true,
+      "capability_git_admin_isolation": false,
+      "conclusion": "worktrees share the common Git objects/refs administration: a worker inside a worktree CAN mutate canonical refs/config. worktree_fast does NOT isolate Git administration (VOL-13 §2); HIGH/CRITICAL must use clone_strong."
+    },
+    "enumerate_delta": {
+      "command": "git status --porcelain=v2 -z --untracked-files=all",
+      "record_count": 3,
+      "untracked_detected": {
+        "ok": true,
+        "paths": [
+          "untracked_probe.txt"
+        ]
+      },
+      "modified_detected": {
+        "ok": true,
+        "record": [
+          {
+            "record_type": "1",
+            "xy": ".M",
+            "sub": "N...",
+            "path": "tracked.txt"
+          }
+        ]
+      },
+      "rename_detected": {
+        "ok": true,
+        "records": [
+          {
+            "record_type": "2",
+            "xy": "R.",
+            "sub": "N...",
+            "path": "new_name.txt",
+            "orig_path": "old_name.txt"
+          }
+        ]
+      }
+    },
+    "paths_within_scope": {
+      "write_scope": [
+        "src/foo/**"
+      ],
+      "cases": [
+        "../escape.txt",
+        ".git/config",
+        "other/x",
+        "src/foo/a.py"
+      ],
+      "expected_violations": [
+        "../escape.txt",
+        ".git/config",
+        "other/x"
+      ],
+      "actual_violations": [
+        "../escape.txt",
+        ".git/config",
+        "other/x"
+      ],
+      "in_scope_control_accepted": true,
+      "ok": true
+    },
+    "clone_strong": {
+      "ok": true,
+      "latency_ms": 352.9,
+      "note": "clone_strong: worker has no access to canonical repo credentials; remote access only if network allowlisted",
+      "update_ref_inside_clone_succeeded": true,
+      "ref_reached_canonical_repo": false,
+      "capability_git_admin_isolation": true
+    },
+    "worktree_remove": {
+      "ok": true,
+      "removed": true,
+      "pruned": true,
+      "stderr_summary": ""
+    }
+  },
+  "capabilities": {
+    "worktree_fast": {
+      "git_admin_isolation": false,
+      "verdict": "NORMAL only; requires sandbox proof + host-side full verification (VOL-13 §2)"
+    },
+    "clone_strong": {
+      "git_admin_isolation": true,
+      "verdict": "HIGH/CRITICAL default"
+    }
+  }
+}

@@ -1,0 +1,56 @@
+`terminal_packet_epilogue.py` calls `StateMachine(...).step()` only — no `wave_check`. Now I have a complete picture. Let me compile the audit findings.
+
+---
+
+## Audit Report: `wave_check` API & Production Callers
+
+### API Definition
+
+**`harness/statemachine.py` — v1 (legacy/cold-start)**
+
+```python
+def wave_check(led):
+```
+- Takes the already-loaded ledger dict as input (no scope parameter).
+- Checks: all packets terminal + all `reports/<pid>/report.json` exist and non-empty + `csv_reconcile_ok()`.
+- **No manifest or parent scope filtering.** Operates globally across the entire ledger.
+- Called only from within the same file's `main()` at line 445 (`ok = wave_check(led)`) when `args.cmd == "wave-check"`.
+
+**`harness/statemachine_v2.py` — v2 (layered mode, production)**
+
+```python
+def wave_check(self, *, manifest_id: str | None = None,
+               parent_session_id: str | None = None) -> bool:
+```
+- Keyword-only scope parameters: `manifest_id` or `parent_session_id` (mutually exclusive; raises `ValueError` if both supplied).
+- When called unscoped (both `None`): identical legacy global check.
+- When `manifest_id` is given: filters packets where `pkt["manifest_id"] == manifest_id`.
+- When `parent_session_id` is given: filters packets where `pkt["parent_session_id"] == parent_session_id`.
+
+---
+
+### Production Callers Inventory
+
+| File | Line | Call | Scope passed? | Requires explicit scope? |
+|---|---|---|---|---|
+| `harness/statemachine.py` | 445 | `wave_check(led)` (v1 free function) | None — no scope exists in v1 | **No** — v1 API has no scope |
+| `harness/statemachine_v2.py` | 759 | `sm.wave_check(manifest_id=args.manifest_id, parent_session_id=args.parent_session_id)` | CLI args forwarded | **Yes** — both `--manifest-id` and `--parent-session-id` are exposed |
+
+All other production files (`orchestration_epilogue.py`, `terminal_packet_epilogue.py`, `refill_consumer_v2.py`, `agent_router.py`, `trigger_eval_v2.py`, `headless_wave.py`, `l2_consumer.py`, `plan_consumer.py`) call `StateMachine(...).step()` or other methods but **do not call `wave_check`** at all.
+
+---
+
+### Callers That Require Explicit Manifest or Parent Scope
+
+**Only one caller exists in production that exposes scope parameters: the `statemachine_v2.py` CLI entry point (line 759).** It correctly forwards `--manifest-id` / `--parent-session-id` from `argparse` through `args.manifest_id` and `args.parent_session_id`.
+
+**Finding:** The CLI caller in `statemachine_v2.py` *supports* explicit scope but does not *require* it — an unscoped invocation (`python statemachine_v2.py wave-check` with no flags) is legal and falls back to the global ledger check. This is the documented "legacy global-ledger check" behavior.
+
+**Callers that need explicit scope (per the docstring intent):**  
+Any caller dispatching parent-manifest work (i.e., `refill_consumer_v2.py`'s headless wave or any orchestrator that runs packets grouped by a `manifest_id` or `parent_session_id`) should pass the appropriate scope key. Currently, `refill_consumer_v2.py` does **not** call `wave_check` at all — it calls `StateMachine(...).step()` after dispatch. If a caller were to poll wave completion for a specific manifest generation, it would need `--manifest-id <id>` to avoid stale packets from a prior generation blocking the check.
+
+**The v1 `wave_check(led)` in `statemachine.py`** has no scope capability. It is only reachable when `routing.mode != "layered"` (cold-start/shadow), where there is typically only one active manifest at a time, so the unscoped global check is safe for that mode.
+
+---
+
+**Conclusion:** No production caller currently calls `wave_check` with an explicit manifest or parent scope. The v2 CLI is the only caller that *can* pass scope, and it does so correctly when arguments are supplied. No callers need to be updated based on current usage — but any future caller operating on a named manifest wave should use `--manifest-id` to prevent cross-generation blocking.

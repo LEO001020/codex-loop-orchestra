@@ -1,0 +1,78 @@
+现在我已经读取了全部相关文件。整理分析结果如下：
+
+---
+
+## 复核报告：`prime-agent-runtime` 用户可见字符串与 docstring
+
+### 一、应改为 K3-on-Prime 措辞的文字
+
+以下是面向用户/开发者的描述性字符串，目前已正确使用 K3-on-Prime 标识，**整体状态良好**——开发者在大部分地方已完成品牌标注。但有几处仍使用了"Prime"作为独立产品名，值得修订：
+
+**`src/rlm/__init__.py`**
+
+| 位置 | 现有文字 | 建议改法 |
+|---|---|---|
+| 模块 docstring（首行） | `"""RLM-compatible kernel shim for K3-on-Prime over the Prime execution host."""` | 措辞已准确，保留 |
+| `host_request` docstring | `"Send a typed request to the Prime execution host used by K3-on-Prime."` | **"Prime execution host"** 是兼容面名称，可保留，但建议加括号注明：`the Prime execution host (K3-on-Prime runtime bridge)` |
+| `run` docstring | `"Spawn a recursive K3-on-Prime child and return once its task is admitted."` | 已正确 |
+
+**`src/rlm/harness.py`**
+
+| 位置 | 现有文字 | 建议改法 |
+|---|---|---|
+| 模块 docstring | `"Persistent harness-state helpers for the K3-on-Prime RLM kernel."` | 已正确 |
+| `"Execution still belongs to the Prime Agent TypeScript host"` | 提及 **Prime Agent** 作为执行主机 | 这是架构事实，应**保留**（兼容面说明），无需改动 |
+| `_agent_dir()` 默认路径 | `Path.home() / ".prime" / "agent"` | **必须保留**（兼容路径，见下节） |
+
+**`src/rlm/mcp_base.py`**
+
+| 位置 | 现有文字 | 建议改法 |
+|---|---|---|
+| 模块 docstring | `"Base class for MCP-client integrations exposed in the RLM kernel."` | 已中性，保留 |
+| `_agent_dir` docstring | `"Resolve the Prime-compatible config dir used by the K3-on-Prime runtime."` | 已同时标注 Prime 兼容性和 K3-on-Prime，**保留** |
+| `NotEnabled.__init__` 错误消息 | `f"Tell the user to run \`/mcp login {server}\` in the K3-on-Prime CLI to connect it."` | 已正确使用 K3-on-Prime |
+
+**`pyproject.toml`**
+
+| 字段 | 当前值 | 情况 |
+|---|---|---|
+| `name` | `"prime-agent-runtime"` | **兼容面，必须保留**（见下节） |
+| `description` | `"Prime-compatible kernel-side runtime shim for K3-on-Prime recursion"` | 措辞准确，正确区分了 Prime 兼容性与 K3-on-Prime 用途，**保留** |
+
+---
+
+### 二、必须保留的包名、环境变量和路径兼容面
+
+以下标识符是上游 Prime 兼容接口，**不能重命名**：
+
+**包名/导入名**
+- `prime-agent-runtime`（pyproject.toml `name`，dist-info 目录名）
+- `rlm`（Python 包名，所有技能代码以 `import rlm` 使用）
+- `prime_agent_runtime`（wheel dist-info 目录，已安装包元数据）
+
+**环境变量**（`harness.py` 和 `mcp_base.py` 读取）
+- `PRIME_AGENT_CODING_AGENT_DIR`：主要 agent 目录覆盖
+- `PI_CODING_AGENT_DIR`：备用 agent 目录覆盖（旧版兼容）
+- `RLM_HARNESS_STATE_DIR`：本地 harness 状态目录
+- `RLM_GLOBAL_HARNESS_STATE_DIR`：全局 harness 状态目录
+- `RLM_SESSION_DIR`：当前 session 目录（fork 后注入）
+
+**路径**
+- `~/.prime/agent/`：`_agent_dir()` 在两个 env 均未设置时的默认路径（`harness.py` 和 `mcp_base.py` 共用）
+- `~/.prime/agent/auth.json`：MCP 凭据存储（`mcp_base.py`）
+- `~/.prime/agent/harness/harness_state.json`：全局 harness 状态默认路径
+
+**通信目标**
+- `"host.request"`（`__init__.py` 中 `HOST_COMM_TARGET`）：Jupyter comm 通道名，TypeScript 宿主侧匹配，**不能改**
+
+**wire 协议类型字符串**（`host_request` 第一参数）
+- `"rlm.run"`、`"rlm.find_models"`、`"rlm.list_subagents"`、`"rlm.delete_subagent"`
+- `"mcp.refresh"`、`"mcp.config"`
+
+---
+
+### 三、总结
+
+`prime-agent-runtime` 的用户可见字符串整体已做好区分：描述性 docstring 使用 "K3-on-Prime"，兼容面（包名、env var、路径、comm 目标）保留 `prime` 前缀。**无需对现有文本作实质性改动**。
+
+唯一可选的小改进：在 `host_request` docstring 中将 `"the Prime execution host"` 改写为 `"the Prime execution host (K3-on-Prime runtime bridge)"` 以更明确地标明这是兼容面而非独立产品名，但这属于锦上添花而非必须修改。

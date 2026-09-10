@@ -1,0 +1,87 @@
+Reading additional input from stdin...
+2026-08-14T07:41:25.113263Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T07:41:26.366355Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T07:41:48.602541Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-14T07:41:56.600116Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T07:42:18.676890Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 3 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 114
++ ... rse -ErrorAction SilentlyContinue | Select-Object FullName | head -20
++                                                                  ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T07:42:46.038531Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 5.7 seconds
+Output:
+
+FullName                                                                                                               
+--------                                                                                                               
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\README                                                                  
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\gapic_clients\aiplatform_v1\serv...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\gapic_clients\aiplatform_v1\serv...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\gapic_clients\aiplatform_v1\serv...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\gapic_clients\aiplatform_v1beta1...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\gapic_clients\aiplatform_v1beta1...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\gapic_clients\run_v2\services\bu...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\gapic_clients\run_v2\services\ex...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\gapic_clients\run_v2\services\in...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\gapic_clients\run_v2\services\jo...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\gapic_clients\run_v2\services\re...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\gapic_clients\run_v2\services\se...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\gapic_clients\run_v2\services\so...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\gapic_clients\run_v2\services\ta...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\gapic_clients\run_v2\services\wo...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\gapic_clients\spanner_v1\service...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\gapic_clients\storage_v2\service...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\argparse\README.txt                                     
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\google\api\README.md                                    
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\google\logging\type\README.md                           
+
+
+
+2026-08-14T07:43:17.705993Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 7.2 seconds
+Output:
+
+FullName                                                                                                               
+--------                                                                                                               
+E:\VPS\.work\amendment-d-diff\artifacts\diff\README.md                                                                 
+E:\VPS\cli-parser-dispatch-tests-20260813\README.md                                                                    
+E:\VPS\reports\authority-store-v3-integration-test-20260813\.venv\Lib\site-packages\apsw\sqlite_extra_binaries\READM...
+E:\VPS\reports\dependency-identity-freeze-review-20260813\README.md                                                    
+E:\VPS\reports\hardening-script-draft\README.md                                                                        
+E:\VPS\reports\owner-ceremony-draft\README.md                                                                          
+E:\VPS\reports\owner-ceremony-package-20260813\README.md                                                               
+E:\VPS\reports\runtime-identity-freeze-checklist-20260813\README.md                                                    
+
+
+
+2026-08-14T07:43:48.768119Z ERROR codex_core::tools::router: error=Exit code: 124
+Wall time: 10.5 seconds
+Output:
+command timed out after 10548 milliseconds
+
+FullName                                            
+--------                                            
+E:\VPS\P5_CURSOR_FABLE_HANDOFF_PROMPT_V1.txt        
+E:\VPS\reports\P5_FL17_NEW_CHAT_HANDOFF_PROMPT_V1.md
+E:\VPS\reports\P5_FL17_NEW_CHAT_HANDOFF_STATUS_V1.md
+E:\VPS\reports\P5_FL18_ACTIVE20_WAVE1.json          
+
+2026-08-14T07:45:05.343695Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.6 seconds
+Output:
+

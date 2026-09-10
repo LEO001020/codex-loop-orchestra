@@ -1,0 +1,573 @@
+Reading additional input from stdin...
+2026-08-12T20:05:39.434831Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-12T20:05:40.373699Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:05:43.820713Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-12T20:06:03.204485Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.3 seconds
+Output:
+p5_cold_observe.sh
+p5_clear_filebrowser_orphan_remote.sh
+p5_cleanup_cold_canary.sh
+p5_capture_fastpath_pre_remote.sh
+p5_capture_fastpath_post_remote.sh
+p5_capture_fastpath_gcp_pre.sh
+p5_pc6_remote_code_inventory.sh
+p5_boot_image_prepare_remote.sh
+p5_boot_image_prepare_diag_remote.sh
+p5_pack_source.sh
+p5_boot_image_preflight.sh
+p5_p0_diagnose_remote.sh
+p5_bootstrap_idempotency_remote.sh
+p5_observe_v4_terminal.sh
+p5_audit_readonly_check.sh
+p5_manifest_diag_remote.sh
+p5_live_p0_remote.sh
+p5_listener_diag_remote.sh
+p5_install_research_sqlite_runtime_remote.sh
+p5_install_fastpath_startup_remote.sh
+p5_gcloud_image_help.sh
+p5_finalize_hub_research_ready.py
+p5_filebrowser_tunnel_supervisor.ps1
+p5_filebrowser_diag_remote.sh
+p5_fastpath_state_check.sh
+p5_download_apsw_wheel.sh
+p5_deploy_source_remote.sh
+p5_deploy_home_e2e_cli_remote.sh
+p5_deploy_home_e2e_cli.sh
+p5_deadlock_exception_guest_preflight_remote.sh
+k3-p5-startup-20260810T144519Z.sh
+p5-source-20260810T143934Z.tar.gz.sha256
+p5-source-20260810T143934Z.tar.gz
+p5-source-20260810T142724Z.tar.gz
+p5-source-20260810T141730Z.tar.gz
+p5-source-20260810T152802Z.tar.gz.sha256
+p5-source-20260810T152802Z.tar.gz
+p5-source-20260810T153334Z.tar.gz
+p5-source-20260810T153334Z.tar.gz.sha256
+p5_create_cold_canary.sh
+p5_create_boot_image.sh
+p5_cold_ssh_keys_k3.txt
+p5_cold_ssh_keys.txt
+p5_cold_set_k3_key.sh
+p5_cold_runtime_remote.sh
+p5_create_fastpath_template_v3.sh
+p5_create_fastpath_template.sh
+p5_create_current_data_snapshot.sh
+p5_data_snapshot_prepare_remote.sh
+p5_create_fastpath_template_v4_rest.sh
+p5_data_snapshot_resume_remote.sh
+p5_recreate_status.sh
+p5_recreate_fastpath.sh
+p5_python_runtime_diag_remote.sh
+p5_persistence_diag_remote.sh
+p5_pc6_remote_schema_samples.sh
+p5_pc6_remote_run_tests.sh
+p5_pc6_remote_run_materializer.sh
+p5_pc6_remote_runtime_check.sh
+p5_pc6_remote_research_schema.sh
+p5_pc6_remote_register_agent_run.sh
+p5-snapshot-gate-p5-prechange-data-20260810-135948.tar.gz
+p5_pc6_remote_progress.sh
+p5_pc6_remote_permissions_and_help.sh
+p5_pc6_remote_normalization_failure.sh
+p5_pc6_remote_missing_normalization.sh
+p5_pc6_remote_materialization_preflight.sh
+p5_pc6_remote_identity_gate.sh
+p5_pc6_remote_final_gate.sh
+p5_pc6_remote_duplicate_detail.sh
+p5_pc6_remote_deploy_tests.sh
+p5_pc6_remote_deploy_code.sh
+p5_pc6_remote_create_materialization_worktree.sh
+p5_pc6_remote_commit_final_artifacts.sh
+p5_template_help_cleanup.sh
+p5_superseding_recreate_v4.sh
+p5_startup_source_diag_remote.sh
+p5_set_fastpath_template.sh
+p5_seal_home_e2e_parser_attempt.sh
+p5_seal_home_e2e_parser_attempt.py
+p5_run_remote_root.sh
+p5_run_cold_strict.sh
+p5_retarget_v4_recovery.sh
+p5_restore_canary_startup.sh
+p5_recreate_stuck_diag.sh
+pc7-headless-wave-manifest.json
+pc7-headless-wave-manifest-2.json
+pc6_binance_materializer.py
+p5_upload_source.sh
+p5_upload_fastpath_startup.sh
+p5_upload_apsw.sh
+research-memory-v1.tar.gz
+research-memory-v1-final.tar.gz
+test_pc6_binance_materializer.py
+k3-p5-fastpath-startup-20260810.sh
+p5_deadlock_exception_gcp_preflight.sh
+home-gpu\worker-supervisor.sh
+p5-wheels\apsw-3.53.4.0-cp312-cp312-manylinux_2_28_x86_64.whl
+p5-cold-canary-20260810-150058\vm.latest.json
+p5-cold-canary-20260810-150058\vm.json
+p5-cold-canary-20260810-150058\vm-create.log
+p5-cold-canary-20260810-150058\ssh-keyscan.stderr
+p5-cold-canary-20260810-150058\ssh-fingerprint.txt
+p5-cold-canary-20260810-150058\source-snapshot.json
+p5-cold-canary-20260810-150058\source-image.json
+p5-cold-canary-20260810-150058\serial.latest.stderr
+p5-cold-canary-20260810-150058\serial.latest.log
+p5-cold-canary-20260810-150058\production-instance.before.json
+p5-cold-canary-20260810-150058\production-data-disk.before.json
+p5-cold-canary-20260810-150058\data-disk.latest.json
+p5-cold-canary-20260810-150058\data-disk.json
+p5-cold-canary-20260810-150058\data-disk-create.log
+p5-cold-canary-20260810-150058\cold-runtime.json
+p5-fastpath-template-v3-20260810\new.json
+p5-fastpath-template-v3-20260810\gate.json
+p5-fastpath-template-v3-20260810\create.log
+p5-boot-image-preflight-20260810T144519Z\instance.json
+p5-boot-image-preflight-20260810T144519Z\image_collision.json
+p5-boot-image-preflight-20260810T144519Z\boot_disk.json
+p5-boot-image-preflight-20260810T144519Z\SHA256SUMS
+p5-boot-image-preflight-20260810T144519Z\preflight.json
+p5-boot-image-preflight-20260810T144519Z\snapshot_collision.json
+p5-filebrowser-tunnel\auto_recovery_canary.json
+p5-filebrowser-tunnel\state.json
+p5-filebrowser-tunnel\supervisor.log
+p5-boot-image-20260810T144519Z\production-instance-after.json
+p5-boot-image-20260810T144519Z\production-data-disk-after.json
+p5-boot-image-20260810T144519Z\image.json
+p5-boot-image-20260810T144519Z\image-create.log
+p5-boot-image-20260810T144519Z\gate.json
+p5-boot-image-20260810T144519Z\snapshot-create.log
+p5-boot-image-20260810T144519Z\SHA256SUMS
+p5-boot-image-20260810T144519Z\snapshot.json
+p5-boot-image-20260810T144519Z\source-boot-disk-after.json
+p5-gcp-prechange-20260810T125030Z.tar.gz
+hub-baseline-audit\verify3.sh
+hub-baseline-audit\verify2.sh
+hub-baseline-audit\verify2.log
+hub-baseline-audit\verify.sh
+hub-baseline-audit\v3.log
+hub-baseline-audit\states.py
+hub-baseline-audit\runner_states.sh
+hub-baseline-audit\runner_help.sh
+hub-baseline-audit\runner_counts.sh
+hub-baseline-audit\runner_a.sh
+hub-baseline-audit\remote_help.sh
+hub-baseline-audit\probe_a.sh
+hub-baseline-audit\probe_a.rc
+hub-baseline-audit\probe_a.log
+hub-baseline-audit\hub_states.rc
+hub-baseline-audit\hub_states.log
+hub-baseline-audit\hub_result_audit.py
+hub-baseline-audit\hub_probe2.sh
+hub-baseline-audit\hub_probe.sh
+hub-baseline-audit\hub_help.rc
+hub-baseline-audit\hub_help.log
+hub-baseline-audit\hub_counts.rc
+hub-baseline-audit\hub_counts.log
+hub-baseline-audit\finalclean.sh
+hub-baseline-audit\counts.py
+hub-baseline-audit\cleanup2.sh
+hub-baseline-audit\cleanup.sh
+tmp_probe\help.sh
+home-gpu\Install-HomeGpuWorkerTask.ps1
+home-gpu\home_worker.py
+home-gpu\finalize_fable_readiness.py
+home-gpu\finalize_codex_repair_canary.py
+home-gpu\arm_fable_one_time.py
+home-gpu\arm_codex_repair_canary.py
+home-gpu\Arm-HomeGpuRebootCanary.ps1
+home-gpu\Complete-HomeGpuRebootCanary.ps1
+home-gpu\Complete-WslShutdownResumeCanary.ps1
+home-gpu\p5_home_watchdog.py
+home-gpu\observe_codex_repair_canary.py
+home-gpu\Invoke-WslShutdownResumeCanary.ps1
+home-gpu\Invoke-HomeGpuWatchdogHidden.ps1
+home-gpu\Start-HomeGpuWatchdog-Hidden.vbs
+p5-cold-canary-20260810-150058\cleanup\production-instance.after.json
+p5-cold-canary-20260810-150058\cleanup\production-data-disk.after.json
+p5-cold-canary-20260810-150058\cleanup\disk.before.json
+p5-cold-canary-20260810-150058\cleanup\disk.after.unexpected.json
+p5-cold-canary-20260810-150058\cleanup\disk.after.stderr
+p5-cold-canary-20260810-150058\cleanup\disk-delete.log
+p5-cold-canary-20260810-150058\cleanup\vm-delete.log
+p5-cold-canary-20260810-150058\cleanup\SHA256SUMS
+p5-cold-canary-20260810-150058\cleanup\result.json
+p5-cold-canary-20260810-150058\cleanup\vm.after.unexpected.json
+p5-cold-canary-20260810-150058\cleanup\vm.after.stderr
+p5-cold-canary-20260810-150058\cleanup\vm.before.json
+p5-fastpath-template-20260810\SHA256SUMS
+p5-fastpath-template-20260810\new.json
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\recreate.log
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\wait-stable.log
+p5-fastpath-template-v4-20260810\wait.log
+p5-fastpath-template-v4-20260810\SHA256SUMS
+p5-fastpath-template-v4-20260810\new.json
+p5-fastpath-template-v4-20260810\insert-operation.json
+p5-fastpath-template-v4-20260810\gate.json
+p5-fastpath-template-v4-20260810\describe.stderr
+p5-fastpath-template-v4-20260810\body.json
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\pre_gcp\managed-instances.json
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\pre_gcp\instance.json
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\pre_gcp\gate.json
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\pre_gcp\data-disk.json
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\pre_gcp\address.json
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\pre_gcp\SHA256SUMS
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\pre_gcp\mig.json
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\pre_gcp\snapshot.json
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\pre_gcp\template.json
+home-gpu\task-backups\20260813-020203\process-baseline.csv
+home-gpu\task-backups\20260813-020203\K3-P5-Home-GPU-Worker.xml
+home-gpu\task-backups\20260813-020203\K3-P5-Home-GPU-Mechanical-Watchdog.xml
+home-gpu\Start-HomeGpuWorker.ps1
+home-gpu\Start-HomeGpuWorker-Hidden.vbs
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T173851Z\managed-instances.json
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T173851Z\managed-errors.json
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T173851Z\data-disk.json
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T173851Z\address.json
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T173851Z\zone-operations.json
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T173851Z\template-v4.json
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T173851Z\per-instance-configs.json
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T173851Z\mig.json
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T181836Z\managed-errors.json
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T181836Z\instance.json
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T181836Z\data-disk.json
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T181836Z\boot-disk.json
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T181836Z\address.json
+p5-fastpath-template-20260810\mig-set\template.json
+p5-fastpath-template-20260810\mig-set\SHA256SUMS
+p5-fastpath-template-20260810\mig-set\set.log
+p5-fastpath-template-20260810\mig-set\mig.before.json
+p5-fastpath-template-20260810\mig-set\mig.after.json
+p5-fastpath-template-20260810\mig-set\instances.after.json
+p5-fastpath-template-20260810\mig-set\gate.json
+p5-fastpath-template-20260810\gate.json
+p5-fastpath-template-20260810\create.log
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T181836Z\zone-operations.json
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T181836Z\terminal-summary.json
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T181836Z\template-v4.json
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T181836Z\SHA256SUMS
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T181836Z\per-instance-configs.json
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T181836Z\mig.json
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T181836Z\managed-instances.json
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\started_at.txt
+home-gpu\evidence\_tmp_fable_chain_ro.py
+home-gpu\evidence\_run_job_state.sh
+home-gpu\evidence\_run_isolation_audit.sh
+home-gpu\evidence\_run_hub_capture.sh
+home-gpu\evidence\_run_event_outbox.sh
+home-gpu\evidence\_job_state_ro.py
+home-gpu\evidence\_hub_ro_read.py
+home-gpu\evidence\_hub_rc.txt
+home-gpu\evidence\_hub_out.txt
+home-gpu\evidence\_hub_isolation_audit_ro.py
+home-gpu\evidence\_hub_err.txt
+home-gpu\evidence\_event_outbox_ro.py
+home-gpu\evidence\wsl_verify.txt
+home-gpu\evidence\wsl_process_check.txt
+home-gpu\evidence\wsl_hub_queue_readonly2.json
+home-gpu\evidence\wsl_hub_queue_readonly.json
+home-gpu\evidence\wsl_check2.txt
+home-gpu\evidence\wsl_check1.txt
+home-gpu\reports\home-baseline-count-audit\home-baseline-count-audit-20260811T0346Z.md
+home-gpu\evidence\hub_cli_source.txt
+home-gpu\evidence\home_worker_e2e_ready_for_fable.json
+home-gpu\evidence\home_gpu_min_ready.json
+home-gpu\evidence\isolation_audit_hub_rc.txt
+home-gpu\evidence\isolation_audit_hub_out.txt
+home-gpu\evidence\isolation_audit_hub_err.txt
+home-gpu\evidence\hub_probe.sh
+home-gpu\evidence\ssh_probe.txt
+home-gpu\evidence\ps_full.txt
+reports\p5-track3-review-20260812\ssh_ro_probe.sh
+p5-data-snapshot-20260810-151108\snapshot.json
+p5-data-snapshot-20260810-151108\SHA256SUMS
+p5-data-snapshot-20260810-151108\resume.log
+p5-data-snapshot-20260810-151108\prepare.log
+p5-data-snapshot-20260810-151108\create.log
+home-gpu\evidence\checkpoint_recovery_audit.py
+home-gpu\evidence\c.b64
+home-gpu\evidence\checkpoint_recovery_audit_result.json
+home-gpu\evidence\home-baseline-count-audit-20260811T0340Z.json
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\deadlock-exception-preflight-20260810T175919.263986091Z\managed-instances.json
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\deadlock-exception-preflight-20260810T175919.263986091Z\managed-errors.json
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\deadlock-exception-preflight-20260810T175919.263986091Z\instance.json
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\deadlock-exception-preflight-20260810T175919.263986091Z\gate.json
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\deadlock-exception-preflight-20260810T175919.263986091Z\data-disk.json
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\deadlock-exception-preflight-20260810T175919.263986091Z\address.json
+p5-fastpath-state-20260810T151305Z\interrupted-snapshot.json
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\deadlock-exception-preflight-20260810T175919.263986091Z\zone-operations.json
+p5-fastpath-state-20260810T151305Z\instance.json
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\deadlock-exception-preflight-20260810T175919.263986091Z\template-v4.json
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\deadlock-exception-preflight-20260810T175919.263986091Z\snapshot.json
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\deadlock-exception-preflight-20260810T175919.263986091Z\SHA256SUMS
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\deadlock-exception-preflight-20260810T175919.263986091Z\mig.json
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T180629Z\managed-errors.json
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T180629Z\instance.json
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T180629Z\data-disk.json
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T180629Z\boot-disk.json
+p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T180629Z\address.json
+
+2026-08-12T20:06:27.432254Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.9 seconds
+Output:
+
+2026-08-12T20:07:30.280159Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 15.1 seconds
+Output:
+E:\VPS\reports\FreezePackageé™„ä»¶\report.md:1:# FreezePackage é™„ä»¶å®¡è®¡æŠ¥å‘Š
+E:\VPS\reports\FreezePackageé™„ä»¶\report.md:5:**UNKNOWN** â€?ç›®æ ‡æ–‡ä»¶ `P5_v2_1_FINAL_OWNER_FREEZE_PACKAGE.md` åœ¨æŽˆæƒå·¥ä½œåŒºå†…ä¸å­˜åœ¨ï¼Œæ— æ³•è®¡ç®?SHA256ï¼Œæ— æ³•æå?freeze lineage/hash ä¸?canonical authority å£°æ˜Žã€?E:\VPS\reports\FreezePackageé™„ä»¶\report.md:14:1. `Get-ChildItem -Path E:\VPS -Recurse -Filter "P5_v2_1_FINAL_OWNER_FREEZE_PACKAGE.md"` â†?0 å‘½ä¸­
+E:\VPS\reports\FreezePackageé™„ä»¶\report.md:15:2. `Get-ChildItem -Path E:\VPS -Recurse -Filter "*FREEZE_PACKAGE*"` â†?0 å‘½ä¸­
+E:\VPS\reports\FreezePackageé™„ä»¶\report.md:16:3. åç§°åŒ¹é…ï¼š`Get-ChildItem -Path E:\VPS -Recurse | Where-Object Name -match 'P5_v2|FINAL_OWNER|FREEZE_PACKAGE|workspace'`ï¼ˆæŽ’é™?`.tools`ï¼‰â†’ 0 å‘½ä¸­
+E:\VPS\reports\FreezePackageé™„ä»¶\report.md:17:4. å†…å®¹æ£€ç´¢ï¼šE:\VPS å…¨éƒ¨æ–‡ä»¶ï¼ˆæŽ’é™?`.tools`ï¼‰`Select-String` åŒ¹é… `FREEZE_PACKAGE|P5_v2_1|freeze lineage|canonical authority|CLOSURE_V2|CapabilityActivation|ENGINEERING_CLOSURE` â†?ä»…å‘½ä¸?`reports\briefing-attachment-audit\report.md`ï¼ˆåŒ gate çš„å¦ä¸€é™„ä»¶ Briefing çš„ç¼ºå¤±å®¡è®¡ï¼Œéžæœ¬ç›®æ ‡æ–‡ä»¶ï¼?E:\VPS\reports\FreezePackageé™„ä»¶\report.md:18:5. å½’æ¡£åˆ—ä¸¾ï¼šE:\VPS å…¨éƒ¨ `*.tar.gz`ï¼ˆæ ¹çº§ä¸ŽåµŒå¥—ï¼‰`tar -tf` åŒ¹é… `FREEZE|P5_v2|FINAL_OWNER|attachment` â†?ä»?`p5-snapshot-gate-p5-prechange-data-20260810-135948.tar.gz` å†?`attach_disk.*` ç£ç›˜é™„ä»¶ï¼Œä¸Ž freeze åŒ…æ— å…?E:\VPS\reports\FreezePackageé™„ä»¶\report.md:21:8. Guestï¼ˆWSL `/home/codexloop`ï¼Œåªè¯?`find` è¾…åŠ©æŽ¢é’ˆï¼‰â†’ ä»?pip/torch çš?`freeze` æ¨¡å—ï¼Œæ— ç›®æ ‡æ–‡ä»¶
+E:\VPS\reports\FreezePackageé™„ä»¶\report.md:25:- è·¯å¾„ï¼šä¸å­˜åœ¨ï¼ˆé¢„æœ?`E:\VPS\workspace\attachments\P5_v2_1_FINAL_OWNER_FREEZE_PACKAGE.md`ï¼?E:\VPS\reports\FreezePackageé™„ä»¶\report.md:27:- freeze lineage/hashï¼šæ— æ³•æå?E:\VPS\reports\final-research-count-baseline\probe_out.txt:144:          "task_name": "P5-FABLE-ALPHA-ENTRY-EXECUTION-V1: P3 primary / S2a secondary alpha entry execution (source-object freeze, T1 H1 prereg, H0 Wave-1 package); no trials, no authority application, no canonical rights mutations",
+E:\VPS\.work\home-vectorized-screen-v2\home\vectorized_screen_handler.py:494:            "python_version": sys.version.split()[0],
+E:\VPS\reports\final-repo-state-readback\report.md:22:- commit: b5585d48 P5 PC6: freeze official Binance executable data artifacts
+E:\VPS\.work\home-vectorized-screen-v2\home\home_worker.py:220:                "environment_sha": sha(sys.version + "|" + os.uname().release),
+E:\VPS\reports\H0ä»·æ ¼æˆäº¤é‡å¯ç”¨æ€§\probe_f_gapchars.sh:9:export PYTHONPATH=/data/k3/venvs/p4/lib/python3.12/site-packages
+E:\VPS\reports\H0ä»·æ ¼æˆäº¤é‡å¯ç”¨æ€§\probe_e_adjacency.sh:9:export PYTHONPATH=/data/k3/venvs/p4/lib/python3.12/site-packages
+E:\VPS\reports\H0ä»·æ ¼æˆäº¤é‡å¯ç”¨æ€§\probe_d_coverage.sh:9:export PYTHONPATH=/data/k3/venvs/p4/lib/python3.12/site-packages
+E:\VPS\reports\H0ä»·æ ¼æˆäº¤é‡å¯ç”¨æ€§\probe_c_parquet_scan.sh:21:export PYTHONPATH=/data/k3/venvs/p4/lib/python3.12/site-packages
+E:\VPS\reports\H0ä»·æ ¼æˆäº¤é‡å¯ç”¨æ€§\probe_c_parquet_scan.sh:30:print('python',sys.version.split()[0],'pyarrow',pa.__version__)
+E:\VPS\.tools\google-cloud-sdk\install.sh:29:  for python_version in "$@"
+E:\VPS\.tools\google-cloud-sdk\install.sh:32:      if _cloudsdk_which $python_version > /dev/null; then
+E:\VPS\.tools\google-cloud-sdk\install.sh:33:        selected_version=$python_version
+E:\VPS\.tools\google-cloud-sdk\install.sh:45:  for python_version in "$@"
+E:\VPS\.tools\google-cloud-sdk\install.sh:48:      if "$python_version" -c "import sys; sys.exit(0 if ((3,9) <= (sys.version_info.major, sys.version_info.minor) <= (3,14)) else 1)" > /dev/null 2>&1; then
+E:\VPS\.tools\google-cloud-sdk\install.sh:49:        selected_version=$python_version
+E:\VPS\.work\pc6-edit\p5_p3_s2a_data_engineering_v1\P5_P3_DATA_SEMANTICS_MATRIX_V1.json:20:      "spec_epoch_dependency": "instrument listing epoch and contract family",
+E:\VPS\.work\pc6-edit\p5_p3_s2a_data_engineering_v1\P5_P3_DATA_SEMANTICS_MATRIX_V1.json:36:      "spec_epoch_dependency": "mark-method epoch M0 is currently a code label, source registry incomplete",
+E:\VPS\.work\pc6-edit\p5_p3_s2a_data_engineering_v1\P5_P3_DATA_SEMANTICS_MATRIX_V1.json:52:      "spec_epoch_dependency": "index-method epoch I0 is currently a code label, source registry incomplete",
+E:\VPS\.work\pc6-edit\p5_p3_s2a_data_engineering_v1\P5_P3_DATA_SEMANTICS_MATRIX_V1.json:68:      "spec_epoch_dependency": "formula/rate-type/cap epochs incomplete",
+E:\VPS\.work\pc6-edit\p5_p3_s2a_data_engineering_v1\P5_P3_DATA_SEMANTICS_MATRIX_V1.json:84:      "spec_epoch_dependency": "declared schedule is reconciliation-only",
+E:\VPS\.work\pc6-edit\p5_p3_s2a_data_engineering_v1\P5_P3_DATA_SEMANTICS_MATRIX_V1.json:100:      "spec_epoch_dependency": "single-sided aggregate/v1 and multiplier epoch",
+E:\VPS\.work\pc6-edit\p5_p3_s2a_data_engineering_v1\P5_P3_DATA_SEMANTICS_MATRIX_V1.json:116:      "spec_epoch_dependency": "listing/spec epoch mandatory",
+E:\VPS\.work\pc6-edit\p5_p3_s2a_data_engineering_v1\P5_P3_DATA_SEMANTICS_MATRIX_V1.json:132:      "spec_epoch_dependency": "VERIFIED/BOUNDARY_RANGE/UNKNOWN only",
+E:\VPS\.work\pc6-edit\quant\p5_track3\lineage.py:7:Availability semantics (freeze package PART IX):
+E:\VPS\.work\pc6-edit\p5_p3_s2a_data_engineering_v1\P5_CODEX_P3_S2A_DATA_ENGINEERING_REPORT_V1.md:18:## Shared dependency defect
+E:\VPS\reports\pit-volume-causality-review\final_sweep.sh:12:  --exclude-dir=site-packages --exclude-dir=lib --exclude-dir=bin --exclude-dir=include \
+E:\VPS\.work\pc6-edit\quant\p5_track3\interval_recon_alt.py:3:Independent second implementation for cross-validation (freeze package PART IX:
+E:\VPS\reports\pit-volume-causality-review\fetch_samples.sh:23:ls /data/k3/venvs/p4/bin 2>/dev/null | head -20
+E:\VPS\reports\pit-volume-causality-review\fetch_samples.sh:24:ls /data/k3/venvs/p4rf/bin 2>/dev/null | head -20
+E:\VPS\.work\pc6-edit\quant\p5_track3\interval_recon.py:3:Spec (freeze package PART IX / D1-E): funding `interval_at_t` is reconstructed
+E:\VPS\reports\pit-volume-causality-review\evidence\track1_l0_raw.txt:332:    "identity_rule": "venue + instrument_family + symbol + listing_epoch (freeze pkg PART IX D1-S)",
+E:\VPS\reports\final-normalized-review\run_probe_final.sh:17:    "export PYTHONPATH=/data/k3/venvs/p4/lib/python3.12/site-packages; export PROBE_PHASE=$phase; printf '%s' '$payload' | base64 -d | /usr/bin/python3.12 -u -B -" \
+E:\VPS\.work\pc6-edit\quant\p5_track3\d2_features.py:3:Contract (freeze package PART IX):
+E:\VPS\.work\pc6-edit\quant\p5_track3\d1_build.py:3:D1 columns (freeze package PART IX) preserve the legacy event/known/ingestion
+E:\VPS\reports\pit-volume-causality-review\evidence\schema2.txt:8:--- /data/k3/venvs/p4
+E:\VPS\reports\pit-volume-causality-review\evidence\schema2.txt:17:--- /data/k3/venvs/p4rf
+E:\VPS\reports\research-memory-state\p5-fable-audit-works.json:330:        "entity_id": "fabledeep-work-p5-fable-audit-payer-dependency-map-v1",
+E:\VPS\reports\research-memory-state\p5-fable-audit-works.json:339:          "canonical_key": "P5_FABLE_AUDIT_PAYER_DEPENDENCY_MAP_V1",
+E:\VPS\reports\research-memory-state\p5-fable-audit-works.json:346:          "title": "P5_FABLE_AUDIT_PAYER_DEPENDENCY_MAP_V1",
+E:\VPS\reports\research-memory-state\p5-fable-audit-works.json:347:          "work_id": "fabledeep-work-p5-fable-audit-payer-dependency-map-v1",
+E:\VPS\reports\research-memory-state\p5-fable-audit-works.json:594:        "entity_id": "recon-work-p5-fable-audit-evidence-dependency-map-v1",
+E:\VPS\reports\research-memory-state\p5-fable-audit-works.json:603:          "canonical_key": "P5_FABLE_AUDIT_EVIDENCE_DEPENDENCY_MAP_V1",
+E:\VPS\reports\research-memory-state\p5-fable-audit-works.json:610:          "title": "P5_FABLE_AUDIT_EVIDENCE_DEPENDENCY_MAP_V1",
+E:\VPS\reports\research-memory-state\p5-fable-audit-works.json:611:          "work_id": "recon-work-p5-fable-audit-evidence-dependency-map-v1",
+E:\VPS\reports\research-memory-state\p5-fable-audit-works.json:1002:        "entity_id": "transclose-work-p5-alpha-parallel-entry-dependency-graph-v1",
+E:\VPS\reports\research-memory-state\p5-fable-audit-works.json:1011:          "canonical_key": "P5_ALPHA_PARALLEL_ENTRY_DEPENDENCY_GRAPH_V1",
+E:\VPS\reports\research-memory-state\p5-fable-audit-works.json:1018:          "title": "P5_ALPHA_PARALLEL_ENTRY_DEPENDENCY_GRAPH_V1",
+E:\VPS\reports\research-memory-state\p5-fable-audit-works.json:1019:          "work_id": "transclose-work-p5-alpha-parallel-entry-dependency-graph-v1",
+E:\VPS\reports\research-memory-state\p5-fable-audit-versions.json:318:        "entity_id": "fabledeep-ver-p5-fable-audit-payer-dependency-map-v1",
+E:\VPS\reports\research-memory-state\p5-fable-audit-versions.json:334:          "version_id": "fabledeep-ver-p5-fable-audit-payer-dependency-map-v1",
+E:\VPS\reports\research-memory-state\p5-fable-audit-versions.json:335:          "version_key": "P5_FABLE_AUDIT_PAYER_DEPENDENCY_MAP_V1#V1",
+E:\VPS\reports\research-memory-state\p5-fable-audit-versions.json:337:          "work_id": "fabledeep-work-p5-fable-audit-payer-dependency-map-v1"
+E:\VPS\reports\research-memory-state\p5-fable-audit-versions.json:568:        "entity_id": "recon-ver-p5-fable-audit-evidence-dependency-map-v1",
+E:\VPS\reports\research-memory-state\p5-fable-audit-versions.json:584:          "version_id": "recon-ver-p5-fable-audit-evidence-dependency-map-v1",
+E:\VPS\reports\research-memory-state\p5-fable-audit-versions.json:587:          "work_id": "recon-work-p5-fable-audit-evidence-dependency-map-v1"
+E:\VPS\reports\research-memory-state\p5-fable-audit-versions.json:943:        "entity_id": "transclose-ver-p5-alpha-parallel-entry-dependency-graph-v1",
+E:\VPS\reports\research-memory-state\p5-fable-audit-versions.json:959:          "version_id": "transclose-ver-p5-alpha-parallel-entry-dependency-graph-v1",
+E:\VPS\reports\research-memory-state\p5-fable-audit-versions.json:960:          "version_key": "P5_ALPHA_PARALLEL_ENTRY_DEPENDENCY_GRAPH_V1#V1",
+E:\VPS\reports\research-memory-state\p5-fable-audit-versions.json:962:          "work_id": "transclose-work-p5-alpha-parallel-entry-dependency-graph-v1"
+E:\VPS\reports\final-normalized-review\report.md:72:- å½“å‰è¿œç¨‹ worktree HEAD `b5585d48`ï¼?freeze official Binance executable data artifacts"ï¼‰ï¼Œ
+E:\VPS\reports\research-memory-state\p5-fable-audit-locations.json:342:        "entity_id": "fabledeep-loc-p5-fable-audit-payer-dependency-map-v1",
+E:\VPS\reports\research-memory-state\p5-fable-audit-locations.json:356:          "location_id": "fabledeep-loc-p5-fable-audit-payer-dependency-map-v1",
+E:\VPS\reports\research-memory-state\p5-fable-audit-locations.json:357:          "locator": "/home/user/workspace/P5_FABLE_AUDIT_PAYER_DEPENDENCY_MAP_V1.md sha256=a04f017f88d2c7e233f6345e3a694aae9810b77c30cd2bba6e8b897c9f71dac2",
+E:\VPS\reports\research-memory-state\p5-fable-audit-locations.json:361:          "source_key": "workspace:P5_FABLE_AUDIT_PAYER_DEPENDENCY_MAP_V1.md",
+E:\VPS\reports\research-memory-state\p5-fable-audit-locations.json:363:          "version_id": "fabledeep-ver-p5-fable-audit-payer-dependency-map-v1"
+E:\VPS\reports\research-memory-state\p5-fable-audit-locations.json:612:        "entity_id": "recon-loc-p5-fable-audit-evidence-dependency-map-v1",
+E:\VPS\reports\research-memory-state\p5-fable-audit-locations.json:626:          "location_id": "recon-loc-p5-fable-audit-evidence-dependency-map-v1",
+E:\VPS\reports\research-memory-state\p5-fable-audit-locations.json:627:          "locator": "/home/user/workspace/P5_FABLE_AUDIT_EVIDENCE_DEPENDENCY_MAP_V1.md",
+E:\VPS\reports\research-memory-state\p5-fable-audit-locations.json:631:          "source_key": "P5_FABLE_AUDIT_EVIDENCE_DEPENDENCY_MAP_V1.md",
+E:\VPS\reports\research-memory-state\p5-fable-audit-locations.json:633:          "version_id": "recon-ver-p5-fable-audit-evidence-dependency-map-v1"
+E:\VPS\reports\research-memory-state\p5-fable-audit-locations.json:1017:        "entity_id": "transclose-loc-p5-alpha-parallel-entry-dependency-graph-v1",
+E:\VPS\reports\research-memory-state\p5-fable-audit-locations.json:1031:          "location_id": "transclose-loc-p5-alpha-parallel-entry-dependency-graph-v1",
+E:\VPS\reports\research-memory-state\p5-fable-audit-locations.json:1032:          "locator": "/home/user/workspace/P5_ALPHA_PARALLEL_ENTRY_DEPENDENCY_GRAPH_V1.md sha256=3b1b282cbefa710c56fe87d41babfaa06c0949c25d1f4537971b7e25546bcba6",
+E:\VPS\reports\research-memory-state\p5-fable-audit-locations.json:1036:          "source_key": "workspace:P5_ALPHA_PARALLEL_ENTRY_DEPENDENCY_GRAPH_V1.md",
+E:\VPS\reports\research-memory-state\p5-fable-audit-locations.json:1038:          "version_id": "transclose-ver-p5-alpha-parallel-entry-dependency-graph-v1"
+E:\VPS\reports\research-event-count-audit\asof_alpha_entry_by_entity.json:82:          "task_name": "P5-FABLE-ALPHA-ENTRY-EXECUTION-V1: P3 primary / S2a secondary alpha entry execution (source-object freeze, T1 H1 prereg, H0 Wave-1 package); no trials, no authority application, no canonical rights mutations",
+E:\VPS\reports\research-memory-state\p5-empirical-foundation-v1-asof.json:3652:          "title": "P1 (trend/CMOM) Validation Dependence Contract v1 - 13 fields instantiated + H2 registration block schema; status INSTANTIATED_V1_PENDING_FAMILY_FREEZE; run_class=ENGINEERING",
+E:\VPS\reports\research-memory-state\p5-empirical-foundation-v1-asof.json:3676:          "title": "P5 Amendment A EXACT TEXT (byte-exact extraction from P5_v2_1_FINAL_OWNER_FREEZE_PACKAGE PART III lines 114-130, source sha256 11e3f097...; NOT a registered Amendment; state PROPOSED)",
+E:\VPS\reports\research-memory-state\p5-empirical-foundation-v1-asof.json:3724:          "title": "P5 Amendment B EXACT TEXT (byte-exact extraction from P5_v2_1_FINAL_OWNER_FREEZE_PACKAGE PART III lines 132-152, source sha256 11e3f097...; NOT a registered Amendment; state PROPOSED)",
+E:\VPS\reports\research-memory-state\p5-empirical-foundation-v1-asof.json:3772:          "title": "P5 Amendment C EXACT TEXT (byte-exact extraction from P5_v2_1_FINAL_OWNER_FREEZE_PACKAGE PART III lines 100-112, source sha256 11e3f097...; NOT a registered Amendment; state PROPOSED)",
+E:\VPS\reports\research-memory-state\p5-empirical-foundation-v1-asof.json:3796:          "title": "P5 SIGNABLE OWNER PACKET Amendment C (Authority/Provenance/Run Classification): exact text sha256 5b1d8116..., machine preconditions 5/5 PASS (Lane F), no prior-Amendment dependency, state PROPOSED prepared-not-signed; owner action HUMAN_OWNER_SIGNED in a session-separated signing session after machine PRECONDITIONS_PASS",
+E:\VPS\.tools\google-cloud-sdk\bin\java_dev_appserver.sh:27:  for python_version in "$@"
+E:\VPS\.tools\google-cloud-sdk\bin\java_dev_appserver.sh:30:      if _cloudsdk_which $python_version > /dev/null; then
+E:\VPS\.tools\google-cloud-sdk\bin\java_dev_appserver.sh:31:        selected_version=$python_version
+E:\VPS\.tools\google-cloud-sdk\bin\java_dev_appserver.sh:43:  for python_version in "$@"
+E:\VPS\.tools\google-cloud-sdk\bin\java_dev_appserver.sh:46:      if "$python_version" -c "import sys; sys.exit(0 if ((3,9) <= (sys.version_info.major, sys.version_info.minor) <= (3,14)) else 1)" > /dev/null 2>&1; then
+E:\VPS\.tools\google-cloud-sdk\bin\java_dev_appserver.sh:47:        selected_version=$python_version
+E:\VPS\.work\pc6-edit\artifacts\p5_p3_s2a_data_engineering_v1\P5_P3_DATA_SEMANTICS_MATRIX_V1.json:20:      "spec_epoch_dependency": "instrument listing epoch and contract family",
+E:\VPS\.work\pc6-edit\artifacts\p5_p3_s2a_data_engineering_v1\P5_P3_DATA_SEMANTICS_MATRIX_V1.json:36:      "spec_epoch_dependency": "mark-method epoch M0 is currently a code label, source registry incomplete",
+E:\VPS\.work\pc6-edit\artifacts\p5_p3_s2a_data_engineering_v1\P5_P3_DATA_SEMANTICS_MATRIX_V1.json:52:      "spec_epoch_dependency": "index-method epoch I0 is currently a code label, source registry incomplete",
+E:\VPS\.work\pc6-edit\artifacts\p5_p3_s2a_data_engineering_v1\P5_P3_DATA_SEMANTICS_MATRIX_V1.json:68:      "spec_epoch_dependency": "formula/rate-type/cap epochs incomplete",
+E:\VPS\.work\pc6-edit\artifacts\p5_p3_s2a_data_engineering_v1\P5_P3_DATA_SEMANTICS_MATRIX_V1.json:84:      "spec_epoch_dependency": "declared schedule is reconciliation-only",
+E:\VPS\.work\pc6-edit\artifacts\p5_p3_s2a_data_engineering_v1\P5_P3_DATA_SEMANTICS_MATRIX_V1.json:100:      "spec_epoch_dependency": "single-sided aggregate/v1 and multiplier epoch",
+E:\VPS\.work\pc6-edit\artifacts\p5_p3_s2a_data_engineering_v1\P5_P3_DATA_SEMANTICS_MATRIX_V1.json:116:      "spec_epoch_dependency": "listing/spec epoch mandatory",
+E:\VPS\.work\pc6-edit\artifacts\p5_p3_s2a_data_engineering_v1\P5_P3_DATA_SEMANTICS_MATRIX_V1.json:132:      "spec_epoch_dependency": "VERIFIED/BOUNDARY_RANGE/UNKNOWN only",
+E:\VPS\.work\pc6-edit\artifacts\p5_p3_s2a_data_engineering_v1\P5_CODEX_P3_S2A_DATA_ENGINEERING_REPORT_V1.md:18:## Shared dependency defect
+E:\VPS\reports\p5-track3-review-20260812\snippet7_runtime_state.sh:8:ls -1 "$WT"/pytest.ini "$WT"/pyproject.toml "$WT"/setup.cfg "$WT"/tox.ini "$WT"/conftest.py 2>/dev/null || true
+E:\VPS\reports\p5-track3-review-20260812\report.md:32:é›†æˆç¼ºå£ï¼šå…¨ä»?grep æ˜¾ç¤º run_track3.py/test_track3.py é™¤è‡ªèº«ä¸Ž artifacts æ–‡æ¡£å¤?*é›¶å¤–éƒ¨å¼•ç”?*â€”â€”Makefile æ—?track3 targetï¼ˆä»…æœ?G2 data-backfill / P4 engine / G5-G10 ç›®æ ‡ï¼‰ã€test.sh ä¸ºä¸Šæ¸?Node å¥—ä»¶ã€package.json/CI workflow å…¨éƒ¨ Node-onlyã€ä»“åº“æ ¹æ—?pytest.ini/pyproject.toml/setup.cfg/conftest.pyã€‚ç®¡çº¿æ˜¯ç‹¬ç«‹æ‰‹åŠ¨è¿è¡Œï¼ŒæœªæŽ¥å…¥ä»»ä½• make/CI/systemdã€?E:\VPS\reports\p5-track3-review-20260812\integration_out.txt:126:	@echo "[G5] freeze export + 9-run crosscheck matrix..."
+E:\VPS\reports\p5-track3-review-20260812\integration_out.txt:157:PIPE_PY := /data/k3/venvs/p4/bin/python
+E:\VPS\.tools\google-cloud-sdk\bin\bootstrapping\setup.py:17:if sys.version_info[0] == 2:
+E:\VPS\.tools\google-cloud-sdk\bin\bootstrapping\setup.py:44:# package may not in the __path__. After our vendored dependency directory is
+E:\VPS\reports\p5-track3-review-20260812\grep_out.txt:65:/data/k3/repo/prime-agent-runtime/.venv/lib/python3.12/site-packages/packaging/ranges.py:65:#: that :meth:`VersionRange.to_specifier_set` will materialize to spell a
+E:\VPS\reports\p5-track3-review-20260812\grep_out.txt:66:/data/k3/repo/prime-agent-runtime/.venv/lib/python3.12/site-packages/packaging/ranges.py:69:#: so no gap ever materializes more than this many exclusions. Past the cap
+E:\VPS\reports\p5-track3-review-20260812\grep_out.txt:67:/data/k3/repo/prime-agent-runtime/.venv/lib/python3.12/site-packages/pygments/lexers/_googlesql_builtins.py:700:    'MATERIALIZED',
+E:\VPS\reports\p5-track3-review-20260812\grep_out.txt:68:/data/k3/repo/prime-agent-runtime/.venv/lib/python3.12/site-packages/pygments/lexers/_mysql_builtins.py:530:    'materialization',
+E:\VPS\reports\p5-track3-review-20260812\grep_out.txt:69:/data/k3/repo/prime-agent-runtime/.venv/lib/python3.12/site-packages/pygments/lexers/_postgres_builtins.py:242:    'MATERIALIZED',
+E:\VPS\reports\p5-track3-review-20260812\grep_out.txt:70:/data/k3/repo/prime-agent-runtime/.venv/lib/python3.12/site-packages/pygments/lexers/_postgres_builtins.py:602:    'Materialize',
+E:\VPS\reports\p5-track3-review-20260812\grep_out.txt:71:/data/k3/repo/prime-agent-runtime/.venv/lib/python3.12/site-packages/tyro/_backends/_argparse_backend.py:378:    # Build materialized tree from direct subparsers on-demand for argparse.
+E:\VPS\reports\p5-track3-review-20260812\grep_out.txt:72:/data/k3/repo/prime-agent-runtime/.venv/lib/python3.12/site-packages/tyro/_backends/_argparse_backend.py:383:        leaves = apply_materialized_subparsers(
+E:\VPS\reports\p5-track3-review-20260812\grep_out.txt:73:/data/k3/repo/prime-agent-runtime/.venv/lib/python3.12/site-packages/tyro/_backends/_argparse_backend.py:520:class MaterializedParserTree:
+E:\VPS\reports\p5-track3-review-20260812\grep_out.txt:74:/data/k3/repo/prime-agent-runtime/.venv/lib/python3.12/site-packages/tyro/_backends/_argparse_backend.py:521:    """Argparse-specific materialized tree structure.
+E:\VPS\reports\p5-track3-review-20260812\grep_out.txt:75:/data/k3/repo/prime-agent-runtime/.venv/lib/python3.12/site-packages/tyro/_backends/_argparse_backend.py:523:    This wraps a ParserSpecification and adds the materialized subparser tree
+E:\VPS\reports\p5-track3-review-20260812\grep_out.txt:76:/data/k3/repo/prime-agent-runtime/.venv/lib/python3.12/site-packages/tyro/_backends/_argparse_backend.py:528:    subparsers: MaterializedSubparsersTree | None
+E:\VPS\reports\p5-track3-review-20260812\grep_out.txt:77:/data/k3/repo/prime-agent-runtime/.venv/lib/python3.12/site-packages/tyro/_backends/_argparse_backend.py:532:class MaterializedSubparsersTree:
+E:\VPS\reports\p5-track3-review-20260812\grep_out.txt:78:/data/k3/repo/prime-agent-runtime/.venv/lib/python3.12/site-packages/tyro/_backends/_argparse_backend.py:533:    """Argparse-specific materialized subparser tree structure.
+E:\VPS\reports\p5-track3-review-20260812\grep_out.txt:79:/data/k3/repo/prime-agent-runtime/.venv/lib/python3.12/site-packages/tyro/_backends/_argparse_backend.py:535:    This wraps a SubparsersSpecification and contains the fully materialized
+E:\VPS\reports\p5-track3-review-20260812\grep_out.txt:80:/data/k3/repo/prime-agent-runtime/.venv/lib/python3.12/site-packages/tyro/_backends/_argparse_backend.py:540:    parser_tree_from_name: Dict[str, MaterializedParserTree]
+E:\VPS\reports\p5-track3-review-20260812\grep_out.txt:81:/data/k3/repo/prime-agent-runtime/.venv/lib/python3.12/site-packages/tyro/_backends/_argparse_backend.py:545:) -> MaterializedSubparsersTree | None:
+E:\VPS\reports\p5-track3-review-20260812\grep_out.txt:82:/data/k3/repo/prime-agent-runtime/.venv/lib/python3.12/site-packages/tyro/_backends/_argparse_backend.py:546:    """Build the materialized subparser tree for a single parser's direct subparsers."""
+E:\VPS\reports\p5-track3-review-20260812\grep_out.txt:83:/data/k3/repo/prime-agent-runtime/.venv/lib/python3.12/site-packages/tyro/_backends/_argparse_backend.py:547:    root_subparsers: MaterializedSubparsersTree | None = None
+E:\VPS\reports\p5-track3-review-20260812\grep_out.txt:84:/data/k3/repo/prime-agent-runtime/.venv/lib/python3.12/site-packages/tyro/_backends/_argparse_backend.py:554:    root: MaterializedSubparsersTree | None,
+E:\VPS\reports\p5-track3-review-20260812\grep_out.txt:85:/data/k3/repo/prime-agent-runtime/.venv/lib/python3.12/site-packages/tyro/_backends/_argparse_backend.py:556:) -> MaterializedSubparsersTree:
+E:\VPS\reports\p5-track3-review-20260812\grep_out.txt:86:/data/k3/repo/prime-agent-runtime/.venv/lib/python3.12/site-packages/tyro/_backends/_argparse_backend.py:557:    """Build materialized subparser tree for argparse.
+E:\VPS\reports\p5-track3-review-20260812\grep_out.txt:87:/data/k3/repo/prime-agent-runtime/.venv/lib/python3.12/site-packages/tyro/_backends/_argparse_backend.py:560:    of subparsers is materialized. Multiple Union fields at the same level get
+E:\VPS\reports\p5-track3-review-20260812\grep_out.txt:88:/data/k3/repo/prime-agent-runtime/.venv/lib/python3.12/site-packages/tyro/_backends/_argparse_backend.py:565:        # Convert SubparsersSpecification to MaterializedSubparsersTree.
+E:\VPS\reports\p5-track3-review-20260812\grep_out.txt:89:/data/k3/repo/prime-agent-runtime/.venv/lib/python3.12/site-packages/tyro/_backends/_argparse_backend.py:574:            parser_tree_from_name[name] = MaterializedParserTree(
+E:\VPS\reports\p5-track3-review-20260812\grep_out.txt:90:/data/k3/repo/prime-agent-runtime/.venv/lib/python3.12/site-packages/tyro/_backends/_argparse_backend.py:578:        return MaterializedSubparsersTree(
+E:\VPS\reports\p5-track3-review-20260812\grep_out.txt:91:/data/k3/repo/prime-agent-runtime/.venv/lib/python3.12/site-packages/tyro/_backends/_argparse_backend.py:585:        new_parser_trees[name] = MaterializedParserTree(
+E:\VPS\reports\p5-track3-review-20260812\grep_out.txt:92:/data/k3/repo/prime-agent-runtime/.venv/lib/python3.12/site-packages/tyro/_backends/_argparse_backend.py:589:    return MaterializedSubparsersTree(
+E:\VPS\reports\p5-track3-review-20260812\grep_out.txt:93:/data/k3/repo/prime-agent-runtime/.venv/lib/python3.12/site-packages/tyro/_backends/_argparse_backend.py:598:def apply_materialized_subparsers(
+E:\VPS\reports\p5-track3-review-20260812\grep_out.txt:94:/data/k3/repo/prime-agent-runtime/.venv/lib/python3.12/site-packages/tyro/_backends/_argparse_backend.py:600:    materialized_tree: MaterializedSubparsersTree,
+E:\VPS\reports\p5-track3-review-20260812\grep_out.txt:95:/data/k3/repo/prime-agent-runtime/.venv/lib/python3.12/site-packages/tyro/_backends/_argparse_backend.py:606:    """Apply a materialized subparser tree to an argparse parser.
+E:\VPS\reports\p5-track3-review-20260812\grep_out.txt:96:/data/k3/repo/prime-agent-runtime/.venv/lib/python3.12/site-packages/tyro/_backends/_argparse_backend.py:609:    materialized tree structure.
+E:\VPS\reports\p5-track3-review-20260812\grep_out.txt:97:/data/k3/repo/prime-agent-runtime/.venv/lib/python3.12/site-packages/tyro/_backends/_argparse_backend.py:612:        parser_spec: The parser specification that owns this materialized tree.
+E:\VPS\reports\p5-track3-review-20260812\grep_out.txt:98:/data/k3/repo/prime-agent-runtime/.venv/lib/python3.12/site-packages/tyro/_backends/_argparse_backend.py:613:        materialized_tree: The materialized subparser tree to apply.
+E:\VPS\reports\p5-track3-review-20260812\grep_out.txt:99:/data/k3/repo/prime-agent-runtime/.venv/lib/python3.12/site-packages/tyro/_backends/_argparse_backend.py:620:    subparser_spec = materialized_tree.subparser_spec
+E:\VPS\reports\p5-track3-review-20260812\grep_out.txt:100:/data/k3/repo/prime-agent-runtime/.venv/lib/python3.12/site-packages/tyro/_backends/_argparse_backend.py:622:    metavar = "{" + ",".join(materialized_tree.parser_tree_from_name.keys()) + "}"
+E:\VPS\reports\p5-track3-review-20260812\grep_out.txt:101:/data/k3/repo/prime-agent-runtime/.venv/lib/python3.12/site-packages/tyro/_backends/_argparse_backend.py:659:    for name, parser_tree in materialized_tree.parser_tree_from_name.items():
+E:\VPS\reports\p5-track3-review-20260812\grep_out.txt:102:/data/k3/repo/prime-agent-runtime/.venv/lib/python3.12/site-packages/tyro/_backends/_argparse_backend.py:687:        # Apply this parser, using its materialized subparsers if any.
+E:\VPS\reports\p5-track3-review-20260812\grep_out.txt:103:/data/k3/repo/prime-agent-runtime/.venv/lib/python3.12/site-packages/tyro/_backends/_argparse_backend.py:689:            # This parser has nested subparsers in the materialized tree.
+E:\VPS\reports\p5-track3-review-20260812\grep_out.txt:104:/data/k3/repo/prime-agent-runtime/.venv/lib/python3.12/site-packages/tyro/_backends/_argparse_backend.py:690:            # Store the materialized subparser spec for help formatting.
+E:\VPS\reports\p5-track3-review-20260812\grep_out.txt:105:/data/k3/repo/prime-agent-runtime/.venv/lib/python3.12/site-packages/tyro/_backends/_argparse_backend.py:691:            subparser._materialized_subparser_spec = (
+E:\VPS\reports\p5-track3-review-20260812\grep_out.txt:106:/data/k3/repo/prime-agent-runtime/.venv/lib/python3.12/site-packages/tyro/_backends/_argparse_backend.py:694:            leaves = apply_parser_with_materialized_subparsers(
+E:\VPS\reports\p5-track3-review-20260812\grep_out.txt:107:/data/k3/repo/prime-agent-runtime/.venv/lib/python3.12/site-packages/tyro/_backends/_argparse_backend.py:713:def apply_parser_with_materialized_subparsers(
+E:\VPS\reports\p5-track3-review-20260812\grep_out.txt:108:/data/k3/repo/prime-agent-runtime/.venv/lib/python3.12/site-packages/tyro/_backends/_argparse_backend.py:715:    materialized_subparsers: MaterializedSubparsersTree,
+
+2026-08-12T20:08:09.637803Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.2 seconds
+Output:
+字符串缺少终止符: "。
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : TerminatorExpectedAtEndOfString
+ 
+
+2026-08-12T20:08:18.368231Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.5 seconds
+Output:
+=== venv contents ===
+--- /data/k3/venvs/g2feed
+CACHEDIR.TAG
+bin
+lib
+lib64
+pyvenv.cfg
+--- /data/k3/venvs/p4
+CACHEDIR.TAG
+bin
+etc
+include
+lib
+lib64
+pyvenv.cfg
+share
+--- /data/k3/venvs/p4rf
+CACHEDIR.TAG
+bin
+etc
+lib
+lib64
+pyvenv.cfg
+share
+--- /data/k3/venvs/p5calib
+CACHEDIR.TAG
+bin
+lib
+lib64
+pyvenv.cfg
+=== python with duckdb ===
+/usr/bin/python3 -> Traceback (most recent call last):
+/data/k3/venvs/g2feed/bin/python -> Traceback (most recent call last):
+/data/k3/venvs/p5calib/bin/python -> Traceback (most recent call last):
+/data/k3/venvs/g2feed/bin/python3 -> Traceback (most recent call last):
+/data/k3/venvs/p5calib/bin/python3 -> Traceback (most recent call last):
+=== python modules probe ===
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+=== queue grep ===
+=== jobs.sqlite tables ===
+TABLE: attempts
+TABLE: event_outbox
+TABLE: jobs
+TABLE: orphan_results
+TABLE: results
+TABLE: schema_meta
+TABLE: sqlite_sequence
+TABLE: trial_registrations
+TABLE: workers
+JOB: ('synthetic-vector-screen-20260812T110748Z-34c5d891', 'synthetic-only-no-statistical-trial-20260812T110748Z-34c5d891', 'home-synthetic-vector-screen-e2e-v1', 'codex-synthetic-local', 'vectorized_screen', 'completed', 0, '2026-08-12T11:07:55Z', '4811c2eed9de3cb747fe0c4ade46e78ccb88a116bcc3408907be8bc078b0f197', 'c28d724faff337d9212d4ad5a22841794bd0d3affdbbe6ce506d099e7b284d49', 'facda49b766b7fc9b38
+JOB: ('fable-home-gpu-e2e-20260811T203232Z-13da097f', 'infra-only-no-statistical-trial-fable-home-gpu-e2e-20260811T203232Z-13da097f', 'fable-cloud-e2e-fable-cloud-p5-e2e-20260812', 'fable-cloud', 'infra_gpu_e2e_canary', 'completed', 1000, '2026-08-11T20:32:44Z', '3aa1351c8b8cf7f06157782f8194d27ad6274666', '8bf0ce43d52b96d386ed8cd166577a0541d9c33ef330053e8ed68ba1a280f77d', 'd365a2babcecfbe68c97f4a8e7c47
+JOB: ('codex-home-worker-e2e-20260811T202016Z-8fbd4f0d', 'infra-only-no-statistical-trial-codex-home-worker-e2e-20260811T202016Z-8fbd4f0d', 'codex-infra-repair-20260811T202016Z', 'codex-infra-repair', 'infra_gpu_e2e_canary', 'completed', 1000, '2026-08-11T20:20:25Z', '3aa1351c8b8cf7f06157782f8194d27ad6274666', '8bf0ce43d52b96d386ed8cd166577a0541d9c33ef330053e8ed68ba1a280f77d', 'd365a2babcecfbe68c97f4a8
+JOB: ('codex-home-worker-e2e-20260810T204202Z-c11d13bc', 'infra-only-no-statistical-trial-codex-home-worker-e2e-20260810T204202Z-c11d13bc', 'codex-infra-repair-20260810T204202Z', 'codex-infra-repair', 'infra_gpu_e2e_canary', 'completed', 1000, '2026-08-10T20:42:11Z', '3aa1351c8b8cf7f06157782f8194d27ad6274666', '8bf0ce43d52b96d386ed8cd166577a0541d9c33ef330053e8ed68ba1a280f77d', 'd365a2babcecfbe68c97f4a8
+JOB: ('codex-home-worker-e2e-20260810T203313Z-a3c1eb09', 'infra-only-no-statistical-trial-codex-home-worker-e2e-20260810T203313Z-a3c1eb09', 'codex-home-worker-e2e-repair-20260810', 'codex-infra-repair', 'infra_gpu_e2e_canary', 'failed', 1000, '2026-08-10T20:33:56Z', '3aa1351c8b8cf7f06157782f8194d27ad6274666', '8bf0ce43d52b96d386ed8cd166577a0541d9c33ef330053e8ed68ba1a280f77d', 'd365a2babcecfbe68c97f4a8e
+
+=====PROBE_C_OUT=====
+
+Get-Content : 找不到路径“E:\VPS\reports\H0??·? ?????o¤é????ˉ?”¨?€§\probe_c_out.txt”，因为该路径不存在。
+所在位置 行:2 字符: 137
++ ... UT=====`n"; Get-Content -LiteralPath 'E:\VPS\reports\H0??·? ?????o¤é? ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (E:\VPS\reports\...probe_c_out.txt:String) [Get-Content], ItemNotFoundEx 
+   ception
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+
+2026-08-12T20:08:31.250202Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.8 seconds
+Output:
+reports\p5-track3-review-20260812\report.md:32:é›†æˆç¼ºå£ï¼šå…¨ä»?grep æ˜¾ç¤º run_track3.py/test_track3.py é™¤è‡ªèº«ä¸Ž artifacts æ–‡æ¡£å¤?*é›¶å¤–éƒ¨å¼•ç”?*â€”â€”Makefile æ—?track3 targetï¼ˆä»…æœ?G2 data-backfill / P4 engine / G5-G10 ç›®æ ‡ï¼‰ã€test.sh ä¸ºä¸Šæ¸?Node å¥—ä»¶ã€package.json/CI workflow å…¨éƒ¨ Node-onlyã€ä»“åº“æ ¹æ—?pytest.ini/pyproject.toml/setup.cfg/conftest.pyã€‚ç®¡çº¿æ˜¯ç‹¬ç«‹æ‰‹åŠ¨è¿è¡Œï¼ŒæœªæŽ¥å…¥ä»»ä½• make/CI/systemdã€?
+
+2026-08-12T20:09:13.741163Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

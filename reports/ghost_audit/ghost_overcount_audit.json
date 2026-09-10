@@ -1,0 +1,87 @@
+{
+  "audit": "Rollout幽灵过计审计",
+  "root_session": "019feacd-184e-7472-9f11-ea364c22e595",
+  "rollout_path": "C:/Users/hzq00/.codex/sessions/2026/08/10/rollout-2026-08-10T16-32-17-019feacd-184e-7472-9f11-ea364c22e595.jsonl",
+  "audit_time": "2026-08-14T~10:20 UTC",
+  "verified_findings": [
+    {
+      "id": "GHOST-1",
+      "type": "exec_roster_ghost",
+      "severity": "MITIGATED_BY_GEN_CHECK",
+      "count": 8,
+      "evidence_file": "E:/codex-LOOP/codex-loop-s-f2/data/lifecycle/exec_roster.json",
+      "mechanism": "lifecycle_supervisor crashed after writing running state, before finally block",
+      "ids": [
+        "adhoc-0ce6fe0373-test-taxonomy",
+        "adhoc-20508cf449-fl18-sonnet-transaction-r2-crosscheck",
+        "adhoc-2a28776306-fl18-sonnet-trust-order-r2",
+        "adhoc-72109874c6-fl18-final-sustain-local",
+        "adhoc-72109874c6-fl18-final-sustain-release",
+        "adhoc-72109874c6-fl18-final-sustain-rm-readback",
+        "adhoc-d799ec5bd3-fl18-sustain-package-drift",
+        "adhoc-d799ec5bd3-fl18-sustain-rollback-restore"
+      ],
+      "current_fix": "gen-check at refill_controller_v2.py:323-327",
+      "fix_correct": true,
+      "inflation_with_fix": 0,
+      "inflation_without_fix": 8
+    },
+    {
+      "id": "GHOST-2",
+      "type": "native_roster_ghost",
+      "severity": "MITIGATED_BY_TTL",
+      "count": 154,
+      "evidence_file": "E:/codex-LOOP/codex-loop-s-f2/data/lifecycle/native_roster.json",
+      "mechanism": "Desktop agents closed without hook updating status; all entries >42h stale",
+      "current_fix": "TTL=1800s at refill_controller_v2.py:298-302",
+      "fix_correct": true,
+      "inflation_with_fix": 0,
+      "inflation_without_fix": 154
+    },
+    {
+      "id": "GHOST-3",
+      "type": "observer_estimated_ghost",
+      "severity": "ACTIVE_RISK",
+      "trigger": "parent session crash (no graceful Stop) + DISPATCHABLE demand arrives",
+      "mechanism": "observer.freshness=ESTIMATED accepted by refill_controller; observer.timestamp=always_fresh bypasses 5s staleness check; observer.k3=last_seen_count > target=20 suppresses parent_debt to 0",
+      "code_lines": {
+        "accept_ESTIMATED": "refill_controller_v2.py:368-369",
+        "timestamp_check_flaw": "refill_controller_v2.py:373 (observer server timestamp, NOT world_state age)",
+        "replace_running": "refill_controller_v2.py:353",
+        "parent_debt_suppressed": "refill_controller_v2.py:451-456"
+      },
+      "ghost_effect_global": "capacity = max(0, 80-46) = 34 (reduced, not zero)",
+      "ghost_effect_parent": "parent_debt = max(0, 20-46) = 0 (COMPLETE suppression)",
+      "duration": "INDEFINITE until observer restart or new session",
+      "currently_active": false,
+      "reason_not_active": "pending=0 (no DISPATCHABLE demand currently)"
+    }
+  ],
+  "pre_fix_ghost_inflation": {
+    "backup": "backup-20260813-012318/harness/refill_controller_v2.py",
+    "native_ghosts_counted": 154,
+    "exec_ghosts_counted": 8,
+    "total_ghost_running": 162,
+    "capacity_with_ghosts": 0,
+    "deficit_with_ghosts": 0,
+    "effect": "COMPLETE suppression of all real debt"
+  },
+  "hardclamp_check": {
+    "explicit_hardclamp_found": false,
+    "implicit_softclamp": "capacity=max(0,target_total-running_total) reduced by ghost inflation",
+    "prohibition_satisfied": true,
+    "note": "No line of form min(deficit, CONSTANT) found; only legitimate capacity-bounded min"
+  },
+  "minimum_fix_proposal": {
+    "option_A": "Reject ESTIMATED freshness in _read_observer_snapshot (refill_controller_v2.py:368-369); accept only LIVE and QUIET",
+    "option_B": "Add world_state_age check: observer must provide last_world_state_at, reject if >30s",
+    "option_C": "Expose local_raw_running (before observer overlay) and true_unfulfilled_demand in state output; do not reduce capacity by ghost-inflated observer count",
+    "recommended": "option_A: minimal change, no false positives for valid ESTIMATED data from live-but-quiet session",
+    "code_location": "refill_controller_v2.py:368 change {LIVE,QUIET,ESTIMATED} to {LIVE,QUIET}"
+  },
+  "unresolved": [
+    "observer QUIET freshness: may also serve stale data from a closing session - needs same analysis",
+    "parent_sessions.active=True never cleared on crash - requires hook to fire on session file close",
+    "exec_roster cold-start reconciler: supervisor_lost path (supervisor_pid dead, state=running) depends on restart - no continuous monitor currently checks this path"
+  ]
+}

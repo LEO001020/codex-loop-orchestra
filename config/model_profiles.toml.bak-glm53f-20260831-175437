@@ -1,0 +1,67 @@
+schema = "codex-loop-model-profiles/v1"
+active_profile = "grok-v4p"
+
+# Profiles control both the ordinary execution family and the explicit review
+# family.  Sol remains the root and is never used as an implicit child.
+[profiles.v4f]
+label = "DeepSeek V4 Flash"
+execution_model = "weiwu/deepseek-v4-flash"
+execution_reasoning = "ultra"
+review_model = "weiwu-k3/kimi-k3"
+review_reasoning = "max"
+
+[profiles.glm]
+label = "GLM 5.2"
+execution_model = "weiwu/glm-5.2"
+execution_reasoning = "ultra"
+review_model = "weiwu-k3/kimi-k3"
+review_reasoning = "max"
+
+[profiles.k3-only]
+label = "K3 temporary fallback"
+execution_model = "weiwu-k3/kimi-k3"
+execution_reasoning = "max"
+review_model = "weiwu-k3/kimi-k3"
+review_reasoning = "max"
+
+[profiles.sonnet46-dual]
+label = "Claude Sonnet 4.6 Execution + K3 Review"
+execution_model = "weiwu/aws.claude-sonnet-4.6"
+execution_reasoning = "ultra"
+review_model = "weiwu-k3/kimi-k3"
+review_reasoning = "max"
+
+[profiles.sonnet46-all]
+label = "Claude Sonnet 4.6 Execution + Review"
+execution_model = "weiwu/aws.claude-sonnet-4.6"
+execution_reasoning = "ultra"
+review_model = "weiwu/aws.claude-sonnet-4.6"
+review_reasoning = "ultra"
+
+[profiles.v4f-sonnet-review]
+label = "DeepSeek V4 Flash Execution + Claude Sonnet 4.6 Review"
+execution_model = "weiwu/deepseek-v4-flash"
+execution_reasoning = "ultra"
+review_model = "weiwu/aws.claude-sonnet-4.6"
+review_reasoning = "ultra"
+
+[profiles.v4f-v4p]
+label = "DeepSeek V4 Flash Execution + DeepSeek V4 Pro Review"
+execution_model = "weiwu/deepseek-v4-flash"
+execution_reasoning = "ultra"
+review_model = "weiwu/deepseek-v4-pro"
+review_reasoning = "ultra"
+
+[profiles.grok-v4p]
+label = "Temporary Grok 4.6 Execution + Review"
+execution_model = "snaillmou/grok-4.6"
+execution_reasoning = "max"
+review_model = "snaillmou/grok-4.6"
+review_reasoning = "max"
+
+[profiles.grok-k3]
+label = "Grok 4.6 Execution + Kimi K3 Review (owner decision 2026-08-30)"
+execution_model = "snaillmou/grok-4.6"
+execution_reasoning = "max"
+review_model = "weiwu-k3/kimi-k3"
+review_reasoning = "max"

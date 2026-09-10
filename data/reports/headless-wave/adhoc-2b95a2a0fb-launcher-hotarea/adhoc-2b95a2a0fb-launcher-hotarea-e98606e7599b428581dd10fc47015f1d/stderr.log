@@ -1,0 +1,146 @@
+2026-08-29T14:16:39.219863Z  WARN sqlx::query: slow statement: execution time exceeded alert threshold summary="DELETE FROM logs WHERE …" db.statement="\n\nDELETE FROM logs WHERE ts < ?\n" rows_affected=14117 rows_returned=0 elapsed=3.3768047s elapsed_secs=3.3768047 slow_threshold=1s
+Reading additional input from stdin...
+2026-08-29T14:16:41.052915Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Could not validate your refresh token. Please try signing in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "invalid_refresh_token"
+  }
+}
+2026-08-29T14:16:41.052973Z  WARN codex_login::auth::manager: Encountered unknown response while refreshing token backend_code="invalid_refresh_token" backend_body="{\n  \"error\": {\n    \"message\": \"Could not validate your refresh token. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"param\": null,\n    \"code\": \"invalid_refresh_token\"\n  }\n}"
+2026-08-29T14:16:41.053148Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:16:41.055207Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-29T14:16:41.145684Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:16:41.147042Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:16:41.147353Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:16:41.147624Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:16:41.150639Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:16:41.921437Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Provided authentication token is expired. Please try signing in again.",
+    "type": null,
+    "code": "token_expired",
+    "param": null
+  },
+  "status": 401,
+  "detail": {
+    "code": "token_expired",
+    "message": "Provided authentication token is expired. Please try signing in again."
+  }
+}
+2026-08-29T14:16:42.180910Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:16:43.546911Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:16:44.131652Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:16:44.132333Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:16:44.133069Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:17:03.084449Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:17:03.084986Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:17:03.085605Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:17:11.943131Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:17:11.943700Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:17:11.944294Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:17:49.175845Z ERROR codex_core::tools::router: error=failed to parse function arguments: invalid type: floating point `120000.0`, expected u64 at line 1 column 547
+2026-08-29T14:17:49.175878Z ERROR codex_core::tools::router: error=failed to parse function arguments: invalid type: floating point `30000.0`, expected u64 at line 1 column 1014
+2026-08-29T14:17:50.107454Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:17:50.107911Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:17:50.108408Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:18:07.770665Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.3 seconds
+Output:
+python: 
+Line |
+   2 |  python "C:\Users\hzq00\Documents\Codex\2026-08-23\ni-j\work\stage5_ke бн
+     |  ~~~~~~
+     | The term 'python' is not recognized as a name of a cmdlet, function, script file, or executable program.
+Check the spelling of the name, or if a path was included, verify that the path is correct and try again.
+
+2026-08-29T14:18:07.810614Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.4 seconds
+Output:
+python: 
+Line |
+   2 |  python -c "import zipfile; from collections import Counter; apk = r'C бн
+     |  ~~~~~~
+     | The term 'python' is not recognized as a name of a cmdlet, function, script file, or executable program.
+Check the spelling of the name, or if a path was included, verify that the path is correct and try again.
+
+2026-08-29T14:18:07.829373Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:18:07.830049Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:18:07.830700Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:18:17.542833Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.3 seconds
+Output:
+Get-ChildItem: 
+Line |
+   2 |  бн \Python") { Get-ChildItem "$env:LOCALAPPDATA\Programs\Python" -Recurs бн
+     |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Access to the path 'C:\Users\hzq00\AppData\Local\Programs\Python' is denied.
+
+2026-08-29T14:18:17.557385Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:18:17.557864Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:18:17.558338Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:18:36.524542Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:18:36.525182Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:18:36.525771Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:18:53.031722Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+ResourceUnavailable: 
+Line |
+   2 |  & "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\python.exe" …
+     |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Program 'python.exe' failed to run: An error occurred trying to start process 'C:\Users\hzq00\AppData\Local\Programs\Python\Python314\python.exe' with working directory 'C:\Users\hzq00\Documents\Codex\2026-08-29\hy4-ai-ai-ai-ai-01a02ee0'. 拒绝访问。At line:2 char:1
++ & "C:\Users\hzq00\AppData\Local\Programs\Python\Python314\python.exe" …
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.
+ResourceUnavailable: 
+Line |
+   2 |  …  --version; & "C:\Users\hzq00\AppData\Local\Programs\Python\Python312 …
+     |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Program 'python.exe' failed to run: An error occurred trying to start process 'C:\Users\hzq00\AppData\Local\Programs\Python\Python312\python.exe' with working directory 'C:\Users\hzq00\Documents\Codex\2026-08-29\hy4-ai-ai-ai-ai-01a02ee0'. 拒绝访问。At line:2 char:82
++ …  --version; & "C:\Users\hzq00\AppData\Local\Programs\Python\Python312 …
++               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.
+
+2026-08-29T14:18:56.422096Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:18:56.422603Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:18:56.423100Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:19:18.005656Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:19:18.006222Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:19:18.006776Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:19:31.350734Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:19:31.351277Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:19:31.351744Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:19:50.465839Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:19:50.466814Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:19:50.467410Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:20:11.866994Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:20:11.867603Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:20:11.868117Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:20:24.997322Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:20:24.997618Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:20:24.997869Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:21:05.859245Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:21:05.859618Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:21:05.859952Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:21:11.808005Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 189ms)... turn_id=01a04de1-39bf-7591-8cf2-92ab1e49d828 retries=1 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider unreachable: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch(), url: http://127.0.0.1:10100/v1/responses
+2026-08-29T14:21:11.999513Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:21:12.000095Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:21:12.000609Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:21:17.734244Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 367ms)... turn_id=01a04de1-39bf-7591-8cf2-92ab1e49d828 retries=2 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider unreachable: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch(), url: http://127.0.0.1:10100/v1/responses
+2026-08-29T14:21:18.108513Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:21:18.109029Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:21:18.109505Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:21:24.197093Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 740ms)... turn_id=01a04de1-39bf-7591-8cf2-92ab1e49d828 retries=3 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider unreachable: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch(), url: http://127.0.0.1:10100/v1/responses
+2026-08-29T14:21:24.942554Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:21:24.943125Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:21:24.943620Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:21:30.551393Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.495s)... turn_id=01a04de1-39bf-7591-8cf2-92ab1e49d828 retries=4 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider unreachable: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch(), url: http://127.0.0.1:10100/v1/responses
+2026-08-29T14:21:32.051056Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:21:32.051569Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:21:32.052048Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:21:37.910317Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 3.232s)... turn_id=01a04de1-39bf-7591-8cf2-92ab1e49d828 retries=5 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider unreachable: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch(), url: http://127.0.0.1:10100/v1/responses
+2026-08-29T14:21:41.153675Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:21:41.154169Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:21:41.154961Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:21:46.752621Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T14:21:46.756035Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)

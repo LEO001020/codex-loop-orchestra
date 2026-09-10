@@ -1,0 +1,22 @@
+工作区中只有一个占位符 README，没有任何 FL18 manifest、FL06 对比基线、systemd unit 文件、dropin 配置或 researchctl 绑定文件。
+
+**核验结果：无法完成任务**
+
+本工作区（`E:\VPS\reports\fl18-live-path-review-workspace`）仅包含一个 50 字节的 `README.txt`，内容为：
+
+> `Read-only workspace for live path binding review.`
+
+没有以下任何预期材料：
+
+| 预期材料 | 状态 |
+|---|---|
+| FL18 manifest 文件 | **缺失** |
+| FL06 manifest / baseline | **缺失** |
+| systemd base unit（`.service`） | **缺失** |
+| dropin 配置（`.conf`） | **缺失** |
+| `researchctl` 路径绑定记录 | **缺失** |
+| `daemon-reload` 前后快照 | **缺失** |
+
+**结论：** 工作区尚未填充待审材料，I3/I6 核验无从进行。请确认：
+1. FL18/FL06 的 manifest 和 unit 文件是否已正确放置在此路径下，或是否需要从其他位置（如 VPS 生产环境、另一个 reports 目录）复制到此工作区；
+2. 若材料在其他路径，请提供确切位置，以便在只读范围内完成核验。

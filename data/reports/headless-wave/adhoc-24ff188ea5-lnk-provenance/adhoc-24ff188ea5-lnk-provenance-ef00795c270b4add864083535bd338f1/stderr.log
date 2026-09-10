@@ -1,0 +1,55 @@
+Reading additional input from stdin...
+2026-08-16T16:14:36.235111Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-16T16:14:42.356756Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-16T16:14:50.293762Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.7 seconds
+Output:
+New-Object : 无法创建类型。此语言模式仅支持核心类型。
+所在位置 行:2 字符: 10
++ $shell = New-Object -ComObject WScript.Shell; $lnk = $shell.CreateSho ...
++          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (:) [New-Object], PSNotSupportedException
+    + FullyQualifiedErrorId : CannotCreateComTypeConstrainedLanguage,Microsoft.PowerShell.Commands.NewObjectCommand
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:2 字符: 47
++ ... ript.Shell; $lnk = $shell.CreateShortcut('C:\Users\hzq00\Desktop\Code ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+无法将值转换为类型“System.Management.Automation.LanguagePrimitives+InternalPSCustomObject”。此语言模式仅支持核心类型。
+所在位置 行:2 字符: 121
++ ... P F2.lnk'); [PSCustomObject]@{ TargetPath=$lnk.TargetPath; Arguments= ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) []，RuntimeException
+    + FullyQualifiedErrorId : ConversionSupportedOnlyToCoreTypes
+ 
+
+2026-08-16T16:15:01.096291Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.4 seconds
+Output:
+无法调用方法。此语言模式仅支持核心类型的方法调用。
+所在位置 行:2 字符: 1
++ $bytes = [System.IO.File]::ReadAllBytes('C:\Users\hzq00\Desktop\Codex ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : MethodInvocationNotSupportedInConstrainedLanguage
+ 
+无法调用方法。此语言模式仅支持核心类型的方法调用。
+所在位置 行:2 字符: 86
++ ... P F2.lnk'); [System.Text.Encoding]::Unicode.GetString($bytes) -replac ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : MethodInvocationNotSupportedInConstrainedLanguage
+ 
+
+2026-08-16T16:16:41.314399Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)

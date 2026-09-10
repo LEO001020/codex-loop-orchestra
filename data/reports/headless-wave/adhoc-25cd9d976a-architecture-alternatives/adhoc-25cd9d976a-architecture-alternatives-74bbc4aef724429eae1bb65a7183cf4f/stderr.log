@@ -1,0 +1,379 @@
+Reading additional input from stdin...
+2026-08-16T15:12:56.629899Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-16T15:13:00.734946Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-16T15:13:12.786465Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-16T15:13:22.534834Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-16T15:13:31.858318Z  WARN codex_sandboxing::violation: recorded sandbox violation: resource=filesystem backend=windows_sandbox reason=policy_denied path=unknown
+2026-08-16T15:13:31.859823Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Total output lines: 1148
+Output:
+
+FullName                                                                                                          Length  
+--------                                                                                                          ------  
+E:\codex-LOOP\codex-loop-s-f2\.codex                                                                                      
+E:\codex-LOOP\codex-loop-s-f2\.pytest_cache                                                                               
+E:\codex-LOOP\codex-loop-s-f2\agents                                                                                      
+E:\codex-LOOP\codex-loop-s-f2\backup-20260811-215706                                                                      
+E:\codex-LOOP\codex-loop-s-f2\backup-20260811-215927                                                                      
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318                                                                      
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2                                                                             
+E:\codex-LOOP\codex-loop-s-f2\config                                                                                      
+E:\codex-LOOP\codex-loop-s-f2\C?                                                                                          
+E:\codex-LOOP\codex-loop-s-f2\data                                                                                        
+E:\codex-LOOP\codex-loop-s-f2\harness                                                                                     
+E:\codex-LOOP\codex-loop-s-f2\hooks                                                                                       
+E:\codex-LOOP\codex-loop-s-f2\metering                                                                                    
+E:\codex-LOOP\codex-loop-s-f2\reports                                                                                     
+E:\codex-LOOP\codex-loop-s-f2\schemas                                                                                     
+E:\codex-LOOP\codex-loop-s-f2\tests                                                                                       
+E:\codex-LOOP\codex-loop-s-f2\AGENTS.md                                                                           9181    
+E:\codex-LOOP\codex-loop-s-f2\install.sh                                                                          14120   
+E:\codex-LOOP\codex-loop-s-f2\install_v2.sh                                                                       6332    
+E:\codex-LOOP\codex-loop-s-f2\README.md                                                                           24979   
+E:\codex-LOOP\codex-loop-s-f2\search_log.md                                                                       30570   
+E:\codex-LOOP\codex-loop-s-f2\SHA256SUMS                                                                          10277   
+E:\codex-LOOP\codex-loop-s-f2\test_evidence_pytest_output.txt                                                     341     
+E:\codex-LOOP\codex-loop-s-f2\VERSIONS.lock                                                                       7666    
+E:\codex-LOOP\codex-loop-s-f2\work_commencement_certificate.md                                                    3537    
+E:\codex-LOOP\codex-loop-s-f2\.codex\hooks                                                                                
+E:\codex-LOOP\codex-loop-s-f2\.codex\config.toml                                                                  572     
+E:\codex-LOOP\codex-loop-s-f2\.codex\hooks.json                                                                   2502    
+E:\codex-LOOP\codex-loop-s-f2\.codex\hooks\__pycache__                                                                    
+E:\codex-LOOP\codex-loop-s-f2\.codex\hooks\reconcile_subagent_metering.ps1                                        2746    
+E:\codex-LOOP\codex-loop-s-f2\.codex\hooks\reconcile_subagent_metering.py                                         11485   
+E:\codex-LOOP\codex-loop-s-f2\.codex\hooks\subagent_start_meter.ps1                                               3193    
+E:\codex-LOOP\codex-loop-s-f2\agents\duty_officer.toml                                                            3819    
+E:\codex-LOOP\codex-loop-s-f2\agents\plan_expander.toml                                                           1110    
+E:\codex-LOOP\codex-loop-s-f2\agents\reviewer.toml                                                                3427    
+E:\codex-LOOP\codex-loop-s-f2\agents\verifier.toml                                                                3576    
+E:\codex-LOOP\codex-loop-s-f2\agents\worker.toml                                                                  2789    
+E:\codex-LOOP\codex-loop-s-f2\backup-20260811-215706\config                                                               
+E:\codex-LOOP\codex-loop-s-f2\backup-20260811-215706\config\orchestration_policy.toml                             1821    
+E:\codex-LOOP\codex-loop-s-f2\backup-20260811-215706\config\refill_policy.toml                                    482     
+E:\codex-LOOP\codex-loop-s-f2\backup-20260811-215927\tests                                                                
+E:\codex-LOOP\codex-loop-s-f2\backup-20260811-215927\tests\orchestration_v2                                               
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\config                                                               
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\harness                                                              
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\hooks                                                                
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\metering                                                             
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\config\loop_config_v2.toml                                   1294    
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\config\orchestration_policy_v2.toml                          8395    
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\config\refill_policy.toml                                    916     
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\config\roles_v2.yaml                                         4614    
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\harness\agent_router.py                                      24475   
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\harness\budget_controller.py                                 22206   
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\harness\dispatch_v2.py                                       30598   
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\harness\l2_consumer.py                                       43970   
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\harness\layered_gate.py                                      24749   
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\harness\orchestration_common.py                              20704   
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\harness\refill_controller_v2.py                              19756   
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\harness\root_turn_governor.py                                25712   
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\harness\statemachine_v2.py                                   34352   
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\harness\trigger_eval_v2.py                                   20806   
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\hooks\sol_tool_gate_v2.py                                    19366   
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\metering\model_token_share_v2.py                             26666   
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\.pytest_cache                                                               
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\config                                                                      
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\data                                                                        
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness                                                                     
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\hooks                                                                       
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\metering                                                                    
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests                                                                       
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\config\loop_config_v2.toml                                          1593    
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\config\orchestration_policy.toml                                    3705    
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\config\orchestration_policy_v2.toml                                 7578    
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\config\refill_policy.toml                                           807     
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\config\roles_v2.yaml                                                4503    
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\config\statemachine_v2_transitions.json                             1773    
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\config\triggers_v2.yaml                                             6711    
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\__pycache__                                                         
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\agent_router.py                                             23842   
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\budget_controller.py                                        21686   
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\dispatch_v2.py                                              28126   
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\l2_consumer.py                                              39798   
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\layered_gate.py                                             13333   
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\lifecycle_supervisor_v2.py                                  15849   
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\orchestration_common.py                                     17609   
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\refill_controller_v2.py                                     19057   
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\result_reducer.py                                           20504   
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\root_turn_governor.py                                       25656   
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\short_result_validator.py                                   14867   
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\statemachine_v2.py                                          33220   
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\trigger_eval_v2.py                                          20678   
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\hooks\__pycache__                                                           
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\hooks\sol_tool_gate_v2.py                                           19373   
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\metering\__pycache__                                                        
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\metering\model_token_share_v2.py                                    25910   
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\__pycache__                                                           
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\conftest.py                                                   5839    
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\test_agent_router.py                                          12368   
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\test_budget_controller.py                                     9282    
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\test_cold_start_rollback.py                                   6323    
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\test_dispatch_v2.py                                           13250   
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\test_governor_hysteresis.py                                   6030    
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\test_l2_consumer.py                                           13714   
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\test_layered_e2e.py                                           10377   
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\test_layered_gate.py                                          8125    
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\test_lifecycle_supervisor_v2.py                               9152    
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\test_refill_controller_v2.py                                  8671    
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\test_result_reducer.py                                        10073   
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\test_root_turn_governor.py                                    10543   
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\test_short_result_validator.py                                7743    
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\test_smoke_all.py                                             16984   
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\test_sol_tool_gate_v2.py                                      10003   
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\test_statemachine_v2.py                                       13086   
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\test_token_meter_v2.py                                        11215   
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\test_trigger_eval_v2.py                                       8891    
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\test_windows_wsl_paths.py                                     7633    
+E:\codex-LOOP\codex-loop-s-f2\config\config.toml.example                                                          7934    
+E:\codex-LOOP\codex-loop-s-f2\config\escalation_ladder.yaml                                                       4275    
+E:\codex-LOOP\codex-loop-s-f2\config\ipybox_sandbox.json                                                          619     
+E:\codex-LOOP\codex-loop-s-f2\config\loop_config_v2.toml                                                          1386    
+E:\codex-LOOP\codex-loop-s-f2\config\managed_files_v2.txt                                                         3490    
+E:\codex-LOOP\codex-loop-s-f2\config\model_profiles.toml                                                          1421    
+E:\codex-LOOP\codex-loop-s-f2\config\orchestration_policy.toml                                                    3705    
+E:\codex-LOOP\codex-loop-s-f2\config\orchestration_policy_v2.toml                                                 8412    
+E:\codex-LOOP\codex-loop-s-f2\config\refill_policy.toml                                                           1012    
+E:\codex-LOOP\codex-loop-s-f2\config\retry_classes.yaml                                                           5939    
+E:\codex-LOOP\codex-loop-s-f2\config\roles.yaml                                                                   3197    
+E:\codex-LOOP\codex-loop-s-f2\config\roles_v2.yaml                                                                4614    
+E:\codex-LOOP\codex-loop-s-f2\config\statemachine_v2_transitions.json                                             1778    
+E:\codex-LOOP\codex-loop-s-f2\config\triggers.yaml                                                                8766    
+E:\codex-LOOP\codex-loop-s-f2\config\triggers_v2.yaml                                                             6716    
+E:\codex-LOOP\codex-loop-s-f2\C?\Users                                                                                    
+E:\codex-LOOP\codex-loop-s-f2\C?\Users\hzq00                                                                              
+E:\codex-LOOP\codex-loop-s-f2\data\budget                                                                                 
+E:\codex-LOOP\codex-loop-s-f2\data\dead_letters                                                                           
+E:\codex-LOOP\codex-loop-s-f2\data\duty_review                                                                            
+E:\codex-LOOP\codex-loop-s-f2\data\governor                                                                               
+E:\codex-LOOP\codex-loop-s-f2\data\l2_queue                                                                               
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle                                                                              
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle_reports                                                                      
+E:\codex-LOOP\codex-loop-s-f2\data\orchestration                                                                          
+E:\codex-LOOP\codex-loop-s-f2\data\packets                                                                                
+E:\codex-LOOP\codex-loop-s-f2\data\plans                                                                                  
+E:\codex-LOOP\codex-loop-s-f2\data\provider_health                                                                        
+E:\codex-LOOP\codex-loop-s-f2\data\refill                                                                                 
+E:\codex-LOOP\codex-loop-s-f2\data\repairs                                                                                
+E:\codex-LOOP\codex-loop-s-f2\data\reports                                                                                
+E:\codex-LOOP\codex-loop-s-f2\data\router                                                                                 
+E:\codex-LOOP\codex-loop-s-f2\data\smoke                                                                                  
+E:\codex-LOOP\codex-loop-s-f2\data\sol_wake                                                                               
+E:\codex-LOOP\codex-loop-s-f2\data\usage                                                                                  
+E:\codex-LOOP\codex-loop-s-f2\data\validators                                                                             
+E:\codex-LOOP\codex-loop-s-f2\data\.breaker.json                                                                  48      
+E:\codex-LOOP\codex-loop-s-f2\data\.sm_cursor                                                                     6       
+E:\codex-LOOP\codex-loop-s-f2\data\escalation_log.jsonl                                                           59115   
+E:\codex-LOOP\codex-loop-s-f2\data\escalation_log.jsonl.lock                                                      1       
+E:\codex-LOOP\codex-loop-s-f2\data\events.ndjson                                                                  1672855 
+E:\codex-LOOP\codex-loop-s-f2\data\lessons.jsonl                                                                  0       
+E:\codex-LOOP\codex-loop-s-f2\data\progress_ledger.json                                                           137346  
+E:\codex-LOOP\codex-loop-s-f2\data\progress_ledger.lock                                                           1       
+E:\codex-LOOP\codex-loop-s-f2\data…25268 tokens truncated…OP\codex-loop-s-f2\reports\zhenshi-16wave-count-audit-20260813\report.md                               3930    
+E:\codex-LOOP\codex-loop-s-f2\reports\并发路由最终真值审计\verification_report.md                                           2449    
+E:\codex-LOOP\codex-loop-s-f2\reports\状态机发布闭环审计\verification_report.md                                            3765    
+E:\codex-LOOP\codex-loop-s-f2\schemas\decision_skeleton.schema.json                                               1672    
+E:\codex-LOOP\codex-loop-s-f2\schemas\plan_expander.schema.json                                                   1843    
+E:\codex-LOOP\codex-loop-s-f2\schemas\short_result.schema.json                                                    1195    
+E:\codex-LOOP\codex-loop-s-f2\tests\.pytest_cache                                                                         
+E:\codex-LOOP\codex-loop-s-f2\tests\golden                                                                                
+E:\codex-LOOP\codex-loop-s-f2\tests\mock_codex                                                                            
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2                                                                      
+E:\codex-LOOP\codex-loop-s-f2\tests\statemachine_paths                                                                    
+E:\codex-LOOP\codex-loop-s-f2\tests\unit                                                                                  
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__                                                                           
+E:\codex-LOOP\codex-loop-s-f2\tests\conftest.py                                                                   14155   
+E:\codex-LOOP\codex-loop-s-f2\tests\ipybox_parent_death_smoke.py                                                  3431    
+E:\codex-LOOP\codex-loop-s-f2\tests\ipybox_supervisor_smoke.py                                                    3216    
+E:\codex-LOOP\codex-loop-s-f2\tests\test_agent_router.py                                                          12368   
+E:\codex-LOOP\codex-loop-s-f2\tests\test_budget_controller.py                                                     9282    
+E:\codex-LOOP\codex-loop-s-f2\tests\test_cold_start_rollback.py                                                   6323    
+E:\codex-LOOP\codex-loop-s-f2\tests\test_dispatch_v2.py                                                           14680   
+E:\codex-LOOP\codex-loop-s-f2\tests\test_governor_hysteresis.py                                                   6030    
+E:\codex-LOOP\codex-loop-s-f2\tests\test_l2_consumer.py                                                           13714   
+E:\codex-LOOP\codex-loop-s-f2\tests\test_layered_e2e.py                                                           10544   
+E:\codex-LOOP\codex-loop-s-f2\tests\test_layered_gate.py                                                          8125    
+E:\codex-LOOP\codex-loop-s-f2\tests\test_lifecycle_supervisor_v2.py                                               9152    
+E:\codex-LOOP\codex-loop-s-f2\tests\test_refill_controller_v2.py                                                  8671    
+E:\codex-LOOP\codex-loop-s-f2\tests\test_result_reducer.py                                                        10073   
+E:\codex-LOOP\codex-loop-s-f2\tests\test_root_turn_governor.py                                                    10543   
+E:\codex-LOOP\codex-loop-s-f2\tests\test_short_result_validator.py                                                7743    
+E:\codex-LOOP\codex-loop-s-f2\tests\test_smoke_all.py                                                             16984   
+E:\codex-LOOP\codex-loop-s-f2\tests\test_sol_tool_gate_v2.py                                                      10003   
+E:\codex-LOOP\codex-loop-s-f2\tests\test_statemachine_v2.py                                                       14099   
+E:\codex-LOOP\codex-loop-s-f2\tests\test_token_meter_v2.py                                                        12928   
+E:\codex-LOOP\codex-loop-s-f2\tests\test_trigger_eval_v2.py                                                       8891    
+E:\codex-LOOP\codex-loop-s-f2\tests\test_windows_wsl_paths.py                                                     7633    
+E:\codex-LOOP\codex-loop-s-f2\tests\golden\__pycache__                                                                    
+E:\codex-LOOP\codex-loop-s-f2\tests\golden\test_g1_two_packet_parallel.py                                         3732    
+E:\codex-LOOP\codex-loop-s-f2\tests\golden\test_g2_retry_success.py                                               2949    
+E:\codex-LOOP\codex-loop-s-f2\tests\golden\test_g3_messy_failure.py                                               3831    
+E:\codex-LOOP\codex-loop-s-f2\tests\golden\test_g4_path_violation.py                                              3193    
+E:\codex-LOOP\codex-loop-s-f2\tests\golden\test_g5_merge_conflict.py                                              2957    
+E:\codex-LOOP\codex-loop-s-f2\tests\mock_codex\bin                                                                        
+E:\codex-LOOP\codex-loop-s-f2\tests\mock_codex\mock_codex_exec.sh                                                 5573    
+E:\codex-LOOP\codex-loop-s-f2\tests\mock_codex\mock_spawn.sh                                                      4692    
+E:\codex-LOOP\codex-loop-s-f2\tests\mock_codex\scenario_control.sh                                                1667    
+E:\codex-LOOP\codex-loop-s-f2\tests\mock_codex\setup_test_repo.sh                                                 1758    
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\__pycache__                                                          
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\conftest.py                                                  9320    
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_agent_router.py                                         12471   
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_budget_controller.py                                    9766    
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_cold_start_rollback.py                                  7230    
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_dispatch_v2.py                                          17629   
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_governor_hysteresis.py                                  6030    
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_install_v2.py                                           12456   
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_l2_consumer.py                                          14509   
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_layered_e2e.py                                          10544   
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_layered_gate.py                                         8850    
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_lifecycle_supervisor_v2.py                              9152    
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_meter_governor_contract.py                              5212    
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_parent_manifest_importer.py                             10383   
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_plan_consumer.py                                        4346    
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_production_bridges.py                                   6743    
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_provider_health.py                                      3193    
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_refill_consumer_v2.py                                   15090   
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_refill_controller_v2.py                                 18325   
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_result_reducer.py                                       10073   
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_root_turn_governor.py                                   10543   
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_short_result_validator.py                               7743    
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_smoke_all.py                                            17066   
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_sol_tool_gate_v2.py                                     10003   
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_statemachine_v1_retry_contract.py                       1835    
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_statemachine_v2.py                                      19139   
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_terminal_packet_epilogue.py                             5457    
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_token_meter_v2.py                                       13531   
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_trigger_eval_v2.py                                      8891    
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_windows_wsl_paths.py                                    7554    
+E:\codex-LOOP\codex-loop-s-f2\tests\statemachine_paths\__pycache__                                                        
+E:\codex-LOOP\codex-loop-s-f2\tests\statemachine_paths\test_adversarial.py                                        3383    
+E:\codex-LOOP\codex-loop-s-f2\tests\statemachine_paths\test_all_transitions.py                                    3913    
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\__pycache__                                                                      
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_acceptance_replay.py                                                5708    
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_csv_reconcile.py                                                    6998    
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_dag_assert.py                                                       2525    
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_desktop_edge_reconcile.py                                           4864    
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_diffvalidator.py                                                    3474    
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_dispatch.py                                                         5997    
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_dispatch_model_pin.py                                               9423    
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_dispatch_reinjection.py                                             3269    
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_duty_gate.py                                                        3410    
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_duty_gate_fixhint.py                                                2820    
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_duty_production.py                                                  7827    
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_duty_route.py                                                       2570    
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_headless_wave.py                                                    13754   
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_l3_cap.py                                                           5320    
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_leaf_agent_spawn_gate.py                                            2293    
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_lifecycle_supervisor.py                                             20027   
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_loop_config.py                                                      2175    
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_loop_monitor_server.py                                              23110   
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_missing_check.sh                                                    3085    
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_model_profile.py                                                    6242    
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_model_token_share.py                                                14034   
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_opencodex_supervisor.py                                             1229    
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_oscillation_report.py                                               4502    
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_path_id_safety.py                                                   5170    
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_plan_pipeline.py                                                    3479    
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_reconcile_subagent_metering.py                                      8930    
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_refill_controller.py                                                16450   
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_release_review_route.py                                             7226    
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_replan_cap.py                                                       2855    
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_retry.py                                                            7029    
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_sanitize.py                                                         3453    
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_shell_suites.py                                                     970     
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_signals_collect.py                                                  4624    
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_smoke_gate.py                                                       6071    
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_smoke_gate_real.py                                                  5745    
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_sol_tool_gate.py                                                    5083    
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_spawn_watchdog.py                                                   2935    
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_statemachine.py                                                     8274    
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_subagent_lifecycle_hook.py                                          28108   
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_summary_synth.py                                                    3980    
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_trigger_eval.py                                                     7667    
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_verdict_aggregate.py                                                3097    
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_verdict_check.py                                                    4268    
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_worktree_pool.sh                                                    5459    
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\conftest.cpython-312-pytest-8.4.1.pyc                             15178   
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\conftest.cpython-314-pytest-9.1.1.pyc                             27003   
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\conftest.cpython-314.pyc                                          24218   
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\ipybox_parent_death_smoke.cpython-314-pytest-9.1.1.pyc            9718    
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\ipybox_supervisor_smoke.cpython-314-pytest-9.1.1.pyc              11765   
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\test_agent_router.cpython-314-pytest-9.1.1.pyc                    54470   
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\test_budget_controller.cpython-314-pytest-9.1.1.pyc               45909   
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\test_cold_start_rollback.cpython-314-pytest-9.1.1.pyc             24592   
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\test_dispatch_v2.cpython-314-pytest-9.1.1.pyc                     61289   
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\test_governor_hysteresis.cpython-314-pytest-9.1.1.pyc             24448   
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\test_l2_consumer.cpython-314-pytest-9.1.1.pyc                     70238   
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\test_layered_e2e.cpython-314-pytest-9.1.1.pyc                     38152   
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\test_layered_gate.cpython-314-pytest-9.1.1.pyc                    34710   
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\test_lifecycle_supervisor_v2.cpython-314-pytest-9.1.1.pyc         53462   
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\test_refill_controller_v2.cpython-314-pytest-9.1.1.pyc            37019   
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\test_result_reducer.cpython-314-pytest-9.1.1.pyc                  48347   
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\test_root_turn_governor.cpython-314-pytest-9.1.1.pyc              57663   
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\test_short_result_validator.cpython-314-pytest-9.1.1.pyc          48254   
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\test_smoke_all.cpython-314-pytest-9.1.1.pyc                       24349   
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\test_sol_tool_gate_v2.cpython-314-pytest-9.1.1.pyc                45712   
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\test_statemachine_v2.cpython-314-pytest-9.1.1.pyc                 57229   
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\test_token_meter_v2.cpython-314-pytest-9.1.1.pyc                  51720   
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\test_trigger_eval_v2.cpython-314-pytest-9.1.1.pyc                 37223   
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\test_windows_wsl_paths.cpython-314-pytest-9.1.1.pyc               33104   
+
+
+
+Get-ChildItem : 对路径“E:\codex-LOOP\codex-loop-s-f2\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem -Path "E:\codex-LOOP\codex-loop-s-f2" -Recurse -Depth 2 ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\codex-LOOP\c...2\.pytest_cache:String) [Get-ChildItem], Unauthoriz 
+   edAccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+Get-ChildItem : 对路径“E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem -Path "E:\codex-LOOP\codex-loop-s-f2" -Recurse -Depth 2 ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\codex-LOOP\c...2\.pytest_cache:String) [Get-ChildItem], Unauthoriz 
+   edAccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+Get-ChildItem : 对路径“E:\codex-LOOP\codex-loop-s-f2\tests\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem -Path "E:\codex-LOOP\codex-loop-s-f2" -Recurse -Depth 2 ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\codex-LOOP\c...s\.pytest_cache:String) [Get-ChildItem], Unauthoriz 
+   edAccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-16T15:13:48.829398Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-16T15:20:43.539238Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-16T15:26:00.635267Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 209ms)... turn_id=01a00b22-0f85-76c3-a889-320c7955b73e retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-16T15:26:46.476180Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 419ms)... turn_id=01a00b22-0f85-76c3-a889-320c7955b73e retries=2 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-16T15:27:32.724654Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 782ms)... turn_id=01a00b22-0f85-76c3-a889-320c7955b73e retries=3 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-16T15:27:40.592428Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.6s)... turn_id=01a00b22-0f85-76c3-a889-320c7955b73e retries=4 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-16T15:27:49.531771Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 3.21s)... turn_id=01a00b22-0f85-76c3-a889-320c7955b73e retries=5 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-16T15:28:06.178021Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

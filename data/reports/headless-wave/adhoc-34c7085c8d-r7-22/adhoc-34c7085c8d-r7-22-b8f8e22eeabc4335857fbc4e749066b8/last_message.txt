@@ -1,0 +1,47 @@
+I now have all the evidence needed. Here is the complete verification report:
+
+---
+
+## V1超时预算复核 — 只读核查结果
+
+### 结论（一行）
+
+共享 sidecar `data/timeout_retry_counters.json` **已正确实现**，V1 与 V2 均使用 `TIMEOUT_RETRY_MAX = 1` 作为 cap，无分歧，cap=1 在代码、常量、测试三处一致固化。
+
+---
+
+### 已验证事实
+
+**1. 共享 sidecar 路径一致**
+
+| 版本 | 路径解析 | 实际路径 |
+|------|----------|----------|
+| V1 `statemachine.py:176` | `E("timeout_retry_counters.json")` → `DATA/...` → `os.environ["LOOP_ROOT"]/data/` | `data/timeout_retry_counters.json` |
+| V2 `statemachine_v2.py:361` | `self.paths.data / "timeout_retry_counters.json"` → `LoopPaths.data` = `root / "data"` | `data/timeout_retry_counters.json` |
+
+两者均读取 `$LOOP_ROOT/data/timeout_retry_counters.json`，路径完全相同。V1 docstring（`statemachine.py:172`）明确写明："The sidecar is shared with v2 so a routing-mode switch cannot reset the timeout budget."
+
+**2. cap=1 在两个版本中固化**
+
+- `harness/statemachine.py:145`：`TIMEOUT_RETRY_MAX = 1  # t37: only the first timeout may re-dispatch`
+- `harness/statemachine_v2.py:74`：`TIMEOUT_RETRY_MAX: Final[int] = 1  # t37 budget: only the FIRST timeout retries`
+- 两者 `_bump_counter` / `bump_timeout_retry_counter` 均用 `count > TIMEOUT_RETRY_MAX` 判断是否超出，即 count=1 时允许，count=2 时 dead-letter。
+
+**3. 超出 cap 时的行为一致**
+
+两版本在 `if num == 37: count, exceeded = bump_timeout_retry_counter(pid)` 后，若 `exceeded` 为 True，均调用 `to_dead_letter(..., "timeout_retry_exhausted", {"timeout_retries": count, "cap": TIMEOUT_RETRY_MAX})`，返回 `"DEAD_LETTER"`。
+
+**4. 测试固化 cap=1**
+
+- `tests/orchestration_v2/test_statemachine_v1_retry_contract.py`：`test_second_timed_out_retry_dead_letters_with_shared_budget` 断言第二次 retry_dispatch → DEAD_LETTER，且 `detail == {"timeout_retries": 2, "cap": 1}`。
+- `tests/test_statemachine_v2.py:88` / `tests/orchestration_v2/test_statemachine_v2.py:89`：`assert TIMEOUT_RETRY_MAX == 1`。
+
+**5. 当前 sidecar 状态**
+
+`data/timeout_retry_counters.json` 中 6 个 `parent-*` 包 counter 均为 `1`，意味着这些包已消耗完唯一的超时重试配额，下次再 `retry_dispatch` 将直接 dead-letter。无 counter > 1 的异常值。
+
+---
+
+### 关注点（不影响正确性，供参考）
+
+`config/retry_classes.yaml` 中 `timeout` 类的 `max_retries: 2`（`retry.py` 层面的每包预算）与 statemachine 层面的 `TIMEOUT_RETRY_MAX = 1`（计数器 sidecar）**并不冲突**：这两个检查位于调用链的不同层次——`retry.py` 先判断自己的 `max_retries`（基于 ledger `attempts` 字段），之后 `retry_dispatch` 事件进入 statemachine，statemachine 独立用 sidecar 计数器强制 cap=1。实际有效上限是 **min(2, 1) = 1**，由 statemachine cap 决定。两层都已有测试覆盖，行为正确。

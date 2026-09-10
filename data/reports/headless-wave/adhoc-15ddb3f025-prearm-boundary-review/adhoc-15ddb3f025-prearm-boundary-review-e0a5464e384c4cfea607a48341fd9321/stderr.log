@@ -1,0 +1,173 @@
+Reading additional input from stdin...
+2026-08-15T06:08:18.974876Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-15T06:08:22.820542Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-15T06:08:50.510336Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `command` at line 1 column 40
+2026-08-15T06:09:10.739730Z ERROR codex_core::tools::router: error=unsupported call: read
+2026-08-15T06:09:19.107207Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:09:26.570876Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:09:43.971399Z ERROR codex_core::tools::router: error=unsupported call: codebase_search
+2026-08-15T06:09:46.468283Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-15T06:09:54.642272Z ERROR codex_core::tools::router: error=unsupported call: grep
+2026-08-15T06:10:41.849290Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 216ms)... turn_id=01a00409-147f-7c80-aca9-54ff79aa5cd6 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T06:10:55.527731Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.9 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 25
++ dir E:\VPS /b /s 2>&1 | head -40
++                         ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-15T06:11:03.995214Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1 seconds
+Output:
+Get-ChildItem : 找不到接受实际参数“/s”的位置形式参数。
+所在位置 行:2 字符: 1
++ dir E:\VPS /b /s 2>&1 | Select-Object -First 60
++ ~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) [Get-ChildItem]，ParameterBindingException
+    + FullyQualifiedErrorId : PositionalParameterNotFound,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-15T06:13:00.260848Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 7.1 seconds
+Output:
+
+FullName                                                                                                               
+--------                                                                                                               
+E:\VPS\p5_fl20_activation_probe_remote.sh                                                                              
+E:\VPS\pc7-conditional-prewarm-headless-retry.json                                                                     
+E:\VPS\pc7-conditional-prewarm-headless.json                                                                           
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\modelarmor\v1\modelarmor_v1...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\modelarmor\v1\modelarmor_v1...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\modelarmor\v1\__pycache__\m...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\modelarmor\v1\__pycache__\m...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\modelarmor\v1alpha\modelarm...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\modelarmor\v1alpha\modelarm...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\modelarmor\v1alpha\__pycach...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\modelarmor\v1alpha\__pycach...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\modelarmor\v1beta\modelarmo...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\modelarmor\v1beta\modelarmo...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\modelarmor\v1beta\__pycache...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\modelarmor\v1beta\__pycache...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\docker\api\swarm.py                                     
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\docker\api\__pycache__\swarm.cpython-312.pyc            
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\docker\models\swarm.py                                  
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\docker\models\__pycache__\swarm.cpython-312.pyc         
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\docker\types\swarm.py                                   
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\docker\types\__pycache__\swarm.cpython-312.pyc          
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\modelarmor\v1\modelarmor_v1_client.py         
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\modelarmor\v1\modelarmor_v1_messages.py       
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\modelarmor\v1alpha\modelarmor_v1alpha_clien...
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\modelarmor\v1alpha\modelarmor_v1alpha_messa...
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\modelarmor\v1beta\modelarmor_v1beta_client.py 
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\modelarmor\v1beta\modelarmor_v1beta_message...
+E:\VPS\.work\s1_independent_admin_phase_a_wave.json                                                                    
+E:\VPS\.work\fl20_activation_closure_v1\fl20-r1-final-delta.tar.gz                                                     
+E:\VPS\.work\fl20_activation_closure_v1\probe_fl20_memory_entities.sh                                                  
+E:\VPS\.work\fl20_activation_closure_v1\probe_fl20_memory_grep.sh                                                      
+E:\VPS\.work\fl20_activation_closure_v1\publish_fl20_r1_artifact.sh                                                    
+E:\VPS\.work\fl20_activation_closure_v1\register_fl20_r1_research_memory.sh                                            
+E:\VPS\.work\fl20_activation_closure_v1\owner-admin-cutover-final-20260815-alpha-data-plane-v1-fl20\audit\P5_FL20_DA...
+E:\VPS\.work\fl20_activation_closure_v1\owner-admin-cutover-final-20260815-alpha-data-plane-v1-fl20-r1\audit\P5_FL20...
+E:\VPS\.work\fl20_activation_closure_v1\owner-admin-cutover-final-20260815-alpha-data-plane-v1-fl20-r1\audit\P5_FL20...
+E:\VPS\.work\fl20_activation_closure_v1\owner-admin-cutover-final-20260815-alpha-data-plane-v1-fl20-r1\audit\P5_FL20...
+E:\VPS\home-gpu\Arm-HomeGpuRebootCanary.ps1                                                                            
+E:\VPS\home-gpu\arm_codex_repair_canary.py                                                                             
+E:\VPS\home-gpu\arm_fable_one_time.py                                                                                  
+E:\VPS\home-gpu\evidence\windows-reboot\20260810T190629Z\armed.json                                                    
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\01_P5_FL20_R1_ALPHA_ACTIVATION_MASTER_PLAN_V2.md           
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\06_INDEPENDENT_ADMIN_PHASE_A_ACTION_CARD_V2.md             
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\CURRENT_STATE\P5_FL20_R1_CEREMONY_EXECUTION_LOG_V1.md      
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\EVIDENCE_HISTORY\FL20_RELEASE_TERMINAL_V1.md               
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\EVIDENCE_HISTORY\FL20_TARGET_DATA_PLANE_RESULTS.json       
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\EVIDENCE_HISTORY\P5_FL20_PREDEPLOY_ACTIVATION_AUDIT_V1.md  
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\STAGE_OBJECTIVES\S1_INDEPENDENT_ADMIN_PHASE_A_V2.md        
+E:\VPS\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\S1_CODEX_PHASE_...
+E:\VPS\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\S1_CODEX_PHASE_...
+E:\VPS\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\SOURCE_V4\07_IN...
+E:\VPS\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\SOURCE_V4\S1_IN...
+E:\VPS\reports\owner-admin-cutover-final-20260815-alpha-data-plane-v1-fl20-r1.zip                                      
+E:\VPS\reports\authority-store-v3-integration-test-20260813\.venv\Lib\site-packages\pip\_vendor\distlib\t64-arm.exe    
+E:\VPS\reports\authority-store-v3-integration-test-20260813\.venv\Lib\site-packages\pip\_vendor\distlib\w64-arm.exe    
+
+
+Get-ChildItem : 对路径“E:\VPS\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem -Path E:\VPS -Recurse -File | Where-Object { $_.Name -m ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\VPS\.pytest_cache:String) [Get-ChildItem], UnauthorizedAccessExcep 
+   tion
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+Get-ChildItem : 对路径“E:\VPS\direct_repair_stage\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem -Path E:\VPS -Recurse -File | Where-Object { $_.Name -m ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\VPS\direct_repair_stage\.pytest_cache:String) [Get-ChildItem], Una 
+   uthorizedAccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-15T06:15:15.953051Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1 seconds
+Output:
+Get-Content : 找不到路径“E:\VPS\.work\fl20_activation_closure_v1\owner-admin-cutover-final-20260815-alpha-data-plane-v1
+-fl20-r1\audit\P5_FL20_DATA_PLANE_AUDIT_V1.md”，因为该路径不存在。
+所在位置 行:2 字符: 1
++ Get-Content "E:\VPS\.work\fl20_activation_closure_v1\owner-admin-cuto ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (E:\VPS\.work\fl...ANE_AUDIT_V1.md:String) [Get-Content], ItemNotFoundEx 
+   ception
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+
+2026-08-15T06:15:46.927594Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+Get-Content : 找不到路径“E:\VPS\.work\fl20_activation_closure_v1\owner-admin-cutover-final-20260815-alpha-data-plane-v1
+-fl20-r1\audit\P5_FL20_DATA_PLANE_AUDIT_V1.md”，因为该路径不存在。
+所在位置 行:2 字符: 1
++ Get-Content "E:\VPS\.work\fl20_activation_closure_v1\owner-admin-cuto ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (E:\VPS\.work\fl...ANE_AUDIT_V1.md:String) [Get-Content], ItemNotFoundEx 
+   ception
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+
+2026-08-15T06:20:13.695907Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 183ms)... turn_id=01a00409-147f-7c80-aca9-54ff79aa5cd6 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T06:21:15.000056Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 196ms)... turn_id=01a00409-147f-7c80-aca9-54ff79aa5cd6 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T06:22:51.024017Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 217ms)... turn_id=01a00409-147f-7c80-aca9-54ff79aa5cd6 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T06:23:52.513468Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 197ms)... turn_id=01a00409-147f-7c80-aca9-54ff79aa5cd6 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T06:25:12.939167Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 211ms)... turn_id=01a00409-147f-7c80-aca9-54ff79aa5cd6 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T06:26:00.965425Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 382ms)... turn_id=01a00409-147f-7c80-aca9-54ff79aa5cd6 retries=2 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T06:26:47.863769Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 756ms)... turn_id=01a00409-147f-7c80-aca9-54ff79aa5cd6 retries=3 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T06:27:34.765998Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.602s)... turn_id=01a00409-147f-7c80-aca9-54ff79aa5cd6 retries=4 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T06:27:51.114202Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 3.494s)... turn_id=01a00409-147f-7c80-aca9-54ff79aa5cd6 retries=5 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T06:28:16.566716Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

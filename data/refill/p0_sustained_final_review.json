@@ -1,0 +1,32 @@
+{
+  "schema":"codex-loop-parent-refill/v1",
+  "manifest_id":"p0-sustained-final-review-20260814",
+  "parent_session_id":"019feacd-184e-7472-9f11-ea364c22e595",
+  "parent_state":"active",
+  "enabled":true,
+  "target_active":20,
+  "cwd":"E:\\codex-LOOP\\codex-loop-s-f2",
+  "mode":"read-only",
+  "tasks":[
+    {"task_id":"final-01","task_name":"Importer目标上限复核","goal":"只读复核target_active 1..20的准入与运行时二次夹紧。","authorized_paths":["harness/parent_manifest_importer.py","harness/refill_controller_v2.py"],"acceptance":["列出行号和当前配置值","不得编辑"],"role":"verifier","sandbox":"read-only"},
+    {"task_id":"final-02","task_name":"Importer真实backlog复核","goal":"只读复核1..80真实任务backlog上限与超过80拒绝。","authorized_paths":["harness/parent_manifest_importer.py","tests/orchestration_v2/test_parent_manifest_importer.py"],"acceptance":["给出测试和行号","不得编辑"],"role":"worker","sandbox":"read-only"},
+    {"task_id":"final-03","task_name":"Importer幂等复核","goal":"只读复核重复manifest不新增packet、内容碰撞硬失败、批次无部分写入。","authorized_paths":["harness/parent_manifest_importer.py","tests/orchestration_v2/test_parent_manifest_importer.py"],"acceptance":["事实与假设分离","不得编辑"],"role":"verifier","sandbox":"read-only"},
+    {"task_id":"final-04","task_name":"Parent停用复核","goal":"只读复核Stop后旧manifest不能隐式复活、不同manifest重新导入的边界。","authorized_paths":["harness/parent_manifest_importer.py","harness/refill_consumer_v2.py","hooks/subagent_lifecycle.py"],"acceptance":["列行号和竞态结论","不得编辑"],"role":"worker","sandbox":"read-only"},
+    {"task_id":"final-05","task_name":"Queue父维度复核","goal":"只读复核queue_sync_ledger同时写全局池和parents backlog，inactive不进需求。","authorized_paths":["harness/refill_controller_v2.py","data/refill/"],"acceptance":["确认原子写和manifest门禁","不得编辑"],"role":"verifier","sandbox":"read-only"},
+    {"task_id":"final-06","task_name":"Native计数复核","goal":"只读复核native running TTL、parent归属和无身份任务不归父。","authorized_paths":["harness/refill_controller_v2.py","hooks/subagent_lifecycle.py"],"acceptance":["报告TTL边界风险等级","不得编辑"],"role":"worker","sandbox":"read-only"},
+    {"task_id":"final-07","task_name":"Exec进程代复核","goal":"只读复核exec supervisor/worker generation均存活才计running，starting只占位。","authorized_paths":["harness/refill_controller_v2.py","harness/lifecycle_supervisor.py"],"acceptance":["给出关键函数行号","不得编辑"],"role":"verifier","sandbox":"read-only"},
+    {"task_id":"final-08","task_name":"Observer时效复核","goal":"只读复核8765 observer freshness、timestamp 5秒门禁和exact root门禁。","authorized_paths":["harness/refill_controller_v2.py","launchers/loop_monitor_server.py"],"acceptance":["给出离线降级结论","不得编辑"],"role":"worker","sandbox":"read-only"},
+    {"task_id":"final-09","task_name":"Observer去重复核","goal":"只读复核observer与本地roster使用max不sum，跨平面不会双计。","authorized_paths":["harness/refill_controller_v2.py","launchers/loop_monitor_server.py"],"acceptance":["做一个数字反例计算","不得编辑"],"role":"verifier","sandbox":"read-only"},
+    {"task_id":"final-10","task_name":"父债务公式复核","goal":"只读复核deficit只由running清债，pending上限和inactive归零。","authorized_paths":["harness/refill_controller_v2.py","tests/orchestration_v2/test_refill_controller_v2.py"],"acceptance":["覆盖11/20/29场景","不得编辑"],"role":"worker","sandbox":"read-only"},
+    {"task_id":"final-11","task_name":"Starting不清债复核","goal":"只读复核starting减少spawnable但不减少deficit，失败后可再唤醒。","authorized_paths":["harness/refill_controller_v2.py","harness/lifecycle_supervisor.py"],"acceptance":["给出状态转移证据","不得编辑"],"role":"verifier","sandbox":"read-only"},
+    {"task_id":"final-12","task_name":"全局容量复核","goal":"只读复核global target80、capacity和pool deficit不会突破上限。","authorized_paths":["harness/refill_controller_v2.py","config/refill_policy.toml"],"acceptance":["计算双父并发反例","不得编辑"],"role":"worker","sandbox":"read-only"},
+    {"task_id":"final-13","task_name":"Consumer公平复核","goal":"只读复核父桶round-robin、pool交集和空桶隔离。","authorized_paths":["harness/refill_consumer_v2.py","tests/orchestration_v2/test_refill_consumer_v2.py"],"acceptance":["给出父A/B选择顺序","不得编辑"],"role":"verifier","sandbox":"read-only"},
+    {"task_id":"final-14","task_name":"Consumer身份复核","goal":"只读复核parent active、manifest mismatch和state parents缺失均fail-closed。","authorized_paths":["harness/refill_consumer_v2.py"],"acceptance":["列三条门禁证据","不得编辑"],"role":"worker","sandbox":"read-only"},
+    {"task_id":"final-15","task_name":"Residual唤醒复核","goal":"只读复核成功事务残余真实deficit会安排一次1秒coalesced follow-up，零债务不唤醒。","authorized_paths":["harness/refill_consumer_v2.py","tests/orchestration_v2/test_refill_consumer_v2.py"],"acceptance":["给出时间和source断言","不得编辑"],"role":"verifier","sandbox":"read-only"},
+    {"task_id":"final-16","task_name":"Backoff唤醒复核","goal":"只读复核失败时仍使用provider backoff，成功残余不走30秒慢路径。","authorized_paths":["harness/refill_consumer_v2.py"],"acceptance":["区分两条路径","不得编辑"],"role":"worker","sandbox":"read-only"},
+    {"task_id":"final-17","task_name":"Metadata贯通复核","goal":"只读复核parent_session_id和manifest_id进入headless、dispatch和lifecycle roster。","authorized_paths":["harness/headless_wave.py","harness/dispatch.py","harness/lifecycle_supervisor.py"],"acceptance":["列CLI参数和旧兼容","不得编辑"],"role":"verifier","sandbox":"read-only"},
+    {"task_id":"final-18","task_name":"Terminal唤醒复核","goal":"只读复核completed/failed/timed_out/cancelled终态都能唤醒现有actuator且无第二scheduler。","authorized_paths":["harness/lifecycle_supervisor.py","harness/refill_consumer_v2.py","harness/orchestration_epilogue.py"],"acceptance":["列finally证据","不得编辑"],"role":"worker","sandbox":"read-only"},
+    {"task_id":"final-19","task_name":"8765父表复核","goal":"只读复核页面显示父running/target、deficit/spawnable/reason且controller_running不覆盖观测running。","authorized_paths":["launchers/loop_monitor_server.py","tests/unit/test_loop_monitor_server.py"],"acceptance":["给出API和HTML证据","不得编辑"],"role":"verifier","sandbox":"read-only"},
+    {"task_id":"final-20","task_name":"发布完整性复核","goal":"只读核验本轮SHA256SUMS、双平面哈希、受管备份和核心回归结果，形成最终交付证据。","authorized_paths":["SHA256SUMS","data/governor/","reports/"],"acceptance":["不得修改任何文件","返回证据路径"],"role":"worker","sandbox":"read-only"}
+  ]
+}

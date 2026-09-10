@@ -1,0 +1,65 @@
+충분한 증거를 확보했습니다. 최종 분석 결과를 정리합니다.
+
+---
+
+## 适配器绑定闭包复核报告
+
+### 一、契约 `derivation_evidence_binds` 与实现的对照
+
+契约声明的七个绑定字段，逐一对照实现：
+
+| 契约字段 | 实现中的实际键 | 位置 | 状态 |
+|---|---|---|---|
+| `materializer_sha256` | `"materializer_sha256"` | `alpha_execution.py` 行 221 | ✅ 完全匹配 |
+| `source_sha256` | `"source_sha256"` | 行 222 | ✅ 完全匹配 |
+| `staged_inventory_sha256` | `"staged_inventory_sha256"` | 行 224 | ✅ 完全匹配 |
+| `decision_grid_identity` | **`"decision_grid"`** | 行 225 | ⚠️ **键名不匹配** |
+| `derived_features_sha256` | `"derived_features_sha256"` | 行 226 | ✅ 完全匹配 |
+| `outcome_schema_version` | **`"outcome_schema"`** | 行 228 | ⚠️ **键名不匹配** |
+| `evaluator_sha256` | 仅出现于 sealed result（行 812/919）和 scientific\_observations（行 338） | — | ⚠️ **未写入 `_evidence` dict** |
+
+---
+
+### 二、识别的缺口（含文件+行号）
+
+**缺口 1：`decision_grid_identity` 键名偏差**
+- 契约 `derivation_evidence_binds` 中为 `"decision_grid_identity"`
+- `alpha_execution.py` 行 225 写入的是 `"decision_grid"`
+- 证据 dict 中不存在键 `"decision_grid_identity"`；验证逻辑若按契约名查找将找不到该字段
+
+**缺口 2：`outcome_schema_version` 键名偏差**
+- 契约中为 `"outcome_schema_version"`
+- `alpha_execution.py` 行 228 写入的是 `"outcome_schema"`（值为 `OUTCOMES_SCHEMA + ":DAEMON_POST_MARKER_ON_DEMAND"`）
+- 同上，没有任何地方写入键名 `"outcome_schema_version"`
+
+**缺口 3：`evaluator_sha256` 不在 `observe_outcome_free()` 的证据 dict 中**
+- `evaluator_sha256` 在 `_scientific_observations()` 返回值（行 338）中存在，并写入 precondition\_evidence 的 `scientific` 字段（行 421）
+- `_evidence` dict（行 219–231）中**没有** `evaluator_sha256` 这个顶层键
+- 契约 `derivation_evidence_binds` 列出了它，但 `observe_outcome_free()` 返回的 dict 中查不到该字段
+
+**缺口 4：`revision_lineage_sha256` 文件哈希漂移（快照内）**
+- 契约 `plan.required_root_bindings.revision_lineage_sha256` = `e2a94253...`
+- 清单文件 `P5_PC6_EXECUTABLE_DATA_MANIFEST_V1.json` 内部字段 `data_revision_lineage_sha256` = `e2a94253...` ✅
+- `P5_FROZEN_SCIENTIFIC_VERIFY_SET_20_V1.json` 中 `allowed_revision_hash` 对应条目预期 sha256 = `e2a94253...` ✅
+- **但** `scientific-root-20/P5_PC6_DATA_REVISION_LINEAGE_V3.json` 实测 SHA256 = `ab58fb8332a8994d124f16c8da6bdf6b2a3502178c848877f3f8a8a5d378b59f`，与预期的 `e2a94253...` **不一致**
+- `alpha_execution.py` 行 321–326 的 `_scientific_observations()` 会将 `by_field["allowed_revision_hash"]` 与 `bindings.revision_lineage_sha256` 对比，在生产环境中这将触发 `FROZEN_SCIENTIFIC_BINDING_DRIFT`
+
+**缺口 5：`source_file` 路径本身未记录**
+- 契约 `staged_source_input` 要求绑定到 canonical PC6 PIT SOURCE 字节，`source_sha256` 确实绑定了内容哈希（行 222），但 `source_file` 的相对路径字符串本身**未写入** `_evidence` dict 或 `label_access_ledger`
+- 这意味着审计日志可以追溯"哪些字节被用了"，但无法从证据 dict 中直接还原"从哪个路径加载的"（需要通过 plan 的 adapter\_plan\_sha256 间接回溯）
+
+**缺口 6（信息性）：`adapter_plan_sha256` 在契约 `derivation_evidence_binds` 中未被列出**
+- `alpha_execution.py` 行 220 写入了 `"adapter_plan_sha256"`，是额外的绑定字段
+- 契约未声明该字段，这不是错误但存在文档和实现之间的不对称
+
+---
+
+### 三、总结
+
+| 严重度 | 缺口 | 影响 |
+|---|---|---|
+| 🔴 **生产阻断** | 缺口 4：revision lineage 文件哈希漂移 | 生产运行必定触发 `FROZEN_SCIENTIFIC_BINDING_DRIFT` |
+| 🟠 **契约语义偏差** | 缺口 1/2：键名不匹配（`decision_grid_identity`、`outcome_schema_version`） | 按契约名做机械验证将失败 |
+| 🟠 **契约语义偏差** | 缺口 3：`evaluator_sha256` 不在证据 dict 顶层 | 该绑定字段无法从 `observe_outcome_free()` 输出中直接提取 |
+| 🟡 **审计可追溯性** | 缺口 5：`source_file` 路径未直接记录 | 需绕道 plan 哈希才能还原源路径 |
+| ℹ️ 信息性 | 缺口 6：`adapter_plan_sha256` 超出契约范围 | 无安全影响，但契约文档需补充 |

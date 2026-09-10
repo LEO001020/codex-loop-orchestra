@@ -1,0 +1,322 @@
+Reading additional input from stdin...
+2026-08-14T14:13:21.153779Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T14:13:25.811368Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T14:13:43.468455Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 4.2 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 59
++ rg -r "E:\codex-LOOP" --files | rg -i "cold_start|hook" | head -40
++                                                           ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T14:13:58.578079Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 3.1 seconds
+Output:
+
+E:\codex-LOOP\logs\codex-loop-f2-hook-schema-probe.log
+E:\codex-LOOP\logs\codex-loop-f2-hook-empty-json-probe.log
+E:\codex-LOOP\logs\codex-loop-f2-hook-command-probe.log
+E:\codex-LOOP\private-quarantine\codex-loop-staging-hooks-pycache-20260808\_hooklib.cpython-314.pyc
+E:\codex-LOOP\private-quarantine\codex-loop-staging-hooks-pycache-20260808\_hooklib.cpython-312.pyc
+E:\codex-LOOP\logs\app-server-schema-f2\v2\HookStartedNotification.json
+E:\codex-LOOP\logs\app-server-schema-f2\v2\HooksListResponse.json
+E:\codex-LOOP\logs\app-server-schema-f2\v2\HooksListParams.json
+E:\codex-LOOP\logs\app-server-schema-f2\v2\HookCompletedNotification.json
+E:\codex-LOOP\reports\fable-local-env-diff-20260813\user_hooks_normalized_current.json
+E:\codex-LOOP\hl-loop-v3\_refdocs\hooks.md
+E:\codex-LOOP\hl-loop-v3\_audit_scratch\desktop-safe-hook-state-2\spawn_audit.jsonl
+E:\codex-LOOP\hl-loop-v3\_audit_scratch\desktop-safe-hook-state-2\attestation.jsonl
+E:\codex-LOOP\open-source\codex-loop\tools\desktop_live_hook_probe.py
+E:\codex-LOOP\open-source\codex-loop\tools\desktop_hook_trust.py
+E:\codex-LOOP\hl-loop-v3\_audit_scratch\desktop-safe-hook-state\spawn_audit.jsonl
+E:\codex-LOOP\hl-loop-v3\_audit_scratch\desktop-safe-hook-state\attestation.jsonl
+E:\codex-LOOP\open-source\codex-loop\tests\test_hooks.py
+E:\codex-LOOP\open-source\codex-loop\tests\test_desktop_live_hook_probe.py
+E:\codex-LOOP\open-source\codex-loop\tests\test_desktop_hooks.py
+E:\codex-LOOP\hl-loop-v3\tools\__pycache__\desktop_live_hook_probe.cpython-314.pyc
+E:\codex-LOOP\hl-loop-v3\tools\__pycache__\desktop_live_hook_probe.cpython-312.pyc
+E:\codex-LOOP\hl-loop-v3\tools\__pycache__\desktop_hook_trust.cpython-312.pyc
+E:\codex-LOOP\hl-loop-v3\tools\desktop_live_hook_probe.py
+E:\codex-LOOP\hl-loop-v3\tools\desktop_hook_trust.py
+E:\codex-LOOP\hl-loop-v3\tests\__pycache__\test_hooks.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\hl-loop-v3\tests\__pycache__\test_hooks.cpython-312-pytest-8.4.1.pyc
+E:\codex-LOOP\hl-loop-v3\tests\__pycache__\test_desktop_live_hook_probe.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\hl-loop-v3\tests\__pycache__\test_desktop_live_hook_probe.cpython-312-pytest-8.4.1.pyc
+E:\codex-LOOP\hl-loop-v3\tests\__pycache__\test_desktop_hooks.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\hl-loop-v3\tests\__pycache__\test_desktop_hooks.cpython-312-pytest-8.4.1.pyc
+E:\codex-LOOP\hl-loop-v3\tests\test_hooks.py
+E:\codex-LOOP\hl-loop-v3\tests\test_desktop_live_hook_probe.py
+E:\codex-LOOP\hl-loop-v3\tests\test_desktop_hooks.py
+E:\codex-LOOP\open-source\codex-loop\harness\hlloop\desktop_hooks.py
+E:\codex-LOOP\release-candidates\codex-loop-0.1.0-test-preview-20260808\verification\codex-loop-0.1.0-test-preview\tool
+s\desktop_live_hook_probe.py
+E:\codex-LOOP\release-candidates\codex-loop-0.1.0-test-preview-20260808\verification\codex-loop-0.1.0-test-preview\tool
+s\desktop_hook_trust.py
+E:\codex-LOOP\hl-loop-v3\harness\hlloop\__pycache__\desktop_hooks.cpython-314.pyc
+E:\codex-LOOP\hl-loop-v3\harness\hlloop\__pycache__\desktop_hooks.cpython-312.pyc
+E:\codex-LOOP\hl-loop-v3\harness\hlloop\desktop_hooks.py
+
+
+rg: E:\codex-LOOP\runtime\pytest\M0-06: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\hl-loop-v3\deploy\codex-home: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\PRE-07-gate: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M3-05: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M3-03: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M0-02: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\PRE-06: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M3-02: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M0-01: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M3-01: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\PRE-05: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M1-02: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M1-06: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M1-05: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\PRE-04: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M1-04: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\PRE-00: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M1-01: 拒绝访问。 (os error 5)
+
+2026-08-14T14:14:19.936900Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.7 seconds
+Output:
+
+E:\codex-LOOP\codex-loop-s-f2\tests\__pycache__\test_cold_start_rollback.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\test_cold_start_rollback.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\__pycache__\test_cold_start_rollback.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_cold_start_rollback.py
+E:\codex-LOOP\recovery-staging\prepatch-20260814-1318-candidate\tests\test_cold_start_rollback.py
+E:\codex-LOOP\recovery-staging\prepatch-20260814-1318-candidate\tests\orchestration_v2\test_cold_start_rollback.py
+E:\codex-LOOP\staging\fable-orchestration-v2-audit-20260811\codex-loop-s-f2-orchestration-v2-20260810\tests\__pycache__
+\test_cold_start_rollback.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\staging\fable-orchestration-v2-audit-20260811\codex-loop-s-f2-orchestration-v2-20260810\tests\test_cold_s
+tart_rollback.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\__pycache__\test_cold_start_rollback.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\test_cold_start_rollback.py
+
+
+rg: E:\codex-LOOP\hl-loop-v3\deploy\codex-home: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\cache-quarantine\95fb6fc2506f435196cf88727c2b4458-.pytest_cache: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\PRE-07-gate: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-02: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-08-e2e: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\PRE-06: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-01: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\PRE-05: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M3-06: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-08: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-07-regression: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\PRE-04: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M3-05: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\PRE-00: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-07: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M3-03: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M5-04: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-06-regression: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M3-02: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M5-02: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M3-01: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-05: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-04-regression: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M1-06: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M5-01: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-04: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M1-05: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M1-04: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-03-regression: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-03: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-full: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M1-03: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-08-mutants: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M1-02: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M1-01: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M0-12: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M0-08: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M0-06: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M0-02: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M0-01: 拒绝访问。 (os error 5)
+
+2026-08-14T14:15:19.217545Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.7 seconds
+Output:
+
+E:\codex-LOOP\codex-loop-s-f2\hooks\__pycache__\subagent_lifecycle.cpython-314.pyc
+E:\codex-LOOP\codex-loop-s-f2\hooks\__pycache__\subagent_lifecycle.cpython-312.pyc
+E:\codex-LOOP\codex-loop-s-f2\hooks\__pycache__\sol_tool_gate_v2.cpython-314.pyc
+E:\codex-LOOP\codex-loop-s-f2\hooks\__pycache__\sol_tool_gate_router.cpython-314.pyc
+E:\codex-LOOP\codex-loop-s-f2\hooks\__pycache__\sol_tool_gate.cpython-314.pyc
+E:\codex-LOOP\codex-loop-s-f2\hooks\__pycache__\sol_tool_gate.cpython-312.pyc
+E:\codex-LOOP\codex-loop-s-f2\hooks\__pycache__\leaf_agent_spawn_gate.cpython-314.pyc
+E:\codex-LOOP\codex-loop-s-f2\hooks\__pycache__\desktop_spawn_guard.cpython-314.pyc
+E:\codex-LOOP\codex-loop-s-f2\hooks\subagent_start_meter.sh
+E:\codex-LOOP\codex-loop-s-f2\hooks\subagent_lifecycle.py
+E:\codex-LOOP\codex-loop-s-f2\hooks\sol_tool_gate_v2.py
+E:\codex-LOOP\codex-loop-s-f2\hooks\sol_tool_gate_router.py
+E:\codex-LOOP\codex-loop-s-f2\hooks\sol_tool_gate.py
+E:\codex-LOOP\codex-loop-s-f2\hooks\leaf_agent_spawn_gate.py
+E:\codex-LOOP\codex-loop-s-f2\hooks\hooks.json.example
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\hooks\sol_tool_gate_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\__pycache__\test_subagent_lifecycle_hook.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\__pycache__\test_subagent_lifecycle_hook.cpython-312-pytest-8.4.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_subagent_lifecycle_hook.py
+E:\codex-LOOP\codex-loop-s-f2\data\sol_wake\1786565239_adhoc-b9990733da-hook-refill-meter.md
+E:\codex-LOOP\codex-loop-s-f2\data\sol_wake\1786565239_adhoc-0f5426ee3c-hook-stop.md
+E:\codex-LOOP\codex-loop-s-f2\reports\hooks-policy-entry-audit-20260812\report.md
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\hooks\__pycache__\sol_tool_gate_v2.cpython-314.pyc
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\hooks\sol_tool_gate_v2.py
+E:\codex-LOOP\codex-loop-s-f2\data\dead_letters\adhoc-0f5426ee3c-hook-stop.json
+E:\codex-LOOP\codex-loop-s-f2\data\dead_letters\adhoc-b9990733da-hook-refill-meter.json
+E:\codex-LOOP\codex-loop-s-f2\data\reports\convergence-wave2b-patches\tests__unit__test_subagent_lifecycle_hook.py.patc
+h
+E:\codex-LOOP\codex-loop-s-f2\data\reports\convergence-wave2b-patches\hooks__subagent_lifecycle.py.patch
+E:\codex-LOOP\codex-loop-s-f2\data\reports\convergence-wave2b-patches\hooks__sol_tool_gate_router.py.patch
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-0f5426ee3c-hook-stop\adhoc-0f5426ee3c-hook-stop-2e7c4734
+9d814659a47e9b7d2ac5f2fa\supervisor.log
+
+
+
+2026-08-14T14:17:03.966904Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 3.2 seconds
+Output:
+
+E:\codex-LOOP\archives\pre-f2-desktop-complete-20260810T062825\outer-dot-codex.before\hooks.json
+E:\codex-LOOP\recovery-staging\prepatch-20260814-1318-candidate\hooks\hooks.json.example
+E:\codex-LOOP\open-source\codex-loop\codex-home-staging\hooks.json
+E:\codex-LOOP\hl-loop-v3\codex-home-staging\hooks.json
+E:\codex-LOOP\codex-loop-s-f2\hooks\hooks.json.example
+E:\codex-LOOP\deliveries\fable-audit-20260810\stage\codex-loop-s-f2-fable-audit-20260810\source\codex-loop-s-f2\hooks\h
+ooks.json.example
+E:\codex-LOOP\deliveries\fable-audit-20260810\stage\codex-loop-s-f2-fable-audit-20260810\host-overlay\user-hooks\hooks.
+json
+E:\codex-LOOP\test-runs\installer-validation-20260808-050338\codex-loop\codex-home-staging\hooks.json
+E:\codex-LOOP\test-runs\opencodex-validation-20260808-052818\codex-loop\codex-home-staging\hooks.json
+E:\codex-LOOP\staging\verify-fix2-20260810-modelsync\codex-loop-s-f2\hooks\hooks.json.example
+E:\codex-LOOP\test-runs\opencodex-validation-20260808-052937\codex-loop\codex-home-staging\hooks.json
+E:\codex-LOOP\staging\fix2-20260810-modelsync\codex-loop-s-f2\hooks\hooks.json.example
+E:\codex-LOOP\test-runs\opencodex-validation-20260808-052856\codex-loop\codex-home-staging\hooks.json
+E:\codex-LOOP\release-candidates\codex-loop-0.1.0-test-preview-20260808\verification\codex-loop-0.1.0-test-preview\code
+x-home-staging\hooks.json
+E:\codex-LOOP\staging\fix2-20260810-baseline\codex-loop-s-f2\hooks\hooks.json.example
+E:\codex-LOOP\test-runs\installer-validation-20260808-050353\codex-loop\codex-home-staging\hooks.json
+E:\codex-LOOP\release-candidates\codex-loop-0.1.0-test-preview-20260808\codex-loop-0.1.0-test-preview\codex-home-stagin
+g\hooks.json
+E:\codex-LOOP\release-candidates\codex-loop-0.1.0-test-preview-20260808\archive-input\codex-loop-0.1.0-test-preview\cod
+ex-home-staging\hooks.json
+
+
+rg: E:\codex-LOOP\hl-loop-v3\deploy\codex-home: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\PRE-07-gate: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\PRE-06: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\PRE-05: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\PRE-04: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\PRE-00: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M5-04: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M5-02: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M5-01: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-full: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-08-mutants: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-08-e2e: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-08: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-07-regression: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-07: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-06-regression: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-05: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-04-regression: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-04: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-03-regression: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-03: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-02: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-01: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M3-06: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M3-05: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M3-03: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M3-02: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M3-01: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M1-06: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M1-05: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M1-04: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M1-03: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M1-02: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M1-01: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M0-12: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M0-08: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M0-06: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M0-02: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M0-01: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\cache-quarantine\95fb6fc2506f435196cf88727c2b4458-.pytest_cache: 拒绝访问。 (os error 5)
+
+2026-08-14T14:18:14.386197Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.4 seconds
+Output:
+rg: E:\codex-LOOP\hl-loop-v3\deploy\codex-home: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\cache-quarantine\95fb6fc2506f435196cf88727c2b4458-.pytest_cache: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\PRE-07-gate: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-01: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\PRE-06: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\PRE-05: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-08: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M3-06: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M3-05: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-07-regression: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\PRE-04: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M3-03: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M3-02: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-07: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M0-08: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M3-01: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\PRE-00: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-06-regression: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M0-06: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M1-06: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M5-04: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M1-05: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M5-02: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M0-02: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-05: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M1-04: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M5-01: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M0-01: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-04-regression: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M1-03: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-full: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-08-mutants: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-04: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M1-02: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M1-01: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M0-12: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-08-e2e: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-03-regression: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-02: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-03: 拒绝访问。 (os error 5)
+
+2026-08-14T14:21:33.865806Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-14T14:25:43.612765Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 200ms)... turn_id=01a0009e-c900-7782-b980-9266d797a504 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T14:26:31.534733Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 387ms)... turn_id=01a0009e-c900-7782-b980-9266d797a504 retries=2 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T14:27:21.138090Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 783ms)... turn_id=01a0009e-c900-7782-b980-9266d797a504 retries=3 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T14:28:15.491040Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

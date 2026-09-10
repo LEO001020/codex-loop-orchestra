@@ -1,0 +1,150 @@
+禁止用 `bak_before_stage5_keepalive` 覆盖当前冻结 JSON：bak 的 `enforced_reduced_packages` 是 30 且含 `com.bilibili.app.in`，当前是 29 且不含 bili；覆盖后再跑 Reduced 重放会把 B站 `RUN_ANY_IN_BACKGROUND` 从 allow 改回 ignore。未覆盖、未 rollback、未写设备。目标文件因只读沙箱未落盘，全文如下。
+
+报告本应写入 [17_reduced_bak.md](/C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/outputs/audit_20260830/17_reduced_bak.md)（`apply_patch` 被只读沙箱拒绝）。
+
+# Reduced 名单 bak 覆盖风险（只读，禁止覆盖）
+
+- stamp: 2026-08-30
+- 本包：只读对照。未覆盖 bak、未跑 `HONOR_STAGE5_ROLLBACK`、未 `settings put` / `pm` / `appops set` / `am crash` / `force-stop` / `kill-server`。
+- 本回合现场 adb：沙箱拒绝 `adb.exe` 创建 `\.android`（Permission denied），未对设备写入。dumpsys 以同日只读 dump / 冻结文件为准。
+
+## 文件定位
+
+| 角色 | 路径 | 证据 |
+|---|---|---|
+| Stage5 前 bak | [HONOR_DESIRED_STATE.stage3.20260823.json.bak_before_stage5_keepalive](/C:/Users/hzq00/Documents/Codex/2026-08-23/ni-j/outputs/HONOR_DESIRED_STATE.stage3.20260823.json.bak_before_stage5_keepalive) | `enforced_reduced_packages` n=30，含 bili；无 `keep_alive_background` |
+| 当前冻结 / Reduced | [HONOR_DESIRED_STATE.stage3.20260823.json](/C:/Users/hzq00/Documents/Codex/2026-08-23/ni-j/outputs/HONOR_DESIRED_STATE.stage3.20260823.json) | n=29，止于 `com.xingin.xhs`；`keep_alive_background` 记 bili 已移出 |
+| ignore 重放入口 | [HONOR_Reapply_Reduced.py](/C:/Users/hzq00/Documents/Codex/HONOR_Reapply_Reduced.py) | 读 `enforced_reduced_packages`，对每包 `appops set --user 0 PKG RUN_ANY_IN_BACKGROUND ignore` |
+| Stage5 文档 / 回滚注释 | [HONOR_STAGE5_KEEPALIVE_20260829.md](/C:/Users/hzq00/Documents/Codex/2026-08-23/ni-j/outputs/HONOR_STAGE5_KEEPALIVE_20260829.md) §3/§6；[HONOR_STAGE5_ROLLBACK_20260829.ps1](/C:/Users/hzq00/Documents/Codex/2026-08-23/ni-j/outputs/HONOR_STAGE5_ROLLBACK_20260829.ps1) 头部 | 覆盖 bak = 把 B站加回 Reduced |
+| 当前 29 且不含 bili 的重放 | [HONOR_Reapply_Reduced_20260829_025350.log](/C:/Users/hzq00/Documents/Codex/logs/HONOR_Reapply_Reduced_20260829_025350.log) | `desired_count=29`，`already_ignore` 29 项，无 bili |
+| 同日 dumpsys / appops | [dumpsys_appops.txt](/C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/reports/07_keepalive_and_collateral/dumpsys_appops.txt)；[appops_bili_in_run_any.txt](/C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/reports/保活现状/appops_bili_in_run_any.txt) | B站 `RUN_ANY_IN_BACKGROUND: allow` |
+
+## bak vs 当前：差集仅 B站
+
+bak `enforced_reduced_packages` 末两项（L258–L267）：
+
+```
+    {
+      "package": "com.xingin.xhs",
+      "user": 0,
+      "whitelist_policy": "ensure_absent_once"
+    },
+    {
+      "package": "com.bilibili.app.in",
+      "user": 0,
+      "whitelist_policy": "ensure_absent_once"
+    }
+  ],
+```
+
+当前同字段末项（L258–L263）：
+
+```
+    {
+      "package": "com.xingin.xhs",
+      "user": 0,
+      "whitelist_policy": "ensure_absent_once"
+    }
+  ],
+```
+
+- bak n=30，含 `com.bilibili.app.in`
+- 当前 n=29，不含 `com.bilibili.app.in` / `tv.danmaku.bili` / `com.netease.cloudmusic`
+- 差集：仅 `<= com.bilibili.app.in`
+- bak 无 `keep_alive_background`；当前 L964–L986 有，且 bili 带 `"removed_from_reduced": "2026-08-29"`
+
+当前 29 包（与 2026-08-29 02:53:50 重放 `already_ignore` 相同，皆无 bili）：
+
+1. com.tencent.hunyuan.app.chat
+2. com.mojitec.mojidict
+3. com.xiaobin.ncenglish
+4. com.zhipuai.qingyan
+5. com.alihealth.llm.assistant
+6. com.clover.imuseum
+7. com.zhihu.android
+8. com.tianyancha.skyeye
+9. com.uusense.speed
+10. com.baidu.tieba
+11. com.youdao.dict
+12. com.xfs.rootwords
+13. com.coolapk.market
+14. com.uzero.baimiao
+15. com.cnki.android.cnkimobile
+16. cn.com.chsi.chsiapp
+17. com.douban.frodo
+18. com.baidu.baidutranslate
+19. com.aliyun.tongyi
+20. com.bohrium.mobile
+21. com.exeysoft.ruler
+22. com.twitter.android
+23. com.eusoft.eudic
+24. com.kk.xx.analyzer
+25. org.chromium.webapk.acc6c6d9a73dc7877_v2
+26. com.openai.chatgpt
+27. com.ss.android.ugc.aweme
+28. com.taptap
+29. com.xingin.xhs
+
+## 为何覆盖 bak 会把 B站加回去
+
+[HONOR_Reapply_Reduced.py](/C:/Users/hzq00/Documents/Codex/HONOR_Reapply_Reduced.py) 硬编码读当前冻结文件：
+
+```
+DESIRED = Path(r"C:\Users\hzq00\Documents\Codex\2026-08-23\ni-j\outputs\HONOR_DESIRED_STATE.stage3.20260823.json")
+# load_reduced(): doc["enforced_reduced_packages"]
+# 非 ignore 则: cmd appops set --user 0 PKG RUN_ANY_IN_BACKGROUND ignore
+```
+
+因果链（未执行，按代码+名单）：
+
+1. 用 bak 覆盖同名 `HONOR_DESIRED_STATE.stage3.20260823.json`
+2. `enforced_reduced_packages` 从 29 变 30，B站重新入列
+3. `keep_alive_background` 丢失（bak 无此字段）
+4. 下次桌面 `HONOR-重启后恢复Reduced.cmd` / 重放脚本会对 `com.bilibili.app.in` 执行 `RUN_ANY_IN_BACKGROUND ignore`
+
+回滚脚本头部原文（未跑）：
+
+> 注意：本脚本不会把 B站 加回 enforced_reduced_packages；如需一并还原，用 `outputs\HONOR_DESIRED_STATE.stage3.20260823.json.bak_before_stage5_keepalive` 覆盖同名文件。
+
+Stage5 报告 §3：此前 bili 在 `enforced_reduced_packages`，重放会把它的后台重新 ignore；已从 30→29 移出。
+
+`candidate_nmb_next` 在 bak L317 与当前 L312 都仍列有 `com.bilibili.app.in`。那是候选策略，不是重放读取的 `enforced_reduced_packages`。覆盖风险只来自 bak 把 bili 放回 enforced 名单。
+
+## 对照当前 29 且不含 bili 的文档 / 只读 dumpsys
+
+重放 [HONOR_Reapply_Reduced_20260829_025350.log](/C:/Users/hzq00/Documents/Codex/logs/HONOR_Reapply_Reduced_20260829_025350.log)：
+
+```
+desired_count=29
+...
+NOOP com.xingin.xhs
+write-settings skipped: no writes
+SUMMARY already=29 changed=0 missing=0 failed=0 writes=0
+```
+
+`already_ignore` 29 项无 `com.bilibili.app.in`。
+
+[appops_bili_in_run_any.txt](/C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/reports/保活现状/appops_bili_in_run_any.txt)（2026-08-30T00:13:23）：
+
+```
+cmd=... adb.exe -L tcp:5038 -s AVNS023705001888 shell cmd appops get com.bilibili.app.in RUN_ANY_IN_BACKGROUND
+stdout:
+RUN_ANY_IN_BACKGROUND: allow
+```
+
+[dumpsys_appops.txt](/C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/reports/07_keepalive_and_collateral/dumpsys_appops.txt) L38382 / L38424：
+
+```
+    Package com.bilibili.app.in:
+      RUN_ANY_IN_BACKGROUND (allow):
+```
+
+[whitelist_hits.txt](/C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/reports/保活现状/whitelist_hits.txt)：`user,com.bilibili.app.in,10384`（doze 白名单在；Reduced ignore 不在）。`tv.danmaku.bili` 未安装：`Error: No UID for tv.danmaku.bili in user 0`。
+
+同日 dumpsys 里若干仍在 29 名单的包（hunyuan/zhihu/xhs/chatgpt/aweme/taptap/webapk）`RUN_ANY_IN_BACKGROUND` 也显示 `(allow)`，与 8-29 02:53 重放时的 ignore 不完全同拍。这不否定「当前冻结 29 不含 bili」；只说明 reboot 后 AppOps ignore 可能被冲掉，而重放仍以冻结名单为准。bili 当前 allow 与「不在 29 名单」一致。
+
+## 未决未知
+
+- 本回合沙箱 adb 失败，无法现场再取 00:31 之后的 live `appops get`；上列以 2026-08-30 00:13 保活 dump 与 `dumpsys_appops.txt` 为准。
+- 未对 29 包逐项再跑 `appops get`；8-29 重放 JSON 记它们当时为 ignore，同日 dumpsys 抽样为 allow（reboot 冲刷假说，非本包范围）。
+- 若有人已手工改冻结文件但未改 bak，bak 仍是 30+bili 的旧快照。

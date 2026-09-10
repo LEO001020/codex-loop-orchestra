@@ -1,0 +1,397 @@
+KEEP 三件套是常用冷启动便利、02:09 无驻留进程，不是当前卡顿源；网易云保活按用户选择留下当流畅度税；B 站必须留在 Reduced 29 外。指定路径因只读沙箱未能落盘（apply_patch rejected: writing is blocked by read-only sandbox），全文如下，请编排器写入 `work/fluency_plan/reports/h01_keep_freq.md`。
+
+# KEEP_FREQ / keep-alive 与系统流畅度（h01，只读）
+
+- 设备：HONOR VER-AN10 `AVNS023705001888` / MagicOS 16 `10.0.0.175`
+- 本包范围：KEEP 常用三件套 + Stage5 保活两包；**不是** AI 侧边栏修复
+- 已决硬约束：Reduced **保持 29**；`com.bilibili.app.in` **必须留在 Reduced 外**；不禁 iaware / phoneservice；不动 dockBar / tooltip / is_ota_finished / navigation_mode / FloatTasks enable；网易云保活是**用户选定的流畅度成本**
+- 本包未跑 adb、未写手机、未执行回滚脚本
+- 落盘：本环境 `sandbox_mode=read-only`，`apply_patch` 被拒，文件未写入磁盘
+
+**一行结论：** KEEP 三件套（不背单词 / Kimi / DeepSeek）是用户常用、移出 Reduced 的冷启动便利，02:09 现场无驻留进程，不是当前卡顿源；网易云 doze 白名单 + 通知 allow 是已接受的保活成本（此刻也无热进程）；B 站必须继续留在 Reduced 29 外——它才是现场真实在跑的媒体负载，但不能用加回 Reduced 当流畅度杠杆。
+
+风险级约定：
+
+- **A**：禁止。违反已决约束，或已知 bak/回滚有毒。
+- **B**：维持现状。用户产品选择或保活目标态。
+- **C**：只观察 / 只用户 UI；本仓不写 shell。
+- **D**：以后或许可选，当前证据不足，不要当本轮建议。
+
+---
+
+## 1. 名单是什么（冻结真源）
+
+当前冻结：`C:\Users\hzq00\Documents\Codex\2026-08-23\ni-j\outputs\HONOR_DESIRED_STATE.stage3.20260823.json`
+
+机械计数：`enforced_reduced_packages=29`，`keep_frequent_apps_not_reduced=3`，`keep_alive_background=2`。B 站 / KEEP 三件套 / 网易云 / EasyListen **都不在** Reduced 29。
+
+### 1.1 KEEP_FREQ（常用，移出常规 Reduced）
+
+来源 md：`C:\Users\hzq00\Documents\Codex\2026-08-23\ni-j\outputs\HONOR_KEEP_FREQ_APPS_20260824.md`
+
+> 用户指示：不背单词、Kimi、DeepSeek 是常用软件，不加入常规优化。
+
+> | 不背单词 | `cn.com.langeasy.LangEasyLexis` | Reduced ignore | AppOps default，KEEP |
+> | Kimi | `com.moonshot.kimichat` | Reduced ignore | AppOps default，KEEP |
+> | DeepSeek | `com.deepseek.chat` | Reduced ignore | AppOps default，KEEP |
+
+> 同公司听力伴侣 `cn.com.langeasy.EasyListen` 本就不在 Reduced，维持 allow，未改。
+> 未动：ChatGPT / 混元 / 通义 / 智谱清言 / 阿里健康 LLM，仍 ignore。
+> `enforced_reduced_packages`：33 → **30**；新增 `keep_frequent_apps_not_reduced`
+
+冻结 JSON 原文：
+
+```json
+"keep_frequent_apps_not_reduced": [
+  {"package": "cn.com.langeasy.LangEasyLexis", "user": 0,
+   "reason": "不背单词（常用，移出常规 Reduced）", "appops_policy": "default"},
+  {"package": "com.moonshot.kimichat", "user": 0,
+   "reason": "Kimi（常用，移出常规 Reduced）", "appops_policy": "default"},
+  {"package": "com.deepseek.chat", "user": 0,
+   "reason": "DeepSeek（常用，移出常规 Reduced）", "appops_policy": "default"}
+]
+```
+
+判定：**必要（对用户工作流）**，不是系统流畅度必需件。它们占用的是「重启后不被重放脚本 `RUN_ANY_IN_BACKGROUND=ignore`」的权利。现场它们**没有**热 CPU。
+
+### 1.2 keep-alive（后台播放保活）
+
+冻结 JSON 原文：
+
+```json
+"keep_alive_background": [
+  {
+    "package": "com.netease.cloudmusic",
+    "reason": "网易云音乐后台播放：此前不在 doze 白名单(standby=20)，息屏被清",
+    "deviceidle_whitelist": "ensure_present",
+    "appops_allow": ["RUN_ANY_IN_BACKGROUND", "RUN_IN_BACKGROUND", "POST_NOTIFICATION"]
+  },
+  {
+    "package": "com.bilibili.app.in",
+    "reason": "B站后台播放：原在 enforced_reduced_packages，重放脚本会重新 ignore 后台",
+    "deviceidle_whitelist": "ensure_present",
+    "appops_allow": ["RUN_ANY_IN_BACKGROUND", "RUN_IN_BACKGROUND"],
+    "removed_from_reduced": "2026-08-29"
+  }
+]
+```
+
+`honor_powergenius_unwritable_lists`：
+
+> powergenius 无 shell 写接口（cmd powergenius = No shell command implementation），以下只能由用户在设置里改
+> `mStandbyUnprotectedApps_contains`: `com.netease.cloudmusic`
+> `mStandbyProtectedApps_contains`: `com.bilibili.app.in`
+> `CachedFreezerManager_exempt_missing`: `com.bilibili.app.in (免冻结名单里只有 tv.danmaku.bili)`
+
+### 1.3 当前 Reduced 29（必须保持；B 站不在其中）
+
+1. `com.tencent.hunyuan.app.chat`
+2. `com.mojitec.mojidict`
+3. `com.xiaobin.ncenglish`
+4. `com.zhipuai.qingyan`
+5. `com.alihealth.llm.assistant`
+6. `com.clover.imuseum`
+7. `com.zhihu.android`
+8. `com.tianyancha.skyeye`
+9. `com.uusense.speed`
+10. `com.baidu.tieba`
+11. `com.youdao.dict`
+12. `com.xfs.rootwords`
+13. `com.coolapk.market`
+14. `com.uzero.baimiao`
+15. `com.cnki.android.cnkimobile`
+16. `cn.com.chsi.chsiapp`
+17. `com.douban.frodo`
+18. `com.baidu.baidutranslate`
+19. `com.aliyun.tongyi`
+20. `com.bohrium.mobile`
+21. `com.exeysoft.ruler`
+22. `com.twitter.android`
+23. `com.eusoft.eudic`
+24. `com.kk.xx.analyzer`
+25. `org.chromium.webapk.acc6c6d9a73dc7877_v2`
+26. `com.openai.chatgpt`
+27. `com.ss.android.ugc.aweme`
+28. `com.taptap`
+29. `com.xingin.xhs`（`ensure_absent_once`）
+
+Stage2 原始 ignore 29（`HONOR_VER_AN10_STAGE2_APPOPS_IGNORE.txt`）**含** KEEP 三件套 + `com.qihoo.cleandroid_lite`，**不含** ChatGPT / 抖音 / TapTap / 小红书。后来冻结 33 = 当前 29 + KEEP 三件套 + B 站；KEEP_FREQ 移出三件套 → 30；Stage5 移出 B 站 → **29**。不要把 Stage2 那份 29 当成当前目标。
+
+`candidate_nmb_next` **仍列出** `com.bilibili.app.in` / policy `reduced_if_no_active_playback_download_or_fgs`。这是过期候选，**执行即违反硬约束**。
+
+---
+
+## 2. 已核实事实（路径 + 摘录）
+
+### 2.1 KEEP 三件套：在最近任务，不在热进程
+
+`work/fluency_plan/live/activity_recents.txt`（dump `Sun Aug 30 02:09:37 CST 2026`）：
+
+> `* Recent #14: ... A=10326:com.moonshot.kimichat`
+> `* Recent #15: ... A=10273:com.deepseek.chat`
+> `* Recent #17: ... A=10240:cn.com.langeasy.LangEasyLexis`
+> `Activities=[ActivityRecord{... cn.com.langeasy.LangEasyLexis/.activity.MainActivity t13304}]`
+
+`work/fluency_plan/live/activity_processes.txt` 的 `*APP*` 命中：只有
+
+> `*APP* UID 10384 ProcessRecord{... 9933:com.bilibili.app.in/u0a384}`
+> `*APP* UID 10384 ProcessRecord{... 19499:com.bilibili.app.in:download/u0a384}`
+
+无 LangEasyLexis / kimichat / deepseek.chat / EasyListen / netease.cloudmusic 进程头。
+
+`work/fluency_plan/live/top.txt` / `cpuinfo_top.txt` / `activity_lru.txt`：KEEP 三件套与网易云 **0 行**。同文件热路径是：
+
+> `29867 ... 23.3% ... com.zhihu.android`
+> `6197 u128_a250 ... 23.3% 3.4% ... com.taobao.idlefish`
+> `9933 ... 16.6% ... com.bilibili.app.in`
+> `19499 ... 3.3% ... com.bilibili.app.in:download`
+
+### 2.2 网易云：白名单在，热进程不在；通知分层仍是目标态
+
+`work/fluency_plan/live/deviceidle_wl.txt`：
+
+> `user,com.netease.cloudmusic,10252`
+
+`work/fluency_plan/live/deviceidle.txt` Whitelist user apps 块：
+
+> `com.netease.cloudmusic`
+
+`reports/07_keepalive_and_collateral/appops.txt`：
+
+> `Uid mode: POST_NOTIFICATION: ignore`
+> `POST_NOTIFICATION: allow`
+> `RUN_IN_BACKGROUND: allow`
+
+`reports/07_keepalive_and_collateral/appops_cloudmusic_bg.txt`：
+
+> `No operations.` / `Default mode: allow`（RUN_ANY）
+> `RUN_IN_BACKGROUND: allow`
+
+`reports/07_keepalive_and_collateral/usagestats.txt`：
+
+> `time="2026-08-29 02:38:46" type=STANDBY_BUCKET_CHANGED package=com.netease.cloudmusic standbyBucket=5 reason=d`
+> `package=com.netease.cloudmusic totalTimeUsed="6:24:53" lastTimeUsed="2026-07-30 21:04:51" ... appLaunchCount=454`
+> `package=com.netease.cloudmusic u=0 bucket=5 reason=d ... idle=n`
+
+`reports/07_keepalive_and_collateral/powergenius_a.txt`：
+
+> `mStandbyUnprotectedApps: [... com.netease.cloudmusic ...]`
+> `mExemptPkgList: [com.netease.cloudmusic, ... tv.danmaku.bili, ...]`（**无** `com.bilibili.app.in`）
+> `NKConfig{app=com.netease.cloudmusic, ... type=AUDIO}`
+
+Stage5 报告 `C:\Users\hzq00\Documents\Codex\2026-08-23\ni-j\outputs\HONOR_STAGE5_KEEPALIVE_20260829.md`：
+
+> `cmd deviceidle whitelist +com.netease.cloudmusic` → bucket **20 → 5（EXEMPTED）**
+> `cmd appops set com.netease.cloudmusic POST_NOTIFICATION allow`
+> `cmd powergenius` 返回 `No shell command implementation`
+
+### 2.3 B 站：必须留在 Reduced 外；现场是真实负载，且 Honor 名单有漂移
+
+`reports/07_keepalive_and_collateral/appops_bili.txt`：
+
+> `RUN_ANY_IN_BACKGROUND: allow`
+> `No operations.` / `Default mode: allow`（RUN_IN_BACKGROUND、POST_NOTIFICATION）
+
+`reports/07_keepalive_and_collateral/deviceidle_whitelist.txt`（00:27–00:30）：
+
+> `user,com.bilibili.app.in,10384`
+> `user,com.netease.cloudmusic,10252`
+
+`work/fluency_plan/live/deviceidle_wl.txt`（02:09）：**有网易云、无 B 站**。user 白名单 58 vs 07 的 59，差集恰好是 `com.bilibili.app.in`。同次 uptime `02:09:37 up 22:31`，中间无重启。
+
+`reports/07_keepalive_and_collateral/powergenius_a.txt`（约 00:27）：
+
+> `mStandbyProtectedApps: [..., com.bilibili.app.in]`（约 32 项）
+> `mStandbyPerceptibleApps: [com.bilibili.app.in]`
+> `mExemptPerceptiblePkgs: [com.android.incallui, com.bilibili.app.in]`
+
+`work/fluency_plan/live/pg_a.txt`（02:09）：
+
+> `mStandbyProtectedApps:` **已不含** `com.bilibili.app.in`（名单止于 `com.alibaba.android.rimet`）
+> `mStandbyUnprotectedApps:` **含** `com.bilibili.app.in`
+> `mExemptPerceptiblePkgs: [com.android.incallui, com.bilibili.app.in]` 仍在
+> `mAudioFocusPkg : com.bilibili.app.in`
+> `Pid: 9933 <-> proc: com.bilibili.app.in`
+
+`work/fluency_plan/live/activity_lru.txt`：
+
+> `#136: cch CAC ... 9933:com.bilibili.app.in/u0a384 act:activities|recents`
+> `#135: svc SVC ... 19499:com.bilibili.app.in:download/u0a384 act:client`
+
+`work/fluency_plan/live/activity_services.txt`：`VideoDownloadServiceV2`、`IjkMediaPlayerRemoteService`、Chromium sandbox。usagestats：当日 `totalTimeUsed="9:21:24"`，bucket=5 reason=d。
+
+本机没有 `tv.danmaku.bili` UID（07 报告：`No UID for tv.danmaku.bili in user 0`）。freezer 豁免名单里的国内包名是幽灵项，不能当操作目标。
+
+### 2.4 KEEP 三件套在 Honor PG 上的位置
+
+07 与 live 的 `mStandbyUnprotectedApps` **都包含** `cn.com.langeasy.LangEasyLexis`、`com.moonshot.kimichat`、`com.deepseek.chat`、`cn.com.langeasy.EasyListen`。这是 Honor 默认真机名单，不是 KEEP_FREQ 写入。`mSmartOptimizeApps` 也含这几包（以及几乎所有三方应用），不能解读成「KEEP 把它们变成了系统保护进程」。
+
+### 2.5 卡顿基线（与 KEEP 无直接因果）
+
+`work/fluency_plan/live/gfx_launcher.txt`：
+
+> Total frames rendered: 57612
+> Janky frames: 2603 (4.52%)
+> 90th percentile: 13ms / 99th: 44ms
+
+`work/fluency_plan/live/gfx_systemui.txt`：
+
+> Total frames rendered: 74020
+> Janky frames: 9044 (12.22%)
+> 90th percentile: 19ms / 99th: 69ms
+
+`work/fluency_plan/live/loadavg.txt`：`13.82 16.53 18.23`  
+`work/fluency_plan/live/meminfo_proc.txt`：MemAvailable 3732884 kB；SwapFree 5005032 / SwapTotal 16777212 kB（swap 已用约 11.2 GiB）。  
+动画三键仍为 `1.0`（`anim_window.txt` / `anim_transition.txt` / `anim_animator.txt`）。本包不建议改动画。
+
+`reports/07_keepalive_and_collateral/parse_summary.json`：`run_any_ignore_line_count: 0`。与 Stage5 记录一致：reboot 冲掉 AppOps ignore，要靠桌面「重启后恢复 Reduced」重放 **29** 包；**不要**把 B 站加回去凑数。
+
+### 2.6 bak 计数（回滚毒性）
+
+| 文件 | reduced | KEEP 三件套在 Reduced？ | B 站在 Reduced？ | 备注 |
+|---|---:|---|---|---|
+| 当前 JSON | 29 | 否 | 否 | 有 `keep_frequent` + `keep_alive_background` |
+| `.bak_before_keep_freq` | 33 | **是** | **是** | **无** `keep_frequent_apps_not_reduced` 字段 |
+| `.bak_before_stage5_keepalive` | 30 | 否 | **是** | 有 KEEP 三件套字段；**无** `keep_alive_background` |
+| `.bak_before_restore_floattasks` | 30 | 否 | **是** | 同 Stage5 前 |
+
+覆盖当前 JSON 用 `bak_before_keep_freq` 会同时把 KEEP 三件套 **和** B 站打回 Reduced。覆盖 `bak_before_stage5_keepalive` 会把 B 站打回 Reduced 30。两者都违反硬约束。
+
+`HONOR_STAGE5_ROLLBACK_20260829.ps1` 现已：
+
+> `throw 'POISON: do not run; current keepalive/sidebar state is the desired state.'`
+
+其原正文会 `deviceidle whitelist -com.netease.cloudmusic` 且 `POST_NOTIFICATION ignore`。按已决约束，**不要为流畅度去跑**。
+
+---
+
+## 3. 推论（非直接观察）
+
+1. KEEP 三件套对当前 jank 的贡献接近零：有 recents 任务、无 `*APP*` 进程、不在 top。它们的成本是**未来驻留权**（重放脚本不再 ignore 后台），不是此刻 CPU。
+2. 网易云保活此刻也几乎不烧前台：上次前台使用停在 2026-07-30，02:09 无进程。成本主要是 **doze EXEMPTED + CachedFreezer exempt + 包级通知 allow**。这正是用户选定、本计划必须吞下的流畅度税。Honor `mStandbyUnprotectedApps` 仍含它，所以息屏播放仍可能被私有电源策略清掉——那是保活缺口，不是流畅度杠杆。
+3. B 站 16.6%+3.3% CPU、下载服务、音频焦点，是 dump 时刻最大的 KEEP/保活相关负载。这是**用户正在用的媒体应用**，不是 KEEP_FREQ 名单制造的幽灵保活。把它加回 Reduced 会让桌面重放再次 `RUN_ANY ignore`，直接违反硬约束，且会伤后台播放。
+4. 02:09 B 站从 user doze 白名单消失、并从 `mStandbyProtectedApps` 掉进 `Unprotected`，发生在同一次 22h+ uptime 内。推断：Honor 私有名单/系统策略改了 B 站保护级，shell 写不回去。`mExemptPerceptiblePkgs` 仍列 B 站，所以「完全失去保护」不成立。不要用 Reduced 或乱加白名单去「修」这个漂移。
+5. 知乎仍在 Reduced 29，却占 top 23.3%：说明 **AppOps ignore 被 reboot 冲掉后尚未重放**，不是 KEEP_FREQ 失败。闲鱼 `u128` 528M 是分屏负载，与本名单无关。
+6. `candidate_nmb_next` 里的 B 站 `reduced_if_no_active_playback` 已过期。有下载服务 + 音频焦点时，即便有人想执行也与「必须留在 Reduced 外」冲突。
+
+---
+
+## 4. 未知
+
+- KEEP 三件套各自当前 `RUN_ANY_IN_BACKGROUND` 精确值：live `appops_key.txt` 未按包名切分；07 的全量 `dumpsys appops` 未在本包逐包抽出这三行。按冻结政策应为 default/allow，但本包未独立 `appops get`。
+- 02:09 B 站白名单/Protected 漂移的具体触发器（用户设置、Honor 云端、播放状态机、还是 PowerGenius 重算）：dumps 只给前后快照，没有中间事件。
+- 网易云若用户在「应用启动管理」里打开「允许后台运行」，对滑动 jank 的定量影响：本包无 A/B。
+- KEEP 三件套若长期驻留 WebView/推送进程，是否会变成可测卡顿：当前样本是否定的，不能外推到「永远无成本」。
+- gfxinfo 累计 jank% 与 KEEP 名单无对照实验；不能把 SystemUI 12.22% 算到 KEEP 头上。
+
+---
+
+## 5. 流畅度成本 vs 必要 —— 逐包
+
+| 包 | 角色 | 分类 | 当前热路径 | 建议 |
+|---|---|---|---|---|
+| `cn.com.langeasy.LangEasyLexis` | KEEP_FREQ | 用户常用，**非系统必要**；也**非当前卡顿源** | recents #17，无进程 | **B 维持移出 Reduced**。不要加回 29。 |
+| `com.moonshot.kimichat` | KEEP_FREQ | 同上 | recents #14，无进程 | **B 维持**。 |
+| `com.deepseek.chat` | KEEP_FREQ | 同上 | recents #15，无进程 | **B 维持**。 |
+| `cn.com.langeasy.EasyListen` | 从未进 Reduced | 保持 allow | 无 recents/进程 | **B 不要新加入 Reduced**。 |
+| `com.netease.cloudmusic` | keep-alive | **用户选定流畅度成本** | 白名单在，无热进程；PG Unprotected；freezer exempt | **B 保留 deviceidle + 包级通知 allow**。不要为流畅度撤白名单。 |
+| `com.bilibili.app.in` | keep-alive / 硬约束 | 后台播放**必要**（产品）+ 现场**真实 CPU 成本** | 主进程+下载+播放器服务 | **B/A：必须留在 Reduced 外**。不要用 ignore 换流畅。 |
+| `tv.danmaku.bili` | 未安装 | 幽灵包名 | No UID | **A 不要对它写 appops/白名单**。 |
+| ChatGPT / 混元 / 通义 / 智谱 / 阿里健康 / 抖音 / TapTap / 小红书 | Reduced 29 内 | 常规后台限制对象 | 非本包热路径 | **B 保持 29，不要为「对称」把 KEEP 或 B 站加回去**。 |
+
+---
+
+## 6. 推荐杠杆（按风险级）
+
+### A — 禁止（看起来像流畅度，实际有毒）
+
+- 把 `com.bilibili.app.in` 加回 `enforced_reduced_packages` 或对其 `RUN_ANY_IN_BACKGROUND ignore`。
+- 把 KEEP 三件套加回 Reduced / 再 `appops set ... ignore`（违反用户「常用软件不加入常规优化」）。
+- 用 `.bak_before_keep_freq`（33）或 `.bak_before_stage5_keepalive`（30，含 B 站）覆盖当前 JSON。
+- 跑 `HONOR_STAGE5_ROLLBACK_20260829.ps1`（已标 POISON；会撤网易云白名单）。
+- 为「对齐冻结」disable iaware / phoneservice。
+- 动 `honor.globalWindow.dockBar`、tooltip、`is_ota_finished`、`navigation_mode`、enable FloatTasks。
+- 执行 `candidate_nmb_next` 里对 B 站的 `reduced_if_no_active_playback`。
+- 对 `tv.danmaku.bili` 写任何保活/限制。
+- 禁 `com.hihonor.iaware` / PowerGenius（名单只读，禁了会乱调度）。
+
+### B — 维持（本计划采纳）
+
+- Reduced 继续 29，重放脚本只打这 29 包。
+- KEEP 三件套继续 `appops_policy=default`，继续留在 `keep_frequent_apps_not_reduced`。
+- 网易云继续 `deviceidle whitelist` present + 包级 `POST_NOTIFICATION allow`。Uid 层 ignore 是分层，不要 rollback 包级 allow。
+- B 站继续留在 `keep_alive_background`，继续不在 Reduced。
+
+### C — 只观察 / 只用户手动（shell 不写）
+
+- 若网易云息屏仍断：设置 → 电池 → 应用耗电管理 / 应用启动管理 → 允许后台运行。这会**再加** Honor 保护（可能再吃一点内存），不是流畅度优化。
+- 记录 B 站 Protected/白名单漂移：下次只读对比 `dumpsys deviceidle whitelist` 与 `dumpsys powergenius -a` 是否自行回到 Protected。
+- 重启后点桌面「恢复 Reduced」，确认 ignore=29 且三件套/B 站/网易云不在 ignore 列表。这是既有流程，不是新杠杆。
+
+### D — 现在不要做
+
+- 因 SystemUI jank% 去 force-stop B 站下载进程（会伤正在下的缓存；无对照）。
+- 因「名单对称」给 KEEP 三件套加 doze 白名单（会把冷启动便利升级成真保活，成本上升）。
+- 改动画倍率、刷新率、APS（超出本包，且硬约束未授权）。
+- 把知乎现场 23% CPU 怪到 KEEP_FREQ；应走 Reduced 重放，不改 KEEP 名单。
+
+---
+
+## 7. 回滚（若将来用户撤回产品选择）
+
+**默认：不回滚。** 当前 KEEP/保活就是目标态。
+
+若用户**明确**只要撤回网易云保活、且仍保住 B 站 Reduced-out 与 KEEP 三件套：
+
+```text
+cmd deviceidle whitelist -com.netease.cloudmusic
+cmd appops set com.netease.cloudmusic POST_NOTIFICATION ignore
+cmd appops write-settings
+```
+
+不要覆盖任何 bak JSON。不要动 B 站。不要跑已禁用的 Stage5 回滚脚本。
+
+若用户**明确** KEEP 三件套不再常用、同意重新 Reduced：只能把这三包加回 `enforced_reduced_packages` 并 `appops set RUN_ANY_IN_BACKGROUND ignore`，**不得**借用 `bak_before_keep_freq`（它会顺带把 B 站打回 33）。本计划不建议现在做。
+
+B 站加回 Reduced：**无合法流畅度回滚路径**。
+
+---
+
+## 8. 怎么量 jank（证明 KEEP 是否有罪）
+
+不要用「感觉卡」或 gfxinfo 历史累计当因果。按下面做前后对照（本包只定义，不执行写入）。
+
+1. **驻留检查（KEEP 有罪前提）**  
+   `dumpsys activity lru` / `dumpsys activity processes` 是否出现三件套或网易云 `*APP*`。现在是没有。没有进程就不要把桌面 jank 算它们头上。
+
+2. **瞬时 CPU**  
+   桌面滑动时 `top -b -n 3` 与 `dumpsys cpuinfo`。关注 `com.bilibili.app.in`、`:download`、三件套、网易云。基线已见 B 站 16.6%+3.3%，三件套 0。
+
+3. **帧时间（分场景）**  
+   每次测试前 `dumpsys gfxinfo <pkg> reset`，滑 10s 再 dump：
+   - `com.hihonor.android.launcher`（桌面）
+   - `com.android.systemui`（导航/状态栏）
+   - 若在 B 站里滑：`com.bilibili.app.in`  
+   记录 Total frames、Janky%、90/99th、deadline missed。现成基线：launcher 4.52% / SystemUI 12.22%。
+
+4. **保活层是否仍按目标态**  
+   - Reduced 重放后：`cmd appops query-op --user 0 RUN_ANY_IN_BACKGROUND ignore` 应恰好 29，且不含三件套 / B 站 / 网易云。  
+   - `dumpsys deviceidle whitelist`：网易云应仍在；B 站可在可不在（已观察到漂移，只记录）。  
+   - 网易云：`appops get` 包级 POST_NOTIFICATION=allow，Uid ignore 可并存。
+
+5. **单变量**  
+   禁止同时改 Reduced、白名单、Honor 启动管理、动画。若要验证网易云成本，只在用户同意时临时 `whitelist -`，测桌面 gfxinfo 10s×3，再加回。预期：无网易云进程时差值≈0。
+
+6. **负对照**  
+   知乎（Reduced 成员却在 top）和闲鱼 u128 必须并列记录，避免把别人的 CPU 写成 KEEP 成本。
+
+---
+
+## 9. 本包结论（给编排器用）
+
+KEEP_FREQ 三件套：**留。** 用户常用，现场非卡顿源。  
+网易云保活：**留，记为流畅度税。** 不要撤白名单。  
+B 站：**留在 Reduced 29 外。** 它是真负载，但加回 Reduced 是约束禁止项。  
+流畅度若要动刀：去重放 Reduced 29、看知乎/闲鱼/B 站前台，而不是改 KEEP 名单。
+
+目标路径（未写成）：`C:\Users\hzq00\Documents\Codex\2026-08-29\hy4-ai-ai-ai-ai-01a02ee0\work\fluency_plan\reports\h01_keep_freq.md`

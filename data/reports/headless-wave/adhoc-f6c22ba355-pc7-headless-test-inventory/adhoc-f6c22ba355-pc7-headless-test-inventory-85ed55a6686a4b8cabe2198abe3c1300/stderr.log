@@ -1,0 +1,257 @@
+Reading additional input from stdin...
+2026-08-12T20:01:31.625761Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-12T20:01:32.667790Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:01:35.085693Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-12T20:03:06.684226Z ERROR codex_core::tools::router: error=Exit code: 124
+Wall time: 11.3 seconds
+Output:
+command timed out after 11297 milliseconds
+
+2026-08-12T20:04:28.192904Z ERROR codex_core::tools::router: error=Exit code: 124
+Wall time: 62.6 seconds
+Output:
+command timed out after 62635 milliseconds
+
+
+2026-08-12T20:04:28.298625Z ERROR codex_core::tools::router: error=Exit code: 124
+Wall time: 62.7 seconds
+Output:
+command timed out after 62717 milliseconds
+
+2026-08-12T20:04:43.022393Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 5.9 seconds
+Output:
+E:\VPS\.work\home-vectorized-screen-v2\home\test_vectorized_screen_handler.py:16:import unittest
+E:\VPS\.work\home-vectorized-screen-v2\home\test_vectorized_screen_handler.py:68:class SchemaValidationTests(unittest.TestCase):
+E:\VPS\.work\home-vectorized-screen-v2\home\test_vectorized_screen_handler.py:159:class HandlerExecutionTests(unittest.TestCase):
+E:\VPS\.work\home-vectorized-screen-v2\home\test_vectorized_screen_handler.py:318:class CliIntegrationTests(unittest.TestCase):
+E:\VPS\.work\home-vectorized-screen-v2\home\test_vectorized_screen_handler.py:352:    unittest.main(verbosity=2)
+E:\VPS\.work\home-vectorized-screen-v2\home\test_home_vectorized_screen_dispatch.py:7:import unittest
+E:\VPS\.work\home-vectorized-screen-v2\home\test_home_vectorized_screen_dispatch.py:9:from unittest import mock
+E:\VPS\.work\home-vectorized-screen-v2\home\test_home_vectorized_screen_dispatch.py:37:class VectorScreenDispatchTests(unittest.TestCase):
+E:\VPS\.work\home-vectorized-screen-v2\home\test_home_vectorized_screen_dispatch.py:101:    unittest.main(verbosity=2)
+E:\VPS\.work\pc6-edit\quant\p5_track3\test_track3.py:151:def test_bar_close_causality_0800_fixture():
+E:\VPS\.work\home-vectorized-screen-v2\hub\quant\p5_infra\tests\test_queue_db.py:7:import unittest
+E:\VPS\.work\home-vectorized-screen-v2\hub\quant\p5_infra\tests\test_queue_db.py:66:class QueueDBTests(unittest.TestCase):
+E:\VPS\.work\home-vectorized-screen-v2\hub\quant\p5_infra\tests\test_queue_db.py:399:    unittest.main()
+E:\VPS\.work\home-vectorized-screen-v2\hub\quant\p5_infra\tests\test_p0_boot.py:6:import unittest
+E:\VPS\.work\home-vectorized-screen-v2\hub\quant\p5_infra\tests\test_p0_boot.py:9:from unittest.mock import patch
+E:\VPS\.work\home-vectorized-screen-v2\hub\quant\p5_infra\tests\test_p0_boot.py:24:class FstabGuardTests(unittest.TestCase):
+E:\VPS\.work\home-vectorized-screen-v2\hub\quant\p5_infra\tests\test_p0_boot.py:187:    unittest.main()
+E:\VPS\.tools\p5_src_audit_153334Z\quant\p5_infra\tests\test_queue_db.py:7:import unittest
+E:\VPS\.tools\p5_src_audit_153334Z\quant\p5_infra\tests\test_queue_db.py:46:class QueueDBTests(unittest.TestCase):
+E:\VPS\.tools\p5_src_audit_153334Z\quant\p5_infra\tests\test_queue_db.py:317:    unittest.main()
+E:\VPS\.work\home-vectorized-screen-v2\hub\quant\p5_infra\tests\test_hub_daemon.py:5:import unittest
+E:\VPS\.work\home-vectorized-screen-v2\hub\quant\p5_infra\tests\test_hub_daemon.py:11:class AtomicHealthTests(unittest.TestCase):
+E:\VPS\.work\home-vectorized-screen-v2\hub\quant\p5_infra\tests\test_hub_daemon.py:21:    unittest.main()
+E:\VPS\.tools\p5_src_audit_153334Z\quant\p5_infra\tests\test_p0_boot.py:6:import unittest
+E:\VPS\.tools\p5_src_audit_153334Z\quant\p5_infra\tests\test_p0_boot.py:9:from unittest.mock import patch
+E:\VPS\.tools\p5_src_audit_153334Z\quant\p5_infra\tests\test_p0_boot.py:24:class FstabGuardTests(unittest.TestCase):
+E:\VPS\.tools\p5_src_audit_153334Z\quant\p5_infra\tests\test_p0_boot.py:187:    unittest.main()
+E:\VPS\.work\home-vectorized-screen-v2\hub\quant\p5_infra\tests\test_fable_spot_reconnect.py:8:import unittest
+E:\VPS\.work\home-vectorized-screen-v2\hub\quant\p5_infra\tests\test_fable_spot_reconnect.py:11:from unittest.mock import patch
+E:\VPS\.work\home-vectorized-screen-v2\hub\quant\p5_infra\tests\test_fable_spot_reconnect.py:29:class FableReconnectTests(unittest.TestCase):
+E:\VPS\.work\home-vectorized-screen-v2\hub\quant\p5_infra\tests\test_fable_spot_reconnect.py:174:    unittest.main()
+E:\VPS\.tools\p5_src_audit_153334Z\quant\p5_infra\tests\test_hub_daemon.py:5:import unittest
+E:\VPS\.tools\p5_src_audit_153334Z\quant\p5_infra\tests\test_hub_daemon.py:11:class AtomicHealthTests(unittest.TestCase):
+E:\VPS\.tools\p5_src_audit_153334Z\quant\p5_infra\tests\test_hub_daemon.py:21:    unittest.main()
+E:\VPS\.tools\p5_src_audit_153334Z\quant\p5_infra\tests\test_fable_spot_reconnect.py:8:import unittest
+E:\VPS\.tools\p5_src_audit_153334Z\quant\p5_infra\tests\test_fable_spot_reconnect.py:11:from unittest.mock import patch
+E:\VPS\.tools\p5_src_audit_153334Z\quant\p5_infra\tests\test_fable_spot_reconnect.py:29:class FableReconnectTests(unittest.TestCase):
+E:\VPS\.tools\p5_src_audit_153334Z\quant\p5_infra\tests\test_fable_spot_reconnect.py:174:    unittest.main()
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\platform\ext-runtime\ruby\test\runtime_test.py:17:import unittest
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\platform\ext-runtime\ruby\test\runtime_test.py:461:      unittest.main()
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\platform\ext-runtime\php\test\runtime_test.py:18:import unittest
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\platform\ext-runtime\php\test\runtime_test.py:279:    unittest.main()
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\platform\ext-runtime\nodejs\test\runtime_test.py:11:import unittest
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\platform\ext-runtime\nodejs\test\runtime_test.py:480:  unittest.main()
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\platform\ext-runtime\python\test\runtime_test.py:20:import unittest
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\platform\ext-runtime\python\test\runtime_test.py:449:    unittest.main()
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\platform\ext-runtime\java\test\runtime_test.py:26:import unittest
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\platform\ext-runtime\java\test\runtime_test.py:553:  unittest.main()
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\appengine\proto\message_set.py:257:  See message_set_unittest.proto and message_set_py_unittest.py for examples.
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\platform\ext-runtime\go\test\runtime_test.py:16:import unittest
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\platform\ext-runtime\go\test\runtime_test.py:133:    unittest.main()
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\appengine\datastore\datastore_rpc.py:2607:    # testTransactionRetries() (in datastore_unittest.py) fails.  Why?
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\appengine\datastore\datastore_rpc.py:2890:# TODO(user): Write unittests for these?
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\platform\ext-runtime\custom\test\runtime_test.py:4:import unittest
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\platform\ext-runtime\custom\test\runtime_test.py:31:  unittest.main()
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\appengine\api\appinfo.py:50:  # This case covers both Python 2.5 and unittests, which are 2.5 only.
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\appengine\api\apiproxy_stub_map.py:15:"""Container of APIProxy stubs for more convenient unittesting.
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\appengine\api\apiproxy_stub_map.py:205:  """Container of APIProxy stubs for more convenient unittesting.
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\appengine\api\apiproxy_stub_map.py:210:  For unittests, we may want to mix and match real and trivial implementations
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\appengine\api\apiproxy_stub_map.py:256:    # experimental/users/abednego/sphinx/indexed_table_unittest.py.
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\urllib3\noxfile.py:23:    pytest_extra_args: list[str] = [],
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\urllib3\noxfile.py:73:    # Environment variables being passed to the pytest run.
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\urllib3\noxfile.py:74:    pytest_session_envvars = {
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\urllib3\noxfile.py:89:        "pytest",
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\urllib3\noxfile.py:101:        *pytest_extra_args,
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\urllib3\noxfile.py:103:        env=pytest_session_envvars,
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\urllib3\noxfile.py:141:        pytest_extra_args=["-k", "pyopenssl"],
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\urllib3\noxfile.py:215:    session.run("pytest", "tests")
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\urllib3\noxfile.py:310:        pytest_extra_args=[
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\cloudsdk\google\protobuf\internal\testing_refleaks.py:8:"""A subclass of unittest.TestCase which checks for reference leaks.
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\cloudsdk\google\protobuf\internal\testing_refleaks.py:11:- Use testing_refleak.BaseTestCase instead of unittest.TestCase
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\cloudsdk\google\protobuf\internal\testing_refleaks.py:21:import unittest
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\cloudsdk\google\protobuf\internal\testing_refleaks.py:24:class LocalTestResult(unittest.TestResult):
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\cloudsdk\google\protobuf\internal\testing_refleaks.py:28:    unittest.TestResult.__init__(self)
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\cloudsdk\google\protobuf\internal\testing_refleaks.py:51:    expecting_failure_method = getattr(testMethod, "__unittest_expecting_failure__", False)
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\cloudsdk\google\protobuf\internal\testing_refleaks.py:52:    expecting_failure_class = getattr(self, "__unittest_expecting_failure__", False)
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\cloudsdk\google\protobuf\internal\testing_refleaks.py:116:  SkipReferenceLeakChecker = unittest.skip
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\stub.py:30:    unittest.mock
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\pyparsing\__init__.py:6930:        A mixin class to add parse results assertion methods to normal unittest.TestCase classes.
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\kubernetes\watch\watch_test.py:17:import unittest
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\kubernetes\watch\watch_test.py:24:class WatchTests(unittest.TestCase):
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\kubernetes\watch\watch_test.py:272:  unittest.main()
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\kubernetes\stream\ws_client_test.py:17:import unittest
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\kubernetes\stream\ws_client_test.py:22:class WSClientTest(unittest.TestCase):
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\kubernetes\stream\ws_client_test.py:39:  unittest.main()
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\kubernetes\config\kube_config_test.py:23:import unittest
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\kubernetes\config\kube_config_test.py:131:class BaseTestCase(unittest.TestCase):
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\kubernetes\config\kube_config_test.py:1244:  unittest.main()
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\kubernetes\config\incluster_config_test.py:19:import unittest
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\kubernetes\config\incluster_config_test.py:43:class InClusterConfigTest(unittest.TestCase):
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\kubernetes\config\incluster_config_test.py:135:  unittest.main()
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\kubernetes\config\exec_provider_test.py:18:import unittest
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\kubernetes\config\exec_provider_test.py:27:class ExecProviderTest(unittest.TestCase):
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\kubernetes\config\exec_provider_test.py:149:  unittest.main()
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\kubernetes\config\dateutil_test.py:17:import unittest
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\kubernetes\config\dateutil_test.py:23:class DateUtilTest(unittest.TestCase):
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\apitools\gen\test_utils.py:23:import unittest
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\apitools\gen\test_utils.py:28:SkipOnWindows = unittest.skipIf(
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\apitools\base\protorpclite\test_util.py:36:import unittest
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\apitools\base\protorpclite\test_util.py:52:class TestCase(unittest.TestCase):
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\apitools\base\protorpclite\test_util.py:182:        import unittest
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\apitools\base\protorpclite\test_util.py:198:          unittest.main()
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\pygments\lexers\matlab.py:1668:                        "matlab.unittest.Test",
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\pygments\lexers\matlab.py:1669:                        "matlab.unittest.TestCase",
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\pygments\lexers\matlab.py:1670:                        "matlab.unittest.TestResult",
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\pygments\lexers\matlab.py:1671:                        "matlab.unittest.TestRunner",
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\pygments\lexers\matlab.py:1672:                        "matlab.unittest.TestSuite",
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\pygments\lexers\matlab.py:1673:                        "matlab.unittest.constraints.BooleanConstraint",
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\pygments\lexers\matlab.py:1674:                        "matlab.unittest.constraints.Constraint",
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\pygments\lexers\matlab.py:1675:                        "matlab.unittest.constraints.Tolerance",
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\pygments\lexers\matlab.py:1676:                        "matlab.unittest.diagnostics.ConstraintDiagnostic",
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\pygments\lexers\matlab.py:1677:                        "matlab.unittest.diagnostics.Diagnostic",
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\pygments\lexers\matlab.py:1678:                        "matlab.unittest.fixtures.Fixture",
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\pygments\lexers\matlab.py:1679:                        "matlab.unittest.measurement.DefaultMeasurementResult",
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\pygments\lexers\matlab.py:1680:                        "matlab.unittest.measurement.MeasurementResult",
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\pygments\lexers\matlab.py:1681:                        "matlab.unittest.measurement.chart.ComparisonPlot",
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\pygments\lexers\matlab.py:1682:                        "matlab.unittest.plugins.OutputStream",
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\pygments\lexers\matlab.py:1683:                        "matlab.unittest.plugins.Parallelizable",
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\pygments\lexers\matlab.py:1684:                        "matlab.unittest.plugins.QualifyingPlugin",
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\pygments\lexers\matlab.py:1685:                        "matlab.unittest.plugins.TestRunnerPlugin",
+
+2026-08-12T20:05:11.921599Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.6 seconds
+Output:
+
+2026-08-12T20:05:51.006078Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.7 seconds
+Output:
+from __future__ import annotations
+
+import hashlib
+import json
+import tempfile
+import threading
+import unittest
+from concurrent.futures import ThreadPoolExecutor
+from contextlib import closing
+from datetime import datetime, timedelta, timezone
+from pathlib import Path
+
+from p5_infra.queue_db import FailClosed, QueueDB
+
+
+H64 = "a" * 64
+GIT = "3aa1351c8b8cf7f06157782f8194d27ad6274666"
+
+
+def job(job_id: str = "job-1", trial: str = "trial-1", job_type: str = "torch_model_train") -> dict:
+    return {
+        "job_id": job_id,
+        "logical_trial_id": trial,
+        "experiment_id": "experiment-1",
+        "job_type": job_type,
+        "git_sha": GIT,
+        "dataset_manifest_sha": H64,
+        "config_sha": "b" * 64,
+        "environment_sha": "c" * 64,
+        "gpu_required": True,
+        "checkpointable": True,
+        "max_wall_seconds": 600,
+        "trial_accounting_policy": "one-logical-trial-infrastructure-retries-do-not-count",
+        "command": ["python", "train.py", "--config", "frozen.json"],
+        "expected_outputs": ["result.json"],
+    }
+
+
+def capabilities() -> dict:
+    return {
+        "gpu_available": True,
+        "supported_job_types": ["torch_model_train", "alphasage_smoke"],
+    }
+
+
+class QueueDBTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.temp = tempfile.TemporaryDirectory()
+        self.root = Path(self.temp.name) / "queue"
+        self.db = QueueDB(self.root)
+        self.db.initialize()
+
+    def tearDown(self) -> None:
+        self.temp.cleanup()
+
+    def result(self, lease: dict) -> dict:
+        artifact = self.root / "incoming" / lease["attempt_id"] / "result.json"
+        artifact.parent.mkdir(parents=True, exist_ok=True)
+        artifact.write_bytes(b"verified result\n")
+        return {
+            "job_id": lease["job_id"],
+            "attempt_id": lease["attempt_id"],
+            "git_sha": lease["git_sha"],
+            "dataset_manifest_sha": lease["dataset_manifest_sha"],
+            "config_sha": lease["config_sha"],
+            "environment_sha": lease["environment_sha"],
+            "outputs": [{
+                "path": "result.json",
+                "sha256": hashlib.sha256(artifact.read_bytes()).hexdigest(),
+            }],
+
+=====P0BOOT=====
+
+Get-Content : 找不到路径“E:\VPS\tmp_probe\hubsrc\quant\p5_infra\tests\test_p0_boot.py”，因为该路径不存在。
+所在位置 行:2 字符: 128
++ ... OT=====`n"; Get-Content E:\VPS\tmp_probe\hubsrc\quant\p5_infra\tests\ ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (E:\VPS\tmp_prob...test_p0_boot.py:String) [Get-Content], ItemNotFoundEx 
+   ception
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+
+2026-08-12T20:07:15.891095Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

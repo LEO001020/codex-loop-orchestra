@@ -1,0 +1,47 @@
+Reading additional input from stdin...
+2026-08-14T11:14:37.128912Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T11:14:39.404965Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T11:15:03.051187Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `command` at line 1 column 137
+2026-08-14T11:15:09.934469Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `command` at line 1 column 67
+2026-08-14T11:15:18.151942Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `command` at line 1 column 67
+2026-08-14T11:15:38.671679Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `command` at line 1 column 59
+2026-08-14T11:15:49.988440Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `command` at line 1 column 59
+2026-08-14T11:16:01.003386Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:16:32.184919Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+dir : 找不到路径“E:\b”，因为该路径不存在。
+所在位置 行:2 字符: 1
++ dir /b E:\codex-LOOP\codex-loop-s-f2
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (E:\b:String) [Get-ChildItem], ItemNotFoundException
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-14T11:17:28.831006Z ERROR codex_core::tools::router: error=unsupported call: read
+2026-08-14T11:17:41.849201Z ERROR codex_core::tools::router: error=unsupported call: read
+2026-08-14T11:29:28.826972Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-14T11:33:10.321703Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

@@ -55,6 +55,14 @@ def main():
         return 2
 
     ranking, worst = [], "pass"
+    if not data.get("candidates"):
+        # An empty/malformed verdicts document must fail visible: an empty
+        # candidate set silently aggregated to "pass" and exempted the
+        # packet from Sol review.
+        print(json.dumps({"aggregate_verdict": "escalate_l3",
+                          "error": "no candidates in verdicts document",
+                          "best_candidate": None, "ranking": []}))
+        return 2
     for cand in data.get("candidates", []):
         vs = [v for v in cand.get("verdicts", [])
               if v.get("verdict") in RANK]

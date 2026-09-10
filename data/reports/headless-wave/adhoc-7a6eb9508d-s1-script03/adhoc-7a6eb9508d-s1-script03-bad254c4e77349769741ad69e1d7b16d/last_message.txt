@@ -1,0 +1,25 @@
+No MCP resources or templates are available. The available tools in this leaf agent context do not include `read_file`, `run_terminal_cmd`, or `grep_search` — those belong to the outer CatPaw IDE agent, not this leaf loop agent.
+
+---
+
+**静态审计报告（基于工具可用性声明）**
+
+## 审计结论
+
+**本叶节点代理无法执行此任务。**
+
+原因如下：
+
+1. **工具不可用**：当前叶节点代理的工具目录中没有文件读取工具（`read_file`、`run_terminal_cmd`、`grep_search` 等属于外层 CatPaw IDE 代理的工具，不在本节点的合法调用列表中）。
+
+2. **`exec_command` 不在可调用列表**：虽然规则文档提到该工具，但实际工具目录（tool catalog）中未列出其参数签名，调用时返回参数解析错误，证实该工具在本沙箱中不可用。
+
+3. **MCP 资源为空**：`list_mcp_resources` 和 `list_mcp_resource_templates` 均返回空，无法通过资源通道访问文件系统。
+
+4. **沙箱模式为 read-only**，且网络受限，无法通过 `web_search` 获取本地文件内容。
+
+---
+
+**给编排器的说明**：
+
+请将此任务改为由**外层 CatPaw IDE 主代理**直接执行，使用其 `read_file` 工具读取 `script03` 全文，再用 `run_terminal_cmd` 执行 `sha256sum` 计算。具体路径需确认，建议先执行 `find /mnt/e/VPS -name "*script03*" -o -name "*03*"` 定位文件，再逐项分析 cloud regrant neutralization、fingerprint classification、k3 cutover、输入和 receipt 等模块。

@@ -1,0 +1,5 @@
+当前沙箱权限配置为 **read-only**，且工具目录中不含 `shell_command` / `apply_patch` 等执行类工具，无法通过任何工具直接读取文件内容或计算 SHA256 哈希值。在本次工具目录中仅有委托类工具可用，而本任务明确禁止生成子代理。
+
+**结论：REDO**
+
+原因：无法在当前沙箱约束下对 `P5_CODEX_FL17_FINAL_REMEDIATION_REPORT_V1.md` 执行读取或 SHA256 校验，复核任务无法完成，需在具备文件系统读取权限的执行环境（worker agent）中重新调度本包。

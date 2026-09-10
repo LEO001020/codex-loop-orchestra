@@ -1,0 +1,56 @@
+# Headless 运行时快照（只读）
+
+以下均为只读命令与证据；未写入任何文件、未打真实标签、未执行科学工作负载。
+
+## 1. 当前身份与权限
+
+| 项 | 证据 |
+|---|---|
+| 运行身份 | `whoami` → `desktop-3l9c649\codexsandboxoffline`（`$env:USERNAME` 仍显示 `hzq00`，与实际令牌不一致） |
+| 沙箱模式 | 本次 spawn 命令行（见 exec_roster）带 `--sandbox read-only`，`features.apps/plugins/remote_plugin=false`，`ipybox.enabled=true`，`node_repl.enabled=false`，模型 `weiwu/deepseek-v4-flash`，effort=ultra，cwd=`E:\VPS` |
+| 语言模式 | PowerShell ConstrainedLanguage（`[PSCustomObject]`、`.Substring()`、`[DateTimeOffset]::...` 均被拒绝） |
+| Git | 默认被拒：`dubious ownership`——repo 属 `hzq00`（SID …-1001），当前用户 `CodexSandboxOffline`（SID …-1004）；仅 `git -c safe.directory='E:/codex-LOOP/codex-loop-s-f2' ...` 可读（非持久化，未写 config） |
+| WMI/任务列表 | `Get-CimInstance Win32_Process`、`tasklist` → 拒绝访问；venv python 为 shim：`No Python at 'C:\Users\hzq00\AppData\Local\Programs\Python\Python312\python.exe'` |
+| 计划任务 | `schtasks /query /tn 'Codex-LOOP-Monitor'` → 系统找不到指定的路径（沙箱账户下未注册；仅存备份 XML [Codex-LOOP-Monitor.xml](E:/codex-LOOP/launchers/task-backups/20260813-023417/Codex-LOOP-Monitor.xml)） |
+
+## 2. 运行时与 8765 观察器
+
+`netstat -ano -p tcp | Select-String '8765.*LISTENING'` → `TCP 127.0.0.1:8765 LISTENING PID 55076`；`Get-Process -Id 55076` → python，启动于 2026-08-13 00:30:15，路径 `C:\Users\hzq00\AppData\Local\Programs\Python\Python314\python.exe`。
+
+`curl.exe -s http://127.0.0.1:8765/api/status` → HTTP 200，**freshness=LIVE**（age 0.7s，headless heartbeat 0.7s）：
+
+- target=60，deficit=25，preferred v4=45 / k3=15（与 [refill_policy.toml](E:/codex-LOOP/codex-loop-s-f2/config/refill_policy.toml) 的 `target_total=60, v4_target=45, k3_target=15, low_water 34/11` 一致）
+- counts：running=35，completed=99，failed=130，open_sessions=13，stale_native=154，stale_headless=1
+- pools：v4=11，k3=24，sol=0；planes：desktop=11，headless=24（11+24=35 ✓）
+- execution profile：`v4f` / `weiwu/deepseek-v4-flash` / ultra（[model_profiles.toml](E:/codex-LOOP/codex-loop-s-f2/config/model_profiles.toml) 的 active_profile）
+- root：`\\wsl.localhost\Ubuntu\home\codexloop\codex-loop-s-f2`
+
+## 3. Canonical repo（E:\codex-LOOP\codex-loop-s-f2）
+
+`git -c safe.directory='E:/codex-LOOP/codex-loop-s-f2' status --short --branch` → 分支 main，大量脏：约 30 个已跟踪文件被修改（AGENTS.md、harness/*、config/*、tests/* 等），整个 F2 叠加层未跟踪（`harness/`、`config/`、`data/`、`hooks/`、`reports/`、`schemas/`、`backup-2026*/`、`codex-loop-s-f2/` 等）。
+
+`git log -1` → `f1d6eac7ada14333581988aa01735d9f013804fa  2026-08-10 06:31:23 +0800  Fable F2 delivery baseline`；`git remote -v` → 无远程。
+
+## 4. researchctl 入口
+
+本地审计副本：[researchctl-syntax/app-src/unpacked](E:/VPS/reports/researchctl-syntax/app-src/unpacked) 含 `researchctl.py`(6450B)、`researchctld.py`(4195B)、`research_db.py`、`research_schema.sql`、`finalize_research_memory.py`，另有 `p5_infra_src.tar`。
+
+真实入口（据 [report.md](E:/VPS/reports/researchctl-syntax/report.md)，2026-08-12 严格 SSH 只读核验）：
+
+- CLI：`/usr/local/bin/researchctl` → `/data/k3/research/app-v1-20260811T024500Z/p5_infra/researchctl.py`
+- 守护进程 `researchctld`，Unix socket `/run/researchctl/control.sock`，OWNER_ID=`k3-research-owner`；契约 v1 append-only（revision=1、event_type=CREATED、无更新通道），缺字段 FAIL_CLOSED，幂等键 `operation_id`，强制 `workload=NON_STATISTICAL_INFRA_CANARY`、统计/alpha 权限=NONE
+- 本地使用入口：[p5_pc6_remote_register_agent_run.sh](E:/VPS/p5_pc6_remote_register_agent_run.sh) —— `ssh k3@136.85.49.91` → `researchctl record --entity-type agent_run --actor-owner-id k3-research-owner --payload '{"agent_run_id":"...","research_campaign_id":"P5-EMPIRICAL-FOUNDATION-V1","status":"RUNNING","task_name":"...ENGINEERING ONLY; NO P3 T1/H0 EXECUTION; NO REAL RETURN; NO HOME/GCP MUTATION"}'`
+- 只读核验命令：`researchctl as-of --research-campaign-id P5-EMPIRICAL-FOUNDATION-V1 --as-of 9999-12-31T23:59:59Z [--entity-type work]`、`researchctl verify`
+
+## 5. 当前计数（exec_roster.json，schema `codex-loop-exec-roster/v2`，mtime 2026-08-13 04:07:55）
+
+共 **110 个 job**：
+
+- 状态：running=24，completed=38，timed_out=28，failed=10，spawn_failed=8，cancelled=1，lost=1
+- 模型：v4-flash=64，k3=45，zero-model=1；角色：worker=65，verifier=39，reviewer=5，plan_expander=1；平面：Windows CLI=106，空=4
+
+24 个 running = 波次 `adhoc-5e2f87e03f-*`（7×V4 worker + 9×K3 verifier/reviewer）+ 波次 `adhoc-f6c22ba355-*`（4×V4 worker + 4×K3），共 V4=11、K3=13。本任务即 `adhoc-f6c22ba355-pc7-headless-runtime-snapshot`（pid 40804，role=worker，v4-flash，Windows CLI，started 2026-08-13T04:01:28Z，deadline 04:31:28Z）。
+
+其他：native_roster.json 有 182 个 agent 条目、pending=0，updated_at=2026-08-12 23:55:22（已陈旧，与 stale_native=154 相符）；name_map.jsonl 182 行；events.ndjson 604 行；`data/lifecycle/exec_roster.json` 持续被 headless wave 刷新。
+
+**结论**：观察器与 roster 双平面计数一致（35 = 11 desktop + 24 headless），对 60 目标仍缺 25（按策略应补 V4 至 45、K3 至 15）；当前沙箱为 read-only + ConstrainedLanguage + 无管理员/WMI/任务列表权限，且无可用 python 解释器；researchctl 仅存在于远端入口与本地审计副本中，本次未调用、未写入。

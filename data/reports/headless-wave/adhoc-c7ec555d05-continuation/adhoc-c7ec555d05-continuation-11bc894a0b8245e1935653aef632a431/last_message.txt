@@ -1,0 +1,17 @@
+在 LOOP S-F2 环境中，关于 Stop hook 和 continuation 的机制与宿主限制如下：
+
+### 核心机制与限制
+
+1.  **Stop hook Continuation 限制 (硬性阈值)**
+    *   **最大次数**：`Stop hook` 的 continuation 被严格限制为**最多 3 次连续执行**。第 3 次之后，平台会强制终止该行为。
+    *   **禁忌**：严禁使用 `Stop hook` 进行无限制的 continuation（属于 `VOL-01 §3.6` 条款下的硬性禁令）。
+2.  **钩子 (Hook) 系统**
+    *   **输入**：钩子接收单行 JSON 格式的 stdin 输入，包含通用字段如 `session_id`, `transcript_path`, `cwd`, `hook_event_name` 等。对于 `Stop` 事件，有效负载包含 `stop_hook_active` 和 `last_assistant_message`。
+    *   **上下文注入**：`transcript_path` 为临时文件，在 hook 执行后会被清理。因此，需要持久化的数据必须在 hook 运行时写入指定的持久化路径（如 `ZCODE_PLUGIN_DATA`）。
+    *   **输出**：stdout 输出 JSON，且必须遵循约定的 schema，例如 `{"decision":"block","reason":"..."}`（用于阻止）或 `{"hookSpecificOutput":{...}}`。
+    *   **错误处理**：0 为成功，2 为 block/continue，其他代码视为可恢复的故障（turn 不会崩溃）。
+3.  **恢复 (Resume) 与紧缩 (Compact)**
+    *   在上下文压缩或 compaction 时，**不应内联原始内容**。正确做法是保留文件路径引用，结构化摘要应小于等于 500 tokens。任何丢失路径的 compaction 均视为缺陷。
+
+### 总结
+上述规则共同服务于 Codex-LOOP 框架的整体运行稳定性和状态隔离，确保在非计划和非仲裁阶段，Sol 不会进行昂贵的 L0 数据预处理或触发未授权的持续操作。请在操作 `E:\codex-LOOP\codex-loop-s-f2` 中的 hook 相关配置和脚本时严格遵循这些限制。

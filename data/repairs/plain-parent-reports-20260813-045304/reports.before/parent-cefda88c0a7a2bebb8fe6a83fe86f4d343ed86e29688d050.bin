@@ -1,0 +1,14 @@
+**结论：本次恢复的变更范围与声明一致——只触及自动补位链、状态机事件边界和真值计数；未发现整包覆盖，ipybox cleanup/lazy 未被修改。**
+
+变更范围（快照窗口 4:14–4:43，源文件共 17 个：10 harness + 1 hook + 6 tests）：
+
+1. 自动补位链：[refill_consumer_v2.py](/E:/codex-LOOP/codex-loop-s-f2/harness/refill_consumer_v2.py)（schedule_run 跨进程锁/合并/PID 存活）、[refill_controller_v2.py](/E:/codex-LOOP/codex-loop-s-f2/harness/refill_controller_v2.py)（相对 1:23 快照为纯增量 +60 行：ctypes PID generation 存活校验、NATIVE_RUNNING_TTL=1800s 的 stale-native 过滤）、[lifecycle_supervisor.py](/E:/codex-LOOP/codex-loop-s-f2/harness/lifecycle_supervisor.py)（roster 原子替换、拒写）、dispatch.py / dispatch_v2.py（模型/effort pin、K3 需求）、parent_manifest_importer.py（显式只读叶包准入）、hooks/subagent_lifecycle.py。
+2. 状态机事件边界：statemachine.py（L204）、statemachine_v2.py（L400–402："adhoc run id … not authority to create a new state-machine packet"），.sm_cursor 同步推进（4:27:44）。
+3. 真值计数：transport-deadletters 修复（4:27:38，移除 93 行，与 manifest selected 完全一致；全部满足 adhoc-*/lifecycle-gate-probe + DEAD_LETTER + 仅 off_table_event + 无 canonical packet 文件；186 个工件路径 0 缺失，未删任何文件）；parent 清单导入（16 个 parent-* 包）；parent-ledger-schema 修复（4:43:39，按 live roster 提升 15/16 为 RUNNING，前后账本与 manifest 全部留证）。
+4. 另有 6 个 tests 文件同窗口更新，为上述修复的配套回归覆盖。
+
+无整包覆盖证据：窗口内源文件 mtime 逐文件分散（4:14:46–4:43:32），无批量同秒覆盖特征；config/agents/metering/schemas/launchers/根目录窗口内零变更；活树与 1:22 嵌套整包副本哈希比对仅 6/72 相同，活树不是该包恢复产物；嵌套副本与 backup-20260813-012318（1:22/1:23）均早于本次恢复，非本次产物。
+
+ipybox 未动：[ipybox_cleanup.py](/E:/codex-LOOP/codex-loop-s-f2/harness/ipybox_cleanup.py)（8/10 22:28，sha 44E8906F…）与 [ipybox_lazy.py](/E:/codex-LOOP/codex-loop-s-f2/harness/ipybox_lazy.py)（8/10 21:59，sha 9AF5D9F7…）审计前后哈希一致。
+
+**超范围漂移：未发现。** 两个观察项（非漂移）：恢复会话在我审计期间仍在活动（statemachine_v2.py 4:40:40 最后编辑、repair_parent_ledger_schema.py 4:43:32 新建并执行），本结论为约 4:50 的快照；补位波运行中部分 parent 尝试经 fail-visible 路径 DEAD_LETTER 并重试（exec_roster 16 failed / 10 running），属运行态而非源码变更，建议另行核对波健康。

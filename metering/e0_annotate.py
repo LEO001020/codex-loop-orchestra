@@ -52,7 +52,27 @@ RULES = [
     (r"\bplan\b|decompos|packet manifest|dag\.json|work packet", "planning", "T1"),
 ]
 MECHANICAL_TRIGGERS = {"waiting", "polling", "tallying", "retry_decision", "state_recap"}
-HIGH_TIER = re.compile(r"gpt-5\.6(-sol)?$")      # Sol / Reviewer tier
+def _high_tier_pattern():
+    """Sol/Reviewer tier regex from the active policy (sol_model + legacy
+    aliases); the retired gpt-5.6-only pin misclassified current traffic."""
+    import os
+    try:
+        import tomllib
+        root = os.environ.get("LOOP_ROOT",
+                              os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        with open(os.path.join(root, "config", "orchestration_policy_v2.toml"),
+                  "rb") as handle:
+            models = tomllib.load(handle).get("models") or {}
+        names = [models.get("sol_model")] + list(models.get("legacy_aliases") or [])
+        names = [re.escape(str(n)) for n in names if isinstance(n, str) and n]
+        if names:
+            return re.compile(r"^(?:%s)$" % "|".join(names))
+    except (OSError, ValueError):
+        pass
+    return re.compile(r"(?!x)x")  # unreadable policy: match nothing
+
+
+HIGH_TIER = _high_tier_pattern()      # Sol / Reviewer tier
 FINAL_REVIEW = re.compile(r"release gate|final review|verdict|approve.*merge|releasable", re.I)
 ADJUDICATION = re.compile(r"dead.?letter|adjudicat|merge conflict|escalat|arbitrat", re.I)
 
@@ -87,7 +107,9 @@ def iter_turns(path, skipped):
     """Yield per-turn dicts from one rollout JSONL file. Supports the native
     Codex schema (session_meta / turn_context / event_msg token_count) and a
     flat {input_tokens,...} fallback. Malformed lines -> skipped counter."""
-    meta = {"model": "", "role": "", "session_id": path.stem}
+    meta = {"model": "", "effort": None, "role": "",
+            "session_id": path.stem, "agent_id": None,
+            "thread_source": "", "parent_thread_id": None}
     buf, prev_totals = [], None
     try:
         fh = open(path, encoding="utf-8", errors="replace")
@@ -111,10 +133,14 @@ def iter_turns(path, skipped):
             t = rec.get("type", "")
             if t == "session_meta" or "session_id" in p and "model" in p:
                 meta["session_id"] = p.get("session_id", meta["session_id"])
+                meta["agent_id"] = p.get("id", p.get("agent_id", meta["agent_id"]))
+                meta["thread_source"] = p.get("thread_source", meta["thread_source"])
+                meta["parent_thread_id"] = p.get("parent_thread_id", meta["parent_thread_id"])
                 meta["model"] = p.get("model", meta["model"])
                 meta["role"] = p.get("agent_role", p.get("agent_type", meta["role"]))
             elif t == "turn_context":
                 meta["model"] = p.get("model", meta["model"])
+                meta["effort"] = p.get("effort", meta["effort"])
             elif t == "response_item" or t == "event_msg" and p.get("type") in ("agent_message", "user_message", "agent_reasoning"):
                 txt = p.get("text") or p.get("message") or ""
                 if isinstance(p.get("content"), list):
@@ -134,7 +160,10 @@ def iter_turns(path, skipped):
             if usage:
                 total_in = int(usage.get("input_tokens", 0) or 0)
                 cached = int(usage.get("cached_input_tokens", usage.get("cache_read_input_tokens", 0)) or 0)
-                yield {"session_id": meta["session_id"], "model": meta["model"],
+                yield {"session_id": meta["session_id"], "agent_id": meta["agent_id"],
+                       "parent_thread_id": meta["parent_thread_id"],
+                       "thread_source": meta["thread_source"],
+                       "model": meta["model"], "effort": meta["effort"],
                        "agent_role": meta["role"], "text": " ".join(buf),
                        "total_input": total_in, "cached": min(cached, total_in),
                        "output": int(usage.get("output_tokens", 0) or 0),
@@ -146,8 +175,13 @@ def annotate(turn, idx):
     trig, bucket = classify(turn["text"])
     mb = meter_bucket_of(turn["agent_role"], turn["model"])
     new_input = max(turn["total_input"] - turn["cached"], 0)
-    ann = {"turn_index": idx, "session_id": turn["session_id"], "task_id": turn["session_id"],
-           "meter_bucket": mb, "model": turn["model"], "agent_role": turn["agent_role"] or ("sol" if mb == "sol" else ""),
+    ann = {"turn_index": idx, "session_id": turn["session_id"],
+           "agent_id": turn.get("agent_id"),
+           "parent_thread_id": turn.get("parent_thread_id"),
+           "thread_source": turn.get("thread_source"),
+           "task_id": turn.get("parent_thread_id") or turn["session_id"],
+           "meter_bucket": mb, "model": turn["model"], "effort": turn.get("effort"),
+           "agent_role": turn["agent_role"] or ("sol" if mb == "sol" else ""),
            "trigger_event_type": trig, "bucket": bucket, "bucket_name": BUCKETS[bucket],
            "new_input": new_input, "cached": turn["cached"], "output": turn["output"],
            "reasoning": turn["reasoning"],

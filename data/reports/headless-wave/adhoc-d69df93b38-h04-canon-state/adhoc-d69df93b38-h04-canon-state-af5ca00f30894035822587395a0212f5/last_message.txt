@@ -1,0 +1,357 @@
+Write is blocked in this sandbox (`Access denied` on the target file), so the report body is below for the orchestrator to persist.
+
+Fluency must not touch CANON: keep `is_ota_finished=1`, idle `dockBar=0` (do not put), FloatTasks disable-user + `float_task_state=0`, tooltip=1, `navigation_mode=106`, NetEase whitelist, Bilibili `com.bilibili.app.in` out of Reduced 29, phoneservice/iaware, adb `-L tcp:5038`; do not run Stage3/5/HANDOVER/bak. Intended path: [h04_canon_boundaries.md](C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/work/fluency_plan/reports/h04_canon_boundaries.md) (write denied).
+
+# CANON 正确态边界 — 流畅度计划禁触字段
+
+- 任务：`h04-canon-state` / CANON正确态边界
+- 设备：HONOR VER-AN10 `AVNS023705001888` / MagicOS 16 `10.0.0.175`
+- 性质：只读摘录。本文件**不是**执行面，**不授权** `settings put` / `pm` / `appops` / `deviceidle` / `am` / `kill-server`。
+- 主源：[outputs/HONOR_AI_SIDEBAR_CANON_20260830.md](C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/outputs/HONOR_AI_SIDEBAR_CANON_20260830.md)
+- 对照快照（00:25 基线）：[outputs/audit_20260830/01_device_live_state.md](C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/outputs/audit_20260830/01_device_live_state.md)
+- 本包 live dump（未 adb、未写机）：`work/fluency_plan/live/`
+- 本包目标：**系统流畅度计划**，不是 AI 侧栏修复。CANON 是禁触围栏，不是待修清单。
+- 落盘：本 leaf 对 `work/fluency_plan/reports/h04_canon_boundaries.md` 的 `New-Item`/`apply_patch` 被只读沙箱拒绝（`Access denied` / `writing is blocked by read-only sandbox`）。
+
+风险分级（本包约定）：
+
+| 级 | 含义 |
+|---|---|
+| **A** | 立刻拆保活 / Reduced 29 / 侧栏热区 / adb 会话。禁建议、禁脚本、禁“一键回滚”。 |
+| **B** | 高可见回归：切手势栈、重开小圆点、关 OTA 门闩、把显示态当总开关写。 |
+| **C** | 冻结对齐/伪影陷阱：禁 phoneservice、动 User0 iaware、把空闲回收当故障。 |
+| **D** | 知情保留或观察项：用户已选流畅度代价，或只读测量。可观察，不可当修复杠杆去改 CANON 字段。 |
+
+---
+
+## 1. 已核实事实（path + quote）
+
+### 1.1 CANON 自我定性：不是执行面
+
+`outputs/HONOR_AI_SIDEBAR_CANON_20260830.md`:
+
+> 本文件是现行正确态。**不是**执行面，**不要**按它 `settings put` / `pm`。
+
+> 禁止跑 `HONOR_STAGE5_ROLLBACK_20260829.ps1`、`HONOR_VER_AN10_STAGE3_ROLLBACK_20260823.ps1`、HANDOVER 完整回滚、bak 覆盖。
+
+> ADB：**必须** `adb -L tcp:5038 -s AVNS023705001888`。禁止默认 5037、禁止 `kill-server`。
+
+> **不要写设备。不要改 ni-j 冻结 JSON。**
+
+> **一句话：** 侧栏热区已开（`is_ota_finished=1` + `GestureNavDock`）；空闲 `dockBar=0` 是收起显示态，勿写；小圆点保持关；tooltip 保持 1 勿写 0；导航 106 勿改；网易云白名单与 B 站国际版移出 Reduced 保留；phoneservice / iaware 勿动；adb 钉死 5038。
+
+### 1.2 对象身份：流畅度不得拿易混窗当杠杆
+
+同一文件 §0：
+
+> 右缘细条 `GestureNavDock`（约 `[2090,269]-[2180,617]`，90×348）水平向内慢滑并停顿 → bind `com.hihonor.hndockbar/.DockMainService` → `HnDockBarFloatWindow`（微信/设置/图库/信息/相机） | **是**
+
+> `com.hihonor.android.FloatTasks` 小圆点 | **否**。保持 disable-user + `secure float_task_state=0`
+
+> 左缘「AI应用」`com.hihonor.hiboard.Workspace` | **否**（负一屏）
+
+> 顶部分屏条 `HnMultiWindowBar` | **否**
+
+> SystemUI `FloatBall` | **否**
+
+> YOYO / MagicPortal | **否**
+
+流畅度含义：不要 `pm enable FloatTasks`、不要关 GKD 当“挡滑”、不要 crash SystemUI / force-stop launcher 当“清卡顿”。
+
+### 1.3 现行正确字段（流畅度禁触表）
+
+摘自 CANON §1。取值以 00:25 dumpsys / settings get 为准，**不是** freeze JSON 的 `ai_sidebar_desired_value=1`。
+
+| 字段 / 对象 | CANON 正确态 | 流畅度禁令 | 风险 |
+|---|---|---|---|
+| `secure is_ota_finished` | **1**（热区门闩） | **保持 1，禁止 put 0/再 put 1**。写成 0 → `mDockDisableFlag\|=64`，不建 `GestureNavDock` | B（对侧栏是中毒；当流畅度“关装饰”则变 A） |
+| `secure honor.globalWindow.dockBar` | 空闲 **0** / 左缘展开 1 / 右缘展开 **-1** | **勿写。** 不是用户总开关。SystemUI **不读**该键。禁止 `put 1` 当打开、禁止把空闲 0 当故障 | B |
+| `com.hihonor.android.FloatTasks` | User0 `enabled=3` disable-user | **保持禁用。禁止 `pm enable`** | B |
+| `secure float_task_state` | **0** | **保持 0，勿写 1。** 键在 SECURE；`get global`=`null` 是读错表，禁止补写 GLOBAL | B |
+| `global dockbar_tooltip_enabled` | **1**（SKU default 已是 1） | **勿写 0。** 也不必再写 1（NOOP）。HANDOVER §6 `put 0` 有毒 | B |
+| `secure navigation_mode` | **106** | **勿改。** Honor 全面屏手势，非 AOSP 0/1/2。改它毁掉返回 / Home / `GestureNavDock` | B |
+| 网易云保活 | `deviceidle` user 白名单保留；包级 `POST_NOTIFICATION` **allow** | **禁止** `whitelist -com.netease.cloudmusic`；**禁止**把包级通知打回 ignore + `write-settings`。这是用户已选流畅度代价 | A 若回滚；现状为 D 知情成本 |
+| B 站 | 真包名 **`com.bilibili.app.in` 不在 Reduced 29**；`RUN_ANY_IN_BACKGROUND: allow` | **禁止**加回 `enforced_reduced_packages`；**禁止** bak 覆盖 freeze；**禁止**对 `tv.danmaku.bili` 写 appops | A |
+| `com.hihonor.phoneservice` | User0 `enabled=0` DEFAULT 且在跑 | **勿动。** 不要为对齐 freeze `enabled=3` 去 `pm disable-user` | C |
+| `com.hihonor.iaware` | User0 `enabled=0` 且 pid 在跑 | **勿动。** 全用户 `pm -d` 出现 iaware 是 **user128 `enabled=2` 伪影** | C |
+| adb | `-L tcp:5038` | **勿 `kill-server`。** 5037/5038 互踢 | A（会话） |
+
+CANON 原文摘句：
+
+> `secure is_ota_finished` | **1** | **保持 1**。这是热区门闩。default=0；写成 0 会 `mDockDisableFlag\|=64`，不建 `GestureNavDock`。
+
+> `secure honor.globalWindow.dockBar` | **显示态**：收起 **0** / 左缘展开 **1** / 右缘展开 **-1** | **勿写。** 不是用户总开关。SystemUI **不读**该键。… 空闲 0 正常；00:15 成功是 `0→-1`。禁止 `put 1` 当「打开侧栏」，禁止把空闲 0 当故障去「修」。
+
+> `global dockbar_tooltip_enabled` | **1**（本 SKU **default 已是 1**） | **勿写 0。** 也不必再写 1（NOOP）。… HANDOVER §6 的 `put 0` 有毒。
+
+> `secure navigation_mode` | **106** | **勿改。** Honor 全面屏手势（非 AOSP 0/1/2）。改它会切手势栈并毁掉返回 / Home / `GestureNavDock`。
+
+> **禁止** `whitelist -com.netease.cloudmusic`；**禁止**把包级通知打回 ignore + `write-settings`。Uid `ignore` + 包级 `allow` 是分层，不是写失败。
+
+> 真包名 **`com.bilibili.app.in`** **不在** Reduced 29；`RUN_ANY_IN_BACKGROUND: allow` | **禁止**加回 `enforced_reduced_packages`；**禁止**用 bak 覆盖 freeze；**禁止**对国内包名 `tv.danmaku.bili` 写 appops（本机无 UID）。
+
+> `com.hihonor.phoneservice` | 现场 User0 **`enabled=0` DEFAULT 且在跑** | **勿动。** 不要为对齐 freeze 的 `enabled=3` 去 `pm disable-user`
+
+> `com.hihonor.iaware` | User0 **`enabled=0` 且 pid 在跑** | **勿动。** 全用户 `pm -d` 出现 iaware 是 **user128 `enabled=2` 伪影**
+
+### 1.4 空闲伴随态：看起来像卡顿，CANON 规定不要修
+
+CANON §1 伴随表：
+
+> 空闲无 `DockMainService` / 无 `HnDockBarFloatWindow` / `pidof hndockbar` 空 | `showDock()` 才 bind，随后 unbind。空闲 `(nothing)` 是设计稳态 | 不要 `am startservice`（会留僵尸 ServiceRecord）；不要 crash SystemUI / force-stop launcher
+
+> hndockbar User0 `stopped=true iAwareStopped=true` | iAware 空闲回收；00:13 滑前同样 pid 空，滑后才 PID 27526；00:15 成功发生在该态之后 | 不要 pm enable/disable hndockbar 或 iaware；不要为让 `iAwareStopped=false` 去拉活
+
+> 分屏第一次慢滑只 bind 不出栏（00:13 淘宝 / 00:25 闲鱼 u128） | 已知限制：冷 IconCache / 分屏竞态。热区仍在，OTA 未回退
+
+> GKD `li.songe.gkd` 1×1 `NOT_TOUCHABLE` overlay | 与热区不相交，不挡边滑 | 不要卸 GKD 当侧栏修复
+
+> `dock_max_num_statue=0` | OTA 修好后仍为 0，栏已出来 | 不要当「没东西可显示」去写
+
+CANON §6：
+
+> - 不要因为空闲 `dockBar=0` 再 put 1。
+> - 不要因为 `get global float_task_state=null` 去 put global。
+> - 不要因为 `pidof hndockbar` 空 / `iAwareStopped=true` 去 enable 包或杀 iaware。
+> - 不要因为 `pm -d` 有 iaware 去 enable。
+> - 不要因为 freeze 有 phoneservice=3 去 disable。
+> - 不要因为「还没修好」去 crash SystemUI / force-stop launcher。
+> - 不要把 `tv.danmaku.bili` 当本机 B 站。
+
+### 1.5 本仓历史两刀：不是授权再写，也不是流畅度候选
+
+CANON §2：
+
+> 对抗核验：hy4 **只有两刀**（`03` / `21`）。本草稿不重复执行。
+
+> 1 | 08-29 22:56:02 | `settings put secure is_ota_finished 1` | 热区门闩。… generation 仍 2 → 未再写
+
+> 2 | 08-29 22:57:25 | `pm disable-user --user 0 com.hihonor.android.FloatTasks` | 纠正误开小圆点。`float_task_state` **未写**，仍 0
+
+> 未动：YOYO / SystemUI / launcher / hndockbar pm、tooltip、navigation_mode、网易云、B 站、reboot、kill-server。
+
+### 1.6 有毒回滚 = 流畅度计划的硬黑名单
+
+CANON §3.1：
+
+| 毒性 | 命令 / 动作 | 破坏什么 | 本包风险 |
+|---|---|---|---|
+| 高 | `cmd deviceidle whitelist -com.netease.cloudmusic` | 拆网易云 doze 白名单 | A |
+| 高 | `cmd appops set com.netease.cloudmusic POST_NOTIFICATION ignore`（缺 `cmd` 前缀同样毒） | 拆包级通知 allow | A |
+| 高 | 紧跟 `cmd appops write-settings` | 把 ignore 落盘 | A |
+| 高 | 用 `HONOR_DESIRED_STATE.stage3.20260823.json.bak_before_stage5_keepalive` **覆盖**现行 freeze | Reduced 30←29，**唯一增量 `com.bilibili.app.in`**；下次 Reapply 会把 B 站 `RUN_ANY` 打回 **ignore** | A |
+| 高 | 执行 `HONOR_STAGE5_ROLLBACK_20260829.ps1` | 上面三条保活回滚的脚本化；且未钉 `-L tcp:5038` | A |
+| 高 | 跑 HANDOVER §六「完整回滚」 | 捆保活回滚 + `tooltip=0` + bak 覆盖 | A |
+| 中/高 | `settings put global dockbar_tooltip_enabled 0` | 覆盖 SKU default=1 | B |
+| 中 | `settings put secure honor.globalWindow.dockBar 0` 或 `1` | 当总开关写显示态 | B |
+| 中 | `settings put secure is_ota_finished 0` | **关热区门闩**。仅当用户明确不要 AI 侧栏才合法 | B（非流畅度授权） |
+| 中 | `pm enable … FloatTasks` 和/或 `settings put secure float_task_state 1` | 小圆点回来；**侧栏不会因此恢复** | B |
+| 中 | `pm disable-user com.hihonor.phoneservice` | 关掉售后电话进程，与侧栏无关 | C |
+| 中 | 按 freeze `candidate_nmb_next` 再 Reduced B 站 | 效果同 bak 覆盖 | A |
+| 伤机无效 | `am force-stop com.hihonor.android.launcher`；`am crash com.android.systemui` | 不置 `is_ota_finished` | A/无效 |
+| 伤机无效 | shell `am startservice …DockMainService` | `Requires permission START_DOCKMAIN`，留僵尸记录 | C |
+| 基础设施 | `adb kill-server` / 不带 `-L tcp:5038` | 5037/5038 互踢 | A |
+| 导航 | `settings put secure navigation_mode <非106>` | 切手势栈 | B |
+
+CANON §3.2 禁止当作 desired-state / rollback 输入（不要 apply、不要覆盖、不要当对账源去写设备）：
+
+1. `C:\Users\hzq00\Documents\Codex\2026-08-23\ni-j\outputs\HONOR_DESIRED_STATE.stage3.20260823.json` — `dockBar=1` 总开关、phoneservice 必禁、`candidate_nmb_next` 收 B 站。**可当历史快照，不可 apply。**
+2. 同目录 `*.json.bak_before_stage5_keepalive` — 覆盖 → B 站回 Reduced。
+3. `*.json.bak_before_restore_floattasks`
+4. `*.json.bak_before_keep_freq` — B 站 + 不背单词 / Kimi / DeepSeek 全部回 Reduced。
+5. `HONOR_STAGE5_ROLLBACK_20260829.ps1`
+6. `HANDOVER_20260829.md` **第六节**（及 §2 同一组命令）
+7. `HONOR_AI_SIDEBAR_RESTORE_20260824.md.bak_floattasks_mistake`
+8. `HONOR_VER_AN10_STAGE3_ROLLBACK_20260823.ps1`（及 worktree `stage3_rollback.ps1`）— `pm enable FloatTasks`
+9. 桌面「HONOR-重启后恢复Reduced.cmd」在 freeze 被 bak 污染之后
+
+CANON 仍与现场同向、**不要改反**：
+
+> FloatTasks 保持 disable-user + `float_task_state=0`；B 站不在 Reduced；网易云 user whitelist。
+
+> `is_ota_finished` **缺**在 freeze 里：按 JSON 对账**不会保护**该键。reboot/OTA 若回到 default 0 会再吞细条。保护方式是**不要 put 0**，不是去改 ni-j JSON（本包禁止改）。
+
+### 1.7 00:25 审计快照交叉
+
+`outputs/audit_20260830/01_device_live_state.md`:
+
+> 成功仍成立：OTA 门闩 `is_ota_finished=1` 未回退，右缘热区 `GestureNavDock` 仍在 `[2090,269]-[2180,617]`，FloatTasks 仍 disable-user，`navigation_mode=106` 未改；空闲 `dockBar=0` 且无 `DockMainService`/`HnDockBarFloatWindow` 符合收起态。
+
+> secure is_ota_finished | **1**；_id=654240 pkg=com.android.shell default=0 generation=2
+
+> secure honor.globalWindow.dockBar | **0**；_id=654272 pkg=com.hihonor.hndockbar default=0 generation=6
+
+> global dockbar_tooltip_enabled | **1**；_id=1201682 pkg=com.hihonor.hndockbar default=1 generation=7
+
+> global float_task_state | **null**（键不在 GLOBAL）
+
+> secure float_task_state | **0**；_id=653451 pkg=com.android.shell default=0 generation=1
+
+> secure navigation_mode | **106**；_id=648333 pkg=com.android.systemui default=106 generation=1
+
+> deviceidle whitelist 网易云 | `user,com.netease.cloudmusic,10252` **仍在**
+
+> 实际 B 站包 | `com.bilibili.app.in`；`RUN_ANY_IN_BACKGROUND: allow`
+
+> pm -d 含 phoneservice / hndockbar | **否**
+
+> 未发现：`is_ota_finished` 变 0、`navigation_mode` 被改、FloatTasks 被重新 enable、`GestureNavDock` 消失。
+
+### 1.8 本包 live dump 复核（未跑 adb；只读已有文件）
+
+`work/fluency_plan/live/settings_secure.txt`:
+
+> float_task_state=0
+
+> honor.globalWindow.dockBar=0
+
+> is_ota_finished=1
+
+> navigation_mode=106
+
+另见同行 `multi_win_interact=1`（CANON §8 未纳入写入表，见未知项）。
+
+`work/fluency_plan/live/settings_global.txt`:
+
+> dockbar_tooltip_enabled=1
+
+> animator_duration_scale=1.0
+
+> transition_animation_scale=1.0
+
+> window_animation_scale=1.0
+
+`work/fluency_plan/live/deviceidle_wl.txt`:
+
+> user,com.netease.cloudmusic,10252
+
+`work/fluency_plan/live/disabled_u0.txt` 含 `package:com.hihonor.android.FloatTasks`，**不含** phoneservice / iaware / hndockbar。
+
+`work/fluency_plan/live/disabled_u128.txt`:
+
+> package:com.hihonor.iaware
+
+这直接支持 CANON：无 user 的 `pm -d` 见 iaware = user128 伪影，不是 User0 该禁。
+
+---
+
+## 2. 推论（非原文）
+
+1. **流畅度计划的第一过滤器是 CANON 围栏，不是 freeze JSON。** 凡建议需要 `settings put` 上述键、`pm enable/disable` FloatTasks/phoneservice/iaware/hndockbar、改 Reduced 成员、动网易云 whitelist/appops、或跑 Stage3/Stage5/HANDOVER 回滚，一律判 FAIL，无论包装成“减后台 / 关装饰 / 对齐冻结 / 清 SystemUI”。
+2. **空闲侧栏进程不在 = 正确，不是 jank 根因。** 用 `pidof hndockbar` 空、`iAwareStopped=true`、无 `DockMainService` 去建议拉活或禁 iaware，是把设计稳态当故障。00:15 成功发生在该态之后。
+3. **网易云保活是用户已选的流畅度成本，不是待收回的优化。** 回滚 whitelist / 打回通知 ignore 的假说未被 CANON 授权；硬约束已决定保留。
+4. **Reduced 必须停在 29，且 `com.bilibili.app.in` 必须在名单外。** bak 覆盖是把 B 站打回去的增量路径；国内包名 `tv.danmaku.bili` 本机无 UID。
+5. **动画三键目前均为 1.0，不在 CANON 写入表。** 若后续讨论缩放，不得顺手改 `navigation_mode` 或 tooltip。本包不授权改动画。
+6. **`adb kill-server` 不是排障，是掉线。** 复制未钉 5038 的 HANDOVER/Stage5 adb 会在测量前先丢设备。
+
+---
+
+## 3. 未知项
+
+1. **00:25 之后现场是否又被人手改过：** CANON §8 写明未知。live dump 仍显示门闩/导航/tooltip/FloatTasks 同向，但本 leaf **未跑 adb**，不能声称与 00:25 逐 generation 一致。
+2. **设置页真正用户总开关的 Secure key**（`multi_win_interact` / `operateIntelliSettingSwitch` 等）**未纳入 CANON 写入表**。live 见 `multi_win_interact=1`。已知总开关**不是** `honor.globalWindow.dockBar`。不要猜测去 put。
+3. **网易云是否为当前可感知卡顿的主因：** CANON 只标为保留保活，无帧时间因果。Honor `mStandbyUnprotectedApps` 含网易云，且 `cmd powergenius` 无 shell 写接口。
+4. **分屏闲鱼 / load~21 对桌面滑动 jank 的贡献：** CANON 只定性分屏第一次只 bind，不断言系统流畅度根因（交给 `h11`）。
+5. **reboot/OTA 后 `is_ota_finished` 会否掉回 default 0：** CANON 开放风险；保护方式是不要 put 0，不是改 ni-j JSON。流畅度 reboot 建议必须先声明该风险。
+
+---
+
+## 4. 推荐杠杆（先禁触，再围栏外候选）
+
+本包**不建议**任何会改 CANON 字段的操作。
+
+| ID | 杠杆 | 动作 | 风险 | 理由 |
+|---|---|---|---|---|
+| L-A1 | 禁止 Stage5 / HANDOVER 完整回滚 / bak 覆盖 freeze | 不跑 ps1、不 copy bak、不 Reapply 被污染的 JSON | **A** | Reduced 29→30（B 站）、拆网易云、tooltip=0、adb 端口漂移 |
+| L-A2 | 禁止动网易云 keepalive | 不 `whitelist -`、不 `POST_NOTIFICATION ignore`、不 `write-settings` | **A** | 用户已选成本；回滚是保活中毒 |
+| L-A3 | 禁止把 `com.bilibili.app.in` 加回 Reduced / 禁止对 `tv.danmaku.bili` 写 appops | 保持 29、国际版 allow | **A** | CANON + 硬约束 |
+| L-A4 | 禁止 `adb kill-server` / 默认 5037 | 只读必须 `-L tcp:5038 -s AVNS023705001888` | **A** | 互踢掉线 |
+| L-A5 | 禁止 crash SystemUI / force-stop launcher 当 RAM 优化 | 不作为流畅度手段 | **A** | 伤机无效，不置门闩 |
+| L-B1 | 禁止 put `dockBar` / `is_ota_finished` / `dockbar_tooltip_enabled` / `navigation_mode` | 包括“关动画周边顺手改导航” | **B** | 显示态≠总开关；106 非 AOSP；tooltip default=1 |
+| L-B2 | 禁止 enable FloatTasks 或 put `float_task_state=1` / 补写 GLOBAL | 小圆点保持关 | **B** | 08-24/08-29 误伤；侧栏不因此恢复 |
+| L-C1 | 禁止 disable phoneservice 去对齐 freeze | User0 DEFAULT 在跑 | **C** | 冻结漂移 |
+| L-C2 | 禁止 enable/disable User0 iaware；禁止为 `iAwareStopped` 拉活 hndockbar | 空闲回收是正确态 | **C** | user128 `pm -d` 伪影 |
+| L-C3 | 禁止 `am startservice DockMainService` | 会留僵尸 ServiceRecord | **C** | 无 START_DOCKMAIN |
+| L-C4 | 禁止卸 GKD 当流畅/侧栏修复 | overlay 1×1 NOT_TOUCHABLE | **C** | 与热区不相交 |
+| L-D1 | **保留**网易云 user whitelist 与包级通知 allow | 当作已知流畅度成本记账，不回收 | **D** | 硬约束 |
+| L-D2 | **保留** Reduced=29 且 B 站在外 | 只读核对名单，不重放 | **D** | 硬约束 |
+| L-D3 | 只读测量 jank（见 §6），不把 gfxinfo 累计百分比当收益 | 新短窗 + 场景绑定 | **D** | Stage2 已证累计 gfxinfo 不能当因果 |
+| L-D4 | 围栏外候选（**本包不授权执行**）：动画三键目前 1.0；非 CANON 前台负载（分屏闲鱼）；非 29 且非保活白名单的后台 | 另包评估 | **D** | 不得顺手碰到 A/B/C |
+
+硬约束对照（已决定，只复述）：Keep Reduced 29；`com.bilibili.app.in` MUST stay OUT；Do NOT disable iaware or phoneservice；Do NOT put dockBar, tooltip, is_ota_finished, navigation_mode, FloatTasks enable；NetEase keepalive is a user-chosen fluency cost。
+
+---
+
+## 5. 回滚
+
+**默认：流畅度工作不应产生需要回滚 CANON 字段的写入。不要跑毒物脚本当回滚。**
+
+| 误操作 | 正确恢复 | 禁止拿来“恢复”的东西 |
+|---|---|---|
+| 尚未写入 | **无操作** | Stage5 ps1、HANDOVER §6、任何 bak 覆盖 |
+| 误 `put is_ota_finished 0` | 这是 CANON **唯一合法侧栏回滚**的正向；若误关且用户仍要侧栏，历史修复是再 put 1，但 **本草稿与本包均不授权再写**。停手，升级人工 | `tooltip=0`、`dockBar=0/1`、enable FloatTasks **都不能**代替门闩 |
+| 误 `put dockBar` / `tooltip 0` / `navigation_mode≠106` | 停手；以 dumpsys 现场值为准讨论，不在本包执行 | freeze JSON `ai_sidebar_desired_value=1` |
+| 误 enable FloatTasks | CANON 历史第二刀是 `pm disable-user --user 0 com.hihonor.android.FloatTasks`；**本包不重复执行** | Stage3 rollback（它会 enable） |
+| 误拆网易云白名单 / 通知 | **不要**用 Stage5 rollback 整段（那是拆的方向）。恢复需单独、钉 5038 的反向命令，且须用户确认 | HANDOVER §6 整段 |
+| 误 bak 覆盖 freeze | **不要**再 apply；B 站会回 Reduced 30。以 dumpsys + CANON 为准，不改 ni-j JSON | `bak_before_keep_freq` 更毒 |
+| 误 disable phoneservice / 动 iaware | **不要**为对齐再反向乱 pm；User0 iaware 本就该保持 enabled=0 在跑 | 无 user 的 `pm -d` 列表 |
+
+CANON §3.3 唯一合法侧栏回滚（**仅用户明确不要这次 OTA 门闩**；**不是流畅度回滚**）：
+
+```text
+adb -L tcp:5038 -s AVNS023705001888 shell settings put secure is_ota_finished 0
+```
+
+> 预期：热区窗消失，边缘 45px 再进 `GestureNavLeft` / swipe-up。保活不变。
+> **不是：** HANDOVER §6、Stage5 ps1、`tooltip=0`、`dockBar=0`、`pm disable-user FloatTasks`、bak 覆盖、Stage3 enable FloatTasks。
+
+流畅度实验的回滚范围必须 **排除** 全部 CANON 字段；实验设计就不应写入它们。
+
+---
+
+## 6. 如何测 jank（不碰 CANON）
+
+侧栏成功判据（**验证不是写入**；不要把空闲未展开当失败）：必须同时 `show dock`（或等价 bind）**且** `HnDockBarFloatWindow` **且** 右侧展开 `dockBar=-1`。只 bind 不算修好失败。空闲后 `dockBar` 回到 0、无 FloatWindow、hndockbar 可再被 iAware 停掉 — **这是收起，不是回退。**
+
+流畅度测量协议（只读；ADB 钉 5038；**禁止**为测而 crash/force-stop/改 settings）：
+
+1. **钉场景，分表记录。** 至少三档：桌面全屏轻滑、普通全屏应用内滑、u128 闲鱼左右分屏。禁止用分屏闲鱼宣称桌面流畅度。
+2. **短窗、重置计数。** 对 launcher / SystemUI / 当前前台 `dumpsys gfxinfo <pkg>` reset 后 10–20s。Stage2 已证累计 jank% 随分母变大而“变好”，不能当收益。
+3. **记负载协变量，不把它们当该改的 CANON 字段：** load、前台 LRU、网易云是否仍在 whitelist、Reduced 是否仍 29、`navigation_mode` 是否仍 106、`is_ota_finished` 是否仍 1。CANON 字段被改 = 实验污染，作废。
+4. **热区/侧栏只作回归探针。** 测前只读确认 `GestureNavDock` 仍在、FloatTasks 仍 disable-user。不要为“减少 overlay”去动 GKD 或 FloatTasks。
+5. **Perfetto / systrace 若用：** 输出放到 `reports/` 或 `work/fluency_plan/`；不要 reboot 当测量步骤（门闩缺在 freeze 里，reboot 有掉 0 的开放风险）。
+6. **负向对照：** jank“改善”若伴随 `navigation_mode≠106`、`tooltip=0`、`is_ota_finished=0`、B 站进入 ignore、网易云出白名单，判为 **中毒不是优化**。
+
+最小只读骨架（**本 leaf 未执行**）：
+
+```text
+adb -L tcp:5038 -s AVNS023705001888 shell settings get secure is_ota_finished
+adb -L tcp:5038 -s AVNS023705001888 shell settings get secure honor.globalWindow.dockBar
+adb -L tcp:5038 -s AVNS023705001888 shell settings get secure navigation_mode
+adb -L tcp:5038 -s AVNS023705001888 shell settings get global dockbar_tooltip_enabled
+adb -L tcp:5038 -s AVNS023705001888 shell cmd deviceidle whitelist
+adb -L tcp:5038 -s AVNS023705001888 shell pm list packages -d --user 0
+```
+
+---
+
+## 7. 后续包禁触清单
+
+禁止写入或建议写入：`settings put secure is_ota_finished`；`settings put secure honor.globalWindow.dockBar`；`settings put global dockbar_tooltip_enabled`；`settings put secure navigation_mode`；`settings put secure float_task_state` 及任何 `put global float_task_state`；对 `com.hihonor.android.FloatTasks` / `com.hihonor.phoneservice` / `com.hihonor.iaware` / `com.hihonor.hndockbar` 做 `pm enable|disable-user|default-state`；`cmd deviceidle whitelist ±com.netease.cloudmusic`；网易云 `POST_NOTIFICATION` + `write-settings`；`cmd appops set com.bilibili.app.in RUN_ANY_IN_BACKGROUND ignore` 及任何 `tv.danmaku.bili` appops；把 `com.bilibili.app.in` 写入 `enforced_reduced_packages` 或跑会加回去的 Reapply/bak/「重启后恢复 Reduced」；`am crash com.android.systemui`、`am force-stop com.hihonor.android.launcher`、`am startservice …DockMainService`；`adb kill-server` 或不带 `-L tcp:5038` 的 adb；执行 Stage5/Stage3 rollback、HANDOVER §6、一切 `HONOR_DESIRED_STATE*.bak*` 覆盖。
+
+允许保持（不要改反）：Reduced=29；`com.bilibili.app.in` 在 Reduced 外且 `RUN_ANY_IN_BACKGROUND: allow`；网易云 user whitelist + 包级通知 allow（Uid ignore 分层保留）；FloatTasks disable-user + `secure float_task_state=0`；`is_ota_finished=1`、`navigation_mode=106`、`dockbar_tooltip_enabled=1`；空闲 `dockBar=0`、无 DockMain、hndockbar 可被 iAware 停。
+
+---
+
+## 8. 证据索引
+
+| 主张 | 路径 |
+|---|---|
+| CANON 全文 | `outputs/HONOR_AI_SIDEBAR_CANON_20260830.md` |
+| 00:25 现场键值 / 热区 | `outputs/audit_20260830/01_device_live_state.md` |
+| 本包 live 键 | `work/fluency_plan/live/settings_secure.txt`、`settings_global.txt`、`deviceidle_wl.txt`、`disabled_u0.txt`、`disabled_u128.txt` |
+| 回滚毒物详表（CANON 指向） | `reports/06_rollback_poison/`（本包未展开） |
+| 冻结过时 | CANON §3.2 / `05_stale_desired_state.md` |
+| 成功叙述 | `outputs/HONOR_AI_SIDEBAR_STATUS_20260830.md` |
+
+本 leaf：未 spawn、未 adb、未写设备、未 kill-server、未执行 rollback、未改 ni-j JSON。目标文件因只读沙箱未能落盘。

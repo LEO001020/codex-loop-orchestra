@@ -1,0 +1,55 @@
+第 1 行结论：分片 D 的 18 个支撑/控制面文件职责与调用链已梳理完毕；发现 6 处代码级问题（含 1 处类型不一致的必然崩溃路径、2 处无锁读改写竞态、1 处硬编码未来时间戳），全部分片只读，未产生任何文件写入。
+
+## 1) 每文件一句话职责（基于源码）
+
+| 文件 | 职责 |
+|---|---|
+| budget_controller.py | 三层 token 预算控制器：`data/budget/active.json` 台账上的 open_task/register_agent/record_usage/reclaim 与 NORMAL→THROTTLE→DEGRADE→BREAK 滞回阶梯（L274-310） |
+| layered_gate.py | 分层门禁（L1/L2 阻断/升级，只见部分内容，输出被截断） |
+| orchestration_common.py | 共享工具：LoopPaths、read_json、atomic_write_json、file_lock、get_logger、OrchestrationPolicy |
+| global_desktop_mode.py | 全局 LOOP 模式的 install/activate/status/restore，含 spawn-gate 与 context-injection 金丝雀验证（L381-423） |
+| loop_config.py | 确定性配置查找链 LOOP_CONFIG → LOOP_ROOT/config/config.toml → CODEX_HOME/config.toml → config.toml.example |
+| retry.py | 表驱动重试/熔断/死信分类器 CLI（retry_classes.yaml + progress_ledger.json + events.ndjson） |
+| sanitize.py | ReviewPacket 白名单脱敏器：非白名单键一律删除（P-12 框架效应防御） |
+| signals_collect.py | L0 机械输出 → trigger_eval-schema signals JSON 装配器 |
+| summary_synth.py | 波次 finale/dead-letter 摘要渲染器（≤500 token 预算，降级阶梯 L111-113） |
+| provider_health.py | 按逻辑路由（K3/policy review pin）记录 provider 健康/退避状态 |
+| ipybox_cleanup.py | 孤儿 ipybox Jupyter 网关的发现/终止 reaper CLI（v2 锁 `/tmp/codex-loop-ipybox-reaper-v2.lock`，L20） |
+| ipybox_lazy.py | LazyMCPServer：首次 execute 才启动 ToolServer/KernelGateway 的懒 MCP 包装 |
+| diffvalidator.py | L0 机械验收：空 diff、authorized_paths 子集、oracle 测试数不降、diff 行预算四项检查 |
+| dag_assert.py | dag.json 无环（Kahn）+ 波内 authorized_paths 两两不相交断言 |
+| repair_parent_ledger_schema.py | 一次性修复导入 parent manifest 后的 ledger 条目（history/attempts/state） |
+| repair_plain_parent_reports.py | 把遗留纯文本 parent report 包装成 JSON 并修 ledger 状态为 REPORTED |
+| repair_transport_deadletters.py | 清除仅含 off_table_event 历史的 adhoc-* DEAD_LETTER 条目（dry-run 默认，L69-70） |
+| recover_parent_replay_incident.py | 从 roster/job 状态重推 parent-manifest 各包状态并隔离事故期 dead_letters/sol_wake |
+
+## 2) 本分片函数级调用关系
+
+- retry.py:22 `from lifecycle_supervisor import locked` → retry.py:208 用它做 retry_dispatch 原子认领；retry.py:44 `append_event` 直写 `data/events.ndjson`；retry.py:144/217 读写 `data/progress_ledger.json`。
+- signals_collect.py 消费 diffvalidator.py 的 stdout 格式（"PASS packet=.. files=N +A/-R hunks=H tests=X->Y"，L13-15）与 progress_ledger/events.ndjson，产出供 trigger_eval.py 消费的 signals JSON。
+- sanitize.py 输出即 ReviewPacket，供 reviewer 角色输入；summary_synth.py 供 WAVE_DONE/DEAD_LETTER 裁决注入 Sol（其头部 L4-10）。
+- provider_health.py 与 dispatch/lifecycle 的关系：`backoff_active`（L136-142）与 `record_success/record_failure`（L107-133）是给派发方的查询/登记接口；`is_tracked`（L44-46）由 `_policy_review_model`（读 `config/orchestration_policy_v2.toml` 的 `models.k3_model`，L35-39）决定。
+- global_desktop_mode.py `install/activate/status/restore`（L293/335/349/449）自包含，靠 subprocess 金丝雀自验（L383-413）；不依赖本分片其他模块。
+- repair_*.py 均只依赖 orchestration_common 的 LoopPaths/atomic_write_json/file_lock/read_json，互相独立，无横向调用。
+
+## 3) worker/verifier/reviewer 派发方式与模型 pin 来源
+
+- 模型 pin 的权威源是 `config/model_profiles.toml`（execution_model/review_model），由 global_desktop_mode.py 的 status()（L349-446）做运行时验证：context-injection 金丝雀 + spawn-gate deny 金丝雀（L401-413 构造 `fork_context: true` 的 spawn 输入并要求 `"permissionDecision": "deny"`）。
+- 注入点：worker 收到的是 4 字段 packet（diffvalidator.py L13-15 头部即按 4-field schema 校验）；reviewer 输入经 sanitize.py 白名单过滤后只余 task-spec/mechanical-fact 键（sanitize.py L20-33）；BATS Budget-Tracker 块由 budget_controller.tracker_block（L355-374）在工具结果后追加（R10：不改动字节稳定前缀）。
+- K3 逻辑池识别：provider_health.py L44-46 用 `is_k3(model)`（子串匹配）或 model == `_policy_review_model(root)`（policy pin），health 状态按模型名哈希分文件存 `data/provider_health/route-<sha256-16>.json`（L49-58）。
+
+## 4) 代码级问题（≥3 条，含 文件:行号 与依据）
+
+1. **budget_controller.py:294-295 — 状态降档比较必然类型不一致**：`cooled = utc_now() - changed_at >= self.cooldown_s`，而 `state_changed_at` 在 L148/L215 由 `utc_now()` 写入为 ISO 字符串；若 `utc_now()` 返回字符串则 `float(...) - str` 在 L295 抛 TypeError，若返回 datetime 则与 float 冷却秒比较同样存疑——两条路径之一必错。
+2. **retry.py:144+217 — progress_ledger.json 整体读改写全程无锁**：只有 retry_dispatch 认领段（L208-209）持有 `lifecycle/.events.lock`，L144 的 `json.load` 与 L217 的全量 `json.dump` 之间并发 retry.py 调用互相覆盖丢更新（对比 repair_*.py 均持 `progress_ledger.lock`）。
+3. **retry.py:116-124 — `.breaker.json` 读改写同样无锁**：`breaker()` 在无锁下 `json.load`→改 `fails`→`json.dump`，两个并发失败登记会丢失窗口内失败计数，熔断阈值（session_circuit_breaker）可被静默削弱。
+4. **dag_assert.py:37 — 缺包文件即崩溃而非 fail-visible**：`json.load(open(os.path.join(PK, pid + ".json")))["authorized_paths"]` 对缺失/损坏 packet 文件直接抛 FileNotFoundError/KeyError，违背该目录其他工具的"fail-visible with reason"约定（对照 diffvalidator.py L46-51 的 fail_usage 模式）。
+5. **provider_health.py:99 — 所有被跟踪模型一律打 `"logical_pool": "k3"` 标签**：与 L27-34 注释"K3 是逻辑池、非 K3 物理模型经 policy pin 暂入池"自洽，但对非 K3 的 policy review 模型写入 `logical_pool: "k3"`（L96-102 无条件 update）会使按池聚合的健康统计把非 K3 模型计入 K3 池——标签语义与注释冲突，依赖该字段做池级熔断的下游会被污染。
+6. **recover_parent_replay_incident.py:106 — 硬编码 mtime 截止 `1786567400`**：一次性事故窗口常量留在"通用"恢复工具里，重放该工具对新事故时 L102-115 的隔离会静默漏掉所有早于该时间戳的 dead_letters/sol_wake 文件。
+
+## 5) 不确定之处
+
+- **layered_gate.py 与 orchestration_common.py 的完整内部逻辑未逐行核对**：本分片输出中二者内容被截断，上表职责来自文件头与被其他模块的实际 import 证据（retry.py:22、budget_controller.py:42-50）。
+- **provider_health.py 的调用方**（dispatch/lifecycle 何处调 `backoff_active`）不在本分片内，属推断而非直接观察。
+- **budget_controller.py 约 L376 之后的 tracker_block 渲染细节被截断**，BATS 块的确切字段集合未逐字验证。
+- retry.py 的 `full_jitter`（L108-109）注释称 AWS full jitter，`random.uniform(0, min(cap, base*2**attempt))` 与标准 AWS full jitter 一致，但 base/cap 键名同时接受 `base|backoff_base`（L212-213）双 schema 的行为未用实际 retry_classes.yaml 验证。

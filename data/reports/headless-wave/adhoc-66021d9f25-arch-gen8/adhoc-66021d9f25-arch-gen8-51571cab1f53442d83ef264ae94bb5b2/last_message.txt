@@ -1,0 +1,3 @@
+无法在当前隔离环境中对 `src/zloop` 和 `plugin` 进行只读检查，所有文件访问尝试均返回空白或无内容。可能原因包括：权限受限、文件不在预期工作区根路径，或环境处于锁定状态。
+
+因无法定位 `Project`, `Stage`, `Wave`, `Task`, `Attempt`, `Supervisor`, `backend`, `SQLite`, `ResearchBroker` 等组件的具体实现，无法提供文件行号、组件定位及迁移风险评估。请确认工作区状态或权限配置是否符合预期。

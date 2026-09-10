@@ -1,0 +1,22 @@
+{
+  "packets": [
+    {
+      "packet_id": "P01",
+      "summary": "Implement src/zloop/tools/exporter.py with export_run_events",
+      "goal": "Implement event and log exporter tool with sensitive data masking",
+      "write_scope": ["src/zloop/tools/exporter.py"],
+      "acceptance": ["src/zloop/tools/exporter.py exists and exports masked events"],
+      "risk_class": "HIGH",
+      "network_policy": "none"
+    },
+    {
+      "packet_id": "P02",
+      "summary": "Implement tests/test_exporter.py covering export scenarios",
+      "goal": "Implement test suite for log exporter tool",
+      "write_scope": ["tests/test_exporter.py"],
+      "acceptance": ["pytest tests/test_exporter.py passes"],
+      "risk_class": "HIGH",
+      "network_policy": "none"
+    }
+  ]
+}

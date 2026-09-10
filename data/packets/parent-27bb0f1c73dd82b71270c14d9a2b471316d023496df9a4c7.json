@@ -1,0 +1,25 @@
+{
+  "acceptance": [
+    "验证 stopped parent 不会重生",
+    "给出精确证据"
+  ],
+  "authorized_paths": [
+    "hooks/subagent_lifecycle.py",
+    "harness/refill_consumer_v2.py",
+    "harness/parent_manifest_importer.py",
+    "tests/"
+  ],
+  "constraints": [
+    "read-only"
+  ],
+  "created_by": "parent_manifest_importer",
+  "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+  "goal": "只读审计 parent Stop、parent_sessions active 标记与 refill select_tasks，寻找父任务停止后错误重生的路径。不得修改文件。",
+  "manifest_id": "loop-recovery-audit-20260813",
+  "packet_id": "parent-27bb0f1c73dd82b71270c14d9a2b471316d023496df9a4c7",
+  "parent_enabled": true,
+  "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+  "role": "verifier",
+  "sandbox": "read-only",
+  "task_name": "K3 父停止安全审计"
+}

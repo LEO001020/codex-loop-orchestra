@@ -1,0 +1,40 @@
+The `agent_can_write()` function correctly handles all three writability vectors:
+1. **World-writable** (`-perm -0002`): ✅ checked via `find -maxdepth 0`
+2. **Agent-owned** (`stat '%U' == $AGENT_USER`): ✅ covers both symlink lstat and canonical target
+3. **Group-writable + agent in owning group** (`-perm -0020` + `$AGENT_GROUPS`): ✅ uses padded string match
+
+Symlink false-positive protection (F9): ✅ correctly uses lstat for owner check, then resolves canonical for mode checks.
+
+---
+
+## 最终核验结论
+
+**PASS**
+
+### 核验依据（基于 fl16 当前字节）
+
+| 检查项 | 结论 |
+|---|---|
+| SHA256 完整性（fl16 当前字节） | PASS — hash `2efba0b...` / 25324 bytes 精确匹配 fl16 MANIFEST 和 SHA256SUMS |
+| `lib/common.sh` 依赖完整性 | PASS — hash `77ea08...` / 10931 bytes 精确匹配 |
+| `agent_can_write()` 函数三通道检测 | PASS — 世界可写、agent 拥有、组可写+agent 成员，全部覆盖 |
+| F9 符号链接 lstat 误报防护 | PASS — 先检 lstat owner，再 readlink -f 解析 canonical 目标 |
+| F7-21 根信任路径扫描（`/etc`, `/etc/ld.so.*`, `/etc/passwd/shadow/gshadow`, 全 PATH/lib 目录, `/lib64`, `/usr/lib64`, polkit, dbus, systemd, cron, sshd, PAM, sysctl, boot, 等） | PASS — 所有路径均在扫描列表中 |
+| F8 深度 2 子目录扫描（drop-in dir 写入向量） | PASS — `maxdepth 1 -mindepth 1` 子目录遍历存在 |
+| F8 sudo `secure_path` 目标目录检查 | PASS |
+| F8 `env_keep` / `LD_PRELOAD` 泄露检查 | PASS |
+| F10-11 polkit CONTENT 扫描（非 perms）| PASS |
+| F10-13 ANY sudo 授权（含需密码单命令）| PASS |
+| F10-8 `%group` sudo 仅在 agent 是成员时 OPEN | PASS |
+| F10-14 分别 `systemctl cat` 每个单元 | PASS |
+| F10-6 预植后门密钥检测（非 agent 自身密钥）| PASS |
+| F7-11 危险 cap 仅 OPEN，基线 cap INFO | PASS |
+| F7-3 docker.socket ListenStream TCP 检测 | PASS |
+| F7-12 docker.sock 组可写+agent 成员检测 | PASS |
+| 非 root 运行全面 INDETERMINATE → OPEN 计数 → fail-closed exit 3 | PASS |
+| `getcap` 不可用 → INDETERMINATE | PASS |
+| 所有 10 项 F7-21 静态不变量测试 | PASS (10/10) |
+| 旧 terminalization v2 包数据 **未被引用** | PASS — 本次全程基于 fl16 当前磁盘字节 |
+
+**综合判定：PASS**  
+`01_PRE_CUTOVER_READONLY_PREFLIGHT.sh`（fl16，hash=2efba0bae8d91121c99de696b7a6b92865ae5eff4cf95aac5bec8e11223a0f45，25324 字节）覆盖所有用户要求的 root-trusted mutability 检查面，fail-closed 逻辑正确，F7-21 全部表面已闭合。

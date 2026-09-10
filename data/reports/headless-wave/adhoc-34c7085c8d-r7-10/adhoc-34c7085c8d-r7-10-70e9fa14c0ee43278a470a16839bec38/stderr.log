@@ -1,0 +1,134 @@
+Reading additional input from stdin...
+2026-08-14T14:12:41.624745Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T14:12:43.463960Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T14:13:13.645832Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 4.6 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 43
++ rg --files E:\codex-LOOP | rg -i "8765" | head -20
++                                           ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T14:13:28.708984Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 3.6 seconds
+Output:
+E:\codex-LOOP\reports\8765-liveness-audit\report.md
+E:\codex-LOOP\codex-loop-s-f2\reports\desktop-concurrency-audit-20260812\06-8765????????txt
+E:\codex-LOOP\codex-loop-s-f2\reports\desktop-concurrency-audit-20260812\06-8765????????stderr.log
+E:\codex-LOOP\codex-loop-s-f2\reports\desktop-concurrency-audit-20260812\06-8765????????jsonl
+rg: E:\codex-LOOP\hl-loop-v3\deploy\codex-home: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\PRE-07-gate: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M3-03: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M3-02: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M3-01: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\PRE-06: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\PRE-05: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\PRE-04: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M1-06: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\PRE-00: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M1-05: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-06-regression: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M1-04: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-05: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M5-04: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M5-02: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M5-01: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M1-03: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-04-regression: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M1-02: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-04: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-full: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M1-01: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-03-regression: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-08-mutants: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M0-12: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-03: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-08-e2e: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-02: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-08: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M0-08: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-07-regression: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-01: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M0-06: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M0-02: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M3-06: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M3-05: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-07: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M0-01: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\cache-quarantine\95fb6fc2506f435196cf88727c2b4458-.pytest_cache: 拒绝访问。 (os error 5)
+
+2026-08-14T14:14:09.505274Z ERROR codex_core::tools::router: error=unsupported call: read
+2026-08-14T14:15:24.210044Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.7 seconds
+Output:
+E:\codex-LOOP\recovery-staging\prepatch-20260814-1318-candidate\tests\unit\test_loop_monitor_server.py
+E:\codex-LOOP\launchers\loop_monitor_server.py
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_loop_monitor_server.py
+E:\codex-LOOP\codex-loop-s-f2\data\reports\convergence-wave3-patches\loop_monitor_server.py.snapshot
+E:\codex-LOOP\deliveries\fable-audit-20260810\stage\codex-loop-s-f2-fable-audit-20260810\host-overlay\launchers\loop_monitor_server.py
+rg: E:\codex-LOOP\hl-loop-v3\deploy\codex-home: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\PRE-07-gate: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\PRE-06: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\PRE-05: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\PRE-04: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\PRE-00: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M5-04: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M5-02: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M5-01: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-full: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-08-mutants: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-08-e2e: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-08: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-07-regression: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-07: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-06-regression: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-05: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-04-regression: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-04: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-03-regression: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-03: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-02: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M4-01: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M3-06: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M3-05: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M3-03: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M3-02: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M3-01: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M1-06: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M1-05: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M1-04: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M1-03: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M1-02: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M1-01: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M0-12: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M0-08: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M0-06: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M0-02: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\pytest\M0-01: 拒绝访问。 (os error 5)
+rg: E:\codex-LOOP\runtime\cache-quarantine\95fb6fc2506f435196cf88727c2b4458-.pytest_cache: 拒绝访问。 (os error 5)
+
+2026-08-14T14:18:06.593545Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-14T14:21:03.660047Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.1 seconds
+Output:
+
+2026-08-14T14:23:10.533283Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)

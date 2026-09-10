@@ -1,0 +1,121 @@
+Reading additional input from stdin...
+2026-09-04T19:40:39.038571Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-09-04T19:40:53.236792Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.2 seconds
+Output:
+usage: git merge-tree [--write-tree] [<options>] <branch1> <branch2>
+   or: git merge-tree [--trivial-merge] <base-tree> <branch1> <branch2>
+
+    --write-tree          do a real merge instead of a trivial merge
+    --trivial-merge       do a trivial merge only
+    --[no-]messages       also show informational/conflict messages
+    --quiet               suppress all output; only exit status wanted
+    -z                    separate paths with the NUL character
+    --name-only           list filenames without modes/oids/stages
+    --allow-unrelated-histories
+                          allow merging unrelated histories
+    --stdin               perform multiple merges, one per line of input
+    --[no-]merge-base <tree-ish>
+                          specify a merge-base for the merge
+    -X, --[no-]strategy-option <option=value>
+                          option for selected merge strategy
+
+
+2026-09-04T19:40:57.674190Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.3 seconds
+Output:
+usage: git commit-tree <tree> [(-p <parent>)...]
+   or: git commit-tree [(-p <parent>)...] [-S[<keyid>]] [(-m <message>)...]
+                       [(-F <file>)...] <tree>
+
+    -p <parent>           id of a parent commit object
+    -m <message>          commit message
+    -F <file>             read commit log message from file
+    -S, --[no-]gpg-sign[=<key-id>]
+                          GPG sign commit
+
+
+2026-09-04T19:41:01.322645Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.2 seconds
+Output:
+usage: git update-ref [<options>] -d <refname> [<old-oid>]
+   or: git update-ref [<options>]    <refname> <new-oid> [<old-oid>]
+   or: git update-ref [<options>] --stdin [-z] [--batch-updates]
+
+    -m <reason>           reason of the update
+    -d                    delete the reference
+    --no-deref            update <refname> not the one it points to
+    --deref               opposite of --no-deref
+    -z                    stdin has NUL-terminated arguments
+    --[no-]stdin          read updates from stdin
+    --[no-]create-reflog  create a reflog
+    -0, --[no-]batch-updates
+                          batch reference updates
+
+
+2026-09-04T19:41:04.975490Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.1 seconds
+Output:
+usage: git clone [<options>] [--] <repo> [<dir>]
+
+    -v, --[no-]verbose    be more verbose
+    -q, --[no-]quiet      be more quiet
+    --[no-]progress       force progress reporting
+    --[no-]reject-shallow don't clone shallow repository
+    -n, --no-checkout     don't create a checkout
+    --checkout            opposite of --no-checkout
+    --[no-]bare           create a bare repository
+    --[no-]mirror         create a mirror repository (implies --bare)
+    -l, --[no-]local      to clone from a local repository
+    --no-hardlinks        don't use local hardlinks, always copy
+    --hardlinks           opposite of --no-hardlinks
+    -s, --[no-]shared     setup as shared repository
+    --[no-]recurse-submodules[=<pathspec>]
+                          initialize submodules in the clone
+    --[no-]recursive[=<pathspec>]
+                          alias of --recurse-submodules
+    -j, --[no-]jobs <n>   number of submodules cloned in parallel
+    --[no-]template <template-directory>
+                          directory from which templates will be used
+    --[no-]reference <repo>
+                          reference repository
+    --[no-]reference-if-able <repo>
+                          reference repository
+    --[no-]dissociate     use --reference only while cloning
+    -o, --[no-]origin <name>
+                          use <name> instead of 'origin' to track upstream
+    -b, --[no-]branch <branch>
+                          checkout <branch> instead of the remote's HEAD
+    --[no-]revision <rev> clone single revision <rev> and check out
+    -u, --[no-]upload-pack <path>
+                          path to git-upload-pack on the remote
+    --[no-]depth <depth>  create a shallow clone of that depth
+    --[no-]shallow-since <time>
+                          create a shallow clone since a specific time
+    --[no-]shallow-exclude <ref>
+                          deepen history of shallow clone, excluding ref
+    --[no-]single-branch  clone only one branch, HEAD or --branch
+    --[no-]tags           clone tags, and make later fetches not to follow them
+    --[no-]shallow-submodules
+                          any cloned submodules will be shallow
+    --[no-]separate-git-dir <gitdir>
+                          separate git dir from working tree
+    --[no-]ref-format <format>
+                          specify the reference format to use
+    -c, --[no-]config <key=value>
+                          set config inside the new repository
+    --[no-]server-option <server-specific>
+                          option to transmit
+    -4, --ipv4            use IPv4 addresses only
+    -6, --ipv6            use IPv6 addresses only
+    --[no-]filter <args>  object filtering
+    --[no-]also-filter-submodules
+                          apply partial clone filters to submodules
+    --[no-]remote-submodules
+                          any cloned submodules will use their remote-tracking branch
+    --[no-]sparse         initialize sparse-checkout file to include only files at root
+    --[no-]bundle-uri <uri>
+                          a URI for downloading bundles before fetching from origin remote
+
+
+2026-09-04T19:41:33.862347Z  WARN codex_mcp::rmcp_client: failed to initialize MCP client during shutdown: MCP startup failed: handshaking with MCP server failed: connection closed: initialize response

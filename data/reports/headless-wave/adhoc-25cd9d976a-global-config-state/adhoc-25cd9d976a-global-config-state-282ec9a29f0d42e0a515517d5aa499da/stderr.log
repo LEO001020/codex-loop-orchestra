@@ -1,0 +1,36 @@
+Reading additional input from stdin...
+2026-08-16T15:12:43.731207Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-16T15:12:48.906209Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-16T15:12:57.634235Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `command` at line 1 column 181
+2026-08-16T15:13:04.801262Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `command` at line 1 column 151
+2026-08-16T15:13:22.754019Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-16T15:13:47.777451Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `command` at line 1 column 122
+2026-08-16T15:13:57.185891Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-16T15:14:04.161961Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-16T15:14:18.751100Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-16T15:15:12.344397Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-16T15:15:20.811076Z ERROR codex_core::tools::router: error=resources/read failed: unknown MCP server 'filesystem'
+2026-08-16T15:23:15.968325Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 193ms)... turn_id=01a00b21-dd25-7931-994b-94d957648eff retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-16T15:24:01.674323Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 423ms)... turn_id=01a00b21-dd25-7931-994b-94d957648eff retries=2 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-16T15:25:42.340464Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 215ms)... turn_id=01a00b21-dd25-7931-994b-94d957648eff retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-16T15:26:28.520393Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 411ms)... turn_id=01a00b21-dd25-7931-994b-94d957648eff retries=2 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-16T15:27:15.068632Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 767ms)... turn_id=01a00b21-dd25-7931-994b-94d957648eff retries=3 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-16T15:27:34.810652Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.484s)... turn_id=01a00b21-dd25-7931-994b-94d957648eff retries=4 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-16T15:27:46.801420Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 3.119s)... turn_id=01a00b21-dd25-7931-994b-94d957648eff retries=5 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-16T15:28:01.220829Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

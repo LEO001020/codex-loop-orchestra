@@ -1,0 +1,15 @@
+Reading additional input from stdin...
+2026-08-14T09:03:25.599362Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T09:03:35.715568Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-14T09:04:00.774657Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.8 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后再试一次。
+所在位置 行:2 字符: 85
++ ... \VPS\reports\fl18-handoff-review-workspace" -Recurse -Name | head -80
++                                                                  ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T09:22:57.890728Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 194ms)... turn_id=019fff83-0a10-7bf1-8d05-aaaf105758b2 retries=1 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游网络连接失败, url: http://127.0.0.1:10100/v1/responses

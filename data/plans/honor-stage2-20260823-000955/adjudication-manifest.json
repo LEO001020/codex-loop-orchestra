@@ -1,0 +1,58 @@
+{
+  "tasks": [
+    {
+      "task_id": "stage2-a01",
+      "task_name": "已完成报告整合",
+      "role": "worker",
+      "cwd": "C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\work\\stage2_20260823-000955\\adjudication\\A01",
+      "sandbox": "workspace-write",
+      "allow_write": true,
+      "prompt": "任务名：已完成报告整合\n读取S01/S02/S03/S05/S06/S08/S09/S11/S12/S13/S14/S16/S17/S20报告，生成adjudication_summary.md：共识、冲突、缺口、S20五类BLOCK；禁止设备写入。\n上下文根目录=C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\work\\stage2_20260823-000955，ZIP=C:\\Users\\hzq00\\Downloads\\HONOR_VER_AN10_CODEX_STAGE2_EXECUTION_PACKAGE.zip。只允许写当前cwd；禁止任何手机/Windows状态修改、重启或子代理。完整结果写report.md及任务指定文件；最终回复一行结论+路径。"
+    },
+    {
+      "task_id": "stage2-a02",
+      "task_name": "安全动作清单生成",
+      "role": "worker",
+      "cwd": "C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\work\\stage2_20260823-000955\\adjudication\\A02",
+      "sandbox": "workspace-write",
+      "allow_write": true,
+      "prompt": "任务名：安全动作清单生成\n直接读取ZIP master/playbook/policy/current与S14/S20，生成APPROVED_ACTIONS.tsv和BLOCKED_ACTIONS.tsv。必须剔除uninstall、netpolicy、securitypluginbase/hiview/UEInfoCheck、所有user128不确定项及无精确回滚项；禁止执行。\n上下文根目录=C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\work\\stage2_20260823-000955，ZIP=C:\\Users\\hzq00\\Downloads\\HONOR_VER_AN10_CODEX_STAGE2_EXECUTION_PACKAGE.zip。只允许写当前cwd；禁止任何手机/Windows状态修改、重启或子代理。完整结果写report.md及任务指定文件；最终回复一行结论+路径。"
+    },
+    {
+      "task_id": "stage2-a03",
+      "task_name": "实时漂移裁决",
+      "role": "worker",
+      "cwd": "C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\work\\stage2_20260823-000955\\adjudication\\A03",
+      "sandbox": "workspace-write",
+      "allow_write": true,
+      "prompt": "任务名：实时漂移裁决\n基于S14及只读ADB复核当前状态漂移，判断哪些seed动作已经完成/过时/被系统恢复；生成STATE_DIFF.tsv和DO_NOT_REPEAT.txt；禁止写入。\n上下文根目录=C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\work\\stage2_20260823-000955，ZIP=C:\\Users\\hzq00\\Downloads\\HONOR_VER_AN10_CODEX_STAGE2_EXECUTION_PACKAGE.zip。只允许写当前cwd；禁止任何手机/Windows状态修改、重启或子代理。完整结果写report.md及任务指定文件；最终回复一行结论+路径。"
+    },
+    {
+      "task_id": "stage2-a04",
+      "task_name": "事务执行包构建",
+      "role": "worker",
+      "cwd": "C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\work\\stage2_20260823-000955\\adjudication\\A04",
+      "sandbox": "workspace-write",
+      "allow_write": true,
+      "prompt": "任务名：事务执行包构建\n读取A02输出（若尚未存在则等待文件出现后读取）与ZIP rollback要求，生成rollback.ps1/sh、actions.jsonl模板、execute_stage2.ps1（默认DryRun，显式-Execute才写）。脚本只含APPROVED动作，逐项前置/后置验证，失败自动逆序回滚；不要执行。\n上下文根目录=C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\work\\stage2_20260823-000955，ZIP=C:\\Users\\hzq00\\Downloads\\HONOR_VER_AN10_CODEX_STAGE2_EXECUTION_PACKAGE.zip。只允许写当前cwd；禁止任何手机/Windows状态修改、重启或子代理。完整结果写report.md及任务指定文件；最终回复一行结论+路径。"
+    },
+    {
+      "task_id": "stage2-a05",
+      "task_name": "跨源替代验证",
+      "role": "verifier",
+      "cwd": "C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\work\\stage2_20260823-000955\\adjudication\\A05",
+      "sandbox": "workspace-write",
+      "allow_write": true,
+      "prompt": "任务名：跨源替代验证\n作为verifier复核A01/A02/A03及原报告，确认所有S20 BLOCK项已剔除、保护集和多用户边界明确；输出READY/BLOCK。禁止执行。\n上下文根目录=C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\work\\stage2_20260823-000955，ZIP=C:\\Users\\hzq00\\Downloads\\HONOR_VER_AN10_CODEX_STAGE2_EXECUTION_PACKAGE.zip。只允许写当前cwd；禁止任何手机/Windows状态修改、重启或子代理。完整结果写report.md及任务指定文件；最终回复一行结论+路径。"
+    },
+    {
+      "task_id": "stage2-a06",
+      "task_name": "回滚替代验证",
+      "role": "verifier",
+      "cwd": "C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\work\\stage2_20260823-000955\\adjudication\\A06",
+      "sandbox": "workspace-write",
+      "allow_write": true,
+      "prompt": "任务名：回滚替代验证\n作为verifier复核A04脚本、原状态台账、命令语法、逆序/幂等/失败恢复和DryRun；输出READY/BLOCK。禁止执行。\n上下文根目录=C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\work\\stage2_20260823-000955，ZIP=C:\\Users\\hzq00\\Downloads\\HONOR_VER_AN10_CODEX_STAGE2_EXECUTION_PACKAGE.zip。只允许写当前cwd；禁止任何手机/Windows状态修改、重启或子代理。完整结果写report.md及任务指定文件；最终回复一行结论+路径。"
+    }
+  ]
+}

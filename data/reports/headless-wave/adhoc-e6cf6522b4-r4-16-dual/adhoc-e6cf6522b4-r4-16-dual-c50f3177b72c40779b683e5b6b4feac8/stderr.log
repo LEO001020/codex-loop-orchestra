@@ -1,0 +1,638 @@
+Reading additional input from stdin...
+2026-08-14T11:11:07.762240Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T11:11:12.469564Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T11:11:22.845407Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:11:45.170957Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 3.2 seconds
+Total output lines: 2078
+Output:
+Get-ChildItem : 对路径“E:\codex-LOOP\codex-loop-s-f2\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem -Path "E:\codex-LOOP\codex-loop-s-f2" -Depth 1 | Select ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\codex-LOOP\c...2\.pytest_cache:String) [Get-ChildItem], Unauthoriz 
+   edAccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=sol_wake; PSIsContainer=True}:PSObject) [Get-Content]，Parameter
+    BindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=usage; PSIsContainer=True}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=validators; PSIsContainer=True}:PSObject) [Get-Content]，Paramet
+    erBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=smoke; PSIsContainer=True}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=repairs; PSIsContainer=True}:PSObject) [Get-Content]，ParameterB
+    indingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=reports; PSIsContainer=True}:PSObject) [Get-Content]，ParameterB
+    indingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=router; PSIsContainer=True}:PSObject) [Get-Content]，ParameterBi
+    ndingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=__pycache__; PSIsContainer=True}:PSObject) [Get-Content]，Parame
+    terBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=并发路由最终真值审计; PSIsContainer=True}:PSObject) [Get-Content
+]，Paramet    erBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=zhenshi-...Container=True}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=orchestr...Container=True}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=终态runner...Container=True}:PSObject) [Get-Content]，ParameterB
+in    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=状态机发布闭环审计; PSIsContainer=True}:PSObject) [Get-Content]
+，Paramete    rBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=状态原子方案复核; PSIsContainer=True}:PSObject) [Get-Content]，P
+arameter    BindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=duty_review; PSIsContainer=True}:PSObject) [Get-Content]，Parame
+    terBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=governor; PSIsContainer=True}:PSObject) [Get-Content]，Parameter
+    BindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=l2_queue; PSIsContainer=True}:PSObject) [Get-Content]，Parameter
+    BindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=dead_letters; PSIsContainer=True}:PSObject) [Get-Content]，Param
+    eterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=.pytest_...Container=True}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=Users; PSIsContainer=True}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=budget; PSIsContainer=True}:PSObject) [Get-Content]，ParameterBi
+    ndingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=plans; PSIsContainer=True}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=provider...Container=True}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=refill; PSIsContainer=True}:PSObject) [Get-Content]，ParameterBi
+    ndingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=packets; PSIsContainer=True}:PSObject) [Get-Content]，ParameterB
+    indingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=lifecycle; PSIsContainer=True}:PSObject) [Get-Content]，Paramete
+    rBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=lifecycl...Container=True}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=orchestr...Container=True}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=windows-...Container=True}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=ghost_audit; PSIsContainer=True}:PSObject) [Get-Content]，Parame
+    terBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=fable-audit; PSIsContainer=True}:PSObject) [Get-Content]，Parame
+    terBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的…25786 tokens truncated….ontainer=False}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=statemac...ontainer=False}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=summary_...ontainer=False}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=trigger_...ontainer=False}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=terminal...ontainer=False}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=smoke_ga...ontainer=False}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=routing_...ontainer=False}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=root_tur...ontainer=False}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=sanitize.py; PSIsContainer=False}:PSObject) [Get-Content]，Param
+    eterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=signals_...ontainer=False}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=short_re...ontainer=False}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=duty_gat...ontainer=False}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=duty_dri...ontainer=False}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=duty_rou...ontainer=False}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=ipybox_c...ontainer=False}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=headless...ontainer=False}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=dual_pla...ontainer=False}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=desktop_...ontainer=False}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=dag_asse...ontainer=False}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=diffvali...ontainer=False}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=dispatch...ontainer=False}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=dispatch.py; PSIsContainer=False}:PSObject) [Get-Content]，Param
+    eterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=model_pr...ontainer=False}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=missing_...ontainer=False}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=orchestr...ontainer=False}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=parent_m...ontainer=False}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=orchestr...ontainer=False}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=loop_con...ontainer=False}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=l2_consu...ontainer=False}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=ipybox_l...ontainer=False}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=layered_...ontainer=False}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=lifecycl...ontainer=False}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 140
++ ... ect Name, PSIsContainer | Sort-Object PSIsContainer -Descending | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (@{Name=lifecycl...ontainer=False}:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+
+2026-08-14T11:13:02.990743Z ERROR codex_core::tools::router: error=unsupported call: read
+2026-08-14T11:15:04.565753Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+无法调用方法。此语言模式仅支持核心类型的方法调用。
+所在位置 行:2 字符: 19
++ ... 1786686688; [DateTimeOffset]::FromUnixTimeSeconds($ts).ToLocalTime(). ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : MethodInvocationNotSupportedInConstrainedLanguage
+ 
+
+2026-08-14T11:15:24.010226Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 3.5 seconds
+Output:
+python3 : 无法将“python3”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确
+，然后再试一次。
+所在位置 行:2 字符: 1
++ python3 -c "import datetime; print(datetime.datetime.fromtimestamp(17 ...
++ ~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (python3:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T11:15:46.360183Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 3.7 seconds
+Output:
+python : 无法将“python”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，
+然后再试一次。
+所在位置 行:2 字符: 1
++ python -c "import datetime; print(datetime.datetime.fromtimestamp(178 ...
++ ~~~~~~
+    + CategoryInfo          : ObjectNotFound: (python:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T11:27:51.160064Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 193ms)... turn_id=019ffff7-f46e-76f0-b719-976830f89f2c retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+2026-08-14T11:37:36.889755Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+False
+

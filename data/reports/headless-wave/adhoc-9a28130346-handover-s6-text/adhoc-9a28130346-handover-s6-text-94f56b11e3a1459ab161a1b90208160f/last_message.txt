@@ -1,0 +1,55 @@
+HANDOVER §六「完整回滚」原文（[HANDOVER_20260829.md](C:\Users\hzq00\Documents\Codex\2026-08-23\ni-j\outputs\HANDOVER_20260829.md:164) L164–181）含 5 条 `adb -L tcp:5038` shell 命令 + 1 条冻结 bak 覆盖；沙箱只读未落盘，全文如下。
+
+---
+
+# 45_handover_s6.md
+
+- 源：[HANDOVER_20260829.md](C:\Users\hzq00\Documents\Codex\2026-08-23\ni-j\outputs\HANDOVER_20260829.md)（11201 B，195 行，2026-08-29 03:43:23）
+- 节：`## 六、完整回滚` → 下一节 `## 七、踩过的坑` 之前（L164–181）
+- 本包只读摘录；未执行任何 rollback / settings put / pm / appops set / kill-server
+- 拟写路径：`C:\Users\hzq00\Documents\Codex\2026-08-29\hy4-ai-ai-ai-ai-01a02ee0\outputs\audit_20260830\45_handover_s6.md`（沙箱只读，未写入）
+
+## 第六节原文（逐字）
+
+```
+## 六、完整回滚
+
+```powershell
+$adb = "C:\Users\hzq00\Downloads\platform-tools-latest-windows\platform-tools\adb.exe"
+$s = "AVNS023705001888"
+# 注意端口，先 adb -L tcp:5038 devices 确认
+
+& $adb -L tcp:5038 -s $s shell cmd deviceidle whitelist -com.netease.cloudmusic
+& $adb -L tcp:5038 -s $s shell cmd appops set com.netease.cloudmusic POST_NOTIFICATION ignore
+& $adb -L tcp:5038 -s $s shell cmd appops write-settings
+& $adb -L tcp:5038 -s $s shell settings put global dockbar_tooltip_enabled 0
+& $adb -L tcp:5038 -s $s shell pm disable-user --user 0 com.hihonor.android.FloatTasks
+```
+
+冻结文件回滚：用 `outputs/HONOR_DESIRED_STATE.stage3.20260823.json.bak_before_stage5_keepalive` 覆盖同名文件
+（这会把 `com.bilibili.app.in` 加回 `enforced_reduced_packages`，重放脚本又会限制 B站后台）。
+
+---
+```
+
+## 回滚节全部命令（按原文顺序，无增删）
+
+绑定：
+
+- `$adb = "C:\Users\hzq00\Downloads\platform-tools-latest-windows\platform-tools\adb.exe"`
+- `$s = "AVNS023705001888"`
+- 注释预检（非 mutating）：`adb -L tcp:5038 devices`
+
+5 条 shell：
+
+1. `& $adb -L tcp:5038 -s $s shell cmd deviceidle whitelist -com.netease.cloudmusic`
+2. `& $adb -L tcp:5038 -s $s shell cmd appops set com.netease.cloudmusic POST_NOTIFICATION ignore`
+3. `& $adb -L tcp:5038 -s $s shell cmd appops write-settings`
+4. `& $adb -L tcp:5038 -s $s shell settings put global dockbar_tooltip_enabled 0`
+5. `& $adb -L tcp:5038 -s $s shell pm disable-user --user 0 com.hihonor.android.FloatTasks`
+
+文件回滚（非 adb）：
+
+- 用 `outputs/HONOR_DESIRED_STATE.stage3.20260823.json.bak_before_stage5_keepalive` 覆盖同名文件
+
+§六正文止于 L181 的 `---`；L183 起为第七节，未纳入。

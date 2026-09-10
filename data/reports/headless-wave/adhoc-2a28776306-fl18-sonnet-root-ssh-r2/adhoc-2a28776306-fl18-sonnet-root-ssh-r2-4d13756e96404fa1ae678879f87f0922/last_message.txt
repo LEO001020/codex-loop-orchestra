@@ -1,0 +1,81 @@
+Now I have comprehensive evidence across all five audit dimensions. Let me compile the findings.
+
+---
+
+## 裁定报告：绑定终审 RootSSH — FL18 冻结包只读反证
+
+### 审查维度与证据
+
+---
+
+**① Match-aware root AKF（S05_ROOT_AKF_CONTEXT）**
+
+`tools/sanitize_authorized_keys.py` → `effective_tokens()` 函数通过 `sshd -T -C user={user},host={host},addr={addr}` 动态查询 SSH 守护进程，以 Match 块感知方式取得 root 的有效 `AuthorizedKeysFile` 路径列表。`03_AGENT_PRIVILEGE_CUTOVER.sh` 调用此工具时传入 `--user root`，`--host`/`--addr` 来自环境变量 `P5_SSHD_HOST_CONTEXT`/`P5_SSHD_ADDR_CONTEXT`（默认 localhost/127.0.0.1）。静态测试 S05 验证了 `sshd -T -C` 出现在 `common.sh` 且参数模式正确。**Match-aware 路径解析已就位，条件满足。**
+
+---
+
+**② fingerprint allowlist（S06_ROOT_AKF_EXACT_REMOVE）**
+
+`sanitize_authorized_keys.py` 实现了严格的 allowlist 模型：
+- 读取 `--agent-fingerprints` 和 `--allowed-fingerprints` 两个独立文件，均须全部为 `SHA256:` 前缀值，否则 fail-closed；
+- 两集合若有交集立即 abort（`agent & allowed` 交叉检查）；
+- 对每一行密钥调用 `ssh-keygen -lf` 取指纹，属于 agent 集合则移除，属于 allowed 集合则保留，**其他任何 key 触发 `unallowlisted root recovery key` 错误**（fail-closed）；
+- `--apply` 后立即进行 post-write 二次验证：读回已写文件，如存在 agent 指纹或不在 allowed 集合则 abort。
+
+静态测试 S06 验证字符串 `unallowlisted root recovery key` 和 `duplicate/aliased effective AuthorizedKeysFile paths` 均在工具代码中存在。**Fingerprint allowlist 严格双向（精确移除+非白名单拒绝）已就位。**
+
+---
+
+**③ alias/symlink fail-closed（S06 + S28）**
+
+`sanitize_authorized_keys.py` 有双重保护：
+
+1. **symlink 检查**：`if path.is_symlink(): raise SystemExit(f"symlink AuthorizedKeysFile rejected: {path}")` — 任何 symlink 路径直接 fail-closed；
+2. **alias/重复路径检查**：对所有 resolved 路径做 `len(set(resolved)) != len(resolved)` 检查，任何 alias/硬链接等价路径立即 abort（`duplicate/aliased effective AuthorizedKeysFile paths`）。
+
+`06_OWNER_AUTHORITY_AND_V3_DEPLOY.sh` 对 owner 的 AKF 路径也同样执行 `[ ! -L "$owner_akf" ] || die "p5-owner AKF path is a symlink"` 和 `owner_akf_seen[$owner_akf_resolved]` 去重。
+
+`assert_owner_anchor_trustworthy` 在 `common.sh` 中对 anchor 本身及 pubkey 均拒绝 symlink（`[ -L "$anchor" ] && die`）。**alias/symlink 均已 fail-closed。**
+
+---
+
+**④ apply 后 absent reverify（S27_INDEPENDENT_PRETRUST）**
+
+流程为两阶段独立校验：
+
+- **阶段 1（`03_AGENT_PRIVILEGE_CUTOVER.sh`）**：调用 `sanitize_authorized_keys.py --apply`，移除 agent 指纹并写回，同时 apply 内部做 post-write key 验证（见②）；
+- **阶段 2（`06_OWNER_AUTHORITY_AND_V3_DEPLOY.sh`）**：在 owner anchor 安装之前，独立调用 `sanitize_authorized_keys.py --verify-absent`，生成 `/var/lib/p5-cutover/root-akf-absence-verified.json`（`status: ABSENT_VERIFIED`）；该文件还须通过 `stat` 检查确认 `root:root:600` 所有权，排除中间人篡改。
+
+`--apply` 和 `--verify-absent` 互斥（代码 guard），两次调用分属不同脚本不同会话。06 脚本还核验 `/var/lib/p5-cutover/root-akf-report.json` 的 `status==APPLIED` 且 `removed_agent_fingerprints` 非空，双证链完整。**apply 后 absent reverify 两步独立完成。**
+
+---
+
+**⑤ owner Match AKF（S28_OWNER_MATCH_AKF）**
+
+`06_OWNER_AUTHORITY_AND_V3_DEPLOY.sh` 对 `p5-owner` 用户执行完整的 Match-aware AKF 解析：
+```bash
+owner_tokens="$(sshd_effective_akf "$OWNER_USER" ...)"
+for token in $owner_tokens; do
+  validate_akf_token "$token"
+  owner_akf="$(akf_expand_token "$token" "$OWNER_USER" "$owner_home")"
+  owner_akf_resolved="$(readlink -m -- "$owner_akf")"
+  [ -z "${owner_akf_seen[$owner_akf_resolved]:-}" ] || die "duplicate/aliased p5-owner AKF path"
+  [ ! -L "$owner_akf" ] || die "p5-owner AKF path is a symlink: $owner_akf"
+  ...
+  install -m 0600 -o "$OWNER_USER" -g "$OWNER_USER" "$OWNER_SSH" "$owner_akf"
+done
+[ "${#owner_akf_seen[@]}" -gt 0 ] || die "no effective p5-owner AuthorizedKeysFile path"
+```
+owner 公钥仅写入 sshd Match-aware 解析出的真实有效路径，symlink/alias 均 fail-closed，零有效路径 fail-closed。静态测试 S28 通过验证。**owner Match AKF 已完整实现。**
+
+---
+
+### I1/I2 裁定
+
+**I1（工程实现完整性）：PASS**
+
+五个审查维度——Match-aware root AKF、fingerprint allowlist（双向精确）、alias/symlink fail-closed、apply 后 absent reverify、owner Match AKF——在冻结 FL18 包中均有完整、正确的实现，且相互之间无矛盾。静态测试 S05/S06/S27/S28 均覆盖并验证上述不变量。未发现逻辑缺口或绕过路径。
+
+**I2（无反证）：PASS — 未发现否定证据**
+
+只读检查范围覆盖全部相关文件（`sanitize_authorized_keys.py`、`03/05/06/07` 脚本、`common.sh`、TCB 清单、冻结模板、静态测试套件）。无任何路径允许 agent 指纹在 apply 后持久存在于 root 有效 AKF 中，无 symlink/alias bypass，无 allowlist 外密钥被静默保留，无 absent reverify 可跳过的代码路径。

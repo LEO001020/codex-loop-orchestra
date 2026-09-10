@@ -1,0 +1,43 @@
+Reading additional input from stdin...
+2026-08-15T07:29:31.784970Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-15T07:29:36.919410Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-15T07:30:03.330041Z ERROR codex_core::tools::router: error=Exit code: 124
+Wall time: 10.5 seconds
+Output:
+command timed out after 10521 milliseconds
+Get-ChildItem : 对路径“E:\VPS\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem -Path "E:\VPS" -Recurse -File | Select-Object FullName, ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\VPS\.pytest_cache:String) [Get-ChildItem], UnauthorizedAccessExcep 
+   tion
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-15T07:36:04.974223Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 208ms)... turn_id=01a00453-6f0c-7613-b2c4-28814aa48107 retries=1 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-15T07:37:55.511541Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.1 seconds
+Output:
+
+2026-08-15T07:40:38.700172Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 205ms)... turn_id=01a00453-6f0c-7613-b2c4-28814aa48107 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T07:40:50.468546Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 411ms)... turn_id=01a00453-6f0c-7613-b2c4-28814aa48107 retries=2 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-15T07:41:03.002564Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 785ms)... turn_id=01a00453-6f0c-7613-b2c4-28814aa48107 retries=3 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-15T07:41:13.057284Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.666s)... turn_id=01a00453-6f0c-7613-b2c4-28814aa48107 retries=4 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-15T07:41:26.828271Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 3.341s)... turn_id=01a00453-6f0c-7613-b2c4-28814aa48107 retries=5 max_retries=5 sampling_error=stream disconnected before completion: error sending request for url (http://127.0.0.1:10100/v1/responses)
+2026-08-15T07:41:48.654655Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

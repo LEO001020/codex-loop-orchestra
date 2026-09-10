@@ -1,0 +1,50 @@
+Reading additional input from stdin...
+2026-08-14T09:17:38.157986Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T09:17:41.360141Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T09:18:00.951040Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.3 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后再试一次。
+所在位置 行:2 字符: 32
++ Get-ChildItem -Recurse -Name | head -60
++                                ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T09:19:11.071308Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 3.4 seconds
+Output:
+
+FullName                                            
+--------                                            
+E:\VPS\p5_upload_apsw.sh                            
+E:\VPS\p5_upload_fastpath_startup.sh                
+E:\VPS\p5_upload_source.sh                          
+E:\VPS\reports\p5-fl18-upload-and-verify-20260814.sh
+
+
+
+2026-08-14T09:19:21.747602Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 180ms)... turn_id=019fff90-0c5d-79d0-bf94-3c0a5d4e46b5 retries=1 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游网络连接失败, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T09:19:27.842640Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 412ms)... turn_id=019fff90-0c5d-79d0-bf94-3c0a5d4e46b5 retries=2 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游网络连接失败, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T09:22:34.203681Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 214ms)... turn_id=019fff90-0c5d-79d0-bf94-3c0a5d4e46b5 retries=1 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游网络连接失败, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T09:22:41.122193Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 370ms)... turn_id=019fff90-0c5d-79d0-bf94-3c0a5d4e46b5 retries=2 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游网络连接失败, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T09:22:48.061215Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 873ms)... turn_id=019fff90-0c5d-79d0-bf94-3c0a5d4e46b5 retries=3 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游网络连接失败, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T09:22:55.959864Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.692s)... turn_id=019fff90-0c5d-79d0-bf94-3c0a5d4e46b5 retries=4 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游网络连接失败, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T09:23:43.285533Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

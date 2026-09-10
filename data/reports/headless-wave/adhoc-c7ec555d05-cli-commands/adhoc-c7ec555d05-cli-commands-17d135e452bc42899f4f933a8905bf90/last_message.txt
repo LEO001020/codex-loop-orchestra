@@ -1,0 +1,24 @@
+ZCode 客户端提供了强大的内置 slash commands 和 hook 机制来支持工作流与自动化。以下是对其机制的总结：
+
+### 1. 内置命令 (/command)
+ZCode 支持自定义斜杠命令，命令定义在 `.md` 文件中。
+
+- **发现逻辑**：ZCode 按优先级顺序扫描特定文件夹（包括用户根目录下的 `.zcode/commands`、工作区 `.zcode/commands` 以及启用插件的 `commands` 目录）。先发现的命令具有最高优先级（即用户定义优先于插件，`.zcode` 优先于 `.agents`）。
+- **文件与命名**：每个文件名（不含扩展名）即为斜杠命令名。如果嵌套在子文件夹中，子文件夹名与文件名通过冒号 `:` 连接（例如 `review/code.md` 对应 `/review:code`）。
+- **定义格式**：`.md` 文件中包含 frontmatter（定义描述、参数提示、工具许可等）和正文。缺少描述且无非空正文的命令将被忽略。
+- **参数占位符**：支持 `$ARGUMENTS`（全文）和 `$1`, `$2`（位置参数）。
+
+### 2. Hook 机制
+Hook 用于在特定事件触发时自动执行命令或程序，从而扩展客户端功能。
+
+- **触发事件**：支持 `SessionStart`、`UserPromptSubmit`、`PreToolUse`、`PermissionRequest`、`PostToolUse`、`PostToolUseFailure` 和 `Stop`。
+- **配置来源**：
+  - **配置文件 Hook**：通过 CLI 配置（需要显式设置 `hooks.enabled: true` 才生效）。
+  - **插件 Hook**：通过插件的 `hooks/hooks.json` 定义。一旦安装并启用贡献 Hook 的插件，Hook 运行器即自动启用。
+- **Hook 类型**：
+  - `command`：通过 shell 执行字符串，支持 `timeout`（秒）。
+  - `process`：直接执行可执行文件及其参数数组，支持 `timeoutMs`（毫秒），更具平台移植性。
+- **变量注入**：支持预定义变量（如 `${CLAUDE_PROJECT_DIR}`, `${CLAUDE_SESSION_ID}`），插件 Hook 额外支持 `${CLAUDE_PLUGIN_ROOT}`。
+- **诊断**：执行结果、阻塞情况及耗时记录在 ZCode 日志中，支持通过 JSON 输出或退出码（`0` 通过，`2` 阻塞）来控制流水线。
+
+在诊断这些功能时，建议优先通过“插件管理”界面查看 Hook 或命令的注册情况，并利用 `SKILL.md` 中记录的诊断工作流（从配置文件检查到日志执行记录回溯）快速定位匹配冲突或执行错误。

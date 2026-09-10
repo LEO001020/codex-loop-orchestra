@@ -1,0 +1,29 @@
+Reading additional input from stdin...
+2026-08-13T05:44:42.336937Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-13T05:44:45.457108Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-13T05:50:02.425847Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 201ms)... turn_id=019ff9a6-bebb-79e2-b416-5c6c0e230c6a retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+2026-08-13T05:53:20.862698Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 411ms)... turn_id=019ff9a6-bebb-79e2-b416-5c6c0e230c6a retries=2 max_retries=5 sampling_error=We're currently experiencing high demand, which may cause temporary errors.
+2026-08-13T05:58:28.429890Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 787ms)... turn_id=019ff9a6-bebb-79e2-b416-5c6c0e230c6a retries=3 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-13T06:03:42.505231Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 182ms)... turn_id=019ff9a6-bebb-79e2-b416-5c6c0e230c6a retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+2026-08-13T06:08:32.739788Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 213ms)... turn_id=019ff9a6-bebb-79e2-b416-5c6c0e230c6a retries=1 max_retries=5 sampling_error=unexpected status 503 Service Unavailable: Provider error 503: No available channel for model kimi-k3 under group Eazy口子-openai (distributor) (request id: 202608130608326447645018268d9d6mdVPly2u), url: http://127.0.0.1:10100/v1/responses
+2026-08-13T06:08:42.457835Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 421ms)... turn_id=019ff9a6-bebb-79e2-b416-5c6c0e230c6a retries=2 max_retries=5 sampling_error=unexpected status 503 Service Unavailable: Provider error 503: No available channel for model kimi-k3 under group Eazy口子-openai (distributor) (request id: 202608130608423869583608268d9d6Xq7aPDak), url: http://127.0.0.1:10100/v1/responses
+2026-08-13T06:08:52.488427Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 852ms)... turn_id=019ff9a6-bebb-79e2-b416-5c6c0e230c6a retries=3 max_retries=5 sampling_error=unexpected status 503 Service Unavailable: Provider error 503: No available channel for model kimi-k3 under group Eazy口子-openai (distributor) (request id: 202608130608521392218238268d9d6uMck8cNw), url: http://127.0.0.1:10100/v1/responses
+2026-08-13T06:09:03.186336Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.554s)... turn_id=019ff9a6-bebb-79e2-b416-5c6c0e230c6a retries=4 max_retries=5 sampling_error=unexpected status 503 Service Unavailable: Provider error 503: No available channel for model kimi-k3 under group Eazy口子-openai (distributor) (request id: 202608130609025777985178268d9d6siFegy4i), url: http://127.0.0.1:10100/v1/responses
+2026-08-13T06:09:15.690724Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 3.406s)... turn_id=019ff9a6-bebb-79e2-b416-5c6c0e230c6a retries=5 max_retries=5 sampling_error=unexpected status 503 Service Unavailable: Provider error 503: No available channel for model kimi-k3 under group Eazy口子-openai (distributor) (request id: 202608130609153414831388268d9d6QEgXaw0O), url: http://127.0.0.1:10100/v1/responses
+2026-08-13T06:09:34.554202Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

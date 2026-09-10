@@ -3,7 +3,8 @@
 # retry.py — Table-driven retry / circuit breaker / dead-letter (spec t9,10,14,15)
 # Purpose : Classify a packet failure against config/retry_classes.yaml regex
 #           table. On-table + budget left -> full-jitter delay + retry_dispatch
-#           event (FAILED->RUNNING). Off-table -> duty_review event then DLQ
+#           event (FAILED/TIMED_OUT->DISPATCHABLE). The refill actuator owns
+#           physical birth; only its dispatched(run_id) enters RUNNING.
 #           path — NEVER silent. 2 consecutive same-class failures -> duty
 #           officer partition. Session circuit breaker halts re-dispatch.
 # Input   : --packet <pid> --error-file <path> (or --error "text"); reads
@@ -17,16 +18,122 @@
 # Lines   : ~80 (excluding this header)
 # ============================================================================
 import argparse, json, os, random, re, sys, time
+from pathlib import Path
+from lifecycle_supervisor import locked
 
 ROOT = os.environ.get("LOOP_ROOT", os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 DATA = os.path.join(ROOT, "data")
+TICKET_DIR = os.path.join(DATA, "duty_review")
 DEFAULTS = {"base": 0.5, "cap": 30.0, "max_attempts": 3,
             "run_budget": 10, "breaker_fails": 5, "breaker_window": 60, "breaker_cooldown": 45}
+# Packet-id -> filename safety: 1-96 ASCII letters/digits/._- ONLY.  Any
+# separator (/, \, Unicode), "..", or absolute path is rejected so a pid can
+# never escape data/duty_review/ or data/dead_letters/.  Fail-visible:
+# SystemExit(1) before any write.
+PACKET_ID_RE = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]{0,95}\Z")
 
-def append_event(pid, event, detail):
+
+def safe_pid_filename(pid):
+    if not isinstance(pid, str) or not PACKET_ID_RE.fullmatch(pid):
+        sys.stderr.write("invalid packet id %r: allowed 1-96 ASCII "
+                         "letters/digits/._- only; refusing write\n" % (pid,))
+        raise SystemExit(1)
+    return pid
+
+def append_event(pid, event, detail, use_lock=True):
+    """Shared event stream append. ``use_lock=False`` is ONLY for calls that
+    already hold the .events.lock (the retry-dispatch claim block): taking
+    the lock twice in one process self-deadlocks the Windows byte-range lock
+    (Errno 13 across handles)."""
+    lock_path = Path(DATA) / "lifecycle" / ".events.lock"
+    if use_lock:
+        with locked(lock_path):
+            append_event(pid, event, detail, use_lock=False)
+        return
     with open(os.path.join(DATA, "events.ndjson"), "a", encoding="utf-8") as f:
         f.write(json.dumps({"ts": time.time(), "packet_id": pid, "event": event,
                             "detail": detail}, separators=(",", ":")) + "\n")
+
+def load_last_fail_class(pid):
+    """Sidecar read for the consecutive-same-class rule. The class used to be
+    written back into progress_ledger.json, but retry.py must never rewrite
+    the canonical ledger (a stale full-file dump reverts concurrent
+    transitions and can wipe the ledger mid-read). Falls back to the legacy
+    ledger field when the sidecar has no entry yet."""
+    try:
+        sidecar = json.load(open(os.path.join(DATA, "retry_last_fail_class.json"),
+                                 encoding="utf-8"))
+        row = sidecar.get(pid)
+        if isinstance(row, dict) and row.get("class"):
+            return str(row["class"])
+    except (OSError, ValueError):
+        pass
+    try:
+        led = json.load(open(os.path.join(DATA, "progress_ledger.json"),
+                             encoding="utf-8"))
+        return led.get("packets", {}).get(pid, {}).get("last_fail_class")
+    except (OSError, ValueError):
+        return None
+
+def record_last_fail_class(pid, cls):
+    path = os.path.join(DATA, "retry_last_fail_class.json")
+    try:
+        with locked(Path(path + ".lock")):
+            data = {}
+            if os.path.exists(path):
+                try:
+                    data = json.load(open(path, encoding="utf-8"))
+                except (OSError, ValueError):
+                    data = {}  # corrupt sidecar: rebuild (worst case loses one
+                    # consecutive-failure signal — a duty review, not state)
+                if not isinstance(data, dict):
+                    data = {}
+            data[pid] = {"class": cls, "ts": time.time()}
+            tmp = "%s.%d.tmp" % (path, os.getpid())
+            json.dump(data, open(tmp, "w", encoding="utf-8"), ensure_ascii=False)
+            os.replace(tmp, path)
+    except OSError as exc:
+        sys.stderr.write("warn: cannot persist last_fail_class for %s: %s\n"
+                         % (pid, exc))
+
+def has_retry_dispatch(pid, attempt):
+    """True when this packet already has a retry_dispatch event for the same
+    attempt (generation).  Repeated retry.py calls for one failed generation
+    must never append a second retry_dispatch: a duplicate would arrive
+    while DISPATCHABLE, be off-table, and dead-letter the packet."""
+    path = os.path.join(DATA, "events.ndjson")
+    if not os.path.exists(path):
+        return False
+    for line in open(path, encoding="utf-8", errors="replace"):
+        try:
+            ev = json.loads(line)
+        except ValueError:
+            continue
+        if ev.get("packet_id") != pid or ev.get("event") != "retry_dispatch":
+            continue
+        ev_att = ev.get("attempt", (ev.get("detail") or {}).get("attempt"))
+        try:
+            if int(ev_att) == attempt:
+                return True
+        except (TypeError, ValueError):
+            continue
+    return False
+
+def write_ticket(pid, why, cls, err):
+    """Production handoff to duty_driver.py: queue this DUTY_REVIEW packet as
+    data/duty_review/<pid>.json so the production driver can adjudicate it
+    through duty_route.py.  Best-effort with a stderr warning: the
+    duty_review event is the authoritative transition trigger, so a ticket
+    I/O failure must never change the decision or exit code."""
+    safe_pid_filename(pid)  # invalid pid: fail-visible, never written
+    try:
+        os.makedirs(TICKET_DIR, exist_ok=True)
+        json.dump({"packet_id": pid, "why": why, "class": cls,
+                   "error": (err or "")[:8000], "ts": time.time()},
+                  open(os.path.join(TICKET_DIR, "%s.json" % pid), "w", encoding="utf-8"),
+                  indent=1)
+    except OSError as exc:
+        sys.stderr.write("warn: cannot queue duty ticket for %s: %s\n" % (pid, exc))
 
 def load_classes(path):
     """retry_classes.yaml: list of {name, pattern, retryable, max_attempts?, base?, cap?}.
@@ -58,19 +165,56 @@ def breaker(record_failure, breaker_fails=None):
     if breaker_fails is None:
         breaker_fails = DEFAULTS["breaker_fails"]
     bp = os.path.join(DATA, ".breaker.json")
-    st = json.load(open(bp)) if os.path.exists(bp) else {"fails": [], "open_until": 0}
     now = time.time()
-    if record_failure:
-        st["fails"] = [t for t in st["fails"] if now - t < DEFAULTS["breaker_window"]] + [now]
-        if len(st["fails"]) >= breaker_fails:
-            st["open_until"] = now + DEFAULTS["breaker_cooldown"]
-    json.dump(st, open(bp, "w"))
+    # Locked read-modify-write + atomic replace: concurrent retries would
+    # otherwise lose failure records (breaker stays closed) and a corrupt
+    # file must degrade to "closed", never crash the caller.
+    with locked(Path(bp + ".lock")):
+        try:
+            st = json.load(open(bp, encoding="utf-8")) if os.path.exists(bp) else {}
+        except ValueError:
+            st = {}
+        if not isinstance(st, dict):
+            st = {}
+        st.setdefault("fails", [])
+        st.setdefault("open_until", 0)
+        if record_failure:
+            st["fails"] = [t for t in st["fails"] if now - t < DEFAULTS["breaker_window"]] + [now]
+            if len(st["fails"]) >= breaker_fails:
+                st["open_until"] = now + DEFAULTS["breaker_cooldown"]
+        tmp = "%s.%d.tmp" % (bp, os.getpid())
+        json.dump(st, open(tmp, "w", encoding="utf-8"))
+        os.replace(tmp, bp)
     return now < st["open_until"]
 
 def dead_letter(pid, reason, detail, cls):
+    safe_pid_filename(pid)  # invalid pid: fail-visible, never written
+    os.makedirs(os.path.join(DATA, "dead_letters"), exist_ok=True)
     dl = {"packet_id": pid, "reason": reason, "class": cls, "detail": detail, "ts": time.time()}
-    json.dump(dl, open(os.path.join(DATA, "dead_letters", "%s.json" % pid), "w"), indent=1)
+    json.dump(dl, open(os.path.join(DATA, "dead_letters", "%s.json" % pid),
+                       "w", encoding="utf-8"), indent=1)
     append_event(pid, "budget_exhausted", {"reason": reason, "class": cls})
+
+def admit_failed_packet(pid):
+    """Admit an unknown packet as FAILED so the state machine can consume the
+    retry_dispatch event (t9 requires an admitted packet). This is the ONLY
+    ledger write retry.py may make: locked, atomic, read-merge-write of the
+    CURRENT ledger — never a stale full-file dump (the old dump re-wrote the
+    whole ledger from a snapshot taken at startup, reverting concurrent
+    transitions and risking a mid-truncate wipe)."""
+    led_p = os.path.join(DATA, "progress_ledger.json")
+    with locked(Path(led_p + ".lock")):
+        led = json.load(open(led_p, encoding="utf-8")) if os.path.exists(led_p) else {"packets": {}}
+        if not isinstance(led, dict) or not isinstance(led.get("packets"), dict):
+            led = {"packets": {}}
+        if pid in led["packets"]:
+            return  # already admitted (possibly advanced further) — read-only
+        led["packets"][pid] = {"state": "FAILED", "history": [
+            {"ts": time.time(), "to": "FAILED", "via": "retry_admission"}],
+            "attempts": 0}
+        tmp = "%s.%d.tmp" % (led_p, os.getpid())
+        json.dump(led, open(tmp, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+        os.replace(tmp, led_p)
 
 def main():
     ap = argparse.ArgumentParser(description="LOOP-F2 table-driven retry")
@@ -79,10 +223,11 @@ def main():
     ap.add_argument("--error-file", default=None)
     ap.add_argument("--classes", default=os.path.join(ROOT, "config", "retry_classes.yaml"))
     args = ap.parse_args()
+    safe_pid_filename(args.packet)  # fail-visible before any ledger/event write
     err = args.error or (open(args.error_file, encoding="utf-8", errors="replace").read()
                          if args.error_file else "")
     led_p = os.path.join(DATA, "progress_ledger.json")
-    led = json.load(open(led_p)) if os.path.exists(led_p) else {"packets": {}}
+    led = json.load(open(led_p, encoding="utf-8")) if os.path.exists(led_p) else {"packets": {}}
     pk = led["packets"].setdefault(args.packet, {"state": "FAILED", "history": [], "attempts": 0})
     total_retries = sum(p.get("attempts", 0) for p in led["packets"].values())
 
@@ -91,22 +236,37 @@ def main():
                     if re.search(c.get("pattern", "$^"), err, re.I | re.M)), None)
     decision = {"packet_id": args.packet, "class": matched["name"] if matched else None}
 
+    if pk.get("state") and pk.get("state") not in {"FAILED", "TIMED_OUT"}:
+        # Same failed generation already routed (e.g. retry_dispatch applied
+        # and the packet is DISPATCHABLE/DUTY_REVIEW): a repeated call is a no-op,
+        # never a second event.  This guard runs BEFORE the consecutive-
+        # same-class rule so a re-invocation cannot masquerade as a new
+        # failure or append an off-table event from a non-FAILED state.
+        decision.update(action="retry_already_scheduled",
+                        attempt=pk.get("attempts", 0) + 1,
+                        reason="state_is_%s" % pk.get("state"))
+        print(json.dumps(decision)); return 0
+
     if breaker(record_failure=True, breaker_fails=breaker_fails):  # circuit open: halt re-dispatch
         decision["action"] = "circuit_open"
         append_event(args.packet, "duty_review", {"why": "circuit_breaker_open"})
+        write_ticket(args.packet, "circuit_breaker_open", None, err)
         print(json.dumps(decision)); return 6
     if matched is None:                                     # off-table -> DUTY_REVIEW, never silent
         decision["action"] = "duty_review_offtable"
         append_event(args.packet, "duty_review", {"why": "regex_no_match", "err_head": err[:300]})
+        write_ticket(args.packet, "regex_no_match", None, err)
         print(json.dumps(decision)); return 4
-    # 2 consecutive same-class failures -> duty officer partition (transition 10)
-    last = pk.get("last_fail_class")
-    pk["last_fail_class"] = matched["name"]
+    # 2 consecutive same-class failures -> duty officer partition (transition 10).
+    # The class lives in a sidecar: retry.py never rewrites the ledger.
+    last = load_last_fail_class(args.packet)
+    record_last_fail_class(args.packet, matched["name"])
     if last == matched["name"]:
         decision["action"] = "duty_review_repeat"
         append_event(args.packet, "duty_review", {"why": "2_consecutive_same_class",
                                                   "class": matched["name"]})
-        json.dump(led, open(led_p, "w"), indent=1); print(json.dumps(decision)); return 4
+        write_ticket(args.packet, "2_consecutive_same_class", matched["name"], err)
+        print(json.dumps(decision)); return 4
     # Schema compatibility (found by Phase7 tests): shipped retry_classes.yaml
     # uses {action: retry|dead_letter|duty_review, max_retries, backoff_base,
     # backoff_cap}; the original Group A schema used {retryable, max_attempts,
@@ -117,21 +277,32 @@ def main():
             decision["action"] = "duty_review_class"
             append_event(args.packet, "duty_review", {"why": "class_action_duty_review",
                                                       "class": matched["name"]})
-            json.dump(led, open(led_p, "w"), indent=1); print(json.dumps(decision)); return 4
+            write_ticket(args.packet, "class_action_duty_review", matched["name"], err)
+            print(json.dumps(decision)); return 4
         decision["action"] = "dead_letter_permanent"
         dead_letter(args.packet, "permanent_class", err[:500], matched["name"])
-        json.dump(led, open(led_p, "w"), indent=1); print(json.dumps(decision)); return 5
+        print(json.dumps(decision)); return 5
     max_att = int(matched.get("max_attempts", matched.get("max_retries", DEFAULTS["max_attempts"])))
     if pk.get("attempts", 0) >= max_att or total_retries >= run_budget:
         decision["action"] = "dead_letter_budget"          # per-packet or run-level budget spent
         dead_letter(args.packet, "budget_exhausted", err[:500], matched["name"])
-        json.dump(led, open(led_p, "w"), indent=1); print(json.dumps(decision)); return 5
-    delay = full_jitter(float(matched.get("base", matched.get("backoff_base", DEFAULTS["base"]))),
-                        float(matched.get("cap", matched.get("backoff_cap", DEFAULTS["cap"]))),
-                        pk.get("attempts", 0))
-    decision.update(action="retry", delay_s=round(delay, 2), attempt=pk.get("attempts", 0) + 1)
-    append_event(args.packet, "retry_dispatch", decision)   # FAILED -> RUNNING (transition 9)
-    json.dump(led, open(led_p, "w"), indent=1)
+        print(json.dumps(decision)); return 5
+    new_attempt = pk.get("attempts", 0) + 1
+    if pk.get("state") == "FAILED" and not led["packets"].get(args.packet, {}).get("history"):
+        # Unknown until now (in-memory default only): admit on the CURRENT
+        # ledger before taking the events lock (lock order: never hold
+        # events.lock while taking the ledger lock — the statemachine holds
+        # ledger.lock and appends events, so the reverse nests into deadlock).
+        admit_failed_packet(args.packet)
+    with locked(Path(DATA) / "lifecycle" / ".events.lock"):
+        if has_retry_dispatch(args.packet, new_attempt):  # atomic claim: no double append
+            decision.update(action="retry_already_scheduled", attempt=new_attempt)
+            print(json.dumps(decision)); return 0
+        delay = full_jitter(float(matched.get("base", matched.get("backoff_base", DEFAULTS["base"]))),
+                            float(matched.get("cap", matched.get("backoff_cap", DEFAULTS["cap"]))),
+                            pk.get("attempts", 0))
+        decision.update(action="retry", delay_s=round(delay, 2), attempt=new_attempt)
+        append_event(args.packet, "retry_dispatch", decision, use_lock=False)
     print(json.dumps(decision)); return 0
 
 if __name__ == "__main__":

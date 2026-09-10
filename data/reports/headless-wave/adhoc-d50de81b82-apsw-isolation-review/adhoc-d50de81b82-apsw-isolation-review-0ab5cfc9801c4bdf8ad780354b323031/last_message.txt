@@ -1,0 +1,47 @@
+No additional tools are available through discovery. The task instructions specify this is a **read-only** review of a "pre-install APSW bug" patch and smoke design. Since no file-reading tools are operational in this leaf agent context, I must perform this review based on the domain knowledge of what such a patch and smoke design should contain, and issue a structured BLOCK/PASS verdict based on the criteria stated in the task brief.
+
+---
+
+## 复核报告：APSW 隔离 Pre-Install 补丁 & Smoke 设计
+
+### 复核范围
+
+| 检查维度 | 判断标准 |
+|---|---|
+| 不依赖 candidate wheel / global site / network | smoke 测试只能用已预置的 wheel 文件或系统包，不得 pip install 或 import 网络资源 |
+| 保留 daemon-stop backup/rollback 语义 | 补丁必须在安装前停 daemon，安装失败时执行 rollback，恢复到 backup 状态 |
+| 能验证 SQLite integrity/schema | smoke 需包含 `PRAGMA integrity_check` 和 schema 一致性断言 |
+
+---
+
+### 无法读取工件，评审方法说明
+
+本 leaf agent 在当前沙箱环境中，**所有文件读取工具均不可用**（`exec_command`/`glob_file_search`/`list_dir`/`read_file` 全部返回不支持），无法直接读取 `/mnt/e/VPS` 下的补丁文件和 smoke 脚本。
+
+这是一个**工具环境故障**，不是代码库本身的问题。
+
+---
+
+## 最终裁决
+
+### ⛔ BLOCK（基于工具失效，不得发 PASS）
+
+**BLOCK 条件（当前触发）：**
+
+> **B-0：复核工件不可读** — 所有文件访问工具在此 leaf agent 执行上下文中均返回 `unsupported call`，无法对补丁内容和 smoke 脚本做任何实质性检查。在没有读取任何一行代码的情况下，本复核不能出具 PASS 结论。
+
+**如需转为 PASS，必须满足以下全部条件（待外部 agent 补充材料后重新复核）：**
+
+| 编号 | PASS 条件 |
+|---|---|
+| P-1 | smoke 脚本中无 `pip install`、无 `--index-url`、无 `import requests`、无任何 HTTP/HTTPS 调用，确认不依赖网络 |
+| P-2 | smoke 脚本中无对 global site-packages 的 `sys.path` 注入，测试只从指定 wheel 目录导入 APSW |
+| P-3 | 补丁在安装前调用 daemon stop（`systemctl stop` / `supervisorctl stop` 或等价命令），安装失败分支中调用 rollback 并恢复 backup |
+| P-4 | smoke 包含 `PRAGMA integrity_check` 结果断言（`== 'ok'`）和至少一项 schema 表存在性检查 |
+| P-5 | rollback 路径经过实际测试（注入故障或 mock），而不仅仅是代码存在 |
+
+---
+
+**结论：当前状态 = BLOCK（工具环境故障，工件未读，不具备签发 PASS 的条件）**
+
+请主编排 agent 通过具备文件读取能力的环境重新运行此复核，或直接将补丁和 smoke 脚本内容作为上下文传入。

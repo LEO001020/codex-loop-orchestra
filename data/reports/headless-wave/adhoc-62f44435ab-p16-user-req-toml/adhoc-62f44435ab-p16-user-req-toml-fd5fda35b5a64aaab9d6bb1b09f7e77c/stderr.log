@@ -1,0 +1,122 @@
+Reading additional input from stdin...
+2026-08-29T15:38:13.403606Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Could not validate your refresh token. Please try signing in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "invalid_refresh_token"
+  }
+}
+2026-08-29T15:38:13.403679Z  WARN codex_login::auth::manager: Encountered unknown response while refreshing token backend_code="invalid_refresh_token" backend_body="{\n  \"error\": {\n    \"message\": \"Could not validate your refresh token. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"param\": null,\n    \"code\": \"invalid_refresh_token\"\n  }\n}"
+2026-08-29T15:38:13.405014Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T15:38:13.409229Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-29T15:38:13.572405Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T15:38:13.573946Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T15:38:13.574590Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T15:38:13.575441Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T15:38:13.582119Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T15:38:14.908902Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T15:38:16.399493Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Provided authentication token is expired. Please try signing in again.",
+    "type": null,
+    "code": "token_expired",
+    "param": null
+  },
+  "status": 401,
+  "detail": {
+    "code": "token_expired",
+    "message": "Provided authentication token is expired. Please try signing in again."
+  }
+}
+2026-08-29T15:38:16.824674Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T15:38:19.403800Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T15:38:19.404156Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T15:38:19.404474Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T15:38:52.661896Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T15:38:52.662461Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T15:38:52.663339Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T15:39:08.744920Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T15:39:08.746550Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T15:39:08.747929Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T15:40:01.048977Z ERROR codex_core::tools::router: error=apply_patch verification failed: invalid patch: The first line of the patch must be '*** Begin Patch'
+2026-08-29T15:40:01.067553Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T15:40:01.068463Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T15:40:01.069291Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T15:40:45.323761Z ERROR codex_core::tools::router: error=apply_patch verification failed: invalid patch: The first line of the patch must be '*** Begin Patch'
+2026-08-29T15:40:45.332717Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T15:40:45.333101Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T15:40:45.333406Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T15:41:14.452387Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T15:41:14.453081Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T15:41:14.453725Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T15:42:10.484885Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+New-Object: 
+Line |
+ 185 |  $utf8 = New-Object System.Text.UTF8Encoding $false
+     |          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Cannot create type. Only core types are supported in this language mode.
+InvalidOperation: 
+Line |
+ 186 |  [System.IO.File]::WriteAllText($reportPath, $content, $utf8)
+     |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Cannot invoke method. Method invocation is supported only on core types in this language mode.
+Get-Item: 
+Line |
+ 187 |  Get-Item -LiteralPath $reportPath | Select-Object FullName, Length, L бн
+     |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Cannot find path 'E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-8765-desktop-hooktrust\p16.md' because it does not exist.
+Get-Content: 
+Line |
+ 188 |  Get-Content -LiteralPath $reportPath -Encoding UTF8 -TotalCount 20
+     |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Cannot find path 'E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-8765-desktop-hooktrust\p16.md' because it does not exist.
+
+2026-08-29T15:42:10.495618Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T15:42:10.495995Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T15:42:10.496381Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T15:42:33.519578Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1 seconds
+Output:
+Set-Content: 
+Line |
+   6 |  Set-Content -LiteralPath $reportPath -Value $content -Encoding utf8
+     |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Access to the path 'E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-8765-desktop-hooktrust\p16.md' is denied.
+Get-Item: 
+Line |
+   7 |  Get-Item -LiteralPath $reportPath | Select-Object FullName, Length
+     |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Cannot find path 'E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-8765-desktop-hooktrust\p16.md' because it does not exist.
+
+2026-08-29T15:42:33.528954Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T15:42:33.529329Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T15:42:33.529623Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T15:43:24.093277Z ERROR codex_core::tools::router: error=apply_patch verification failed: invalid hunk at line 183, '*** End of File' is not a valid hunk header. Valid hunk headers: '*** Add File: {path}', '*** Delete File: {path}', '*** Update File: {path}'
+2026-08-29T15:43:24.101910Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T15:43:24.102263Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T15:43:24.102565Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T15:43:43.142385Z ERROR codex_core::tools::router: error=apply_patch verification failed: invalid hunk at line 7, '*** End of File' is not a valid hunk header. Valid hunk headers: '*** Add File: {path}', '*** Delete File: {path}', '*** Update File: {path}'
+2026-08-29T15:43:43.168446Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T15:43:43.169165Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T15:43:43.169611Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T15:44:31.231844Z ERROR codex_core::tools::router: error=patch rejected: writing is blocked by read-only sandbox; rejected by user approval settings
+2026-08-29T15:44:31.240654Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T15:44:31.241121Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T15:44:31.241423Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T15:45:41.309782Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed. Please log out and sign in again.
+2026-08-29T15:45:46.083203Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Provided authentication token is expired. Please try signing in again.",
+    "type": null,
+    "code": "token_expired",
+    "param": null
+  },
+  "status": 401,
+  "detail": {
+    "code": "token_expired",
+    "message": "Provided authentication token is expired. Please try signing in again."
+  }
+}

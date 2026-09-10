@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZCode-ZLoop Orchestra 交互式架构与控制回路</title>
+  <style>
+    :root {
+      --bg: #090a0f;
+      --card-bg: rgba(22, 27, 38, 0.85);
+      --card-border: #283347;
+      --text: #f0f4fc;
+      --muted: #8c9bb5;
+      --blue: #3e7df2;
+      --green: #38b278;
+      --violet: #9d75cb;
+      --amber: #d4984e;
+      --red: #e05656;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", Inter, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding: 30px;
+      line-height: 1.5;
+    }
+    header {
+      max-width: 1400px;
+      margin: 0 auto 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 20px;
+    }
+    h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
+    .subtitle { color: var(--muted); font-size: 14px; margin-top: 6px; }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      background: rgba(62, 125, 242, 0.15);
+      color: var(--blue);
+      border: 1px solid rgba(62, 125, 242, 0.4);
+    }
+    .grid-metrics {
+      max-width: 1400px;
+      margin: 0 auto 30px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .metric-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 18px 20px;
+      backdrop-filter: blur(10px);
+    }
+    .metric-val { font-size: 32px; font-weight: 800; }
+    .metric-name { color: var(--text); font-size: 14px; font-weight: 600; margin-top: 4px; }
+    .metric-sub { color: var(--muted); font-size: 12px; margin-top: 2px; }
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+    .tabs {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 12px;
+    }
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .tab-btn.active, .tab-btn:hover {
+      background: rgba(255,255,255,0.08);
+      color: var(--text);
+    }
+    .tab-btn.active {
+      color: var(--blue);
+      border-bottom: 2px solid var(--blue);
+      border-radius: 8px 8px 0 0;
+    }
+    .diagram-view {
+      width: 100%;
+      height: 820px;
+      border: none;
+      border-radius: 12px;
+      background: #0d1118;
+    }
+    .interactive-guide {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+    .guide-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .guide-title { font-size: 15px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+    .guide-desc { font-size: 12.5px; color: var(--muted); line-height: 1.6; }
+    .tag { font-size: 10px; padding: 2px 6px; border-radius: 4px; text-transform: uppercase; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <span class="badge">ZCode-ZLoop Gen8 Native</span>
+      <h1 style="margin-top: 8px;">Triple-Audit &amp; Physical Concurrency Architecture</h1>
+      <p class="subtitle">面向 ZCode 客户端的极简、高韧性、异构多智能体控制回路演示台</p>
+    </div>
+    <div style="text-align: right;">
+      <p style="font-size: 13px; color: var(--muted);">Author: LEO001020</p>
+      <p style="font-size: 12px; color: var(--green); margin-top: 4px;">● All 293 Tests Passed</p>
+    </div>
+  </header>
+
+  <div class="grid-metrics">
+    <div class="metric-card" style="border-left: 4px solid var(--blue);">
+      <div class="metric-val" style="color: var(--blue);">8–15</div>
+      <div class="metric-name">物理并发 Workers</div>
+      <div class="metric-sub">异步线程池 + 非阻塞 poll() 驱动</div>
+    </div>
+    <div class="metric-card" style="border-left: 4px solid var(--green);">
+      <div class="metric-val" style="color: var(--green);">-53.4%</div>
+      <div class="metric-name">首轮 Token 削减</div>
+      <div class="metric-sub">剥离 14 个 MCP/Skills 架构静态注入</div>
+    </div>
+    <div class="metric-card" style="border-left: 4px solid var(--violet);">
+      <div class="metric-val" style="color: var(--violet);">100%</div>
+      <div class="metric-name">物理异构隔离直通</div>
+      <div class="metric-sub">Gemini 执行 × GLM-5.3 独立审计直通</div>
+    </div>
+    <div class="metric-card" style="border-left: 4px solid var(--amber);">
+      <div class="metric-val" style="color: var(--amber);">0 毒化</div>
+      <div class="metric-name">原子回滚保护</div>
+      <div class="metric-sub">git reset --hard 拔除坏提交零残留</div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchDiagram('assets/architecture-simplified.zh-CN.svg', this)">简化架构 (中文)</button>
+      <button class="tab-btn" onclick="switchDiagram('assets/architecture-simplified.en.svg', this)">Simplified (English)</button>
+      <button class="tab-btn" onclick="switchDiagram('assets/architecture-overview.zh-CN.svg', this)">完整全景 (中文)</button>
+      <button class="tab-btn" onclick="switchDiagram('assets/architecture-overview.en.svg', this)">Full Overview (English)</button>
+    </div>
+
+    <iframe id="diagramFrame" class="diagram-view" src="assets/architecture-simplified.zh-CN.svg"></iframe>
+
+    <div class="interactive-guide">
+      <div class="guide-card">
+        <div class="guide-title"><span class="tag" style="background: rgba(157,117,203,0.2); color: var(--violet);">Gate 1</span> C2C-P 规划前置审查</div>
+        <div class="guide-desc">在信息量最少、Prompt 最精炼、Token 成本最低的阶段，直接调用 ChatGPT Web 端进行计划反驳与盲区识别。HIGH/CRITICAL 风险在未记录 plan 审计前物理阻断发射。</div>
+      </div>
+      <div class="guide-card">
+        <div class="guide-title"><span class="tag" style="background: rgba(62,125,242,0.2); color: var(--blue);">Exec</span> 8–15 工作树物理并发</div>
+        <div class="guide-desc">每个任务强绑定私有 Worktree 与 write_scope。底层基于 JIT ThreadPoolExecutor 与非阻塞轮询，杜绝单线程卡死；具备 429 指数抖动退避与 Git 索引锁重试。</div>
+      </div>
+      <div class="guide-card">
+        <div class="guide-title"><span class="tag" style="background: rgba(224,86,86,0.2); color: var(--red);">Gate 2 &amp; 3</span> 机械物化回滚与异构审计</div>
+        <div class="guide-desc">宿主机械单测一旦失败，立即硬原子回滚恢复 Staging 树；通过后进入审级 3，由全限定独立子代理 GLM-5.3 对 Diff 给出 JSON 判决，角色感知门禁阻断非合格晋升。</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function switchDiagram(path, btn) {
+      document.getElementById('diagramFrame').src = path;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+  </script>
+</body>
+</html>

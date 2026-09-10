@@ -1,0 +1,89 @@
+Stage2 回滚不伤侧栏：`BROKEN_WHITELIST_PLUS` 与 `CORRECTED` 对 `dockBar`/`tooltip`/`FloatTasks`/`is_ota`/`settings put` 均为 0 命中；实写仅 29 包 `RUN_ANY_IN_BACKGROUND default`、BROKEN 另加 9 包 `deviceidle whitelist +`、以及 6 个荣耀杂项 `pm default-state`。证据：`C:\Users\hzq00\Documents\Codex\2026-08-23\ni-j\outputs\HONOR_VER_AN10_STAGE2_ROLLBACK_20260823.BROKEN_WHITELIST_PLUS.ps1`（SHA256 `7B485F74C3278B5F678BB1387D8113127C77444811B07A36A20FE51457A1EE57`，与同目录 `.ps1` 及 `work\stage2_continue\E02_execute\HONOR_STAGE2_20260823-221431\rollback.ps1` 字节相同）与 `...\HONOR_VER_AN10_STAGE2_DELTA_ROLLBACK_CORRECTED.ps1`（SHA256 `FCAEB086A97CE88CF5BD2B1D53B88979D57D7B9BBA1D44195BC153EFDEFBDE86`）。沙箱只读未能落盘 `outputs/audit_20260830/39_stage2_rollback_scope.md`，全文如下。
+
+# Stage2 回滚是否伤侧栏（2026-08-30）
+
+范围：只读。未执行 rollback / settings put / pm / appops set / kill-server。
+源：`C:\Users\hzq00\Documents\Codex\2026-08-23\ni-j\outputs\` 三份 Stage2 rollback ps1。
+
+## 一行结论
+
+Stage2 回滚 **不伤侧栏**：`BROKEN_WHITELIST_PLUS` 与 `CORRECTED` 都 **零命中** `dockBar` / `tooltip` / `FloatTasks` / `is_ota` / `settings put`；实写只有第三方 `RUN_ANY_IN_BACKGROUND default`、BROKEN 对 9 个 Stage2 包的 `deviceidle whitelist +`、以及 6 个荣耀杂项包 `pm default-state`。
+
+## 文件身份
+
+| 文件 | 字节 | 行 | SHA256 |
+|---|---:|---:|---|
+| `HONOR_VER_AN10_STAGE2_ROLLBACK_20260823.BROKEN_WHITELIST_PLUS.ps1` | 6444 | 49 | `7B485F74C3278B5F678BB1387D8113127C77444811B07A36A20FE51457A1EE57` |
+| `HONOR_VER_AN10_STAGE2_ROLLBACK_20260823.ps1` | 6444 | 49 | **同上（字节相同）** |
+| `work\stage2_continue\E02_execute\HONOR_STAGE2_20260823-221431\rollback.ps1` | — | — | **同上（字节相同）** |
+| `HONOR_VER_AN10_STAGE2_DELTA_ROLLBACK_CORRECTED.ps1` | 3751 | 47 | `FCAEB086A97CE88CF5BD2B1D53B88979D57D7B9BBA1D44195BC153EFDEFBDE86` |
+
+BROKEN 名指「对 9 个 Stage2 包误加 `dumpsys deviceidle whitelist +`」，不是网易云、也不是侧栏。
+
+## 侧栏键命中（全文，忽略大小写）
+
+| 针 | BROKEN / `.ps1` / work 副本 | CORRECTED |
+|---|---:|---:|
+| `dockBar` / `dockbar` | 0 | 0 |
+| `tooltip` | 0 | 0 |
+| `FloatTasks` / `float_task` | 0 | 0 |
+| `is_ota` | 0 | 0 |
+| `settings`（含 put/get） | 0 | 0 |
+| `hndock` / `HnDock` / `aidock` / `sidebar` | 0 | 0 |
+| `navigation_mode` / `multi_win` | 0 | 0 |
+| `pm enable` / `pm disable` | 0 | 0 |
+| `write-settings` / `kill-server` / `am force-stop` | 0 | 0 |
+
+CORRECTED 文本里 `whitelist` 出现 2 次，全是注释（「29 包 Stage2 前本不在白名单」「完成后未加 DeviceIdle whitelist」），**无** `whitelist +` / `-` 实命令。CORRECTED 的 `pm default-state` 写成 `A @('pm','default-state',...)`，子串搜索 `pm default-state` 会漏，读全文确认仍是 6 条。
+
+## 实写命令族
+
+### A. BROKEN_WHITELIST_PLUS（= 未改名 `.ps1` = work 副本）
+
+1. **29×** `cmd appops set --user 0 <pkg> RUN_ANY_IN_BACKGROUND default`
+2. **9×** `dumpsys deviceidle whitelist +<pkg>`（仅前 9 个：酷安 / Twitter / DeepSeek / Kimi / 通义 / 混元 / 清言 / 阿里健康助手 / 360 清理）
+3. **6×** `pm default-state --user 0 <pkg>`：`cn.honor.qinxuan`、`com.hihonor.android.upgradeguide`、`com.hihonor.browserhomepage`、`com.hihonor.vmall`、`com.hihonor.android.UEInfoCheck`、`com.hihonor.securitypluginbase`
+
+29 个 appops 包：`com.coolapk.market`、`com.twitter.android`、`com.deepseek.chat`、`com.moonshot.kimichat`、`com.aliyun.tongyi`、`com.tencent.hunyuan.app.chat`、`com.zhipuai.qingyan`、`com.alihealth.llm.assistant`、`com.qihoo.cleandroid_lite`、`com.baidu.baidutranslate`、`com.eusoft.eudic`、`com.mojitec.mojidict`、`com.youdao.dict`、`com.uzero.baimiao`、`cn.com.chsi.chsiapp`、`cn.com.langeasy.LangEasyLexis`、`com.cnki.android.cnkimobile`、`com.tianyancha.skyeye`、`com.xfs.rootwords`、`com.xiaobin.ncenglish`、`com.clover.imuseum`、`com.exeysoft.ruler`、`com.uusense.speed`、`com.kk.xx.analyzer`、`com.bohrium.mobile`、`com.baidu.tieba`、`com.douban.frodo`、`com.zhihu.android`、`org.chromium.webapk.acc6c6d9a73dc7877_v2`。
+
+**无** `com.hihonor.hndockbar` / `com.hihonor.android.FloatTasks` / `com.hihonor.aidock` / `com.netease.cloudmusic` / `com.bilibili.app.in`。
+
+### B. DELTA_ROLLBACK_CORRECTED
+
+1. 同一 29 包 `cmd appops set --user 0 <pkg> RUN_ANY_IN_BACKGROUND default`
+2. 同一 6 包 `pm default-state --user 0 <pkg>`
+3. 设备闸：`ro.product.model` 必须 `VER-AN10`
+4. 结束语明确：`No package was added to DeviceIdle whitelist.`
+
+相对 BROKEN：去掉 9 条 `whitelist +`；侧栏键仍为零。
+
+## 对当前应保留项的裁决
+
+参照 `06_rollback_poison.md` 的「当前应保留」（`is_ota_finished=1`、`dockbar_tooltip_enabled=1`、FloatTasks disable-user、`float_task_state=0`、空闲 `dockBar=0` 不是总开关）。
+
+| 目标 | BROKEN | CORRECTED |
+|---|---|---|
+| `secure is_ota_finished` | 不碰 | 不碰 |
+| `global dockbar_tooltip_enabled` | 不碰 | 不碰 |
+| `honor.globalWindow.dockBar` | 不碰 | 不碰 |
+| `pm` FloatTasks / `float_task_state` | 不碰 | 不碰 |
+| `navigation_mode` | 不碰 | 不碰 |
+| 网易云 whitelist / POST_NOTIFICATION | 不碰 | 不碰 |
+| B站 Reduced | 不碰 | 不碰 |
+| Stage2 第三方 AppOps | 还原 default | 还原 default |
+| DeviceIdle whitelist | **误加 9 个 Stage2 包**（保活方向，非侧栏） | 不加 |
+
+裁决：**对已修好的 AI 侧栏 = 中性**。BROKEN 的毒性在「给 9 个第三方加白名单」，不是热区门闩。CORRECTED 才是 Stage2 的正确回滚面。
+
+## 边界（本包不混入）
+
+- `work\stage2_continue\S40_rollback_plan\rollback_draft.ps1` 是 **模板**，默认 DryRun；注释提到 PowerShell 会弄坏 `settings get`，正文 **无** `settings put` / dockBar / tooltip / FloatTasks / is_ota。它按 TSV 的 `UAD_RESTORE` 可 `pm enable/disable-user/default-state`，**喂错表才会伤包**；不是用户点名的 Stage2 rollback 成品。
+- Stage3 rollback 会 `pm enable FloatTasks`，那是另一份脚本，不在本结论里。
+- 本审计只读脚本字节，未在设备上回放。
+
+## 证据路径
+
+- `C:\Users\hzq00\Documents\Codex\2026-08-23\ni-j\outputs\HONOR_VER_AN10_STAGE2_ROLLBACK_20260823.BROKEN_WHITELIST_PLUS.ps1`
+- `C:\Users\hzq00\Documents\Codex\2026-08-23\ni-j\outputs\HONOR_VER_AN10_STAGE2_DELTA_ROLLBACK_CORRECTED.ps1`
+- 字节相同副本：同目录 `HONOR_VER_AN10_STAGE2_ROLLBACK_20260823.ps1`；`work\stage2_continue\E02_execute\HONOR_STAGE2_20260823-221431\rollback.ps1`
+- 交叉：本仓 `outputs\audit_20260830\06_rollback_poison.md` §E

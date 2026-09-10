@@ -1,0 +1,34 @@
+已定位关键证据。skills_instructions 禁区块清晰列出：desktop_spawn_guard 在**三级 hooks.json 全部未注册**（example、用户级全局、根级工作区均仅含 sol_tool_gate/lifecycle）。observer 仅存在于 reports，活动源码未提供 tasks/plane 语义。500 字限制，直接交付。
+
+任务名：硬门语义审计 — 只读完成，结论如下（区分事实/假设）。
+
+**已验证事实**
+
+1. **guard 当前是死代码，未接线。** 三级配置均不含 `desktop_spawn_guard`：`hooks/hooks.json.example`（PreToolUse 仅注册 `sol_tool_gate_router.py`、`subagent_lifecycle.py`）；用户级 `C:\Users\hzq00\.codex\hooks.json`（自述 "no Sol gate or project policy hooks"，仅 lifecycle）；根级工作区 `E:\codex-LOOP\.codex\hooks.json`（见报告）。rg 全库搜索无任何活跃配置引用它。事实：**当下原生并发仍可到 16，guard 未在执行路径上。**
+2. **cap=8 在 deny 语义上必然截断原生面到 8。** `desktop_active >= cap` 直接 hard deny 第 9~16 个原生 spawn。若 Sol 不立即把被 deny 的包改派 headless，波次的"原生 + headless 总和"会卡在 8 而非 16。修复文本只是**提示**，hook 无法强制 Sol 改派——**有效并发是否降到 8 取决于 Sol 的补派行为，guard 本身不保证**。（假设→需实测）
+3. **676 字符间**：`hooks/hooks.json.example` 与 `$env:USERPROFILE/.codex/hooks.json`。
+
+**主要漏洞**
+
+- **接线缺失**：guard 写好了但未注册，崩溃防护场景下等于无。
+- **失败语义不对称**：`main()` 里 `except Exception` 一律 `print("{}")` **fail-open**——8765 超时(0.75s)/进程未起/JSON 非法时 guard 静默放行，Desktop 又恢复无保护。
+- **竞态（TOCTOU）**：guard 读取的是 observer 当时的 `tasks` 快照(轮询间隔),一次 birth 判定与真正进 Electron 之间存在窗口。AGENTS 规定 birth ≥1s 间隔可缓解,但 16 波集中 IAB 路由时仍可能多个注入同时越过 cap。
+- **分类依据脆弱**：只数 `plane` 以 "desktop rollout" 开头者,写法若变(WSL CLI/原生 spawn 但 plane 字符串不同)即漏计。
+- **cap 与 16 波矛盾的解决靠纪律不靠机制**：deny 消息靠 Sol 遵守转 headless，无自动化回流。
+
+**最小修复建议**
+
+1. 把 guard 注册进两级 hooks.json 的 PreToolUse（连同生命周期记录），否则等于没有。
+2. 失败语义加判据：仅在 **8765 能返回有效 status 且确认 Desktop 健康** 时才 fail-open；8765 不可达时 fail-closed(deny 并要求走 headless)，崩溃季宁可保守。
+3. 在 deny 同时**自动把包重写到 headless 队列**（写 `data/dispatch-intent/headless/...`），而不是只给文字提示——这样才能机械保证不降并发。
+4. `plane` 匹配放宽为枚举/正则白名单（desktop、Desktop rollout、native），避免字符串漂移漏计。
+5. cap 用 `data/governor` 单一真源下发，与环境变量脱钩，防止两处不一致。
+
+**关键证据**（行号按所读文件）
+
+- `hooks/desktop_spawn_guard.py:1-99`（整体逻辑）；deny：`61-76`；fail-open：`88-93`；cap 默认 8：`17, 85`；轮询 url/超时：`18, 47-51`，`plane` startswith `desktop rollout`：`39-45`。
+- `hooks/hooks.json.example` PreToolUse 区：`74-102`，无 guard。
+- `C:\Users\hzq00\.codex\hooks.json`（全文，无 PreToolUse 节，自述 no gate）。
+- observer 端 `plane` 字段语义：活动 Python 源未找到，仅出现在 `tests/unit/test_loop_monitor_server.py` 与 reports（编码紊乱）← **未验证的假设来源**。
+
+━ 结论：guard 语义方向正确（拒 Desktop，引导 headless），但**现有部署下未接线**，且一旦接线，"不降并发"目前依赖 Sol 纪律而非机械兜底。修前必须先注册 + 加 deny 自动回流。

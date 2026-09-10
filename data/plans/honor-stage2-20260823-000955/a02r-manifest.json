@@ -1,0 +1,13 @@
+{
+  "tasks": [
+    {
+      "task_id": "stage2-a02r",
+      "task_name": "最小安全动作清单重试",
+      "role": "worker",
+      "cwd": "C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\work\\stage2_20260823-000955\\adjudication\\A02R",
+      "sandbox": "workspace-write",
+      "allow_write": true,
+      "prompt": "任务名：最小安全动作清单重试\n只读读取 C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\work\\stage2_20260823-000955\\adjudication\\A01\\adjudication_summary.md、C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\work\\stage2_20260823-000955\\adjudication\\A03\\STATE_DIFF.tsv、C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\work\\stage2_20260823-000955\\adjudication\\A03\\DO_NOT_REPEAT.txt、C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\work\\stage2_20260823-000955\\S20\\report.md 和ZIP主提示/命令手册。不要重算470包矩阵。生成 C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\work\\stage2_20260823-000955\\adjudication\\A02R\\APPROVED_ACTIONS.tsv、BLOCKED_ACTIONS.tsv、report.md。APPROVED必须为空或仅含同时满足：可逆、user0作用域明确、当前状态未漂移、非S20剔除项、非系统恢复/外部写者项、原状态已知。明确剔除uninstall、netpolicy、安全/诊断自动禁用、user128不确定、Alipay/Bilibili/XHS whitelist对抗及无回滚项。禁止任何设备/Windows写操作、重启或子代理。最终一行结论+report路径。"
+    }
+  ]
+}

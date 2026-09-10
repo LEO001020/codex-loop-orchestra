@@ -1,0 +1,17 @@
+{
+  "probe_id": "P-CDX2",
+  "executed_at": "2026-09-02T15:30:00Z",
+  "status": "PASS",
+  "network_canary": {
+    "sandbox": "workspace_write",
+    "public": "curl https://example.com -> 000 / exit 1 (blocked, no HTTP response) => I29 holds on this route",
+    "loopback": "curl http://127.0.0.1:9 -> failed (inconclusive as-run: no listener on :9; rerun with a live listener for strictness)"
+  },
+  "nested_agents": {
+    "config": "CodexConfig(config_overrides=('agents.enabled=false','features.multi_agent=false'))",
+    "self_reported_catalog": "shell_command, list_mcp_resources, list_mcp_resource_templates, read_mcp_resource, update_plan, request_user_input, apply_patch, view_image, get_goal, create_goal, update_goal, tool_search, web_search",
+    "spawn_family_present": false,
+    "note": "catalog is self-reported; strict enumeration from stream events at M7. web_search IS present (provider-hosted, not sandbox network) - relevant for research lanes."
+  },
+  "elapsed_s": 97.2
+}

@@ -1,0 +1,122 @@
+{
+  "schema": "codex-loop-epilogue/v2",
+  "ts": 1786567828.2565284,
+  "source": "cli",
+  "status": "PASS",
+  "state_machine": {
+    "parent-073b8e0554753b449481e532b02a6301b3e5b3346d63aec1": "FAILED",
+    "parent-0b3a3a485fbea9ac6c4869ff7d96cddc34d308d1766a11ee": "RUNNING",
+    "parent-27bb0f1c73dd82b71270c14d9a2b471316d023496df9a4c7": "RUNNING",
+    "parent-3d18f03a13d3aac738ad892d6e6b89b249ddd7b297987bc2": "FAILED",
+    "parent-4ac51d21f5c20bd28b5ddb3763a6ad21dbd655aab7898bae": "FAILED",
+    "parent-6a2bf234788a10cdec092fbbc65c8c91819c149b37aa9de4": "FAILED",
+    "parent-8ad44ad0b517a5b2ede9444b99f2ab5461ea3f229cc038b3": "FAILED",
+    "parent-94967141749513c8f7021493c23aa6c163006a8165e82846": "FAILED",
+    "parent-956c400c8d243fbd499bd50dccd8dd6d52180adbdaa2edff": "FAILED",
+    "parent-9aa243d45f99231bd62d7f2f8596a17f26a044a068acd247": "FAILED",
+    "parent-a4abfe36a67065292657b318a522c55577aae37a7de425da": "DEAD_LETTER",
+    "parent-afc120497f27d2705abf2a34855dd9fb0fcdbffc21cd926f": "RUNNING",
+    "parent-b465863d62d814dd779568ba9964b364a842ac60d5e0a472": "FAILED",
+    "parent-c0f4413dd820b1ef5ca022cbafb72769b42dd9de9c23dd86": "DEAD_LETTER",
+    "parent-cbe5c01cb608e3bd96fa976b6879d0e54a4875af3ba0ba2e": "RUNNING",
+    "parent-cefda88c0a7a2bebb8fe6a83fe86f4d343ed86e29688d050": "FAILED"
+  },
+  "plan": {
+    "mode": "cold_start",
+    "discovered": 0,
+    "observed": 0,
+    "claimed": 0,
+    "completed": 0,
+    "failed": 0,
+    "already_terminal": 0,
+    "already_claimed": 0,
+    "errors": []
+  },
+  "l2": {
+    "scanned": 0,
+    "claimed": 0,
+    "dispatched": 0,
+    "already_claimed": 0,
+    "already_complete": 0,
+    "stale_escalated": 0,
+    "reaped": 0,
+    "provider_backoff": 0,
+    "errors": []
+  },
+  "meter": {
+    "schema": "codex-loop-meter-bridge/v2",
+    "generated_at": 1786567828.2791896,
+    "status": "OK",
+    "records": 34358,
+    "v2_rows_added": 10,
+    "v2_rows_duplicate": 34348,
+    "comparison": "PASS",
+    "effective_start": 1785963028.2791896,
+    "session_sources": [
+      "C:\\Users\\hzq00\\.codex\\sessions"
+    ]
+  },
+  "refill": {
+    "status": "idle",
+    "state": {
+      "schema": "codex-loop-refill/v3",
+      "policy_version": "2026-08-13.global-60-leaf-agents",
+      "policy_mtime": 1786550488.0,
+      "target": {
+        "v4": 45,
+        "k3": 15
+      },
+      "preferred_target": {
+        "v4": 45,
+        "k3": 15
+      },
+      "target_total": 60,
+      "low_water": {
+        "v4": 34,
+        "k3": 11
+      },
+      "preferred_low_water": {
+        "v4": 34,
+        "k3": 11
+      },
+      "reservations_borrowable": true,
+      "pending": {
+        "total": 0,
+        "v4": 0,
+        "k3": 0
+      },
+      "active": {
+        "total": 4,
+        "v4": 0,
+        "k3": 4
+      },
+      "initializing": {
+        "total": 0,
+        "v4": 0,
+        "k3": 0
+      },
+      "refill_required": false,
+      "refill_required_by_pool": {
+        "v4": false,
+        "k3": false
+      },
+      "deficit": {
+        "total": 0,
+        "v4": 0,
+        "k3": 0
+      },
+      "unfulfilled_demand": {
+        "total": 0,
+        "v4": 0,
+        "k3": 0
+      },
+      "model_pool": [],
+      "queue_empty": true,
+      "finalized": false,
+      "reason": "queue_empty",
+      "refilled": false,
+      "updated_at": 1786567841.9485548
+    },
+    "manifest": null
+  }
+}

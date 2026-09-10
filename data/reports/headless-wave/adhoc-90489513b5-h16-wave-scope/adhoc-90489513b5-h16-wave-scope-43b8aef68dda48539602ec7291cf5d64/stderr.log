@@ -1,0 +1,808 @@
+Reading additional input from stdin...
+2026-08-14T10:46:28.960453Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T10:46:30.236854Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T10:46:46.463102Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.3 seconds
+Output:
+所在位置 行:2 字符: 34
++ cd E:\codex-LOOP\codex-loop-s-f2 && rg -l "wave_check" --type py | ca ...
++                                  ~~
+标记“&&”不是此版本中的有效语句分隔符。
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : InvalidEndOfLine
+ 
+
+2026-08-14T10:46:59.282483Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.1 seconds
+Output:
+
+2026-08-14T10:47:11.693985Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.5 seconds
+Output:
+
+2026-08-14T10:47:26.085870Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.5 seconds
+Output:
+
+2026-08-14T10:47:52.635725Z ERROR codex_core::tools::router: error=Exit code: 124
+Wall time: 11.6 seconds
+Total output lines: 12383
+Output:
+command timed out after 11575 milliseconds
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\codex-loop-s-f2\AGENTS.md:PSObject) [Get-Content]，Parame
+    terBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\codex-loop-s-f2\install.sh:PSObject) [Get-Content]，Param
+    eterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...2\install_v2.sh:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...\pyproject.toml:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\codex-loop-s-f2\README.md:PSObject) [Get-Content]，Parame
+    terBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...2\search_log.md:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\codex-loop-s-f2\SHA256SUMS:PSObject) [Get-Content]，Param
+    eterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...test_output.txt:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...2\VERSIONS.lock:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c..._certificate.md:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...dex\config.toml:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...odex\hooks.json:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...nt_metering.ps1:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...ent_metering.py:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...start_meter.ps1:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...cpython-312.pyc:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...cpython-314.pyc:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+Get-ChildItem : 对路径“E:\codex-LOOP\codex-loop-s-f2\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 35
++ ... d E:\codex-LOOP\codex-loop-s-f2; Get-ChildItem -Recurse -File | Selec ...
++                                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\codex-LOOP\c...2\.pytest_cache:String) [Get-ChildItem], Unauthoriz 
+   edAccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...ty_officer.toml:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...n_expander.toml:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...s\reviewer.toml:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...s\verifier.toml:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...nts\worker.toml:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...ion_policy.toml:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...ill_policy.toml:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c..._v2\conftest.py:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...agent_router.py:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...ws_wsl_paths.py:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...ytest-9.1.1.pyc:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...ytest-9.1.1.pyc:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...ytest-9.1.1.pyc:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c..._config_v2.toml:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 …202914 tokens truncated…codex-LOOP\c...4b62\stderr.log:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...\supervisor.log:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...ae\events.jsonl:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...32ae\stderr.log:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...\supervisor.log:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...9a\events.jsonl:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...6f9a\stderr.log:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...\supervisor.log:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...00\events.jsonl:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...7600\stderr.log:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...\supervisor.log:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...19\events.jsonl:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...ast_message.txt:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...2719\stderr.log:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...\supervisor.log:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...9f\events.jsonl:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...a59f\stderr.log:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...\supervisor.log:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...86\events.jsonl:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...aa86\stderr.log:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...\supervisor.log:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...d7\events.jsonl:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...9ed7\stderr.log:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...\supervisor.log:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...ef\events.jsonl:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...79ef\stderr.log:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...\supervisor.log:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...f4\events.jsonl:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...31f4\stderr.log:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...\supervisor.log:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...9e\events.jsonl:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...c29e\stderr.log:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 107
++ ... ildItem -Recurse -File | Select-Object -ExpandProperty FullName | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (E:\codex-LOOP\c...\supervisor.log:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+
+2026-08-14T10:48:09.619735Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T10:48:24.232710Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T10:48:33.644408Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T10:48:52.995110Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T10:49:03.455978Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 184ms)... turn_id=019fffe1-63e4-7d82-9166-9d4d749b6fb6 retries=1 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游网络连接失败, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T10:49:12.115653Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 396ms)... turn_id=019fffe1-63e4-7d82-9166-9d4d749b6fb6 retries=2 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游网络连接失败, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T10:49:19.696376Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 852ms)... turn_id=019fffe1-63e4-7d82-9166-9d4d749b6fb6 retries=3 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游网络连接失败, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T10:49:39.448346Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T10:49:59.653535Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T10:50:15.141863Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T10:50:28.046982Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T10:50:36.901872Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T10:50:48.937486Z ERROR codex_core::tools::router: error=unsupported call: grep
+2026-08-14T10:51:06.514438Z ERROR codex_core::tools::router: error=unsupported call: codebase_search
+2026-08-14T10:51:20.453598Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T10:52:03.520763Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 3.9 seconds
+Output:
+E:\codex-LOOP\codex-loop-s-f2\.codex\hooks\reconcile_subagent_metering.py
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\harness\agent_router.py
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\harness\budget_controller.py
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\harness\dispatch_v2.py
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\harness\l2_consumer.py
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\harness\layered_gate.py
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\harness\orchestration_common.py
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\harness\refill_controller_v2.py
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\harness\root_turn_governor.py
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\harness\statemachine_v2.py
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\harness\trigger_eval_v2.py
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\hooks\sol_tool_gate_v2.py
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\metering\model_token_share_v2.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\agent_router.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\budget_controller.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\dispatch_v2.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\l2_consumer.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\layered_gate.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\lifecycle_supervisor_v2.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\orchestration_common.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\refill_controller_v2.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\result_reducer.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\root_turn_governor.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\short_result_validator.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\statemachine_v2.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\trigger_eval_v2.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\hooks\sol_tool_gate_v2.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\metering\model_token_share_v2.py
+E:\codex-LOOP\codex-loop-s-f2\C?\Users\hzq00\AppData\Local\Temp\codex-loop-repo-check\src\alpha\alpha.py
+E:\codex-LOOP\codex-loop-s-f2\C?\Users\hzq00\AppData\Local\Temp\codex-loop-repo-check\src\beta\beta.py
+E:\codex-LOOP\codex-loop-s-f2\harness\orchestration\plan_pipeline.py
+E:\codex-LOOP\codex-loop-s-f2\harness\agent_router.py
+E:\codex-LOOP\codex-loop-s-f2\harness\budget_controller.py
+E:\codex-LOOP\codex-loop-s-f2\harness\csv_reconcile.py
+E:\codex-LOOP\codex-loop-s-f2\harness\dag_assert.py
+E:\codex-LOOP\codex-loop-s-f2\harness\desktop_edge_reconcile.py
+E:\codex-LOOP\codex-loop-s-f2\harness\diffvalidator.py
+E:\codex-LOOP\codex-loop-s-f2\harness\dispatch.py
+E:\codex-LOOP\codex-loop-s-f2\harness\dispatch_v2.py
+E:\codex-LOOP\codex-loop-s-f2\harness\dual_plane_hash.py
+E:\codex-LOOP\codex-loop-s-f2\harness\duty_driver.py
+E:\codex-LOOP\codex-loop-s-f2\harness\duty_gate.py
+E:\codex-LOOP\codex-loop-s-f2\harness\duty_route.py
+E:\codex-LOOP\codex-loop-s-f2\harness\headless_wave.py
+E:\codex-LOOP\codex-loop-s-f2\harness\ipybox_cleanup.py
+E:\codex-LOOP\codex-loop-s-f2\harness\ipybox_lazy.py
+E:\codex-LOOP\codex-loop-s-f2\harness\l2_consumer.py
+E:\codex-LOOP\codex-loop-s-f2\harness\layered_gate.py
+E:\codex-LOOP\codex-loop-s-f2\harness\lifecycle_supervisor.py
+E:\codex-LOOP\codex-loop-s-f2\harness\lifecycle_supervisor_v2.py
+E:\codex-LOOP\codex-loop-s-f2\harness\loop_config.py
+E:\codex-LOOP\codex-loop-s-f2\harness\model_profile.py
+E:\codex-LOOP\codex-loop-s-f2\harness\orchestration_common.py
+E:\codex-LOOP\codex-loop-s-f2\harness\orchestration_epilogue.py
+E:\codex-LOOP\codex-loop-s-f2\harness\parent_manifest_importer.py
+E:\codex-LOOP\codex-loop-s-f2\harness\plan_consumer.py
+E:\codex-LOOP\codex-loop-s-f2\harness\provider_health.py
+E:\codex-LOOP\codex-loop-s-f2\harness\recover_parent_replay_incident.py
+E:\codex-LOOP\codex-loop-s-f2\harness\refill_consumer_v2.py
+E:\codex-LOOP\codex-loop-s-f2\harness\refill_controller.py
+E:\codex-LOOP\codex-loop-s-f2\harness\refill_controller_v2.py
+E:\codex-LOOP\codex-loop-s-f2\harness\repair_parent_ledger_schema.py
+E:\codex-LOOP\codex-loop-s-f2\harness\repair_plain_parent_reports.py
+E:\codex-LOOP\codex-loop-s-f2\harness\repair_transport_deadletters.py
+E:\codex-LOOP\codex-loop-s-f2\harness\result_reducer.py
+E:\codex-LOOP\codex-loop-s-f2\harness\retry.py
+E:\codex-LOOP\codex-loop-s-f2\harness\root_turn_governor.py
+E:\codex-LOOP\codex-loop-s-f2\harness\routing_mode.py
+E:\codex-LOOP\codex-loop-s-f2\harness\sanitize.py
+E:\codex-LOOP\codex-loop-s-f2\harness\short_result_validator.py
+E:\codex-LOOP\codex-loop-s-f2\harness\signals_collect.py
+E:\codex-LOOP\codex-loop-s-f2\harness\statemachine.py
+E:\codex-LOOP\codex-loop-s-f2\harness\statemachine_v2.py
+E:\codex-LOOP\codex-loop-s-f2\harness\summary_synth.py
+E:\codex-LOOP\codex-loop-s-f2\harness\terminal_packet_epilogue.py
+E:\codex-LOOP\codex-loop-s-f2\harness\trigger_eval.py
+E:\codex-LOOP\codex-loop-s-f2\harness\trigger_eval_v2.py
+E:\codex-LOOP\codex-loop-s-f2\harness\verdict_aggregate.py
+E:\codex-LOOP\codex-loop-s-f2\harness\verdict_check.py
+E:\codex-LOOP\codex-loop-s-f2\hooks\leaf_agent_spawn_gate.py
+E:\codex-LOOP\codex-loop-s-f2\hooks\sol_tool_gate.py
+E:\codex-LOOP\codex-loop-s-f2\hooks\sol_tool_gate_router.py
+E:\codex-LOOP\codex-loop-s-f2\hooks\sol_tool_gate_v2.py
+E:\codex-LOOP\codex-loop-s-f2\hooks\subagent_lifecycle.py
+E:\codex-LOOP\codex-loop-s-f2\metering\e0_annotate.py
+E:\codex-LOOP\codex-loop-s-f2\metering\model_token_share.py
+E:\codex-LOOP\codex-loop-s-f2\metering\model_token_share_bridge.py
+E:\codex-LOOP\codex-loop-s-f2\metering\model_token_share_v2.py
+E:\codex-LOOP\codex-loop-s-f2\metering\oscillation_report.py
+E:\codex-LOOP\codex-loop-s-f2\metering\usage_reconcile.py
+
+2026-08-14T10:54:44.405405Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.2 seconds
+Output:
+Select-String : 找不到与参数名称“Recurse”匹配的参数。
+所在位置 行:2 字符: 49
++ cd E:\codex-LOOP\codex-loop-s-f2; Select-String -Recurse -Include "*. ...
++                                                 ~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) [Select-String]，ParameterBindingException
+    + FullyQualifiedErrorId : NamedParameterNotFound,Microsoft.PowerShell.Commands.SelectStringCommand
+ 
+
+2026-08-14T10:55:03.084783Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.4 seconds
+Output:
+
+Path                                                                                   LineNumber Line                 
+----                                                                                   ---------- ----                 
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json                               18867         "任务名：W...
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json                               18906       "task_name":...
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json                               18941         "任务名：M...
+E:\codex-LOOP\codex-loop-s-f2\data\refill\root_non_ipybox_audit_headless_20260814.json        158       "task_name":...
+E:\codex-LOOP\codex-loop-s-f2\data\refill\root_non_ipybox_audit_headless_20260814.json        164       "prompt": "A...
+E:\codex-LOOP\codex-loop-s-f2\data\refill\root_non_ipybox_audit_headless_20260814.json        174       "prompt": "A...
+E:\codex-LOOP\codex-loop-s-f2\harness\statemachine.py                                         368 def wave_check(led): 
+E:\codex-LOOP\codex-loop-s-f2\harness\statemachine.py                                         398     ap.add_argumen...
+E:\codex-LOOP\codex-loop-s-f2\harness\statemachine.py                                         444     if args.cmd ==...
+E:\codex-LOOP\codex-loop-s-f2\harness\statemachine.py                                         445         ok = wave_...
+E:\codex-LOOP\codex-loop-s-f2\harness\statemachine_v2.py                                      702     def wave_check...
+E:\codex-LOOP\codex-loop-s-f2\harness\statemachine_v2.py                                      711             raise ...
+E:\codex-LOOP\codex-loop-s-f2\harness\statemachine_v2.py                                      736     ap.add_argumen...
+E:\codex-LOOP\codex-loop-s-f2\harness\statemachine_v2.py                                      741                   ...
+E:\codex-LOOP\codex-loop-s-f2\harness\statemachine_v2.py                                      743                   ...
+E:\codex-LOOP\codex-loop-s-f2\harness\statemachine_v2.py                                      758     if args.cmd ==...
+E:\codex-LOOP\codex-loop-s-f2\harness\statemachine_v2.py                                      759         ok = sm.wa...
+E:\codex-LOOP\codex-loop-s-f2\tests\golden\test_g1_two_packet_parallel.py                      72     w = loop.sm("w...
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_statemachine_v2.py                  336 def test_wave_chec...
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_statemachine_v2.py                  350     assert sm.wave...
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_statemachine_v2.py                  351     assert sm.wave...
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_statemachine_v2.py                  352     assert sm.wave...
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_statemachine_v2.py                  355 def test_wave_chec...
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_statemachine_v2.py                  357         sm.wave_ch...
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_statemachine.py                                   6 #        idempoten...
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_statemachine.py                                 157 def test_state_sub...
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_statemachine.py                                 161     # wave-check: ...
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_statemachine.py                                 167     p = loop.sm("w...
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_statemachine.py                                 171     p = loop.sm("w...
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_statemachine.py                                 175 def test_wave_chec...
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_statemachine.py                                 191     assert loop.sm...
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_statemachine.py                                 196     assert loop.sm...
+E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_statemachine.py                                 198     assert loop.sm...
+
+
+
+2026-08-14T10:55:22.094124Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.3 seconds
+Output:
+
+2026-08-14T10:55:35.708530Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.8 seconds
+Output:
+
+2026-08-14T10:58:58.306068Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-14T11:00:36.896553Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

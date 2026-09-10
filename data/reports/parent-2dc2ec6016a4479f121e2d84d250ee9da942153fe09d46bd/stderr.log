@@ -1,0 +1,1708 @@
+Reading additional input from stdin...
+2026-08-14T05:40:40.334265Z  WARN codex_skills::interface: ignoring interface.icon_small: icon path with '..' must resolve under plugin assets/
+2026-08-14T05:40:40.334312Z  WARN codex_skills::interface: ignoring interface.icon_large: icon path with '..' must resolve under plugin assets/
+2026-08-14T05:40:40.421366Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T05:40:45.269886Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=failed to send remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL: error sending request for url (https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL)
+2026-08-14T05:40:46.856028Z  WARN codex_core_plugins::manager: failed to refresh cached remote plugin catalog error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/list?scope=GLOBAL&limit=200 failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+} scope=Global
+2026-08-14T05:40:46.925737Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T05:40:47.355009Z  WARN codex_core_plugins::remote::remote_installed_plugin_sync: remote installed plugin bundle sync failed error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/installed?scope=GLOBAL&includeDownloadUrls=true failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T05:40:47.719303Z  WARN codex_core_plugins::manager: failed to refresh remote installed plugins cache error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/installed?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+} materialized_remote_plugin_count=0
+2026-08-14T05:40:47.775733Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-14T05:40:48.025160Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-14T05:40:48.025241Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=1000
+2026-08-14T05:40:48.201121Z  WARN codex_core_plugins::manager: failed to warm featured plugin ids cache error=remote featured plugin request to https://chatgpt.com/backend-api/plugins/featured?platform=codex failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T05:40:55.355948Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=failed to send remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL: error sending request for url (https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL)
+2026-08-14T05:41:17.897945Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-14T05:41:17.905333Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-14T05:41:17.910053Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-14T05:41:18.876306Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-14T05:41:18.876373Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=2000
+2026-08-14T05:41:22.925856Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=failed to send remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL: error sending request for url (https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL)
+2026-08-14T05:41:55.639829Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-14T05:41:55.639906Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=4000
+2026-08-14T05:41:58.833503Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T05:42:32.078935Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-14T05:42:32.079013Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=8000
+2026-08-14T05:42:35.048616Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T05:43:06.806284Z ERROR codex_core::tools::router: error=Exit code: 124
+Wall time: 10.4 seconds
+Total output lines: 22011
+Output:
+command timed out after 10439 milliseconds
+#!/usr/bin/env python3
+"""Fail-open lifecycle hook for Desktop-native Codex subagents.
+
+This hook maintains a shadow roster and a semantic task-name map.  It never
+writes Codex Desktop's ``state_5.sqlite`` and never claims to release a native
+runtime slot: the host-only ``close_agent`` tool is represented by an
+idempotent close-request record for the orchestrator to consume.
+"""
+from __future__ import annotations
+
+import argparse
+import contextlib
+import ctypes
+import json
+import os
+import re
+import sys
+import time
+from pathlib import Path
+from typing import Any
+
+if os.name == "nt":
+    from ctypes import wintypes
+
+
+TASK_RE = re.compile(r"(?:^|\n)\s*ä»»åŠ¡å\s*[ï¼?]\s*([^\r\n]{1,160})")
+ID_RE = re.compile(r"[A-Za-z0-9][A-Za-z0-9_-]{0,127}\Z")
+PENDING_TTL_SECONDS = 600
+TERMINAL_MARKERS = {"task_complete", "turn_aborted", "turn_failed", "thread_closed"}
+LEGACY_UNRESOLVED_NAMES = {"æœªå‘½åå­ä»»åŠ¡", "æœªæ˜ å°„å­ä»»åŠ¡"}
+NAME_FALLBACK_SOURCE = "agent_id_fallback"
+ATOMIC_REPLACE_TIMEOUT_S = 5.0
+RETRY_INITIAL_S = 0.005
+RETRY_MAX_S = 0.100
+LOCK_TIMEOUT_S = 10.0
+
+
+def project_root() -> Path:
+    explicit = os.environ.get("LOOP_ROOT")
+    if explicit:
+        return Path(explicit).resolve()
+    here = Path(__file__).resolve()
+    # package/hooks/script.py or target/.codex/hooks/script.py
+    return here.parents[2] if here.parent.name == "hooks" and here.parent.parent.name == ".codex" else here.parents[1]
+
+
+def data_dir() -> Path:
+    return Path(os.environ.get("LOOP_DATA_DIR", str(project_root() / "data"))).resolve()
+
+
+def recompute_refill(root: Path | None = None) -> dict[str, Any] | None:
+    """Mechanically recompute the sustained-refill state after a lifecycle event.
+
+    The hook never spawns: it imports the refill controller (harness/) and asks
+    it to re-derive refill_required / deficit / model_pool from the native
+    roster and the work queue.  Failures are audited and never faked as
+    refilled.
+    """
+    base = (root or project_root()).resolve()
+    pkg_harness = Path(__file__).resolve().parents[1] / "harness"
+    try:
+        for candidate in (pkg_harness, base / "harness"):
+            if (candidate / "refill_controller_v2.py").exists():
+                sys.path.insert(0, str(candidate))
+                break
+        from orchestration_common import LoopPaths
+        from refill_controller_v2 import RefillControllerV2
+        controller = RefillControllerV2(LoopPaths.resolve(base))
+        controller.queue_sync_ledger()
+        return controller.recompute()
+    except BaseException as exc:
+        try:
+            NativeRoster(data_dir()).audit("refill_recompute_degraded",
+                                           error="%s: %s" % (type(exc).__name__, exc))
+        except BaseException:
+            pass
+        return None
+
+
+def schedule_refill_actuator(root: Path | None = None, *, source: str) -> dict[str, Any] | None:
+    """Trigger the existing epilogue after a terminal lifecycle edge.
+
+    ``recompute_refill`` is the controller (observe + decide), not the
+    actuator.  Desktop-native terminal hooks previously stopped after that
+    decision, so a real deficit stayed queued until the root agent manually
+    dispatched again.  Reuse the headless supervisor's coalesced epilogue
+    launcher; it owns the existing epilogue lock and the packet-only refill
+    consumer.  This remains fail-open for the lifecycle hook: a failed trigger
+    is audited and never reported as a successful refill.
+    """
+    base = (root or project_root()).resolve()
+    try:
+        harness = Path(__file__).resolve().parents[1] / "harness"
+        if str(harness) not in sys.path:
+            sys.path.insert(0, str(harness))
+        from refill_consumer_v2 import schedule_run
+        result = schedule_run(base, source=source)
+        try:
+            NativeRoster(data_dir()).audit("refill_actuator_%s" % result.get("status", "unknown"),
+                                           source=source, pid=result.get("pid"))
+        except BaseException:
+            pass
+        return result
+    except BaseException as exc:
+        try:
+            NativeRoster(data_dir()).audit("refill_actuator_failed", source=source,
+                                           error="%s: %s" % (type(exc).__name__, exc))
+        except BaseException:
+            pass
+        return None
+
+
+def refresh_meter(root: Path | None = None) -> dict[str, Any] | None:
+    """Refresh the existing rollout-to-meter bridge after lifecycle edges.
+
+    The bridge owns its cross-process lock and policy-configured debounce, so
+    invoking it from several Stop events does not multiply full session scans.
+    This hook remains fail-open: stale or unavailable session telemetry is
+    audited, never presented as a successful refresh.
+    """
+    base = (root or project_root()).resolve()
+    metering = base / "metering"
+    try:
+        if str(metering) not in sys.path:
+            sys.path.insert(0, str(metering))
+        from model_token_share_bridge import refresh
+        sessions = Path(os.environ.get(
+            "CODEX_SESSIONS_DIR",
+            str(Path(os.environ.get("CODEX_HOME", str(Path.home() / ".codex"))) / "sessions"),
+        )).resolve()
+        return refresh(base, sessions, force=False)
+    except BaseException as exc:
+        try:
+            NativeRoster(data_dir()).audit("meter_refresh_degraded",
+                                           error="%s: %s" % (type(exc).__name__, exc))
+        except BaseException:
+            pass
+        return None
+
+
+@contextlib.contextmanager
+def lock(path: Path, *, timeout_s: float = LOCK_TIMEOUT_S):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("a+b") as handle:
+        handle.seek(0, os.SEEK_END)
+        if handle.tell() == 0:
+            handle.write(b"\0"); handle.flush()
+        handle.seek(0)
+        if os.name == "nt":
+            import msvcrt
+            deadline = time.monotonic() + max(0.0, timeout_s)
+            backoff = RETRY_INITIAL_S
+            while True:
+                try:
+                    msvcrt.locking(handle.fileno(), msvcrt.LK_NBLCK, 1)
+                    break
+                except OSError as exc:
+                    if time.monotonic() >= deadline:
+                        raise RuntimeError(
+                            "lifecycle hook lock remained busy for %.3fs: %s"
+                            % (timeout_s, exc)) from exc
+                    time.sleep(backoff)
+                    backoff = min(RETRY_MAX_S, backoff * 2)
+        else:
+            import fcntl
+            fcntl.flock(handle.fileno(), fcntl.LOCK_EX)
+        try:
+            yield
+        finally:
+            handle.seek(0)
+            if os.name == "nt":
+                import msvcrt
+                msvcrt.locking(handle.fileno(), msvcrt.LK_UNLCK, 1)
+            else:
+                import fcntl
+                fcntl.flock(handle.fileno(), fcntl.LOCK_UN)
+
+
+def atomic_json(path: Path, value: Any, *,
+                replace_timeout_s: float = ATOMIC_REPLACE_TIMEOUT_S) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_name(path.name + ".%d.tmp" % os.getpid())
+    try:
+        with tmp.open("w", encoding="utf-8", newline="\n") as handle:
+            json.dump(value, handle, ensure_ascii=False, indent=2, sort_keys=True)
+            handle.write("\n"); handle.flush(); os.fsync(handle.fileno())
+        deadline = time.monotonic() + max(0.0, replace_timeout_s)
+        backoff = RETRY_INITIAL_S
+        while True:
+            try:
+                os.replace(tmp, path)
+                return
+            except PermissionError as exc:
+                if time.monotonic() >= deadline:
+                    raise RuntimeError(
+                        "lifecycle hook atomic replace remained blocked for "
+                        "%.3fs: %s" % (replace_timeout_s, exc)) from exc
+                time.sleep(backoff)
+                backoff = min(RETRY_MAX_S, backoff * 2)
+    finally:
+        try:
+            tmp.unlink()
+        except FileNotFoundError:
+            pass
+
+
+def read_json(path: Path, default: Any) -> Any:
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return default
+
+
+class NativeRoster:
+    def __init__(self, root: Path):
+        self.root = root / "lifecycle"
+        self.path = self.root / "native_roster.json"
+        self.lock_path = self.root / ".native_roster.lock"
+        self.close_path = self.root / "close_requests.ndjson"
+        self.events_path = self.root / "events.ndjson"
+        self.name_map_path = self.root / "name_map.jsonl"
+        self.main_events_path = root / "events.ndjson"
+
+    def transact(self, fn):
+        with lock(self.lock_path):
+            if self.path.exists():
+                try:
+                    roster = json.loads(self.path.read_text(encoding="utf-8"))
+                except (OSError, ValueError) as exc:
+                    raise RuntimeError("native roster unreadable; refusing overwrite: %s" % exc) from exc
+            else:
+                roster = {"schema": "codex-loop-native-roster/v1",
+                          "pending": [], "agents": {}}
+            result = fn(roster)
+            roster["updated_at"] = time.time()
+            atomic_json(self.path, roster)
+            return result
+
+    def append(self, path: Path, row: dict[str, Any]) -> None:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with path.open("a", encoding="utf-8", newline="\n") as handle:
+            handle.write(json.dumps(row, ensure_ascii=False, separators=(",", ":")) + "\n")
+
+    def audit(self, event: str, **detail: Any) -> None:
+        with lock(self.lock_path.with_name(".native_events.lock")):
+            self.append(self.events_path, {"ts": time.time(), "event": event, **detail})
+
+    def main_event_once(self, event: str, agent_id: str, **detail: Any) -> bool:
+        with lock(self.lock_path.with_name(".events.lock")):
+            try:
+                for line in self.main_events_path.read_text(encoding="utf-8").splitlines():
+                    try: row = json.loads(line)
+                    except ValueError: continue
+                    if row.get("event") == event and row.get("agent_id") == agent_id:
+                        return False
+            except OSError:
+                pass
+            self.append(self.main_events_path, {"ts": time.time(), "event": event,
+                                                "agent_id": agent_id, **detail})
+            return True
+
+    def exec_event_once(self, packet_id: str, run_id: str, attempt: int,
+                        event: str, **detail: Any) -> bool:
+        with lock(self.lock_path.with_name(".events.lock")):
+            try:
+                for line in self.main_events_path.read_text(encoding="utf-8").splitlines():
+                    try: row = json.loads(line)
+                    except ValueError: continue
+                    if (row.get("packet_id") == packet_id and row.get("run_id") == run_id
+                            and row.get("event") == event):
+                        return False
+            except OSError:
+                pass
+            self.append(self.main_events_path, {"ts": time.time(), "packet_id": packet_id,
+                "run_id": run_id, "attempt": attempt, "event": event, "detail": detail})
+            return True
+
+    def queue_close_locked(self, agent: dict[str, Any], reason: str) -> bool:
+        if agent.get("close_request_emitted") or agent.get("close_request_consumed"):
+            return False
+        row = {"ts": time.time(), "agent_id": agent.get("agent_id"),
+               "task_name": agent.get("task_name"), "parent_session_id": agent.get("parent_session_id"),
+               "reason": reason, "action": "host_close_agent_required"}
+        self.append(self.close_path, row)
+        agent["close_request_emitted"] = True
+        agent["close_request_reason"] = reason
+        return True
+
+
+def payload_task_name(payload: dict[str, Any]) -> str | None:
+    tool_input = payload.get("tool_input") or payload.get("input") or payload.get("arguments") or {}
+    if isinstance(tool_input, str):
+        try: tool_input = json.loads(tool_input)
+        except ValueError: tool_input = {"message": tool_input}
+    if not isinstance(tool_input, dict):
+        tool_input = {}
+    explicit = tool_input.get("task_name") or tool_input.get("name")
+    if isinstance(explicit, str) and explicit.strip():
+        return explicit.strip()[:160]
+    # Current multi-agent payloads may normalize the legacy ``message`` into
+    # structured ``items``. Walk only in-memory strings and persist only the
+    # matched one-line task name, never the raw tool payload.
+    queue: list[Any] = [tool_input]
+    while queue:
+        value = queue.pop()
+        if isinstance(value, str):
+            match = TASK_RE.search(value)
+            if match:
+                return match.group(1).strip()[:160]
+        elif isinstance(value, dict):
+            queue.extend(value.values())
+        elif isinstance(value, list):
+            queue.extend(value)
+    return None
+
+
+def resolve_identity(payload: dict[str, Any], roster: NativeRoster,
+                     context: str) -> tuple[str | None, str | None] | None:
+    """Resolve identity fields, auditing and blocking on conflicting duplicates."""
+    agent_id = payload.get("agent_id")
+    thread_id = payload.get("thread_id")
+    session_id = payload.get("session_id")
+    parent_thread_id = payload.get("parent_thread_id")
+    if agent_id and thread_id and str(agent_id) != str(thread_id):
+        roster.audit("identity_conflict", context=context, pair="agent_id/thread_id",
+                     agent_id=str(agent_id), thread_id=str(thread_id), action="fail_closed")
+        return None
+    if session_id and parent_thread_id and str(session_id) != str(parent_thread_id):
+        roster.audit("identity_conflict", context=context, pair="session_id/parent_thread_id",
+                     session_id=str(session_id), parent_thread_id=str(parent_thread_id),
+                     action="fail_closed")
+        return None
+    return agent_id or thread_id, session_id or parent_thread_id
+
+
+def recover_arguments_from_parent_rollout(parent_session_id: str | None,
+                                          tool_use_id: str | None,
+                                          sessions: Path | None = None) -> dict[str, Any] | None:
+    """Recover tool arguments when PreToolUse redacts collaboration input.
+
+    Current Desktop builds expose the tool-use id to the hook but can omit the
+    spawn message. The parent rollout is the second truth source and already
+    contains the function_call before SubagentStart fires.
+    """
+    if (not parent_session_id or not tool_use_id or
+            not ID_RE.fullmatch(str(parent_session_id)) or
+            not ID_RE.fullmatch(str(tool_use_id))):
+        return None
+    root = sessions or Path(os.environ.get("CODEX_SESSIONS_DIR", str(Path.home() / ".codex" / "sessions")))
+    if not root.exists():
+        return None
+    matches = list(root.rglob("rollout-*%s*.jsonl" % parent_session_id))
+    for path in sorted(matches, key=lambda p: p.stat().st_mtime, reverse=True):
+        try:
+            with path.open(encoding="utf-8", errors="replace") as handle:
+                for line in handle:
+                    try: row = json.loads(line)
+                    except ValueError: continue
+                    payload = row.get("payload") if isinstance(row.get("payload"), dict) else {}
+                    if payload.get("type") != "function_call" or payload.get("call_id") != tool_use_id:
+                        continue
+                    arguments = payload.get("arguments") or {}
+                    if isinstance(arguments, str):
+                        try: arguments = json.loads(arguments)
+                        except ValueError: arguments = {"message": arguments}
+                    return arguments if isinstance(arguments, dict) else None
+        except OSError:
+            continue
+    return None
+
+
+def recover_spawn_agent_id(parent_session_id: str | None, tool_use_id: str | None,
+                           sessions: Path | None = None) -> str | None:
+    """Resolve spawn call_id -> returned agent_id from the parent rollout."""
+    if (not parent_session_id or not tool_use_id or
+            not ID_RE.fullmatch(str(parent_session_id)) or
+            not ID_RE.fullmatch(str(tool_use_id))):
+        return None
+    root = sessions or Path(os.environ.get("CODEX_SESSIONS_DIR", str(Path.home() / ".codex" / "sessions")))
+    if not root.exists():
+        return None
+    for path in sorted(root.rglob("rollout-*%s*.jsonl" % parent_session_id),
+                       key=lambda p: p.stat().st_mtime, reverse=True):
+        try:
+            with path.open(encoding="utf-8", errors="replace") as handle:
+                for line in handle:
+                    if tool_use_id not in line or "function_call_output" not in line:
+                        continue
+                    try: row = json.loads(line)
+                    except ValueError: continue
+                    payload = row.get("payload") if isinstance(row.get("payload"), dict) else {}
+                    if payload.get("type") != "function_call_output" or payload.get("call_id") != tool_use_id:
+                        continue
+                    output = payload.get("output") or {}
+                    if isinstance(output, str):
+                        try: output = json.loads(output)
+                        except ValueError: continue
+                    candidate = output.get("agent_id") if isinstance(output, dict) else None
+                    return str(candidate) if candidate and ID_RE.fullmatch(str(candidate)) else None
+        except OSError:
+            continue
+    return None
+
+
+def recover_task_from_parent_rollout(parent_session_id: str | None,
+                                     tool_use_id: str | None,
+                                     sessions: Path | None = None) -> str | None:
+    arguments = recover_arguments_from_parent_rollout(parent_session_id, tool_use_id, sessions)
+    return payload_task_name({"tool_input": arguments or {}})
+
+
+def pre_tool(roster: NativeRoster, payload: dict[str, Any]) -> None:
+    tool = str(payload.get("tool_name") or payload.get("tool") or payload.get("name") or "")
+    resolved = resolve_identity(payload, roster, "PreToolUse")
+    if resolved is None:
+        return
+    parent = resolved[1]
+    tool_use_id = payload.get("tool_use_id")
+    if "close_agent" in tool:
+        tool_input = payload.get("tool_input") or payload.get("input") or payload.get("arguments") or {}
+        if isinstance(tool_input, str):
+            try: tool_input = json.loads(tool_input)
+            except ValueError: tool_input = {}
+        if not isinstance(tool_input, dict): tool_input = {}
+        target = tool_input.get("target") or tool_input.get("agent_id") or tool_input.get("id")
+        if not target:
+            recovered = recover_arguments_from_parent_rollout(parent, tool_use_id)
+            if recovered:
+                target = recovered.get("target") or recovered.get("agent_id") or recovered.get("id")
+        if target:
+            def confirm(value):
+                item = value.setdefault("agents", {}).get(str(target))
+                if not item: return None
+                if not item.get("host_close_confirmed_at"):
+                    item["host_close_confirmed_at"] = time.tim…252486 tokens truncated…ny]] = []
+    with lock(lock_path):
+        doc = read_json(path, {"schema": "codex-loop-exec-roster/v2", "jobs": {}})
+        for packet_id, item in doc.get("jobs", {}).items():
+            if item.get("state") not in ("starting", "running"):
+                continue
+            if process_matches(item.get("supervisor_pid"), item.get("supervisor_proc_start_ticks")):
+                continue
+            candidates.append({"packet_id": packet_id, **dict(item)})
+
+    terminal: list[dict[str, Any]] = []
+    cleanup_failed: list[dict[str, Any]] = []
+    for item in candidates:
+        # Windows Job Objects kill on supervisor-handle close.  POSIX has no
+        # equivalent, so a cold start reaps the still-owned process group.
+        cleaned = os.name == "nt"
+        if not cleaned:
+            try:
+                worker_pid = int(item.get("os_pid"))
+                proc_path = Path("/proc/%d/stat" % worker_pid)
+                # If the former leader PID has already been reused, never
+                # signal that unrelated process group.  Its old identity is
+                # already gone, so no owned live generation remains.
+                if proc_path.exists() and not process_matches(
+                        worker_pid, item.get("worker_proc_start_ticks")):
+                    cleaned = True
+                else:
+                    os.killpg(worker_pid, 15)
+                    time.sleep(0.05)
+                    os.killpg(worker_pid, 9)
+                    deadline = time.monotonic() + 0.5
+                    while True:
+                        try:
+                            os.killpg(worker_pid, 0)
+                        except ProcessLookupError:
+                            cleaned = True
+                            break
+                        if time.monotonic() >= deadline:
+                            break
+                        time.sleep(0.02)
+            except ProcessLookupError:
+                cleaned = True
+            except (OSError, TypeError, ValueError):
+                cleaned = False
+
+        # Recheck the exact generation under the roster lock.  A concurrent
+        # supervisor heartbeat/replacement must never be overwritten by this
+        # cold-start observation.
+        with lock(lock_path):
+            doc = read_json(path, {"schema": "codex-loop-exec-roster/v2", "jobs": {}})
+            current = (doc.get("jobs") or {}).get(str(item["packet_id"]))
+            if (not isinstance(current, dict)
+                    or current.get("run_id") != item.get("run_id")
+                    or current.get("state") not in ("starting", "running")
+                    or process_matches(current.get("supervisor_pid"),
+                                       current.get("supervisor_proc_start_ticks"))):
+                continue
+            now = time.time()
+            if cleaned:
+                current.update(state="lost", stop_reason="supervisor_lost",
+                               cleanup_status="confirmed_gone", updated_at=now)
+                current.setdefault("history", []).append({
+                    "ts": now, "state": "lost", "run_id": current.get("run_id"),
+                    "attempt": current.get("attempt")})
+                terminal.append({"packet_id": item["packet_id"], **dict(current)})
+            else:
+                # Preserve the active reservation and suppress refill until a
+                # later reconcile can prove the old process group is gone.
+                current.update(cleanup_status="cleanup_failed_live",
+                               cleanup_failed_at=now, updated_at=now)
+                cleanup_failed.append({"packet_id": item["packet_id"], **dict(current)})
+            atomic_json(path, doc)
+
+    for item in terminal:
+        roster.exec_event_once(str(item["packet_id"]), str(item.get("run_id") or "legacy"),
+            int(item.get("attempt", 0) or 0), "exec_failed", why="supervisor_lost",
+            cancelled=False, cold_start=True)
+    roster.audit("cold_start_exec_reconcile", candidates=len(candidates),
+                 lost=len(terminal), cleanup_failed=len(cleanup_failed))
+
+
+def handle(event: str, payload: dict[str, Any], sessions: Path | None = None) -> None:
+    roster = NativeRoster(data_dir())
+    if event == "PreToolUse": pre_tool(roster, payload)
+    elif event == "SubagentStart": subagent_start(roster, payload)
+    elif event == "SubagentStop": subagent_stop(roster, payload)
+    elif event == "Stop": parent_stop(roster, payload)
+    elif event == "SessionStart":
+        cold_reconcile(roster, sessions or Path(os.environ.get("CODEX_SESSIONS_DIR", str(Path.home() / ".codex" / "sessions"))))
+        cold_reconcile_exec(roster)
+        recompute_refill()
+        schedule_refill_actuator(project_root(), source="desktop_session_start")
+    if event in ("SessionStart", "SubagentStop", "Stop"):
+        refresh_meter()
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--event", choices=["PreToolUse", "SubagentStart", "SubagentStop", "Stop", "SessionStart"])
+    ap.add_argument("--sessions", type=Path)
+    args = ap.parse_args()
+    try:
+        raw = sys.stdin.read()
+        payload = json.loads(raw) if raw.strip() else {}
+        event = args.event or payload.get("hook_event_name")
+        if event: handle(str(event), payload, args.sessions)
+    except BaseException as exc:
+        try:
+            NativeRoster(data_dir()).audit("hook_degraded", error="%s: %s" % (type(exc).__name__, exc))
+        except BaseException:
+            pass
+    # Stop/SubagentStop require JSON on successful exit; one harmless object
+    # also keeps the other command-hook events version-tolerant.
+    sys.stdout.write("{}\n")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+#!/usr/bin/env python3
+"""Fail-open lifecycle hook for Desktop-native Codex subagents.
+
+This hook maintains a shadow roster and a semantic task-name map.  It never
+writes Codex Desktop's ``state_5.sqlite`` and never claims to release a native
+runtime slot: the host-only ``close_agent`` tool is represented by an
+idempotent close-request record for the orchestrator to consume.
+"""
+from __future__ import annotations
+
+import argparse
+import contextlib
+import ctypes
+import json
+import os
+import re
+import sys
+import time
+from pathlib import Path
+from typing import Any
+
+if os.name == "nt":
+    from ctypes import wintypes
+
+
+TASK_RE = re.compile(r"(?:^|\n)\s*ä»»åŠ¡å\s*[ï¼?]\s*([^\r\n]{1,160})")
+ID_RE = re.compile(r"[A-Za-z0-9][A-Za-z0-9_-]{0,127}\Z")
+PENDING_TTL_SECONDS = 600
+TERMINAL_MARKERS = {"task_complete", "turn_aborted", "turn_failed", "thread_closed"}
+LEGACY_UNRESOLVED_NAMES = {"æœªå‘½åå­ä»»åŠ¡", "æœªæ˜ å°„å­ä»»åŠ¡"}
+NAME_FALLBACK_SOURCE = "agent_id_fallback"
+ATOMIC_REPLACE_TIMEOUT_S = 5.0
+RETRY_INITIAL_S = 0.005
+RETRY_MAX_S = 0.100
+LOCK_TIMEOUT_S = 10.0
+
+
+def project_root() -> Path:
+    explicit = os.environ.get("LOOP_ROOT")
+    if explicit:
+        return Path(explicit).resolve()
+    here = Path(__file__).resolve()
+    # package/hooks/script.py or target/.codex/hooks/script.py
+    return here.parents[2] if here.parent.name == "hooks" and here.parent.parent.name == ".codex" else here.parents[1]
+
+
+def data_dir() -> Path:
+    return Path(os.environ.get("LOOP_DATA_DIR", str(project_root() / "data"))).resolve()
+
+
+def recompute_refill(root: Path | None = None) -> dict[str, Any] | None:
+    """Mechanically recompute the sustained-refill state after a lifecycle event.
+
+    The hook never spawns: it imports the refill controller (harness/) and asks
+    it to re-derive refill_required / deficit / model_pool from the native
+    roster and the work queue.  Failures are audited and never faked as
+    refilled.
+    """
+    base = (root or project_root()).resolve()
+    pkg_harness = Path(__file__).resolve().parents[1] / "harness"
+    try:
+        for candidate in (pkg_harness, base / "harness"):
+            if (candidate / "refill_controller_v2.py").exists():
+                sys.path.insert(0, str(candidate))
+                break
+        from orchestration_common import LoopPaths
+        from refill_controller_v2 import RefillControllerV2
+        controller = RefillControllerV2(LoopPaths.resolve(base))
+        controller.queue_sync_ledger()
+        return controller.recompute()
+    except BaseException as exc:
+        try:
+            NativeRoster(data_dir()).audit("refill_recompute_degraded",
+                                           error="%s: %s" % (type(exc).__name__, exc))
+        except BaseException:
+            pass
+        return None
+
+
+def schedule_refill_actuator(root: Path | None = None, *, source: str) -> dict[str, Any] | None:
+    """Trigger the existing epilogue after a terminal lifecycle edge.
+
+    ``recompute_refill`` is the controller (observe + decide), not the
+    actuator.  Desktop-native terminal hooks previously stopped after that
+    decision, so a real deficit stayed queued until the root agent manually
+    dispatched again.  Reuse the headless supervisor's coalesced epilogue
+    launcher; it owns the existing epilogue lock and the packet-only refill
+    consumer.  This remains fail-open for the lifecycle hook: a failed trigger
+    is audited and never reported as a successful refill.
+    """
+    base = (root or project_root()).resolve()
+    try:
+        harness = Path(__file__).resolve().parents[1] / "harness"
+        if str(harness) not in sys.path:
+            sys.path.insert(0, str(harness))
+        from refill_consumer_v2 import schedule_run
+        result = schedule_run(base, source=source)
+        try:
+            NativeRoster(data_dir()).audit("refill_actuator_%s" % result.get("status", "unknown"),
+                                           source=source, pid=result.get("pid"))
+        except BaseException:
+            pass
+        return result
+    except BaseException as exc:
+        try:
+            NativeRoster(data_dir()).audit("refill_actuator_failed", source=source,
+                                           error="%s: %s" % (type(exc).__name__, exc))
+        except BaseException:
+            pass
+        return None
+
+
+def refresh_meter(root: Path | None = None) -> dict[str, Any] | None:
+    """Refresh the existing rollout-to-meter bridge after lifecycle edges.
+
+    The bridge owns its cross-process lock and policy-configured debounce, so
+    invoking it from several Stop events does not multiply full session scans.
+    This hook remains fail-open: stale or unavailable session telemetry is
+    audited, never presented as a successful refresh.
+    """
+    base = (root or project_root()).resolve()
+    metering = base / "metering"
+    try:
+        if str(metering) not in sys.path:
+            sys.path.insert(0, str(metering))
+        from model_token_share_bridge import refresh
+        sessions = Path(os.environ.get(
+            "CODEX_SESSIONS_DIR",
+            str(Path(os.environ.get("CODEX_HOME", str(Path.home() / ".codex"))) / "sessions"),
+        )).resolve()
+        return refresh(base, sessions, force=False)
+    except BaseException as exc:
+        try:
+            NativeRoster(data_dir()).audit("meter_refresh_degraded",
+                                           error="%s: %s" % (type(exc).__name__, exc))
+        except BaseException:
+            pass
+        return None
+
+
+@contextlib.contextmanager
+def lock(path: Path, *, timeout_s: float = LOCK_TIMEOUT_S):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("a+b") as handle:
+        handle.seek(0, os.SEEK_END)
+        if handle.tell() == 0:
+            handle.write(b"\0"); handle.flush()
+        handle.seek(0)
+        if os.name == "nt":
+            import msvcrt
+            deadline = time.monotonic() + max(0.0, timeout_s)
+            backoff = RETRY_INITIAL_S
+            while True:
+                try:
+                    msvcrt.locking(handle.fileno(), msvcrt.LK_NBLCK, 1)
+                    break
+                except OSError as exc:
+                    if time.monotonic() >= deadline:
+                        raise RuntimeError(
+                            "lifecycle hook lock remained busy for %.3fs: %s"
+                            % (timeout_s, exc)) from exc
+                    time.sleep(backoff)
+                    backoff = min(RETRY_MAX_S, backoff * 2)
+        else:
+            import fcntl
+            fcntl.flock(handle.fileno(), fcntl.LOCK_EX)
+        try:
+            yield
+        finally:
+            handle.seek(0)
+            if os.name == "nt":
+                import msvcrt
+                msvcrt.locking(handle.fileno(), msvcrt.LK_UNLCK, 1)
+            else:
+                import fcntl
+                fcntl.flock(handle.fileno(), fcntl.LOCK_UN)
+
+
+def atomic_json(path: Path, value: Any, *,
+                replace_timeout_s: float = ATOMIC_REPLACE_TIMEOUT_S) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_name(path.name + ".%d.tmp" % os.getpid())
+    try:
+        with tmp.open("w", encoding="utf-8", newline="\n") as handle:
+            json.dump(value, handle, ensure_ascii=False, indent=2, sort_keys=True)
+            handle.write("\n"); handle.flush(); os.fsync(handle.fileno())
+        deadline = time.monotonic() + max(0.0, replace_timeout_s)
+        backoff = RETRY_INITIAL_S
+        while True:
+            try:
+                os.replace(tmp, path)
+                return
+            except PermissionError as exc:
+                if time.monotonic() >= deadline:
+                    raise RuntimeError(
+                        "lifecycle hook atomic replace remained blocked for "
+                        "%.3fs: %s" % (replace_timeout_s, exc)) from exc
+                time.sleep(backoff)
+                backoff = min(RETRY_MAX_S, backoff * 2)
+    finally:
+        try:
+            tmp.unlink()
+        except FileNotFoundError:
+            pass
+
+
+def read_json(path: Path, default: Any) -> Any:
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return default
+
+
+class NativeRoster:
+    def __init__(self, root: Path):
+        self.root = root / "lifecycle"
+        self.path = self.root / "native_roster.json"
+        self.lock_path = self.root / ".native_roster.lock"
+        self.close_path = self.root / "close_requests.ndjson"
+        self.events_path = self.root / "events.ndjson"
+        self.name_map_path = self.root / "name_map.jsonl"
+        self.main_events_path = root / "events.ndjson"
+
+    def transact(self, fn):
+        with lock(self.lock_path):
+            if self.path.exists():
+                try:
+                    roster = json.loads(self.path.read_text(encoding="utf-8"))
+                except (OSError, ValueError) as exc:
+                    raise RuntimeError("native roster unreadable; refusing overwrite: %s" % exc) from exc
+            else:
+                roster = {"schema": "codex-loop-native-roster/v1",
+                          "pending": [], "agents": {}}
+            result = fn(roster)
+            roster["updated_at"] = time.time()
+            atomic_json(self.path, roster)
+            return result
+
+    def append(self, path: Path, row: dict[str, Any]) -> None:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with path.open("a", encoding="utf-8", newline="\n") as handle:
+            handle.write(json.dumps(row, ensure_ascii=False, separators=(",", ":")) + "\n")
+
+    def audit(self, event: str, **detail: Any) -> None:
+        with lock(self.lock_path.with_name(".native_events.lock")):
+            self.append(self.events_path, {"ts": time.time(), "event": event, **detail})
+
+    def main_event_once(self, event: str, agent_id: str, **detail: Any) -> bool:
+        with lock(self.lock_path.with_name(".events.lock")):
+            try:
+                for line in self.main_events_path.read_text(encoding="utf-8").splitlines():
+                    try: row = json.loads(line)
+                    except ValueError: continue
+                    if row.get("event") == event and row.get("agent_id") == agent_id:
+                        return False
+            except OSError:
+                pass
+            self.append(self.main_events_path, {"ts": time.time(), "event": event,
+                                                "agent_id": agent_id, **detail})
+            return True
+
+    def exec_event_once(self, packet_id: str, run_id: str, attempt: int,
+                        event: str, **detail: Any) -> bool:
+        with lock(self.lock_path.with_name(".events.lock")):
+            try:
+                for line in self.main_events_path.read_text(encoding="utf-8").splitlines():
+                    try: row = json.loads(line)
+                    except ValueError: continue
+                    if (row.get("packet_id") == packet_id and row.get("run_id") == run_id
+                            and row.get("event") == event):
+                        return False
+            except OSError:
+                pass
+            self.append(self.main_events_path, {"ts": time.time(), "packet_id": packet_id,
+                "run_id": run_id, "attempt": attempt, "event": event, "detail": detail})
+            return True
+
+    def queue_close_locked(self, agent: dict[str, Any], reason: str) -> bool:
+        if agent.get("close_request_emitted") or agent.get("close_request_consumed"):
+            return False
+        row = {"ts": time.time(), "agent_id": agent.get("agent_id"),
+               "task_name": agent.get("task_name"), "parent_session_id": agent.get("parent_session_id"),
+               "reason": reason, "action": "host_close_agent_required"}
+        self.append(self.close_path, row)
+        agent["close_request_emitted"] = True
+        agent["close_request_reason"] = reason
+        return True
+
+
+def payload_task_name(payload: dict[str, Any]) -> str | None:
+    tool_input = payload.get("tool_input") or payload.get("input") or payload.get("arguments") or {}
+    if isinstance(tool_input, str):
+        try: tool_input = json.loads(tool_input)
+        except ValueError: tool_input = {"message": tool_input}
+    if not isinstance(tool_input, dict):
+        tool_input = {}
+    explicit = tool_input.get("task_name") or tool_input.get("name")
+    if isinstance(explicit, str) and explicit.strip():
+        return explicit.strip()[:160]
+    # Current multi-agent payloads may normalize the legacy ``message`` into
+    # structured ``items``. Walk only in-memory strings and persist only the
+    # matched one-line task name, never the raw tool payload.
+    queue: list[Any] = [tool_input]
+    while queue:
+        value = queue.pop()
+        if isinstance(value, str):
+            match = TASK_RE.search(value)
+            if match:
+                return match.group(1).strip()[:160]
+        elif isinstance(value, dict):
+            queue.extend(value.values())
+        elif isinstance(value, list):
+            queue.extend(value)
+    return None
+
+
+def resolve_identity(payload: dict[str, Any], roster: NativeRoster,
+                     context: str) -> tuple[str | None, str | None] | None:
+    """Resolve identity fields, auditing and blocking on conflicting duplicates."""
+    agent_id = payload.get("agent_id")
+    thread_id = payload.get("thread_id")
+    session_id = payload.get("session_id")
+    parent_thread_id = payload.get("parent_thread_id")
+    if agent_id and thread_id and str(agent_id) != str(thread_id):
+        roster.audit("identity_conflict", context=context, pair="agent_id/thread_id",
+                     agent_id=str(agent_id), thread_id=str(thread_id), actio
+2026-08-14T05:43:07.225001Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-14T05:43:07.225101Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=16000
+2026-08-14T05:43:10.983211Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T05:43:44.646825Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.2 seconds
+Total output lines: 712
+Output:
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (def parent_stop... Any]) -> None::String) [Get-Content]，ParameterBindi
+    ngException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (    resolved = ...roster, "Stop"):String) [Get-Content]，ParameterBindi
+    ngException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (    if resolved is None::String) [Get-Content]，ParameterBindingExcepti
+    on
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (        return:String) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (    parent = pa...et("thread_id"):String) [Get-Content]，ParameterBindi
+    ngException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (    if not parent::String) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (        roster....ng_session_id",:String) [Get-Content]，ParameterBindi
+    ngException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (               ...xec_packets=[]):String) [Get-Content]，ParameterBindi
+    ngException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (        return:String) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (    parent_stat..._sessions.json":String) [Get-Content]，ParameterBindi
+    ngException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (    with lock(d...essions.lock")::String) [Get-Content]，ParameterBindi
+    ngException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (        parent_..."parents": {}}):String) [Get-Content]，ParameterBindi
+    ngException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (        item = ...tr(parent), {}):String) [Get-Content]，ParameterBindi
+    ngException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (        item.up...="parent_stop"):String) [Get-Content]，ParameterBindi
+    ngException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (        atomic_... parent_states):String) [Get-Content]，ParameterBindi
+    ngException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (    now = time.time():String) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (    def mutate(value)::String) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (        changed = []:String) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (        for ite..., {}).values()::String) [Get-Content]，ParameterBindi
+    ngException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (            if ...id") == parent::String) [Get-Content]，ParameterBindi
+    ngException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (               ...updated_at=now):String) [Get-Content]，ParameterBindi
+    ngException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (               ... "parent_stop"):String) [Get-Content]，ParameterBindi
+    ngException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (               ...et("agent_id")):String) [Get-Content]，ParameterBindi
+    ngException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (        return changed:String) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (    changed = roster.transact(mutate):String) [Get-Content]，ParameterB
+    indingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (:String) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (    # Request c...eir supervisors:String) [Get-Content]，ParameterBindi
+    ngException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (    # own the s...-tree shutdown.:String) [Get-Content]，ParameterBindi
+    ngException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (    with lock(r..._roster.lock")::String) [Get-Content]，ParameterBindi
+    ngException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (        exec_ro..., {"jobs": {}}):String) [Get-Content]，ParameterBindi
+    ngException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (    cancel_dir ... exist_ok=True):String) [Get-Content]，ParameterBindi
+    ngException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (    exec_cancelled = []:String) [Get-Content]，ParameterBindingExceptio
+    n
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (    for packet_...", {}).ite…2373 tokens truncated…置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (        with pa...ce") as handle::String) [Get-Content]，ParameterBindi
+    ngException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (            for line in handle::String) [Get-Content]，ParameterBinding
+    Exception
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (               ...son.loads(line):String) [Get-Content]，ParameterBindi
+    ngException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (               ...Error: continue:String) [Get-Content]，ParameterBindi
+    ngException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (                kind = row.get("type"):String) [Get-Content]，Parameter
+    BindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (               ..., dict) else {}:String) [Get-Content]，ParameterBindi
+    ngException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (               ..."session_meta"::String) [Get-Content]，ParameterBindi
+    ngException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (               ..., dict) else {}:String) [Get-Content]，ParameterBindi
+    ngException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (               ..., dict) else {}:String) [Get-Content]，ParameterBindi
+    ngException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (               ...ent_nickname"),:String) [Get-Content]，ParameterBindi
+    ngException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (               ...("agent_role"),:String) [Get-Content]，ParameterBindi
+    ngException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (               ...("agent_path"),:String) [Get-Content]，ParameterBindi
+    ngException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (               ...th": str(path)}:String) [Get-Content]，ParameterBindi
+    ngException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (               ...d.get("event")}:String) [Get-Content]，ParameterBindi
+    ngException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (               ...MARKERS), None):String) [Get-Content]，ParameterBindi
+    ngException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (               ...inal = str(hit):String) [Get-Content]，ParameterBindi
+    ngException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (    except OSError::String) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (        pass:String) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (    return meta, terminal:String) [Get-Content]，ParameterBindingExcept
+    ion
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (:String) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (:String) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (def cold_reconc... Path) -> None::String) [Get-Content]，ParameterBindi
+    ngException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (    def snapshot(value)::String) [Get-Content]，ParameterBindingExcepti
+    on
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (        return ...s", {}).items():String) [Get-Content]，ParameterBindi
+    ngException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (               ..."interrupted")]:String) [Get-Content]，ParameterBindi
+    ngException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (    active = roster.transact(snapshot):String) [Get-Content]，Parameter
+    BindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (    found = 0:String) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (    for agent_id, old in active::String) [Get-Content]，ParameterBindin
+    gException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (        matches...xists() else []:String) [Get-Content]，ParameterBindi
+    ngException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (        if not matches: continue:String) [Get-Content]，ParameterBindin
+    gException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (        path = ...tat().st_mtime):String) [Get-Content]，ParameterBindi
+    ngException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (        meta, t...lout_info(path):String) [Get-Content]，ParameterBindi
+    ngException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 225
++ ... ject { $_.Context.PreContext; $_.Line; $_.Context.PostContext } | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (        def mut...term=terminal)::String) [Get-Content]，ParameterBindi
+    ngException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+
+2026-08-14T05:43:45.220238Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-14T05:43:45.220318Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=30000
+2026-08-14T05:43:49.655687Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=failed to send remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL: error sending request for url (https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL)
+2026-08-14T05:44:28.599351Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.9 seconds
+Output:
+python : 无法将“python”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，
+然后再试一次。
+所在位置 行:2 字符: 1
++ python -c "
++ ~~~~~~
+    + CategoryInfo          : ObjectNotFound: (python:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T05:44:29.118900Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-14T05:44:29.118984Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=30000
+2026-08-14T05:44:30.325614Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T05:44:59.920949Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.7 seconds
+Output:
+python3 : 无法将“python3”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确
+，然后再试一次。
+所在位置 行:2 字符: 1
++ python3 -c "
++ ~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (python3:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T05:45:00.545805Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-14T05:45:00.545879Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=30000
+2026-08-14T05:45:02.313177Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T05:45:24.942533Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T05:45:51.830083Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 401: {\n  \"error\": {\n    \"message\": \"Your authentication token has been invalidated. Please try signing in again.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"token_invalidated\",\n    \"param\": null\n  },\n  \"status\": 401\n}")
+2026-08-14T05:45:51.830166Z  WARN codex_mcp::rmcp_client: Apps MCP startup reconnect failed; continuing with cached tools error=MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request retry_after_ms=30000
+2026-08-14T05:45:56.466168Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=failed to send remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL: error sending request for url (https://chatgpt.com/backend-api/ps/plugins/suggested?scope=GLOBAL)
+2026-08-14T05:46:49.187928Z  WARN codex_mcp::rmcp_client: failed to initialize MCP client during shutdown: MCP startup failed: handshaking with MCP server failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>] error: unexpected server response: HTTP 401: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}, when send initialize request
+2026-08-14T05:46:50.661580Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

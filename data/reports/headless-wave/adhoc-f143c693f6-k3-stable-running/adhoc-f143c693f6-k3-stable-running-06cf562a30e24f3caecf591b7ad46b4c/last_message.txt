@@ -1,0 +1,10 @@
+**PASS**
+
+只读复核（先读 `data/reports/convergence-wave2b-k3-evidence.md`，再核两文件源码），四项逐一成立：
+
+- run_id 匹配：`observed()` 要求 `run_id==run_id 且 state=="running"`（headless_wave.py:171-175）；`Store.update` 对晚到的老 supervisor 心跳有 generation 保护——非 starting 且 started_at 更旧的老 run_id 不能夺回新代（supervisor.py:122-141）；supervisor 每行都携 `--run-id`。
+- start token：`process_alive(pid, expected_start)` 用创建时间戳严格相等比对（Windows GetProcessTimes FILETIME、POSIX /proc stat field22）；`recover_live_supervisor` 对 supervisor_pid 与 os_pid 双重 token 校验才恢复 running（150-168），PID 复用被拒。
+- 稳定 running：只有 `running` 计入有效并发，`starting` 明确不算（174 注释）；`wait_observed` 要求同 run_id 的 running 持续 stable_for=0.25s，遇 terminal（completed/failed/timed_out/cancelled/spawn_failed）立即 False。
+- 失败不销债：未稳定观察到 running 时 status 为最终 roster 状态或 unobserved，不计 `observed_running`（437-440），注释明确不自动重试、不清外部 refill debt；refill_controller_v2 的 debt 从 running 推导（raw=min(pending,target−running)），`starting` 只占 capacity 不消 debt（248-254）。
+
+残留提示（非本项失败）：`recover_live_supervisor` 对 lost+报告存在补记 completed，属设计内恢复路径并有单测覆盖。

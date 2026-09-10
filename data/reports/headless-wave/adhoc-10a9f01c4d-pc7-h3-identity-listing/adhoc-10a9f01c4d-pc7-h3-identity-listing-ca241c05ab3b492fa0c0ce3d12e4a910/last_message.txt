@@ -1,0 +1,19 @@
+核验完成，结果如下（全程只读，未做任何写入/委托）。
+
+## 结论：PASS — 两个hash均核对一致
+
+| 目标 | 期望sha256 | 实测sha256（本地字节级重算） | 结果 |
+|---|---|---|---|
+| perp/spot identity map `P5_P3_PERP_SPOT_IDENTITY_MAP_V1.json` | `6886989fb6b2db010ad454e4088fa149c17df4fe022a4c695e2d7508d72759bb` | `6886989FB6B2DB010AD454E4088FA149C17DF4FE022A4C695E2D7508D72759BB` | ✅ MATCH |
+| listing ledger `P5_P3_LISTING_EPISODE_LEDGER_V1.json` | `04744095f75014ff36172aa6c5fad6458018a1d6a951e97d7707b116c4c5cebd` | `04744095F75014FF36172AA6C5FAD6458018A1D6A951E97D7707B116C4C5CEBD` | ✅ MATCH |
+
+## 证据链
+
+1. 固定SSH远端路径已确认：`/data/k3/worktrees/p5-codex-pc6-binance-data-materialization-v1/artifacts/pc6_binance_data_materialization_v1_final_aae2b2b1/`，[probe7_fetch_artifacts.sh](E:/VPS/reports/pc6-input-map-t1w1/probe7_fetch_artifacts.sh) 以固定SSH（`k3@136.85.49.91`、`k3_p5_ed25519`、known_hosts + StrictHostKeyChecking=yes、BatchMode）只读 `cat` 抓取到 [fetched/](E:/VPS/reports/pc6-input-map-t1w1/fetched)，抓取时间 2026-08-13 04:28:37–43Z，两个 `.stderr` 均为0字节、无 `fetch.log` 失败记录。
+2. 本地副本 `Get-FileHash -Algorithm SHA256` 重算，与目标hash逐字节一致（identity map 715,105 B / 986个perp行；listing ledger 583,537 B，`canonical_id` 均正确）。
+3. 早前同固定SSH的 [probe13_out.txt](E:/VPS/reports/release-research-registration-review/probe13_out.txt) 显示这两文件的 git HEAD committed blob 与工作树 sha256 均为 MATCH（6/6），即冻结提交与磁盘一致。
+4. 交叉引用：`registration_plan.json` 中 W4 release artifacts 的 LOC1/LOC2 `content_sha256` 即为这两个hash；本地副本 `P5_PC6_EXECUTABLE_DATA_MANIFEST_V1.json`（同批04:28抓取）内嵌引用也包含这两个hash。
+
+## 限制说明（重要）
+
+本叶子沙箱无法新开SSH会话：WSL被沙箱拒绝（`WslCreateInstance/E_ACCESSDENIED`），规范私钥 `k3_p5_ed25519` 仅存在于WSL侧且本平面无落盘权限；兜底密钥文件被NTFS ACL拒绝。因此最新的一次固定SSH实测为本轮04:28的抓取 + 我随后对抓取文件的本地sha256重算，两者一致。如需在收包时刻再做一次全新live探针，需由具备WSL的root平面执行 `probe7_fetch_artifacts.sh` 类脚本。

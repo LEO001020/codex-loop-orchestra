@@ -1,0 +1,101 @@
+Reading additional input from stdin...
+2026-08-14T07:41:17.892425Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T07:41:21.450363Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T07:41:47.878623Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-14T07:41:58.165857Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-14T07:42:14.308713Z ERROR codex_core::tools::router: error=unsupported call: grep
+2026-08-14T07:42:29.555338Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+Get-Content : 找不到路径“E:\VPS\owner_ceremony.py”，因为该路径不存在。
+所在位置 行:2 字符: 1
++ Get-Content "E:\VPS\owner_ceremony.py" -Raw
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (E:\VPS\owner_ceremony.py:String) [Get-Content], ItemNotFoundException
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+
+2026-08-14T07:42:54.554801Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 8.6 seconds
+Output:
+
+FullName                                                                                                               
+--------                                                                                                               
+E:\VPS\reports\owner-ceremony-draft                                                                                    
+E:\VPS\reports\owner-ceremony-package-20260813                                                                         
+E:\VPS\reports\codex-fl13-qa-isolated-20260814-0445\owner-admin-cutover-final-20260814-recovery-v1\ceremony            
+E:\VPS\reports\codex-fl13-qa-isolated-20260814-0445\owner-admin-cutover-final-20260814-recovery-v1\09_OWNER_CEREMONY...
+E:\VPS\reports\codex-fl13-qa-isolated-20260814-0445\owner-admin-cutover-final-20260814-recovery-v1\ceremony\owner_ce...
+E:\VPS\reports\codex-fl13-qa-isolated-20260814-0445\owner-admin-cutover-final-20260814-recovery-v1\ceremony\P5_OWNER...
+E:\VPS\reports\codex-fl13-qa-isolated-20260814-0445\owner-admin-cutover-final-20260814-recovery-v1\ceremony\__pycach...
+E:\VPS\reports\codex-fl14-qa-isolated-20260814-0450\owner-admin-cutover-final-20260814-recovery-v1\ceremony            
+E:\VPS\reports\codex-fl14-qa-isolated-20260814-0450\owner-admin-cutover-final-20260814-recovery-v1\09_OWNER_CEREMONY...
+E:\VPS\reports\codex-fl14-qa-isolated-20260814-0450\owner-admin-cutover-final-20260814-recovery-v1\ceremony\owner_ce...
+E:\VPS\reports\codex-fl14-qa-isolated-20260814-0450\owner-admin-cutover-final-20260814-recovery-v1\ceremony\P5_OWNER...
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\FR4_ceremony_rootscope.md                                       
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\RFtool_ceremony.md                                              
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\U11_ceremony_state_machine.md                                   
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\U18_ceremony_safety.md                                          
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\U22_ceremony_selfverify.md                                      
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\AUD_21_ceremony.md                                        
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\DET_O_ceremony.md                                         
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\final-review\FR_ceremony.md                               
+E:\VPS\reports\owner-admin-cutover-final-20260813\ceremony                                                             
+E:\VPS\reports\owner-admin-cutover-final-20260813\09_OWNER_CEREMONY_PREREQUISITES.md                                   
+E:\VPS\reports\owner-admin-cutover-final-20260813\ceremony\owner_ceremony_display_and_verify.py                        
+E:\VPS\reports\owner-admin-cutover-final-20260813\ceremony\P5_OWNER_CEREMONY_O1_O12_MACHINE_LIST_V2.json               
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\ceremony                                    
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\09_OWNER_CEREMONY_RUNBOOK.md                
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\ceremony\owner_ceremony.py                  
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\ceremony\owner_ceremony_display_and_verif...
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\ceremony\P5_OWNER_CEREMONY_O1_O12_MACHINE...
+E:\VPS\reports\owner-admin-cutover-final-20260814-recovery-v1\ceremony                                                 
+E:\VPS\reports\owner-admin-cutover-final-20260814-recovery-v1\09_OWNER_CEREMONY_PREREQUISITES.md                       
+E:\VPS\reports\owner-admin-cutover-final-20260814-recovery-v1\ceremony\owner_ceremony_display_and_verify.py            
+E:\VPS\reports\owner-admin-cutover-final-20260814-recovery-v1\ceremony\P5_OWNER_CEREMONY_O1_O12_MACHINE_LIST_V2.json   
+E:\VPS\reports\owner-admin-cutover-final-20260814-recovery-v1-fl14\ceremony                                            
+E:\VPS\reports\owner-admin-cutover-final-20260814-recovery-v1-fl14\09_OWNER_CEREMONY_PREREQUISITES.md                  
+E:\VPS\reports\owner-admin-cutover-final-20260814-recovery-v1-fl14\ceremony\owner_ceremony_display_and_verify.py       
+E:\VPS\reports\owner-admin-cutover-final-20260814-recovery-v1-fl14\ceremony\P5_OWNER_CEREMONY_O1_O12_MACHINE_LIST_V2...
+E:\VPS\reports\owner-admin-cutover-final-20260814-recovery-v1-fl15\ceremony                                            
+E:\VPS\reports\owner-admin-cutover-final-20260814-recovery-v1-fl15\09_OWNER_CEREMONY_PREREQUISITES.md                  
+E:\VPS\reports\owner-admin-cutover-final-20260814-recovery-v1-fl15\ceremony\owner_ceremony_display_and_verify.py       
+E:\VPS\reports\owner-admin-cutover-final-20260814-recovery-v1-fl15\ceremony\P5_OWNER_CEREMONY_O1_O12_MACHINE_LIST_V2...
+E:\VPS\reports\owner-admin-cutover-final-20260814-recovery-v1-fl16\ceremony                                            
+E:\VPS\reports\owner-admin-cutover-final-20260814-recovery-v1-fl16\09_OWNER_CEREMONY_PREREQUISITES.md                  
+E:\VPS\reports\owner-admin-cutover-final-20260814-recovery-v1-fl16\ceremony\owner_ceremony_display_and_verify.py       
+E:\VPS\reports\owner-admin-cutover-final-20260814-recovery-v1-fl16\ceremony\P5_OWNER_CEREMONY_O1_O12_MACHINE_LIST_V2...
+E:\VPS\reports\owner-admin-cutover-final-20260814-recovery-v1-fl16\ceremony\__pycache__\owner_ceremony_display_and_v...
+E:\VPS\reports\owner-admin-cutover-final-20260814-recovery-v1-fl17\ceremony                                            
+E:\VPS\reports\owner-admin-cutover-final-20260814-recovery-v1-fl17\09_OWNER_CEREMONY_PREREQUISITES.md                  
+E:\VPS\reports\owner-admin-cutover-final-20260814-recovery-v1-fl17\ceremony\owner_ceremony_display_and_verify.py       
+E:\VPS\reports\owner-admin-cutover-final-20260814-recovery-v1-fl17\ceremony\P5_OWNER_CEREMONY_O1_O12_MACHINE_LIST_V2...
+E:\VPS\reports\owner-ceremony-draft\P5_OWNER_CEREMONY_O1_O5_MACHINE_LIST_DRAFT_V1.json                                 
+E:\VPS\reports\owner-ceremony-package-20260813\P5_OWNER_CEREMONY_O1_O5_MACHINE_LIST_V1.json                            
+
+
+Get-ChildItem : 对路径“E:\VPS\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem "E:\VPS" -Recurse -Filter "*ceremony*" | Select-Object  ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\VPS\.pytest_cache:String) [Get-ChildItem], UnauthorizedAccessExcep 
+   tion
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+Get-ChildItem : 对路径“E:\VPS\direct_repair_stage\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem "E:\VPS" -Recurse -Filter "*ceremony*" | Select-Object  ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\VPS\direct_repair_stage\.pytest_cache:String) [Get-ChildItem], Una 
+   uthorizedAccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+

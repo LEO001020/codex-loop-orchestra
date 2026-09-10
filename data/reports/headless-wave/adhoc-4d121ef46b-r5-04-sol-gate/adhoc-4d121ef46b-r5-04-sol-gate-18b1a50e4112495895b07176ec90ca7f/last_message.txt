@@ -1,0 +1,83 @@
+I now have all the information needed. Let me compile the audit findings:
+
+---
+
+## Sol重复门审计报告
+
+### 审计范围
+
+- **工作区层（Workspace）**：`E:\codex-LOOP\.codex\hooks.json`（`PreToolUse` hook 入口）
+- **F2层**：`codex-loop-s-f2/hooks/` 和 `codex-loop-s-f2/harness/` 中的门文件
+
+---
+
+### 发现的重复 Sol 门
+
+F2层存在**三个**Sol PreToolUse门实现，并且其中一个已被静默弃用：
+
+| 文件 | 角色 | 状态 |
+|---|---|---|
+| `hooks/sol_tool_gate.py` | v1门（fail-open，ledger自控漏洞） | 路由器在 `cold_start` 模式下调用；仍是活跃执行路径 |
+| `hooks/sol_tool_gate_v2.py` | v2门（历史/回滚证据） | **路由器注释明确标为"historical/rollback evidence only"，不再被调用** |
+| `harness/root_turn_governor.py` | 真正的v2门（fail-closed，证明外部状态） | 路由器在 `shadow`/`layered` 模式下调用 |
+
+**工作区层**（`E:\codex-LOOP\.codex\hooks.json`）注册的是 `sol_tool_gate_router.py`，它是唯一的分发入口，不构成重复门本身。
+
+---
+
+### 重复门对当前 Sonnet Verifier 路由的影响评估
+
+#### 当前活跃配置
+
+- `orchestration_policy_v2.toml [routing].mode = "cold_start"`
+- `model_profiles.toml active_profile = "v4f-sonnet-review"`
+  - `review_model = "weiwu/aws.claude-sonnet-4.6"`（Sonnet 4.6）
+
+#### 路由器在 `cold_start` 模式下的行为
+
+`sol_tool_gate_router.py` 在 `cold_start` 模式下**只调用 `sol_tool_gate.py`（v1）**，`root_turn_governor.py` 完全不参与。
+
+#### v1门 (`sol_tool_gate.py`) 的模型家族识别
+
+v1门的 `MODEL_FAMILY` 字典：
+
+```python
+MODEL_FAMILY = {
+    "gpt-5.6-sol": "sol",
+    "gpt-5.6": "sol",
+    "alibaba-token-plan/glm-5.2": "v4",
+    "weiwu/glm-5.2": "v4",
+    "weiwu/deepseek-v4-flash": "v4",
+    "weiwu-k3/kimi-k3": "k3",
+}
+```
+
+**关键缺口**：`weiwu/aws.claude-sonnet-4.6`（当前 verifier/reviewer 模型）**不在此字典中**。
+
+#### 当 Sonnet verifier 调用 gated 工具时会发生什么
+
+v1门逻辑：
+```python
+family = MODEL_FAMILY.get(model)
+if family in ("v4", "k3"):
+    return 0  # 放行
+if family != "sol":
+    # family 为 None → 进入此分支
+    print(deny("PreToolUse payload.model is missing or unknown ..."))
+```
+
+**结论：在 `cold_start` 模式下，使用 `weiwu/aws.claude-sonnet-4.6` 的 Sonnet verifier/reviewer 子代理，若调用任何 gated 工具（shell、search、read_file 等），v1门会将其识别为"未知模型"并拒绝，而非放行为 worker-family。**
+
+这与 `roles_v2.yaml` 和 `orchestration_policy_v2.toml` 中 k3_model 已被更新为 `weiwu/aws.claude-sonnet-4.6` 的配置不一致——v1门的硬编码字典完全没有被同步更新。
+
+---
+
+### 根因总结
+
+1. **v1门（`sol_tool_gate.py`）的 `MODEL_FAMILY` 字典是硬编码的**，未引用 `orchestration_policy_v2.toml [models]`，导致其在切换 k3 模型为 Sonnet 4.6 后与配置脱节。
+
+2. **v2历史文件 (`hooks/sol_tool_gate_v2.py`) 已不再被调用**，路由器注释中明确说明其仅作回滚证据，不构成有效门路径。但文件仍然存在，容易造成混淆。
+
+3. **真正的v2门 (`root_turn_governor.py`)** 通过 `orchestration_common.model_pin()` 动态读取策略中的模型pin（`models.k3_model = "weiwu/aws.claude-sonnet-4.6"`），不存在此问题——**但它只在 `shadow`/`layered` 模式下才被激活**，当前 `cold_start` 模式不使用它。
+
+4. **实际影响**：当前 `cold_start` 模式下，显式 Sonnet verifier (`weiwu/aws.claude-sonnet-4.6`) 的 gated 工具调用会被 v1门以"未知模型"为由拒绝（fail-closed行为），而非被正确识别为 k3/worker family 放行。Sonnet verifier 的 read-only 探索工作（如代码审计）会因此受阻，除非其工具调用恰好不触发 gated 前缀。

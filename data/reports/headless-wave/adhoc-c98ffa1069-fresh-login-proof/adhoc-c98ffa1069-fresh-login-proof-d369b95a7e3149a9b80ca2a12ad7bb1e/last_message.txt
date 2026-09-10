@@ -1,0 +1,90 @@
+已完成只读取证（未连接生产主机、未执行任何 cutover）。以下是交付物：post-cutover fresh k3 login 机械验收命令矩阵。
+
+---
+
+# FreshLogin 证明 — post-cutover fresh k3 login 机械验收命令矩阵（只读交付）
+
+**任务名：FreshLogin证明** ｜ 模式：只读生成，未执行 cutover，未触碰 `136.85.49.91` ｜ 依据：`hardening-script-threat-model-20260813` §6.3/§4/§5、`authority-db-boundary-audit`、`pc7-account-permission-profile`、`migration-ops-path-v2v3`、app-v2-pc7 源码与 sealed manifest。
+
+## 0. 执行前置（控制面常量，沿用既有探针固定件）
+
+| 项 | 值 | 来源 |
+|---|---|---|
+| 目标 | `k3@136.85.49.91`（hostname `k3-p4-mig-xnmd`，Ubuntu 6.17.0-1022-gcp） | threat-model §1 |
+| 私钥/known_hosts | `<k3_p5_ed25519>` / `<k3_p5_known_hosts>`（BatchMode=yes, StrictHostKeyChecking=yes） | `probe1_locations.sh`、threat-model §6.3 |
+| k3 公钥指纹 | `SHA256:jptEGkJiyya+44lphA9sGkgXeN9Vb1LNwzZz9urm7Xs`（应与 authorized_keys k3 条目一致） | authority-db-boundary-audit probe2 |
+| sealed wrapper sha256 | `7ff11deef07ee37d9fa7a528d258773b7fdc11a432df1dd89acbd536bb3dea3c`（163B） | `P5_PRODUCTION_APP_V2_FILE_MANIFEST_V1.json` |
+| sealed unit sha256 | `6128bf3cc4df450ccc7ca97de9bcd90dbe5e2300043cfe84be8191d51031ddfd`（1086B） | 同上 |
+| cutover 前基线 | 旧 k3 session 5023/5031/5041；researchctld MainPID 290166；`id -nG` 含 105(lxd)/988(docker)/1001(google-sudoers)/986(research-client) | threat-model §2 |
+
+远程载荷沿用 base64 管道模式（`ssh … "printf '%s' '<b64>' | base64 -d | bash"`）；每行判定以**输出 + 退出码**双证据落盘（带 UTC 时间戳）。
+
+## 1. 矩阵 A — fresh login 会话证明
+
+| # | 检查项 | 精确命令（远程 k3 会话内） | 期望结果（否则 FAIL→HALT） |
+|---|---|---|---|
+| A1 | 会话时间戳 | `date -u +%FT%TZ` | RFC3339 UTC，落盘 |
+| A2 | 身份 | `id; hostname; uname -r` | `uid=1001(k3)`；`k3-p4-mig-xnmd`；`6.17.0-1022-gcp` |
+| A3 | 会话唯一性 | `loginctl list-sessions --no-pager; who; pgrep -a sshd` | 无旧 session 5023/5031/5041；UID 1001 仅本次 fresh 会话；sshd 仅 listener + 本次子进程 |
+| A4 | 本次会话补充组 | `id -nG` | 含 `research-client(986)`；**不含** `lxd(105)/docker(988)/google-sudoers(1001)` |
+
+## 2. 矩阵 B — denied：必须失败（root 等价路径 + researchctl 拒绝面）
+
+| # | 检查项 | 精确命令 | 期望结果（全部 FAIL 才 PASS） |
+|---|---|---|---|
+| B1 | 组已撤销 | `getent group google-sudoers docker lxd`；`id -nG k3` | 三组均不再含 k3；`id -nG` 无 105/988/1001 |
+| B2 | sudo 撤销 | `sudo -n true; echo sudo_rc=$?`；`sudo -n -l` | `sudo_rc!=0`；`sudo -n -l` 报 “may not run sudo”/需密码，rc=1 |
+| B3 | docker 撤销 | `docker version 2>&1; echo rc=$?`；`docker ps 2>&1; echo rc=$?` | socket permission denied，rc!=0 |
+| B4 | lxd 撤销 | `lxc info 2>&1; echo rc=$?` | socket permission denied，rc!=0 |
+| B5 | 提权 socket 不可写 | `for s in /var/run/docker.sock /run/docker.sock /var/snap/lxd/common/lxd/unix.socket; do test -w "$s"; echo "$s rc=$?"; done` | 全部 `rc!=0` |
+| B6 | 经 sudo 的 researchctl 路径 | `sudo -n /usr/local/bin/researchctl verify 2>&1; echo rc=$?` | rc!=0（sudo 已拒） |
+| B7 | 经 sudo 的 research-writer 提权路径 | `sudo -n runuser -u research-writer -- /usr/local/bin/researchctl --direct --root /data/k3/research migrate --migration-id x --from-version 2 --to-version 3 --script /tmp/x.sql --evidence-dir /tmp/x 2>&1; echo rc=$?` | rc!=0，任何一步不得执行 |
+| B8 | `--direct` 离线绕过 | `/usr/local/bin/researchctl --direct --root /data/k3/research verify 2>&1; echo rc=$?` | `status=FAIL_CLOSED`（k3 无权开 DB），exit 2 |
+| B9 | daemon migrate（不在 allowlist） | `/usr/local/bin/researchctl migrate --migration-id x --from-version 2 --to-version 3 --script /tmp/x.sql --evidence-dir /tmp/x 2>&1; echo rc=$?` | `FAIL_CLOSED`，error 含 `daemon command is not allowlisted: migrate`，exit 2 |
+| B10 | daemon init（不在 allowlist） | `/usr/local/bin/researchctl init 2>&1; echo rc=$?` | 同上 `not allowlisted: init`，exit 2 |
+| B11 | owner 写门：HUMAN_OWNER_SIGNED/APPLIED | `researchctl authority-transition --proposal-id <占位> --target HUMAN_OWNER_SIGNED 2>&1; echo rc=$?`（APPLIED 同理） | `FAIL_CLOSED`，exit 2；且 `systemctl cat researchctld | grep P5_OWNER_PEER_UID` 仍 `-1` |
+| B12 | delegation/amendment 门 | `researchctl delegation-register …`、`delegation-redeem …`、`delegation-revoke …`、`amendment-register …`（占位 payload） | `FAIL_CLOSED`（owner 公钥未配置，`OWNER_PUBLIC_KEY_NOT_CONFIGURED` 类），exit 2，零行写入 |
+| B13 | 直接读写 live DB | `test -r /data/k3/research/research.sqlite; test -r research.sqlite-wal; test -r research.sqlite-shm; test -w /data/k3/research` | 全部 `rc!=0`（600 research-writer / 750 无组写） |
+| B14 | 敏感路径不可读/写 | `test -r /data/k3/research/owner-credentials`（rc!=0）；`test -w /data/k3/research/app-v2-pc7`（rc!=0）；`test -w /usr/local/bin/researchctl`（rc!=0）；`test -w /etc/systemd/system/researchctld.service`（rc!=0）；`test -w /run/researchctl`（rc!=0） | 全部拒绝 |
+| B15 | k3-uid 常驻进程组快照 | `for p in $(pgrep -u k3); do grep '^Groups:' /proc/$p/status; done` | 任一存活 k3 进程 Groups 均不含 105/988/1001 |
+
+## 3. 矩阵 C — preserved：必须继续可用（researchctl 保留面）
+
+| # | 检查项 | 精确命令 | 期望结果 |
+|---|---|---|---|
+| C1 | wrapper 实体 | `stat -c '%A %a %U %G %n' /usr/local/bin/researchctl; sha256sum /usr/local/bin/researchctl` | `755 root:root`；sha256 == `7ff11dee…dea3c`（Phase 2 重 seal 后） |
+| C2 | wrapper 可执行 | `/usr/local/bin/researchctl --help` | 正常输出子命令，rc=0 |
+| C3 | 只读 daemon 通道 1 | `/usr/local/bin/researchctl verify` | `ok:true`，`status=PASS`，`authenticated_peer_uid=1001`，event_count == cutover 前 baseline（参考值 3059 @04:16Z，以 baseline.json 为准） |
+| C4 | 只读 daemon 通道 2 | `/usr/local/bin/researchctl runtime-info` | PASS，`writer_gateway=researchctld`，peer_uid=1001 |
+| C5 | 确定性重放门 | `/usr/local/bin/researchctl rebuild-check` | PASS，`diff=0`，live == rebuilt |
+| C6 | as-of（boundary CLOSED） | `researchctl as-of --research-campaign-id P5-EMPIRICAL-FOUNDATION-V1 --as-of 9999-12-31T23:59:59Z --entity-type location`（version 同；ALPHA-ENTRY 同） | 行集与 baseline 完全一致（参考：EMP location 77/version 74，ALPHA location 48/version 33） |
+| C7 | export-ledger（只读导出面） | `researchctl export-ledger --output /data/k3/research/exports/fresh-login-<ts>.jsonl` | trailer `stream_sha256` == baseline 导出；产物留在 `exports/`（daemon 以 research-writer 写入，属 sanctioned 路径） |
+| C8 | 只读树保留 | `test -r /data/k3/research; test -x /data/k3/research; test -r /data/k3/research/backups; test -r /data/k3/research/exports; test -r /data/k3/research/app-v2-pc7` | 全部 rc=0；`backups/ exports/` 750 research-writer:research-client（直连 W=N，经 daemon 可读） |
+| C9 | socket 实体 | `stat -c '%A %a %U %G %n' /run/researchctl /run/researchctl/control.sock` | `/run/researchctl` 750 research-writer:research-client；`control.sock` 660 research-writer:research-client |
+| C10 | 服务一致性 | `systemctl is-active researchctld k3-cryptofeed k3-p5-queue filebrowser-k3`；`systemctl show researchctld -p MainPID,ActiveState`；`sha256sum /etc/systemd/system/researchctld.service` | 4 服务 active；researchctld PID == Phase 6 快照；unit sha256 == `6128bf3c…1ddfd`；`P5_OWNER_PEER_UID=-1` |
+| C11 | research-client 保留 | `getent group research-client` | k3 仍 ∈ research-client（986）——这是 C3–C8 的组权限前提 |
+
+## 4. 矩阵 D — 残余面（不属本 cutover 拒绝集，必须如实记录，不得假装 denied）
+
+| # | 面 | 机械判定 |
+|---|---|---|
+| D1 | `record`、`authority-propose`、`authority-transition → PRECONDITIONS_PASS` | 降权后 k3 仍 ∈ research-client 且 daemon 无 uid 白名单，**仍可达**（threat-model T11 / authority-db-boundary-audit §3）。验收**不得**断言其 FAIL；须在 cutover 报告残留风险节显式登记，且本轮只断言 owner 门（B11/B12）fail-closed |
+| D2 | `backup-verify`（daemon allowlist） | 保留但**有副作用**：会在 `backups/` 下创建 write-once 演练/restore-probe 文件。验收计划若未授权该产物，则仅做静态 allowlist 核对，不执行 |
+| D3 | 旧 k3 session 已终止 | `loginctl list-sessions` 无 UID 1001 旧项；`last -n 20` 有 logout 记录；`systemctl is-active user@1001` 仅因 fresh 会话为 active（Linger=no） |
+
+## 5. 判定规则
+
+- 全部 A/B/C 行满足、D 行完成如实登记 → `state=COMPLETE`；任一 A/B/C 行 FAIL → 立即 HALT、保留现场（state=FAILED），走 threat-model §5.4 回滚/人工介入。
+- 每次执行从控制面以固定 key/known_hosts 发起，全部原始输出带 UTC 时间戳落盘并固定 sha256；禁止在 k3 会话内执行任何写操作（矩阵内所有命令均为只读/负向探针；C7 的 exports 产物与 D2 属已批准例外）。
+- 本矩阵仅生成，**未执行**；授权操作者在 cutover Phase 6 执行。
+
+## 6. 证据来源（本地只读引用）
+
+- [hardening-script-threat-model-20260813/report.md](E:/VPS/reports/hardening-script-threat-model-20260813/report.md)（§4 P0/P1、§5 阶段、§6.3 登录证明、T11/R3/R7）
+- [authority-db-boundary-audit/report.md](E:/VPS/reports/authority-db-boundary-audit/report.md)（daemon allowlist、peer 控制、文件权限实测）
+- [pc7-account-permission-profile/report.md](E:/VPS/reports/pc7-account-permission-profile/report.md)（组/权限基线）
+- [researchctl.py](E:/VPS/pc7_stage/app_v2/p5_infra/researchctl.py) 与 [researchctld.py](E:/VPS/pc7_stage/app_v2/p5_infra/researchctld.py)（allowlist、`not allowlisted`、`--direct` 语义、exit 2）
+- [P5_PRODUCTION_APP_V2_FILE_MANIFEST_V1.json](E:/VPS/terminalization_v2_build/P5_PRODUCTION_APP_V2_FILE_MANIFEST_V1.json)（sealed wrapper/unit sha256）
+- [probe1_locations.sh](E:/VPS/reports/researchctl-location-entity-20260813/probe1_locations.sh)（SSH 传输模式与 as-of 只读调用形态）
+- [migration-ops-path-v2v3/report.md](E:/VPS/reports/migration-ops-path-v2v3/report.md)（allowlist 只读门、备份/导出工具链约束）
+- [verify_fresh_login.sh](E:/VPS/reports/hardening-script-draft/verify_fresh_login.sh)（fresh-login 会话/基线漂移检查范式）

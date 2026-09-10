@@ -1,0 +1,26 @@
+结论：消费锁作用域正确覆盖「选择 → 出生 → stable running 观察」全程，且 stable running 判定只认 run_id 匹配且持续 `running` 的同一代，规范补位通道不存在双出生路径。
+
+**验证 1 — 锁作用域（选择到 running 观察）**
+
+- [refill_consumer_v2.py](E:/codex-LOOP/codex-loop-s-f2/harness/refill_consumer_v2.py:215) 的 `run_once` 在 `data/refill/.consumer.lock` 上持有跨进程锁，锁体内完整包含：`queue_sync_ledger` → `recompute`（before）→ `build_manifest`（`select_tasks` 选择 DISPATCHABLE 包）→ `headless_wave.run`（逐包 ledger 复核、`DispatcherV2.dispatch`、`wait_observed`）→ `StateMachine.step()`（同一事务内消费 `dispatched` 事件，使包离开 DISPATCHABLE，见 [refill_consumer_v2.py](E:/codex-LOOP/codex-loop-s-f2/harness/refill_consumer_v2.py:229)）→ `recompute`（after）。
+- 全仓 grep 确认 `.consumer.lock` 仅此一处获取；[schedule_run](E:/codex-LOOP/codex-loop-s-f2/harness/refill_consumer_v2.py:84) 的 `.refill_actuator_schedule.lock` 只做调度合并，真正事务锁在子进程 `run_once` 内。
+- 锁原语 [orchestration_common.py](E:/codex-LOOP/codex-loop-s-f2/harness/orchestration_common.py:236) 为跨进程互斥（Windows `msvcrt` LK_LOCK / POSIX `flock` LOCK_EX），与 lifecycle supervisor 同协议。
+- 所有自动补位通道（orchestration_epilogue、terminal_packet_epilogue、lifecycle_supervisor→schedule_run）均汇聚到 `run_once` 锁内。
+
+**验证 2 — stable running 判定**
+
+- [headless_wave.py](E:/codex-LOOP/codex-loop-s-f2/harness/headless_wave.py:171) `observed()`：要求 roster 行 `run_id` 匹配且 `state == "running"`，`starting` 明确不算有效并发（注释：`starting` 仅预留初始化槽位，可能毫秒后 spawn_failed）。
+- [headless_wave.py](E:/codex-LOOP/codex-loop-s-f2/harness/headless_wave.py:178) `wait_observed()`：`running` 需连续稳定 `stable_for=0.25s`；run_id 变化或离开 running 立即重置计时；terminal 状态（completed/failed/timed_out/cancelled/spawn_failed）直接返回 False。
+- dispatch 后要求 `run_id != prior_run` 且 `wait_observed(new run_id)` 成功才记 `"running"`；否则记 `"unobserved"`/终态并返回 rc=3，不消债（[headless_wave.py](E:/codex-LOOP/codex-loop-s-f2/harness/headless_wave.py:395)）。
+- 第二道防线：dispatch 前每次重新校验 ledger 仍为 DISPATCHABLE（[headless_wave.py](E:/codex-LOOP/codex-loop-s-f2/harness/headless_wave.py:327)），且 [statemachine_v2.py](E:/codex-LOOP/codex-loop-s-f2/harness/statemachine_v2.py:425) 以 run_id 拒绝同 attempt 的重复代（`stale_run_id_ignored`/`duplicate_generation_ignored`）。
+
+**测试证据与缺口**
+
+- [test_headless_wave.py](E:/codex-LOOP/codex-loop-s-f2/tests/unit/test_headless_wave.py) 覆盖 generation 匹配、starting 不计并发、lost 恢复、PID 复用令牌；[test_refill_consumer_v2.py](E:/codex-LOOP/codex-loop-s-f2/tests/orchestration_v2/test_refill_consumer_v2.py) 覆盖选择/manifest/调度合并/dry-run。
+- 缺口：没有 `wait_observed` 的 stable_for 稳定性或 `.consumer.lock` 作用域的直接单测（现有测试只验证 `observed()` 的两个布尔面）。
+- 注意：本会话无可用 python 且 WSL 被拒，无法复跑 pytest；`test_evidence_pytest_output.txt`（280 passed，8/10）早于 8/13 的锁实现，不能作为本版本证据，以上结论基于代码审查。
+
+**需注意的两个边界（不影响双出生结论）**
+
+1. Windows `msvcrt` LK_LOCK 阻塞约 10 秒后抛 OSError：宽 wave 持锁常超 10s，第二个并发 actuator 会 fail-visible（rc=3）而非等待/合并；POSIX `flock` 则无限阻塞。属失败可见，不会双出生。
+2. 手动 CLI（`dispatch.py`/`dispatch_v2.py`，v1 含 `--force`）不经 consumer.lock；它们不属于自动补位通道，锁外竞态由 ledger 状态复核 + statemachine run_id 守卫兜底。

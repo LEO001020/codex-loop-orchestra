@@ -1,0 +1,178 @@
+Reading additional input from stdin...
+2026-08-14T07:07:59.277368Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T07:08:09.369997Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-14T07:08:22.351312Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-14T07:08:42.441028Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T07:09:26.854656Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.9 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 98
++ ... 3 | Select-Object FullName, Mode | Format-Table -AutoSize | head -100
++                                                                 ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T07:10:24.670134Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+
+Name                              
+----                              
+build_direct_repair_release.py    
+build_handoff_v2.py               
+build_terminalization_v2.py       
+p5_finalize_hub_research_ready.py 
+p5_seal_home_e2e_parser_attempt.py
+pc6_binance_materializer.py       
+test_pc6_binance_materializer.py  
+run_tests.py                      
+synthetic_harness.py              
+test_cli_dispatch_synthetic.py    
+test_cli_parser_synthetic.py      
+authority_runtime.py              
+authority_store.py                
+conditional_delegation.py         
+t1_wave1_evaluator.py             
+test_authority_store_v3.py        
+test_migration_v3_rehearsal.py    
+test_pc7_synthetic.py             
+arm_codex_repair_canary.py        
+arm_fable_one_time.py             
+finalize_codex_repair_canary.py   
+finalize_fable_readiness.py       
+home_worker.py                    
+observe_codex_repair_canary.py    
+p5_home_watchdog.py               
+counts.py                         
+hub_result_audit.py               
+states.py                         
+authority_runtime.py              
+authority_store.py                
+build_final_artifacts.py          
+conditional_delegation.py         
+make_rehearsal_payloads.py        
+t1_wave1_evaluator.py             
+test_pc7_synthetic.py             
+owner_offline_materializer.py     
+owner_offline_signing_helper.py   
+
+
+Get-ChildItem : 对路径“E:\VPS\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem E:\VPS -Recurse -Depth 1 -Filter "*.py" | Select-Object ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\VPS\.pytest_cache:String) [Get-ChildItem], UnauthorizedAccessExcep 
+   tion
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-14T07:10:38.446504Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.2 seconds
+Output:
+
+FullName                                                                                                               
+--------                                                                                                               
+E:\VPS\reports\owner-admin-cutover-final-20260813                                                                      
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18                                             
+E:\VPS\reports\owner-admin-cutover-final-20260814-recovery-v1                                                          
+E:\VPS\reports\owner-admin-cutover-final-20260814-recovery-v1-fl14                                                     
+E:\VPS\reports\owner-admin-cutover-final-20260814-recovery-v1-fl15                                                     
+E:\VPS\reports\owner-admin-cutover-final-20260814-recovery-v1-fl16                                                     
+E:\VPS\reports\owner-admin-cutover-final-20260814-recovery-v1-fl17                                                     
+E:\VPS\reports\owner-ceremony-draft                                                                                    
+E:\VPS\reports\owner-ceremony-package-20260813                                                                         
+E:\VPS\reports\owner-freeze-grant-packet-locate-20260813                                                               
+E:\VPS\reports\OwnerAdmin凭据门-20260813                                                                               
+E:\VPS\reports\codex-fl13-qa-isolated-20260814-0445\owner-admin-cutover-final-20260814-recovery-v1                     
+E:\VPS\reports\codex-fl14-qa-isolated-20260814-0450\owner-admin-cutover-final-20260814-recovery-v1                     
+E:\VPS\reports\owner-admin-cutover-final-20260813\ceremony\owner_ceremony_display_and_verify.py                        
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\ceremony\owner_ceremony_display_and_verif...
+E:\VPS\reports\owner-admin-cutover-final-20260814-recovery-v1\ceremony\owner_ceremony_display_and_verify.py            
+E:\VPS\reports\owner-admin-cutover-final-20260814-recovery-v1-fl14\ceremony\owner_ceremony_display_and_verify.py       
+E:\VPS\reports\owner-admin-cutover-final-20260814-recovery-v1-fl15\ceremony\owner_ceremony_display_and_verify.py       
+E:\VPS\reports\owner-admin-cutover-final-20260814-recovery-v1-fl16\ceremony\owner_ceremony_display_and_verify.py       
+E:\VPS\reports\owner-admin-cutover-final-20260814-recovery-v1-fl17\ceremony\owner_ceremony_display_and_verify.py       
+E:\VPS\reports\OwnerAdmin凭据门-20260813\owner_admin_credential_request_v1.json                                        
+E:\VPS\terminalization_v2_build\OWNER_ACTIVATION_COMMANDS_V2.md                                                        
+E:\VPS\terminalization_v2_build\OWNER_ACTIVATION_VERIFY_V2.md                                                          
+E:\VPS\terminalization_v2_build\owner_offline_materializer.py                                                          
+E:\VPS\terminalization_v2_build\owner_offline_signing_helper.py                                                        
+E:\VPS\terminalization_v2_build\OWNER_PUBLIC_KEY_FORMAT_V2.md                                                          
+E:\VPS\terminalization_v2_build\OWNER_SIGNATURE_FORMAT_V2.md                                                           
+
+
+Get-ChildItem : 对路径“E:\VPS\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem E:\VPS -Recurse -Depth 3 -Filter "owner*" | Select-Obje ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\VPS\.pytest_cache:String) [Get-ChildItem], UnauthorizedAccessExcep 
+   tion
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+Get-ChildItem : 对路径“E:\VPS\direct_repair_stage\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem E:\VPS -Recurse -Depth 3 -Filter "owner*" | Select-Obje ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\VPS\direct_repair_stage\.pytest_cache:String) [Get-ChildItem], Una 
+   uthorizedAccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-14T07:11:00.853421Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-14T07:11:00.858494Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-14T07:16:25.491289Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1 seconds
+Output:
+{
+  "canonical_id": "P5_OWNER_CEREMONY_O2_DIRECT_C_APPLY_REQUEST_V1",
+  "status": "UNSIGNED_UNEXECUTED",
+  "ceremony_order": "O2",
+  "stage": "direct_C",
+  "request_type": "DIRECT_AMENDMENT_C_APPLY_REQUEST",
+  "amendment": {
+    "id": "C",
+    "exact_sha256": "5b1d8116aa8ed30b407c4804dae191af34a9e4fcc1b9ec292a73b5eeb7c47c83",
+    "authorization_mode": "INTERACTIVE_OWNER_SIGN",
+    "registration_ordinal": 1,
+    "required_state": "APPLIED"
+  },
+  "prerequisite": {
+    "O1_admin_cutover_required": true,
+    "observed_state": null
+  },
+  "order_rules": [
+    "amendment 1 must be C (direct owner sign)",
+    "D_CAN_AUTHORIZE_C=NO",
+    "agent cannot self-register C"
+  ],
+  "execution": {
+    "executed": false,
+    "registered_at": null,
+    "daemon_ledger_sequence": null
+  },
+  "owner_signature": null,
+  "note": "Direct human-owner action under the pre-D interactive path. Exact sha256 is the pinned AMENDMENT_C_SHA256 from direct_repair_stage/authority_store.py. Unsigned and unexecuted."
+}
+
+Get-Content : 找不到路径“E:\VPS\reports\owner-ceremony-package-20260813\O2_direct_C\O3_DIRECT_D_APPLY_REQUEST_V1.json”
+，因为该路径不存在。
+所在位置 行:2 字符: 114
++ ... json" -Raw; Get-Content "E:\VPS\reports\owner-ceremony-package-202608 ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (E:\VPS\reports\...REQUEST_V1.json:String) [Get-Content], ItemNotFoundEx 
+   ception
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+
+2026-08-14T07:23:53.931082Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

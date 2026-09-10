@@ -1,0 +1,91 @@
+I now have a complete, evidence-backed picture of the system. Here is the audit report:
+
+---
+
+## Headless Registration Audit — Findings
+
+### Objective
+Verify that only a matching exec-roster generation stably observed as `running` counts as effective headless concurrency.
+
+---
+
+### Finding 1: The "only `running` is effective" contract is consistently enforced across three layers
+
+**Layer A — `headless_wave.py` (`observed()`, line ~172):**
+```python
+def observed(data_dir, packet_id, run_id):
+    row = roster_item(data_dir, packet_id)
+    # Only RUNNING is effective concurrency.  ``starting`` merely reserves an
+    # initializing slot and may be followed by spawn_failed milliseconds later.
+    return row.get("run_id") == run_id and row.get("state") == "running"
+```
+`wait_observed()` also requires that the state hold `"running"` *stably* for `stable_for=0.25s` before returning `True`. A task only reaches status `"running"` in the output JSON if `wait_observed()` returns `True`. States `"unobserved"`, `"starting"`, `"spawn_failed"`, `"initializing"` do not satisfy this and are reported as non-running statuses.
+
+**Layer B — `refill_controller_v2.py` (`_read_roster_state()`, line ~271):**
+The docstring says: `Only ``running`` counts as effective concurrency (v1 contract).` The exec-roster loop maps `state == "starting"` → `"initializing"` bucket and `state == "running"` → `"running"` bucket. The `recompute()` method computes debt as `min(pending, target − running)`, and adds: `# Debt = min(pending, target − running); initializing births reserve capacity but never clear debt (fail-visible until observed running).`
+
+**Layer C — `lifecycle_supervisor.py` state transitions:**
+The supervisor writes `state="starting"` to the roster before spawning the child boundary (pre-spawn). It writes `state="running"` only after `spawn_boundary()` succeeds and the process exists. This guarantees that `"running"` in the roster corresponds to a live OS process.
+
+---
+
+### Finding 2: Generation matching is enforced — stale generations cannot masquerade as effective
+
+In `_read_roster_state()` (refill_controller_v2, lines ~322–328):
+```python
+supervisor_alive = _process_generation_alive(
+    item.get("supervisor_pid"), item.get("supervisor_proc_start_ticks"))
+worker_alive = _process_generation_alive(
+    item.get("os_pid"), item.get("worker_proc_start_ticks"))
+if not supervisor_alive or (key == "running" and not worker_alive):
+    continue   # stale row skipped — not counted
+```
+`_process_generation_alive()` compares the OS process creation token (Windows `GetProcessTimes` / Linux `/proc/pid/stat` field 22) against the value recorded at birth. A reused PID for a different process (different creation token) returns `False`, so no stale or dead row contributes to the running count.
+
+In `headless_wave.py`, `recover_live_supervisor()` applies the same token check before treating a pre-existing roster row as still-active (lines ~159–166). A `"running"` row with a dead supervisor or dead worker PID is not treated as already-active.
+
+---
+
+### Finding 3: The `wait_generation_change()` + `wait_observed()` two-step ensures the new birth's generation is what gets counted
+
+For packet-keyed (ledger) tasks (lines ~410–426), headless_wave first waits for `run_id != prior_run_id` in the roster, then calls `wait_observed()` requiring that new `run_id` to be in `state == "running"`. Both conditions must hold simultaneously. The final output status `"running"` is only set when `wait_observed()` returns `True` for the new generation's `run_id`.
+
+---
+
+### Finding 4: Non-running statuses explicitly do not clear refill debt
+
+The `observed_running` tally in the output JSON (line ~486):
+```python
+"observed_running": sum(r["status"] in {"running", "already_active"} for r in results)
+```
+Statuses `"unobserved"`, `"spawn_failed"`, `"health_blocked"`, `"provider_backoff"`, `"dispatch_refused"` are excluded. The comment at line 476–477 explicitly states: `Unknown is deliberately not counted as a successful handoff and must not clear any external refill debt.`
+
+---
+
+### Finding 5: ipybox is not part of the concurrency roster — exclusion is correct by design
+
+`ipybox_enabled_for()` in `dispatch_v2.py` is a task constraint controlling whether the MCP ipybox server is enabled for a worker's execution. It is a per-task flag, not a concurrency entity. ipybox is not a process the roster tracks; no roster job entry has an "ipybox" type. Ipybox exclusion from concurrency counting is structural: there is no ipybox row in `exec_roster.json`.
+
+---
+
+### Finding 6: K3-test exclusion — K3 test runners are not registered as lifecycle workers
+
+K3 roles (`verifier`, `reviewer`, `plan_expander`) dispatch through the same `lifecycle_supervisor.py` path with their role string set to `k3`-family roles. They appear in the exec roster as normal jobs. There are no "K3 test" entries that bypass lifecycle registration and no separate test-only roster. The request to "exclude K3 tests" is satisfied by the fact that no such category exists in the harness; all headless workers go through the same supervisor regardless of role.
+
+---
+
+### Summary
+
+**The contract holds end-to-end:**
+
+| Condition | Counted as effective? | Evidence |
+|---|---|---|
+| Roster state `starting` | ❌ No — initializing slot only | `headless_wave.py:173–175`; `refill_controller_v2.py:469–470` |
+| Roster state `running`, matching `run_id`, processes alive | ✅ Yes | `headless_wave.py:175`; `refill_controller_v2.py:271,320,327` |
+| Roster state `running`, matching `run_id`, but supervisor/worker PID dead | ❌ No — skipped by generation check | `refill_controller_v2.py:322–328` |
+| Roster state `running`, mismatched (prior) `run_id` | ❌ No — generation mismatch | `headless_wave.py:184,417` |
+| `spawn_failed`, `unobserved`, `health_blocked`, `provider_backoff` | ❌ No | `headless_wave.py:476–482,485–489` |
+| ipybox | ❌ No roster entry; not a concurrency unit | Structural |
+| K3 tests | ❌ No such distinct category; K3 workers go through normal lifecycle | Structural |
+
+No correctness gaps were found. The implementation faithfully enforces the stated rule: only a roster generation whose `run_id` matches, whose supervisor and worker processes are alive (generation-token verified), and whose `state` field is exactly `"running"`, contributes to effective headless concurrency. Starting/initializing births reserve capacity but never reduce visible debt.

@@ -1,0 +1,23 @@
+{
+  "acceptance": [
+    "确认没有删除工件",
+    "确认不匹配记录不会被移除"
+  ],
+  "authorized_paths": [
+    "harness/repair_transport_deadletters.py",
+    "data/repairs/"
+  ],
+  "constraints": [
+    "read-only"
+  ],
+  "created_by": "parent_manifest_importer",
+  "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+  "goal": "只读复验 transport dead-letter 修复脚本的选择条件、备份、工件保留和可恢复性。不得修改文件。",
+  "manifest_id": "loop-recovery-audit-20260813",
+  "packet_id": "parent-4ac51d21f5c20bd28b5ddb3763a6ad21dbd655aab7898bae",
+  "parent_enabled": true,
+  "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+  "role": "worker",
+  "sandbox": "read-only",
+  "task_name": "事故账本修复复验"
+}

@@ -1,0 +1,189 @@
+Reading additional input from stdin...
+2026-08-14T07:20:52.627159Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T07:20:59.800271Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T07:21:59.561984Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 3.7 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 190
++ ... IST|checksum|manifest|MANIFEST' } | Select-Object FullName | head -40
++                                                                  ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T07:22:14.818175Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.2 seconds
+Output:
+
+FullName                                                                                                               
+--------                                                                                                               
+E:\codex-LOOP\codex-loop-s-f2\SHA256SUMS                                                                               
+E:\codex-LOOP\codex-loop-s-f2\data\dead_letters\adhoc-0f5426ee3c-manifest-schema.json                                  
+E:\codex-LOOP\codex-loop-s-f2\data\dead_letters\adhoc-10a9f01c4d-pc7-h3-pc6-manifest.json                              
+E:\codex-LOOP\codex-loop-s-f2\data\repairs\parent-ledger-schema-20260813-044338\repair_manifest.json                   
+E:\codex-LOOP\codex-loop-s-f2\data\repairs\parent-replay-incident-20260813-044825\repair_manifest.json                 
+E:\codex-LOOP\codex-loop-s-f2\data\repairs\plain-parent-reports-20260813-045304\repair_manifest.json                   
+E:\codex-LOOP\codex-loop-s-f2\data\repairs\transport-deadletters-20260813-042738\repair_manifest.json                  
+E:\codex-LOOP\codex-loop-s-f2\data\reports\convergence-wave1-worker-manifest.json                                      
+E:\codex-LOOP\codex-loop-s-f2\data\reports\convergence-wave2a-headless-manifest.json                                   
+E:\codex-LOOP\codex-loop-s-f2\data\reports\convergence-wave2b-headless-worker-manifest.json                            
+E:\codex-LOOP\codex-loop-s-f2\data\reports\convergence-wave2b-k3-headless-manifest.json                                
+E:\codex-LOOP\codex-loop-s-f2\data\reports\convergence-wave2b-release-review-manifest.json                             
+E:\codex-LOOP\codex-loop-s-f2\data\reports\convergence-wave3-k3-headless-manifest.json                                 
+E:\codex-LOOP\codex-loop-s-f2\data\reports\convergence-wave3-v4-continuation-manifest.json                             
+E:\codex-LOOP\codex-loop-s-f2\data\reports\convergence-wave4-k3-headless-manifest.json                                 
+E:\codex-LOOP\codex-loop-s-f2\data\reports\refill-parent-audit-v4-manifest.json                                        
+E:\codex-LOOP\codex-loop-s-f2\data\reports\release-wave5-k3-manifest.json                                              
+E:\codex-LOOP\codex-loop-s-f2\data\reports\release-wave6-k3-manifest.json                                              
+E:\codex-LOOP\codex-loop-s-f2\data\reports\release-wave7-k3-manifest.json                                              
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-0f5426ee3c-manifest-schema                              
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-10a9f01c4d-pc7-h3-pc6-manifest                          
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-33ce0b16e7-f01-manifest-mismatch                        
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-a3fae3fb02-fl17-final-manifest                          
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-a856eb62c8-h05-sha256                                   
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-a856eb62c8-h10-manifest-gate                            
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-c98ffa1069-production-manifest-design                   
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-eb7d587e94-manifest-identity-gate                       
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-f6946c3182-fl13-manifest-determinism                    
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-f6946c3182-fl13-pyc-manifest                            
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-0f5426ee3c-manifest-schema\adhoc-0f5426ee3c-manifest-...
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-10a9f01c4d-pc7-h3-pc6-manifest\adhoc-10a9f01c4d-pc7-h...
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-10a9f01c4d-pc7-h3-pc6-manifest\adhoc-10a9f01c4d-pc7-h...
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-33ce0b16e7-f01-manifest-mismatch\adhoc-33ce0b16e7-f01...
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-a3fae3fb02-fl17-final-manifest\adhoc-a3fae3fb02-fl17-...
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-a856eb62c8-h05-sha256\adhoc-a856eb62c8-h05-sha256-0b9...
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-a856eb62c8-h10-manifest-gate\adhoc-a856eb62c8-h10-man...
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-c98ffa1069-production-manifest-design\adhoc-c98ffa106...
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-eb7d587e94-manifest-identity-gate\adhoc-eb7d587e94-ma...
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-f6946c3182-fl13-manifest-determinism\adhoc-f6946c3182...
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-f6946c3182-fl13-pyc-manifest\adhoc-f6946c3182-fl13-py...
+
+
+
+2026-08-14T07:22:31.179317Z ERROR codex_core::tools::router: error=unsupported call: read
+2026-08-14T07:24:18.587699Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.3 seconds
+Output:
+test_acceptance_replay.py
+test_adversarial.py
+test_agent_router.py
+test_agent_router.py
+test_all_transitions.py
+test_budget_controller.py
+test_budget_controller.py
+test_cold_start_rollback.py
+test_cold_start_rollback.py
+test_csv_reconcile.py
+test_dag_assert.py
+test_desktop_edge_reconcile.py
+test_diffvalidator.py
+test_dispatch.py
+test_dispatch_model_pin.py
+test_dispatch_reinjection.py
+test_dispatch_v2.py
+test_dispatch_v2.py
+test_duty_gate.py
+test_duty_gate_fixhint.py
+test_duty_production.py
+test_duty_route.py
+test_g1_two_packet_parallel.py
+test_g2_retry_success.py
+test_g3_messy_failure.py
+test_g4_path_violation.py
+test_g5_merge_conflict.py
+test_governor_hysteresis.py
+test_governor_hysteresis.py
+test_headless_wave.py
+test_install_v2.py
+test_l2_consumer.py
+test_l2_consumer.py
+test_l3_cap.py
+test_layered_e2e.py
+test_layered_e2e.py
+test_layered_gate.py
+test_layered_gate.py
+test_leaf_agent_spawn_gate.py
+test_lifecycle_supervisor.py
+test_lifecycle_supervisor_v2.py
+test_lifecycle_supervisor_v2.py
+test_loop_config.py
+test_loop_monitor_server.py
+test_meter_governor_contract.py
+test_model_profile.py
+test_model_token_share.py
+test_opencodex_supervisor.py
+test_oscillation_report.py
+test_parent_manifest_importer.py
+test_path_id_safety.py
+test_plan_consumer.py
+test_plan_pipeline.py
+test_production_bridges.py
+test_provider_health.py
+test_reconcile_subagent_metering.py
+test_refill_consumer_v2.py
+test_refill_controller.py
+test_refill_controller_v2.py
+test_refill_controller_v2.py
+test_release_review_route.py
+test_replan_cap.py
+test_result_reducer.py
+test_result_reducer.py
+test_retry.py
+test_root_turn_governor.py
+test_root_turn_governor.py
+test_sanitize.py
+test_shell_suites.py
+test_short_result_validator.py
+test_short_result_validator.py
+test_signals_collect.py
+test_smoke_all.py
+test_smoke_all.py
+test_smoke_gate.py
+test_smoke_gate_real.py
+test_sol_tool_gate.py
+test_sol_tool_gate_v2.py
+test_sol_tool_gate_v2.py
+test_spawn_watchdog.py
+test_statemachine.py
+test_statemachine_v2.py
+test_statemachine_v2.py
+test_subagent_lifecycle_hook.py
+test_summary_synth.py
+test_terminal_packet_epilogue.py
+test_token_meter_v2.py
+test_token_meter_v2.py
+test_trigger_eval.py
+test_trigger_eval_v2.py
+test_trigger_eval_v2.py
+test_verdict_aggregate.py
+test_verdict_check.py
+test_windows_wsl_paths.py
+test_windows_wsl_paths.py
+Get-ChildItem : 对路径“E:\codex-LOOP\codex-loop-s-f2\tests\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 35
++ ... x-loop-s-f2; Get-ChildItem -Recurse tests -Filter "test_*.py" | Selec ...
++                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\codex-LOOP\c...s\.pytest_cache:String) [Get-ChildItem], Unauthoriz 
+   edAccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-14T07:25:40.233326Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

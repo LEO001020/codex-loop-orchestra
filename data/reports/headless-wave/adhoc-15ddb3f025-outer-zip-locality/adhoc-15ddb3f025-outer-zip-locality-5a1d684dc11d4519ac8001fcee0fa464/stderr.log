@@ -1,0 +1,46 @@
+Reading additional input from stdin...
+2026-08-15T06:08:18.022267Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-15T06:08:22.657284Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-15T06:08:34.063900Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-15T06:08:45.090366Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:08:52.319080Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:08:58.879555Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:09:11.397980Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:09:18.775090Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:09:26.859363Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:09:47.022555Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:10:03.985741Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:10:11.860781Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:10:20.005471Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:10:26.882508Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:10:29.465570Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-15T06:10:39.266514Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:11:03.658062Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:11:12.953521Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:11:19.407098Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:11:27.092571Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-15T06:11:34.684499Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-15T06:12:21.913921Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

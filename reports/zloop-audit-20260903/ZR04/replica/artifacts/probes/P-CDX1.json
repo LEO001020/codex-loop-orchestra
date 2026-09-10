@@ -1,0 +1,18 @@
+{
+  "probe_id": "P-CDX1",
+  "executed_at": "2026-09-02T15:30:00Z",
+  "status": "PASS",
+  "route": "opencodex/cliproxy (user's actual route; npm @bitkyc08/opencodex 2.39.0 wraps `codex`; official renamed codex.opencodex-real; ~/.codex/config.toml model_provider=cliproxy)",
+  "evidence": [
+    {
+      "step": "thread_start(cwd=tmp, sandbox=read_only)",
+      "result": "OK"
+    },
+    {
+      "step": "turn('Reply with exactly: OK')",
+      "result": "TurnStatus.completed, final_response='OK', duration_ms=14798"
+    }
+  ],
+  "correction": "Earlier BLOCKED-manual verdict applied only to the ChatGPT-membership route (auth.json id_token is an empty string; access/refresh tokens intact). SDK works via this route.",
+  "next": "stale-active/restart/crash scenarios (P-CDX3) deferred to M7 integration."
+}

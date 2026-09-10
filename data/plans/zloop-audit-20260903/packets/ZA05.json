@@ -1,0 +1,1 @@
+{"packet_id":"ZA05","goal":"任务名：物化回滚审计\n审计 materialize.py 的提交、测试、合入与 rollback_on_failure 行为，识别数据丢失或污染风险。","authorized_paths":"E:/zcode/zloop-gen8/src/zloop/materialize.py; E:/codex-LOOP/codex-loop-s-f2/reports/zloop-audit-20260903/ZA05/","acceptance":"列出回滚触发边界、命令目标目录、未提交数据风险、异常覆盖和精确行号。","constraints":"只读；严禁运行 git reset/clean/merge；报告写入授权报告目录。"}

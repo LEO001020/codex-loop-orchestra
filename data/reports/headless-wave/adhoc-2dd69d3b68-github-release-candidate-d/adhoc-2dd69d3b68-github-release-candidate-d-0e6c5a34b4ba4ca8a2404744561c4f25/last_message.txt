@@ -1,0 +1,32 @@
+候选包 D 已完整构建。以下是交付摘要：
+
+---
+
+## 交付摘要：candidate-D-complete
+
+**位置：** `E:\codex-LOOP\staging\github-release-headless\candidate-D-complete`
+
+### 包内容（214 文件）
+
+| 目录/文件 | 内容 | 数量 |
+|-----------|------|------|
+| 根目录 | README, INSTALL, INSTALL.zh-CN, SECURITY, CONTRIBUTING, LICENSE, THIRD_PARTY_NOTICES, .gitignore, VERSIONS.lock, SHA256SUMS, pytest.ini, requirements-dev.txt, install.sh, uninstall.sh, AGENTS.md | 16 文件 |
+| `agents/` | worker, reviewer, verifier, duty_officer, plan_expander TOML | 5 文件 |
+| `config/` | config.toml.example, model_profiles.toml, orchestration_policy_v2.toml, refill_policy, retry_classes, escalation_ladder, global_working_agreement, hooks.json.example 等 | 12 文件 |
+| `harness/` | 所有 50 个 Python/Bash harness 脚本（dag_assert, diffvalidator, statemachine_v2, dispatch, smoke_gate, headless_wave 等） | 50 文件 |
+| `hooks/` | sol_tool_gate, sol_tool_gate_v2, subagent_lifecycle, global_loop_mode, spawn gate 等 | 8 文件 |
+| `metering/` | model_token_share_v2.py | 1 文件 |
+| `launchers/` | Set-Codex-LOOP-Mode.ps1, Start-Codex-LOOP-Desktop.ps1, windows-uninstall/（4 脚本）| 6 文件 |
+| `scripts/` | pack_release.py, gen_sha256sums.py, hook_generator.py, allowlist.txt, Invoke-Pack.ps1 | 5 文件 |
+| `tests/` | 23 个测试文件 + conftest.py + golden/mock_codex/orchestration_v2/unit 子目录 | 109 文件 |
+
+### 静态检查全部通过
+
+- **脱敏检查 PASS** — 无 `hzq00`、`/home/codexloop`、私有绝对路径、API 密钥、OAuth token
+- **二进制检查 PASS** — 无 `.pyc/.pyo` 文件
+- **数据隔离 PASS** — `data/` 中无运行态数据
+- **令牌扫描 PASS** — 无 `sk-`、`ghp_`、`AKIA` 格式密钥
+- **关键文件检查 PASS** — 42 个必要文件全部存在
+- **SHA256SUMS** — 211 条目已生成
+
+私有路径均替换为 `<LOOP_ROOT>`、`<YOUR_USER_HOME>`、`<YOUR_USERNAME>` 等占位符。

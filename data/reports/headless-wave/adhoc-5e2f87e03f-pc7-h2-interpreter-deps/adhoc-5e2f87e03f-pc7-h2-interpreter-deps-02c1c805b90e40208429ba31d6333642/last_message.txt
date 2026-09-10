@@ -1,0 +1,30 @@
+核对完成，全部只读，未执行任何 materializer 命令或 real-label 路径。以下为第二波解释器依赖审计结果。
+
+## 结论摘要
+
+PC6 数据物化路径的身份冻结呈现"代码强、解释器弱、依赖缺"的不对称状态：
+
+- **代码身份：强冻结**。每个 normalization record 内嵌 `transform_code_identity` + `transform_code_sha256`，manifest/views 内嵌 `build_code_identity`（git commit + 文件 sha256），且有最终 gate 复验。
+- **解释器身份：路径级钉扎，版本级未冻结**。统一走 `/usr/bin/python3.12`，但启动脚本对 python3 只做"存在性安装"（apt 装 `python3 python3-venv`，未钉版本、无版本断言），`/data/k3/venvs/p4` 的创建方式与内容不在本工作区定义。
+- **依赖身份：未冻结**。全工作区无 requirements/pyproject/lock 类文件；运行时只探测模块可导入与打印版本，不持久化、不 gate。
+
+## 已验证证据
+
+1. 代码身份冻结（强）— [pc6_binance_materializer.py](E:/VPS/pc6_binance_materializer.py:643) 每条 normalized record 写入 `transform_code_identity`（`git:k3/p5-codex-pc6-binance-data-materialization-v1:quant/p5_track3/binance_materializer.py`）与 `transform_code_sha256`；[pc6_binance_materializer.py](E:/VPS/pc6_binance_materializer.py:721) `build_code_identity={git_commit, file_sha256, path}`，`P5_BUILD_GIT_COMMIT` 缺省/非 40-hex 即硬失败；manifest 在 [pc6_binance_materializer.py](E:/VPS/pc6_binance_materializer.py:877) 自哈希（canonical JSON，确定性序列化）。
+2. 本地代码哈希复验：`pc6_binance_materializer.py` sha256=`163e4f84…`，与 [final-normalized-review/report.md](E:/VPS/reports/final-normalized-review/report.md) 记录的远程部署代码 sha 一致；远程 35402 条记录的 `transform_code_sha256=fa879816…` 对应生成 commit `4586a2b5`。
+3. 解释器路径钉扎 — [p5_pc6_remote_run_materializer.sh](E:/VPS/p5_pc6_remote_run_materializer.sh:11) 固定 `PYTHONPATH=/data/k3/venvs/p4/lib/python3.12/site-packages` + `/usr/bin/python3.12 -B`；部署/测试脚本同样用 `/usr/bin/python3.12 -m py_compile`（[p5_pc6_remote_deploy_code.sh](E:/VPS/p5_pc6_remote_deploy_code.sh:17)）。
+4. 运行时探测但不冻结 — [p5_pc6_remote_runtime_check.sh](E:/VPS/p5_pc6_remote_runtime_check.sh:8) 打印 requests/pandas/pyarrow/numpy 版本，[p5_pc6_remote_materialization_preflight.sh](E:/VPS/p5_pc6_remote_materialization_preflight.sh) 打印 `python3 --version` 与模块版本；输出只回显到终端，未落入产物或证据目录。
+5. 名称误导点：`p5_pc6_remote_identity_gate.sh` 名为 identity gate，实际只核对 SSH host keys、git 仓库/worktree 状态与 researchctl，**不检查** Python/依赖身份。
+6. 唯一真正"依赖级冻结"在 APSW 研究运行时，非 PC6 路径：wheel `apsw-3.53.4.0-cp312-cp312-manylinux_2_28_x86_64.whl` 钉 sha256=`6c47c64c…`（我本地复算一致），venv 用 `--without-pip` 手工解压，`runtime.json` 固化 sys.executable/apsw/sqlite 版本并落 SHA256SUMS（[p5_install_research_sqlite_runtime_remote.sh](E:/VPS/p5_install_research_sqlite_runtime_remote.sh:8)、[p5_install_research_sqlite_runtime_remote.sh](E:/VPS/p5_install_research_sqlite_runtime_remote.sh:33)）。
+7. 启动层版本不确定性 — [k3-p5-fastpath-startup-20260810.sh](E:/VPS/k3-p5-fastpath-startup-20260810.sh:348) `apt-get install python3 python3-venv`（无版本钉扎）、[k3-p5-fastpath-startup-20260810.sh](E:/VPS/k3-p5-fastpath-startup-20260810.sh:359) uv 走 astral.sh 官方脚本（版本不钉），仅 `python3 --version` 存在性检查。
+8. 依赖面实际很小：物化器顶部仅标准库 import，pyarrow 为惰性局部 import（[pc6_binance_materializer.py](E:/VPS/pc6_binance_materializer.py:622)、[pc6_binance_materializer.py](E:/VPS/pc6_binance_materializer.py:755)），即有效依赖面 ≈ CPython 3.12 补丁版 + pyarrow 版本。
+
+## 可复现性评估
+
+- **可复现但非可冻结重放**：规范哈希、write-once、CURRENT 指针、skip-existing 语义使"同一环境重跑"字节一致；`final-normalized-review` 已证明 HEAD 代码下重跑 35402 条全部命中跳过路径。
+- **跨环境复现缺口**：解释器小版本与 pyarrow 版本由 `/data/k3/venvs/p4` 现装机态决定，无 lock/无 pip freeze 快照/无站点包哈希，apt 升级可能无声漂移；`temporal_schema_sha256` 冻结了 schema 语义但未冻结产生它的软件栈。
+- 建议（如需收紧）：将 `python3.12 --version`、`pyarrow.__version__`、`pip freeze`（或 site-packages 清单哈希）写入 `build_code_identity` 并纳入 final gate；或为 p4 venv 引入 requirements.lock + 哈希验证，与 APSW 轮子的做法对齐。
+
+## 合规声明
+
+未运行 real-label 路径：materializer 命令枚举仅 `enumerate/download/normalize/artifacts/all`（[pc6_binance_materializer.py](E:/VPS/pc6_binance_materializer.py:901)），无任何 labels/real 分支；manifest 自证 `non_actions={real_return_performance_computed:False, p3_t1_executed:False, p3_h0_discovery_executed:False}`（[pc6_binance_materializer.py](E:/VPS/pc6_binance_materializer.py:889)）。本包全程只读，未执行任何脚本、未连接远端。

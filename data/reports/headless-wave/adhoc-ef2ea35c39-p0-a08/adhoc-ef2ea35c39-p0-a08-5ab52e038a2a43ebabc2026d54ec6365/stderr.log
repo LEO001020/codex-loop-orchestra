@@ -1,0 +1,14 @@
+Reading additional input from stdin...
+2026-08-14T05:24:13.242836Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T05:24:21.516155Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T05:24:36.359154Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-14T05:24:46.378319Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `command` at line 1 column 90
+2026-08-14T05:24:56.434875Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`

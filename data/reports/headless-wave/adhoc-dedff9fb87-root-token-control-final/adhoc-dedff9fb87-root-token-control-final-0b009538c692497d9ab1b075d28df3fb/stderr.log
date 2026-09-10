@@ -1,0 +1,878 @@
+Reading additional input from stdin...
+2026-08-12T12:20:29.370738Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-12T12:20:39.474834Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:20:55.175106Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:22:39.514030Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1 seconds
+Output:
+E:\codex-LOOP\codex-loop-s-f2\harness\budget_controller.py
+E:\codex-LOOP\codex-loop-s-f2\harness\result_reducer.py
+E:\codex-LOOP\codex-loop-s-f2\harness\root_turn_governor.py
+E:\codex-LOOP\codex-loop-s-f2\harness\short_result_validator.py
+E:\codex-LOOP\codex-loop-s-f2\hooks\sol_tool_gate.py
+Get-ChildItem : 对路径“E:\codex-LOOP\codex-loop-s-f2\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem -Path . -Recurse -Filter "*.py" | Where-Object { $_.Nam ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\codex-LOOP\c...2\.pytest_cache:String) [Get-ChildItem], Unauthoriz 
+   edAccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-12T12:22:42.972973Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:25:39.918123Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:28:15.288187Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:28:25.300319Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:28:31.034223Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:28:40.708640Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:28:42.718124Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.4 seconds
+Output:
+
+
+    目录: E:\codex-LOOP\codex-loop-s-f2\metering
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         2026/8/12     18:49                __pycache__                                                          
+-a----         2026/8/10     10:00          13752 e0_annotate.py                                                       
+-a----         2026/8/11     23:21          17637 model_token_share.py                                                 
+-a----         2026/8/11     23:48           9005 model_token_share_bridge.py                                          
+-a----         2026/8/12     18:46          26666 model_token_share_v2.py                                              
+-a----         2026/8/10      7:02           6987 oscillation_report.py                                                
+-a----         2026/8/12     13:38          11384 usage_reconcile.py                                                   
+
+
+Get-ChildItem : 找不到路径“E:\codex-LOOP\codex-loop-s-f2\policy”，因为该路径不存在。
+所在位置 行:2 字符: 62
++ ... 2\metering; Get-ChildItem -Force E:\codex-LOOP\codex-loop-s-f2\policy ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (E:\codex-LOOP\codex-loop-s-f2\policy:String) [Get-ChildItem], ItemNotFo 
+   undException
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-12T12:28:43.549367Z  WARN codex_sandboxing::violation: recorded sandbox violation: resource=filesystem backend=windows_sandbox reason=policy_denied path=unknown
+2026-08-12T12:28:43.563934Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.8 seconds
+Total output lines: 208
+Output:
+E:\codex-LOOP\codex-loop-s-f2\agents\worker.toml:14:model_context_window = 1000000
+E:\codex-LOOP\codex-loop-s-f2\agents\worker.toml:15:model_auto_compact_token_limit = 800000
+E:\codex-LOOP\codex-loop-s-f2\agents\verifier.toml:14:model_context_window = 1000000
+E:\codex-LOOP\codex-loop-s-f2\agents\verifier.toml:15:model_auto_compact_token_limit = 800000
+E:\codex-LOOP\codex-loop-s-f2\agents\reviewer.toml:15:model_context_window = 1000000
+E:\codex-LOOP\codex-loop-s-f2\agents\reviewer.toml:16:model_auto_compact_token_limit = 800000
+E:\codex-LOOP\codex-loop-s-f2\agents\plan_expander.toml:5:model_context_window = 1000000
+E:\codex-LOOP\codex-loop-s-f2\agents\plan_expander.toml:6:model_auto_compact_token_limit = 800000
+E:\codex-LOOP\codex-loop-s-f2\agents\duty_officer.toml:17:model_context_window = 1000000
+E:\codex-LOOP\codex-loop-s-f2\agents\duty_officer.toml:18:model_auto_compact_token_limit = 800000
+E:\codex-LOOP\codex-loop-s-f2\config\orchestration_policy_v2.toml:32:k3_context_tokens = 1000000
+E:\codex-LOOP\codex-loop-s-f2\config\orchestration_policy_v2.toml:33:k3_compaction_tokens = 800000
+E:\codex-LOOP\codex-loop-s-f2\config\orchestration_policy_v2.toml:37:v4_context_tokens = 1000000
+E:\codex-LOOP\codex-loop-s-f2\config\orchestration_policy_v2.toml:38:v4_compaction_tokens = 800000
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.38772.tmp:16:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.38772.tmp:18:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.38772.tmp:139:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.38772.tmp:141:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.38772.tmp:245:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.38772.tmp:247:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.38772.tmp:343:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.38772.tmp:345:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.38772.tmp:351:        "任务名：模型固定确认\n只读检查 headless_wave.py、agents/verifier.toml 与 orchestration_policy_v2.toml：确认实际模型K3、max、1M上下文、800K压缩均显式固定。不得修改文件。返回一行结论和证据行号。"
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.22616.tmp:16:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.22616.tmp:18:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.22616.tmp:133:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.22616.tmp:135:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.22616.tmp:239:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.22616.tmp:241:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.22616.tmp:343:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.22616.tmp:345:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.22616.tmp:351:        "任务名：模型固定确认\n只读检查 headless_wave.py、agents/verifier.toml 与 orchestration_policy_v2.toml：确认实际模型K3、max、1M上下文、800K压缩均显式固定。不得修改文件。返回一行结论和证据行号。"
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.15248.tmp:16:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.15248.tmp:18:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.15248.tmp:97:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.15248.tmp:99:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.15248.tmp:178:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.15248.tmp:180:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.15248.tmp:259:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.15248.tmp:261:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.15248.tmp:330:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.15248.tmp:332:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.15248.tmp:411:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.15248.tmp:413:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.15248.tmp:482:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.15248.tmp:484:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.15248.tmp:563:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.15248.tmp:565:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.15248.tmp:634:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.15248.tmp:636:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.15248.tmp:764:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.15248.tmp:766:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.15248.tmp:870:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.15248.tmp:872:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.15248.tmp:1009:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.15248.tmp:1011:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.15248.tmp:1017:        "任务名：模型固定确认\n只读检查 headless_wave.py、agents/verifier.toml 与 orchestration_policy_v2.toml：确认实际模型K3、max、1M上下文、800K压缩均显式固定。不得修改文件。返回一行结论和证据行号。"
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.15248.tmp:1115:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json.15248.tmp:1117:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:16:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:18:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:95:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:97:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:174:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:176:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:253:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:255:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:337:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:339:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:421:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:423:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:500:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:502:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:579:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:581:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:658:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:660:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:737:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:739:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:816:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:818:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:895:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:897:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:974:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:976:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:1053:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:1055:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:1134:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:1136:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:1215:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:1217:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:1296:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:1298:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:1377:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:1379:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:1458:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:1460:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:1539:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:1541:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:1617:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:1619:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:1698:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:1700:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:1828:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:1830:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:1934:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:1936:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:2073:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:2075:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:2081:        "任务名：模型固定确认\n只读检查 headless_wave.py、agents/verifier.toml 与 orchestration_policy_v2.toml：确认实际模型K3、max、1M上下文、800K压缩均显式固定。不得修改文件。返回一行结论和证据行号。"
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:2179:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:2181:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:2258:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:2260:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:2342:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:2344:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:2426:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:2428:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:2510:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:2512:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:2594:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:2596:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:2678:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:2680:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:2762:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:2764:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:2778:        "任务名：根上下文与Token审计\n只读审计root_turn_governor.py、result_reducer.py、short_result_validator.py、budget_controller.py、metering及策略。验证子agent只继承编译控制包而非根超长上下文，Sol token占比控制、K3扩充/V4执行链及1M/800k配置。输出PASS/REDO和设计缺口，<=800字。"
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:2846:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:2848:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:2930:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:2932:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:3009:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:3011:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:3088:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:3090:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:3167:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:3169:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:3246:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:3248:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:3325:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:3327:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:3404:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:3406:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:3483:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:3485:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:3562:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:3564:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:3633:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:3635:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:3704:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:3706:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:3775:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:3777:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:3846:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:3848:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:3917:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:3919:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:3988:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:3990:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:4004:        "任务名：根上下文Token最终审计\n只读审计root_turn_governor.py、result_reducer.py、short_result_validator.py、budget_controller.py、metering与policy。验证控制包而非根超长上下文传递、1M/800k、Sol 20-25%门限、K3扩充与V4执行链。结合5小时Sol share约36.25%，区分历史窗口与设计缺口。输出PASS/REDO和P0/P1，<=800字。"
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:4059:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:4061:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:4138:        "model_context_window=1000000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:4140:        "model_auto_compact_token_limit=800000",
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json:4217:        "model_context_windo…252144 tokens truncated…ket stays adjudicating\\\\r\\\\n{\\\\r\\\\n  \\\\\\\"_comment\\\\\\\": \\\\\\\"Codex-LOOP production lifecycle hooks. Replace placeholders with absolute paths, then review and trust exact hashes in /hooks.\\\\\\\",\\\\r\\\\n  \\\\\\\"hooks\\\\\\\": {\\\\r\\\\n    \\\\\\\"SessionStart\\\\\\\": [\\\\r\\\\n      {\\\\r\\\\n        \\\\\\\"matcher\\\\\\\": \\\\\\\"startup|resume|clear|compact\\\\\\\",\\\\r\\\\n        \\\\\\\"hooks\\\\\\\": [\\\\r\\\\n          {\\\\r\\\\n            \\\\\\\"type\\\\\\\": \\\\\\\"command\\\\\\\",\\\\r\\\\n            \\\\\\\"command\\\\\\\": \\\\\\\"python3 <HOOK_DIR>/subagent_lifecycle.py --event SessionStart\\\\\\\",\\\\r\\\\n            \\\\\\\"commandWindows\\\\\\\": \\\\\\\"py -3 \\\\\\\\\\\\\\\"<HOOK_DIR_WINDOWS>\\\\\\\\\\\\\\\\subagent_lifecycle.py\\\\\\\\\\\\\\\" --event SessionStart\\\\\\\",\\\\r\\\\n            \\\\\\\"timeout\\\\\\\": 30,\\\\r\\\\n            \\\\\\\"statusMessage\\\\\\\": \\\\\\\"Reconciling stale subagent lifecycle records\\\\\\\"\\\\r\\\\n          }\\\\r\\\\n        ]\\\\r\\\\n      }\\\\r\\\\n    ],\\\\r\\\\n    \\\\\\\"SubagentStart\\\\\\\": [\\\\r\\\\n      {\\\\r\\\\n        \\\\\\\"matcher\\\\\\\": \\\\\\\".*\\\\\\\",\\\\r\\\\n        \\\\\\\"hooks\\\\\\\": [\\\\r\\\\n          {\\\\r\\\\n            \\\\\\\"type\\\\\\\": \\\\\\\"command\\\\\\\",\\\\r\\\\n            \\\\\\\"command\\\\\\\": \\\\\\\"python3 <HOOK_DIR>/subagent_lifecycle.py --event SubagentStart\\\\\\\",\\\\r\\\\n            \\\\\\\"commandWindows\\\\\\\": \\\\\\\"py -3 \\\\\\\\\\\\\\\"<HOOK_DIR_WINDOWS>\\\\\\\\\\\\\\\\subagent_lifecycle.py\\\\\\\\\\\\\\\" --event SubagentStart\\\\\\\",\\\\r\\\\n            \\\\\\\"timeout\\\\\\\": 30,\\\\r\\\\n            \\\\\\\"statusMessage\\\\\\\": \\\\\\\"Recording and naming subagent start\\\\\\\"\\\\r\\\\n          }\\\\r\\\\n        ]\\\\r\\\\n      }\\\\r\\\\n    ],\\\\r\\\\n    \\\\\\\"SubagentStop\\\\\\\": [\\\\r\\\\n      {\\\\r\\\\n        \\\\\\\"matcher\\\\\\\": \\\\\\\".*\\\\\\\",\\\\r\\\\n        \\\\\\\"hooks\\\\\\\": [\\\\r\\\\n          {\\\\r\\\\n            \\\\\\\"type\\\\\\\": \\\\\\\"command\\\\\\\",\\\\r\\\\n            \\\\\\\"command\\\\\\\": \\\\\\\"python3 <HOOK_DIR>/subagent_lifecycle.py --event SubagentStop\\\\\\\",\\\\r\\\\n            \\\\\\\"commandWindows\\\\\\\": \\\\\\\"py -3 \\\\\\\\\\\\\\\"<HOOK_DIR_WINDOWS>\\\\\\\\\\\\\\\\subagent_lifecycle.py\\\\\\\\\\\\\\\" --event SubagentStop\\\\\\\",\\\\r\\\\n            \\\\\\\"timeout\\\\\\\": 30,\\\\r\\\\n            \\\\\\\"statusMessage\\\\\\\": \\\\\\\"Marking subagent terminal and queuing host close\\\\\\\"\\\\r\\\\n          }\\\\r\\\\n        ]\\\\r\\\\n      }\\\\r\\\\n    ],\\\\r\\\\n    \\\\\\\"Stop\\\\\\\": [\\\\r\\\\n      {\\\\r\\\\n        \\\\\\\"matcher\\\\\\\": \\\\\\\".*\\\\\\\",\\\\r\\\\n        \\\\\\\"hooks\\\\\\\": [\\\\r\\\\n          {\\\\r\\\\n            \\\\\\\"type\\\\\\\": \\\\\\\"command\\\\\\\",\\\\r\\\\n            \\\\\\\"command\\\\\\\": \\\\\\\"python3 <HOOK_DIR>/subagent_lifecycle.py --event Stop\\\\\\\",\\\\r\\\\n            \\\\\\\"commandWindows\\\\\\\": \\\\\\\"py -3 \\\\\\\\\\\\\\\"<HOOK_DIR_WINDOWS>\\\\\\\\\\\\\\\\subagent_lifecycle.py\\\\\\\\\\\\\\\" --event Stop\\\\\\\",\\\\r\\\\n            \\\\\\\"timeout\\\\\\\": 30,\\\\r\\\\n            \\\\\\\"statusMessage\\\\\\\": \\\\\\\"Cascading parent Stop into lifecycle cancellation requests\\\\\\\"\\\\r\\\\n          }\\\\r\\\\n        ]\\\\r\\\\n      }\\\\r\\\\n    ],\\\\r\\\\n    \\\\\\\"PreToolUse\\\\\\\": [\\\\r\\\\n\\\",\\\"exit_code\\\":0,\\\"status\\\":\\\"completed\\\"}}\\r\\n.\\\\data\\\\reports\\\\headless-wave\\\\adhoc-20516a9185-policy-env-override\\\\adhoc-20516a9185-policy-env-override-d95f0d96a2ed4d95a61cb7dc83665ed5\\\\stderr.log:940:E:\\\\codex-LOOP\\\\codex-loop-s-f2\\\\tests\\\\orchestration_v2\\\\test_budget_controller.py\\r\\n.\\\\data\\\\reports\\\\headless-wave\\\\adhoc-20516a9185-policy-env-override\\\\adhoc-20516a9185-policy-env-override-d95f0d96a2ed4d95a61cb7dc83665ed5\\\\stderr.log:1074:tests\\\\orchestration_v2\\\\test_budget_controller.py\\r\\n.\\\\data\\\\reports\\\\headless-wave\\\\adhoc-20516a9185-policy-env-override\\\\adhoc-20516a9185-policy-env-override-d95f0d96a2ed4d95a61cb7dc83665ed5\\\\stderr.log:2393:reports\\\\desktop-concurrency-audit-20260812\\\\08-ÃƒÂ¦Ã‚Â¨Ã‚Â¡ÃƒÂ¥Ã…Â¾Ã¢â‚¬Â¹ÃƒÂ¨Ã‚Â·Ã‚Â¯ÃƒÂ§Ã¢â‚¬ÂÃ‚Â±ÃƒÂ¥Ã‚Â®Ã‚Â¡ÃƒÂ¨Ã‚Â®Ã‚?jsonl:7:{\\\"type\\\":\\\"item.completed\\\",\\\"item\\\":{\\\"id\\\":\\\"item_2\\\",\\\"type\\\":\\\"command_execution\\\",\\\"command\\\":\\\"\\\\\\\"C:\\\\\\\\\\\\\\\\WINDOWS\\\\\\\\\\\\\\\\System32\\\\\\\\\\\\\\\\WindowsPowerShell\\\\\\\\\\\\\\\\v1.0\\\\\\\\\\\\\\\\powershell.exe\\\\\\\" -Command \\\\\\\"rg --files -g '\\\\\\\"'!*node_modules*'\\\\\\\"' -g '\\\\\\\"'!*.git*'\\\\\\\"' | Select-Object -First 100\\\\\\\"\\\",\\\"aggregated_output\\\":\\\"work_commencement_certificate.md\\\\r\\\\nVERSIONS.lock\\\\r\\\\ntest_evidence_pytest_output.txt\\\\r\\\\nREADME.md\\\\r\\\\ninstall.sh\\\\r\\\\nsearch_log.md\\\\r\\\\nSHA256SUMS\\\\r\\\\nAGENTS.md\\\\r\\\\nschemas\\\\\\\\short_result.schema.json\\\\r\\\\nschemas\\\\\\\\plan_expander.schema.json\\\\r\\\\nschemas\\\\\\\\decision_skeleton.schema.json\\\\r\\\\nharness\\\\\\\\layered_gate.py\\\\r\\\\nharness\\\\\\\\l2_consumer.py\\\\r\\\\nharness\\\\\\\\ipybox_lazy.py\\\\r\\\\nharness\\\\\\\\ipybox_cleanup.py\\\\r\\\\nharness\\\\\\\\duty_route.py\\\\r\\\\nharness\\\\\\\\duty_gate.py\\\\r\\\\nharness\\\\\\\\duty_driver.py\\\\r\\\\nharness\\\\\\\\dual_plane_hash.py\\\\r\\\\nharness\\\\\\\\dispatch_v2.py\\\\r\\\\nharness\\\\\\\\dispatch.py\\\\r\\\\nharness\\\\\\\\diffvalidator.py\\\\r\\\\nharness\\\\\\\\desktop_edge_reconcile.py\\\\r\\\\nharness\\\\\\\\dag_assert.py\\\\r\\\\nharness\\\\\\\\csv_reconcile.py\\\\r\\\\nharness\\\\\\\\budget_controller.py\\\\r\\\\nharness\\\\\\\\agent_router.py\\\\r\\\\nharness\\\\\\\\acceptance_replay.sh\\\\r\\\\nagents\\\\\\\\worker.toml\\\\r\\\\nagents\\\\\\\\verifier.toml\\\\r\\\\nagents\\\\\\\\reviewer.toml\\\\r\\\\nagents\\\\\\\\plan_expander.toml\\\\r\\\\nagents\\\\\\\\duty_officer.toml\\\\r\\\\nmetering\\\\\\\\model_token_share_bridge.py\\\\r\\\\nmetering\\\\\\\\model_token_share.py\\\\r\\\\nmetering\\\\\\\\e0_annotate.py\\\\r\\\\nmetering\\\\\\\\oscillation_report.py\\\\r\\\\nmetering\\\\\\\\model_token_share_v2.py\\\\r\\\\nmetering\\\\\\\\usage_reconcile.py\\\\r\\\\nharness\\\\\\\\routing_mode.py\\\\r\\\\nharness\\\\\\\\root_turn_governor.py\\\\r\\\\nharness\\\\\\\\retry.py\\\\r\\\\nharness\\\\\\\\result_reducer.py\\\\r\\\\nharness\\\\\\\\refill_controller_v2.py\\\\r\\\\nharness\\\\\\\\refill_controller.py\\\\r\\\\nharness\\\\\\\\orchestration_epilogue.py\\\\r\\\\nharness\\\\\\\\orchestration_common.py\\\\r\\\\nharness\\\\\\\\summary_synth.py\\\\r\\\\nharness\\\\\\\\statemachine_v2.py\\\\r\\\\nharness\\\\\\\\statemachine.py\\\\r\\\\nharness\\\\\\\\smoke_gate.sh\\\\r\\\\nharness\\\\\\\\signals_collect.py\\\\r\\\\nharness\\\\\\\\short_result_validator.py\\\\r\\\\nharness\\\\\\\\sanitize.py\\\\r\\\\nharness\\\\\\\\verdict_aggregate.py\\\\r\\\\nharness\\\\\\\\trigger_eval_v2.py\\\\r\\\\nharness\\\\\\\\trigger_eval.py\\\\r\\\\nharness\\\\\\\\worktree_pool.sh\\\\r\\\\nharness\\\\\\\\verdict_check.py\\\\r\\\\nhooks\\\\\\\\sol_tool_gate_v2.py\\\\r\\\\nhooks\\\\\\\\sol_tool_gate_router.py\\\\r\\\\nhooks\\\\\\\\sol_tool_gate.py\\\\r\\\\nhooks\\\\\\\\hooks.json.example\\\\r\\\\nhooks\\\\\\\\subagent_start_meter.sh\\\\r\\\\nhooks\\\\\\\\subagent_lifecycle.py\\\\r\\\\nmetering\\\\\\\\__pycache__\\\\\\\\usage_reconcile.cpython-314.pyc\\\\r\\\\nbackup-20260811-215927\\\\\\\\tests\\\\\\\\orchestration_v2\\\\\\\\test_windows_wsl_paths.py\\\\r\\\\nmetering\\\\\\\\__pycache__\\\\\\\\usage_reconcile.cpython-312.pyc\\\\r\\\\nbackup-20260811-215927\\\\\\\\tests\\\\\\\\orchestration_v2\\\\\\\\test_agent_router.py\\\\r\\\\nmetering\\\\\\\\__pycache__\\\\\\\\model_token_share_v2.cpython-314.pyc\\\\r\\\\nbackup-20260811-215927\\\\\\\\tests\\\\\\\\orchestration_v2\\\\\\\\conftest.py\\\\r\\\\nmetering\\\\\\\\__pycache__\\\\\\\\model_token_share.cpython-314.pyc\\\\r\\\\nmetering\\\\\\\\__pycache__\\\\\\\\model_token_share.cpython-312.pyc\\\\r\\\\nmetering\\\\\\\\__pycache__\\\\\\\\e0_annotate.cpython-312.pyc\\\\r\\\\nreports\\\\\\\\k3_concurrent_audit_20260812.md\\\\r\\\\nreports\\\\\\\\ipybox-headless-stability-20260810.md\\\\r\\\\nreports\\\\\\\\fable_v2_final_integration_20260812.md\\\\r\\\\ntests\\\\\\\\ipybox_supervisor_smoke.py\\\\r\\\\ntests\\\\\\\\ipybox_parent_death_smoke.py\\\\r\\\\ndata\\\\\\\\events.ndjson\\\\r\\\\ndata\\\\\\\\escalation_log.jsonl\\\\r\\\\nbackup-20260811-215706\\\\\\\\config\\\\\\\\refill_policy.toml\\\\r\\\\nbackup-20260811-215706\\\\\\\\config\\\\\\\\orchestration_policy.toml\\\\r\\\\nharness\\\\\\\\loop_config.py\\\\r\\\\nharness\\\\\\\\lifecycle_supervisor_v2.py\\\\r\\\\nharness\\\\\\\\lifecycle_supervisor.py\\\\r\\\\nharness\\\\\\\\orchestration\\\\\\\\plan_pipeline.py\\\\r\\\\nharness\\\\\\\\missing_check.sh\\\\r\\\\nconfig\\\\\\\\triggers_v2.yaml\\\\r\\\\nconfig\\\\\\\\triggers.yaml\\\\r\\\\nconfig\\\\\\\\statemachine_v2_transitions.json\\\\r\\\\nconfig\\\\\\\\roles_v2.yaml\\\\r\\\\nconfig\\\\\\\\roles.yaml\\\\r\\\\nconfig\\\\\\\\retry_classes.yaml\\\\r\\\\nconfig\\\\\\\\refill_policy.toml\\\\r\\\\nconfig\\\\\\\\orchestration_policy_v2.toml\\\\r\\\\nconfig\\\\\\\\orchestration_policy.toml\\\\r\\\\nconfig\\\\\\\\managed_files_v2.txt\\\\r\\\\nconfig\\\\\\\\loop_config_v2.toml\\\\r\\\\nconfig\\\\\\\\ipybox_sandbox.json\\\\r\\\\n\\\",\\\"exit_code\\\":1,\\\"status\\\":\\\"failed\\\"}}\\r\\n.\\\\data\\\\reports\\\\headless-wave\\\\adhoc-20516a9185-policy-env-override\\\\adhoc-20516a9185-policy-env-override-d95f0d96a2ed4d95a61cb7dc83665ed5\\\\stderr.log:2400:reports\\\\desktop-concurrency-audit-20260812\\\\08-ÃƒÂ¦Ã‚Â¨Ã‚Â¡ÃƒÂ¥Ã…Â¾Ã¢â‚¬Â¹ÃƒÂ¨Ã‚Â·Ã‚Â¯ÃƒÂ§Ã¢â‚¬ÂÃ‚Â±ÃƒÂ¥Ã‚Â®Ã‚Â¡ÃƒÂ¨Ã‚Â®Ã‚?jsonl:14:{\\\"type\\\":\\\"item.completed\\\",\\\"item\\\":{\\\"id\\\":\\\"item_6\\\",\\\"type\\\":\\\"command_execution\\\",\\\"command\\\":\\\"\\\\\\\"C:\\\\\\\\\\\\\\\\WINDOWS\\\\\\\\\\\\\\\\System32\\\\\\\\\\\\\\\\WindowsPowerShell\\\\\\\\\\\\\\\\v1.0\\\\\\\\\\\\\\\\powershell.exe\\\\\\\" -Command \\\\\\\"rg --files -g '\\\\\\\"'!backup-*'\\\\\\\"' -g '\\\\\\\"'!*.pyc'\\\\\\\"' | Select-Object -Skip 100\\\\\\\"\\\",\\\"aggregated_output\\\":\\\"config\\\\\\\\triggers_v2.yaml\\\\r\\\\ndata\\\\\\\\refill\\\\\\\\work_queue.json\\\\r\\\\ndata\\\\\\\\refill\\\\\\\\refill_state.json\\\\r\\\\ndata\\\\\\\\refill\\\\\\\\events.ndjson\\\\r\\\\ntests\\\\\\\\golden\\\\\\\\test_g5_merge_conflict.py\\\\r\\\\ntests\\\\\\\\golden\\\\\\\\test_g4_path_violation.py\\\\r\\\\ntests\\\\\\\\golden\\\\\\\\test_g3_messy_failure.py\\\\r\\\\ntests\\\\\\\\golden\\\\\\\\test_g2_retry_success.py\\\\r\\\\ntests\\\\\\\\golden\\\\\\\\test_g1_two_packet_parallel.py\\\\r\\\\ntests\\\\\\\\conftest.py\\\\r\\\\nSHA256SUMS\\\\r\\\\nsearch_log.md\\\\r\\\\ntests\\\\\\\\orchestration_v2\\\\\\\\test_lifecycle_supervisor_v2.py\\\\r\\\\ntests\\\\\\\\orchestration_v2\\\\\\\\test_layered_gate.py\\\\r\\\\ntests\\\\\\\\orchestration_v2\\\\\\\\test_layered_e2e.py\\\\r\\\\ntests\\\\\\\\orchestration_v2\\\\\\\\test_l2_consumer.py\\\\r\\\\ntests\\\\\\\\orchestration_v2\\\\\\\\test_governor_hysteresis.py\\\\r\\\\ntests\\\\\\\\orchestration_v2\\\\\\\\test_dispatch_v2.py\\\\r\\\\ntests\\\\\\\\orchestration_v2\\\\\\\\test_cold_start_rollback.py\\\\r\\\\ntests\\\\\\\\orchestration_v2\\\\\\\\test_budget_controller.py\\\\r\\\\ntests\\\\\\\\orchestration_v2\\\\\\\\test_agent_router.py\\\\r\\\\ntests\\\\\\\\orchestration_v2\\\\\\\\conftest.py\\\\r\\\\ntests\\\\\\\\statemachine_paths\\\\\\\\test_all_transitions.py\\\\r\\\\ntests\\\\\\\\statemachine_paths\\\\\\\\test_adversarial.py\\\\r\\\\ndata\\\\\\\\escalation_log.jsonl\\\\r\\\\nmetering\\\\\\\\usage_reconcile.py\\\\r\\\\nmetering\\\\\\\\oscillation_report.py\\\\r\\\\nmetering\\\\\\\\model_token_share_v2.py\\\\r\\\\nmetering\\\\\\\\model_token_share_bridge.py\\\\r\\\\nmetering\\\\\\\\model_token_share.py\\\\r\\\\nmetering\\\\\\\\e0_annotate.py\\\\r\\\\ninstall.sh\\\\r\\\\ndata\\\\\\\\events.ndjson\\\\r\\\\ndata\\\\\\\\usage\\\\\\\\windows_model_token_share.json\\\\r\\\\ndata\\\\\\\\usage\\\\\\\\token_ledger.ndjsonl\\\\r\\\\ndata\\\\\\\\usage\\\\\\\\model_token_share_v2.json\\\\r\\\\ndata\\\\\\\\usage\\\\\\\\model_token_share.json\\\\r\\\\ndata\\\\\\\\usage\\\\\\\\meter_shadow_comparison.json\\\\r\\\\ndata\\\\\\\\usage\\\\\\\\meter_bridge_state.json\\\\r\\\\ndata\\\\\\\\usage\\\\\\\\hysteresis_state.json\\\\r\\\\ndata\\\\\\\\governor\\\\\\\\state_attestations.ndjsonl.lock\\\\r\\\\ndata\\\\\\\\governor\\\\\\\\state_attestations.ndjsonl\\\\r\\\\ndata\\\\\\\\governor\\\\\\\\rollback_rehearsal.json\\\\r\\\\ndata\\\\\\\\governor\\\\\\\\layered_gate.ndjsonl\\\\r\\\\ndata\\\\\\\\governor\\\\\\\\layered_authorization.json\\\\r\\\\ndata\\\\\\\\governor\\\\\\\\gate_decisions.ndjsonl\\\\r\\\\ndata\\\\\\\\governor\\\\\\\\dual_plane_hash.json\\\\r\\\\ndata\\\\\\\\lessons.jsonl\\\\r\\\\ndata\\\\\\\\progress_ledger.json\\\\r\\\\ndata\\\\\\\\progress_ledger.lock\\\\r\\\\ndata\\\\\\\\provider_health\\\\\\\\k3.json\\\\r\\\\ntests\\\\\\\\orchestration_v2\\\\\\\\test_windows_wsl_paths.py\\\\r\\\\ntests\\\\\\\\orchestration_v2\\\\\\\\test_trigger_eval_v2.py\\\\r\\\\ntests\\\\\\\\orchestration_v2\\\\\\\\test_token_meter_v2.py\\\\r\\\\ntests\\\\\\\\orchestration_v2\\\\\\\\test_statemachine_v2.py\\\\r\\\\ntests\\\\\\\\orchestration_v2\\\\\\\\test_sol_tool_gate_v2.py\\\\r\\\\ntests\\\\\\\\orchestration_v2\\\\\\\\test_smoke_all.py\\\\r\\\\ntests\\\\\\\\orchestration_v2\\\\\\\\test_short_result_validator.py\\\\r\\\\ntests\\\\\\\\orchestration_v2\\\\\\\\test_root_turn_governor.py\\\\r\\\\ntests\\\\\\\\orchestration_v2\\\\\\\\test_result_reducer.py\\\\r\\\\ntests\\\\\\\\orchestration_v2\\\\\\\\test_refill_controller_v2.py\\\\r\\\\ntests\\\\\\\\orchestration_v2\\\\\\\\test_production_bridges.py\\\\r\\\\ntests\\\\\\\\orchestration_v2\\\\\\\\test_meter_governor_contract.py\\\\r\\\\nharness\\\\\\\\missing_check.sh\\\\r\\\\nharness\\\\\\\\loop_config.py\\\\r\\\\nharness\\\\\\\\lifecycle_supervisor_v2.py\\\\r\\\\nharness\\\\\\\\lifecycle_supervisor.py\\\\r\\\\nharness\\\\\\\\layered_gate.py\\\\r\\\\nharness\\\\\\\\l2_consumer.py\\\\r\\\\nharness\\\\\\\\ipybox_lazy.py\\\\r\\\\nharness\\\\\\\\ipybox_cleanup.py\\\\r\\\\nharness\\\\\\\\duty_route.py\\\\r\\\\nharness\\\\\\\\duty_gate.py\\\\r\\\\nharness\\\\\\\\duty_driver.py\\\\r\\\\nharness\\\\\\\\dual_plane_hash.py\\\\r\\\\nharness\\\\\\\\dispatch_v2.py\\\\r\\\\nharness\\\\\\\\dispatch.py\\\\r\\\\nharness\\\\\\\\diffvalidator.py\\\\r\\\\nharness\\\\\\\\desktop_edge_reconcile.py\\\\r\\\\nharness\\\\\\\\dag_assert.py\\\\r\\\\nharness\\\\\\\\csv_reconcile.py\\\\r\\\\nharness\\\\\\\\budget_controller.py\\\\r\\\\nharness\\\\\\\\agent_router.py\\\\r\\\\nharness\\\\\\\\acceptance_replay.sh\\\\r\\\\nharness\\\\\\\\short_result_validator.py\\\\r\\\\nharness\\\\\\\\sanitize.py\\\\r\\\\nharness\\\\\\\\routing_mode.py\\\\r\\\\nharness\\\\\\\\root_turn_governor.py\\\\r\\\\nharness\\\\\\\\retry.py\\\\r\\\\nharness\\\\\\\\result_reducer.py\\\\r\\\\nharness\\\\\\\\refill_controller_v2.py\\\\r\\\\nharness\\\\\\\\refill_controller.py\\\\r\\\\nharness\\\\\\\\orchestration_epilogue.py\\\\r\\\\nharness\\\\\\\\orchestration_common.py\\\\r\\\\ndata\\\\\\\\lifecycle\\\\\\\\native_roster.json\\\\r\\\\ndata\\\\\\\\lifecycle\\\\\\\\name_map.jsonl\\\\r\\\\ndata\\\\\\\\lifecycle\\\\\\\\exec_roster.json\\\\r\\\\ndata\\\\\\\\lifecycle\\\\\\\\events.ndjson\\\\r\\\\ndata\\\\\\\\lifecycle\\\\\\\\close_requests.ndjson\\\\r\\\\ntests\\\\\\\\mock_codex\\\\\\\\setup_test_repo.sh\\\\r\\\\nreports\\\\\\\\fable-audit\\\\\\\\INTEGRATED_AUDIT_FINDINGS.md\\\\r\\\\ntests\\\\\\\\mock_codex\\\\\\\\scenario_control.sh\\\\r\\\\ntests\\\\\\\\mock_codex\\\\\\\\mock_spawn.sh\\\\r\\\\nreports\\\\\\\\fable-audit\\\\\\\\GATEWAY_INCIDENT_20260811.md\\\\r\\\\ntests\\\\\\\\mock_codex\\\\\\\\mock_codex_exec.sh\\\\r\\\\nreports\\\\\\\\fable-audit\\\\\\\\FABLE_AUDIT_ENTRY.md\\\\r\\\\nreports\\\\\\\\fable-audit\\\\\\\\CONTROL_PACKET.md\\\\r\\\\nreports\\\\\\\\fable-audit\\\\\\\\SOL_TOKEN_GOVERNANCE_PROPOSAL.md\\\\r\\\\ntests\\\\\\\\ipybox_parent_death_smoke.py\\\\r\\\\ntests\\\\\\\\ipybox_supervisor_smoke.py\\\\r\\\\nharness\\\\\\\\summary_synth.py\\\\r\\\\nharness\\\\\\\\statemachine_v2.py\\\\r\\\\nharness\\\\\\\\statemachine.py\\\\r\\\\nharness\\\\\\\\smoke_gate.sh\\\\r\\\\nharness\\\\\\\\signals_collect.py\\\\r\\\\nharness\\\\\\\\worktree_pool.sh\\\\r\\\\nharness\\\\\\\\trigger_eval_v2.py\\\\r\\\\ndata\\\\\\\\smoke\\\\\\\\plan-pipeline-stderr.log\\\\r\\\\ndata\\\\\\\\smoke\\\\\\\\plan-pipeline-stderr-2.log\\\\r\\\\ndata\\\\\\\\smoke\\\\\\\\plan-pipeline-output.json.raw.json\\\\r\\\\ndata\\\\\\\\smoke\\\\\\\\plan-pipeline-output.json\\\\r\\\\ndata\\\\\\\\smoke\\\\\\\\plan-pipeline-events.jsonl\\\\r\\\\ndata\\\\\\\\smoke\\\\\\\\plan-pipeline-events-2.jsonl\\\\r\\\\ndata\\\\\\\\smoke\\\\\\\\plan-pipeline-decision.json\\\\r\\\\ndata\\\\\\\\smoke\\\\\\\\plan-pipeline-control.json\\\\r\\\\nreports\\\\\\\\f2-sol-token-share-defect\\\\\\\\architecture_defect_report.md\\\\r\\\\nharness\\\\\\\\trigger_eval.py\\\\r\\\\nharness\\\\\\\\verdict_aggregate.py\\\\r\\\\nharness\\\\\\\\verdict_check.py\\\\r\\\\ndata\\\\\\\\l2_queue\\\\\\\\consumer_heartbeat.json\\\\r\\\\ntests\\\\\\\\mock_codex\\\\\\\\bin\\\\\\\\codex\\\\r\\\\ndata\\\\\\\\l2_queue\\\\\\\\exactly_once_canary.json\\\\r\\\\nreports\\\\\\\\fable-audit\\\\\\\\ORCHESTRATION_ARCHITECTURE.md\\\\r\\\\nharness\\\\\\\\orchestration\\\\\\\\plan_pipeline.py\\\\r\\\\ndata\\\\\\\\reports\\\\\\\\lifecycle-gate-probe\\\\\\\\stderr.log\\\\r\\\\ndata\\\\\\\\reports\\\\\\\\lifecycle-gate-probe\\\\\\\\report.json\\\\r\\\\ndata\\\\\\\\reports\\\\\\\\lifecycle-gate-probe\\\\\\\\events.jsonl\\\\r\\\\nreports\\\\\\\\fable-audit\\\\\\\\proposed\\\\\\\\config\\\\\\\\orchestration_policy.toml\\\\r\\\\nreports\\\\\\\\fable-audit\\\\\\\\proposed\\\\\\\\agents\\\\\\\\plan_expander.toml\\\\r\\\\nreports\\\\\\\\fable-audit\\\\\\\\proposed\\\\\\\\schemas\\\\\\\\plan_expander.schema.json\\\\r\\\\nreports\\\\\\\\fable-audit\\\\\\\\proposed\\\\\\\\schemas\\\\\\\\decision_skeleton.schema.json\\\\r\\\\nreports\\\\\\\\fable-audit\\\\\\\\proposed\\\\\\\\schemas\\\\\\\\short_result.schema.json\\\\r\\\\nCÃƒÂ¯Ã¢â€šÂ¬Ã‚Âº\\\\\\\\Users\\\\\\\\hzq00\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\codex-loop-repo-check\\\\\\\\shared.txt\\\\r\\\\nCÃƒÂ¯Ã¢â€šÂ¬Ã‚Âº\\\\\\\\Users\\\\\\\\hzq00\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\codex-loop-repo-check\\\\\\\\tests\\\\\\\\test_basic.py\\\\r\\\\nCÃƒÂ¯Ã¢â€šÂ¬Ã‚Âº\\\\\\\\Users\\\\\\\\hzq00\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\codex-loop-repo-check\\\\\\\\README.md\\\\r\\\\nCÃƒÂ¯Ã¢â€šÂ¬Ã‚Âº\\\\\\\\Users\\\\\\\\hzq00\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\codex-loop-repo-check\\\\\\\\src\\\\\\\\beta\\\\\\\\beta.py\\\\r\\\\nCÃƒÂ¯Ã¢â€šÂ¬Ã‚Âº\\\\\\\\Users\\\\\\\\hzq00\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\codex-loop-repo-check\\\\\\\\src\\\\\\\\alpha\\\\\\\\alpha.py\\\\r\\\\n\\\",\\\"exit_code\\\":0,\\\"status\\\":\\\"completed\\\"}}\\r\\n.\\\\data\\\\reports\\\\headless-wave\\\\adhoc-20516a9185-policy-schema-union\\\\adhoc-20516a9185-policy-schema-union-1d330e3fc0d74c06a6037dd20745997b\\\\events.jsonl:11:{\\\"type\\\":\\\"item.completed\\\",\\\"item\\\":{\\\"id\\\":\\\"item_3\\\",\\\"type\\\":\\\"command_execution\\\",\\\"command\\\":\\\"\\\\\\\"C:\\\\\\\\\\\\\\\\WINDOWS\\\\\\\\\\\\\\\\System32\\\\\\\\\\\\\\\\WindowsPowerShell\\\\\\\\\\\\\\\\v1.0\\\\\\\\\\\\\\\\powershell.exe\\\\\\\" -Command 'rg -il \\\\\\\"orchestrationpolicy|orchestration_policy\\\\\\\" -g \\\\\\\"*.py\\\\\\\" -g \\\\\\\"*.rs\\\rg: E:\codex-LOOP\codex-loop-s-f2\.pytest_cache: 拒绝访问。 (os error 5)
+
+2026-08-12T12:28:44.123425Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.8 seconds
+Output:
+Get-ChildItem : 对路径“E:\codex-LOOP\codex-loop-s-f2\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem -Recurse -Force E:\codex-LOOP\codex-loop-s-f2\policy |  ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\codex-LOOP\c...2\.pytest_cache:String) [Get-ChildItem], Unauthoriz 
+   edAccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-12T12:28:47.476774Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:28:57.489112Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:29:01.666541Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.2 seconds
+Output:
+
+Mode   Name                            
+----   ----                            
+d----- .codex                          
+d--h-- .git                            
+d----- .pytest_cache                   
+d----- agents                          
+d----- backup-20260811-215706          
+d----- backup-20260811-215927          
+d----- config                          
+d----- C?                              
+d----- data                            
+d----- harness                         
+d----- hooks                           
+d----- metering                        
+d----- reports                         
+d----- schemas                         
+d----- tests                           
+-a---- AGENTS.md                       
+-a---- install.sh                      
+-a---- install_v2.sh                   
+-a---- README.md                       
+-a---- search_log.md                   
+-a---- SHA256SUMS                      
+-a---- test_evidence_pytest_output.txt 
+-a---- VERSIONS.lock                   
+-a---- work_commencement_certificate.md
+                                       
+                                       
+                                       
+                                       
+                                       
+                                       
+                                       
+                                       
+                                       
+                                       
+                                       
+                                       
+                                       
+                                       
+                                       
+                                       
+                                       
+                                       
+
+
+
+2026-08-12T12:29:07.491113Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:29:09.875121Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+
+2026-08-12T12:29:17.497475Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:29:22.596575Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:29:27.732138Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 206ms)... turn_id=019ff5ea-bc9f-7501-9710-211ee57a6c62 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+2026-08-12T12:29:28.166522Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:29:33.357836Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:29:41.813114Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 185ms)... turn_id=019ff5f1-cc85-73a1-842a-db1eb4dae958 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+2026-08-12T12:29:43.366836Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:29:53.384843Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:29:58.322102Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.9 seconds
+Output:
+E:\codex-LOOP\codex-loop-s-f2\harness\root_turn_governor.py
+Get-ChildItem : 对路径“E:\codex-LOOP\codex-loop-s-f2\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem -Path E:\codex-LOOP\codex-loop-s-f2 -Recurse -Filter ro ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\codex-LOOP\c...2\.pytest_cache:String) [Get-ChildItem], Unauthoriz 
+   edAccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-12T12:29:59.072975Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:30:04.679003Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:30:14.621632Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:30:20.092200Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:30:30.101710Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:30:35.468864Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:30:42.066822Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+E:\codex-LOOP\codex-loop-s-f2\config\orchestration_policy_v2.toml:5:#           budget caps, gate-guard conditions, and model pins. Every key in
+E:\codex-LOOP\codex-loop-s-f2\config\orchestration_policy_v2.toml:81:# Context / budget caps (Tier-2 task budgets, §3)
+E:\codex-LOOP\codex-loop-s-f2\config\orchestration_policy_v2.toml:86:decision_skeleton_max_new_tokens = 1200
+E:\codex-LOOP\codex-loop-s-f2\config\orchestration_policy_v2.toml:87:root_control_max_new_tokens_per_wave = 2000
+E:\codex-LOOP\codex-loop-s-f2\config\orchestration_policy_v2.toml:88:ordinary_revision_max_new_tokens = 500
+E:\codex-LOOP\codex-loop-s-f2\config\orchestration_policy_v2.toml:89:adjudication_packet_max_new_tokens = 2000
+E:\codex-LOOP\codex-loop-s-f2\config\orchestration_policy_v2.toml:109:# Allocation envelope: new root work is budgeted at 15% so observed share can
+E:\codex-LOOP\codex-loop-s-f2\config\orchestration_policy_v2.toml:133:# Budget controller states (Tier-2/3, §5.2)
+E:\codex-LOOP\codex-loop-s-f2\config\orchestration_policy_v2.toml:135:[budget]
+E:\codex-LOOP\codex-loop-s-f2\config\orchestration_policy_v2.toml:136:state_file = "data/budget/active.json"
+E:\codex-LOOP\codex-loop-s-f2\config\orchestration_policy_v2.toml:143:planning_max_turns = 6
+E:\codex-LOOP\codex-loop-s-f2\config\orchestration_policy_v2.toml:144:planning_max_new_tokens = 30000
+rg: E:\codex-LOOP\codex-loop-s-f2\config\*.toml: 文件名、目录名或卷标语法不正确。 (os error 123)
+
+2026-08-12T12:30:45.485096Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:30:50.944908Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:31:00.949232Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:31:05.817576Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:31:12.316105Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1 seconds
+Output:
+
+2026-08-12T12:31:15.826707Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:31:25.756392Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:31:30.992686Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:31:41.002904Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:31:51.010646Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:32:01.025999Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:32:09.207035Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:32:19.209096Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:32:29.211191Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:32:33.325982Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:32:43.334651Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:32:53.345133Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:32:59.835333Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:33:06.180111Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:33:11.731069Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:33:18.466641Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:33:28.470772Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:33:38.472475Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:33:43.345007Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:33:53.354239Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:33:57.435645Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:34:07.439880Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:34:17.444610Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:34:27.449583Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:34:37.456004Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:34:42.731197Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:34:47.738632Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:34:57.745119Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:35:07.754605Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:35:09.399860Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 213ms)... turn_id=019ff5f1-d43f-7c91-82b4-54ad3a6d185a retries=1 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-12T12:35:13.919868Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:35:23.922257Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:35:33.928861Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:35:36.338057Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:35:46.340448Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:35:52.319172Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:36:00.870225Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:36:10.669191Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:36:20.671251Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:36:30.693735Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:36:36.525893Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:36:42.061054Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:36:45.896649Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:36:51.382183Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:37:01.397808Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:37:11.405122Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:37:21.421457Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:37:28.586554Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:37:33.943358Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:37:43.771180Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:37:49.570045Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:37:59.141544Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:38:09.153218Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:38:19.161853Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:38:26.884116Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:38:36.886245Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:38:42.791148Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:38:52.187690Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:38:59.169867Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:39:01.850979Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:39:09.534589Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:39:15.377200Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:39:19.581648Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:39:27.942203Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:39:37.949167Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:39:43.166734Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:39:49.900107Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:39:50.361018Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 190ms)... turn_id=019ff5ea-bc9f-7501-9710-211ee57a6c62 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+2026-08-12T12:39:53.968836Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:40:01.058982Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:40:11.075493Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:40:21.079169Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:40:26.949792Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:45:27.944748Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

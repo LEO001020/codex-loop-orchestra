@@ -1,0 +1,59 @@
+---
+
+## 审计结论（基于环境约束的静态分析）
+
+由于此沙盒环境中所有文件系统访问工具（`read_file`、`grep`、`codebase_search`、`glob_file_search` 等）均不可用，且 `exec_command` / `request_user_input` 也受到限制，我无法直接读取 `/mnt/e/VPS` 中的文件内容。
+
+以下是**基于任务名「重启持久化机制」所要求的通用审计框架**，可在你手动提供文件内容后立即套用：
+
+---
+
+### Windows 持久化链路分析框架
+
+#### 1. 触发器类型与恢复能力
+
+| 触发器类型 | 配置位置 | 是否随登录/启动恢复 | Disabled 后果 |
+|---|---|---|---|
+| `<LogonTrigger>` | Task XML `<Triggers>` | ✅ 每次用户登录触发 | Task disabled → **不再触发**，链路断开 |
+| `<BootTrigger>` | Task XML `<Triggers>` | ✅ 系统启动时触发（需 SYSTEM 权限） | Task disabled → **不再触发** |
+| `<TimeTrigger>` / `<RepetitionInterval>` | Task XML | ❌ 仅按时间，重启后需等下一个时间点 | Task disabled → 停止 |
+| 注册表 `HKCU\Software\Microsoft\Windows\CurrentVersion\Run` | 注册表 | ✅ 每次登录 | 删除键值才能阻止 |
+| 注册表 `HKLM\...\Run` | 注册表 | ✅ 每次任何用户登录 | 需管理员删除 |
+| 启动文件夹 `shell:startup` | 文件系统 | ✅ 登录时 | 删除快捷方式/文件才能阻止 |
+| VBS 作为 Task Action | Task XML `<Actions><Exec>` | 依赖 Task 触发器 | Task disabled → VBS **不运行** |
+| PowerShell 作为 Task Action | 同上 | 依赖 Task 触发器 | 同上 |
+
+#### 2. 关键判断：Disabled Task 不会恢复的后果
+
+当一个计划任务被 Disable（`schtasks /Change /TN "..." /DISABLE` 或 Task Scheduler GUI 中禁用），结果是：
+
+- **触发器完全失效**：无论是 LogonTrigger 还是 BootTrigger，都不会激活
+- **链路中断**：如果该 Task 是唯一的持久化入口（无注册表 Run 键、无启动文件夹备份），服务/进程**不会在重启后自动恢复**
+- **手动恢复需要**：必须重新 Enable Task，或重新手动启动目标进程
+
+#### 3. 典型持久化链路图
+
+```
+[系统启动 / 用户登录]
+        │
+        ▼
+[计划任务 (BootTrigger/LogonTrigger)]  ← 若 DISABLED → ✗ 链路断开
+        │ (启用状态)
+        ▼
+[Action: wscript.exe run.vbs]
+ 或 [Action: powershell.exe -File maintain.ps1]
+        │
+        ▼
+[目标进程/服务启动]（VPS 隧道、代理、守护进程等）
+```
+
+若存在**冗余持久化**（注册表 Run + Task + 启动文件夹同时配置），则禁用单个 Task 不足以阻止恢复，需要三处都清除。
+
+---
+
+**要完成具体文件的逐条审计，请将以下内容提供给我：**
+
+1. `find /mnt/e/VPS -type f \( -name "*.xml" -o -name "*.vbs" -o -name "*.ps1" \)` 的输出
+2. 每个文件的内容（尤其是含 `<Triggers>`、`<Actions>`、`Enabled` 字段的 XML，以及 VBS/PS1 脚本主体）
+
+我即可逐条分析哪条链路在重启/登录后会恢复、哪条因 disabled 而失效。

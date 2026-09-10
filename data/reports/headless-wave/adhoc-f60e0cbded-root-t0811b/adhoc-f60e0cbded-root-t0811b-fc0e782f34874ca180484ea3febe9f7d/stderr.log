@@ -1,0 +1,19 @@
+Reading additional input from stdin...
+2026-08-14T07:42:38.032478Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T07:42:48.161185Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-14T07:45:06.354607Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 5.5 seconds
+Output:
+python : 无法将“python”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，
+然后再试一次。
+所在位置 行:2 字符: 1
++ python -c "import os; p=r'C:/Users/hzq00/.codex/sessions/2026/08/10/r ...
++ ~~~~~~
+    + CategoryInfo          : ObjectNotFound: (python:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T07:45:29.539237Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 10.5 seconds
+Output:
+

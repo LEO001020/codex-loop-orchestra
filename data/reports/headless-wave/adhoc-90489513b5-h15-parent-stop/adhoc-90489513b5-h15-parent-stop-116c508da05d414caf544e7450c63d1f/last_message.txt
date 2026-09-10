@@ -1,0 +1,150 @@
+I now have comprehensive evidence. Let me write up the adversarial audit.
+
+---
+
+## Adversarial Audit Report: Importer Final Locked Reread, Inactive Parent Behavior, and Manifest Generation Post-Stop
+
+### Scope
+
+Files examined:
+- `hooks/subagent_lifecycle.py` — the Stop event handler that writes `active=False`
+- `harness/parent_manifest_importer.py` — the manifest importer with admission check, ledger write, and final locked reread
+- `harness/refill_consumer_v2.py` — `select_tasks`, `build_manifest`, `run_once`, `schedule_run`
+- `harness/refill_controller_v2.py` — `queue_sync_ledger`, `recompute`
+- `harness/statemachine_v2.py` — `INFO_EVENTS` definition
+- `harness/orchestration_common.py` — `file_lock`, `atomic_write_json`
+- `tests/orchestration_v2/test_parent_manifest_importer.py` — race condition tests
+- `tests/unit/test_subagent_lifecycle_hook.py` — Stop handler tests
+
+---
+
+### Finding 1 — VERIFIED CORRECT: Final Locked Reread Closes the Core Race Window
+
+**Claim in code:** Comments say "Stop may race between the admission check and this commit."
+
+**Mechanism traced:**
+
+The importer performs three sequential critical sections:
+
+1. **Pre-admission check** — holds `.parent_sessions.lock`, reads `active`. If `active is False`, raises `parent_inactive`. Releases lock.
+2. **Ledger write** — holds `progress_ledger.lock`, writes packet files and ledger entries. Does NOT hold `.parent_sessions.lock` simultaneously.
+3. **Final locked reread** — re-acquires `.parent_sessions.lock`, reads `active` again. If `active is False` at this point, raises `parent_inactive: parent stopped while manifest was importing`, leaving `active=False` in place (does not overwrite it). Only if `active` is still True does it write `active=True`.
+
+The `parent_stop()` hook in `subagent_lifecycle.py` writes `active=False` under `.parent_sessions.lock`. So the possible race outcomes are:
+
+| Interleaving | Result |
+|---|---|
+| Stop before step 1 | Pre-check catches it at step 1 → rejected |
+| Stop between steps 1 and 2 | Packets written to ledger; final reread at step 3 catches it → raises; `active` remains `False`; packets are DISPATCHABLE but blocked by refill gate |
+| Stop between steps 2 and 3 | Same as above |
+| Stop after step 3 | Parent registered as active; stop promptly sets `active=False`; refill gate prevents future births |
+
+**Adversarial verdict:** The design is correct. The final locked reread under `.parent_sessions.lock` is an effective double-check that prevents silent activation of a stopped parent in the race window between the pre-check and the registration commit.
+
+**One subtle residual noted (not a defect):** When Stop races between steps 2 and 3, the packets are already durably written to the ledger in `DISPATCHABLE` state. The `raise` at step 3 prevents `active=True` from being committed, so `parent_sessions.json` keeps `active=False`. Both `select_tasks` in `refill_consumer_v2.py` (line 305-308) and `queue_sync_ledger` in `refill_controller_v2.py` (line 247) gate on `active is True`, so these packets will never be selected for dispatch. They remain as audit artifacts. This is the documented intent in the code comment and is correct behavior.
+
+---
+
+### Finding 2 — VERIFIED CORRECT: Inactive Parent Behavior Blocks Births at All Relevant Gates
+
+**Three independent enforcement layers traced:**
+
+**Layer A — `queue_sync_ledger` (refill_controller_v2.py, line ~247):**
+```python
+if (not isinstance(parent, dict) or parent.get("active") is not True
+        or parent.get("manifest_id") != item.get("manifest_id")):
+    continue
+```
+A stopped parent's packets are excluded from the queue count. The deficit computation therefore includes zero demand from that parent.
+
+**Layer B — `select_tasks` (refill_consumer_v2.py, line ~305):**
+```python
+parent = (parent_states.get("parents") or {}).get(str(parent_id))
+if not isinstance(parent, dict) or parent.get("active") is not True:
+    continue
+```
+Even if the queue somehow reported residual demand, `select_tasks` re-reads `parent_sessions.json` independently and skips any packet whose parent is inactive.
+
+**Layer C — `recompute` (refill_controller_v2.py, line ~444/484):**
+The controller's per-parent state computation uses `active = registered.get("active") is True` and sets `parent_reason = "parent_inactive"` when false, zeroing all spawnable capacity for that parent.
+
+**Adversarial verdict:** No path through the refill pipeline can produce a birth from an inactive parent. The double-check between `queue_sync_ledger` and `select_tasks` is redundant defense in depth, not a single point of failure.
+
+---
+
+### Finding 3 — VERIFIED CORRECT: `parent_stop` Event Is INFO-Only; Does Not Transition Packet State
+
+**`parent_stop` is in `INFO_EVENTS` (statemachine_v2.py, line 150):**
+```python
+INFO_EVENTS: Final[frozenset[str]] = frozenset({
+    ...
+    "spawn_lost", "parent_stop", "close_requested", ...
+})
+```
+
+This means the state machine never advances any packet to a terminal state solely because the parent stopped. Packets in `DISPATCHABLE` state remain there indefinitely after a Stop, rather than transitioning to `CANCELLED` or `DEAD_LETTER`. This is consistent with the design intent (packets are audit artifacts), but it means the ledger accumulates zombie `DISPATCHABLE` entries for stopped parents. This is not a correctness defect—births are prevented—but it is a long-lived state pollution concern if many parents cycle through Stop without cleanup.
+
+**Adversarial verdict:** Not a defect for the "no post-Stop births" guarantee, but a hygiene gap: there is no automated transition of DISPATCHABLE packets to a terminal ledger state upon parent Stop. The code comment "The imported packets remain durable and auditable" is the intent, so this is a documented design choice.
+
+---
+
+### Finding 4 — POTENTIAL LOCK-ORDERING CONCERN (Low Risk, No Current Deadlock Path)
+
+**Observed lock ordering in `import_manifest`:**
+
+Step 1: acquires `.parent_sessions.lock` → releases  
+Step 2: acquires `progress_ledger.lock` → releases  
+Step 3: acquires `.parent_sessions.lock` → releases  
+
+**Observed lock ordering in `parent_stop` (subagent_lifecycle.py ~line 575):**
+
+1. acquires `.parent_sessions.lock` → writes `active=False` → releases  
+2. acquires `.exec_roster.lock` → reads → releases  
+3. writes cancel files (no lock)  
+
+**Observed lock ordering in `run_once` (refill_consumer_v2.py):**
+
+Acquires `.consumer.lock` → within it, `queue_sync_ledger` acquires the controller's own lock → `build_manifest` does not acquire any parent_sessions lock → `headless_wave.run` is called.
+
+No caller holds both `.parent_sessions.lock` and `progress_ledger.lock` at the same time. The importer releases `.parent_sessions.lock` before acquiring `progress_ledger.lock`, and the reverse order does not occur. No deadlock is possible from the analyzed code paths.
+
+**Adversarial verdict:** No deadlock. However, the importer acquires `.parent_sessions.lock` twice in sequence (steps 1 and 3). Between those two acquisitions, `parent_stop` can run and commit `active=False`. This is the explicitly tested race window (`test_parent_stop_wins_when_it_races_the_final_registration`) and it is handled correctly.
+
+---
+
+### Finding 5 — VERIFIED CORRECT: Manifest Generation Does Not Include Stopped-Parent Tasks
+
+**`build_manifest` calls `select_tasks`, which reads `parent_sessions.json` fresh on every invocation** (line 273 of `refill_consumer_v2.py`). If Stop has committed `active=False` before `select_tasks` runs, no task from that parent enters the manifest. If Stop commits after `select_tasks` but before `headless_wave.run` dispatches, the already-generated manifest may contain the task — but `headless_wave` dispatches through `DispatcherV2`, which in turn calls the statemachine and refill controller; the `active` gate would be re-checked on the next `queue_sync_ledger` invocation in `run_once`'s epilogue (`controller.queue_sync_ledger()` after dispatch). More critically, the lifecycle_supervisor receives the cancel file written by `parent_stop` and terminates the process tree even if the birth already happened. This is the defense for the narrowest race (select after Stop is committed but before process birth).
+
+**Adversarial verdict:** Manifest generation is gated correctly. The narrowest window (task selected, wave manifest written, Stop commits before `headless_wave` spawns) is handled by the cancel mechanism, not by the manifest generation gate alone. This is correct defense-in-depth.
+
+---
+
+### Finding 6 — CONFIRMED DEFECT (Minor): `schedule_refill_actuator` Called from `parent_stop` May Wake Refill Against Already-Stopped Parent
+
+In `parent_stop` (subagent_lifecycle.py, line ~614):
+```python
+recompute_refill(project_root())
+schedule_refill_actuator(project_root(), source="desktop_parent_stop")
+```
+
+This calls `schedule_refill_actuator` (which calls `schedule_run` in `refill_consumer_v2`) *after* writing `active=False`. The actuator will run `select_tasks`, which reads `active is True` gate and correctly skips stopped-parent packets. So the wakeup is harmless—it results in an idle pass—but it is an unnecessary wake that could cause a spurious refill attempt to run. The actuator will either pick up real remaining work from other parents or exit with `status: idle`. No incorrect births result.
+
+**Adversarial verdict:** Functionally correct, but causes one unnecessary actuator invocation per Stop event. Not a bug, but a minor inefficiency.
+
+---
+
+### Summary Table
+
+| Area | Finding | Verdict |
+|---|---|---|
+| Final locked reread | Re-acquires `.parent_sessions.lock` after ledger write; detects Stop that raced between admission check and registration commit | **Correct** |
+| Pre-check before ledger write | Gates on `active is False` early, prevents fast-path bypass | **Correct** |
+| Inactive parent gate in `queue_sync_ledger` | Excludes stopped-parent packets from demand count | **Correct** |
+| Inactive parent gate in `select_tasks` | Independent re-read of `parent_sessions.json`; skips inactive parents | **Correct** |
+| `parent_stop` event in state machine | INFO_EVENTS only; packets stay DISPATCHABLE forever (audit artifact) | **Design choice, documented; zombie entries accumulate** |
+| Lock ordering | No concurrent dual-lock, no deadlock path | **Correct** |
+| Manifest generation post-Stop | `select_tasks` reads fresh `parent_sessions.json`; cancel file handles narrowest race | **Correct** |
+| `schedule_refill_actuator` after Stop | Triggers unnecessary idle actuator pass | **Minor inefficiency, not a defect** |
+
+**Overall conclusion:** The core guarantee—"no new births from a stopped parent"—is upheld through three independent enforcement layers and a correctly placed final locked reread. The only notable gap is that stopped-parent packets remain as permanent `DISPATCHABLE` zombie entries in the ledger, which is a documented design choice but poses a long-term ledger-size concern if not periodically garbage-collected.

@@ -1,0 +1,104 @@
+Reading additional input from stdin...
+2026-08-14T20:18:34.267832Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T20:18:35.012100Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T20:18:37.931380Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-14T20:18:45.569128Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T20:18:55.725038Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.7 seconds
+Output:
+dir : 第二个路径段不得为驱动器或 UNC 名称。
+参数名: path2
+所在位置 行:2 字符: 1
++ dir G:\VPS-K3\extracted\k3\repo /B
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (G:\VPS-K3\extracted\k3\repo:String) [Get-ChildItem]，ArgumentException
+    + FullyQualifiedErrorId : DirArgumentError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-14T20:19:03.615601Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T20:19:12.894895Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T20:19:21.223575Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T20:19:28.930887Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T20:19:36.833108Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T20:19:44.149237Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T20:20:06.390293Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.5 seconds
+Output:
+所在位置 行:2 字符: 34
++ cd "G:\VPS-K3\extracted\k3\repo" && ls
++                                  ~~
+标记“&&”不是此版本中的有效语句分隔符。
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : InvalidEndOfLine
+ 
+
+2026-08-14T20:20:45.282150Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.2 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 183
++ ... Request" --type-add "code:*.{ts,py,js,mjs,md}" -tcode 2>&1 | head -60
++                                                                  ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T20:20:58.540128Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1 seconds
+Output:
+rg : rg: unrecognized flag --include
+所在位置 行:2 字符: 35
++ ... d\k3\repo"; rg -l "fail.closed|fail_closed|failClosed|trust|domain.gu ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (rg: unrecognized flag --include:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+similar flags that are available: --include-zero
+
+2026-08-14T20:21:08.199825Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+
+2026-08-14T20:21:19.189686Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+
+2026-08-14T20:21:45.208439Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+
+2026-08-14T20:21:54.788895Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+
+2026-08-14T20:22:29.476466Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-14T20:26:57.317031Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 181ms)... turn_id=01a001ed-26ee-7a60-b445-7cb6503f0e97 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T20:27:43.751550Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 410ms)... turn_id=01a001ed-26ee-7a60-b445-7cb6503f0e97 retries=2 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T20:28:31.503694Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 870ms)... turn_id=01a001ed-26ee-7a60-b445-7cb6503f0e97 retries=3 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T20:29:18.427168Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.455s)... turn_id=01a001ed-26ee-7a60-b445-7cb6503f0e97 retries=4 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T20:30:07.212510Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 2.982s)... turn_id=01a001ed-26ee-7a60-b445-7cb6503f0e97 retries=5 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T20:31:01.037252Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

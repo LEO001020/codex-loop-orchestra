@@ -1,0 +1,143 @@
+Reading additional input from stdin...
+2026-08-12T10:43:22.728503Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-12T10:43:32.858053Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T10:43:41.675658Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T10:43:51.989038Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.2 seconds
+Output:
+E:\codex-LOOP\codex-loop-s-f2\harness\dispatch.py
+E:\codex-LOOP\codex-loop-s-f2\harness\dispatch_v2.py
+Get-ChildItem : 对路径“E:\codex-LOOP\codex-loop-s-f2\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem -Recurse -Filter dispatch*.py E:\codex-LOOP\codex-loop- ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\codex-LOOP\c...2\.pytest_cache:String) [Get-ChildItem], Unauthoriz 
+   edAccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-12T10:43:57.070386Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T10:44:02.681746Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T10:44:12.691118Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T10:44:18.315473Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+E:\codex-LOOP\codex-loop-s-f2\config\orchestration_policy_v2.toml:22:# Model pins — models are read from HERE, never hardcoded in Python
+E:\codex-LOOP\codex-loop-s-f2\config\orchestration_policy_v2.toml:26:[models]
+E:\codex-LOOP\codex-loop-s-f2\config\orchestration_policy_v2.toml:30:k3_model = "weiwu-k3/kimi-k3"
+E:\codex-LOOP\codex-loop-s-f2\config\orchestration_policy_v2.toml:35:v4_model = "weiwu/deepseek-v4-flash"
+E:\codex-LOOP\codex-loop-s-f2\config\orchestration_policy_v2.toml:162:require_k3_model_pinned = true
+E:\codex-LOOP\codex-loop-s-f2\harness\orchestration_common.py:13:* model-pin resolution — models are read from configuration, **never**
+E:\codex-LOOP\codex-loop-s-f2\harness\orchestration_common.py:15:  the current temporary deployment pins execution = ``weiwu-k3/kimi-k3`` and
+E:\codex-LOOP\codex-loop-s-f2\harness\orchestration_common.py:16:  K3 = ``weiwu-k3/kimi-k3`` in config, but this module does not assume that);
+E:\codex-LOOP\codex-loop-s-f2\harness\orchestration_common.py:411:    def model_pin(self, role_family: str) -> str:
+E:\codex-LOOP\codex-loop-s-f2\harness\orchestration_common.py:414:        Read from ``[models]``; missing pin raises :class:`ModelPinError` —
+E:\codex-LOOP\codex-loop-s-f2\harness\orchestration_common.py:417:        ``deepseek-v4-flash`` or any other model id in code).
+E:\codex-LOOP\codex-loop-s-f2\harness\orchestration_common.py:419:        models = self.doc.get("models", {})
+E:\codex-LOOP\codex-loop-s-f2\harness\orchestration_common.py:421:        pin = models.get(key) if isinstance(models, dict) else None
+E:\codex-LOOP\codex-loop-s-f2\harness\orchestration_common.py:424:                f"orchestration policy [models].{role_family} missing in "
+E:\codex-LOOP\codex-loop-s-f2\harness\orchestration_common.py:429:        """Optional context sizing from the canonical flat ``[models]`` keys."""
+E:\codex-LOOP\codex-loop-s-f2\harness\orchestration_common.py:432:        models = self.doc.get("models", {})
+E:\codex-LOOP\codex-loop-s-f2\harness\orchestration_common.py:433:        value = models.get(f"{role_family}_{suffix}") \
+E:\codex-LOOP\codex-loop-s-f2\harness\orchestration_common.py:434:            if isinstance(models, dict) and suffix else None
+E:\codex-LOOP\codex-loop-s-f2\harness\orchestration_common.py:438:        models = self.doc.get("models", {})
+E:\codex-LOOP\codex-loop-s-f2\harness\orchestration_common.py:439:        value = models.get(f"{role_family}_reasoning") \
+E:\codex-LOOP\codex-loop-s-f2\harness\orchestration_common.py:440:            if isinstance(models, dict) else None
+
+2026-08-12T10:44:22.700073Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T10:44:28.535758Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T10:44:38.539934Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T10:44:44.817202Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T10:44:48.737600Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T10:44:54.032909Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T10:45:04.044376Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T10:45:14.051767Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T10:45:16.810281Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.4 seconds
+Output:
+
+2026-08-12T10:45:22.453849Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T10:45:28.338403Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T10:45:38.353192Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T10:45:45.604360Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T10:45:58.017939Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)

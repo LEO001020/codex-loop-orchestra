@@ -1,0 +1,269 @@
+u128 闲鱼左右栏是分身 MagicWin 会话峰值（00:25 load 21.22），不是系统流畅度根因；退出后仍 cached 吃 CPU/RSS，只做会话卫生，不动 Reduced/iaware/侧栏键。
+
+报告未能落到指定路径：当前会话是 read-only sandbox，`apply_patch`/`Set-Content` 均被拒。目标文件仍不存在：`C:\Users\hzq00\Documents\Codex\2026-08-29\hy4-ai-ai-ai-ai-01a02ee0\work\fluency_plan\reports\h11_split_xianyu.md`
+
+下面是应写入该文件的全文。
+
+# h11 分屏闲鱼负载史
+
+一句话：user128 闲鱼左右栏是用户分身 + MagicWin 会话峰值（00:25 load 21.22），不是系统流畅度根因；退出后进程仍 cached 吃 CPU/RSS，只作会话卫生，不动 Reduced / iaware / 侧栏键。
+
+设备：Honor VER-AN10 `AVNS023705001888` MagicOS 16 `10.0.0.175`。本包只读 hy4 既有转储，未 adb、未写机。
+
+风险等级：A=系统毒药/已禁杠杆；B=改系统策略且用户可感知；C=可逆会话卫生；D=只观测不改。
+
+## 判定
+
+**会话成本，不是系统根因。**
+
+- `load ~21` 只在 00:25 前台双栏闲鱼时出现。
+- 同一次开机更早（22:44 熄屏）和更晚（02:09 已离开）的 1 分钟 load 都在 ~13.8。
+- 双栏是应用内 MagicWin（同一 task 两个 `TaskFragment`），不是两应用系统分屏；全局 `splitScreenState:0`。
+- 02:09 闲鱼已 `visible=false` / `cached=true`，但 pid 6197 仍 ~23% CPU、~0.94GB RSS，并与微信/知乎/B 站/`kswapd0` 一起抬 5–15 分钟 load。这是离开后的残余压力，不是常驻系统故障。
+- 禁止把它做成：禁 iaware / phoneservice、改 Reduced 29、把 `com.bilibili.app.in` 塞进 Reduced、写 dockBar / tooltip / is_ota_finished / navigation_mode / FloatTasks。
+
+## 时间线
+
+| 时刻 (CST) | 来源 | 屏 / 焦点 | load 1/5/15 | 闲鱼 t13272 |
+|---|---|---|---|---|
+| 22:44:09 Aug 29 | `work/sidebar_fix/live_now` | Dozing，AOD；`mFocusedApp` 仍是 u128 SearchResult | 13.84 / 14.36 / 15.29 | `visible=true visibleRequested=false`，左右栏仍在 |
+| 00:25:58 Aug 30 | `reports/01_device_live_state` | `mScreenState=ON`；焦点 u128 SearchResult + Detail | **21.22 / 18.54 / 18.76** | `visible=true visibleRequested=true`，uidState TOP |
+| 02:09:37 Aug 30 | `work/fluency_plan/live` | `dumpsys activity top` 已是图库；闲鱼不在 top | 13.82 / 16.53 / 18.23 | recents 仍双栏碎片，`visible=false`，cached ~21 min |
+
+15 分钟均值在 02:09 仍 18.23，是 00:25 高峰的尾巴，不是新的系统根。
+
+## Verified facts（path + quote）
+
+### 1. user128 是「分身应用」，且在跑
+
+`work/fluency_plan/live/users.txt`
+
+```
+UserInfo{0:机主:4c13} running
+UserInfo{128:分身应用:4000410} running
+```
+
+### 2. 00:25 前台就是 u128 闲鱼左右栏，同时 load 21.22
+
+`reports/01_device_live_state/02_uptime.out.txt`
+
+```
+ 00:25:58 up 20:47,  0 users,  load average: 21.22, 18.54, 18.76
+```
+
+`reports/01_device_live_state/58_focus.out.txt`
+
+```
+  mCurrentFocus=Window{a7955d2 u128 com.taobao.idlefish/com.taobao.idlefish.search_implement.SearchResultActivity}
+  mFocusedApp=ActivityRecord{83424279 u128 com.taobao.idlefish/.search_implement.SearchResultActivity t13272}
+```
+
+`reports/01_device_live_state/report.md` L29–L31, L57
+
+```
+| uptime | 00:25:58 up 20:47, load 21.22, 18.54, 18.76 | uptime |
+| focus | u128 闲鱼左右分栏 SearchResultActivity + DetailActivity | dumpsys window |
+2. **前台是 u128 闲鱼左右分栏**
+```
+
+`reports/01_device_live_state/63_screen_state.out.txt`：`mScreenState=ON`。
+
+`reports/01_device_live_state/20_activity_services.full.txt`（ArtcAccsService 允许启动块）
+
+```
+infoAllowStartForeground=[callingPackage: com.taobao.idlefish; callingUid: 12810250; uidState: TOP ; ... code:PROC_STATE_TOP; ...]
+```
+
+### 3. 左右栏是同一 task 的 MagicWin，不是系统两应用分屏
+
+`reports/01_device_live_state/64_window_focus_brief.out.txt`
+
+```
+* Task{8e0dc2c #13272 type=standard A=12810250:com.taobao.idlefish U=128 visible=true visibleRequested=true mode=fullscreen translucent=false embedded=false sz=5}
+  * TaskFragment{59ae4a3 mode=multi-window ... bounds: Rect(1078, 0 - 2156, 2344) ... adjacent=AdjacentSet{... Rect(1078, 0 - 2156, 2344)}, ... Rect(0, 0 - 1078, 2344)}}
+    * ActivityRecord{17203998 u128 com.taobao.idlefish/.detail.DetailActivity t13272}
+  * TaskFragment{78ef658 mode=multi-window ... bounds: Rect(0, 0 - 1078, 2344) ...}
+    * ActivityRecord{83424279 u128 com.taobao.idlefish/.search_implement.SearchResultActivity t13272}
+mFocusedWindow=Window{a7955d2 u128 ...SearchResultActivity}
+mTopFullscreenOpaqueWindowState=Window{5e3c93 u128 ...detail.DetailActivity}
+```
+
+左栏搜索、右栏详情，分界约 x=1078 / 全宽 2156。task 自身 `mode=fullscreen`；真正 multi-window 的是内部 `TaskFragment`。
+
+`work/sidebar_fix/activity_top.txt`（同 task 稍后/并行转储）
+
+```
+* Task{8e0dc2c #13272 type=standard A=12810250:com.taobao.idlefish U=128 visible=false ...}
+app=ProcessRecord{6a46fad 6197:com.taobao.idlefish/u128a250}
+dataDir=/data/user/128/com.taobao.idlefish
+mLastReportedActivityWindowInfo=ActivityWindowInfo{isEmbedded=true, taskBounds=Rect(0, 0 - 2156, 2344), taskFragmentBounds=Rect(1078, 0 - 2156, 2344), mHasMagicWinFeature=true mRespectInMultiWindowMode=false, mWindowingModeInTask=fullscreen, ...}
+```
+
+同文件里 launcher / 多数 Activity 的 `splitScreenState:0`。这是荣耀平行视窗，不是系统分屏。
+
+### 4. 22:44 live_now：双栏已在，但在熄屏，load 不是 21
+
+`work/sidebar_fix/live_now/uptime.txt`
+
+```
+ 22:44:09 up 19:06,  0 users,  load average: 13.84, 14.36, 15.29
+```
+
+`work/sidebar_fix/live_now/power.txt`：`mWakefulness=Dozing`。
+
+`work/sidebar_fix/live_now/window_full2.txt`
+
+```
+mCurrentFocus=Window{ec63274 u0 AOD}
+mFocusedApp=ActivityRecord{27436487 u128 com.taobao.idlefish/.search_implement.SearchResultActivity t13272}
+* Task{8e0dc2c #13272 ... U=128 visible=true visibleRequested=false mode=fullscreen ... sz=5}
+  * TaskFragment{8849983 mode=multi-window ... Rect(1078, 0 - 2156, 2344)}
+    * ActivityRecord{41411966 u128 .../.detail.DetailActivity t13272}
+  * TaskFragment{ade853a mode=multi-window ... Rect(0, 0 - 1078, 2344)}
+    * ActivityRecord{27436487 u128 .../.search_implement.SearchResultActivity t13272}
+```
+
+`work/sidebar_fix/live_now/activity_top.txt` 被截成 home / 微信 / 知乎且 `isSleeping=true`，不能用来否定 window 转储里的 t13272。微信 task `#13309` 也有一对 MagicWin fragment，但是后台 `visible=false`。
+
+### 5. 02:09：人已离开，进程还在，load 1m 回落、5/15m 仍高
+
+`work/fluency_plan/live/uptime.txt` / `loadavg.txt`
+
+```
+ 02:09:37 up 22:31,  0 users,  load average: 13.82, 16.53, 18.23
+13.82 16.53 18.23 4/12989 12599
+```
+
+`work/fluency_plan/live/activity_top.txt` 顶部是 `TASK 10192:com.hihonor.photos`，全文无 `idlefish`（`dumpsys activity top` 只含当前 top）。
+
+`work/fluency_plan/live/window_visible.txt`
+
+```
+* Task{8e0dc2c #13272 type=standard A=12810250:com.taobao.idlefish U=128 visible=false visibleRequested=false mode=fullscreen translucent=true embedded=false sz=3}
+```
+
+`work/fluency_plan/live/activity_recents.txt`
+
+```
+* Recent #3: Task{8e0dc2c #13272 type=standard A=12810250:com.taobao.idlefish}
+Activities=[TaskFragment{af9a7b5 mode=multi-window ... Rect(0, 0 - 1078, 2344)}, TaskFragment{689646c mode=multi-window ... Rect(1078, 0 - 2156, 2344)}, TaskFragment{bc14316 mode=fullscreen ...}]
+mRootProcess=ProcessRecord{6a46fad 6197:com.taobao.idlefish/u128a250}
+lastActiveTime=79845870 (inactive for 1267s)
+```
+
+另有机主包残留：`Recent #24: Task{1f33df7 #13202 ... A=10250:com.taobao.idlefish}`，`Activities=[]`，inactive ~22.5h，不是 00:25 那次前台。
+
+`work/fluency_plan/live/activity_lru.txt`
+
+```
+#142: cch    CAC  -------- 6197:com.taobao.idlefish/u128a250 act:activities|recents
+#70: cch+ 5 CEM  -------- 11944:com.taobao.idlefish:channel/u128a250
+```
+
+`work/fluency_plan/live/activity_processes.txt` pid 6197
+
+```
+*APP* UID 12810250 ProcessRecord{6a46fad 6197:com.taobao.idlefish/u128a250}
+user #128 uid=12810250
+data=/data/user/128/com.taobao.idlefish
+startElapsedTime=-9h54m25s512ms
+lastRss=0.94GB lastCachedRss=0.94GB
+oom adj: ... cur=900 set=900
+curProcState=16 ... setProcState=16 lastStateTime=-18m41s715ms
+cached=true empty=false
+lastTopTime=-21m7s523ms
+```
+
+`:channel` pid 11944：`lastRss=85MB`，`startElapsedTime=-24m48s202ms`。
+
+### 6. 02:09 CPU / 内存：闲鱼是贡献者之一，不是唯一
+
+`work/fluency_plan/live/top.txt`
+
+```
+Mem: 15297M total, 15057M used, 239M free
+800%cpu  23%user  17%nice  60%sys 683%idle
+29867 u0_a213  ... 23.3% ... com.zhihu.android
+ 6197 u128_a250 ... 23.3% 3.4% 169:54.17 com.taobao.idlefish
+ 9933 u0_a384  ... 16.6% ... com.bilibili.app.in
+```
+
+`work/fluency_plan/live/cpuinfo_top.txt`（02:00:20–02:05:20，闲鱼已不在 top 之后）
+
+```
+Load: 16.55 / 18.17 / 19.06
+40% 28024/com.tencent.mm: 14% user + 25% kernel / faults: 632207 minor 56661 major
+24% 6197/com.taobao.idlefish: 13% user + 11% kernel / faults: 56482 minor 82432 major
+22% 11693/com.yitong.mbank.psbc: ...
+20% 104/kswapd0: 0% user + 20% kernel
+```
+
+`TIME+ 169:54` 约等于 10h 墙钟里累计 ~2.8h CPU。82432 major fault 与 `kswapd0 20%`、free RAM 239M 同向，说明双栏退出后仍在换页，不是已经睡死。
+
+`work/fluency_plan/live/thermal.txt`：`Thermal Status: 1`；CPU4/5/7 ≈ 64–65.4℃；GPU0 ≈ 51.9℃。`battery.txt`：`temperature: 360`（36.0℃）。轻热，不是过热降频根因。
+
+`work/fluency_plan/live/deviceidle_wl.txt` 无 `idlefish`。`pg_a.txt` 仍有 `[uid: 12810250, pkg: com.taobao.idlefish, state: 1]`，且包名在 `mSmartOptimizeApps` / `mStandbyUnprotectedApps` / `mExemptPkgList`。这是 PowerGenie 名单状态，不是授权去动 iaware 或 Reduced。
+
+### 7. 累计 gfxinfo 不能当这次卡顿因果
+
+`work/fluency_plan/live/gfx_systemui.txt`：`Total frames rendered: 74020` / `Janky frames: 9044 (12.22%)`。
+`work/fluency_plan/live/gfx_launcher.txt`：`57612` / `2603 (4.52%)`。
+都是开机累计，没有闲鱼 pid 的 gfxinfo，不能用来证明双栏导致桌面掉帧。
+
+### 8. 约束边界（本包不得当杠杆）
+
+- Reduced 29 保持；`com.bilibili.app.in` 必须留在 Reduced 外（02:09 top 里 B 站 16.6% 是另一成本，不是把 B 站塞进 Reduced 的理由）。
+- 不要 disable iaware / phoneservice。`live/disabled_u128.txt` 只有 `package:com.hihonor.iaware`（分身冻结漂移），User0 iaware 禁令仍在。
+- 不要写 dockBar / tooltip / is_ota_finished / navigation_mode / 重新 enable FloatTasks。
+- 网易云保活是用户选择的流畅度成本，与闲鱼分身无关。
+
+## Inferences
+
+1. load 21.22 与前台双栏同时出现，熄屏同会话只有 ~14。推断：峰值是 SearchResult+Detail 同时绘制/网络/Flutter 的会话负载，不是 daemon 基线。
+2. 这是分身平行视窗，不是系统分屏根。证据：`U=128`、`data/user/128`、`mHasMagicWinFeature=true`、task `mode=fullscreen` + 两个 adjacent fragment、全局 `splitScreenState:0`。
+3. 退出后 21 分钟仍 23% CPU + 0.94GB RSS + 大量 major fault，是残余成本。它会通过内存压力（free 239M、`kswapd0`）放大其它 App 的 jank，但 02:09 瞬时 CPU 并列的还有知乎/微信/B 站。把系统卡单归因闲鱼过拟合。
+4. pid 从 ~16:15 就在（startElapsed ~9h54m），双栏从至少 22:44 活到 00:25。这是用户长时间挂着分身闲鱼，不是采集伪影。
+5. PowerGenie exempt / smart-optimize 可能让分身闲鱼比普通后台更不容易被收。推断，未在本包做对照实验。
+6. 01 的 `21_window_windows.hits.txt` 还列出微信 MagicWin 可见窗（ChattingUI / MMWebViewUI + `StageCoordinatorSplitDivider`）。与 58/64 的闲鱼焦点不完全同一瞬间，可能是同一次 00:25–00:35 采集中途切 App，或 hits 过滤器拼了非当前焦点层。不以 21 hits 否定 58/64。微信 MagicWin 是另一会话成本，不是本包根因。
+
+## Unknowns
+
+- 没有闲鱼自己的 `dumpsys gfxinfo com.taobao.idlefish`，双栏滑动掉帧幅度未知。
+- 没有 00:25 当时的 `top`/`cpuinfo`，无法把 21.22 精确拆成闲鱼 vs 微信 vs kswapd。
+- `live_now/activity_top.txt` 截断，22:44 的 activity 栈不完整。
+- `meminfo_s.txt` 对 pid 6197 触发 `SERVICE 'meminfo' DUMP TIMEOUT`，PSS 细分未知。
+- 分身闲鱼是否在 User128 的 keepalive / 自启动白名单：本包 `deviceidle_wl` 无包名，User128 appops 未单独转储。
+- `appstandby.txt` 的 `lastTimeUsed=2026-08-28 23:00:47` 与 00:25 前台矛盾，更像 UsageStats 用户/时区/分身记账问题，不当证据。
+- 用户是否需要长期挂着分身双栏闲鱼：业务偏好未问，不得替用户关分身。
+
+## Recommended levers
+
+| ID | 杠杆 | 类 | 为什么 | 不要做成 |
+|---|---|---|---|---|
+| L1 | 用完后退出平行视窗，或从最近任务划掉分身闲鱼 | C | 去掉双栏绘制 + 让 cached 0.94GB 可回收；回滚=再打开分身 | 不要 `am force-stop` 当系统修复；不要动机主闲鱼 unless 用户要 |
+| L2 | 系统流畅度方案不要针对 `com.taobao.idlefish` 扩 Reduced / `appops RUN_ANY_IN_BACKGROUND ignore` / 加白名单删除 | D | Reduced 29 已冻结；分身闲鱼是用户会话 | 不要把闲鱼塞进 29；不要动 B 站 |
+| L3 | 不要关 MagicWin / `honor_multi_win_*` / 分屏手势 / 平行视窗设置 | A/B 禁 | 与侧栏/多窗键相邻，且本现象不是系统分屏开关故障 | 不要当关分屏治卡 |
+| L4 | 不要 disable iaware、phoneservice，不要写 dockBar/tooltip/ota/nav/FloatTasks | A 禁 | 已定硬约束；iaware 还是收 cached 的正道 | 分身 `pm -d iaware` 已是冻结漂移，勿复制到 User0 |
+| L5 | 若划掉分身后 5min load 仍 >15 且 kswapd 高：再查微信/知乎/B 站/网易云，而不是回改闲鱼 | D | 02:09 cpuinfo 已证明多头 | 不要一次杀一串前台 App |
+| L6 | 网易云保活保持用户选择 | D | 与本包无关 | 不要借 load21 去动网易云 |
+
+优先序：先 L1（用户会话），用测量节验证；L2–L4 是负向约束；L5 仅 L1 无效后才开下一包。
+
+## Rollback
+
+L1 回滚：桌面打开分身闲鱼，需要时再进搜索+详情平行视窗。不写 settings，不 pm enable/disable，不 appops。
+
+若有人已经 `force-stop --user 128 com.taobao.idlefish`：用户重新点开分身即可；不要用 Stage5 rollback / whitelist+ / 解 Reduced 去恢复。那些脚本是侧栏/B 站毒药，见 h10，不在本包执行。
+
+L2–L4 本包要求根本不要做，故无回滚步骤。
+
+## 怎么测 jank（机械，不靠体感）
+
+对照必须分四态，同一条 ADB、不要 `kill-server`：
+
+1. 基线桌面：无分身闲鱼前台。`uptime`；`cat /proc/loadavg`；`dumpsys gfxinfo com.hihonor.android.launcher` 与 `com.android.systemui` reset 后再划桌面 30s（累计 12% 不能用）。
+2. 复现：User128 闲鱼搜索|详情双栏，屏亮。记录 `dumpsys window` 的 `mCurrentFocus` / 两个 `TaskFragment` bounds；`uptime`；`top -b -n 1` 里 `u128_a250` `%CPU`/`%MEM`；闲鱼 `dumpsys gfxinfo com.taobao.idlefish`（本包缺失的就是这个）。
+3. 离开后 3 分钟、15 分钟：Home；确认 `visible=false` 且 `cached=true`。再打 `loadavg`、`top` pid 6197、`dumpsys meminfo` 的 Free RAM、`kswapd0`。若 15min 后 `%CPU` 仍 >5% 或 RSS 仍 ~1GB，才把残余算进流畅度债。
+4. L1 后：划掉分身任务后再测 3/15min。通过标准：1m load 回到与 22:44 同级（~14 或更低，视其它 App）；pid 6197 消失或 RSS 明显下降；桌面 gfxinfo reset 后 99th 下降。
+
+不要把开机累计 `Janky frames`、单次 `dumpsys activity top`、或 21.22 一个点当成根因闭环。

@@ -1,0 +1,39 @@
+Reading additional input from stdin...
+2026-08-13T04:44:48.538288Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-13T04:44:52.737694Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-13T04:45:59.478660Z ERROR codex_core::tools::router: error=Exit code: 124
+Wall time: 13.5 seconds
+Output:
+command timed out after 13531 milliseconds
+
+
+2026-08-13T04:45:59.930310Z ERROR codex_core::tools::router: error=Exit code: 124
+Wall time: 14 seconds
+Output:
+command timed out after 13980 milliseconds
+
+
+2026-08-13T04:51:12.583403Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 199ms)... turn_id=019ff96f-e89f-7d62-aead-17e68364e016 retries=1 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-13T04:52:19.010274Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 6.4 seconds
+Output:
+C:\Users\hzq00\.kimi-code\bin\rg.exe
+C:\Program Files\WindowsApps\OpenAI.Codex_26.803.5235.0_x64__2p2nqsd0c76g0\app\resources\rg
+C:\Program Files\WindowsApps\OpenAI.Codex_26.803.5235.0_x64__2p2nqsd0c76g0\app\resources\rg.exe
+E:\VPS\direct-repair-headless-wave-v1.json
+E:\VPS\k3-p5-fastpath-startup-20260810.sh
+E:\VPS\headless-wave-v1.out.log
+E:\VPS\headless-wave-v1.err.log
+E:\VPS\build_handoff_v2.py
+
+2026-08-13T04:59:49.646545Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 210ms)... turn_id=019ff96f-e89f-7d62-aead-17e68364e016 retries=1 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-13T05:05:05.862981Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 417ms)... turn_id=019ff96f-e89f-7d62-aead-17e68364e016 retries=2 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-13T05:10:16.132887Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 734ms)... turn_id=019ff96f-e89f-7d62-aead-17e68364e016 retries=3 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses

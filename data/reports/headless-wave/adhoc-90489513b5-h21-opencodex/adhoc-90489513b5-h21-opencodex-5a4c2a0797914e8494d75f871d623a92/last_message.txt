@@ -1,0 +1,105 @@
+I now have enough evidence for a thorough report. Let me compile the findings.
+
+---
+
+## OpenCodex Health Audit Report — 2026-08-14
+
+### 1. Application & Install
+
+**OpenCodex Desktop** is installed and present as a Windows Store app at version `26.803.5235.0`. The app binary is at `C:\Program Files\WindowsApps\OpenAI.Codex_26.803.5235.0_x64__2p2nqsd0c76g0\app`. The headless CLI (`codex.exe`) and the code-mode host (`codex-code-mode-host.exe`) are both present. Node.js v24.18.0 is available; npm is blocked by PowerShell's execution policy but is accessible via cmd.
+
+---
+
+### 2. Provider Configuration (cliproxy / OpenCodex proxy)
+
+Config source: [`C:\Users\hzq00\.codex\config.toml`]
+
+- **Active model**: `gpt-5.6-sol` at reasoning effort `high`
+- **Provider**: `cliproxy` → `http://127.0.0.1:10100/v1` (wire API: responses)
+- **Auth**: bearer token `sk-local-f8cde4532c16bcb2`; `requires_openai_auth = false`
+
+The cliproxy service is **live and healthy**: the `/v1/models` endpoint responds in ~3.5s and returns 12 models, and the `/health` dashboard page returns HTTP 200. The service exposes all configured models including `gpt-5.6-sol`, `gpt-5.6-luna`, `weiwu-k3/kimi-k3`, `weiwu/aws.claude-sonnet-4.6`, `weiwu/deepseek-v4-flash`, and several alibaba-token-plan models.
+
+---
+
+### 3. LOOP Provider Routing State
+
+Active model profile (from [`data/governor/model_profile.json`]): **`v4f-sonnet-review`**
+- Execution: `weiwu/deepseek-v4-flash` @ ultra
+- Review: `weiwu/aws.claude-sonnet-4.6` @ ultra
+
+This diverges from the original K3-centric profile. The `orchestration_policy_v2.toml` assigns `k3_model = "weiwu/aws.claude-sonnet-4.6"` (Claude Sonnet 4.6), not `weiwu-k3/kimi-k3`, consistent with the profile.
+
+**Provider health files:**
+
+| Provider | Model | Status | Last error | Notes |
+|---|---|---|---|---|
+| `weiwu` | `aws.claude-sonnet-4.6` | **healthy** | none | Last success ~0s ago at audit time |
+| `weiwu-k3` | `kimi-k3` | **unhealthy** | `upstream_5xx` (HTTP 504) | Backoff until +300s from ts `1786698370` |
+
+The `weiwu-k3/kimi-k3` provider is in backoff due to a 504 upstream timeout (last run: `adhoc-da7cdf9dc7-gate-db-wal-...`). The active `v4f-sonnet-review` profile routes K3/review work to `weiwu/aws.claude-sonnet-4.6` instead, so **current operations are not blocked by the kimi-k3 outage**.
+
+Routing mode in `orchestration_policy_v2.toml`: `cold_start` (not yet promoted to `layered`). The layered gate authorization file shows PASS with all 13 conditions green (last recorded at ts `1786471862`, i.e., ~Aug 12).
+
+---
+
+### 4. Token Share & Budget State
+
+Rolling 5h/24h/1h windows all show `INSUFFICIENT_DATA` (no tokens in those windows), which means the LOOP has been **idle for the past 5+ hours**.
+
+The cumulative 7-day window (status: OK):
+- Sol share: **42.3%** — significantly over the 15–25% target band (`sol_allocation_cap = 0.15`, `structural_alert_sol_above = 0.25`)
+- K3 share: **9.5%** — below the 20% floor (`k3_floor = 0.20`) but above the 5% alert threshold
+- V4 share: **48.3%** — within the 50–75% observation band
+
+The budget state is reported as `HIGH`, but `budget.state = NORMAL` with `ceiling = 0` and all consumed entries zeroed, suggesting the budget controller has not been actively computing for this session. The HIGH flag appears to be carried from historical data.
+
+**Sol 42.3% cumulative is a structural concern.** The policy sets `sol_allocation_cap = 0.15` and `structural_alert_sol_above = 0.25`, so the 7-day average is nearly 3× the cap. However, since the rolling 5h share is 0.0, the currently active wave (64 agents in the refill roster) is not contributing new Sol spend right now.
+
+---
+
+### 5. Refill / Wave State
+
+From `data/refill/refill_state.json`:
+- **Active agents**: 64 (all K3, V4=0)
+- **Target**: 20 per parent, 80 total; K3 target 20, V4 target 60
+- **Deficit**: 0 (queue empty)
+- **Reason**: `queue_empty` — no pending work, no refill required
+- **Parent session**: `019feacd-184e-7472-9f11-ea364c22e595`, manifest `p0-parent-final-backlog-20260814`
+
+The 64 active count exceeds the per-parent target of 20 significantly. This is likely stale roster data from completed work — the progress ledger shows all packets in `REPORTED` or `DEAD_LETTER` state, and the queue is empty, so these are residual lifecycle entries, not live threads.
+
+---
+
+### 6. Dead Letters & Packet Recoverability
+
+From `data/dead_letters/`:
+- Numerous `adhoc-*` packets dead-lettered on 2026-08-13, all from historical wave manifests
+- Several `parent-*` verifier packets (`K3反差补位审计`, `K3基线反差审计`, `K3重复出生对抗审计`, `K3恢复发布门`, etc.) dead-lettered via **timeout** (`last_fail_class: timeout`, 2 retry attempts exhausted) on 2026-08-13
+- One `parent-9d62ba2b8e2e...` dead-lettered as recently as 2026-08-14 14:19
+
+The K3 verifier timeouts are consistent with the `weiwu-k3/kimi-k3` provider being unhealthy. These packets cannot be automatically recovered — they require manual manifest re-injection or are accepted as completed losses (their acceptance criteria were read-only audits, so task integrity is not compromised).
+
+The circuit breaker (`data/.breaker.json`) shows 1 fail recorded at ts `1786688345`, `open_until = 0` — breaker is **closed** (not tripped).
+
+---
+
+### 7. Recoverability Summary
+
+| Component | Status | Recovery path |
+|---|---|---|
+| cliproxy endpoint | Healthy | N/A |
+| `weiwu` (Claude Sonnet) | Healthy | N/A |
+| `weiwu-k3` (kimi-k3) | Unhealthy — 504, in backoff | Auto-retry after backoff expires; profile already routes K3 work to weiwu/Sonnet |
+| Budget controller | Idle (NORMAL, no active task) | Will activate on next wave dispatch |
+| Circuit breaker | Closed | N/A |
+| Dead-letter K3 verifier packets | Terminal — cannot auto-recover | Accept as historical; do not re-dispatch unless a new manifest explicitly requeues them |
+| Sol cumulative share (42.3%) | Structural alert exceeded | New work will dilute this; no immediate action needed while queue is empty |
+| Planning lease file | Missing (`data/governor/planning_lease.json` not found) | Governor will create on next planning phase entry; absence is normal when idle |
+
+### 8. Key Risks
+
+1. **Sol overrun (cumulative 7d: 42.3%)** — far above the 25% structural alert threshold. As soon as new work begins, the governor's fail-closed mode (`governor.fail_mode = closed`) will block spawn unless Sol share drops into band or `LOOP_GOVERNOR_OVERRIDE` is set.
+2. **kimi-k3 unhealthy** — any profile that pins `review_model = "weiwu-k3/kimi-k3"` (e.g., `profiles.v4f`, `profiles.k3-only`, `profiles.glm`) will see K3 pool deficits until the provider recovers. Current active profile `v4f-sonnet-review` avoids this.
+3. **Layered gate PASS is stale (~48h old)** — the last recorded authorization is from 2026-08-12. If the harness checks freshness before allowing layered mode transition, a re-run of the gate check may be needed.
+4. **Exec roster shows 64 "active"** — these are likely stale lifecycle entries. If the lifecycle supervisor reads this as live capacity, it could suppress new spawns. Worth verifying against actual running Desktop/headless processes before the next wave.

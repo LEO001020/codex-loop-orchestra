@@ -1,0 +1,260 @@
+Now I have all the information needed for a thorough analysis. Let me synthesize the findings:
+
+---
+
+## Ceremony状态机复核报告
+
+### 一、被检查文件
+
+`E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\ceremony\owner_ceremony.py`（13876 字节，最后修改 2026-08-14 15:48）
+
+---
+
+### 二、各检查项逐项分析
+
+#### 1. Canonical Signing Bytes（签名字节一致性）
+
+**结论：存在 I7 级缺陷。**
+
+`command_attach_signature`（第 223–231 行）的签名验证调用：
+
+```python
+verify_ed25519(public, canonical_json(payload), signature)
+```
+
+此时 `payload` 是从文件加载的无签名 payload dict（尚未含 `owner_signature` 键）。
+
+`command_verify_signed`（第 234–241 行）的签名验证调用：
+
+```python
+unsigned = dict(payload)       # payload 此时含 owner_signature
+unsigned.pop("owner_signature", None)
+verify_ed25519(..., canonical_json(unsigned), signature)
+```
+
+两条路径名义上操作"相同"的字节，但存在一个关键结构性分歧：
+
+**`load()` 用 `json.loads()` 解析 JSON 文件，而 `write()` 用 `canonical_json()` 写入文件。`canonical_json` 使用 `ensure_ascii=False`，而标准 `json.loads` 在解析时不规范化编码。`load()` 之后 `canonical_json()` 的输出与原始磁盘字节不一定相同。** 然而更关键的是：`command_invoke_signer` 写入文件的是 `canonical_json(payload)` 字节（通过 `write()`），而外部签名器对磁盘文件字节（`P5_CANONICAL_PAYLOAD_PATH`）签名——这些磁盘字节就是 `canonical_json(payload)`；`command_attach_signature` 则先 `load(args.payload)`（JSON 解析回 dict，再 `canonical_json()` 重新序列化），只要 payload dict 字段完全是 JSON 安全类型（字符串、数字、嵌套 dict/list），两次 `canonical_json()` 应产生相同字节。
+
+**真正的 I7 缺陷在 `command_verify_signed` 和 `command_register_root` 的交互**：
+
+```python
+def command_register_root(args: argparse.Namespace) -> None:
+    execution_gate(args)
+    command_verify_signed(args)          # 用内存 dict 重序列化验证
+    completed = subprocess.run(
+        [args.researchctl, "delegation-register", "--payload", "@" + args.payload],
+        ...
+    )
+```
+
+`researchctl delegation-register --payload @<file>` 传递的是**磁盘文件原始字节**（`@` 前缀表明是文件引用），但 `command_verify_signed` 验证的是 `canonical_json(dict(payload))` — 即 `load()` 后重新序列化的字节，不是磁盘文件的原始字节。如果签名文件写入时（`write()`）和 `researchctl` 读取时产生任何字段顺序差异（例如 `resource_policy` 作为内嵌 dict 被重解析后键顺序改变），则 `verify_signed` 通过但 `delegation-register` 收到的字节与签名不符——生产端将拒绝签名。
+
+**可执行夹具（fixture）**：
+
+```python
+import json, hashlib
+
+# 模拟一个含 resource_policy 嵌套 dict 的 payload
+payload_on_disk = b'{"owner_signature":"AABB","resource_policy":{"z":1,"a":2}}'
+# load() -> canonical_json() 重序列化
+loaded = json.loads(payload_on_disk)
+unsigned = dict(loaded); unsigned.pop("owner_signature", None)
+from_verify_signed = json.dumps(unsigned, ensure_ascii=False, sort_keys=True,
+                                 separators=(",", ":")).encode()
+# researchctl 收到的字节（磁盘原始）
+# 剥去 owner_signature 后的签名字节应为:
+# {"resource_policy":{"a":2,"z":1}}   <- sort_keys=True 会重排嵌套键
+# 结论：只要 canonical_json 用 sort_keys=True，重序列化和磁盘原始不一致
+# 因为磁盘文件中 resource_policy 已被 write() 的 canonical_json 排序，
+# 所以两者实际一致——除非 load() 读入的 payload 来自外部、非 write() 写入的文件
+```
+
+**实际 I7 缺陷确认**：在 `command_attach_signature` 中，`payload` 来自外部签名器产生的文件（即由 `command_materialize_root` 的 `write()` 生成），所以磁盘字节和 `canonical_json(load(...))` 是一致的。但该函数在**签名前**调用 `verify_scope(payload)`，`verify_scope` 在通过后不修改 dict，随后 `canonical_json(payload)` 作为被签名消息——这与 `command_verify_signed` 路径中 `canonical_json(unsigned)` 一致，**无分歧**。
+
+**但存在一个不同的 I7 缺陷**：`require_receipt` 的 hash 检查逻辑：
+
+```python
+if value.get("amendment_sha256", expected) != expected:
+```
+
+这里用了 **dict.get 的 default 参数** 作为被比较值的备用值——即若 `amendment_sha256` 键**缺失**，`get()` 返回 `expected`，条件 `expected != expected` 为 `False`，hash 检查**静默通过**。这意味着一个缺少 `amendment_sha256` 字段的 receipt 将绕过 hash 校验。
+
+**I7 缺陷证据（require_receipt hash bypass）**：
+
+```python
+# 触发条件：伪造缺少 amendment_sha256 字段的 receipt
+fake_receipt = {"status": "PASS", "state": "APPLIED", "amendment_id": "C"}
+# 注意：amendment_sha256 键缺失
+expected = C_SHA  # "5b1d8116..."
+result = fake_receipt.get("amendment_sha256", expected)  # 返回 expected = C_SHA
+# expected != expected  -> False，不抛异常
+# require_receipt 静默通过！
+```
+
+---
+
+#### 2. Receipt 解析（`require_receipt` / `result`）
+
+**缺陷：`result()` 嵌套解包逻辑过于宽松，加上上述 hash bypass。**
+
+`result()` 函数处理三种结构：
+- `{"result": {"result": {...}}}` → 最深层
+- `{"result": {...}}` → 内层  
+- `{...}` → 原始 dict
+
+这对 researchctl 可能返回任意嵌套包装时是合理的，但同时意味着攻击者可以通过构造特定嵌套结构将任意内层 dict 提升为被检查值，结合上述 `amendment_sha256` 缺失绕过，构成完整的 receipt 伪造链。
+
+---
+
+#### 3. C-before-D-before-root 顺序门
+
+**结论：ceremony 工具层面有缺口，store 层面正确。**
+
+`authority_store.register_delegation` 在 DB 事务内执行：
+```python
+expected=[("C",AMENDMENT_C_SHA256,"INTERACTIVE_OWNER_SIGN","APPLIED"),
+          ("D",_amendment_d_sha256(),"INTERACTIVE_OWNER_SIGN","APPLIED")]
+if observed != expected: raise FailClosed("EXACT_C_AND_D_DIRECT_OWNER_APPLIED_REQUIRED")
+```
+这是精确的有序 4 元组比较，既检查顺序又检查 `authorization_mode="INTERACTIVE_OWNER_SIGN"` 和 `state="APPLIED"`。**store 层无缺陷。**
+
+但在 `command_make_direct` 中：
+
+```python
+def command_make_direct(args: argparse.Namespace) -> None:
+    if args.amendment == "D":
+        require_receipt(args.c_receipt, "C")
+    payload = {...}
+    write(args.output, payload)
+```
+
+生成 D 请求时，会验证 C 的 receipt。**但 C receipt 验证完全可以用伪造的 receipt 文件绕过**（配合上述 I7 hash bypass 缺陷）：
+
+```bash
+# 构造一个绕过 require_receipt 的伪造 C receipt
+echo '{"status":"PASS","state":"APPLIED","amendment_id":"C"}' > fake_c.json
+# amendment_sha256 字段缺失 -> hash 检查静默通过
+python owner_ceremony.py make-direct-request --amendment D \
+    --c-receipt fake_c.json --producer-session-id xxx --output d_req.json
+# 成功！D 请求被生成而 C 实际未完成
+```
+
+这是 **I1 级缺陷**：ceremony 工具层面的 C-before-D 前置顺序门可被绕过。
+
+---
+
+#### 4. 双执行门（Dual Execution Gates）
+
+**结论：正确，无缺陷。**
+
+`execution_gate` 检查三个独立条件：
+
+```python
+if not args.allow_production_execution:          # CLI 标志
+    raise SystemExit(...)
+if os.environ.get("P5_OWNER_CEREMONY_EXECUTION") != "YES":   # 环境变量
+    raise SystemExit(...)
+if os.geteuid() == 0:                            # 非 root 检查
+    raise SystemExit(...)
+```
+
+`execute-direct` 和 `register-root` 均调用此函数。两个独立的执行门（CLI flag + env var）以及 root 拒绝均已实现。
+
+**注意**：`os.geteuid()` 在 Windows 上不存在，会抛 `AttributeError`，但该代码设计为 Linux 运行环境，可接受。
+
+---
+
+#### 5. 注册路径（Registration Path）
+
+**结论：`command_register_root` 存在双重验证与文件传递的语义不对称（I1 次级）。**
+
+```python
+def command_register_root(args: argparse.Namespace) -> None:
+    execution_gate(args)
+    command_verify_signed(args)           # 内存验证：canonical_json(load(file))
+    completed = subprocess.run(
+        [args.researchctl, "delegation-register", "--payload", "@" + args.payload],
+        ...                               # 文件传递：researchctl 读取原始字节
+    )
+```
+
+`command_verify_signed` 用 Python 重解析文件后验证签名，但 `researchctl` 直接传递文件路径（`@` 前缀）。生产端的 `authority_store.register_delegation` 会再次调用 `verify_signature`，而传递进去的是文件字节经 `json.loads` 后的 dict（researchctl 内部处理），再由 `canonical_json` 重序列化。若文件由 `write()` 生成（`canonical_json` 已规范化），则两次序列化结果一致，签名不会失配。
+
+然而 `command_register_root` 在 `command_verify_signed` 通过后，**不验证 researchctl 返回的 delegation_id 与输入 payload 中的 `delegation_id` 匹配**：
+
+```python
+value = result(receipt)
+if value.get("status") != "PASS":
+    raise SystemExit("root delegation registration did not return PASS")
+write(args.output, receipt)
+```
+
+仅检查 `status == "PASS"`，不校验返回的 delegation_id 或 scope_sha256，这是一个 I1 级输出绑定验证缺口。
+
+---
+
+### 三、缺陷汇总
+
+| 编号 | 等级 | 位置 | 描述 | 可触发条件 |
+|------|------|------|------|------------|
+| **F1** | **I7** | `require_receipt` L79 | `dict.get("amendment_sha256", expected)` 当键缺失时 hash 检查静默通过 | 构造缺少 `amendment_sha256` 字段的 receipt 文件 |
+| **F2** | **I1** | `command_make_direct` + `require_receipt` | C-before-D 顺序门可被 F1 绕过，D request 可在 C 未实际注册时生成 | 见上述 `fake_c.json` 夹具 |
+| **F3** | **I1** | `command_register_root` L253–261 | 注册成功后不验证返回 `delegation_id` 与输入一致，输出绑定不完整 | researchctl 返回不同 delegation_id 时不报错 |
+| F4 | 次要 | `result()` | 三层嵌套解包逻辑与 F1 结合可构造完整 receipt 伪造链 | 需要 F1 配合 |
+
+---
+
+### 四、可执行夹具
+
+**F1/F2 证明夹具（无需 Python 运行环境，纯 JSON 逻辑）：**
+
+```json
+// fake_c_receipt.json — 可绕过 require_receipt("C") 的伪造 receipt
+{
+  "status": "PASS",
+  "state": "APPLIED",
+  "amendment_id": "C"
+}
+// 注意：故意省略 "amendment_sha256" 键
+// require_receipt 第 80 行:
+//   value.get("amendment_sha256", C_SHA) != C_SHA
+//   => C_SHA != C_SHA  => False  => 不抛异常 => 检查通过
+```
+
+```bash
+# F2 完整攻击链
+python owner_ceremony.py make-direct-request \
+    --amendment D \
+    --c-receipt fake_c_receipt.json \
+    --producer-session-id "test-session-001" \
+    --output d_request.json
+# 结果：D 请求被写入，C 未实际注册
+# authority_store.register_amendment_direct 会拒绝（C_FIRST_D_SECOND_REQUIRED），
+# 但 ceremony 工具层面的前置门已被绕过，不构成纵深防御
+```
+
+**F3 证明夹具：**
+
+```python
+# 模拟 researchctl 返回不同 delegation_id 的 receipt
+mock_receipt = {
+    "status": "PASS",
+    "delegation_id": "delegationXYZ-WRONG",  # 与输入 payload 中的 delegation_id 不同
+    "scope_sha256": "..."
+}
+# command_register_root 仅检查 value.get("status") != "PASS"
+# 不校验 delegation_id，写入 args.output 后调用方无法察觉
+```
+
+---
+
+### 五、结论
+
+**I7 缺陷（F1）** 是根本性的：`require_receipt` 的 hash 检查使用了 `dict.get(key, default)` 的备用语义，导致缺字段时校验等价于 `expected == expected` 恒成立，完全绑过。这直接使 **I1 级的 C-before-D 顺序门（F2）** 在 ceremony 工具层面形同虚设。store 层（`authority_store.register_amendment_direct`）的 `C_FIRST_D_SECOND_REQUIRED` 硬检查仍然有效，但工具层防线已失，不应依赖单层防御。
+
+**修复建议（仅记录，不执行）**：将 `require_receipt` 第 80 行改为：
+```python
+if value.get("amendment_sha256") != expected:   # 移除 default 参数
+```
+这样缺失字段时 `get()` 返回 `None`，`None != expected` 为 `True`，正确抛出异常。

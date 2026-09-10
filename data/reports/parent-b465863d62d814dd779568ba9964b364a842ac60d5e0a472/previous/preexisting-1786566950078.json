@@ -1,0 +1,21 @@
+## 复验结论
+
+**准入约束在源码与测试中均成立：`parent_manifest_importer` 是严格的显式只读准入边界，未发现从 UI/历史 rollout 猜测任务的路径。** 证据如下（逐行源码核对；本会话无可用 Python 解释器，未能机械重放 pytest，见末尾说明）。
+
+### 准入不变量（[parent_manifest_importer.py](E:/codex-LOOP/codex-loop-s-f2/harness/parent_manifest_importer.py)）
+
+1. **显式角色**：`role` 必须 ∈ {worker, verifier, reviewer, plan_expander}（L43、L173-176），否则拒绝；ledger 条目带 `role` 与 `pool_hint`（L261-262），不存在角色缺省/继承路径。
+2. **只读工作区**：`mode` 必须为 `read-only`（L147-148）；每个任务 `sandbox=read-only`（L177-178），`allow_write`/`workspace_write=true` 直接拒绝（L179-180）；`authorized_paths` 必须相对、禁绝对路径与 `..`（L79-88）；`cwd` 限定在显式根（root + allow_roots）内且必须存在（L93-118）；产出 packet 强制 `constraints=["read-only"]`（L253）。
+3. **parent active**：`enabled` 必须为 true（L145-146）；`parent_state` 只接受 active/running/loaded/execution/in_progress/pending，终结态与未知态均拒绝（L45-51、L120-133）；`parent_sessions.json` 中已停止且 manifest_id 相同的 parent 不可隐式复活（L225-234）。
+4. **幂等**：同 manifest 重导，packet 文件与 ledger 条目均存在且内容一致时计 `existing`、不重写（L271-280）；崩溃造成的单侧状态（仅文件或仅条目）可修复补齐（L281-285、L288-293）。
+5. **碰撞拒绝**：文件或条目内容不一致即抛 `collision or content mismatch`（L273-277）；整批先校验后写入，批内任一碰撞不会留下部分导入（L286-287）；重复 `task_id` 也拒绝（L169-170）；`target_active` 与任务数上限取自 `RefillPolicy.target_total()`（L150-162）。
+
+### 不从 UI/历史 rollout 猜任务
+
+唯一输入是调用方显式给出的 manifest 路径：CLI `--manifest` 必填（L322-323），`import_manifest` 只 `read_text` 该文件（L218-220）；文档字符串明确声明不推断 Desktop history / UI deficit / parent rollout（L4-12）。全文件无对 desktop/rollout/history 的读取；`parent_sessions.json` 仅用于上述"停止后不可复活"的拒绝判断，不产生任务。
+
+### 测试覆盖（[test_parent_manifest_importer.py](E:/codex-LOOP/codex-loop-s-f2/tests/orchestration_v2/test_parent_manifest_importer.py)，171 行 8 个用例）
+
+显式幂等与 DISPATCHABLE 落账（L40-62）、inactive/unsafe parent 参数化拒绝（L66-74）、60 上限（L76-87）、角色缺失/写沙箱/cwd 越界（L89-101）、额外根白名单与 `..` 穿越（L103-121）、篡改碰撞（L123-135）、批内碰撞零部分写入（L137-158）、单侧崩溃修复（L160-171）——与上述五条不变量一一对应。
+
+**限制**：本会话 `python`/`py` 不在 PATH，WSL 被拒（E_ACCESSDENIED），uv 缓存损坏，故无法在本包内机械重跑测试；以上为源码+测试静态复验，未做运行时重放。全程未创建、修改或删除任何文件。

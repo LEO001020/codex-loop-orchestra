@@ -1,0 +1,129 @@
+# ============================================================================
+# triggers_v2.yaml — L1 trigger table (v2: layered routing, live send_l2)
+# ----------------------------------------------------------------------------
+# Purpose : deterministic, zero-token routing of mechanical signals after L0.
+#           v2 changes vs triggers.yaml v1:
+#             1. send_l2 is now a LIVE action: trigger_eval appends an L2
+#                request record to data/l2_queue/pending.ndjsonl with a
+#                semantic idempotency key (k3IdemKey pattern) which
+#                harness/l2_consumer.py drains exactly-once (P0-1/P0-2 fix).
+#             2. New orchestration events: l2_requested (consumer claim ->
+#                statemachine t30), skeleton_ready (plan pipeline -> t27).
+#             3. Sampled verification: verify_sample_rate of healthy `pass`
+#                packets are deterministically re-routed send_l2 (E3).
+# Semantics (unchanged, hardcoded in trigger_eval):
+#   - L1 can only PASS, ANNOTATE, BLOCK, or ESCALATE — never release.
+#   - high_risk rules are deterministic direct_l3(+L4); NO LLM verdict
+#     (L2 verifier included) may override a high_risk direct_l3 hit.
+#   - severity order: direct_l3 > send_l2 > spawn_duty_officer >
+#     annotated_pass > pass.
+#   - off-table signal -> default_action (send_l2), never silent pass.
+# ============================================================================
+
+version: 2
+default_action: send_l2          # off-table -> fail-visible verification
+log_all_hits: true
+
+# Routing-mode interaction (read from orchestration_policy_v2.toml [routing]):
+#   cold_start : legacy — every non-direct_l3 action upgraded to direct_l3
+#   shadow     : raw action logged as-if-layered, executed as cold_start
+#   layered    : table verdict stands; send_l2 -> l2_queue emission
+routing_policy_ref: config/orchestration_policy_v2.toml
+
+# --------------------------------------------------------------------------
+# Actions and their consumers (declaration face = enforcement face)
+# --------------------------------------------------------------------------
+actions:
+  pass:
+    consumer: serial_merge_queue            # mechanical acceptance, zero Sol
+  annotated_pass:
+    consumer: serial_merge_queue
+  send_l2:
+    consumer: harness/l2_consumer.py        # exactly-once drain -> verifier
+    queue: data/l2_queue/pending.ndjsonl
+    idem_key_pattern: "k3:l2req:{packet_id}:{b32(sha256(run_id|attempt))[:16]}"
+  spawn_duty_officer:
+    consumer: duty_driver                   # enforce=true (absorber)
+  direct_l3:
+    consumer: result_reducer                # bounded AdjudicationPacket <=1k tok
+  direct_l4:
+    consumer: l4_queue                      # human release gate
+
+# --------------------------------------------------------------------------
+# Orchestration events emitted into events.ndjson (statemachine v2 table)
+# --------------------------------------------------------------------------
+events:
+  l2_requested:                             # t30 REPORTED -> L2_VERIFY
+    emitted_by: harness/l2_consumer.py
+    on: claim_created
+  verdict_pass:                             # t31 L2_VERIFY -> ACCEPTED
+    emitted_by: harness/l2_consumer.py
+    on: completion_validated
+  verdict_redo:                             # t32 L2_VERIFY -> FAILED
+    emitted_by: harness/l2_consumer.py
+    on: completion_validated
+  verdict_escalate_l2_5:                    # t33 L2_VERIFY -> L2_RANK
+    emitted_by: harness/l2_consumer.py
+    on: completion_validated
+  verdict_escalate_l3:                      # t34 L2_VERIFY -> SOL_ADJUDICATE
+    emitted_by: harness/l2_consumer.py
+    on: completion_validated
+  l2_consumer_stale:                        # down-consumer: fail-visible
+    emitted_by: harness/l2_consumer.py
+    on: pending_record_age > l2_max_age_s
+    effect: direct_l3 + sol_wake naming the consumer outage
+  skeleton_ready:                           # t27 NONE -> EXPAND_K3
+    emitted_by: harness/orchestration/plan_pipeline.py
+    on: decision_skeleton_compiled
+  expansion_valid:                          # t28 EXPAND_K3 -> PLANNED
+    emitted_by: harness/orchestration/plan_pipeline.py
+  expansion_invalid:                        # t29 EXPAND_K3 -> SOL_ADJUDICATE
+    emitted_by: harness/orchestration/plan_pipeline.py
+  best_candidate:                           # t36 L2_RANK -> L2_VERIFY
+    emitted_by: harness/result_reducer.py
+  retry_dispatch_timeout:                   # t37 TIMED_OUT -> DISPATCHABLE
+    emitted_by: harness/retry.py
+    budget: timeout_retry_max = 1
+  duty_triage:                              # t38 DEAD_LETTER -> DUTY_REVIEW
+    emitted_by: harness/duty_driver.py
+
+# --------------------------------------------------------------------------
+# Sampled verification (E3) — deterministic, auditable, never idle-burning
+# --------------------------------------------------------------------------
+sampled_verification:
+  enabled_in_modes: [layered]
+  rate_ref: routing.verify_sample_rate      # 0.10 default
+  selector: "sha256(packet_id) mod 100 < rate*100"   # reproducible
+
+# --------------------------------------------------------------------------
+# Rules — the 34-rule v1 EK/duty partitions are RETAINED verbatim; only the
+# entries below are added/changed in v2. (Full table carried from
+# triggers.yaml v1; rule semantics unchanged.)
+# --------------------------------------------------------------------------
+partitions:
+  ek_v2_additions:
+    rules:
+      - name: l2_verifier_exec_failed_once
+        signal_pattern: "l2_attempts == 1 and last_event == 'exec_failed'"
+        action: send_l2                     # one L2 retry (t35 cap = 1)
+        priority: 40
+      - name: l2_verifier_exec_failed_twice
+        signal_pattern: "l2_attempts >= 2 and last_event == 'exec_failed'"
+        action: direct_l3                   # second failure -> Sol, bounded
+        priority: 39
+      - name: timeout_first
+        signal_pattern: "exit_codes[-1] == 124 and timeout_retries == 0"
+        action: pass                        # mechanical t37 retry, zero Sol
+        priority: 45
+      - name: timeout_second
+        signal_pattern: "exit_codes[-1] == 124 and timeout_retries >= 1"
+        action: spawn_duty_officer          # zero-Sol triage before DLQ
+        priority: 44
+      - name: short_result_invalid
+        signal_pattern: "failure_reason == 'short_result_invalid'"
+        action: send_l2                     # verifier judges quarantined report
+        priority: 42
+      - name: stale_revision_publish
+        signal_pattern: "failure_reason == 'stale_revision'"
+        action: pass                        # mechanical: re-dispatch at rev N
+        priority: 43

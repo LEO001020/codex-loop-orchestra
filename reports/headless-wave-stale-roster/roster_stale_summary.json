@@ -1,0 +1,86 @@
+{
+  "observed_at_unix": 1788021927.233594,
+  "roster_bytes": 7343905,
+  "n_jobs": 1147,
+  "state_counts": {
+    "timed_out": 275,
+    "completed": 485,
+    "cancelled": 47,
+    "failed": 271,
+    "running": 60,
+    "spawn_failed": 8,
+    "lost": 1
+  },
+  "active_running_or_starting": 60,
+  "starting": 0,
+  "running": 60,
+  "stale_hb_gt_30": 58,
+  "fresh_hb_le_30": 2,
+  "stale_planes": {
+    "Windows CLI": 48,
+    "WSL CLI": 10
+  },
+  "stale_supervisor_raw_alive": 4,
+  "stale_supervisor_identity_match": 0,
+  "stale_worker_raw_alive": 2,
+  "stale_worker_identity_match": 0,
+  "stale_pid_reuse_supervisor": 4,
+  "fresh_identity_match_jobs": 2,
+  "cold_reconcile_candidates_dead_supervisor_identity": 58,
+  "samples": {
+    "dead": {
+      "packet_id": "adhoc-0ce6fe0373-test-taxonomy",
+      "task_name": "测试计数终审",
+      "state": "running",
+      "plane": "Windows CLI",
+      "supervisor_pid": 7316,
+      "os_pid": 56816,
+      "hb_age_s": 1328297.4792423248,
+      "sup_raw_alive": false,
+      "sup_match": false,
+      "sup_why": "open_failed_err_87",
+      "os_raw_alive": false,
+      "os_match": false,
+      "os_why": "open_failed_err_87",
+      "run_id": "adhoc-0ce6fe0373-test-taxonomy-d6e63f7c3a7f4d82abc03437b4f35cf8",
+      "model": "weiwu/aws.claude-sonnet-4.6"
+    },
+    "pid_reuse": {
+      "packet_id": "adhoc-2a28776306-fl18-sonnet-trust-order-r2",
+      "task_name": "绑定终审信任顺序R2",
+      "state": "running",
+      "plane": "Windows CLI",
+      "supervisor_pid": 38548,
+      "os_pid": 49340,
+      "hb_age_s": 1322615.6797111034,
+      "sup_raw_alive": true,
+      "sup_match": false,
+      "sup_why": "ticks_mismatch",
+      "os_raw_alive": false,
+      "os_match": false,
+      "os_why": "open_failed_err_87",
+      "run_id": "adhoc-2a28776306-fl18-sonnet-trust-order-r2-e48690284f2b460383cb5d1b4dbc2842",
+      "model": "weiwu/aws.claude-sonnet-4.6",
+      "sup_tok": 134324833746042248,
+      "sup_expected": 134311715299898375
+    }
+  },
+  "fresh_jobs": [
+    {
+      "packet_id": "adhoc-7a174f4314-status-crosscheck",
+      "task_name": "STATUS报告交叉核验",
+      "supervisor_pid": 56080,
+      "os_pid": 67392,
+      "hb_age_s": 3.642655372619629,
+      "plane": "Windows CLI"
+    },
+    {
+      "packet_id": "adhoc-7a174f4314-swipe-failure-modes",
+      "task_name": "手势失败模式",
+      "supervisor_pid": 75340,
+      "os_pid": 17800,
+      "hb_age_s": 6.575188159942627,
+      "plane": "Windows CLI"
+    }
+  ]
+}

@@ -1,0 +1,174 @@
+Reading additional input from stdin...
+2026-08-14T08:26:25.947414Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T08:26:36.044610Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-14T08:32:21.716730Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 216ms)... turn_id=019fff61-2b7b-7ec3-a1d6-9264757d9daf retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+2026-08-14T08:34:34.854864Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 396ms)... turn_id=019fff61-2b7b-7ec3-a1d6-9264757d9daf retries=2 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+2026-08-14T08:38:57.557411Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 878ms)... turn_id=019fff61-2b7b-7ec3-a1d6-9264757d9daf retries=3 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+2026-08-14T08:44:09.212380Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.6s)... turn_id=019fff61-2b7b-7ec3-a1d6-9264757d9daf retries=4 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T08:49:02.751260Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 3.315s)... turn_id=019fff61-2b7b-7ec3-a1d6-9264757d9daf retries=5 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T08:52:44.121737Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.9 seconds
+Output:
+
+FullName                                                                                              
+--------                                                                                              
+E:\codex-LOOP\codex-loop-s-f2\data\repairs\parent-ledger-schema-20260813-044338\repair_manifest.json  
+E:\codex-LOOP\codex-loop-s-f2\data\repairs\parent-replay-incident-20260813-044825\repair_manifest.json
+E:\codex-LOOP\codex-loop-s-f2\data\repairs\plain-parent-reports-20260813-045304\repair_manifest.json  
+E:\codex-LOOP\codex-loop-s-f2\data\repairs\transport-deadletters-20260813-042738\repair_manifest.json 
+E:\codex-LOOP\codex-loop-s-f2\harness\repair_parent_ledger_schema.py                                  
+E:\codex-LOOP\codex-loop-s-f2\harness\repair_plain_parent_reports.py                                  
+E:\codex-LOOP\codex-loop-s-f2\harness\repair_transport_deadletters.py                                 
+E:\codex-LOOP\codex-loop-s-f2\harness\__pycache__\repair_transport_deadletters.cpython-314.pyc        
+
+
+
+2026-08-14T08:52:44.701187Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.5 seconds
+Output:
+
+FullName                                            
+--------                                            
+E:\codex-LOOP\codex-loop-s-f2\backup-20260811-215706
+E:\codex-LOOP\codex-loop-s-f2\backup-20260811-215927
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318
+
+
+
+2026-08-14T08:54:00.637076Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.2 seconds
+Output:
+
+2026-08-14T08:54:00.690498Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.3 seconds
+Output:
+
+FullName                                     
+--------                                     
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2
+
+
+
+2026-08-14T08:55:21.216712Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 4.2 seconds
+Output:
+E:\codex-LOOP\codex-loop-s-f2\backup-20260811-215927\tests\orchestration_v2\conftest.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\conftest.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\conftest.py
+E:\codex-LOOP\codex-loop-s-f2\tests\conftest.py
+
+2026-08-14T08:56:03.333508Z  WARN codex_sandboxing::violation: recorded sandbox violation: resource=filesystem backend=windows_sandbox reason=policy_denied path=unknown
+2026-08-14T08:56:03.333776Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.5 seconds
+Output:
+
+ M VERSIONS.lock
+ M agents/duty_officer.toml
+ M config/config.toml.example
+ M config/escalation_ladder.yaml
+ M config/roles.yaml
+ M data/escalation_log.jsonl
+ M harness/dispatch.py
+ M harness/statemachine.py
+ M harness/verdict_check.py
+ M metering/usage_reconcile.py
+ M test_evidence_pytest_output.txt
+ M tests/conftest.py
+ M tests/golden/test_g1_two_packet_parallel.py
+ M tests/golden/test_g2_retry_success.py
+ M tests/mock_codex/mock_codex_exec.sh
+ M tests/statemachine_paths/test_all_transitions.py
+ M tests/unit/test_acceptance_replay.py
+ M tests/unit/test_dispatch.py
+ M tests/unit/test_statemachine.py
+?? .codex/
+?? "C\357\200\272/"
+?? backup-20260811-215706/
+?? backup-20260811-215927/
+?? backup-20260813-012318/
+?? codex-loop-s-f2/
+?? config/ipybox_sandbox.json
+?? config/loop_config_v2.toml
+?? config/managed_files_v2.txt
+?? config/model_profiles.toml
+?? config/orchestration_policy.toml
+?? config/orchestration_policy_v2.toml
+?? config/refill_policy.toml
+?? config/roles_v2.yaml
+?? config/statemachine_v2_transitions.json
+?? config/triggers_v2.yaml
+?? data/.sm_cursor
+?? data/escalation_log.jsonl.lock
+?? data/lifecycle/
+?? data/lifecycle_reports/
+?? data/orchestration/
+?? data/packets/
+?? data/progress_ledger.lock
+?? data/repairs/
+?? data/reports/
+?? data/timeout_retry_counters.json
+?? harness/__pycache__/
+?? harness/budget_controller.py
+?? harness/csv_reconcile.py
+?? harness/desktop_edge_reconcile.py
+?? harness/dispatch_v2.py
+?? harness/ipybox_cleanup.py
+?? harness/ipybox_lazy.py
+?? harness/l2_consumer.py
+?? harness/lifecycle_supervisor.py
+?? harness/lifecycle_supervisor_v2.py
+?? harness/loop_config.py
+?? harness/orchestration/
+?? harness/orchestration_common.py
+?? harness/orchestration_epilogue.py
+?? harness/plan_consumer.py
+?? harness/recover_parent_replay_incident.py
+?? harness/refill_consumer_v2.py
+?? harness/refill_controller.py
+?? harness/refill_controller_v2.py
+?? harness/repair_parent_ledger_schema.py
+?? harness/repair_plain_parent_reports.py
+?? harness/repair_transport_deadletters.py
+?? harness/result_reducer.py
+?? harness/signals_collect.py
+?? harness/statemachine_v2.py
+?? harness/terminal_packet_epilogue.py
+?? hooks/__pycache__/
+?? hooks/subagent_lifecycle.py
+?? metering/__pycache__/
+?? metering/oscillation_report.py
+?? reports/
+?? schemas/
+?? tests/__pycache__/
+?? tests/golden/__pycache__/
+?? tests/ipybox_parent_death_smoke.py
+?? tests/ipybox_supervisor_smoke.py
+?? tests/orchestration_v2/
+?? tests/statemachine_paths/__pycache__/
+?? tests/test_budget_controller.py
+?? tests/test_cold_start_rollback.py
+?? tests/test_dispatch_v2.py
+?? tests/test_l2_consumer.py
+?? tests/test_lifecycle_supervisor_v2.py
+?? tests/test_refill_controller_v2.py
+?? tests/test_result_reducer.py
+?? tests/test_statemachine_v2.py
+?? tests/unit/__pycache__/
+?? tests/unit/test_csv_reconcile.py
+?? tests/unit/test_desktop_edge_reconcile.py
+?? tests/unit/test_dispatch_model_pin.py
+?? tests/unit/test_dispatch_reinjection.py
+?? tests/unit/test_duty_production.py
+?? tests/unit/test_lifecycle_supervisor.py
+?? tests/unit/test_loop_config.py
+?? tests/unit/test_opencodex_supervisor.py
+?? tests/unit/test_oscillation_report.py
+?? tests/unit/test_reconcile_subagent_metering.py
+?? tests/unit/test_refill_controller.py
+?? tests/unit/test_replan_cap.py
+?? tests/unit/test_signals_collect.py
+?? tests/unit/test_spawn_watchdog.py
+?? tests/unit/test_subagent_lifecycle_hook.py
+
+
+

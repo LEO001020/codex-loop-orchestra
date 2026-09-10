@@ -1,0 +1,12 @@
+**PASS**
+
+**1. 仅调 v2 refill，无 v1/无 spawn**
+[subagent_lifecycle.py](E:\codex-LOOP\codex-loop-s-f2\hooks\subagent_lifecycle.py:51) 只导入 `refill_controller_v2.RefillControllerV2`（L63、L67），仅调用 `queue_sync_ledger()+recompute()`（L69-70）。调用点：L411（close_agent 确认）、L537（SubagentStop）、L720（SessionStart）。全文件无 v1 controller、无 spawn。
+
+**2. 先 sync ledger 再 recompute**
+L69 `queue_sync_ledger()` 同步执行于 L70 `recompute()` 之前；`queue_sync_ledger`（[refill_controller_v2.py](E:\codex-LOOP\codex-loop-s-f2\harness\refill_controller_v2.py:150)）读取 `LoopPaths.ledger`（=data/progress_ledger.json，orchestration_common.py L162-163），在 `.refill.lock` 内原子写双池计数（L135-143、L170-175）；`recompute`（L207）随后读更新后的队列。
+
+**3. meter 复用锁 + 60s debounce + 失败可见**
+[model_token_share_bridge.py](E:\codex-LOOP\codex-loop-s-f2\metering\model_token_share_bridge.py:124) 从策略取 `refresh_debounce_s`（配置=60，orchestration_policy_v2.toml L102，缺省兜底 60）；L125-126 复用 `lifecycle_supervisor.locked()`（跨进程 msvcrt/flock，L44-80）；L131-132 60 秒内返回 DEBOUNCED；L138 会话目录缺失即抛错。hook `refresh_meter`（L80-106）以 force=False 调用；异常时审计 `meter_refresh_degraded`（L101-105），`recompute_refill` 异常审计 `refill_recompute_degraded`（L72-77），均落盘 data/lifecycle/events.ndjson（audit L211-213），不伪造成功。触发点为 SessionStart/SubagentStop/Stop（L721-722）。
+
+结论：全部四项要求满足。

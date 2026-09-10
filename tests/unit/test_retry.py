@@ -38,6 +38,35 @@ def test_regex_match_schedules_retry(loop):
     assert len(evs) == 1 and evs[0]["packet_id"] == "p1"
 
 
+def test_retry_same_generation_is_idempotent(loop):
+    # Same packet, same failed generation: a repeated retry.py call must
+    # never append a second retry_dispatch.  Before the step the table's
+    # consecutive-same-class rule fires instead (duty_review, rc 4) - which
+    # is not a duplicate dispatch.
+    rc1, d1 = retry(loop, "p1", "connection reset by peer ECONNRESET")
+    assert rc1 == 0 and d1["action"] == "retry"
+    evs = [e for e in loop.events() if e["event"] == "retry_dispatch"]
+    assert len(evs) == 1
+    rc2, d2 = retry(loop, "p1", "connection reset by peer ECONNRESET")
+    assert rc2 == 4 and d2["action"] == "duty_review_repeat"
+    assert len([e for e in loop.events() if e["event"] == "retry_dispatch"]) == 1
+
+
+def test_retry_after_apply_is_noop(loop):
+    # Once the state machine applied retry_dispatch (packet DISPATCHABLE), a
+    # re-invocation of the same failure is a no-op: the state guard fires
+    # before the consecutive-same-class rule, so neither a second
+    # retry_dispatch nor an off-table duty_review is appended.
+    rc1, d1 = retry(loop, "p1", "connection reset by peer ECONNRESET")
+    assert rc1 == 0 and d1["action"] == "retry"
+    rc, states = loop.step()                     # apply: FAILED -> DISPATCHABLE
+    assert states["p1"] == "DISPATCHABLE"
+    rc2, d2 = retry(loop, "p1", "connection reset by peer ECONNRESET")
+    assert rc2 == 0 and d2["action"] == "retry_already_scheduled"
+    assert len([e for e in loop.events() if e["event"] == "retry_dispatch"]) == 1
+    assert [e for e in loop.events() if e["event"] == "duty_review"] == []
+
+
 def test_two_consecutive_same_class_goes_duty_partition(loop):
     rc1, _ = retry(loop, "p1", "ETIMEDOUT while waiting")
     assert rc1 == 0

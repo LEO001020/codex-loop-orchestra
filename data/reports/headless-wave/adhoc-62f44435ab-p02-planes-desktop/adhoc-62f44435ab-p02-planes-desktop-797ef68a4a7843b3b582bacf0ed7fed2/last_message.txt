@@ -1,0 +1,11 @@
+任务名：核对planes.desktop计数点
+核对完成但 report_path 因只读沙箱 Access denied 未能落盘。
+E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-8765-desktop-hooktrust\p02.md
+
+`snapshot()` 里 `planes["desktop"] += 1` 只有两处：736 是 native roster `running`（权威，非 estimated）；841 是 `scan_rollout_subagents()` 产出且未被 native id / `semantic_task_key` 去重的 rollout fallback（同时 `counts["estimated"] += 1`）。
+
+可复用函数：`snapshot`（唯一 +1 点）、`merge_native_rosters`（A 源）、`scan_rollout_subagents`（B 候选）、`desktop_app_server_started_at`（世代围栏）、`rollout_terminal`、`semantic_task_key`、`pool_for`。
+
+A 前置：`native.agents` 行是 dict，`status=="running"`，且未被降为 `stale_native`（无当前非终态 rollout 且 `updated_at` 空或距今 >30s）。pending_start / idle / terminal / failed 不加 desktop。
+
+B 前置：来自 `rollout["tasks"]`，`agent_id not in native.agents`（任意 status 都抑制，含 terminal），且 `(normalized name, pool)` 未命中 `remember_authoritative`。候选本身还要过 `scan_rollout_subagents`：6h 文件窗、app-server epoch、有 parent、父子皆非终态、组活动 ≤600s。120s 只标 `recent_activity`，不决定是否 +1。

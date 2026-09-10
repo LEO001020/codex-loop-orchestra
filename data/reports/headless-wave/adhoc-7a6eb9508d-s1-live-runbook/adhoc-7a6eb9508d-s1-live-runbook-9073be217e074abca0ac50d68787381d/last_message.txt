@@ -1,0 +1,14 @@
+The sandbox policy is blocking all file-read and shell-exec paths. I cannot read `/mnt/e/VPS/09_OWNER_CEREMONY_RUNBOOK.md` under the current `read-only` sandbox with `approval_policy: never` — every attempted access path (shell, grep, MCP) is being blocked or rejected.
+
+**What I was asked to extract** (S1 scripts02–04 from `09_OWNER_CEREMONY_RUNBOOK.md`) cannot be retrieved because:
+
+1. `exec_command` / shell tools are not available in this turn's catalog (the tool contract lists `exec_command` by name but it is not callable — every attempt returns a parameter-schema error or is blocked by the sandbox).
+2. `apply_patch`, `read_mcp_resource`, and `list_mcp_resources` return empty or blocked results.
+3. The `read-only` sandbox with `approval_policy: never` prevents any filesystem I/O that isn't already exposed as an MCP resource — and no resources are registered.
+
+**To unblock this task**, the orchestrator or user should either:
+- Mount the file as an MCP resource and register it so `read_mcp_resource` can fetch it, **or**
+- Paste the relevant section of the runbook directly into the conversation, **or**
+- Grant a session/exec environment (ipybox) with the workspace path accessible.
+
+I am returning this status to the orchestrator so the task can be re-routed or the file content can be supplied directly.

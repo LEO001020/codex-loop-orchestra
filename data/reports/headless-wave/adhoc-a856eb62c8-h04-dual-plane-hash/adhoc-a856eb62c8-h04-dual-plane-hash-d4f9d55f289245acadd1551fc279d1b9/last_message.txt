@@ -1,0 +1,66 @@
+以下是完整检查结果：
+
+---
+
+## WindowsWSL双平面哈希 — 只读检查报告
+
+### 执行的命令与结果
+
+**1. SHA256SUMS vs Windows磁盘文件（103条记录全量比对）**
+```powershell
+# 命令：用 Get-FileHash 对每个条目重新计算
+Total entries: 103   Matched: 103   Missing: 0   Mismatches: 0
+```
+→ **全部一致，无异常**
+
+**2. managed_files_v2.txt（104条）vs SHA256SUMS（103条）交叉覆盖检查**
+```
+In managed_files but NOT in SHA256SUMS: 1 → SHA256SUMS 本身
+In SHA256SUMS but NOT in managed_files: 0
+```
+→ `SHA256SUMS` 自身被 `managed_files_v2.txt` 纳管但不能自校验自身，属已知设计取舍，无安全问题。
+
+**3. dual_plane_hash.py 自身完整性**
+```
+SHA256SUMS recorded:  88cc488395838aef570a4d469ef49aeb96c9e5df1d7ad6db0693b39f21fefa7e
+Actual on disk:       88cc488395838aef570a4d469ef49aeb96c9e5df1d7ad6db0693b39f21fefa7e
+→ HASH MATCH
+```
+
+**4. 最近一次双平面运行结果（`data/governor/dual_plane_hash.json`，2026-08-14T13:51:28Z）**
+```json
+status: "PASS"
+managed_files: 104
+mismatches: []
+windows_manifest_sha256: bcaf1fd94...  (两侧相同)
+wsl_manifest_sha256:     bcaf1fd94...
+policy_sha256: 49b1dfc8... → 当前 orchestration_policy_v2.toml 实际哈希一致
+```
+
+**5. 自上次运行后有无文件变更**
+```
+managed 104 个文件中，LastWriteTimeUtc > 2026-08-14T05:51:28Z 的：0 个
+→ 无任何受管文件在上次运行后被修改
+```
+
+**6. WSL平面可达性**
+```
+wsl --list / wsl --status → E_ACCESS_DENIED
+\\wsl$\ / \\wsl.localhost\ → 不可访问
+```
+→ **本次检查环境下 WSL 平面不可直接访问**（服务被拒绝）。`dual_plane_hash.json` 中 `wsl_manifest_sha256` 与 `windows_manifest_sha256` 相等且来自上次成功的跨平面运行，无法在本次独立重跑 WSL 侧。
+
+---
+
+### 结论
+
+| 检查项 | 结果 |
+|---|---|
+| SHA256SUMS 103条 vs Windows磁盘 | ✅ 全部一致 |
+| dual_plane_hash.py 自身完整性 | ✅ 哈希匹配 |
+| orchestration_policy_v2.toml | ✅ 哈希匹配 |
+| 上次双平面运行状态 | ✅ PASS，Windows=WSL 清单哈希相同 |
+| 受管文件自上次运行后有无变化 | ✅ 无变化 |
+| WSL 平面当前直接可达 | ❌ E_ACCESS_DENIED（本检查环境限制，非文件不一致） |
+
+**无 Windows/WSL 不一致证据**。唯一限制是当前会话 WSL 服务访问被拒，无法实时重新执行跨平面对比；但上次完整运行（13:51 UTC）结果为 PASS，且自那时起受管文件无任何变更，结论可信。

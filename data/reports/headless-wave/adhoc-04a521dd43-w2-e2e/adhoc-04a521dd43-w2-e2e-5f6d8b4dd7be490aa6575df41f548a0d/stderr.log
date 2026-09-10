@@ -1,0 +1,73 @@
+Reading additional input from stdin...
+2026-08-14T14:47:37.938848Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T14:47:41.982937Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T14:47:55.506998Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-14T14:48:13.071624Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.7 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 52
++ Get-Content "E:\VPS\test_alpha_execution_e2e.py" | head -100
++                                                    ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T14:48:52.444295Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1 seconds
+Output:
+Get-Content : 找不到路径“E:\VPS\test_alpha_execution_e2e.py”，因为该路径不存在。
+所在位置 行:2 字符: 1
++ Get-Content "E:\VPS\test_alpha_execution_e2e.py" -TotalCount 150
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (E:\VPS\test_alpha_execution_e2e.py:String) [Get-Content], ItemNotFoundE 
+   xception
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+
+2026-08-14T14:49:16.457353Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 6.6 seconds
+Output:
+
+FullName                                                                                          
+--------                                                                                          
+E:\VPS\p5_deploy_home_e2e_cli.sh                                                                  
+E:\VPS\p5_deploy_home_e2e_cli_remote.sh                                                           
+E:\VPS\p5_seal_home_e2e_parser_attempt.py                                                         
+E:\VPS\p5_seal_home_e2e_parser_attempt.sh                                                         
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\command_lib\kms\e2e_integrity.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\command_lib\kms\__pycache__\e...
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\command_lib\kms\e2e_integrity.py                
+E:\VPS\.work\home-vectorized-screen-v2\home\execute_synthetic_e2e.py                              
+E:\VPS\.work\home-vectorized-screen-v2\hub\quant\p5_infra\fable_e2e_control.py                    
+E:\VPS\home-gpu\evidence\home_worker_e2e_ready_for_fable.json                                     
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-execution-v1-fl19\tests\test_alpha_exec...
+
+
+Get-ChildItem : 对路径“E:\VPS\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem "E:\VPS" -Filter "*e2e*" -Recurse | Select-Object FullN ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\VPS\.pytest_cache:String) [Get-ChildItem], UnauthorizedAccessExcep 
+   tion
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+Get-ChildItem : 对路径“E:\VPS\direct_repair_stage\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem "E:\VPS" -Filter "*e2e*" -Recurse | Select-Object FullN ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\VPS\direct_repair_stage\.pytest_cache:String) [Get-ChildItem], Una 
+   uthorizedAccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-14T14:49:55.959968Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`

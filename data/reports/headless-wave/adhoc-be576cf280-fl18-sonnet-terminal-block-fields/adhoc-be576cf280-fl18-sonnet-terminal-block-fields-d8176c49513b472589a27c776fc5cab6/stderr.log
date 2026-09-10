@@ -1,0 +1,85 @@
+Reading additional input from stdin...
+2026-08-14T09:04:31.064207Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T09:04:36.749693Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T09:04:59.646843Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后再试一次。
+所在位置 行:2 字符: 172
++ ... ame, LastWriteTime | Sort-Object LastWriteTime -Descending | head -60
++                                                                  ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T09:07:24.283725Z  WARN codex_sandboxing::violation: recorded sandbox violation: resource=filesystem backend=windows_sandbox reason=policy_denied path=unknown
+2026-08-14T09:07:24.284047Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+ConvertFrom-Json : 传入的对象无效，应为“:”或“}”。 (78): {
+  "tasks": [
+    {"task_id":"gate-trust-order","task_name":"缁戝畾闂ㄤ俊浠婚『搴?,"role":"verifier","cwd":"E:\\VPS","sandbox":"read-only","pro
+mpt":"浠诲姟鍚嶏細缁戝畾闂ㄤ俊浠婚『搴廫n瀵瑰喕缁?FL18 鍋氬彂甯冪骇鍙嶈瘉锛?3/04鍘绘潈鍜岄噸鍚€?5 live SSH k3 proof銆?6 root鐙珛璐熼潰楠岃瘉蹇呴』鍏堜簬owner anchor/TCB銆傚
+彧鎸塈1-I3瑁佸畾 PASS/FAIL锛岀粰绮剧‘璇佹嵁銆傜姝㈢紪杈戙€佺敓浜у彉鏇淬€佹淳鐢熶唬鐞嗐€?},
+    {"task_id":"gate-db-wal","task_name":"缁戝畾闂―BWAL","role":"verifier","cwd":"E:\\VPS","sandbox":"read-only","prompt":"
+浠诲姟鍚嶏細缁戝畾闂―BWAL\n瀵瑰喕缁?FL18 DB妯″瀷鍋氬彂甯冪骇鍙嶈瘉锛歳esearch-writer鍗曞啓銆丏B/WAL/SHM 0600/UMask0077銆乻ocket0660銆乲3 direct鎷掔粷銆乿erify/r
+ebuild/authority/restart fixture銆傚彧鎸塈4/I8瑁佸畾銆?},
+    {"task_id":"gate-tcb","task_name":"缁戝畾闂═CB瀹屾暣鎬?,"role":"verifier","cwd":"E:\\VPS","sandbox":"read-only","prompt":"浠
+诲姟鍚嶏細缁戝畾闂═CB瀹屾暣鎬n瀵瑰喕缁?FL18 owner TCB exact-set銆亀rapper/unit/dropin銆乸re-reload銆丳ython3.12/stdlib/dylib/APSW銆乴ive verify
+涓庡伐绋嬮噸閽夊仛鍙嶈瘉銆傚彧鎸塈3/I6瑁佸畾銆?},
+    {"task_id":"gate-root-ssh","task_name":"缁戝畾闂≧ootSSH","role":"verifier","cwd":"E:\\VPS","sandbox":"read-only","promp
+t":"浠诲姟鍚嶏細缁戝畾闂≧ootSSH\n瀵瑰喕缁?FL18 Match-aware root AKF銆乫ingerprint allowlist銆乤lias/symlink銆乤pply鍚巃bsent reverify銆乷wner M
+atch AKF鍋氬弽璇併€傚彧鎸塈1/I2瑁佸畾銆?},
+    {"task_id":"gate-ceremony","task_name":"缁戝畾闂∣wnerCeremony","role":"verifier","cwd":"E:\\VPS","sandbox":"read-only",
+"prompt":"浠诲姟鍚嶏細缁戝畾闂∣wnerCeremony\n瀵瑰喕缁?FL18 deterministic C鈫扗鈫抮oot銆乴ate-bound銆乷utcome-blind policy銆乧anonical signature
+ bytes銆乪xecution鍙岄棬銆乻cope exclusions涓庣閽ヨ竟鐣屽仛鍙嶈瘉銆傚彧鎸塈1/I7瑁佸畾銆?},
+    {"task_id":"gate-attestation","task_name":"缁戝畾闂ㄥ寘韬唤璁℃暟","role":"verifier","cwd":"E:\\VPS","sandbox":"read-only","p
+rompt":"浠诲姟鍚嶏細缁戝畾闂ㄥ寘韬唤璁℃暟\n鏍搁獙鍐荤粨 FL18 10/11绠楁硶銆?6 payload/57 sums銆乵anifest/self hash銆?7/57 native sums銆?1/31 static銆?
+5/15 functional銆?8/28 targeted銆丗L17 16/19鏉′欢宸紓銆傚彧鎸塅/I6瑁佸畾銆?},
+    {"task_id":"gate-transaction-tests","task_name":"缁戝畾闂ㄤ簨鍔℃祴璇?,"role":"verifier","cwd":"E:\\VPS","sandbox":"read-only
+","prompt":"浠诲姟鍚嶏細缁戝畾闂ㄤ簨鍔℃祴璇昞n鍙嶈瘉鍐荤粨 FL18 stop鈫扸ACUUM v2鈫抩ld live backup鈫抜nstall鈫抦igrate鈫抪re-reload鈫抯tart/live锛孍XIT澶辫触鎭
+㈠锛涙鏌ョ洰鏍囨祴璇曟槸鍚﹁冻浠ヨ瘉鏄嶪6/I8銆傚彧鎶ュ憡瀹為檯闃绘柇锛屼笉鎶婇澶栨繁搴﹀缓璁崌绾с€?},
+    {"task_id":"gate-release-review","task_name":"鏈€缁堝彂甯冭瀹?,"role":"reviewer","cwd":"E:\\VPS","sandbox":"read-only","p
+rompt":"浠诲姟鍚嶏細鏈€缁堝彂甯冭瀹歕n瀵瑰喕缁?FL18 鍋氫竴娆′笖浠呬竴娆?release falsification銆傝寖鍥翠弗鏍糏1-I8涓嶢-F锛涙牳楠屾棤鐢熶骇鍙樻洿銆乻cience闆跺彉鏇淬€乻chema浠?銆佸
+寘hash涓庢祴璇曡鏁般€傝緭鍑?PASS 鎴栫簿纭甇PEN blocker锛涗笉寰楀缓璁箍娉汱inux瀹¤銆?}
+  ]
+}
+所在位置 行:2 字符: 61
++ ... \VPS\reports\P5_FL18_BINDING_GATE_V1.json" | ConvertFrom-Json | Conve ...
++                                                  ~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [ConvertFrom-Json], ArgumentException
+    + FullyQualifiedErrorId : System.ArgumentException,Microsoft.PowerShell.Commands.ConvertFromJsonCommand
+ 
+
+2026-08-14T09:14:32.023692Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+Get-Content : 找不到路径“E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\TEST_COUNTS.json”，因为该路径不
+存在。
+所在位置 行:2 字符: 1
++ Get-Content "E:\VPS\reports\owner-admin-cutover-final-20260814-alpha- ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (E:\VPS\reports\...EST_COUNTS.json:String) [Get-Content], ItemNotFoundEx 
+   ception
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+
+2026-08-14T09:18:18.174542Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 182ms)... turn_id=019fff84-09c0-7f10-af5a-bbb24b0a118c retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+2026-08-14T09:18:55.494690Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 438ms)... turn_id=019fff84-09c0-7f10-af5a-bbb24b0a118c retries=2 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+2026-08-14T09:21:27.208486Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

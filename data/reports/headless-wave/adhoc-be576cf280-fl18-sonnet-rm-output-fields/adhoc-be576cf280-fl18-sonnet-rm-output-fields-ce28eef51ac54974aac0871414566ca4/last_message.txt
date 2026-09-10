@@ -1,0 +1,135 @@
+现在我已经收集了所有必要的证据。以下是完整的字段提取审核报告：
+
+---
+
+## FL18 注册后 stdout 必提取字段审核报告
+
+**依据来源：** `p5-fl18-rm-register-20260814.sh`、`P5_CODEX_FL17_FINAL_REMEDIATION_REPORT_V1.md`、`current-production-snapshot-20260813/probe_out.txt`、`research-memory-state/verify.json`、`researchctl-syntax/`
+
+---
+
+### 一、VER4 / LOC4 event_id 与 event_hash
+
+FL18 注册脚本在 `[REGISTER_VERSION_VER4]` 和 `[REGISTER_LOCATION_LOC4]` 两个 section 后调用 `researchctl record`。每次成功写入，researchctld 返回 JSON 中含以下必提取字段：
+
+| 字段 | 来源 section | 说明 |
+|---|---|---|
+| `event_id` | VER4 record 返回 JSON | 全局单调递增整数，如 `3065` |
+| `event_hash` | VER4 record 返回 JSON | 64 字符小写 hex，如 FL17 VER3 为 `96f9596aea3d8d...` |
+| `event_id` | LOC4 record 返回 JSON | 紧随 VER4 的下一个 event |
+| `event_hash` | LOC4 record 返回 JSON | 如 FL17 LOC3 为 `55d740ad9d5aff...` |
+
+FL17 先例（`Research Memory` 节）已验证：VER3 + LOC3 各产生一个 event，start → end 计数 +2（3064 → 3066）。FL18 应同样产生 VER4 + LOC4 各一个 event。
+
+---
+
+### 二、event_count（前后各一次）
+
+必须从以下两个时间点提取：
+
+| 时机 | 对应 researchctl 命令 | stdout 字段路径 |
+|---|---|---|
+| **注册前**（`$RC verify` 在 record 之前） | `researchctl verify` | `.result.event_count` |
+| **注册后**（`[POST_WRITE_VERIFY]`） | `researchctl verify` | `.result.event_count` |
+
+两值之差必须恰好为 **2**（VER4 和 LOC4 各贡献一个 CREATED 事件）。FL18 注册脚本在写入前先执行 `$RC verify` 和 `$RC rebuild-check`，在写入后再执行 `[POST_WRITE_VERIFY]` / `[POST_WRITE_REBUILD]` / `[POST_WRITE_RUNTIME]`，均输出包含 `event_count` 的 JSON。
+
+---
+
+### 三、projection_sha256
+
+从 `[POST_WRITE_VERIFY]`（`researchctl verify`）和 `[POST_WRITE_REBUILD]`（`researchctl rebuild-check`）的 stdout 提取：
+
+| 命令 | 字段 | 说明 |
+|---|---|---|
+| `researchctl verify` | `.result.projection_sha256` | 当前 live projection 的 SHA-256 |
+| `researchctl rebuild-check` | `.result.live_projection_sha256` | 应与 verify 值一致 |
+| `researchctl rebuild-check` | `.result.rebuilt_projection_sha256` | 事务性重建值，必须 == live |
+| `researchctl rebuild-check` | `.result.diff` | 必须为 `0` |
+
+FL17 先例已验证：`live_projection_sha256 == rebuilt_projection_sha256`，diff = 0。FL18 注册后的 `projection_sha256` 将是新的终态哈希，必须被捕获并写入交接文件。
+
+---
+
+### 四、runtime_gate
+
+从 `[POST_WRITE_RUNTIME]`（`researchctl runtime-info`）和 `[POST_WRITE_VERIFY]`（`researchctl verify`）的 stdout 提取：
+
+| 命令 | 字段路径 | 预期值 |
+|---|---|---|
+| `researchctl runtime-info` | `.result.runtime_gate` | `"PASS"` |
+| `researchctl verify` | `.result.runtime.runtime_gate` | `"PASS"` |
+
+`runtime-info` 还应捕获 `sqlite_version`、`apsw_version`、`sqlite_source_id` 用于 TCB 记录（非门控字段，但属于完整性证据）。
+
+---
+
+### 五、readback 确认字段
+
+FL18 脚本末尾的 `[READBACK_VERSION]` 和 `[READBACK_LOCATION]` 段执行：
+
+```bash
+researchctl as-of --research-campaign-id P5-EMPIRICAL-FOUNDATION-V1 \
+  --as-of 9999-12-31T23:59:59Z --entity-type version \
+  | grep -F 'P5-OWNER-ADMIN-CUTOVER-PKG-V1-VER4'
+
+researchctl as-of ... --entity-type location \
+  | grep -F 'P5-OWNER-ADMIN-CUTOVER-PKG-V1-LOC4'
+```
+
+这两条命令的 stdout 必须**非空**（grep 命中），证明 VER4 和 LOC4 实际已持久化在 campaign 快照中。
+
+---
+
+### 六、完整提取清单（按脚本执行顺序）
+
+```
+[PRE_WRITE_VERIFY]
+  event_count            (基线值，用于差值校验)
+  projection_sha256      (基线值)
+  status == "PASS"
+
+[REGISTER_VERSION_VER4] → researchctl record 返回
+  event_id               (VER4)
+  event_hash             (VER4)
+  status == "CREATED" 或 "DEDUPLICATED"
+
+[REGISTER_LOCATION_LOC4] → researchctl record 返回
+  event_id               (LOC4，= VER4 event_id + 1)
+  event_hash             (LOC4)
+  status == "CREATED" 或 "DEDUPLICATED"
+
+[POST_WRITE_VERIFY]
+  event_count            (终值，差值 == 2)
+  projection_sha256      (终态值，写入交接文件)
+  runtime_gate == "PASS"
+  status == "PASS"
+  event_chain_errors == 0
+  event_current_rebuild_diff == 0
+  foreign_key_violation_count == 0
+
+[POST_WRITE_REBUILD]
+  live_projection_sha256   (必须 == POST_WRITE_VERIFY.projection_sha256)
+  rebuilt_projection_sha256 (必须 == live)
+  diff == 0
+  status == "PASS"
+
+[POST_WRITE_RUNTIME]
+  runtime_gate == "PASS"
+
+[READBACK_VERSION]
+  grep 命中 "P5-OWNER-ADMIN-CUTOVER-PKG-V1-VER4"（非空输出）
+
+[READBACK_LOCATION]
+  grep 命中 "P5-OWNER-ADMIN-CUTOVER-PKG-V1-LOC4"（非空输出）
+```
+
+---
+
+### 七、一致性约束
+
+1. **event_count delta = 2**：start_count（注册前 verify）到 end_count（注册后 verify）恰好 +2，对应 VER4-CREATED 和 LOC4-CREATED 两个事件。
+2. **projection 三角一致**：`verify.projection_sha256 == rebuild.live_projection_sha256 == rebuild.rebuilt_projection_sha256`，且 `diff == 0`。
+3. **runtime_gate**：`runtime-info` 和 `verify` 两处均为 `"PASS"`；任何 `"FAIL"` 都是硬阻断，不得继续。
+4. **operation_id 幂等**：若同一 operation_id 重放，返回 `"DEDUPLICATED"` 而非 `"CREATED"`；event_id/event_hash 保持第一次写入的值不变，event_count delta 为 0。
+5. **authority 不变**：整个过程 `workload = NON_STATISTICAL_INFRA_CANARY`，`statistical_trial_authority = NONE`，`alpha_discovery_authority = NONE`；任何偏离均为异常。

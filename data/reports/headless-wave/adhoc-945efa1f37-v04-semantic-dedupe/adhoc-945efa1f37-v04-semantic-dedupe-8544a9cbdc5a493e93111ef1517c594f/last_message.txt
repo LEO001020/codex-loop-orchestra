@@ -1,0 +1,141 @@
+现在我有了完整的证据链。基于对代码的精确分析，可以给出以下结论：
+
+---
+
+## 分析报告：`semantic_task_key` 去重逻辑三类反例
+
+### 核心机制
+
+```python
+# semantic_task_key 实现（第95-106行）
+def semantic_task_key(name: Any, pool: str) -> tuple[str, str] | None:
+    normalized = " ".join(str(name or "").strip().casefold().split())
+    return (normalized, pool) if normalized else None
+```
+
+去重流程：
+1. Native roster（running/idle/shutdown_pending）和 exec roster（starting/running）写入 `authoritative_task_keys[(normalized_name, pool)] += 1`
+2. rollout 扫描中：若 `rollout_key` 命中且计数 > 0，则计数 -1 并 `continue`（跳过，视为重复）
+
+---
+
+### 反例一：同名不同任务（同名碰撞 → 真实 rollout child 漏算）
+
+**场景构造：**
+- Agent A：`task_name="数据验证"`, `role="worker"`, `model="deepseek-v4-flash"` → pool=`v4`，已进入 native roster，state=`running`
+- Agent B：全新的真实 Desktop child，`task_name="数据验证"`（恰好同名，完全不同任务），`model="deepseek-v4-flash"` → pool=`v4`，**尚未进入 native roster**（处于 rollout 阶段）
+
+**结果：**
+```
+authoritative_task_keys[("数据验证", "v4")] = 1   # 来自 Agent A
+```
+当 rollout 扫描到 Agent B 时：
+```python
+rollout_key = ("数据验证", "v4")
+authoritative_task_keys.get(rollout_key, 0) > 0  # True → continue
+```
+**Agent B 被静默丢弃，计入运行中的 counts["running"] 少了 1。**
+
+**漏算结论：✅ 确认漏算。** 同名任务无需任何恶意构造，普通业务场景即可触发（例如两轮 refill 中同名 packet）。
+
+---
+
+### 反例二：随机 runtime 名（rollout 无 `task_name` → key=None → 豁免去重）
+
+**场景构造：**
+- 某 Desktop child 的 rollout prompt 不以 `任务名：` 开头（例如直接派发 JSON 内容、或使用英文格式 `Task: foo`）
+- `read_rollout_task_name()` 无法提取，返回 `""`
+- `row.get("name")` 为空字符串
+
+**结果：**
+```python
+rollout_key = semantic_task_key("", pool_for(...))
+# → normalized = "" → return None
+```
+去重判断跳过：
+```python
+if rollout_key is not None and ...:  # False，直接跳过去重
+```
+该 agent 进入 counts["running"] + 1，`public_name` 变为：
+```python
+"%s 子任务 · %s" % (project, agent_id[-8:])
+```
+
+**漏算结论：❌ 不漏算，反而是保留（宁可多算）。** 但副作用：若此 rollout 其实与 native roster 中的某个 agent 是同一个实体（只是 `known_native_ids` 集合没有覆盖），就会**重复计入**，而非漏算。随机 runtime 名本身不构成漏算，构成的是**重算风险**（overcounting）。
+
+---
+
+### 反例三：空任务名（native roster 侧 task_name 缺失 → remember_authoritative 空注册 → 无保护）
+
+**场景构造：**
+- Native roster 中某 agent：`task_name=null`（旧版 LOOP 或 hook 未写入 task_name 字段）
+- 对应 Desktop child 的 rollout 有正确 `任务名：数据整理` 提取
+
+**native 侧 remember_authoritative 的行为：**
+```python
+task_name = row.get("task_name") or row.get("agent_id") or "agent"
+# task_name = agent_id（如 "019feacd..."）
+remember_authoritative("019feacd...", pool)
+# → key = ("019feacd...", "v4")
+```
+
+**rollout 侧：**
+```python
+row.get("name")  # = "数据整理"（从 rollout 提取）
+rollout_key = ("数据整理", "v4")
+authoritative_task_keys.get(("数据整理", "v4"), 0)  # = 0 → 不去重
+```
+rollout 被当成新任务，进入 `counts["estimated"] += 1`。
+
+**漏算结论：❌ 不漏算，但形成重复计入。** native roster 中的 agent 已被 `counts["running"] += 1` 计入，rollout 又被 `counts["estimated"] += 1` 加一次。`known_native_ids` 集合本应防止这个分支，但该检查依赖 `agent_id` 是否在 `native.get("agents")` 里。若 native roster 的键和 rollout 的 `agent_id` 字段不匹配（例如格式差异），仍会双计。
+
+---
+
+### 真正危险的漏算反例总结
+
+| 反例类型 | 漏算方向 | 触发条件 | 实际危害 |
+|---|---|---|---|
+| **同名不同任务** | 漏算（undercount） | 两个 Desktop child 碰巧同名同 pool | deficit 虚高，8765 误判需补充，实为满载 |
+| **随机 runtime 名** | 重算（overcount） | prompt 无 `任务名：` 前缀 | deficit 虚低，8765 误判已满，实为有缺口 |
+| **空 task_name（native 侧）** | 重算（overcount） | 旧 hook 未写入 task_name | 同上 |
+
+**最危险的是反例一**：在正常 refill 场景下，多轮相同 packet_id 对应的 Desktop child 同名同 pool，前一个进入 native roster 后，后一个（处于 rollout 阶段）被静默抑制，导致 8765 的 `running` 少计一个，`deficit` 虚增，触发不必要的再出生。
+
+---
+
+### 最小修复契约
+
+**修复目标：** 去重判断必须基于 `agent_id` 而非 `(name, pool)` 语义等价。
+
+**契约内容（最小变更，不破坏现有逻辑）：**
+
+1. **authoritative_task_keys 增加 agent_id 维度**  
+   `remember_authoritative` 同时记录 `agent_id → pool`，rollout 侧优先用 `agent_id` 做精确去重，`semantic_task_key` 仅作最后一道 fallback。
+
+2. **同名碰撞上限**（解决反例一）  
+   `authoritative_task_keys` 计数器抑制时，必须验证 native/exec 中被匹配的那个条目是否真的处于 `running/initializing` 状态，而不是用名字消耗已终止 agent 的 "配额"。
+
+3. **空名 rollout 纳入 known_native_ids 精确匹配路径**（解决反例三的重算）  
+   当 `rollout_key is None` 时，必须通过 `agent_id in known_native_ids` 再次检查，该检查已存在但需确认作用于当前分支（当前代码逻辑中第 538 行的 `known_native_ids` 检查确实先于 semantic key 检查，此路径已安全）。
+
+**最简单的单点修复（针对反例一）：**
+
+```python
+# 修复前（第 547-549 行）
+rollout_key = semantic_task_key(row.get("name"), pool_for(row.get("model"), row.get("role")))
+if rollout_key is not None and authoritative_task_keys.get(rollout_key, 0) > 0:
+    authoritative_task_keys[rollout_key] -= 1
+    continue
+
+# 修复后：增加 agent_id 精确通道，semantic_key 仅在 agent_id 未命中时生效
+agent_id_str = str(row.get("agent_id") or "")
+if agent_id_str and agent_id_str in known_authoritative_agent_ids:
+    continue  # 精确匹配，无需 semantic key 消耗
+rollout_key = semantic_task_key(row.get("name"), pool_for(row.get("model"), row.get("role")))
+if rollout_key is not None and authoritative_task_keys.get(rollout_key, 0) > 0:
+    authoritative_task_keys[rollout_key] -= 1
+    continue
+```
+其中 `known_authoritative_agent_ids` 在 native/exec 循环中填充，记录所有 running/initializing agent 的 agent_id。
+
+**修复副作用最小，不改变 API 协议、不影响 headless 路径、不修改 exec_roster 结构。**

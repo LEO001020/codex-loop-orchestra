@@ -1,0 +1,61 @@
+## 分析结果：HONOR Magic V2 USB 驱动安装失败点
+
+### 关键发现
+
+**唯一失败驱动：`hn_cdcmdm.inf`（CDC Modem 驱动）**
+
+| 项目 | 详情 |
+|------|------|
+| 时间 | 2026/08/22 18:13:45.676 |
+| 操作 | `SetupCopyOEMInf` /install /debug |
+| INF | `hn_cdcmdm.inf`（Provider: HONOR Technologies Co.,LTD） |
+| 失败码 | `0x00000002`（ERROR_FILE_NOT_FOUND） |
+| 缺失文件 | `hn_cdcacm.sys` |
+
+### 错误链
+
+```
+!!! flq: Error installing file (0x00000002)
+!!! flq: Error 2: The system cannot find the file specified.
+!   flq: SourceFile - 'C:\Users\hzq00\AppData\Local\HonorSuite\userdata\driver\new\Driver\X64\hn_cdcacm.sys'
+!!! cpy: Failed to copy file ... Error = 0x00000002
+!!! flq: SPFQNOTIFY_COPYERROR: returned SPFQOPERATION_ABORT.
+!!! flq: Error 995: The I/O operation has been aborted...
+!!! flq: Failed to commit copy queue. Error = 0x000003e3
+```
+
+### 根因：`hn_cdcmdm.inf` 引用了不存在的 `hn_cdcacm.sys`
+
+`hn_cdcmdm.inf` 的 Catalog File 声明为 `hn_cdcacm.cat`，但文件复制阶段试图找 `hn_cdcacm.sys`，而实际目录中**不存在**该文件。
+
+### 目录实际文件验证
+
+`C:\Users\hzq00\AppData\Local\HonorSuite\userdata\driver\new\Driver\X64\` 中存在：
+- `hn_cdc-acm.inf` / `hn_cdc-acm.cat` ✅（已成功安装，oem123）
+- `hn_cdcmdm.inf` ✅
+- `hn_cdcacm.sys` ❌ **缺失**
+- `hn_cdcacm.cat` ❌ **缺失**（INF 中声明的 catalog）
+
+### 其他驱动状态
+
+| 驱动 | 结果 | 备注 |
+|------|------|------|
+| `hn_goadb.inf` | ✅ SUCCESS | oem116 |
+| `hn_gohdb.inf` | ✅ SUCCESS | oem117 |
+| `hn_quusbnet.inf` | ✅ SUCCESS | oem118 |
+| `hn_cdc-acm.inf` | ✅ SUCCESS | oem123 |
+| `hn_usbccgpfilter.inf` | ✅ SUCCESS | oem124 |
+| `hn_mtp.inf` | ✅ SUCCESS | oem125 |
+| `hn_cdcmdm.inf` | ❌ **FAILURE** | 0x00000002 |
+
+### 最可能失败点
+
+1. **INF 与 SYS 文件名不匹配**：`hn_cdcmdm.inf` 内部引用了 `hn_cdcacm.sys`，但 HonorSuite 驱动包中只提供了 `hn_quusbmdm.sys`，没有提供 `hn_cdcacm.sys`。
+2. **可能是包版本错误**：`hn_cdcmdm.inf` 可能本应引用 `hn_quusbmdm.sys`（该文件存在），或该 INF 是旧版/错版文件。
+3. **Catalog 也不匹配**：INF 声明 `CatalogFile=hn_cdcacm.cat`，但目录中同样没有该 cat 文件。
+
+### 建议
+
+- 检查 `hn_cdcmdm.inf` 内部 `[SourceDisksFiles]` 和 `[DestinationDirs]` 段落，确认引用的 SYS 文件名。
+- 核对 HonorSuite 驱动包完整性，确认是否缺少 `hn_cdcacm.sys` 和 `hn_cdcacm.cat`。
+- 或确认是否应将 `hn_cdcmdm.inf` 替换为引用 `hn_quusbmdm.sys` 的正确版本。

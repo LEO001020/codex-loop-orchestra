@@ -1,0 +1,23 @@
+复验结论：四个验收点全部成立，静态代码路径与现有测试断言一致；未运行任何测试或写入文件（遵守 read-only）。存在一个低概率残余风险（PID 复用无代际校验），详述如下。
+
+**1. 跨进程锁：成立**
+- `schedule_run` 在 `data/orchestration/.refill_actuator_schedule.lock` 上取 `file_lock` 后再读 marker、判断存活、Popen、写 marker，整个事务在锁内完成（[refill_consumer_v2.py](E:/codex-LOOP/codex-loop-s-f2/harness/refill_consumer_v2.py:84)）。
+- `file_lock` 是 OS 级区域锁：Windows 用 `msvcrt.locking(LK_LOCK)`、POSIX 用 `fcntl.flock(LOCK_EX)`，天然跨进程（[orchestration_common.py](E:/codex-LOOP/codex-loop-s-f2/harness/orchestration_common.py:236)）。
+- 第二道防线：子进程 `run_once` 在“选任务→稳定观察 roster”全程持有 `data/refill/.consumer.lock`（[refill_consumer_v2.py](E:/codex-LOOP/codex-loop-s-f2/harness/refill_consumer_v2.py:157)），即使出现并发双 actuator 也会串行化，第二个看到已 running 的计数后 deficit 归零、不派发。
+
+**2. PID 存活判断：基本正确，有一处残余风险**
+- Windows：`OpenProcess(0x1000)`（PROCESS_QUERY_LIMITED_INFORMATION）+ `GetExitCodeProcess == 259`（STILL_ACTIVE），失败/句柄空均返回 False；POSIX 用 `os.kill(pid, 0)`；异常全部兜底为 False（[refill_consumer_v2.py](E:/codex-LOOP/codex-loop-s-f2/harness/refill_consumer_v2.py:51)）。
+- 残余风险：该判断只有 PID、没有进程代际 token。若 `refill_actuator.pid` 中的旧 PID 被无关进程复用，`schedule_run` 会误报 `coalesced`，直到该无关进程退出前都不再补位。对比同仓库 roster 校验用了创建时间 token 防 PID 复用（[refill_controller_v2.py](E:/codex-LOOP/codex-loop-s-f2/harness/refill_controller_v2.py:104)）。另有一文档级边角：子进程恰以退出码 259 结束时，`GetExitCodeProcess` 无法与存活区分。两者概率低、无测试覆盖，属假设级风险而非现行缺陷。
+
+**3. 空队列不制造任务：成立**
+- `run_once`：同步 ledger → `recompute` → `build_manifest`；manifest 为 None 时直接返回 `idle`，根本不调用 `headless_wave.run`（[refill_consumer_v2.py](E:/codex-LOOP/codex-loop-s-f2/harness/refill_consumer_v2.py:160)）。
+- `select_tasks` 只遍历 ledger 中 `DISPATCHABLE` 的真实 packet id、校验 packet 文件存在且 id 匹配、强制显式 role、跳过 release_review 和 inactive parent，绝不凭空造任务（[refill_consumer_v2.py](E:/codex-LOOP/codex-loop-s-f2/harness/refill_consumer_v2.py:140)）。
+- 测试 `test_empty_ledger_never_emits_manifest` 断言空 ledger 时 deficit 为 0 且 manifest 为 None（[test_refill_consumer_v2.py](E:/codex-LOOP/codex-loop-s-f2/tests/orchestration_v2/test_refill_consumer_v2.py:16)）。注意 `schedule_run` 本身不预检空队列、仍会短命地拉起子进程，但子进程 rc=0 直接 idle，不产生任何派发。
+
+**4. 重复 Stop 合并：成立**
+- 单飞机制：锁内读到存活 PID 即返回 `{"status": "coalesced", ...}`，不调用 Popen；marker 在锁内写入（[refill_consumer_v2.py](E:/codex-LOOP/codex-loop-s-f2/harness/refill_consumer_v2.py:89)），因此连续/并发的 Stop 事件只会产生一次 actuator。
+- 测试 `test_schedule_run_coalesces_live_actuator` 用 marker=1234 + 存活桩 + “Popen 被调即抛错”覆盖该分支；`test_schedule_run_starts_packet_only_consumer` 覆盖首次调度分支并断言传递 `--source desktop_subagent_stop`、不含 orchestration_epilogue（[test_refill_consumer_v2.py](E:/codex-LOOP/codex-loop-s-f2/tests/orchestration_v2/test_refill_consumer_v2.py:143)）。
+- Stop 语义的另一半在 `select_tasks`：`parent_enabled` 的导入工作一旦 parent 失活即不再入选，队列消费被门禁（对应测试 `test_inactive_parent_is_not_selected`）。
+- 边角：若 Popen 成功后 `marker.write_text` 抛错，下一次 Stop 可能再拉一个子进程；但两个子进程会因 `.consumer.lock` 串行且第二个 recompute 后 deficit 为 0，packet 层面仍不会重复出生。
+
+验收对照：两项验收均满足——“不会重复出生”由单飞锁 + consumer 锁 + roster/deficit 会计三层保证；“空队列不制造任务”由 `manifest=None → idle` 路径保证。唯一建议后续关注的改进点是给 `refill_actuator.pid` 增加进程代际 token（与 `_process_generation_alive` 对齐），以消除 PID 复用误合并。

@@ -1,0 +1,34 @@
+Reading additional input from stdin...
+2026-08-12T11:35:45.566134Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-12T11:35:48.416035Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T11:36:06.747667Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T11:40:00.242614Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 188ms)... turn_id=019ff5c1-c8ff-7072-b472-481b3e9ad438 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+2026-08-12T11:40:07.077830Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 367ms)... turn_id=019ff5c1-c8ff-7072-b472-481b3e9ad438 retries=2 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502, url: http://127.0.0.1:10100/v1/responses
+2026-08-12T11:41:13.697502Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 740ms)... turn_id=019ff5c1-c8ff-7072-b472-481b3e9ad438 retries=3 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-12T11:42:20.903572Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.583s)... turn_id=019ff5c1-c8ff-7072-b472-481b3e9ad438 retries=4 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502, url: http://127.0.0.1:10100/v1/responses
+2026-08-12T11:42:29.437475Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 3.066s)... turn_id=019ff5c1-c8ff-7072-b472-481b3e9ad438 retries=5 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502, url: http://127.0.0.1:10100/v1/responses
+2026-08-12T11:42:42.592536Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

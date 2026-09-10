@@ -1,0 +1,132 @@
+Reading additional input from stdin...
+2026-08-14T04:39:59.752523Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T04:40:09.899057Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-14T04:40:17.550323Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.8 seconds
+Output:
+out-file : 未能找到路径“E:\dev\null”的一部分。
+所在位置 行:2 字符: 1
++ find E:\VPS -type f -name "*.py" | rg -i "test|preflight|fixture|f7|l ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OpenError: (:) [Out-File], DirectoryNotFoundException
+    + FullyQualifiedErrorId : FileOpenFailure,Microsoft.PowerShell.Commands.OutFileCommand
+ 
+
+2026-08-14T04:40:37.221391Z ERROR codex_core::tools::router: error=Exit code: 124
+Wall time: 10.6 seconds
+Output:
+command timed out after 10587 milliseconds
+Get-ChildItem : 对路径“E:\VPS\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem -Path E:\VPS -Recurse -Filter "*.py" | Select-Object -E ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\VPS\.pytest_cache:String) [Get-ChildItem], UnauthorizedAccessExcep 
+   tion
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-14T04:41:01.824935Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2 seconds
+Output:
+E:\VPS\test_pc6_binance_materializer.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\api_registry\mcp\mcptestbase.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\container\binauthz\attestations.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\container\binauthz\attestors.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\firebase\test\arg_file.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\firebase\test\arg_util.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\firebase\test\arg_validate.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\firebase\test\ctrl_c_handler.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\firebase\test\device_capacities.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\firebase\test\endpoints.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\firebase\test\exceptions.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\firebase\test\exit_code.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\firebase\test\history_picker.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\firebase\test\matrix_creator_common.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\firebase\test\matrix_ops.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\firebase\test\results_bucket.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\firebase\test\results_summary.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\firebase\test\tool_results.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\firebase\test\util.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\firebase\test\__init__.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\firebase\test\android\arg_manager.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\firebase\test\android\catalog_manager.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\firebase\test\android\matrix_creator.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\firebase\test\android\__init__.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\firebase\test\ios\arg_manager.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\firebase\test\ios\catalog_manager.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\firebase\test\ios\matrix_creator.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\firebase\test\ios\__init__.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\appengine\tools\appengine_rpc_test_util.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\faultinjectiontesting\__init__.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\faultinjectiontesting\v1alpha1\faultinjectiontesting_v1alpha1_client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\faultinjectiontesting\v1alpha1\faultinjectiontesting_v1alpha1_messages.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\faultinjectiontesting\v1alpha1\resources.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\faultinjectiontesting\v1alpha1\__init__.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\faulttesting\__init__.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\faulttesting\v1alpha\faulttesting_v1alpha_client.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\faulttesting\v1alpha\faulttesting_v1alpha_messages.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\faulttesting\v1alpha\resources.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\faulttesting\v1alpha\__init__.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients\apis\testing\__init__.py
+
+2026-08-14T04:41:10.278311Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T04:41:21.020884Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T04:41:41.990078Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+
+FullName                                                                                           LastWriteTime     
+--------                                                                                           -------------     
+E:\VPS\reports\owner-admin-cutover-final-20260814-recovery-v1\01_PRE_CUTOVER_READONLY_PREFLIGHT.sh 2026/8/14 2:37:13 
+E:\VPS\reports\owner-admin-cutover-final-20260814-recovery-v1\tests                                2026/8/14 1:38:17 
+E:\VPS\reports\owner-admin-cutover-final-20260813\01_PRE_CUTOVER_READONLY_PREFLIGHT.sh             2026/8/14 0:14:19 
+E:\VPS\reports\owner-admin-cutover-final-20260813\tests                                            2026/8/13 18:53:13
+E:\VPS\remove_invalid_untracked_test.sh                                                            2026/8/13 14:10:24
+E:\VPS\commit_untracked_schema_test.sh                                                             2026/8/13 14:09:18
+E:\VPS\reports\hardening-static-test-matrix-20260813                                               2026/8/13 14:07:56
+E:\VPS\reports\hardening-script-draft\static_tests.py                                              2026/8/13 14:06:41
+E:\VPS\reports\authority-store-v3-integration-test-20260813                                        2026/8/13 13:59:16
+E:\VPS\direct_repair_stage\.pytest_cache                                                           2026/8/13 13:55:39
+E:\VPS\reports\baseline-pytest-raw.log                                                             2026/8/13 13:55:23
+E:\VPS\direct_repair_stage\tests\test_authority_store_v3.py                                        2026/8/13 13:55:12
+E:\VPS\reports\linux-schema-v3-integration\test_p5_authority_schema_v2_to_v3.py                    2026/8/13 13:54:34
+E:\VPS\reports\runtime-identity-freeze-checklist-20260813\run_test_migration_v3_rehearsal.log      2026/8/13 13:53:07
+E:\VPS\reports\runtime-identity-freeze-checklist-20260813\run_test_authority_store_v3.log          2026/8/13 13:52:10
+E:\VPS\reports\v5-generator-implementation-20260813\pytest_v5_proposal.log                         2026/8/13 13:49:51
+E:\VPS\reports\结构测试总账-20260813\test_resource_policy_negative_apswfix.py                      2026/8/13 13:45:18
+E:\VPS\reports\cli-parser-dispatch-tests-20260813                                                  2026/8/13 13:40:51
+E:\VPS\direct_repair_stage\tests                                                                   2026/8/13 13:36:21
+E:\VPS\cli-parser-dispatch-tests-20260813\__pycache__\test_cli_parser_synthetic.cpython-314.pyc    2026/8/13 13:35:30
+E:\VPS\cli-parser-dispatch-tests-20260813\__pycache__\test_cli_dispatch_synthetic.cpython-314.pyc  2026/8/13 13:35:30
+E:\VPS\cli-parser-dispatch-tests-20260813\test_cli_parser_synthetic.py                             2026/8/13 13:29:03
+E:\VPS\cli-parser-dispatch-tests-20260813                                                          2026/8/13 13:28:46
+E:\VPS\reports\resume-handoff-implement-20260813\self_test.py                                      2026/8/13 13:28:38
+E:\VPS\direct_repair_stage\test_authority_store_v3.py                                              2026/8/13 13:28:16
+E:\VPS\cli-parser-dispatch-tests-20260813\run_tests.py                                             2026/8/13 13:28:10
+E:\VPS\cli-parser-dispatch-tests-20260813\test_cli_dispatch_synthetic.py                           2026/8/13 13:27:52
+E:\VPS\reports\runtime-identity-freeze-checklist-20260813\diff_test_pc7_synthetic.py.txt           2026/8/13 13:27:43
+E:\VPS\direct_repair_stage\test_migration_v3_rehearsal.py                                          2026/8/13 13:26:51
+E:\VPS\reports\pc6-frozen-regression-locate\test-runs.log                                          2026/8/13 13:20:04
+E:\VPS\direct_repair_stage\test_pc7_synthetic.py                                                   2026/8/13 13:09:37
+E:\VPS\reports\resource-policy-test-design-20260813\NEGTEST-report.md                              2026/8/13 13:04:01
+E:\VPS\reports\authority-store-transaction-review-20260813\baseline_pc7_stage_tests.txt            2026/8/13 13:03:37
+E:\VPS\reports\resource-policy-test-design-20260813                                                2026/8/13 13:03:36
+E:\VPS\reports\cli-daemon-v3-patch-20260813\test_researchctl_v3_candidate.py                       2026/8/13 13:03:26
+E:\VPS\reports\resource-policy-test-design-20260813\test_resource_policy_negative.py               2026/8/13 13:01:00
+E:\VPS\.pytest_cache                                                                               2026/8/13 12:59:28
+E:\VPS\direct_repair_stage\__pycache__\test_pc7_synthetic.cpython-314.pyc                          2026/8/13 12:58:52
+E:\VPS\reports\v5-prefix-generator-20260813\self_test.py                                           2026/8/13 12:58:30
+E:\VPS\reports\resource-policy-test-design-20260813\test_resource_policy_binding_synthetic.py      2026/8/13 12:51:15
+
+
+
+2026-08-14T04:42:27.545042Z ERROR codex_core::tools::router: error=unsupported call: read
+2026-08-14T04:49:43.219991Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

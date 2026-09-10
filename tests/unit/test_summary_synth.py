@@ -88,7 +88,7 @@ def test_out_file_written(tmp_path):
             "conflicts": []}
     p = synth(tmp_path, wave, out=out)
     assert p.returncode == 0
-    assert out.read_text() == p.stdout
+    assert out.read_text(encoding="utf-8") == p.stdout
 
 
 def test_malformed_wave_json_is_usage_error(tmp_path):

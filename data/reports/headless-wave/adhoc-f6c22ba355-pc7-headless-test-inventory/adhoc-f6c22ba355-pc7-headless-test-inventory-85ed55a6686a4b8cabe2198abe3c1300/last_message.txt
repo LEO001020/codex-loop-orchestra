@@ -1,0 +1,66 @@
+盘点完成。以下是完整交付（只读，未写任何文件、未运行测试/科学执行）。
+
+## 1. pytest 盘点结论：本项目不使用 pytest
+
+- 全工作区（E:\VPS 根、`.work`、`.tools`、`tmp_probe`、`home-gpu`）**没有 pytest.ini / conftest.py / pyproject.toml / setup.cfg / tox.ini / requirements.txt**，也没有任何 `pytest` 调用。
+- PC6 与 Track3 测试是**自运行脚本**：`if __name__ == "__main__": raise SystemExit(main())`，`main()` 遍历 `globals()` 中 `test_*` 函数，逐个 try/except，输出 `PASS/FAIL` 行 + 末尾 JSON 摘要（`{"run","pass","fail","failures"}`），以退出码 0/1 判定。
+- Hub 基础设施测试用标准库 `unittest`（`setUp/tearDown` + `tempfile.TemporaryDirectory`，`unittest.main()` 收尾），同样不是 pytest。
+- "fixtures" 概念上不存在 pytest fixture；等价物是测试文件内的辅助函数（如 `fixture_revision()`、`check()`、`expect_raises()`）和 unittest 的 `setUp`。
+
+## 2. 测试文件与 fixtures
+
+| 文件 | 位置/部署路径 | 规模 | 性质 |
+|---|---|---|---|
+| [test_pc6_binance_materializer.py](E:/VPS/test_pc6_binance_materializer.py) | 本地 E:\VPS；远程部署为 `quant/p5_track3/test_binance_materializer.py` | 34 个测试 | 24 个纯合成 + 10 个读真实数据 |
+| [test_track3.py](E:/VPS/.work/pc6-edit/quant/p5_track3/test_track3.py) | `quant/p5_track3/test_track3.py`（远程运行脚本引用） | 28 个测试 | 全部纯合成 |
+| `golden_vectors.py` / `null_oracle.py` | `quant/p5_track3/` | 8 条 GV、12 个合成 symbol（SYN00USDT…SYN11USDT） | 已知输入→期望输出的 golden 基建，`run_class=ENGINEERING`，明确注明不评估真实 label |
+| `interval_recon(_alt).py`、`engineering_contracts.py`、`temporal_semantics.py`、`d2_features.py`、`lineage.py` | `quant/p5_track3/` | — | 双实现交叉验证、合约式 fail-close |
+| hub `tests/test_queue_db.py`、`test_p0_boot.py` 等 | `quant/p5_infra/tests/` | unittest | 临时目录 + mock |
+
+PC6 测试文件的 fixture 模式：`fixture_revision(root, dataset, month, symbol, body)` 在内存中生成 zip（`{symbol}.csv`）、算 `sha256`、写入临时目录 `raw.zip`，返回 revision dict；`normalize_revision` 类测试全部走 `tempfile.TemporaryDirectory`，零网络、零真实数据。
+
+## 3. 依赖
+
+- **Python 3.12**（远程 `/usr/bin/python3.12`），运行测试时 `PYTHONPATH=/data/k3/venvs/p4/lib/python3.12/site-packages`，该 venv 提供 `requests/pandas/pyarrow/numpy`（见 [p5_pc6_remote_runtime_check.sh](E:/VPS/p5_pc6_remote_runtime_check.sh)）。
+- **pyarrow**（parquet，`compression="zstd"`、`version="2.6"`）是 `normalize_revision`/`build_artifacts` 与 parquet 断言测试的硬依赖；**pandas** 在 `normalize_revision` 内延迟导入；其余为 stdlib（hashlib/zipfile/csv/urllib/threading）。
+- **`fcntl` 是模块顶层 import（POSIX-only）**：`import binance_materializer` 在原生 Windows 上直接失败，所有 PC6 测试只能在远程 Linux/WSL 平面运行。
+- 独立的 apsw venv（`/data/k3/research/runtime`）只服务 research 侧，与 PC6 测试无关；`researchctl` 仅出现在 final gate。
+- 无声明式依赖清单（requirements/pyproject 均缺失），远程 venv 是事实上的依赖真相。
+
+## 4. Isolated test commands
+
+| 命令脚本 | 作用 |
+|---|---|
+| [p5_pc6_remote_run_tests.sh](E:/VPS/p5_pc6_remote_run_tests.sh) | SSH 到 k3@136.85.49.91，设 `PYTHONDONTWRITEBYTECODE=1`、`PYTHONPATH`、`P5_PC6_BINANCE_ROOT`、`P5_PC6_BINANCE_ARTIFACTS`，依次跑 legacy（`-B quant/p5_track3/test_track3.py`）和 materializer（`-B quant/p5_track3/test_binance_materializer.py`），要求双 exit 0 |
+| [p5_pc6_remote_deploy_tests.sh](E:/VPS/p5_pc6_remote_deploy_tests.sh) | scp 本文件→远程、远程 sha256 比对、`py_compile`、git add/commit |
+| [p5_pc6_remote_final_gate.sh](E:/VPS/p5_pc6_remote_final_gate.sh) | 最终门禁：5 个 artifact 哈希引用一致性 + 硬编码数量断言（35403 objects、156 wave1、133 t1、1 个冲突等）+ `researchctl verify/rebuild-check` |
+| [p5_pc6_remote_runtime_check.sh](E:/VPS/p5_pc6_remote_runtime_check.sh) | 依赖可用性 + 官方 exchangeInfo 连通性 |
+| [p5_pc6_remote_schema_samples.sh](E:/VPS/p5_pc6_remote_schema_samples.sh) | 拉取 BTCUSDT 真实样本行（真实 label，仅 schema 探针，不属于 synthetic 分组） |
+| hub tests | `python -m unittest`（test_queue_db/test_p0_boot 等，`unittest.main()`） |
+
+## 5. Real-label 边界（synthetic 分组必须回避）
+
+现有 10 个测试读取真实数据/artifact，属于 "touches real labels"，synthetic golden 分组**不得包含**：
+
+`test_listing_first_observation_reconciliation`、`test_relisting_conflict_preservation`、`test_delisted_final_observation_retention`、`test_duplicate_rejection`、`test_source_archive_conflict_is_cell_local`、`test_actual_plan_and_download_conservation`、`test_actual_normalized_plus_conflict_conservation`、`test_actual_artifact_hashes_and_readiness`、`test_actual_parquet_temporal_schema`、`test_actual_no_mark_index_premium_substitute`。
+
+它们依赖：`P5_PC6_BINANCE_ROOT` 数据根（plans/download_results/normalized）、`P5_P3_LISTING_EPISODE_LEDGER_V1.json`、`P5_P3_PERP_SPOT_IDENTITY_MAP_V1.json`、`P5_PC6_EXECUTABLE_DATA_MANIFEST_V1.json`、`P5_PC6_BINANCE_STRUCTURAL_QA_V1.json`、`P5_PC6_DATA_REVISION_LINEAGE_V3.json`、`P5_PC6_PRECOMPUTABLE_STRUCTURAL_VIEWS_V1.json`，且含真实 symbol（BTCUSDT/EDUUSDT…）。
+
+## 6. Synthetic golden test 分组设计（不触碰 real labels）
+
+沿用现有 24 个可合成化测试 + legacy `null_oracle` 的 `SYNxxUSDT` 惯例，按被测函数切分为 8 组，每组可独立成 `test_pc6_synthetic_golden_<group>.py`（保持无 pytest 的自运行脚本约定）：
+
+- **G1 摘要与 URL 原语**：`sha_bytes/canonical_bytes/canonicalize_http_url/parse_checksum`。已有：checksum 匹配、文件名 fail-close、unicode/percent 编码。补：idna 国际化域名、非法 checksum 行（3 段/非 hex/错文件名）、`canonical_bytes` 排序键确定性（中文键）。
+- **G2 不可变存储与 revision 谱系**：`atomic_write_once/atomic_update_pointer/parent_revision_id/prior_latest`。已有：write-once 同字节幂等、异字节冲突、parent 逻辑。补：`atomic_update_pointer` 原子替换、临时目录中伪造多个 revisions 验证 `prior_latest` 按 retrieval 时间取新、目录缺失自动 mkdir。
+- **G3 时间戳归一化与工程窗口边界**：`normalize_timestamp/month_end_us/month_range/START_US`。已有：spot 2024/2025 单位切换、futures 单位、3 个月 range。补：闰月/跨年 `month_end_us`、`normalize_timestamp` 越界值 fail-close（秒级/微秒级拒收）、窗口边界条（`open_time_us == START_US` 边界条 `in_engineering_window` 真/假各一）。
+- **G4 身份映射 fail-close 矩阵**：`direct_identity_map`（全部用 SYNxxUSDT 合成 metadata dict）。已有：VERIFIED、UNRESOLVED_UNIT_MAPPING、NO_SPOT_PAIR。补：absent futures、非 PERPETUAL、非 USDT 计价、non-COIN underlying、`pair != symbol`、spot 有 metadata 但无 archive 六分支逐一断言 `status/exclusion_reasons`，并断言 `mapping_confidence=="FAIL_CLOSED"` 仅出现在非 VERIFIED。
+- **G5 条闭合与 8h 固定时钟**：`prior_completed_utc_day_quote_volume/fixed_common_clock_8h_us`。已有：前一日成交量求和、半开区间成员、非整点 anchor fail-close。补：跨 UTC 日边界事件排除、end 时刻事件不进窗、空事件窗计数 0。
+- **G6 funding 结算语义**：`actual_settlement_to_settlement_us`。已有：4h→8h 可变区间、非单调 fail-close。补：`raw_duration` 超 `SNAP_TOLERANCE_US` fail-close、声明间隔与实距一致性、右截断（末事件不虚构 end）。
+- **G7 normalize_revision golden fixtures**（核心分组，全 temp-dir + 手算期望）：kline 归一化（`market_event_time_us` 取 close_time、observable=+1us、ingested/published 时间链）、spot pre-2025 条、funding 行、重复键 fail-close、错误 header/宽度 fail-close。补：`raw_open_time` 原样保留、`row_count`/`first/last_market_event_time_us`、normalization record 自哈希一致、parquet 写后 `sha_file` 与 `normalized_output_sha256` 相等。
+- **G8 合成 artifact 管线一致性**：`artifact/canonical_bytes` 的 canonical_id 注入与哈希自洽、`load_normalizations/load_normalization_conflicts` 空目录与排序行为（用合成 JSON 造目录）。**不进入** `build_artifacts/enumerate_plan/download_*`（需真实 exchangeInfo/网络/S3，天然排除）。
+
+分组护栏（写进每组定义）：不读 `P5_PC6_BINANCE_ROOT`/`P5_PC6_BINANCE_ARTIFACTS` 环境变量；不 import 任何 `P5_P3_*`/`P5_PC6_*` artifact；symbol 一律 `SYNxxUSDT`、月份用 2023-07~2026-07 之外的合成月；全部 temp-dir 生命周期；零网络；不执行 T1/H0/H2/D4 与任何统计/科学运行；断言失败必须走显式 fail-close（RuntimeError/AssertionError）。
+
+**数量对照**：34 个 PC6 测试中 24 个可落入 G1–G7（G8 为新增），10 个真实数据测试留在独立的 `test_actual_*` 门禁集（final gate 用）；legacy 28 个测试全部天然满足 synthetic 约束，可直接作为 G5/G6 的交叉验证源。
+
+**一个关键前置**：因顶层 `fcntl`，任何 synthetic 分组的执行平面必须是远程 K3 Linux 或 WSL，不能在原生 Windows 直接跑；建议在部署脚本中为 synthetic 分组增加"无 `P5_PC6_BINANCE_*` 环境变量时跳过 actual 集"的隔离模式，但目前仅停留在设计建议，未写文件。

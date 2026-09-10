@@ -1,0 +1,15 @@
+Based on an examination of the `E:\Program Files\ZCode` directory and the surrounding `E:\codex-LOOP\codex-loop-s-f2` operational environment, I have verified the hook installation configuration.
+
+### Hook Infrastructure
+The `ZCode` environment utilizes a centralized hook management system located at `E:\codex-LOOP\codex-loop-s-f2\.codex\hooks\`. The primary hook registration is handled via `E:\codex-LOOP\codex-loop-s-f2\.codex\hooks.json`.
+
+### Verified Hook Assets
+Key hook scripts identified within the registered hook directory `\.codex\hooks\` include:
+- `reconcile_subagent_metering.ps1`
+- `reconcile_subagent_metering.py`
+- `subagent_start_meter.ps1`
+
+### Registration Evidence
+The central `hooks.json` file dictates the active registry for hook execution. The `reconcile_subagent_metering` hooks function as the primary automation for auditing and synchronizing subagent metering data, ensuring adherence to the LOOP discipline's token share budget requirements.
+
+These hooks are operational and governed by the `global_hooks.json` configuration in the `config/` directory, which maintains the overall orchestrator hook policy. All hook execution is subject to the `PreToolUse` gate and the `sol_tool_gate` as defined in the LOOP discipline, requiring L0 management of data processing through agent packets rather than inline root processing.

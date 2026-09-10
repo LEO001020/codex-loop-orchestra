@@ -1,0 +1,22 @@
+Both files are written. Here is the audit summary:
+
+---
+
+**Verdict: FAIL**
+
+Five of six managed-hooks criteria pass; one blocker was found.
+
+| Criterion | Result |
+|-----------|--------|
+| `[features] hooks = true` in `config/requirements.toml` | ✅ PASS |
+| `managed_dir` set to `<LOOP_INSTALL_DIR>/hooks` | ✅ PASS |
+| `windows_managed_dir` set to `<LOOP_INSTALL_DIR>\hooks` | ✅ PASS |
+| All hook commands use absolute (parametrized) paths | ✅ PASS |
+| `allow_managed_hooks_only = true` never set | ✅ PASS |
+| `hooks/hooks.json.example` exists | ❌ **FAIL** |
+
+**Blocker:** `hooks/hooks.json.example` is absent from the release. `install.sh` opens it unconditionally at lines 104 and 270 — first to parse-validate it before any user-state writes, then again as the template for generating the target repo's `.codex/hooks.json`. Every Linux/WSL install via `install.sh` will abort with a `FileNotFoundError` before writing any user state. The file is also missing from `SHA256SUMS` and `config/managed_files_v2.txt`.
+
+Outputs written to:
+- `REPORT.md` — full findings with evidence
+- `RESULT.json` — machine-readable verdict, findings array, evidence commands

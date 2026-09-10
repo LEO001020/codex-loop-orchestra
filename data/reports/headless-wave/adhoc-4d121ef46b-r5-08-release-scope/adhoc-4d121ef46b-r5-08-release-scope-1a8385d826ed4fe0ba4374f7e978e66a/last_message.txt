@@ -1,0 +1,82 @@
+Now I have everything needed for a complete audit report.
+
+---
+
+## 发布清单边界审计报告
+
+### 结论
+
+**SHA 冻结清单（SHA256SUMS）边界完整，无运行时文件泄漏。**
+
+---
+
+### 审计范围与方法
+
+1. 读取 `SHA256SUMS`（103 条目）和 `config/managed_files_v2.txt`（104 条目，多出 `SHA256SUMS` 自身）
+2. 交叉比对两份清单，扫描运行时文件模式（`data/`、`reports/`、`*.ndjson`、`*.lock`、`*.jsonl`、`*.tmp`、`__pycache__`、`.pyc`）
+3. 枚举磁盘上实际存在但**未被托管**的源码文件
+
+---
+
+### 关键发现
+
+#### ✅ SHA 冻结清单中没有运行时文件
+
+| 扫描模式 | 结果 |
+|---|---|
+| `data/` 路径 | 0 条 |
+| `reports/` 路径 | 0 条 |
+| `*.ndjson` / `*.jsonl` / `*.lock` | 仅 `VERSIONS.lock`（静态版本锁，非运行时状态） |
+| `__pycache__` / `.pyc` | 0 条 |
+| `.tmp` 临时文件 | 0 条 |
+
+`data/` 目录含 **4,056 个运行时文件**（events.ndjson、exec_roster.json、spawn_times.json、lifecycle state、dead_letters、packets 等），全部正确排除在 SHA 冻结之外。
+
+#### ⚠️ 在磁盘存在但未进入托管清单的源码文件（共 66 个）
+
+这些文件不在 SHA 冻结范围，也不在 `managed_files_v2.txt` 中，属于**边界外的源码遗漏**。按类别列举：
+
+**根目录文件（文档/证明类，不需冻结）**
+- `README.md`, `AGENTS.md`, `search_log.md`, `test_evidence_pytest_output.txt`, `work_commencement_certificate.md`
+
+**config/ — 静态配置（应纳入但未纳入）**
+- `config/escalation_ladder.yaml` — L0-L4 升级阶梯声明配置
+- `config/ipybox_sandbox.json` — ipybox 沙箱权限声明
+- `config/orchestration_policy.toml` — v1 旧版策略（已有 v2 在清单中）
+- `config/retry_classes.yaml` — 重试分类表
+- `config/triggers.yaml` — v1 旧版触发器（已有 v2 在清单中）
+
+**harness/ — 生产组件（应纳入但未纳入，共 22 个）**
+
+包括 `dag_assert.py`、`diffvalidator.py`、`duty_gate.py`、`duty_route.py`、`sanitize.py`、`retry.py`、`summary_synth.py`、`verdict_aggregate.py`、`verdict_check.py`、`signals_collect.py`、`loop_config.py`、`acceptance_replay.sh` 等关键生产脚本。
+
+**hooks/ — 新增钩子（未纳入）**
+- `hooks/sol_tool_gate_v2.py` — Sol 工具门 v2
+- `hooks/subagent_start_meter.sh`
+
+**metering/ — 分析工具（未纳入）**
+- `metering/e0_annotate.py`
+- `metering/oscillation_report.py`
+
+**tests/ — 测试扩展（未纳入，约 40 个）**
+
+包括 `tests/golden/`、`tests/statemachine_paths/`、`tests/unit/` 下大量新增测试（`test_dag_assert.py`、`test_duty_gate.py`、`test_sanitize.py`、`test_retry.py` 等），以及 `tests/orchestration_v2/test_statemachine_v1_retry_contract.py`。
+
+---
+
+### 风险评级
+
+| 类别 | 风险 |
+|---|---|
+| SHA 冻结包含运行时文件 | **无** — 已确认安全 |
+| `data/` 运行时状态泄入冻结 | **无** — 正确排除 |
+| `managed_files_v2.txt` 与 SHA256SUMS 不一致 | **低** — 仅差 `SHA256SUMS` 自身（清单不自包含属预期行为） |
+| 生产源码文件未进入冻结清单 | **中** — `harness/` 和 `config/` 中存在生产级组件游离于 SHA 治理之外，若发生意外修改将无法检测 |
+
+---
+
+### 建议
+
+1. **运行时文件边界**：`data/`、`reports/`、`*.ndjson`、`*.lock`（除 `VERSIONS.lock`）、`*.tmp` 已正确排除，边界健康，无需变更。
+2. **清单补全**（可选，取决于是否需要完整审计追踪）：将上述 66 个磁盘存在但未托管的**生产源码文件**（尤其是 `config/escalation_ladder.yaml`、`config/retry_classes.yaml`、`harness/dag_assert.py`、`harness/sanitize.py`、`hooks/sol_tool_gate_v2.py` 等）添加进 `managed_files_v2.txt` 并刷新 SHA256SUMS，以消除盲区。
+3. `SHA256SUMS` 自身列在 `managed_files_v2.txt` 中但无法被自己哈希，这是预期的自引用限制，不构成缺陷。

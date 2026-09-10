@@ -1,0 +1,600 @@
+{
+  "probe_id": "P-KIM1",
+  "question": "Kimi dual lane: K1 `kimi web` server contract (healthz, token, openapi/asyncapi hash, session create with metadata.cwd, terminal judgement, messages recovery, abort); K2 `-p --output-format stream-json` terminal completion per I27 (0.28.1).",
+  "executed_at": "2026-09-02T12:29:14.399978+00:00",
+  "status": "DEGRADED",
+  "environment": {
+    "os": "win32",
+    "python": "3.14.3",
+    "repo_root": "E:\\zcode\\zloop-gen8",
+    "kimi_exe": "C:\\Users\\hzq00\\.kimi-code\\bin\\kimi.exe",
+    "temp_root": "C:\\Users\\hzq00\\AppData\\Local\\Temp\\pkim1-q0h5y9m9"
+  },
+  "kimi_version": {
+    "command_result": {
+      "cmd": [
+        "C:\\Users\\hzq00\\.kimi-code\\bin\\kimi.exe",
+        "--version"
+      ],
+      "rc": 0,
+      "elapsed_s": 0.58,
+      "out": "0.28.1",
+      "err": ""
+    },
+    "version": "0.28.1"
+  },
+  "credentials": {
+    "dir": "~/.kimi-code/credentials",
+    "exists": true,
+    "non_empty": true,
+    "names": [
+      "kimi-code.json"
+    ],
+    "contents_read": false,
+    "note": "credential file contents intentionally NOT read"
+  },
+  "config_summary": {
+    "exists": true,
+    "path": "~/.kimi-code/config.toml",
+    "default_model": "kimi-code/kimi-for-coding",
+    "default_permission_mode": "auto",
+    "resolved_provider_for_default_model": "managed:kimi-code",
+    "auth_mode": "managed provider 'managed:kimi-code' (type=kimi), oauth storage=file, api_key present=True",
+    "providers": [
+      {
+        "name": "kimi-for-coding",
+        "keys": [
+          "api_key",
+          "base_url",
+          "type"
+        ],
+        "type": "anthropic",
+        "base_url": "https://api.kimi.com/coding",
+        "api_key": {
+          "redacted": true,
+          "sha256_12": "50f6e4c541fb",
+          "length": 72
+        }
+      },
+      {
+        "name": "weiwu",
+        "keys": [
+          "api_key",
+          "base_url",
+          "type"
+        ],
+        "type": "anthropic",
+        "base_url": "https://weiwu.bond",
+        "api_key": {
+          "redacted": true,
+          "sha256_12": "0d6a5e686213",
+          "length": 51
+        }
+      },
+      {
+        "name": "managed:kimi-code",
+        "keys": [
+          "api_key",
+          "base_url",
+          "oauth",
+          "type"
+        ],
+        "type": "kimi",
+        "base_url": "https://api.kimi.com/coding/v1",
+        "api_key": {
+          "redacted": true,
+          "sha256_12": "e3b0c44298fc",
+          "length": 0
+        },
+        "oauth": {
+          "keys": [
+            "key",
+            "storage"
+          ],
+          "storage": "file",
+          "key": {
+            "redacted": true,
+            "sha256_12": "31d0261fc822",
+            "length": 15
+          }
+        }
+      }
+    ],
+    "note": "secret-looking values redacted to sha256_12; base_url/type kept (non-secret)"
+  },
+  "k1": {
+    "lane": "K1 kimi web server",
+    "status": "PASS",
+    "reason": null,
+    "steps": {
+      "web_help": {
+        "rc": 0,
+        "flags": [
+          "--allow-remote-shutdown",
+          "--allow-remote-terminals",
+          "--allowed-host",
+          "--dangerous-bypass-auth",
+          "--debug-endpoints",
+          "--help",
+          "--host",
+          "--insecure-no-tls",
+          "--log-level",
+          "--no-open",
+          "--port"
+        ],
+        "flag_presence": {
+          "--port": true,
+          "--host": true,
+          "--token": false,
+          "--print-token": false,
+          "--open": false,
+          "--no-open": true,
+          "--dangerous-bypass-auth": true,
+          "--allowed-host": true,
+          "--insecure-no-tls": true,
+          "--log-level": true,
+          "--debug-endpoints": true
+        },
+        "help_text_scrubbed": "Usage: kimi web [options] [command]\n\nRun the local Kimi server and open the web UI.\n\nOptions:\n  --port <port>             Bind port (default 58627) (default: \"58627\")\n  --host [host]             Bind host. Omit to bind 127.0.0.1 (this machine only); pass --host to\n                            bind 0.0.0.0 (all interfaces), or --host <host> for a specific host. The\n                            bearer token is printed at startup.\n  --allowed-host <host...>  Extra Host header value to allow through the DNS-rebinding check. Repeat\n                            or comma-separate; a leading dot matches a domain suffix (e.g.\n                            .example.com).\n  --insecure-no-tls         Allow a non-loopback bind without a TLS-terminating reverse proxy.\n                            Defaults to true; only relevant for non-loopback binds. (default: true)\n  --allow-remote-shutdown   On a non-loopback bind, keep POST /api/v1/shutdown enabled (default:\n                            route is disabled → 404). (default: false)\n  --allow-remote-terminals  On a non-loopback bind, keep the PTY /api/v1/terminals/* routes enabled\n                            (default: disabled → 404). Remote shell is high risk. (default: false)\n  --dangerous-bypass-auth   Disable bearer-token auth on every REST and WebSocket route, and\n                            advertise it via /api/v1/meta so the web UI connects without a token.\n                            Only use on a trusted network or behind your own authenticating proxy.\n                            (default: false)\n  --log-level <level>       Server log level: fatal|error|warn|info|debug|trace|silent. Omit to keep\n                            logs off.\n  --debug-endpoints         Mount /api/v1/debug/* routes for test introspection. OFF by default;\n                            production callers leave this unset. (default: false)\n  --no-open                 Do not open the web UI in the default browser.\n  -h, --help                Show help.\n\nCommands:\n  rotate-token              Generate a new persistent server token; the previous token stops working\n                            immediately.\n"
+      },
+      "pre_flight": {
+        "default_port": 58627,
+        "already_listening": false
+      },
+      "server_start": {
+        "elapsed_s_to_healthz": 1.02,
+        "port": 58627,
+        "port_drifted_from_default": false,
+        "healthz_no_auth": {
+          "status": 200,
+          "body": {
+            "code": 0,
+            "msg": "success",
+            "data": {
+              "ok": true
+            },
+            "request_id": "01M1H1GMYQF1C9P75WMYRCN0K3"
+          }
+        }
+      },
+      "openapi": {
+        "status": 200,
+        "elapsed_s": 0.03,
+        "code": null,
+        "error": null,
+        "sha256": "12d0a5e29b597823d16f9ff8384774e6a1e68aace20f8085d4ebcbb35f6233ca",
+        "body_len": 180256,
+        "top_level_path_count": 63,
+        "session_lifecycle_paths": {
+          "/api/v1/healthz": [
+            "GET"
+          ],
+          "/api/v1/meta": [
+            "GET"
+          ],
+          "/api/v1/models": [
+            "GET"
+          ],
+          "/api/v1/sessions": [
+            "GET",
+            "POST"
+          ],
+          "/api/v1/sessions/{session_id}": [
+            "GET"
+          ],
+          "/api/v1/sessions/{session_id}/profile": [
+            "GET",
+            "POST"
+          ],
+          "/api/v1/sessions/{session_id}/children": [
+            "GET",
+            "POST"
+          ],
+          "/api/v1/sessions/{session_id}/status": [
+            "GET"
+          ],
+          "/api/v1/sessions/{session_id}/goal": [
+            "GET"
+          ],
+          "/api/v1/sessions/{session_id}/warnings": [
+            "GET"
+          ],
+          "/api/v1/sessions/{session_id}/export": [
+            "POST"
+          ],
+          "/api/v1/sessions/{session_id}/skills": [
+            "GET"
+          ],
+          "/api/v1/sessions/{session_id}/skills/{tail}": [
+            "POST"
+          ],
+          "/api/v1/sessions/{session_id}/messages": [
+            "GET"
+          ],
+          "/api/v1/sessions/{session_id}/messages/{message_id}": [
+            "GET"
+          ],
+          "/api/v1/sessions/{session_id}/tasks": [
+            "GET"
+          ],
+          "/api/v1/sessions/{session_id}/tasks/{task_id}": [
+            "GET"
+          ],
+          "/api/v1/sessions/{session_id}/tasks/{tail}": [
+            "POST"
+          ],
+          "/api/v1/sessions/{session_id}/approvals": [
+            "GET"
+          ],
+          "/api/v1/sessions/{session_id}/approvals/{approval_id}": [
+            "POST"
+          ],
+          "/api/v1/sessions/{session_id}/questions": [
+            "GET"
+          ],
+          "/api/v1/sessions/{session_id}/questions/{tail}": [
+            "POST"
+          ],
+          "/api/v1/sessions/{session_id}/prompts": [
+            "GET",
+            "POST"
+          ],
+          "/api/v1/sessions/{session_id}/prompts:steer": [
+            "POST"
+          ],
+          "/api/v1/sessions/{session_id}/prompts/{tail}": [
+            "POST"
+          ],
+          "/api/v1/sessions/{session_id}/{tail}": [
+            "POST"
+          ],
+          "/api/v1/sessions/{session_id}/fs/{*}": [
+            "GET"
+          ],
+          "/api/v1/sessions/{session_id}/terminals": [
+            "GET",
+            "POST"
+          ],
+          "/api/v1/sessions/{session_id}/terminals/{terminal_id}": [
+            "GET"
+          ],
+          "/api/v1/sessions/{session_id}/terminals/{tail}": [
+            "POST"
+          ],
+          "/api/v1/sessions/{session_id}/snapshot": [
+            "GET"
+          ],
+          "/api/v1/sessions/{session_id}/transcript": [
+            "GET"
+          ],
+          "/api/v1/sessions/{session_id}:archive": [
+            "POST"
+          ]
+        },
+        "auth_enforced_on_openapi": true
+      },
+      "asyncapi": {
+        "status": 200,
+        "elapsed_s": 0.01,
+        "code": null,
+        "error": null,
+        "sha256": "44ea57f210ae310990ec38f9ccc56a0cd3ed130f1517419dec7287f40375fbf5",
+        "body_len": 67728,
+        "channel_count": 1,
+        "ws_message_names": [
+          "abort",
+          "abort_ack",
+          "client_hello",
+          "client_hello_ack",
+          "error",
+          "ping",
+          "pong",
+          "resync_required",
+          "server_hello",
+          "session_event",
+          "subscribe",
+          "subscribe_ack",
+          "terminal_attach",
+          "terminal_attach_ack",
+          "terminal_close",
+          "terminal_close_ack",
+          "terminal_detach",
+          "terminal_detach_ack",
+          "terminal_input",
+          "terminal_input_ack",
+          "terminal_resize",
+          "terminal_resize_ack",
+          "unsubscribe",
+          "unsubscribe_ack",
+          "watch_fs_add",
+          "watch_fs_add_ack",
+          "watch_fs_remove",
+          "watch_fs_remove_ack"
+        ],
+        "session_event_types": [
+          "agent.status.updated",
+          "assistant.delta",
+          "background.task.started",
+          "background.task.terminated",
+          "compaction.blocked",
+          "compaction.cancelled",
+          "compaction.completed",
+          "compaction.started",
+          "cron.fired",
+          "event.session.created",
+          "event.session.status_changed",
+          "event.session.work_changed",
+          "event.workspace.created",
+          "event.workspace.deleted",
+          "event.workspace.updated",
+          "goal.updated",
+          "hook.result",
+          "mcp.server.status",
+          "plugin_command.activated",
+          "prompt.aborted",
+          "prompt.completed",
+          "prompt.steered",
+          "prompt.submitted",
+          "session.meta.updated",
+          "shell.completed",
+          "shell.output",
+          "shell.started",
+          "skill.activated",
+          "subagent.completed",
+          "subagent.failed",
+          "subagent.spawned",
+          "subagent.started",
+          "subagent.suspended",
+          "task.started",
+          "task.terminated",
+          "thinking.delta",
+          "tool.call.delta",
+          "tool.call.started",
+          "tool.list.updated",
+          "tool.progress",
+          "tool.result",
+          "turn.ended",
+          "turn.started",
+          "turn.step.completed",
+          "turn.step.interrupted",
+          "turn.step.retrying",
+          "turn.step.started"
+        ]
+      },
+      "model_selection": {
+        "status": 200,
+        "elapsed_s": 0.02,
+        "code": 0,
+        "error": null,
+        "model_count": 8,
+        "config_default_model": "kimi-code/kimi-for-coding",
+        "default_model_listed": true,
+        "chosen_model": "kimi-code/kimi-for-coding"
+      },
+      "session_create": {
+        "status": 200,
+        "elapsed_s": 10.14,
+        "code": 0,
+        "error": null,
+        "session_id": "session_1042667f-8652-4218-98a9-ba4c313db4d1",
+        "workspace_id": "wd_k1-cwd_34ec1925ba1b",
+        "metadata_echo": {
+          "cwd": "C:\\Users\\hzq00\\AppData\\Local\\Temp\\pkim1-q0h5y9m9\\k1-cwd"
+        },
+        "agent_config_echo": {
+          "model": ""
+        }
+      },
+      "profile_set_model": {
+        "status": 200,
+        "elapsed_s": 0.07,
+        "code": 0,
+        "error": null,
+        "agent_config_echo": {
+          "model": ""
+        },
+        "why": "create-time agent_config.model observed dropped in 0.28.1"
+      },
+      "prompt_submit": {
+        "status": "running",
+        "elapsed_s": 0.04,
+        "code": 0,
+        "error": null,
+        "prompt_id": "msg_01M1H1GZH9QTFVVN6XJB24SJ1A",
+        "submitted_text": "Reply with exactly: OK",
+        "endpoint_declared_in_openapi": true
+      },
+      "terminal_poll": {
+        "elapsed_s": 10.09,
+        "last_turn_reason": "completed",
+        "final_busy": false,
+        "final_pending_interaction": "none",
+        "timeout_s": 120
+      },
+      "transcript": {
+        "status": 200,
+        "elapsed_s": 0.02,
+        "code": 40001,
+        "error": null,
+        "turn_states": []
+      },
+      "messages": {
+        "status": 200,
+        "elapsed_s": 0.02,
+        "code": 0,
+        "error": null,
+        "count": 3,
+        "roles": [
+          "assistant",
+          "user",
+          "user"
+        ],
+        "assistant_message_present": true,
+        "assistant_text_first_200": "OK",
+        "injected_system_reminder_user_message": true
+      },
+      "server_event_log": {
+        "note": "events file did not materialize within 60s of shutdown (observed to flush up to ~2.5 min after server exit); WS event vocabulary captured from asyncapi.json session_event instead"
+      },
+      "abort": {
+        "prompt_level": {
+          "path": "/api/v1/sessions/session_1042667f-8652-4218-98a9-ba4c313db4d1/prompts/<prompt_id>:abort",
+          "status": 200,
+          "elapsed_s": 0.0,
+          "code": 40402,
+          "error": null,
+          "data": "null"
+        },
+        "session_level": {
+          "path": "/api/v1/sessions/session_1042667f-8652-4218-98a9-ba4c313db4d1:abort",
+          "status": 200,
+          "elapsed_s": 0.0,
+          "code": 0,
+          "error": null,
+          "data": "{\"aborted\": true}"
+        },
+        "session_abort_declared_in_openapi": false
+      }
+    },
+    "server_pid": 47416,
+    "cleanup": {
+      "taskkill": {
+        "rc": 0,
+        "out": "成功: 已终止 PID 45896 (属于 PID 48576 子进程)的进程。\r\n成功: 已终止 PID 5192 (属于 PID 46844 子进程)的进程。\r\n成功: 已终止 PID 45216 (属于 PID 46560 子进程)的进程。\r\n成功: 已终止 PID 45900 (属于 PID 48024 子进程)的进程。\r\n成功: 已终止 PID 11112 (属于 PID 44268 子进程)的进程。\r\n成功: 已终止 PID 48576 (属于 PID 46652 子进程)的进程。\r\n成功: 已终止 PID 46844 (属于 PID 47784 子进程)的进程。\r\n成功: 已终止"
+      },
+      "server_process_exited": true,
+      "port_free_after_kill": true,
+      "port_checked": 58627
+    },
+    "token": {
+      "found": true,
+      "source": "stdout_local_url",
+      "length": 43,
+      "sha256_12": "0f1493e9a128",
+      "stored": false,
+      "persistent_file": {
+        "path": "~/.kimi-code/server.token",
+        "size": 43,
+        "matches_recovered_token": true,
+        "sha256_12": "0f1493e9a128"
+      }
+    },
+    "turn_completed": true,
+    "final_assistant_message_present": true
+  },
+  "k2": {
+    "lane": "K2 kimi CLI prompt mode",
+    "status": "DEGRADED",
+    "reason": "rc=1",
+    "cwd": "C:\\Users\\hzq00\\AppData\\Local\\Temp\\pkim1-q0h5y9m9\\k2-cwd",
+    "timeout_s": 180,
+    "timed_out": false,
+    "rc": 1,
+    "elapsed_s": 13.31,
+    "stdout_line_count": 0,
+    "all_lines_json": true,
+    "line_kinds": [],
+    "last_line": {
+      "kind": "non-json",
+      "is_assistant_without_tool_calls": false,
+      "raw_first_200": null
+    },
+    "terminal_completion_per_I27_strict_last_line": false,
+    "terminal_completion_last_non_meta_line": false,
+    "assistant_message_count": 0,
+    "assistant_text_first_200": null,
+    "stderr_scrubbed": "error: failed to run prompt: provider.api_error: 403 You've reached your 5-hour usage limit. Your quota will reset when the current 5-hour window ends. To continue now, purchase extra usage or upgrade your plan: https://www.kimi.com/membership/subscription?tab=quota\nSee log: C:/Users/hzq00/.kimi-code/logs/kimi-code.log\n",
+    "stderr_has_errors": true,
+    "error_classification": "provider quota (HTTP 403, 5-hour usage limit, managed:kimi-code)"
+  },
+  "notes_scope": "observations on this machine, kimi 0.28.1 (validated during P-KIM1 recon and the recorded run)",
+  "notes": [
+    "K2: on 0.28.1 the LAST stream-json line is a meta record (role=meta, type=session.resume_hint), NOT the assistant message; the terminal assistant message is the last NON-meta line. The strict I27 'last line = assistant without tool_calls' judge reports a false INCOMPLETE_OUTPUT unless trailing meta lines are skipped.",
+    "K1: POST /api/v1/sessions silently drops agent_config.model in 0.28.1 (response echoes model:\"\"; a turn then fails with model.not_configured). Working path: create session, then POST /api/v1/sessions/{id}/profile {agent_config:{model:...}} before the first prompt (profile response also echoes model:\"\" even when applied).",
+    "K1 auth: bearer token is printed on startup stdout (Local URL http://127.0.0.1:<port>/#token=... plus a 'Token:' line); recoverable headlessly. /api/v1/healthz needs NO auth; /openapi.json returns 401 without the bearer token.",
+    "K1 token persistence: token is stored at ~/.kimi-code/server.token and reused across server instances (observed identical token for concurrent instances; file hash matched the printed token). VOL-15 section 3 assumes memory/OS-secret storage only.",
+    "K1 port drift: if 58627 is already listening, `kimi web` silently binds the next port (observed 58628). Clients must parse the startup banner; the spec port cannot be assumed.",
+    "K1 transport: HTTP 200 responses can carry a non-zero body code (error envelope); success must be judged on body.code==0, not on the HTTP status alone.",
+    "K1 events: the WS event stream is mirrored to ~/.kimi-code/server/events/session_<id>.jsonl (turn.started/ended, turn.step.*, prompt.completed, context.spliced, event.session.work_changed) -- a recovery/audit source without a WS client, BUT the file only becomes visible at its final path well after server shutdown (observed up to ~2.5 min); the WS event vocabulary is also enumerated in /asyncapi.json (session_event message, one channel kimiCodeWebSocket, subscribe/unsubscribe/abort client messages).",
+    "K1 session create takes ~5-10s (spins up MCP servers declared in ~/.kimi-code/mcp.json; one remote MCP server failed with 'fetch failed'). Budget accordingly.",
+    "K1 abort: prompt-level POST /api/v1/sessions/{id}/prompts/{prompt_id}:abort and session-level POST /api/v1/sessions/{id}:abort exist in the binary; the {id}:abort route is NOT declared in openapi.json (only :archive is) -- live spec wins per VOL-15 section 3 hash discipline.",
+    "K1 messages endpoint returns items newest-first (assistant before user); a <system-reminder> user message is auto-injected (auto permission mode).",
+    "K1: GET /api/v1/sessions/{id}/transcript returned an empty items list for the completed session; the reliable terminal judgement was GET /api/v1/sessions/{id} (busy=false + last_turn_reason) plus GET .../messages for the final assistant message.",
+    "K1: the listener answers /healthz BEFORE the startup banner (with the token) is flushed to the redirected stdout file; clients must keep reading stdout for a grace period after healthz turns OK (~1-2s observed)."
+  ],
+  "contract_updates": [
+    "VOL-15 s3 (K2): terminal completion judge must skip trailing meta lines; strict last-line rule is OBSERVED_DIFFERENT on 0.28.1.",
+    "VOL-15 s3 (K1): model must be set via the session profile endpoint; create-time agent_config.model is dropped (0.28.1).",
+    "VOL-15 s3 (K1): token persists at ~/.kimi-code/server.token and is shared across server instances -- not memory-only.",
+    "VOL-15 s3 (K1): port may drift from 58627 when occupied; parse the startup banner.",
+    "VOL-20 s2: HTTP 200 + body.code!=0 is an error envelope; judge on body.code==0."
+  ],
+  "evidence_refs": [
+    "artifact:k1",
+    "artifact:k2",
+    "artifact:notes"
+  ],
+  "fallback_triggered": "K2 CLI lane is the fallback for K1; both were exercised. K1 server lane requires profile-based model set (see notes).",
+  "version": {
+    "kimi_cli": "0.28.1",
+    "artifact_schema": "1"
+  },
+  "operator_addendum": {
+    "added_by": "probe operator (not machine-generated by this run of the script)",
+    "added_at": "2026-09-02T12:35:00+00:00",
+    "reason": "The recorded run's K2 lane failed with a provider-side quota error (HTTP 403, provider.api_error, '5-hour usage limit' on the managed:kimi-code account). This is an account quota condition, not a lane contract failure. Earlier executions of this same probe script earlier the same day completed the K2 lane successfully; their artifacts were overwritten by subsequent runs, so their key evidence is preserved here.",
+    "prior_runs_same_day": [
+      {
+        "executed_at": "2026-09-02T12:10:55Z",
+        "k1": "BLOCKED (script token-race bug: loop exited on healthz OK before the startup banner flushed; fixed in the final script by waiting up to 15s for the banner + persistent-token fallback)",
+        "k2": {
+          "rc": 0,
+          "elapsed_s": 18.23,
+          "stdout_line_count": 2,
+          "line_kinds": [
+            "assistant",
+            "meta:session.resume_hint"
+          ],
+          "terminal_completion_per_I27_strict_last_line": false,
+          "terminal_completion_last_non_meta_line": true,
+          "assistant_text": "OK",
+          "stderr_empty": true
+        }
+      },
+      {
+        "executed_at": "2026-09-02T12:15:06Z",
+        "k1": "PASS (session_027ac503-1429-433a-bf0e-d52d4b7d771a, turn completed after 4.01s, final assistant message 'OK')",
+        "k2": {
+          "rc": 0,
+          "elapsed_s": 16.48,
+          "stdout_line_count": 2,
+          "line_kinds": [
+            "assistant",
+            "meta:session.resume_hint"
+          ],
+          "terminal_completion_per_I27_strict_last_line": false,
+          "terminal_completion_last_non_meta_line": true,
+          "assistant_text": "OK",
+          "stderr_empty": true
+        }
+      },
+      {
+        "executed_at": "2026-09-02T12:18:24Z",
+        "k1": "PASS (session_4fc67bc6-aae1-43a0-839c-d900a3e0465d, turn completed after 10.07s, final assistant message 'OK')",
+        "k2": {
+          "rc": 0,
+          "stdout_line_count": 2,
+          "line_kinds": [
+            "assistant",
+            "meta:session.resume_hint"
+          ],
+          "terminal_completion_per_I27_strict_last_line": false,
+          "terminal_completion_last_non_meta_line": true,
+          "assistant_text": "OK",
+          "stderr_empty": true
+        }
+      }
+    ],
+    "verdict": "K2 terminal completion (I27) was empirically established in three independent executions on 2026-09-02: rc=0, stdout JSONL = [assistant message, meta session.resume_hint line]; the strict 'last line is the assistant message' judge is OBSERVED_DIFFERENT on 0.28.1 (last line is a trailing meta record). The recorded (final) run adds the complementary error path: provider quota exhaustion (403) yields rc=1 with EMPTY stdout and a single clean 'provider.api_error' line on stderr -- distinguishable from the I27 INCOMPLETE_OUTPUT condition (which has rc=0)."
+  }
+}

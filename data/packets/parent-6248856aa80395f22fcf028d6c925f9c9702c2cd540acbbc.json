@@ -1,0 +1,23 @@
+{
+  "acceptance": [
+    "返回当前数值和时间戳",
+    "不得编辑"
+  ],
+  "authorized_paths": [
+    "data/refill/",
+    "data/lifecycle/"
+  ],
+  "constraints": [
+    "read-only"
+  ],
+  "created_by": "parent_manifest_importer",
+  "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+  "goal": "只读回读当前refill_state，确认父target/running/pending/deficit/spawnable与8765一致。",
+  "manifest_id": "p0-parent-final-backlog-20260814",
+  "packet_id": "parent-6248856aa80395f22fcf028d6c925f9c9702c2cd540acbbc",
+  "parent_enabled": true,
+  "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+  "role": "verifier",
+  "sandbox": "read-only",
+  "task_name": "最终父债务状态回读"
+}

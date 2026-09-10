@@ -1,0 +1,50 @@
+所有检查项均通过，以下是完整证据报告：
+
+---
+
+## F7-20 当前包证据报告
+
+**结论：PASS**
+
+### 当前文件 SHA-256
+
+| 文件 | SHA-256 | 字节数 |
+|------|---------|--------|
+| `03_DEPLOY_APP_V3_AND_MIGRATE.sh` | `61aaacb49accc7dc5b6d87e8eb25e52a59746f671d38482b54556dfe5aa98136` | 16264 |
+| `10_MANIFEST.json` | `72bc5db8901d084806eb946479dd0cab4272a713c2e663aff47fbb88fd227de1` | 3277 |
+| `tests/test_static_invariants.py` | `404f8bc461aa506a749c844b5a0a336d299035c329cb0668fd96f63f806ce1f5` | 26854 |
+| `tests/functional_fixtures.sh` | `d513be737213d42096cbbfbc9394baf5d7d8e4e0175535368bbc8b38be67da5a` | 5394 |
+| `11_SHA256SUMS` | `f1da80801233be0f7f2080f2596c1cb512a0dd377b75cd58e55809c6d09c9e1f` | 1710 |
+
+> 注：`10_MANIFEST.json` 不在其自身的 files 列表中（预期行为，自引用豁免）；`11_SHA256SUMS` 同理。清单中列出的 17 个文件**全部 PASS**（11_SHA256SUMS 中的哈希 与 `03` 的清单条目 `61aaacb4...` 一致）。
+
+---
+
+### F7-20 四项核查结果
+
+**① canonical manifest allowed set（源码验证阶段）**
+- `want_set`：从清单 `files[]` 构建，遍历暂存树时对每个文件进行路径归一化后与 `want_set` 比对。✅
+- 后安装重哈希阶段 `want{}`：同样从清单构建，覆盖完整 path→sha256 映射。✅
+
+**② manifest-driven copy（只复制清单列出的文件）**
+- 安装段注释明确标注 `F7-20: manifest-driven install`，用 `shutil.copy2(s, d)` 逐文件拷贝。✅
+- 代码中**不含**毯式 `cp -a "$APP_V3_SRC"/. "$APP_V3_DIR"/`。✅
+- 静态不变量测试（`test_static_invariants.py` L169）`deploy_manifest_driven` case 也验证此项。✅
+
+**③ 未列出的 executable / importable / .pyc 在部署前拒绝（fail-closed）**
+- 源码预验证阶段：`.pyc` 或 `__pycache__`/`.pytest_cache` → `print("PYC/CACHE", rel); bad+=1`。✅
+- 不在 `want_set` 中的任何文件 → `print("EXTRA", rel); bad+=1`，包括 `.py` / `.sh` / `.so`。✅
+- `bad > 0` 时 `sys.exit(1)` → 外层 `|| die "..."` 中止整个脚本（fail-closed）。✅
+- 执行顺序确认：`source-verify（pos 7360）→ manifest-copy（pos 12401）→ post-install-rehash（pos 13205）→ chown（pos 14663）`。✅
+
+**④ 安装后重哈希（closes source-swap TOCTOU，f10-5 HIGH）**
+- 后安装 Python 段检测三种错误状态：`EXTRA-INSTALLED`（未列出文件）、`HASH-MISMATCH-INSTALLED`（字节不符）、`MISSING-INSTALLED`（缺失文件）。✅
+- `UNPINNED-MANIFEST-ENTRY`：清单条目无有效 64 字符 sha256 时同样 `bad+=1`，拒绝通过。✅
+- 静态不变量测试 L221 `f10_install_rehash` case 对此有显式覆盖。✅
+- `assert_executor_is_not_agent` 存在：阻止代理自我执行生产部署。✅
+
+---
+
+**manifest 完整性**：清单内 17 个文件哈希全部与磁盘文件一致（PASS=17 FAIL=0）。`11_SHA256SUMS` 中 `03` 的哈希 `61aaacb4...` 与清单条目及实测值三方吻合。
+
+**最终裁定：PASS**

@@ -1,0 +1,52 @@
+任务名：源哈希代码证明
+
+**裁决：exact production path 不可满足（unsatisfiable）**
+
+以下是逐步推导：
+
+---
+
+**alpha_execution.py 的执行路径**
+
+1. 第 176-178 行：对 source file 做哈希，得到 `source_sha`。
+2. 第 191 行：将 staged 设为 `[source_sha, *verified]`——即 `source_sha` 被显式插入 staged 列表的首位。
+3. 第 192-199 行：遍历 staged 中每个哈希，要求其**全部存在**于 `frozen_manifest_hash_set` 中。
+4. 第 200 行：仅在上述校验通过后，才将 source 解析为 JSON。
+
+这意味着：`source_sha`（源文件的 SHA-256 十六进制摘要）必须出现在 manifest 的哈希集合里，否则第 192-199 行的校验会失败，执行在第 200 行之前就终止。
+
+---
+
+**pc6_alpha_materializer.py 的执行路径**
+
+1. 第 270-288 行：从 executable manifest 中收集所有 64 位十六进制字符串，构成哈希集合。
+2. 第 291-295 行：若任何所需哈希缺失，直接失败。
+3. 第 302-345 行：要求满足 `p5-pc6-alpha-source/v1` JSON schema 校验。
+
+---
+
+**Manifest 的实际内容**
+
+- 共 32996 个哈希：
+  - 32985 个是归一化 parquet 引用
+  - 11 个是元数据/对象哈希
+- **零个** `source_sha256` 键
+- **零个** source schema 出现
+
+---
+
+**矛盾所在**
+
+alpha_execution.py 要求 `source_sha`（源文件的实际内容哈希，运行时动态计算）必须预先存在于 manifest 的哈希集合中。但 manifest 是静态冻结的，其 32996 个条目中没有任何一个是以 source schema 方式录入的 source 文件哈希。
+
+这是一个**循环依赖悖论**：
+
+- 要通过校验，source_sha 必须在 manifest 里；
+- 但 manifest 是在 source 之前冻结的，且不包含任何 source_sha256 条目；
+- 即使假设某个 parquet 哈希碰巧与 source_sha 字节相同（概率为 2⁻²⁵⁶，可忽略），materializer 第 302-345 行的 schema 校验也会拒绝它，因为 source/v1 schema 要求特定的 JSON 结构，而 parquet 哈希槽不满足该 schema。
+
+---
+
+**结论**
+
+exact production path **不可满足**。路径在 alpha_execution.py 第 192-199 行处必然失败：`source_sha` 不在 `frozen_manifest_hash_set` 中，staged 校验无法通过，第 200 行的 JSON 解析永远不会被执行。两个组件的约束联合后产生不可调和的矛盾，无论 source 文件内容为何，该路径在当前 manifest 下均无法完成执行。

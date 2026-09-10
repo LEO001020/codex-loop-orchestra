@@ -1,0 +1,65 @@
+现在我有了完整的信息，可以进行精确的映射复核分析。
+
+---
+
+## V2 Funding 映射复核报告
+
+### 一、冻结规则下的字段唯一确定性
+
+**源 CSV 列 → 归一化行字段的完整映射如下：**
+
+| CSV 列（位置） | 归一化字段 | 类型转换 |
+|---|---|---|
+| `calc_time`（`r[0]`） | `raw_calc_time`（字符串原值） | 无 |
+| `calc_time`（`r[0]`） | `market_event_time_us` | `int(r[0])` → `normalize_timestamp(…, "funding", month)` |
+| `funding_interval_hours`（`r[1]`） | `funding_interval_hours` | `float(r[1])` |
+| `last_funding_rate`（`r[2]`） | `funding_rate_raw`（字符串原值） | 无 |
+| `last_funding_rate`（`r[2]`） | `funding_rate` | `float(r[2])` |
+
+**唯一性结论：冻结规则完全唯一确定每一行的输入选择与数值表示。** 具体原因如下：
+
+1. **行选择唯一**：schema 校验要求 header 精确匹配 `["calc_time","funding_interval_hours","last_funding_rate"]`，任何偏差即 `FUNDING_HEADER` 异常；每行宽度须为 3，否则 `FUNDING_WIDTH` 异常。
+2. **去重键唯一**：`(symbol, market_event_time_us)` 构成去重键，出现重复即 `DUPLICATE_KEYS` 异常，直接将该 symbol-month 单元标记为 `SOURCE_ARCHIVE_CONFLICT` 排除。
+3. **时间戳唯一**：`normalize_timestamp` 函数对 funding 数据集无月份分支——代码路径走到 `else` 分支（非 `spot_1h` 亦非显式 `futures_1h`），执行毫秒→微秒转换（`return raw * 1000`），对所有月份一致适用。
+
+### 二、`normalize_timestamp` 对 funding 的实际执行路径
+
+```python
+def normalize_timestamp(raw: int, dataset: str, month: str) -> int:
+    if dataset == "spot_1h":
+        ...          # 不执行
+    if not 1_000_000_000_000 <= raw < 10_000_000_000_000:
+        raise RuntimeError("FUTURES_TIMESTAMP_UNIT")
+    return raw * 1000   # ← funding 走这里
+```
+
+funding 调用形式为 `normalize_timestamp(int(r[0]), "funding", month)`，`dataset="funding"` 不是 `"spot_1h"`，因此直接走毫秒校验+乘以 1000 的通路。对应的 guard 要求原始值为 13 位十进制毫秒；`raw_calc_time` 保留字符串原值作为证据链。
+
+### 三、科学意义：`market_event_time_us` 对 (t, t+h] 区间的影响
+
+**关键认识：Binance 的 `calc_time` 是结算发生时刻，而非结算周期的开始时刻。**
+
+**View A（FIXED_COMMON_CLOCK_8H）**
+成员资格规则为：
+```python
+start_us <= int(row["market_event_time_us"]) < end_us
+```
+即 `[t, t+8h)` 半开区间。若 `market_event_time_us` 精确等于某个 8h 窗口的边界（如 00:00:00.000000 UTC），该事件归入当前窗口而非下一个窗口。时间戳的微秒精度使边界语义精确到单微秒。
+
+**View B（ACTUAL_SETTLEMENT_TO_SETTLEMENT）**
+持仓区间 = `[event_i.market_event_time_us, event_{i+1}.market_event_time_us)`，`funding_rate` 使用**左端点事件**（`left["funding_interval_hours"]` 和 `float(left["funding_rate_raw"])`）。这意味着在区间 (t, t+h] 内持仓所承担的资金费率，由 t 时刻（左端结算事件）的 `funding_rate` 字段决定，而不是 t+h 时刻的事件。
+
+**科学上的潜在问题：`float(r[2])` 的精度损失**
+
+`funding_rate_raw` 保留字符串（如 `"0.00010000"`），`funding_rate` 经 Python `float()` 转换为 IEEE 754 双精度。对于 Binance 常见的 4–8 位小数资金费率，双精度精度损失可忽略（< 1e-16 相对误差）。但若某资金费率字符串含有超高精度小数（如 16+ 位有效数字），`float()` 的截断会与 `funding_rate_raw` 的原始字符串存在可量化差异。**复核建议**：下游科学层应优先使用 `funding_rate_raw` 字符串经 `decimal.Decimal` 路径处理，或证明当前数据集内所有值的 `float(str) == Decimal(str)` 在所需精度下等价。
+
+### 四、结论摘要
+
+| 维度 | 结论 |
+|---|---|
+| 行选择唯一性 | ✅ 冻结规则唯一确定 |
+| 时间戳表示唯一性 | ✅ `calc_time`（ms）× 1000 = `market_event_time_us`（us），无月份分支 |
+| 数值表示唯一性 | ✅ 字符串原值 `funding_rate_raw` + `float` 浮点 `funding_rate` 双轨并存 |
+| View A 边界语义 | `market_event_time_us` 精确决定事件归入哪个 8h 窗口 |
+| View B 费率归属 | 区间 [t, t+h) 的费率由**左端结算事件**的 `funding_rate` 决定 |
+| 潜在精度风险 | `float()` 转换可能在极高精度费率下与原始字符串存在差异，建议下游使用 `funding_rate_raw` |

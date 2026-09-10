@@ -1,0 +1,59 @@
+Reading additional input from stdin...
+2026-08-14T09:09:09.353532Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T09:09:19.471565Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-14T09:09:37.939371Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.8 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后再试一次。
+所在位置 行:2 字符: 63
++ ... g --files E:\VPS\reports\fl18-root-r2-crosscheck-workspace | head -60
++                                                                  ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T09:16:47.863611Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1 seconds
+Output:
+rg : rg: unrecognized flag --include
+所在位置 行:2 字符: 1
++ rg -i "root.*ssh\|rootssh\|R2\|RootSSH" "E:\VPS\reports\codex-fl13-ha ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (rg: unrecognized flag --include:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+similar flags that are available: --include-zero
+
+2026-08-14T09:17:33.920071Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+E:\VPS\reports\authority-db-boundary-audit\report.md
+E:\VPS\reports\cursor-fable-takeover-20260813\CHAT_RECORD_ASSISTANT.md
+E:\VPS\reports\codex-fl13-handoff-extracted-20260814\P5_CURSOR_TO_CODEX_FL13_HANDOFF_V1\SOURCES\CHAT_RECORD_ASSISTANT.md
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\AUD_21_ceremony.md
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\AUD_18_core_runtime.md
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\AUD_19_regression.md
+E:\VPS\reports\hardening-script-threat-model-20260813\report.md
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\DET_MD_SNAP.md
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\DET_U10_19.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\NP2_neg_writes.md
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\DET_X_b.md
+E:\VPS\reports\NativeRootSSH-final-verification\l2_verification_report.md
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\00_READ_ME_FIRST.md
+E:\VPS\reports\P5_CODEX_FL17_FINAL_REMEDIATION_REPORT_V1.md
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\final-review\FR_supplychain.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\Rpathhijack.md
+E:\VPS\reports\trust-anchor-mutability-20260813\report.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\Ssnapshot.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\U10_fixtures.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\Xcover_requirements.md
+
+2026-08-14T09:21:36.691293Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

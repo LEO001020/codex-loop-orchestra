@@ -1,0 +1,41 @@
+任务名：核对scan_rollout_subagents
+`scan_rollout_subagents` 在 482–577 行；活 child 需 5s 扫描 TTL、6h mtime lookback、mtime≥desktop_started_at（None 则跳过 epoch）、session_meta.id、同扫描 parent_thread_id 父、组 max(mtime)≤600s、双方最新生命周期非终态；返回 `{tasks, open_sessions, updated_at, desktop_started_at}`。指定 `p01.md` 被只读沙箱拒绝写入。
+
+失败输出（无法落盘）：
+```
+Access to the path 'E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-8765-desktop-hooktrust\p01.md' is denied.
+cmd: 拒绝访问。
+apply_patch: writing is blocked by read-only sandbox; rejected by user approval settings
+```
+目标路径：`E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-8765-desktop-hooktrust\p01.md`
+
+下面是本应写入该文件的完整证据。
+
+源文件 [`E:\codex-LOOP\launchers\loop_monitor_server.py`](E:\codex-LOOP\launchers\loop_monitor_server.py)：1151 行，64789 字节，mtime 2026-08-29 23:06:17。只读精读；未 git write、未启动服务、未读 sqlite。
+
+函数起止：`def scan_rollout_subagents(sessions_root: Path) -> dict[str, Any]:` 为 **482–577**（577 `return dict(value)`；580 起 `desktop_app_server_started_at`）。`snapshot()` 637 行调用。默认 sessions 根 33 行：`Path.home() / ".codex" / "sessions"` → `C:\Users\hzq00\.codex\sessions`。
+
+相关 helper：`read_session_meta` 306–313；`rollout_created_at` 316–327；`rollout_terminal` 330–359；`read_rollout_task_name` 362–422；`read_rollout_model_profile` 425–469；`desktop_app_server_started_at` 580–602。
+
+常量：`ROLLOUT_SCAN_TTL_SECONDS=5.0`（35）；`ROLLOUT_PARENT_FRESH_SECONDS=600.0`（36）；`ROLLOUT_FILE_LOOKBACK_SECONDS=21600`（37，6h）；`ROLLOUT_ACTIVE_SECONDS=120.0`（41，只写 `recent_activity`，**不是纳入门槛**）。进程缓存 42–43：`_rollout_lock` + `_rollout_cache={checked_at,value}`。epoch helper 自己 10s 缓存（588）。
+
+纳入/排除（执行顺序）：
+
+1. `now=time.time()`；`desktop_started_at=desktop_app_server_started_at(now)`（484，**缓存命中前也会调**）；再进 `_rollout_lock`。
+2. **TTL** 486–487：`now-checked_at<5s` 则 `return dict(_rollout_cache["value"])`，不再 rglob。缓存**不按** `sessions_root` 分区；命中时 484 新算的 epoch **丢弃**，返回的是缓存里旧的 `desktop_started_at`。未命中则重扫，576 写回。
+3. **lookback / desktop_started_at** 489–505：`sessions_root.rglob("rollout-*.jsonl")`。`stat` 失败排除；`now-mtime>21600` 排除（用 **mtime**，不用 ctime/timestamp）；`desktop_started_at is not None and mtime<desktop_started_at` 排除（重启不能保住 native child，epoch 前非终态文件当 crash 残骸）；`desktop_started_at is None` **不**做 epoch 篱笆（无 psutil / 非 Windows / 枚举失败）；首行非 `session_meta` 或无 `payload.id` 排除（`read_session_meta` 只读第一行）。同 id 后写覆盖先写。
+4. epoch 实现 580–602：仅 `os.name=="nt"` 且已导入 psutil；`name.casefold()=="codex.exe"` 且 cmdline 含 `"app-server"`；多实例取 `max(create_time)`；异常 → `None`（不当 0），`None` 也会缓存 10s。
+5. **terminal 快照** 510–513：每个保留 path **只**调一次 `rollout_terminal`（单测 parent+child 各 1 次）。`rollout_terminal` 读末尾 131072 字节：`task_started`→非终态；`task_complete|turn_aborted|turn_failed|thread_closed`→终态；以**最后一次**生命周期事件为准（resumed parent 历史 complete 后再 started 不算终态）；无事件或读失败 → False。
+6. **parent_thread_id / parent_fresh / terminal 第一道** 516–532：只从 child 出发。无 `parent_thread_id` 排除（root/orphan）；父 id 不在**同一次扫描**的 `sessions` 排除（父必须已过 lookback/epoch/meta）；`now-max(parent.mtime,child.mtime)>600` 排除（父可安静，child 新鲜即可；单测 parent mtime=200、child=990、now=1000 纳入）；parent **或** child 终态排除。`parent_thread_id` 只来自 child `session_meta.payload`。
+7. candidate 组装 533–550：`explicit_role=meta.agent_role or source.subagent.thread_spawn.agent_role`；`role=explicit_role or "agent"`。`model=meta.model or active_turn_model`，再展开 model_profile 五字段。`recent_activity=now-child.mtime<=120`；False **不排除**（静默非终态仍 occupied；旧 90s wave slicing 已删，后出生不切片前波）。
+8. **第二道** 552–572：按 parent 组 `group_activity=max(parent.mtime, 各 child.updated_at)`；父缺失 / 父终态 / 组超过 600s → `open_sessions+=len(rows)` 且不进 `tasks`；否则按 `created_at` 排序并入 `tasks`。第一道已要求父存在、双方非终态、该 child 组新鲜，故正常路径 `open_sessions==0`。终态 child 到不了 `open_sessions`。`created_at`：ISO `session_meta.timestamp`（Z→+00:00），否则 `st_ctime`，否则 0.0；**不用 mtime**。
+
+返回顶层 573–575：`tasks`（过两道的当前代非终态 child）；`open_sessions`（第二道挡下的 candidate 条数）；`updated_at`（candidates 阶段见到的 max(parent.mtime,child.mtime)，无 candidate 则为 None）；`desktop_started_at`（本轮/缓存的 app-server `create_time`）。
+
+`tasks[]` 字段：`agent_id`，`parent_session_id`，`name`（`read_rollout_task_name`，空则不缓存），`role`，`agent_role_explicit`，`model`，`first_observed_model`，`configured_model`，`latest_turn_model`，`active_turn_model`（latest or configured or first），`inherited_history_model`（configured 存在且 first≠configured 则为 first，否则 `""`），`cwd`（child 否则 parent），`updated_at`（child mtime），`created_at`，`recent_activity`。model_profile 上限 4096 行 / 8MiB，按 path mtime 缓存。
+
+`snapshot()` 消费：`rollout_by_id` 给 native roster 补模型；`counts.open_sessions`←该字段，对外 `rollout_fallback.open_quiet`；不在 `native_roster.agents` 的 task 当 Desktop fallback（`running/estimated+=1`，`state=open~`）；`recent_activity` 才加 `counts.recent_activity`；`liveness.desktop_app_server_started_at` 原样透出。QUIET 要求 Desktop 全员有当前代非终态 rollout **且** `desktop_started_at is not None`。
+
+不在范围内：不读 ProgramData/`%USERPROFILE%\.codex` 的 `requirements.toml`；不读 sqlite；`recent_activity==False` 不是排除条件；native roster 成员关系是 snapshot 去重，不是扫描门禁。
+
+单测锚点在 [`tests/unit/test_loop_monitor_server.py`](E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_loop_monitor_server.py)：resumed parent 非终态；latest complete 终态；活 child 可见；后出生不藏前波；安静父+新鲜子过 parent_fresh；terminal 每 path 一次；>120s 仍 occupied。

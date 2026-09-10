@@ -1,0 +1,61 @@
+审计完成。以下是完整结果：
+
+---
+
+## README.md 审计报告
+
+### ✅ 本地文件引用 — 全部有效
+
+| 文件路径 | 状态 |
+|---|---|
+| `packages/coding-agent/docs/index.md` | 存在 |
+| `packages/coding-agent/docs/quickstart.md` | 存在 |
+| `packages/coding-agent/docs/usage.md` | 存在 |
+| `packages/coding-agent/docs/long-running-agents.md` | 存在 |
+| `packages/coding-agent/docs/rlm.md` | 存在 |
+| `packages/coding-agent/docs/json.md` | 存在 |
+| `packages/coding-agent/docs/rpc.md` | 存在 |
+| `packages/coding-agent/docs/skills.md` | 存在 |
+| `packages/coding-agent/docs/providers.md` | 存在 |
+| `packages/coding-agent/docs/architecture.md` | 存在 |
+| `packages/coding-agent/docs/development.md` | 存在 |
+| `LICENSE` | 存在 |
+
+### ✅ GitHub Actions 工作流 — 全部有效
+
+- `.github/workflows/ci.yml` — 存在，CI badge 链接有效
+- `.github/workflows/build-binaries.yml` — 存在，Build Binaries badge 链接有效
+
+### ✅ 外部链接（需网络验证，本次只读静态审计）
+
+以下外部链接在 README 中出现，**不能离线验证**，但均为已知稳定域名：
+
+| 链接 | 用途 |
+|---|---|
+| `https://primeintellect.ai` | 品牌 logo 跳转 |
+| `https://github.com/user-attachments/assets/...` (×2) | logo 图片（light/dark） |
+| `https://github.com/PrimeIntellect-ai/verifiers` | 导航链接 |
+| `https://github.com/PrimeIntellect-ai/prime-rl` | 导航链接 |
+| `https://github.com/badlogic/pi-mono` | 导航链接 |
+| `https://github.com/PrimeIntellect-ai/prime-agent/actions/workflows/ci.yml` | CI badge |
+| `https://github.com/PrimeIntellect-ai/prime-agent/actions/workflows/build-binaries.yml` | Build badge |
+| `https://www.primeintellect.ai/blog/rlm` | RLM 博客文章 |
+| `https://arxiv.org/abs/2605.09998` | Continual Harness 论文 |
+| `https://app.primeintellect.ai/prime-agent/install.sh` | 安装脚本（`curl` 命令） |
+| `https://github.com/earendil-works/pi` | 致谢 pi 项目 |
+
+### ⚠️ 潜在问题：em dash 分隔符字符编码
+
+Documentation 列表中的分隔符（Documentation 节第 92–100 行）使用的是 U+2014（em dash `—`），在某些工具链下可能被误识别为乱码（PowerShell 控制台显示为 `бк`）。**文件本身 UTF-8 编码正确**，这只是终端显示问题，不影响 GitHub 渲染。若改写 README 时需要保留语义，这些 `—` 应维持原样。
+
+### 改写时必须保留的有效入口
+
+1. 所有 11 个 `packages/coding-agent/docs/*.md` 本地文档链接
+2. `LICENSE` 文件引用
+3. 两个 GitHub Actions badge（工作流文件均存在）
+4. `curl` 安装命令目标 URL（`app.primeintellect.ai`）
+5. RLM 博客和 arxiv 论文链接（内容性外链）
+
+### 无失效内容
+
+经检查，README 中没有找到任何已失效的本地文件引用或已删除的工作流文件。

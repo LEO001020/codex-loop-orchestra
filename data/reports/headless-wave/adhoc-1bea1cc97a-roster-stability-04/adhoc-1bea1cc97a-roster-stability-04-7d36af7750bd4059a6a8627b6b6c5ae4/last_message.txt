@@ -1,0 +1,5 @@
+结论（只读核验）：
+
+1. 唯一policy路径为 `config/refill_policy.toml`（loop_config_v2.toml 仅为镜像，RefillPolicy 加载它且读失败即 fail-closed；可用 `LOOP_REFILL_POLICY` 环境变量覆盖）。
+2. Lifecycle Store 锁为 `data/lifecycle/.exec_roster.lock`：持久单字节跨进程 advisory lock，Windows 用 msvcrt LK_NBLCK 带退避重试、POSIX 用 flock；Store.update 的读-改-写全程持锁。
+3. 原子写协议：同目录临时文件 `exec_roster.json.<pid>.tmp` + fsync + `os.replace`，遇 PermissionError 在有限时间内退避重试，绝不原地覆写；events.ndjson 则持 `.events.lock` 追加写。

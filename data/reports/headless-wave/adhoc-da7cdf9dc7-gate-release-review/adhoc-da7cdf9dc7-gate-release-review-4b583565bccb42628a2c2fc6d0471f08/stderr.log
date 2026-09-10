@@ -1,0 +1,63 @@
+Reading additional input from stdin...
+2026-08-14T08:31:43.331721Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T08:31:46.488524Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T08:36:18.150317Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 215ms)... turn_id=019fff66-0349-7150-b83e-6676e519b7e7 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+2026-08-14T08:38:57.443700Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 422ms)... turn_id=019fff66-0349-7150-b83e-6676e519b7e7 retries=2 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+2026-08-14T08:42:09.408841Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 863ms)... turn_id=019fff66-0349-7150-b83e-6676e519b7e7 retries=3 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T08:47:00.198537Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.578s)... turn_id=019fff66-0349-7150-b83e-6676e519b7e7 retries=4 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T08:52:52.612389Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 4.1 seconds
+Output:
+
+FullName                                                                   LastWriteTime     
+--------                                                                   -------------     
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18 2026/8/14 16:16:30
+E:\VPS\reports\p5-fl18-final-readonly-probe-20260814.sh                    2026/8/14 16:46:50
+E:\VPS\reports\p5-fl18-rm-register-20260814.sh                             2026/8/14 16:52:24
+E:\VPS\reports\p5-fl18-upload-and-verify-20260814.sh                       2026/8/14 16:51:48
+E:\VPS\reports\P5_FL18_ACTIVE20_REFILL1.json                               2026/8/14 15:47:01
+E:\VPS\reports\P5_FL18_ACTIVE20_REFILL2.json                               2026/8/14 16:06:57
+E:\VPS\reports\P5_FL18_ACTIVE20_WAVE1.json                                 2026/8/14 15:41:02
+E:\VPS\reports\P5_FL18_BINDING_GATE_SONNET_RETRY_V1.json                   2026/8/14 16:49:58
+E:\VPS\reports\P5_FL18_BINDING_GATE_V1.json                                2026/8/14 16:31:18
+
+
+
+2026-08-14T08:57:16.148094Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.8 seconds
+Output:
+python : 无法将“python”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，
+然后再试一次。
+所在位置 行:2 字符: 84
++ ... dmin-cutover-final-20260814-alpha-unblocking-v1-fl18"; python "$p\too ...
++                                                            ~~~~~~
+    + CategoryInfo          : ObjectNotFound: (python:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T08:58:09.997309Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 207ms)... turn_id=019fff66-0349-7150-b83e-6676e519b7e7 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+2026-08-14T08:58:15.692930Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-14T08:58:25.119249Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

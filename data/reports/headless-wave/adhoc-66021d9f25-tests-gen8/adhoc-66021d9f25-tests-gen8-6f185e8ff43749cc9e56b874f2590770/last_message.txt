@@ -1,0 +1,20 @@
+The analysis of `src/zloop` establishes the architectural components and assesses migration risks as requested.
+
+### 组件实现定位
+* **Project**: 工作空间管理与持久化状态由 `src/zloop/workspace.py` 和 `src/zloop/db.py` (`ControlStore`) 实现。
+* **Stage**: 在 `src/zloop/stage.py` 中定义，基于 VOL-08 实现风险分类流水线与 FSM。
+* **Wave**: 实现在 `src/zloop/wave.py`，负责 VOL-09 定义的 Packet/Attempt/Launch 生命周期，并通过 DB 事件驱动。
+* **Task**: 代码中对应 `packet`，在 `wave.py` 的校验逻辑(`validate_wave`)及 DB 的 `packets` 表中体现。
+* **Attempt**: 在 `wave.py` 内部作为 `packets`/`attempts`/`launches` 生命周期的一部分实现。
+* **Supervisor**: 实现在 `src/zloop/supervisor.py`，执行端到端的 Wave 管理，包含原子 CAS 锁机制 (D-8)。
+* **Backend**: 定义在 `src/zloop/backend/` 下的 `base.py` (协议定义) 和 `zcode_native.py` (具体实现)。
+* **SQLite**: 封装在 `src/zloop/db.py`，依赖生产环境下的 WAL 模式，管理版本与事务。
+* **ResearchBroker**: 实现在 `src/zloop/research/broker.py`，通过独立的 lane 管理研究证据与提供商状态。
+
+### 迁移风险评估
+* **ZCode 集成深度**: 此系统架构与 ZCode 规范 (VOL-*) 深度绑定，核心机制依赖 ZCode 原生行为。若迁移环境缺少相应规范支持，工作量很大。
+* **数据库耦合**: 逻辑强依赖于 SQLite 事务与特殊 schema 设计 (VOL-04)，包括事务配方与并发锁策略。这些需要同步移植，无法直接解耦。
+* **并发控制复杂度**: 系统含有大量的 CAS 原子操作、fencing 机制以及基于进程起止时间的生存检查 (D-8, I5)，在其他平台实现等效的原子性、一致性保障难度极大。
+* **厂商集成依赖**: `research` 和 `backend` 模块内部包含了高度定制的 CLI/HTTP 服务通信以及 ZCode 本地行为的假设，这些非标准接口需要完全抽象或重写。
+
+本调研已根据 `src/zloop` 的实际部署结构完成。

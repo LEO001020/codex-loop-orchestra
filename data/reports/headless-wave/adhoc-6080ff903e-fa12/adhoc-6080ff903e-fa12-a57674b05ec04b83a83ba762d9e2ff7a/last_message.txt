@@ -1,0 +1,24 @@
+# C2C 核心审计报告 (Packet FA12)
+
+## 核心数据契约
+- **数据脱敏 (Redaction)**: C2C 使用 `redact.redact_str(content)` 进行脱敏。`belt-and-suspenders` 机制在 `prepare_c2c` 阶段调用，符合安全要求。
+- **数据分类 (Data Classification)**: 支持 `public`, `project_internal`, `sensitive`。强制禁止 `secret` 类型，违反规则即引发 `ValueError`，符合 VOL-16/VOL-04 规范。
+- **哈希安全性 (Integrity)**:
+    * `prepare_c2c` 生成 packet 后写入 `c2c/<id>.json`，并在 `c2c_prepared` S 事件中记录 sha256。
+    * `record_c2c` 验证读取文件内容的 sha256 与事件记录一致，确保原子性和内容严谨性。
+- **原子写 (Atomic Write)**: `_write_json_atomic` 使用临时文件 (`.tmp`) + `os.replace` 模式，保证了写入过程的原子性。
+
+## 路径/事件一致性
+- **目录路径**: `c2c/<id>.json` 生成符合 `_next_c2c_id` 建议的序列逻辑。
+- **闭环审计**: `c2c_prepared` 和 `c2c_recorded` 保持了完备的 S 事件闭环，由 `store` 进行记录，审计路径清晰。
+
+## 绕过风险
+- 无直接发现路径穿越风险 (已做 `_C2C_ID_RE` 正则校验)。
+- 数据始终限制 `CONTENT_CHAR_LIMIT`，超过部分存储入 blob CAS (`BlobStore`)，规避了大内容写入限制。
+
+## 身份确认 (Identity)
+- `IDENTITY_FIELDS` 定义的字段在 `_observed_identity` 中被严格处理。
+- 任何未能观察到的 Identity 字段显式替换为 `"unknown"`，无任何 fabricated (虚构) 情况。
+
+## 结论
+符合 VOL-16, VOL-04 等规范要求。闭环审计路径清晰，无明显的安全绕过或哈希一致性问题。

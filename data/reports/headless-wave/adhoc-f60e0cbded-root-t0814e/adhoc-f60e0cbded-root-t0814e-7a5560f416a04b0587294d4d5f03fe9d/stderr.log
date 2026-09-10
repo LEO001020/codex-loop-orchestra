@@ -1,0 +1,1117 @@
+Reading additional input from stdin...
+2026-08-14T07:43:00.302518Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T07:43:04.968018Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T07:45:07.327274Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 5.9 seconds
+Output:
+python : 无法将“python”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，
+然后再试一次。
+所在位置 行:27 字符: 6
++ '@ | python -
++      ~~~~~~
+    + CategoryInfo          : ObjectNotFound: (python:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T07:45:31.134414Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 7 seconds
+Output:
+no py launcher
+
+2026-08-14T07:49:34.466849Z ERROR codex_core::tools::router: error=Exit code: 124
+Wall time: 121.4 seconds
+Total output lines: 30697
+Output:
+command timed out after 121356 milliseconds
+无法调用方法。此语言模式仅支持核心类型的方法调用。
+所在位置 行:2 字符: 1
++ [Reflection.Assembly]::LoadWithPartialName('System.Web.Extensions') | ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : MethodInvocationNotSupportedInConstrainedLanguage
+ 
+New-Object : 找不到类型 [System.Web.Script.Serialization.JavaScriptSerializer]: 请确认加载了包含该类型的程序集。
+所在位置 行:3 字符: 6
++ $s = New-Object System.Web.Script.Serialization.JavaScriptSerializer
++      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidType: (:) [New-Object], PSArgumentException
+    + FullyQualifiedErrorId : TypeNotFound,Microsoft.PowerShell.Commands.NewObjectCommand
+ 
+在此对象上找不到属性“MaxJsonLength”。请确认该属性存在并且可设置。
+所在位置 行:4 字符: 1
++ $s.MaxJsonLength = 2147483647
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : PropertyNotFound
+ 
+New-Object : 无法创建类型。此语言模式仅支持核心类型。
+所在位置 行:7 字符: 7
++ $sr = New-Object System.IO.StreamReader($p)
++       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (:) [New-Object], PSNotSupportedException
+    + FullyQualifiedErrorId : CannotCreateTypeConstrainedLanguage,Microsoft.PowerShell.Commands.NewObjectCommand
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeExcep…274092 tokens truncated…lifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:10 字符: 3
++   $line = $sr.ReadLine()
++   ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值
+2026-08-14T07:50:54.502796Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 209ms)... turn_id=019fff39-6937-7133-a6fb-b8b796957ef1 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+2026-08-14T07:55:49.630556Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.7 seconds
+Output:
+[eval]:1
+const fs=require('fs'),readline=require('readline');const p='C:/Users/hzq00/.codex/sessions/2026/08/10/rollout-2026-08-10T16-32-17-019feacd-184e-7472-9f11-ea364c22e595.jsonl';const cut=Date.parse('2026-08-14T06:00:00Z');const rl=readline.createInterface({input:fs.createReadStream(p),crlfDelay:Infinity});const em={};const ri={};rl.on('line',l=>{if(!l)return;let o;try{o=JSON.parse(l)}catch(e){return}const t=Date.parse(o.timestamp);if(!(t>=cut))return;const pt=o.payload&&o.payload.type{if(o.type==='event_msg')em[pt]=(em[pt]||0)+1;if(o.type==='response_item')ri[pt]=(ri[pt]||0)+1;}});rl.on('close',()=>{console.log('event_msg:',JSON.stringify(em));console.log('response_item:',JSON.stringify(ri));});
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       ^
+Expected ',', got '}'
+
+SyntaxError: Unexpected token '{'
+    at makeContextifyScript (node:internal/vm:194:14)
+    at compileScript (node:internal/process/execution:388:10)
+    at evalTypeScript (node:internal/process/execution:260:22)
+    at node:internal/main/eval_string:71:3
+
+Node.js v24.18.0
+
+2026-08-14T07:58:20.474859Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 206ms)... turn_id=019fff39-6937-7133-a6fb-b8b796957ef1 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+2026-08-14T08:03:44.082389Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 385ms)... turn_id=019fff39-6937-7133-a6fb-b8b796957ef1 retries=2 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T08:08:55.413426Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 824ms)... turn_id=019fff39-6937-7133-a6fb-b8b796957ef1 retries=3 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses

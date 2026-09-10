@@ -1,0 +1,28 @@
+# Codex LOOP execution-plane safety policy — THE ONLY concurrency authority.
+# (P0-8.3 single-source-of-truth fix: VERSIONS.lock and config.toml.example
+# reference this file instead of copying its numbers; refill_state.json
+# records policy_version+mtime and recomputes on mismatch.)
+
+[meta]
+policy_version = "2026-08-13.dialogue-20-global-80"
+
+[concurrency]
+# One parent/dialogue normally sustains 20 agents. LOOP's cross-dialogue,
+# cross-plane total target is 80; semantic role reservations remain distinct.
+# distinct. model_profile.py changes models, never these concurrency values.
+dialogue_target = 20
+target_total = 80
+v4_target = 60
+k3_target = 20
+v4_low_water = 45
+k3_low_water = 15
+# Reservations are borrowable: an empty K3 queue leaves K3 slots available
+# to V4; demand-backed K3 work reclaims them via the watermark logic.
+reservations_borrowable = true
+
+[spawn_throttle]
+spawn_interval_ms = 1000
+max_initializing = 8
+health_gate_every = 8
+failure_backoff_seconds = 30
+health_timeout_ms = 2000

@@ -1,0 +1,138 @@
+Reading additional input from stdin...
+2026-08-15T07:12:32.159366Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-15T07:12:34.508179Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-15T07:12:48.786594Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.9 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 57
++ rg --files E:\VPS | rg -i "v2|source|feature|funding" | head -60
++                                                         ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-15T07:12:58.619996Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.2 seconds
+Output:
+E:\VPS\build_handoff_v2.py
+E:\VPS\build_terminalization_v2.py
+E:\VPS\p5_pack_source.sh
+E:\VPS\p5_deploy_source_remote.sh
+E:\VPS\p5-boot-image-20260810T144519Z\source-boot-disk-after.json
+E:\VPS\home-gpu\evidence\hub_cli_source.txt
+E:\VPS\p5-cold-canary-20260810-150058\source-snapshot.json
+E:\VPS\p5-cold-canary-20260810-150058\source-image.json
+E:\VPS\P5_FAST_PATH_WORK\v2_headless_classification_wave.json
+E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot_v2\11_SHA256SUMS
+E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot_v2\10_MANIFEST.json
+E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot_v2\06_OWNER_AUTHORITY_AND_V4_DEPLOY.sh
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\11_FAILURE_RESUME_AND_SESSION_RECOVERY_V2.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\10_POST_ROOT_ALPHA_EXECUTION_MASTER_PROMPT_V2.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\09_OWNER_C_D_ROOT_ACTION_CARD_V2.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\08_INDEPENDENT_ADMIN_PHASE_B_DEPLOY_ACTION_CARD_V2.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\07_OWNER_TCB_SIGNING_ACTION_CARD_V2.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\06_INDEPENDENT_ADMIN_PHASE_A_ACTION_CARD_V2.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\05_TRUST_DOMAIN_AND_ACTOR_MATRIX_V2.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\04_SOURCE_PRECEDENCE_AND_SUPERSESSION_V2.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\03_CURRENT_STATE_CANONICAL_CHECKPOINT_V2.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\02_P5_FABLE_ALPHA_ACTIVATION_MASTER_PROMPT_V2.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\01_P5_FL20_R1_ALPHA_ACTIVATION_MASTER_PLAN_V2.md
+E:\VPS\direct_repair_stage\P5_AUTHORITY_SCHEMA_V2_TO_V3.sql
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\13_HUMAN_RETURN_EVIDENCE_PROTOCOL_V2.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\12_ACCEPTANCE_FLOORS_AND_TERMINALS_V2.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\STATE\P5_ACTIVATION_STATE_V2.json
+E:\VPS\P5_CODEX_ALPHA_EXECUTION_LAYER_COMPLETION_V1\SOURCES\P5_PRECEREMONY_CLOSURE_TERMINAL_SUMMARY_V1.md
+E:\VPS\P5_CODEX_ALPHA_EXECUTION_LAYER_COMPLETION_V1\SOURCES\P5_FROZEN_VERIFY_SET_20_RESULTS_V1.md
+E:\VPS\P5_CODEX_ALPHA_EXECUTION_LAYER_COMPLETION_V1\SOURCES\P5_FROZEN_SCIENTIFIC_VERIFY_SET_20_V1.json
+E:\VPS\P5_CODEX_ALPHA_EXECUTION_LAYER_COMPLETION_V1\SOURCES\P5_FL18_FINAL_RESUME_HANDOFF_V1.md
+E:\VPS\P5_CODEX_ALPHA_EXECUTION_LAYER_COMPLETION_V1\SOURCES\P5_ALPHA_EXECUTION_WIRING_AUDIT_V1.md
+E:\VPS\P5_CODEX_ALPHA_EXECUTION_LAYER_COMPLETION_V1\03_SOURCE_STATUS_V1.md
+E:\VPS\terminalization_v2_handoff\P5_PC7_AUTONOMOUS_ALPHA_ENTRY_HANDOFF_V2.json
+E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot_v2\scientific-root-20\P5_PC6_DATA_REVISION_LINEAGE_V3.json
+E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot_v2\scientific-root-20\P5_P3_STATISTICAL_TRIAL_AUTHORITY_PROPOSAL_V3.md
+E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot_v2\scientific-root-20\P5_P3_PERP_SPOT_IDENTITY_MAP_V1.json
+E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot_v2\scientific-root-20\P5_P3_LISTING_EPISODE_LEDGER_V1.json
+E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot_v2\scientific-root-20\p5_p3_h0_wave1_enumerator_v2.py
+E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot_v2\scientific-root-20\P5_P3_H0_WAVE1_CANDIDATE_GRAMMAR_SUBOBJECT_V1.json
+E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot_v2\scientific-root-20\P5_P3_H0_DISCOVERY_WAVE1_EXECUTABLE_SCIENTIFIC_CONTRACT_V1.md
+E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot_v2\scientific-root-20\P5_P3_H0_DISCOVERY_WAVE1_CANDIDATE_LIST_V2.json
+E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot_v2\scientific-root-20\P5_P3_EQ71_NEUTRALIZATION_SPEC_V1.md
+E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot_v2\scientific-root-20\P5_FROZEN_SCIENTIFIC_VERIFY_SET_20_V1.json
+E:\VPS\p5_upload_source.sh
+E:\VPS\p5_startup_source_diag_remote.sh
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\STAGE_OBJECTIVES\S7_POST_ROOT_ALPHA_EXECUTION_V2.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\STAGE_OBJECTIVES\S6_OWNER_C_D_ROOT_V2.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\STAGE_OBJECTIVES\S5_FRESH_K3_FINAL_VERIFY_V2.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\STAGE_OBJECTIVES\S4_INDEPENDENT_ADMIN_DEPLOY_V2.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\STAGE_OBJECTIVES\S3_OWNER_TCB_SIGNING_REQUEST_V2.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\STAGE_OBJECTIVES\S2_FRESH_K3_PRETRUST_V2.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\STAGE_OBJECTIVES\S1_INDEPENDENT_ADMIN_PHASE_A_V2.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\STAGE_OBJECTIVES\S0_FRESH_SESSION_STATE_RECONSTRUCTION_V2.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\15_HARNESS_DESIGN_RATIONALE_V2.md
+E:\VPS\p5-source-20260810T153334Z.tar.gz.sha256
+E:\VPS\p5-source-20260810T153334Z.tar.gz
+E:\VPS\p5-source-20260810T152802Z.tar.gz.sha256
+E:\VPS\p5-source-20260810T152802Z.tar.gz
+E:\VPS\p5-source-20260810T143934Z.tar.gz.sha256
+
+2026-08-15T07:13:25.619034Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.1 seconds
+Output:
+rg: regex parse error:
+    (?:E:\VPS)
+         ^^
+error: unrecognized escape sequence
+
+2026-08-15T07:13:35.170364Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.5 seconds
+Output:
+E:/VPS\direct_repair_stage\t1_wave1_evaluator.py
+E:/VPS\direct_repair_stage\test_pc7_synthetic.py
+E:/VPS\pc6_binance_materializer.py
+E:/VPS\P5_FAST_PATH_WORK\live_frozen_snapshot_v2\app\p5_infra\alpha_execution.py
+E:/VPS\P5_FAST_PATH_WORK\live_frozen_snapshot_v2\scientific-root-20\p5_p3_h0_wave1_enumerator_v2.py
+E:/VPS\P5_FAST_PATH_WORK\live_frozen_snapshot_v2\quant\p5_track3\t1_wave1_evaluator.py
+E:/VPS\test_pc6_binance_materializer.py
+E:/VPS\pc7_stage\t1_wave1_evaluator.py
+E:/VPS\P5_FAST_PATH_WORK\live_frozen_snapshot\tcb\bundle\scientific-root-20\p5_p3_h0_wave1_enumerator_v2.py
+E:/VPS\P5_FAST_PATH_WORK\live_frozen_snapshot_v2\app\p5_infra\pc6_alpha_materializer.py
+E:/VPS\pc7_stage\test_pc7_synthetic.py
+E:/VPS\reports\final-normalized-review\probe_final.py
+E:/VPS\reports\funding-struct-review\evidence_real_data.py
+E:/VPS\reports\Manifest可复现性审阅\pc6_binance_materializer.snapshot-20260813T0005Z.py
+E:/VPS\reports\owner-admin-cutover-final-20260814-alpha-execution-v1-fl19\tcb\bundle\scientific-root-20\p5_p3_h0_wave1_enumerator_v2.py
+E:/VPS\reports\pc7-bound-object-gate-rerun-20260813\remote_fetch\p5_p3_h0_wave1_enumerator_v2.py
+E:/VPS\reports\owner-admin-cutover-final-20260814-alpha-execution-v1-fl19\tcb\bundle\quant\p5_track3\t1_wave1_evaluator.py
+E:/VPS\reports\pc7-fsm-authority-amendment-trial\src_test_pc7_synthetic.py
+E:/VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tcb\bundle\quant\p5_track3\t1_wave1_evaluator.py
+E:/VPS\reports\pc7-fsm-authority-amendment-trial\wt_t1_wave1_evaluator.py
+
+2026-08-15T07:13:51.480407Z ERROR codex_core::tools::router: error=unsupported call: read
+2026-08-15T07:14:32.791708Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-15T07:17:35.125506Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 200ms)... turn_id=01a00443-dfff-7673-946e-5647eebcb180 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T07:18:39.485822Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

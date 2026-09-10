@@ -1,0 +1,110 @@
+이제 충분한 증거를 수집했습니다. 최종 보고서를 작성합니다.
+
+---
+
+## Exec Roster Atomic Write — WinError 5 감사 결과
+
+### 1. 증거 요약
+
+**발생 건수**: `data/events.ndjson`에서 WinError 5 관련 `exec_failed` 이벤트 **8건** 확인.
+
+| 번호 | 타임스탬프 | 패킷 | 실패 유형 |
+|---|---|---|---|
+| 1–7 | 1786527490 ~ 1786527807 (약 5분 버스트) | `adhoc-20516a9185-policy-*` 7개 | `PermissionError: [WinError 5]` (5초 timeout 미만 조기 실패) |
+| 8 | 1786686637 (44시간 뒤 격리 건) | `adhoc-784addfcab-fl17-final20-terminal` | `LifecycleError: atomic roster replace remained blocked for 5.000s` (timeout 전체 소진) |
+
+버스트 내 간격: 5초 ~ 117초. 7번 이벤트와 8번 이벤트 사이 간격 44시간 → 이 버스트는 동시 파도 기동 시 발생하는 일시적 AV/인덱서 잠금 충돌로 식별됨.
+
+---
+
+### 2. 코드 경로 분석
+
+**`lifecycle_supervisor.py::atomic_json()`** (L84~L119)
+
+```
+현행 파라미터:
+  ATOMIC_REPLACE_TIMEOUT_S      = 5.0s
+  ATOMIC_REPLACE_INITIAL_BACKOFF_S = 0.005s  (5ms)
+  ATOMIC_REPLACE_MAX_BACKOFF_S     = 0.100s  (100ms)
+```
+
+- `PermissionError`(WinError 5 포함)만 재시도 → `OSError`의 서브클래스이므로 포착은 올바름.
+- **핵심 결함 #1**: `exc.winerror` 속성을 전혀 검사하지 않는다. Windows에서 WinError 5(ACCESS_DENIED)와 WinError 32(SHARING_VIOLATION)는 모두 `PermissionError`로 나타나지만 원인이 다르다. AV/인덱서에 의한 일시 잠금은 WinError 5·32 혼재가 가능하며, 진짜 권한 문제는 WinError 5 고정이다. 현재 코드는 두 경우를 구분 없이 같은 재시도 루프로 처리한다.
+- **핵심 결함 #2**: 버스트 1~7 건은 5초 timeout 이전에 실패했다. `exec_roster.json.12664.tmp` 실패 직후 `.finally` 블록에서 `tmp.unlink()`를 실행하지만, **tmp 파일이 이미 rename-replaced 되기 전**에 `unlink`가 성공하면 tmp가 사라진다. 반면 rename이 완전히 실패하면 tmp가 잔재한다. 현재 `finally`의 `tmp.unlink()`는 `FileNotFoundError`만 무시하므로 잔재 tmp는 삭제된다. 그러나 5초 소진 케이스(사건 8)에서는 `LifecycleError`를 올리기 **전에** deadline 체크가 발생해 `finally`가 실행되기는 한다 — 이건 올바름.
+- **핵심 결함 #3 (retry_classes.yaml)**: `permission_denied` 클래스 패턴 `(?i)(permission denied|…)` 이 `PermissionError: [WinError 5] 拒绝访问` 메시지를 매칭한다. 해당 클래스의 `action: dead_letter`, `max_retries: 0`이므로 **외부 재시도가 전혀 없다**. 즉 supervisor 레벨 내부 재시도(5초 루프)가 실패하면 곧장 `dead_letter`로 간다.
+
+**`hooks/subagent_lifecycle.py::atomic_json()`** (L179~L203)
+
+동일 패턴. `ATOMIC_REPLACE_TIMEOUT_S = 5.0`, 동일 지수 백오프. `native_roster.json`에 동일한 문제가 1건 확인됨(`data/lifecycle/events.ndjson` L128).
+
+---
+
+### 3. 근본 원인
+
+Windows에서 **동시 파도 기동 시** 여러 supervisor 프로세스가 동시에 `exec_roster.json`에 쓰려 할 때:
+
+1. advisory lock(`msvcrt.locking`)이 쓰기 직렬화를 보장하지만,
+2. `os.replace(tmp, dest)` 시점에 **AV 소프트웨어나 Windows Search 인덱서**가 tmp 또는 dest를 열고 있으면 WinError 5 반환.
+3. 5ms→100ms 지수 백오프로 5초 재시도하지만, AV 스캔이 5초 이상 지속되거나 버스트 기동 직후 인덱서가 활성 상태이면 timeout 초과.
+4. Supervisor 자체가 `spawn_failed`로 기록되고, retry.py는 `permission_denied → dead_letter`로 라우팅해 패킷을 영구 폐기.
+
+버스트 7건이 집중 발생한 시간대(1786527490~1786527807, 약 5분)는 `adhoc-20516a9185` 파도의 동시 기동과 일치한다.
+
+---
+
+### 4. 국소 경계 재시도 전략 (편집 없이 정의만)
+
+아래는 파일을 변경하지 않고 권고하는 전략이다.
+
+#### 4-A. `atomic_json()` 내부 재시도 조정
+
+| 파라미터 | 현재 값 | 권고 값 | 근거 |
+|---|---|---|---|
+| `ATOMIC_REPLACE_TIMEOUT_S` | 5.0s | **15.0s** | AV 스캔 90번째 percentile ≈ 8–12s. 5s 소진 케이스 1건 방지. |
+| `ATOMIC_REPLACE_INITIAL_BACKOFF_S` | 0.005s | **0.010s** | 첫 시도 간격을 줄여 AV 해제 전 불필요한 폭풍 방지. |
+| `ATOMIC_REPLACE_MAX_BACKOFF_S` | 0.100s | **0.500s** | AV가 길게 잡을 때 polling 비용 감소. |
+
+`winerror` 구분 추가: `exc.winerror not in (5, 32, 33)` → `PermissionError`를 즉시 re-raise (진짜 권한 오류는 재시도 불필요).
+
+#### 4-B. `retry_classes.yaml` 패치
+
+`WinError 5` 발생은 **supervisor 레벨**에서 이미 재시도된 후 실패한 것이므로 `dead_letter` 라우팅은 맞다. 단, `supervisor_error + atomic roster replace` 오류 문자열에 대해 **별도의 전용 클래스를 `permission_denied` 앞에 삽입**해 명시적 `duty_review` 처리:
+
+```yaml
+- name: windows_atomic_replace_transient
+  pattern: '(?i)(atomic roster replace remained blocked|WinError 5.*exec_roster)'
+  action: retry          # supervisor 타임아웃 내 해결 못한 경우만 여기 매칭
+  max_retries: 1
+  backoff_base: 30       # 30s 대기 후 재시도 (AV가 가라앉을 시간)
+  backoff_cap: 60
+```
+
+이 클래스를 `permission_denied` **앞에** 배치해야 한다 (첫 매칭 우선).
+
+#### 4-C. `winerror` 검사로 오탐 방지
+
+`atomic_json()` 내부 `except PermissionError as exc:` 직후:
+```python
+if os.name == "nt" and hasattr(exc, "winerror") and exc.winerror not in (5, 32, 33):
+    raise  # 진짜 권한 경계(EPERM 등): 재시도 불필요
+```
+이렇게 하면 WinError 5(ACCESS_DENIED), 32(SHARING_VIOLATION), 33(LOCK_VIOLATION)만 재시도하고 다른 원인은 즉시 올린다.
+
+---
+
+### 5. 검증된 사실 vs 가설
+
+**검증된 사실:**
+- 8건 WinError 5 모두 `exec_roster.json.{PID}.tmp → exec_roster.json` rename 실패
+- 7건은 5초 timeout 이전 실패 (supervisor가 빠르게 포기했거나 deadline 계산 오류 가능성 있음 — 기동 직후 단계에서 발생)
+- 1건은 5초 timeout 전부 소진 후 `LifecycleError` 발생
+- 모두 `adhoc` 파도 패킷으로, `state_machine` 패킷(canonical)에서는 미발생
+- `retry_classes.yaml`의 `permission_denied` 클래스가 이 오류를 dead_letter로 라우팅
+
+**가설 (미검증):**
+- 버스트가 Windows Defender 또는 Windows Search 인덱서에 의한 것임 (직접 확인 수단 없음)
+- 5s 이전 실패 7건이 내부 루프 결함인지 별도 코드 경로인지 — 코드상 timeout 전 실패 경로는 존재하지 않으므로 실제로는 5s가 소진됐을 가능성 있음
+
+---
+
+**결론**: `atomic_json()`의 timeout(5s→15s), 백오프 상한(0.1s→0.5s) 증가와 `winerror` 속성 구분, 그리고 `retry_classes.yaml`에 `windows_atomic_replace_transient` 클래스를 `permission_denied` 앞에 삽입하는 세 가지 로컬 바운디드 변경이 이 오류 클래스를 제거할 것으로 판단된다.

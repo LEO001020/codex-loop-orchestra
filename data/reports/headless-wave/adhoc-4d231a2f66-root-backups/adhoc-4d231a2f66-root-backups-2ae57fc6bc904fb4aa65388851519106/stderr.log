@@ -1,0 +1,112 @@
+Reading additional input from stdin...
+2026-08-14T07:36:51.835297Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T07:36:53.255062Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T07:37:23.971435Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 5.7 seconds
+Output:
+python : 无法将“python”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，
+然后再试一次。
+所在位置 行:2 字符: 1
++ python -c "
++ ~~~~~~
+    + CategoryInfo          : ObjectNotFound: (python:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T07:37:47.727062Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 8.6 seconds
+Output:
+python3 : 无法将“python3”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确
+，然后再试一次。
+所在位置 行:2 字符: 1
++ python3 -c "
++ ~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (python3:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T07:38:14.822530Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 5.3 seconds
+Output:
+where.exe : 信息: 用提供的模式无法找到文件。
+所在位置 行:2 字符: 1
++ where.exe py 2>&1; where.exe python 2>&1; where.exe python3 2>&1; Get ...
++ ~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (信息: 用提供的模式无法找到文件。:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+where.exe : 信息: 用提供的模式无法找到文件。
+所在位置 行:2 字符: 20
++ where.exe py 2>&1; where.exe python 2>&1; where.exe python3 2>&1; Get ...
++                    ~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (信息: 用提供的模式无法找到文件。:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+where.exe : 信息: 用提供的模式无法找到文件。
+所在位置 行:2 字符: 43
++ ... re.exe py 2>&1; where.exe python 2>&1; where.exe python3 2>&1; Get-Co ...
++                                            ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (信息: 用提供的模式无法找到文件。:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+2026-08-14T07:38:49.098069Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.4 seconds
+Output:
+
+Name                                                  
+----                                                  
+.audit-fable-20260813-fe139077266b42b6bf51c9b085012680
+.bootstrap                                            
+.codex                                                
+.fable-install-test-20260813                          
+.fable-install-test-20260813-wsl                      
+.pytest_cache                                         
+.tmp-global-hook-test-20260810                        
+.tmp-lock-probe-478b1b6f9e3a478a8a97185229fcbcbf      
+.tmp-lock-tests-43b65e6a6acf4034bdd732aba88a6229      
+acceptance-evidence                                   
+archives                                              
+audit_manifests                                       
+backups                                               
+codex-home                                            
+codex-loop-s-f2                                       
+codex-sqlite                                          
+data                                                  
+deliveries                                            
+guards                                                
+handoff                                               
+hl-loop-v3                                            
+inputs                                                
+K3OC-CDX-LOOP-CODEX-EXECUTION-PACK-v2.3               
+launchers                                             
+logs                                                  
+open-source                                           
+package                                               
+private-quarantine                                    
+quarantine                                            
+recovery-staging                                      
+release-candidates                                    
+reports                                               
+reports-同步ACL残留                                   
+runtime                                               
+source                                                
+staging                                               
+state                                                 
+test-runs                                             
+toolcache                                             
+venv                                                  
+worktrees                                             
+wsl                                                   
+K3OC-CDX-LOOP-CODEX-EXECUTION-PACK-v2.3.zip           
+
+
+

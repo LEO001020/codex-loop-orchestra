@@ -1,0 +1,79 @@
+已完成全面的只读审计。以下是完整报告：
+
+---
+
+## Blob 语义源码审计报告
+
+### 一、可访问范围说明
+
+- `@bitkyc08/opencodex` npm 包（`C:\Users\hzq00\AppData\Roaming\npm\node_modules\@bitkyc08\opencodex`）：**操作系统级权限拒绝**，rg/Get-Content/Test-Path 均返回 `os error 5`，源码无法直接读取。
+- 工作区 `work/` 目录（`C:\Users\hzq00\Documents\Codex\2026-08-16\opencodex-web-oauth-oauth-json-web\work\`）：**可读**，包含若干调试/导入脚本及探针结果。
+- `~/.opencodex/` 数据目录：**部分可读**（日志、catalog、usage.jsonl 可读；config.json、auth.json、responses-state.json 等权限拒绝）。
+
+---
+
+### 二、Blob 的最可能语义：**Cursor 后端会话上下文缓存容量**
+
+**核心证据来源：** `C:\Users\hzq00\.opencodex\usage.jsonl`，行号 125338 起连续多行，错误字段如下：
+
+```
+"upstreamError": "Cursor upstream error: Cursor blob capacity is exhausted; retry with a smaller request."
+```
+
+这条错误消息由 Cursor 后端返回，以 `status: 502`、`errorCode: "upstream_server_error"` 的形式透传进入 opencodex 代理的 usage 日志。
+
+**语义推断：**
+
+Cursor 后端将每次 LLM 请求所携带的**会话上下文（conversation context / session state）**序列化为一个或多个"blob"——即一段固定容量的二进制/序列化对象，用于在后端暂存以下内容之一或全部：
+
+- 多轮对话历史（conversation state）
+- 附加的代码库上下文（repository context，如用户打开的文件、@codebase 引用）
+- 推理阶段的中间状态（thinking tokens）
+
+当单次请求的 blob 体积超过后端为该会话分配的上限时，Cursor 后端拒绝请求并返回上述错误，提示调用方"retry with a smaller request"（缩小请求体积后重试）。
+
+---
+
+### 三、适配链路中的位置
+
+opencodex 的适配链路为：
+
+```
+Codex Desktop (POST /v1/responses)
+    ↓  [inboundProtocol: "responses"]
+opencodex 代理 (localhost:10100)
+    ↓  provider: "cursor"
+Cursor 后端 API (chat.cursor.sh 等)
+    ↓  内部 blob 序列化层
+后端 LLM (resolvedModel: "grok-4.6")
+```
+
+Blob 发生在**链路第三段**，即 opencodex 代理将请求转发给 Cursor 后端后，Cursor 后端在实际调用 LLM 之前对会话状态的序列化/容量检查阶段。opencodex 本身不写入 blob，它只是透传请求并在 `usage.jsonl` 中记录上游返回的错误。
+
+---
+
+### 四、生命周期
+
+| 阶段 | 发生位置 | 描述 |
+|------|----------|------|
+| 创建 | Cursor 后端接收请求时 | 将 conversationId 对应的多轮历史 + 上下文打包为 blob |
+| 存活 | 会话（conversationId）存续期间 | blob 与 `conversationId`（如 `46245bd961bb8ab208bfecdfb44cb6ad`）绑定，跨请求持久化 |
+| 耗尽 | 单次请求 blob 超出容量上限 | 返回 502，`upstreamError` 含 "blob capacity is exhausted" |
+| 销毁 | 会话结束或后端 TTL 到期 | opencodex 侧无直接观测，由 Cursor 后端管理 |
+
+---
+
+### 五、关键行号索引
+
+**文件：** `C:\Users\hzq00\.opencodex\usage.jsonl`
+
+- 行 **125338**：首次出现 `blob capacity is exhausted`，`requestedModel: weiwu/aws.claude-sonnet-4.6`，`effort: max`，`conversationId: 46245bd961bb8ab208bfecdfb44cb6ad`
+- 行 **125339–125348**：同一 conversationId 下连续重试均失败（durationMs 极短，说明后端立即拒绝，无实际推理）
+- 行 **125352–125356**：继续重试，间隔略长
+- 行 **（略后）**：`requestedModel: gpt-5.6-sol`，`effort: low` 的请求也触发同一错误（说明 blob 限制与模型无关，与会话状态总量有关）
+
+---
+
+### 六、结论
+
+在本适配链路中，**"Cursor blob"是 Cursor 后端为每个会话维护的上下文序列化容量单元**，不是附件、不是文件上传对象，也不是 Responses API 的 `file` 对象。其容量由 Cursor 后端策略控制，与请求中携带的会话历史长度及 repository context 体积正相关。opencodex 源码（因权限拒绝无法直读）在适配层面不持有 blob——它仅代理请求并将上游错误记录到 `usage.jsonl`；blob 的创建、存活与销毁完全在 Cursor 后端发生。

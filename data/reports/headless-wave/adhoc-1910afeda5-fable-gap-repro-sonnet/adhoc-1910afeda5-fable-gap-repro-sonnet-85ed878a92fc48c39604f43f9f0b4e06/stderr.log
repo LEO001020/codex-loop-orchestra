@@ -1,0 +1,59 @@
+Reading additional input from stdin...
+2026-08-14T14:12:50.610914Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T14:12:56.232752Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T14:13:05.415913Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:13:17.811511Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:13:29.615465Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:13:53.147283Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:14:06.305058Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:14:22.356332Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:14:36.567905Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:14:45.978041Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:15:06.858136Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:15:18.823323Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:15:29.114668Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:15:44.848862Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:15:54.458464Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:16:06.808026Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:16:25.894952Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:16:37.325717Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:16:50.556133Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:17:12.383572Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:17:25.675506Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:17:38.659120Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:17:48.427975Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:18:07.389387Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:18:35.163127Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:18:46.472902Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:19:02.769329Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:19:11.875503Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:19:21.289870Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:19:35.452329Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:19:51.304177Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:20:00.645717Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:20:11.963350Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:20:30.474912Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:20:38.515372Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:20:49.544021Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T14:30:33.860175Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 196ms)... turn_id=01a0009e-51d1-7991-ad74-3c4be30d59a6 retries=1 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T14:30:46.600741Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 365ms)... turn_id=01a0009e-51d1-7991-ad74-3c4be30d59a6 retries=2 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T14:30:59.102434Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 784ms)... turn_id=01a0009e-51d1-7991-ad74-3c4be30d59a6 retries=3 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T14:31:07.990905Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.63s)... turn_id=01a0009e-51d1-7991-ad74-3c4be30d59a6 retries=4 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T14:31:19.096665Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 3.172s)... turn_id=01a0009e-51d1-7991-ad74-3c4be30d59a6 retries=5 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T14:31:34.246260Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

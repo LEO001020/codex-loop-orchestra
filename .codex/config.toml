@@ -1,0 +1,17 @@
+# Codex LOOP F2 — project-local Desktop policy.
+# Provider, authentication, model catalog, MCP, and Desktop runtime remain in
+# the user's Windows-native CODEX_HOME.  This layer only tightens the project
+# execution boundary and preserves the F2 one-level delegation topology.
+
+sandbox_mode = "workspace-write"
+approval_policy = "on-request"
+
+[sandbox_workspace_write]
+network_access = false
+
+[agents]
+enabled = true
+max_depth = 1
+max_concurrent_threads_per_session = 50
+default_subagent_model = "antigravity/gemini3.8flash"
+default_subagent_reasoning_effort = "max"

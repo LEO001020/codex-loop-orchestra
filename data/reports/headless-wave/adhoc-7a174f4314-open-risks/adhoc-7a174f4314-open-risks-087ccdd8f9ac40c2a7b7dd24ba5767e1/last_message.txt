@@ -1,0 +1,15 @@
+沙箱只读，写不进 `20_open_risks.md`，完整结论放进最终回复。
+六项开放风险全是「已知残留非误改」，没有「弄错且未纠正」的设备写入；报告因只读沙箱未能落盘到 [20_open_risks.md](/C:/Users/hzq00/Documents/Codex/2026-08-29/hy4-ai-ai-ai-ai-01a02ee0/outputs/audit_20260830/20_open_risks.md)。
+
+分类：6/6 均为**已知残留非误改**（Honor 电源名单无 shell 写口、Uid/包 POST_NOTIFICATION 分层、phoneservice 冻结漂移、iaware `pm -d` user128 伪影、adb 5037/5038 互踢、过时 JSON/rollback 执行面）。真正误伤 `pm enable FloatTasks` 已于 22:57 禁回，不在本清单。
+
+证据摘录：
+
+- 电源名单：`powergenius_a.txt` L46 `mStandbyUnprotectedApps` 含 `com.netease.cloudmusic`；L45 `mStandbyProtectedApps` 含 `com.bilibili.app.in`。Stage5：`cmd powergenius` = No shell command implementation。
+- AppOps：`Uid mode: POST_NOTIFICATION: ignore` + `POST_NOTIFICATION: allow`（保活现状 / 07 `appops.txt`；dumpsys `Uid u0a252` ignore vs Package allow L26461/26497）。ledger 把双行误标 FAIL，journal `rc=0`。
+- phoneservice：freeze L80–83 `enabled=3`；07 `pm -d` 三份皆无；pid 5715；User0 `enabled=0`。`do_not_enable_phoneservice=true`。不要现在禁。
+- iaware：`pm -d --user 0` 无；`--user 128` 有；User0 `enabled=0` pid 4233；User128 `enabled=2`。protected_core，不是误禁。
+- adb：HANDOVER「5037 后 5038；先试 `-L tcp:5038`，不要 kill-server；adb 39/41 互踢」。本波 `00_devices` 走 5038。Stage5 rollback 脚本未钉 `-L tcp:5038`。
+- 过时产物：当前 JSON reduced=29 无 bili + `keep_alive_background`。`HONOR_STAGE5_ROLLBACK` 会 `whitelist -cloudmusic` + POST_NOTIFICATION ignore。`bak_before_stage5_keepalive` reduced=30 含 bili。Stage3 rollback 会 `pm enable FloatTasks`。
+
+未决：用户是否已在设置里开网易云后台；Uid ignore 是否挡某条通知路径；phoneservice 谁何时 enable；5037 此刻是否另有 server；00:13 后是否又被人手改。

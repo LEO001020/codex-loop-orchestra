@@ -1,0 +1,1040 @@
+Reading additional input from stdin...
+2026-08-12T12:20:39.448602Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-12T12:20:45.564047Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:20:55.571996Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:21:42.698467Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:21:47.555747Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:22:13.311368Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:22:18.112230Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:22:32.365328Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:22:34.629896Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:23:26.159882Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:24:01.778275Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:24:11.782120Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:25:29.328626Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:25:39.330576Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:26:05.688867Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.4 seconds
+Total output lines: 3794
+Output:
+New-Object : 无法创建类型。此语言模式仅支持核心类型。
+所在位置 行:9 字符: 9
++   $sb = New-Object System.Text.StringBuilder
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (:) [New-Object], PSNotSupportedException
+    + FullyQualifiedErrorId : CannotCreateTypeConstrainedLanguage,Microsoft.PowerShell.Commands.NewObjectCommand
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 N…38180 tokens truncated…                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:13 字符: 44
++ ... nk -and $l.StartsWith('+')) { [void]$sb.AppendLine($l.Substring(1)) }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:15 字符: 3
++   $pat = $sb.ToString()
++   ~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:17 字符: 7
++   if ($cur.TrimEnd() -ceq $pat.TrimEnd()) { Write-Output ($m.f + ' ID ...
++       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+
+2026-08-12T12:26:06.548531Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:26:30.930699Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.5 seconds
+Output:
+python : 无法将“python”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，
+然后再试一次。
+所在位置 行:2 字符: 1
++ python --version 2>&1 ; py --version 2>&1
++ ~~~~~~
+    + CategoryInfo          : ObjectNotFound: (python:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+py : 无法将“py”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后再试
+一次。
+所在位置 行:2 字符: 25
++ python --version 2>&1 ; py --version 2>&1
++                         ~~
+    + CategoryInfo          : ObjectNotFound: (py:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-12T12:26:38.391722Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:26:51.375337Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:27:01.376156Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:27:57.034504Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:28:24.692681Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:28:31.647359Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:28:59.263326Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 3 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 1
++ head -1 harness/smoke_gate.sh | Format-Hex | Select-Object -First 2
++ ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-12T12:29:06.213276Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:29:16.214119Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:29:43.496432Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:34:50.583262Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 190ms)... turn_id=019ff5ea-e3f5-7ce0-8c0b-b67d6fccfd68 retries=1 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-12T12:35:58.823507Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+Òbİ~¿‹î•0   
+ •ï‹ãNx:   W s l / S e r v i c e / C r e a t e I n s t a n c e / E _ A C C E S S D E N I E D  
+ 
+2026-08-12T12:36:04.166129Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:36:11.450750Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:37:22.459541Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:37:29.518556Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:37:49.942034Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:37:59.056534Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:38:23.078617Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:38:33.088790Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:43:36.018638Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 215ms)... turn_id=019ff5ea-e3f5-7ce0-8c0b-b67d6fccfd68 retries=1 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-12T12:45:06.706368Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:45:25.997857Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:45:46.782301Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T12:45:56.788794Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:46:16.023040Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T12:46:26.039561Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)

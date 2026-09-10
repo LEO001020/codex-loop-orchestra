@@ -1,0 +1,25 @@
+{
+  "acceptance": [
+    "给出最高风险反例",
+    "给出 PASS 或 REDO 结论"
+  ],
+  "authorized_paths": [
+    "hooks/",
+    "harness/",
+    "config/",
+    "tests/"
+  ],
+  "constraints": [
+    "read-only"
+  ],
+  "created_by": "parent_manifest_importer",
+  "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+  "goal": "对当前恢复方案做对抗式只读审计，寻找会让自动补位再次衰减、重复出生或误用 Sol 的单点反例。不得修改文件。",
+  "manifest_id": "loop-recovery-audit-20260813",
+  "packet_id": "parent-0b3a3a485fbea9ac6c4869ff7d96cddc34d308d1766a11ee",
+  "parent_enabled": true,
+  "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+  "role": "verifier",
+  "sandbox": "read-only",
+  "task_name": "K3 对抗式补位审计"
+}

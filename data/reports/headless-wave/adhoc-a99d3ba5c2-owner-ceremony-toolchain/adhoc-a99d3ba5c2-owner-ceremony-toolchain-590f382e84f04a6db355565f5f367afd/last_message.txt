@@ -1,0 +1,200 @@
+有了所有必要信息，现在我可以综合完整的工具链分析报告。
+
+---
+
+## Owner-Side Materialize/Sign/Upload/Register/Verify 工具链报告
+
+**任务 J：C→D→root 的确定性 owner-side 工具链**  
+**状态：BLOCKED（`PRODUCTION_ACTIVATION_BLOCKED_BY_AGENT_MUTABLE_TRUST_ANCHOR`）**
+
+---
+
+### COMMAND_MODEL（C→D→root 的线性工具调用模型）
+
+```
+阶段         工具/脚本                                          作用
+─────────────────────────────────────────────────────────────────────
+O1           (operator: 独立 p5-admin 登录证明)                P5_ADMIN_INDEPENDENT_LOGIN_PROVEN=YES
+O2           01_PRE_CUTOVER_READONLY_PREFLIGHT.sh              只读预检；exit 3 on open vectors
+O3           02_ADMIN_ACCOUNT_AND_KEY_STAGE.sh                 admin/owner SSH 公钥+owner Ed25519 公钥锚点安装
+             03_DEPLOY_APP_V3_AND_MIGRATE.sh                   app-v3 部署（owner-signed manifest 验证）
+O4           04_TRUST_DOMAIN_CUTOVER.sh                        移除 k3 的 docker/lxd/sudo/google-sudoers 权限
+             05_TERMINATE_OLD_K3_PRIVILEGE_CONTEXTS.sh         结束 k3 旧会话，sudo -K，设置 reboot flag
+O5           07_FRESH_K3_VERIFY.sh                             新鲜 k3 登录（reboot后）负向证明
+─────────────────────────────────────────────────────────────────────
+O6  direct-C  researchctl register_amendment_direct            owner peer_uid，producer_session != owner_session
+              参数: amendment_id=C, amendment_sha256=5b1d8116..., distinct_producer_session
+O7  direct-D  researchctl register_amendment_direct            仅在 C=APPLIED 后；D sha256=c419cbdc...；
+              要求: observed=[C:APPLIED]
+─────────────────────────────────────────────────────────────────────
+O8  materialize  owner_offline_materializer.py                 离线；填充 OWNER_FIELDS 七字段；
+                 --template P5_ROOT_DELEGATION_FROZEN_TEMPLATE_V3.json
+                 --owner-fields <owner_fields.json>
+                 --output unsigned_payload.json
+                 前提: activation_blockers 字段已清空；C+D=APPLIED
+O9  late-bind  (owner 本地操作)                                owner 设置 wave1_wall_time_expiry（不得看到 P5 结果标签）
+O10 sign       owner_ceremony_display_and_verify.py (owner设备)
+                 --root-payload   unsigned_payload.json
+                 --owner-ed25519-public-key owner_ed25519.pub
+                 --signature signature.b64
+                 确认短语: "I CONFIRM THESE EXACT IDENTITIES"
+O11 upload     owner 将 (unsigned_payload.json + signature.b64) 上传到 VPS
+O12 register   researchctl register_delegation                 需要: C+D=APPLIED; owner_public_key 已锚定;
+                                                               owner_signature 有效; scope_hash 一致
+O12 verify     researchctl verify / authority_store scope check
+               ceremony/owner_ceremony_display_and_verify.py (verify scope)
+```
+
+---
+
+### JSON_SCHEMAS
+
+**OWNER_FIELDS（`owner_offline_materializer.py` 输入，7 个字段，精确集合）**
+
+```json
+{
+  "delegation_id":                       "<UUID 或 owner 生成的唯一 ID>",
+  "owner_identity":                      "<owner 的身份标识字符串>",
+  "issued_at_verified_external_time":    "<UTC ISO-8601Z 时间戳>",
+  "expires_at":                          "<UTC ISO-8601Z 时间戳>",
+  "owner_session_id":                    "<与 producer_session_id 不同的会话 ID>",
+  "parent_delegation_nonce":             "<owner 生成的防重放 nonce>",
+  "wave1_wall_time_expiry":              "<整数秒；owner 在不知晓 P5 结果的前提下设定>"
+}
+```
+
+**RUNTIME_FIELDS（`owner_offline_materializer.py` 输出的 30 个字段，即签名有效载荷）**
+
+```
+delegation_id, owner_identity, owner_credential_scheme,
+issued_at_verified_external_time, expires_at, owner_session_id,
+allowed_campaign, allowed_family, allowed_run_classes,
+allowed_evidence_domains, allowed_scientific_root_hashes,
+allowed_amendment_hashes, allowed_dataset_manifest_hash,
+allowed_revision_hash, allowed_pit_rule_hash,
+allowed_candidate_list_hash, allowed_candidate_grammar_hash,
+allowed_enumerator_hash, allowed_evaluation_order_hash,
+allowed_scientific_contract_hash, allowed_evaluator_hash,
+allowed_t1_prereg_hash, allowed_integrity_void_contract_hash,
+allowed_child_authority_types, allowed_information_domains,
+explicit_prohibitions, expiry_policy, revocation_state,
+parent_delegation_nonce, resource_policy
+```
+（注：`owner_signature` 不在签名有效载荷内；`amendment_a/b/c/d_sha256` 由 `OwnerConditionalDelegation` dataclass 携带但通过 `unsigned_payload()` 排除 `owner_signature`，实际上这 4 个 amendment hash 字段是 signed payload 的一部分——见 `conditional_delegation.py`：`verify_signature` 在 `unsigned_payload()` 上做签名，而 `unsigned_payload()` 仅 pop 掉 `owner_signature`，保留其余全部字段。）
+
+**`register_amendment_direct` CLI 所需字段**
+
+```json
+{
+  "amendment_id":        "C" | "D",
+  "amendment_hash":      "<64 hex chars>",
+  "producer_session_id": "<与 ctx.session_id（owner session）不同的 session>"
+}
+```
+
+**`register_delegation` CLI 所需字段（完整 `OwnerConditionalDelegation` dataclass）**
+
+| 字段 | 类型 | 来源 |
+|---|---|---|
+| `delegation_id` | str | owner late-bound |
+| `owner_identity` | str | owner late-bound |
+| `owner_credential_scheme` | str | 固定 `"ED25519"` |
+| `issued_at_verified_external_time` | str UTC | owner late-bound |
+| `expires_at` | str UTC | owner late-bound |
+| `owner_session_id` | str | owner late-bound |
+| `allowed_amendment_hashes` | tuple[str] | 冻结 `{A,B}` |
+| `amendment_a/b/c/d_sha256` | str×4 | 冻结（见 `authority_store.py` 常量） |
+| `owner_signature` | str base64 | owner 签名（64字节 Ed25519，base64） |
+| `resource_policy` | dict | owner late-bound（wave1_wall_time_expiry 已绑定） |
+| …其余 RUNTIME_FIELDS 中的冻结字段 | | 来自模板 V3 |
+
+---
+
+### ORDER_GATES（顺序门控，每步必须满足才能执行下一步）
+
+```
+Gate-1 (O1→O2):  P5_ADMIN_INDEPENDENT_LOGIN_PROVEN=YES
+Gate-2 (O2→O3):  01_PRE_CUTOVER_READONLY_PREFLIGHT.sh = 无 exit-3 向量
+Gate-3 (O3→O4):  P5_APP_V3_MANIFEST_SIG 有效（owner 离线签名）；
+                 schema=3；verify PASS；rebuild PASS；authority rows=0
+Gate-4 (O4→O5):  P5_CLOUD_REGRANT_NEUTRALIZED=YES；k3 已从 docker/lxd/sudo 移除
+Gate-5 (O5→O6):  07_FRESH_K3_VERIFY.sh 从新 reboot-后登录返回 FRESH_K3_TRUST_DOMAIN=PASS
+Gate-6 (O6):     owner peer_uid ≠ k3 uid；owner_session ≠ producer_session
+Gate-7 (O7):     observed amendment_registrations = [("C", 5b1d8116..., "INTERACTIVE_OWNER_SIGN", "APPLIED")]
+                 → C_FIRST_D_SECOND_REQUIRED；D_CAN_AUTHORIZE_C=NO
+Gate-8 (O8):     C=APPLIED; D=APPLIED；模板 activation_blockers=[](需清空阻断项)；
+                 owner_fields 7 个字段全部非空
+Gate-9 (O9):     wave1_wall_time_expiry 由 owner 在不知晓 P5 结果的前提下提供（outcome-blind）
+Gate-10 (O10):   resource_policy 不再是 OWNER_LATE_BOUND 占位符；
+                 owner 键入 "I CONFIRM THESE EXACT IDENTITIES"；
+                 owner Ed25519 签名通过本地验证
+Gate-11 (O11):   只上传公钥+签名+已签名委托（私钥永不离开 owner 设备）
+Gate-12 (O12):   observed=[C:APPLIED, D:APPLIED]；owner 公钥锚点存在且 32 字节；
+                 签名验证通过；allowed_amendment_hashes=={A,B}；C/D 不在 allowed_amendment_hashes 中
+```
+
+---
+
+### NO_DEFAULT_POLICY_RULES（凡未明确授权的，运行时均拒绝）
+
+1. **`OWNER_FIELDS_EXACT_SET_REQUIRED`**：`owner_offline_materializer.py` 对 `OWNER_FIELDS` 做精确集合比较，多字段或少字段均以 `SystemExit` 拒绝——无默认值填充。
+
+2. **`ACTIVATION_BLOCKED_NO_SIGNABLE_PAYLOAD_EMITTED`**：模板中存在任何 `activation_blockers` 条目时，materializer 拒绝输出任何载荷。
+
+3. **`OWNER_PUBLIC_KEY_NOT_CONFIGURED`**：`P5_OWNER_ED25519_PUBLIC_KEY_FILE` 未设置或文件不存在时，`authority_store.py` 的所有 `_owner_key()` 调用均 fail-closed（无隐式默认密钥路径）。
+
+4. **`AMENDMENT_D_HASH_DRIFT`**：`P5_AMENDMENT_D_SHA256` 环境变量若与常量 `c419cbdc...` 不一致，立即 raise `FailClosed`——防止 drift。
+
+5. **`ONLY_EXACT_A_B_MAY_BE_DELEGATED`**：`DelegationVerifier.verify_signature` 强制 `allowed_amendment_hashes == {amendment_a_sha256, amendment_b_sha256}`，任何其他集合均拒绝。
+
+6. **`D_CAN_AUTHORIZE_C=NO`**：C 的 sha256 绝对不得出现在 `allowed_amendment_hashes` 中；运行时在签名验证前强制检查。
+
+7. **`ROOT_CANNOT_REGISTER_C_OR_D`**：`register_amendment`（delegated 路径）对 C 或 D 直接 `FailClosed`——root 委托只能注册 A→B。
+
+8. **`DIRECT_OWNER_ONLY_C_OR_D`**：`register_amendment_direct`（直接路径）只接受 C 或 D，拒绝 A/B。
+
+9. **`C_D_A_B_ORDER_VIOLATION` / `C_FIRST_D_SECOND_REQUIRED`**：注册顺序为硬约束，不可跳过或乱序。
+
+10. **`OWNER_SESSION_SEPARATION_FAILED`**：owner session 与 producer session 必须不同；运行时在 `HUMAN_OWNER_SIGNED` 转换和 `register_amendment_direct` 中均检查。
+
+11. **signing helper 永久拒绝**：`owner_offline_signing_helper.py` 直接 `raise SystemExit("PRODUCTION_ACTIVATION_BLOCKED_...")` ——代理/守护进程侧无任何签名能力。
+
+12. **`resource_policy` late-bound 强制**：`owner_ceremony_display_and_verify.py` 若 `resource_policy` 仍为 `OWNER_LATE_BOUND` 占位符则 `sys.exit` 拒绝签名。
+
+13. **`anchor ancestor trustworthy`**：`03`/`04` 脚本调用 `assert_owner_anchor_trustworthy`；owner 公钥锚点祖先链中如存在 agent-owned 或 world-writable 目录则 fail-closed，防止 rename-swap 伪造签名。
+
+---
+
+### TESTS（工具链各步的可测试断言）
+
+| 编号 | 被测步骤 | 测试输入 | 期望结果 |
+|---|---|---|---|
+| T1 | materializer 字段精确性 | `owner_fields` 缺少 `wave1_wall_time_expiry` | `SystemExit("OWNER_FIELDS_EXACT_SET_REQUIRED")` |
+| T2 | materializer activation_blocker 拦截 | 模板包含 `activation_blockers=["X"]` | `SystemExit("ACTIVATION_BLOCKED_NO_SIGNABLE_PAYLOAD_EMITTED")` |
+| T3 | materializer 空字段拒绝 | `owner_fields` 中 `delegation_id=null` | `SystemExit("OWNER_FIELD_EMPTY")` |
+| T4 | materializer 正常输出 | 完整 7 字段 + 无 blocker 模板 | 输出 `unsigned_payload.json`；打印 SHA256；30 RUNTIME_FIELDS 均存在 |
+| T5 | canonical JSON 幂等性 | 同一 payload 两次序列化 | sha256 相同（`ensure_ascii=False, sort_keys=True, separators=(",",":")，no NaN`） |
+| T6 | `register_amendment_direct` C 顺序 | amendment_id=D，observed=[] | `FailClosed("C_FIRST_D_SECOND_REQUIRED")` |
+| T7 | `register_amendment_direct` session 隔离 | `producer_session_id == ctx.session_id` | `FailClosed("OWNER_SESSION_SEPARATION_FAILED")` |
+| T8 | `register_amendment_direct` hash binding | amendment_id=C，hash=wrong | `FailClosed("AMENDMENT_ID_HASH_BINDING_MISMATCH")` |
+| T9 | `register_delegation` C/D 前置 | observed=[] (C/D 未 APPLIED) | `FailClosed("EXACT_C_AND_D_DIRECT_OWNER_APPLIED_REQUIRED")` |
+| T10 | `verify_signature` allowed_amendment_hashes | `allowed_amendment_hashes={A,C}` | `AuthorizationDenied("D_CAN_AUTHORIZE_C=NO")` |
+| T11 | `verify_signature` 公钥锚点缺失 | `P5_OWNER_ED25519_PUBLIC_KEY_FILE=""` | `FailClosed("OWNER_PUBLIC_KEY_NOT_CONFIGURED")` |
+| T12 | `verify_signature` 公钥长度 | 31 字节 raw 文件 | `FailClosed("OWNER_PUBLIC_KEY_INVALID")` |
+| T13 | `verify_ed25519` 签名篡改 | 翻转 signature[0] 一个 bit | `AuthorizationDenied("invalid owner signature")` |
+| T14 | `register_amendment`（delegated）拒绝 C/D | amendment_id=C via delegated path | `FailClosed("ROOT_CANNOT_REGISTER_C_OR_D")` |
+| T15 | `register_amendment`（delegated）A→B 顺序 | 先注册 B | `FailClosed("C_D_A_B_ORDER_VIOLATION")` |
+| T16 | `owner_ceremony_display_and_verify.py` 私钥拒绝 | `--owner-ed25519-public-key` 传入含 `PRIVATE KEY` 头的文件 | `sys.exit("REFUSE: ... looks like a PRIVATE key")` |
+| T17 | 显示工具 C-in-allowed 拦截 | `allowed_amendment_hashes` 包含 `amendment_c_sha256` | `sys.exit("FATAL: Amendment C is in allowed_amendment_hashes")` |
+| T18 | 显示工具 resource_policy 占位符拦截 | `resource_policy="OWNER_LATE_BOUND_..."` + `--signature` 提供 | `sys.exit("FATAL: resource_policy is still the OWNER_LATE_BOUND placeholder")` |
+| T19 | `AMENDMENT_D_HASH_DRIFT` 检测 | 环境 `P5_AMENDMENT_D_SHA256=wrong` | `FailClosed("AMENDMENT_D_HASH_DRIFT")` |
+| T20 | V2→V3 模板差异：C 不在 allowed | V2 模板 `allowed_amendment_hashes` 含 C | `verify_signature` → `AuthorizationDenied("D_CAN_AUTHORIZE_C=NO")`（捕获 V2 被 U11 拒绝的根因） |
+
+---
+
+**当前阻断状态摘要：**  
+工具链代码路径完整、已冻结、无默认策略漏洞，但有两个绑定运行时阻断项尚未解除：
+1. `PRODUCTION_ACTIVATION_BLOCKED_BY_AGENT_MUTABLE_TRUST_ANCHOR`（k3 仍有 sudo ALL:ALL + docker-socket 等效 root 路径）  
+2. `ROOT_DELEGATION_BOOTSTRAP_NOT_ESTABLISHED_BY_PRE_C_FROZEN_AUTHORITY`（C/D 未 APPLIED，trust-domain cutover 未执行）
+
+模板 V3（`P5_ROOT_DELEGATION_FROZEN_TEMPLATE_V3.json`，hash `3736dd99...`）是当前权威签名模板；V2 已被 U11/U17/U21 审查拒绝（C 误入 `allowed_amendment_hashes`，工程标识哈希过期，缺少 GCP 禁止项）。工具链本身在 trust-domain 满足后即可确定性执行，不需要任何运行时自由裁量。

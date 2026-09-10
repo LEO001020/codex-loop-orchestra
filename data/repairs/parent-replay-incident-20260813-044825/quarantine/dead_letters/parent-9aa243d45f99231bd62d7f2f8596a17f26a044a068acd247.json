@@ -1,0 +1,73 @@
+{
+  "detail": {
+    "event": "subagent_stop",
+    "from_state": "DEAD_LETTER"
+  },
+  "packet_id": "parent-9aa243d45f99231bd62d7f2f8596a17f26a044a068acd247",
+  "prior_history": [
+    {
+      "to": "DEAD_LETTER",
+      "ts": 1786567433.0135448,
+      "via": "off_table_event"
+    },
+    {
+      "current_run_id": "parent-9aa243d45f99231bd62d7f2f8596a17f26a044a068acd247-a0-94f7c19e1b7e4949b87030e7d885230a",
+      "event": "exec_failed",
+      "event_run_id": "parent-9aa243d45f99231bd62d7f2f8596a17f26a044a068acd247-a0-9fb1495fd2d540fcbb37c8eb4eede0a5",
+      "to": "DEAD_LETTER",
+      "ts": 1786567433.0180373,
+      "via": "stale_run_id_ignored"
+    },
+    {
+      "to": "DEAD_LETTER",
+      "ts": 1786567433.0864418,
+      "via": "off_table_event"
+    },
+    {
+      "current_run_id": "parent-9aa243d45f99231bd62d7f2f8596a17f26a044a068acd247-a0-94f7c19e1b7e4949b87030e7d885230a",
+      "event": "exec_failed",
+      "event_run_id": "parent-9aa243d45f99231bd62d7f2f8596a17f26a044a068acd247-a0-7b830c87d76547ff8624c059a692aa20",
+      "to": "DEAD_LETTER",
+      "ts": 1786567433.0912528,
+      "via": "stale_run_id_ignored"
+    },
+    {
+      "to": "DEAD_LETTER",
+      "ts": 1786567433.1613734,
+      "via": "off_table_event"
+    },
+    {
+      "current_run_id": "parent-9aa243d45f99231bd62d7f2f8596a17f26a044a068acd247-a0-94f7c19e1b7e4949b87030e7d885230a",
+      "event": "exec_failed",
+      "event_run_id": "parent-9aa243d45f99231bd62d7f2f8596a17f26a044a068acd247-a0-2bd1fe85b0074da0b364c86f3c036172",
+      "to": "DEAD_LETTER",
+      "ts": 1786567433.1664975,
+      "via": "stale_run_id_ignored"
+    },
+    {
+      "to": "DEAD_LETTER",
+      "ts": 1786567433.2289214,
+      "via": "off_table_event"
+    },
+    {
+      "current_run_id": "parent-9aa243d45f99231bd62d7f2f8596a17f26a044a068acd247-a0-94f7c19e1b7e4949b87030e7d885230a",
+      "event": "subagent_stop",
+      "event_run_id": "parent-9aa243d45f99231bd62d7f2f8596a17f26a044a068acd247-a0-2c54a0c5dda74e229f07de897c03e441",
+      "to": "DEAD_LETTER",
+      "ts": 1786567433.3343787,
+      "via": "stale_run_id_ignored"
+    },
+    {
+      "to": "DEAD_LETTER",
+      "ts": 1786567433.3345034,
+      "via": "off_table_event"
+    },
+    {
+      "to": "DEAD_LETTER",
+      "ts": 1786567436.3802555,
+      "via": "off_table_event"
+    }
+  ],
+  "reason": "off_table_event",
+  "ts": 1786567436.3803933
+}

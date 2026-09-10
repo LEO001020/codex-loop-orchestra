@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "zloop"
+version = "0.1.0"
+description = "ZLoop: recoverable evidence, session binding, and isolated parallel execution around ZCode"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+codex = ["openai-codex"]
+dev = ["pytest"]
+
+[project.scripts]
+zloop = "zloop.cli:main"
+zloop-hook = "zloop.hook:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

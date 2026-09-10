@@ -98,7 +98,7 @@ if [[ "$MODE" == "freeze" ]]; then
 import json,sys
 json.dump({"packet_id":sys.argv[1],"test_count":int(sys.argv[2]),
            "tree_sha":sys.argv[3],"commands":json.loads(sys.argv[4]),
-           "frozen":True},open(sys.argv[5],"w"),indent=1)' \
+           "frozen":True},open(sys.argv[5],"w",encoding="utf-8"),indent=1)' \
     "$PACKET_ID" "$TEST_COUNT" "$TREE_SHA" "$CMD_RESULTS" "$ORACLE"
   echo "ORACLE_FROZEN [$PACKET_ID] test_count=$TEST_COUNT sha=$TREE_SHA -> $ORACLE"
 else
@@ -107,7 +107,7 @@ import json,sys
 json.dump({"packet_id":sys.argv[1],"test_count":int(sys.argv[2]),
            "tree_sha":sys.argv[3],"commands":json.loads(sys.argv[4]),
            "commands_passed":bool(int(sys.argv[5]))},
-          open(sys.argv[6],"w"),indent=1)' \
+          open(sys.argv[6],"w",encoding="utf-8"),indent=1)' \
     "$PACKET_ID" "$TEST_COUNT" "$TREE_SHA" "$CMD_RESULTS" "$ALL_PASS" "${ORACLE}.replay.json"
   echo "REPLAY_DONE [$PACKET_ID] test_count=$TEST_COUNT all_pass=$ALL_PASS -> ${ORACLE}.replay.json"
 fi

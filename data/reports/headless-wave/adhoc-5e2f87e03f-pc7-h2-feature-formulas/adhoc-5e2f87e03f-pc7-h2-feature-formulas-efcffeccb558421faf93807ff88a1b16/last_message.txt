@@ -1,0 +1,40 @@
+# 盘点结论：10 个 feature 公式在工作区内均无实现、无 fixture 覆盖
+
+**判定：FAILURE（盘点对象缺失）**。在授权只读范围（`E:\VPS` 全盘 + `E:\codex-LOOP\codex-loop-s-f2` 全库）中，`LB_LEVEL / BASIS_CHANGE / BASIS_PERSISTENCE / PV / PV_VAR / PV_IMB / PV_IMB_VAR / DAMIHUD / BM_EQ70 / BASIS_ACCEL` 这 10 个名字只出现在任务清单与执行名册里（[pc7-headless-wave-manifest-2.json](E:\VPS\pc7-headless-wave-manifest-2.json)、`exec_roster.json`），即本包文本本身；没有任何源码、schema、文档或测试引用它们。上游定义（candidate grammar `sha256=10ce1b0a…`、174 候选清单 `c2ed589d…`、feature-family lookback matrix `924388c7…`、T1 prereg V3 `77a03b04…`）按 [pc7-headless-wave-manifest-3.json](E:\VPS\pc7-headless-wave-manifest-3.json) 位于远端 `k3@136.85.49.91`；本沙箱 SSH/WSL 均不可达（`wsl` 返回 `E_ACCESSDENIED`，无本地密钥），无法取回公式原文。因此任何逐公式"实现↔fixture"映射都会是凭空编造，不予虚构。
+
+## 逐项盘点
+
+| Feature | 实现 | Fixture | 最接近的现有物 |
+|---|---|---|---|
+| LB_LEVEL | 无 | 无 | `P3_H0_LOG_BASIS_LEVEL` 分支仅 data-ready 标记；D2 只有 `basis_rel`（mark/index，非 traded perp/spot） |
+| BASIS_CHANGE | 无 | 无 | `P3_H0_BASIS_CHANGE` 分支 data-ready 标记（新旧工件互相矛盾，见下） |
+| BASIS_PERSISTENCE | 无 | 无 | `P3_H0_BASIS_PERSISTENCE` 分支 data-ready 标记 |
+| PV | 无 | 无 | `P3_H0_PRICE_VOLUME_FAMILY` 分支 data-ready；`quote_volume` 数据齐备但过滤函数无调用点 |
+| PV_VAR | 无 | 无 | 无任何引用 |
+| PV_IMB | 无 | 无 | 无任何引用 |
+| PV_IMB_VAR | 无 | 无 | 无任何引用 |
+| DAMIHUD | 无 | 无 | 无任何引用（含 LOOP 全库源码/测试/schema） |
+| BM_EQ70 | 无 | 无 | 无任何引用 |
+| BASIS_ACCEL | 无 | 无 | 无任何引用 |
+
+## 现有实现证据（最近似结构）
+
+- [pc6_binance_materializer.py](E:\VPS\pc6_binance_materializer.py:885)：数据物化器，仅生成四分支 readiness 标记（`P3_H0_LOG_BASIS_LEVEL / BASIS_CHANGE / BASIS_PERSISTENCE / PRICE_VOLUME_FAMILY`，885–887 行），无任何公式计算。
+- [d2_features.py](E:\VPS\.work\pc6-edit\quant\p5_track3\d2_features.py:14)：实际唯一的特征层，共 4 个特征：`funding_rate_last_known`、`funding_ann_last_known`、`basis_rel=(mark_close−index_close)/index_close`、`clamp_bound_frac_30d`。与 10 个盘点名均不同名；且 D1 输入只有 2026 年 8 品种 mark/index（`P5_PC6_GAP_AND_DUPLICATE_REPORT_V1.json` 确认）。
+- [pc6_benchmark.py](E:\VPS\.work\pc6-edit\quant\p5_track3\pc6_benchmark.py:13)：合成 benchmark 匿名计算 "level/change/persistence/EW demeaning" 结构原语，非命名公式、非可执行特征。
+- readiness 工件自相矛盾：`P5_PC6_BRANCH_READINESS_V1.json` 四分支 `ready:false`，而新可执行清单（[probe_output.txt](E:\VPS\reports\listing-ledger-reverify\probe_output.txt:62)、[probe_c_out.txt](E:\VPS\reports\H0价格成交量可用性\probe_c_out.txt:3)）称四分支 `READY=true`。前序 [h0-pv 复核](E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-1542652d09-h0-pv\adhoc-1542652d09-h0-pv-d172a68f32674d37abb64017862a35f7\events.jsonl)（已 DEAD_LETTER）确认此矛盾并给出 3 项登记前提（陈旧工件重生成、统计截止未冻结、CTK/CVC 窗口内缺口；`prior_completed_utc_day_quote_volume()` 定义但无调用点）。注意：这些都是**数据层分支**，不是公式实现。
+
+## Fixture 覆盖证据
+
+- [test_pc6_binance_materializer.py](E:\VPS\test_pc6_binance_materializer.py)：34 个 `test_*`（checksum、write-once、ms/μs 时间戳、单位映射、listing、bar 因果、8h funding 聚合、artifact hash 等）——0 个引用盘点名。
+- [test_track3.py](E:\VPS\.work\pc6-edit\quant\p5_track3\test_track3.py:27)：28 个 `test_*`（golden vectors、null oracle、双实现一致性、PIT、clamp、basis alignment、weighting 等）——0 个引用盘点名。
+- [golden_vectors.py](E:\VPS\.work\pc6-edit\quant\p5_track3\golden_vectors.py:27)：8 个 GV（GV-01..08，区间重构/clamp/`GV-06-basis`/PIT/interval-at-t）。`GV-06-basis` 是唯一 basis 公式 fixture（mark=101/index=100→0.01），与 LB_LEVEL/BASIS_CHANGE/PERSISTENCE/ACCEL 无对应关系。
+- 其余候选位置均排除：`vectorized_screen_handler.py` 为合成 screen（无市场特征）、`hub/quant/p5_infra` 为队列/守护进程、research-memory 归档仅含 runtime 脚本、本地无 research SQLite（仅有 gcloud 凭据库）。
+
+## 解除阻塞所需（任一即可）
+
+1. 将候选 grammar / feature-family lookback matrix / 174 候选清单 / T1 prereg V3 的**正文**放入工作区（现仅远端有 hash 引用）；或
+2. 开放对 `k3@136.85.49.91` 的 SSH 只读访问（密钥不在本机，h3 波同样在找）；或
+3. 在重发包中直接内联 10 个公式定义。
+
+收到定义后即可在同一只读模式下产出"公式→实现→fixture"映射与缺口清单，无需重跑任何真实数据。全程只读：仅 `Get-ChildItem / Get-Content / rg / Select-String / tar -tzf`，未修改任何文件，未执行任何统计/科学路径。

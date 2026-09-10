@@ -1,0 +1,33 @@
+两个文件的内容已经完整提取出来，现在做结构化对比分析。
+
+---
+
+## 快捷方式来源复核报告
+
+### 字段对比
+
+| 字段 | 备份版本（20260816-233531） | 当前版本（迁移后） |
+|------|---------------------------|-------------------|
+| **TargetPath** | `C:\Program Files\WindowsApps\OpenAI.Codex_26.803.5235.0_x64__2p2nqsd0c76g0\app\ChatGPT.exe` | `C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe` |
+| **Arguments** | `--open-project "E:\codex-LOOP\codex-loop-s-f2"` | `-NoProfile -NonInteractive -ExecutionPolicy Bypass -WindowStyle Hidden -File "E:\codex-LOOP\launchers\Start-Codex-LOOP-Desktop.ps1" -TargetWorkspace "E:\codex-LOOP"` |
+| **WorkingDirectory** | `E:\codex-LOOP\codex-loop-s-f2` | `E:\codex-LOOP` |
+| **Description** | `Codex LOOP F2 Complete - Windows-native Codex Desktop` | `Activate Desktop-wide Codex LOOP mode, then open the selected workspace` |
+| **文件大小** | 1754 字节 | 1763 字节 |
+| **Icon** | `%SystemRoot%\System32\SHELL32.dll`（沿用系统图标） | `%SystemRoot%\System32\SHELL32.dll`（相同） |
+
+---
+
+### 变化分析
+
+**迁移前（备份）：** 快捷方式直接启动 Codex Desktop 原生 UWP 应用（`ChatGPT.exe`），通过 `--open-project` 参数打开特定工作区 `codex-loop-s-f2`，WorkingDirectory 也指向该子目录。
+
+**迁移后（当前）：** 启动器切换为 `powershell.exe`，通过隐藏窗口运行 `Start-Codex-LOOP-Desktop.ps1` 脚本，WorkingDirectory 提升到 LOOP 根目录 `E:\codex-LOOP`，参数携带 `-TargetWorkspace "E:\codex-LOOP"`。
+
+**是否符合设计：** ✅ 变化符合 LOOP 桌面模式的迁移设计意图——
+
+- Target 从 UWP 直接启动改为 PowerShell 中转脚本，允许在启动前执行 Desktop-wide LOOP 初始化（激活钩子、注入会话上下文等）；
+- WorkingDirectory 上移到根目录而非子工作区，与脚本接受 `-TargetWorkspace` 参数动态指定工作区的模式一致；
+- `-WindowStyle Hidden` 保持无窗口静默启动，用户体验与之前等价；
+- SID（`S-1-5-21-2299765140-2670231981-1235975754-1001`）在两版本中完全相同，确认是同一用户环境，无凭证偏移。
+
+**唯一值得关注的点：** 备份中工作区路径是 `codex-loop-s-f2`（特定子目录），当前版本统一改为 `E:\codex-LOOP` 根目录，意味着工作区选择逻辑完全移入 `.ps1` 脚本内部。需确认 `Start-Codex-LOOP-Desktop.ps1` 是否有正确的工作区路由逻辑，这不在本包范围内，可作后续验证项。

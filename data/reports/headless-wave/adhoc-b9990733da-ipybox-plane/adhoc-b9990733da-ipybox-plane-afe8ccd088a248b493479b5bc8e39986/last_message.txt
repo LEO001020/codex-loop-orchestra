@@ -1,0 +1,16 @@
+PASS
+
+审计结论（三个文件一致，无违例）：
+
+1. Desktop native 关闭 ipybox
+- [dispatch_v2.py](E:\codex-LOOP\codex-loop-s-f2\harness\dispatch_v2.py:234)：`DESKTOP_NATIVE` 直接返回策略值；[orchestration_policy_v2.toml](E:\codex-LOOP\codex-loop-s-f2\config\orchestration_policy_v2.toml:47) `desktop_native_enabled=false`。
+- [dispatch.py](E:\codex-LOOP\codex-loop-s-f2\harness\dispatch.py:126)：`LOOP_EXECUTION_PLANE==desktop_native` 或 `os.name=="nt"` 时强制返回 False。
+
+2. Headless worker 启用
+- dispatch_v2.py:242-244：仅 `worker` 角色返回 `wsl_headless_worker_enabled`（toml:48 = true）；dispatch.py:134-135 同。plane 判定见 dispatch_v2.py:212-221。
+
+3. K3 默认关闭、例外受控
+- dispatch_v2.py:102 定义 K3_ROLES；:236-241 默认关，仅当 packet 声明 `needs_code_execution=true` 且策略 `k3_code_execution_exception=true`（toml:49-50）才开；dispatch.py:136-140 一致。
+- 命令注入按布尔值写 `mcp_servers.ipybox.enabled`（dispatch_v2.py:433-438、dispatch.py:500-505），无硬编码强制开启。
+
+未发现 Desktop 误开、K3 例外失控或角色漏判路径。

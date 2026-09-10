@@ -1,0 +1,104 @@
+脚本共 54 行，已全部读取。以下是逐项审核结果：
+
+---
+
+## 上传脚本复核报告
+
+### 1. 目标不存在门（`test ! -e`）
+
+**✅ 通过，双重检查。**
+
+- 本地侧（第 20 行）：上传前执行 `"${SSH[@]}" "test ! -e '$REMOTE_TARGET'"` —— 在远端直接确认目标路径不存在，若已存在则退出，拒绝覆盖。
+- 远端 heredoc（第 34 行）：在 incoming 目录完成 mv 之前，再次执行 `test ! -e "$target"` —— 在 `mkdir` 之后 mv 之前构成第二道门，防止并发竞争中出现覆盖。
+
+两道门均使用 `-e`（路径存在即拦截，无论是文件还是目录），无覆盖风险。
+
+---
+
+### 2. Incoming 清理边界
+
+**✅ 通过，路径验证 + trap 保护。**
+
+- `incoming` 的构成：`$root/.$ARTIFACT_NAME.incoming.$$`（前缀 `.`、PID 后缀，与最终目标名明确区分）。
+- `case` 检查（第 37 行）：`case "$incoming" in "$root"/.${ARTIFACT_NAME}.incoming.*) ;; *) exit 90 ;; esac` —— 精确验证 incoming 路径以 `$root/.${ARTIFACT_NAME}.incoming.` 开头，防止变量注入导致 `rm -rf` 指向错误路径。
+- `trap cleanup EXIT`：任何 `set -e` 触发的异常退出都会执行 `rm -rf -- "$incoming"`，cleanup 函数只在 `rc -ne 0` 时删除，成功路径不触发（成功后执行了 `trap - EXIT`）。
+- `test ! -e "$incoming"` 在 `mkdir` 前检查，避免旧残留冲突。
+
+边界精确，无误删风险。
+
+---
+
+### 3. 58 文件计数
+
+**✅ 三次验证，逻辑一致。**
+
+| 检查点 | 位置 | 描述 |
+|---|---|---|
+| 本地上传前 | 第 18 行 | `find "$LOCAL_PACKAGE" -type f | wc -l` -eq 58 |
+| 远端解包后 mv 前 | 第 42 行 | `find . -type f | wc -l` -eq 58 |
+| 远端 mv 后独立核验 | 第 53 行 | `find . -type f | wc -l` -eq 58 |
+
+三个检查点均使用 `-type f`（只计文件，不计目录），与 11_SHA256SUMS 中 57 条目 + 1 个 SHA256SUMS 自身的结构对应。
+
+---
+
+### 4. 57/57 sha256sum -c 验证
+
+**✅ 通过，覆盖所有被校验文件。**
+
+- `sha256sum -c 11_SHA256SUMS` 在三处执行（本地、远端 mv 前、远端 mv 后）。
+- 最终核验（第 54 行）输出 `REMOTE_SHA256SUMS=57/57 PASS`，与预期 58 文件（57 被校验 + 11_SHA256SUMS 自身）的结构一致——SUMS 文件不校验自身，这是标准做法。
+- `sha256sum -c` 使用 `set -euo pipefail` 上下文，失败即退出。
+
+---
+
+### 5. Manifest / self 完整 hash
+
+**✅ 通过，两文件均有独立期望值锁定。**
+
+- `EXPECTED_MANIFEST`（第 10 行）：64 位十六进制，校验 `10_MANIFEST.json` 自身。
+- `EXPECTED_SUMS`（第 11 行）：64 位十六进制，校验 `11_SHA256SUMS` 自身（即 SUMS 文件的 hash，作为 self-hash）。
+- 两者均在本地和远端各独立验证一次（`test "$(sha256sum ... | awk '{print $1}')" = "$EXPECTED_..."`）。
+- 最终核验步骤（第 54 行最后一行）再次 `sha256sum 10_MANIFEST.json 11_SHA256SUMS` 输出两者 hash 供人工比对。
+
+---
+
+### 6. 无部署/ceremony
+
+**✅ 通过，脚本止步于制品上传。**
+
+- 整个脚本仅执行：本地预检 → 远端存在检查 → tar 传输 → 远端解包验证 → mv → 远端独立核验 → 输出路径和 hash。
+- 无任何 symlink 切换、`ln -s`、`deploy`、`reload`、`restart`、`systemctl`、`docker`、配置变更或服务操作。
+- 输出的三行 `printf` 是纯信息输出，不触发任何下游动作。
+
+---
+
+### 7. 实际缺陷与风险点
+
+以下为审核发现的需关注事项，按严重程度排列：
+
+**⚠️ 中等：`tar` 传输无完整性保证**
+
+`tar -C "$LOCAL_PACKAGE" -cf - . | "${SSH[@]}" "... tar -C "$incoming" -xf -"` 通过管道直接传输，没有传输层校验（如 `--checksum` 或先传再验）。不过，传输后立即在 incoming 内执行 `sha256sum -c 11_SHA256SUMS`，能检测出任何字节损坏。实际风险低，但若网络中断，`set -e` 会触发 cleanup，逻辑上安全。
+
+**⚠️ 低：`REMOTE_SHA256SUMS=57/57 PASS` 为硬编码字符串**
+
+第 59 行 `printf 'REMOTE_SHA256SUMS=57/57 PASS\n'` 是字面量，不是 `sha256sum -c` 的实际输出解析。真实的 57/57 PASS 判断靠前一行 `sha256sum -c 11_SHA256SUMS >/dev/null` 的退出码（`set -e` 保障）。字符串本身仅作为日志标记，不构成逻辑错误，但在日志层面无法区分"实际跑了57条"和"硬编码输出"。
+
+**✅ 无问题：SSH 安全配置**
+
+`BatchMode=yes`、`IdentitiesOnly=yes`、`StrictHostKeyChecking=yes` + 显式 `UserKnownHostsFile`，防止交互式提示和中间人攻击。
+
+**✅ 无问题：`set -euo pipefail`**
+
+本地脚本和远端 heredoc 均设置，任何步骤失败均终止，不会静默继续。
+
+---
+
+### 总结
+
+脚本在所有核心维度上均符合规范：双重存在门、精确 incoming 清理边界、三次 58 文件计数、三次 `sha256sum -c`（57/57）、manifest 和 self 两文件独立 hash 锁定、无部署/ceremony 操作。
+
+唯一值得记录的是 `REMOTE_SHA256SUMS=57/57 PASS` 为硬编码字符串而非解析输出，建议后续版本改为 `sha256sum -c 11_SHA256SUMS | grep -c ': OK'` 之类的实际计数，以使日志更具证明力。当前逻辑正确性不受影响。
+
+**结论：脚本可发布，无阻断性缺陷。**

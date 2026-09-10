@@ -1,0 +1,19 @@
+审计完成。仓库的 `reports/desktop-concurrency-audit-20260812/` 中已经存在该 guard 的完整源码与接线证据。以下是 500 字内结论：
+
+**已验证事实**
+1. `desktop_spawn_guard.py` 存在于 `hooks/`（源码由历史报告捕获），但**当前活跃 hooks.json 三层均未注册**：`hooks/hooks.json.example:74-102` 的 PreToolUse 只挂 `sol_tool_gate_router.py` 和 `subagent_lifecycle.py`；用户级 `C:\Users\hzq00\.codex\hooks.json` 自述"no project policy hooks"。即 8-cap hard deny 现在是死代码。
+2. cap/补位逻辑文件确认：`hooks/desktop_spawn_guard.py:17` `DEFAULT_CAP = 8`、`:61-76` active>=cap 时 deny 并提示"dispatch remaining through headless codex exec"`、:88-93` fail-open；observer 地址 `127.0.0.1:8765`（`:18`）。
+3. 并发权威 `config/refill_policy.toml:14-17`：`target_total=48, v4=36, k3=12`，与 AGENTS.md 桌面≤8 + headless 补齐的运输拆分不冲突。ipybox 矩阵 `config/orchestration_policy_v2.toml:44-48`：`desktop_native_enabled=false`、`wsl_headless_worker_enabled=true`、K3 verify/plan 禁用除非 `needs_code_execution=true`；与 `hooks/dispatch_v2.py:222-247` `ipybox_enabled_for` 三规则一致。
+4. 角色启停：executor=WSL headless enable（`roles_v2.yaml:49`）、verifier/reviewer/plan_expander 默认禁用（`roles_v2.yaml:67-79, 99-108`）、l2_consumer 合成包强制 `needs_code_execution: False`（`l2_consumer.py:638`）；strand 了 cap 被 deny 的原生 worker 不会缺 ipybox——改走 headless 后反而**自动获得** ipybox。
+
+**主要漏洞（事实 vs 假设）**
+- 事实：guard 对所有 Desktop spawn 通道（spawn_agent / spawn_agents_on_csv 均含"spawn_agent"子串）生效，但拒后的降级只靠自然语言提示 Sol 改派，无机械回流；guard 对 observer 失败 fail-open；plane 分类仅 `startswith("desktop rollout")`，若 8765 改字串就漏计。
+- 假设：Desktop 崩溃后若 8765 同时挂起则 guard 静默放行，集中 IAB 路由可再次打爆 browser 进程——未在本次复现，需实测。
+
+**最小修复建议**
+1. 把 `desktop_spawn_guard` 注册进根 workspace `.codex/hooks.json` 和用户级 `~/.codex/hooks.json` 的 PreToolUse。
+2. deny 时同包**自动写 headless dispatch-intent**（如 `data/dispatch-intent/headless/<packet>.json`）由 refill_controller 消费，从机制上保证 48 总目标，而不是靠 Sol 自觉。
+3. guard 读 8765 失败时 fail-closed（崩溃季宁可保守），拉宽 plane 白名单。
+
+**证据**
+- `hooks/desktop_spawn_guard.py:1-99`（cap/deny/fail-open/轮询 url）；`hooks/hooks.json.example:74-102`（无 guard）；`config/orchestration_policy_v2.toml:44-48, 141-153`；`config/refill_policy.toml:14-26`；`hooks/dispatch_v2.py:222-247`（ipybox 三规则）；`hooks/l2_consumer.py:615-638`（verifier 合成包 needs_code_execution=False）；历史状态 `data/lifecycle/native_roster.json`（6 个 native 子全部 terminal）。

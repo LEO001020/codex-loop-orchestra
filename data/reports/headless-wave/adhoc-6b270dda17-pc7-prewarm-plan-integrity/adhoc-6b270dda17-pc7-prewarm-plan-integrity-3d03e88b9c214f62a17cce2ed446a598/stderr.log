@@ -1,0 +1,24 @@
+Reading additional input from stdin...
+2026-08-12T20:54:44.639418Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-12T20:54:45.472128Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:54:48.201102Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-12T20:59:55.367989Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 208ms)... turn_id=019ff7c1-8d0e-7711-a5bc-074d747b4088 retries=1 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-12T21:05:01.672915Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 397ms)... turn_id=019ff7c1-8d0e-7711-a5bc-074d747b4088 retries=2 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-12T21:10:07.502835Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 767ms)... turn_id=019ff7c1-8d0e-7711-a5bc-074d747b4088 retries=3 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-12T21:15:17.280141Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.722s)... turn_id=019ff7c1-8d0e-7711-a5bc-074d747b4088 retries=4 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-12T21:20:24.818633Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 3.455s)... turn_id=019ff7c1-8d0e-7711-a5bc-074d747b4088 retries=5 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses

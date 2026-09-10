@@ -1,0 +1,137 @@
+Now I have a thorough picture of the entire manifest admission and dispatch chain. Let me compile the findings.
+
+---
+
+**审查结论：父 manifest 门禁 — 贯通分析报告**
+
+---
+
+## 一、数据流总览
+
+```
+manifest.json
+  → parent_manifest_importer.py (admission)
+      → progress_ledger.json (DISPATCHABLE entries with parent_session_id + manifest_id)
+      → parent_sessions.json (active=True, target_active, manifest_id)
+      → wake refill_consumer_v2.py
+          → RefillControllerV2.queue_sync_ledger()
+              → select_tasks() [consumer]
+                  → build_manifest() → packet_wave.json
+                      → headless_wave.run()
+                          → DispatcherV2.dispatch()
+                              → lifecycle_supervisor (roster with parent_session_id + manifest_id)
+```
+
+---
+
+## 二、各层门禁检查结果
+
+### 1. Admission 层（`parent_manifest_importer.py`）— 闭合完好
+
+| 检查项 | 位置 | 结论 |
+|---|---|---|
+| schema 必须为 `codex-loop-parent-refill/v1` | `validate_manifest()` | ✅ 硬拒绝 |
+| `enabled=true` 必须明确 | `validate_manifest()` | ✅ 硬拒绝 |
+| `parent_state` 为 terminal 状态 | `_parent_state()` | ✅ raise `ParentManifestError` |
+| `parent_state` 为未知状态 | `_parent_state()` | ✅ 硬拒绝，不默认通过 |
+| `target_active` 在 `[1, dialogue_target]` 内 | `validate_manifest()` | ✅ fail-closed |
+| 已停止的 parent（`active=False` + 相同 `manifest_id`）不可隐式复活 | `import_manifest()` lock section | ✅ 拒绝重复激活 |
+| 任务 `sandbox` 必须为 `read-only` | 每个 task 检查 | ✅ |
+| `allow_write/workspace_write` 禁止 | 每个 task 检查 | ✅ |
+| packet 内容碰撞或字段变化 | immutable fields 对比 | ✅ raise collision |
+
+### 2. Controller 层（`refill_controller_v2.py`，`queue_sync_ledger`）— 闭合完好
+
+- 同步 ledger 时，对每个 `DISPATCHABLE` packet：  
+  - 查找 `parent_session_id` 对应的注册记录；  
+  - 若 parent 不存在、`active != True`，或 `manifest_id` 存在但不匹配 → **跳过，不计入 demand**。  
+- `recompute()` 中 `parent_inactive` 时 `parent_debt = 0`，不产生 spawn 请求。
+
+```python
+if (not isinstance(parent, dict) or parent.get("active") is not True
+        or (parent.get("manifest_id") and
+            parent.get("manifest_id") != item.get("manifest_id"))):
+    continue
+```
+
+**发现一个轻度弱化点（非致命）：**  
+`manifest_id` 匹配检查只在 `parent.get("manifest_id")` 非空时才做。若 `parent_sessions.json` 中某 parent 的 `manifest_id` 字段意外缺失（如旧数据迁移），manifest mismatch 不会被拦截。但 importer 在 `parents[…]` 写入时总会带 `manifest_id`，实际运行中该字段不应缺失。
+
+### 3. Consumer 层（`refill_consumer_v2.py`，`select_tasks`）— 闭合完好
+
+- 对每个 `DISPATCHABLE` entry：
+  - 若有 `parent_session_id` → 查 `parent_sessions.json`，`active is not True` → **continue（跳过）**；
+  - manifest_id 不匹配 → **continue（跳过）**；
+  - `parent_id` 不在 `parent_remaining`（即 controller snapshot 未建立该 parent 的 per-parent capacity）→ **continue（跳过）**，防止旧 snapshot 下的过度 spawn。
+- `release_review` 的包不经此路径，有独立调度器，正确隔离。
+
+**发现一个潜在竞态（低风险）：**  
+consumer 的 `select_tasks()` 读取 `parent_sessions.json`（admission 更新的）与 controller `state`（`recompute()` 计算的 `parents`）是两次独立读取，中间没有统一锁：
+- 若 importer 在两次读之间写入了一个新 parent，`parent_remaining` 可能不含该 parent → packet 被跳过（fail-closed，多等一次 wake，可接受）；
+- 若 parent 在两次读之间被标记 inactive，`parent_sessions.json` 已 inactive 但 `parent_remaining` 仍有余量 → `parent_id not in parent_remaining` 条件在 consumer 内先检查 parent_sessions，会拦截（fail-closed）。
+- 两路竞态均 fail-closed，无 fail-open。
+
+### 4. Headless Wave 层（`headless_wave.py`）— 闭合完好
+
+- 对带 `packet_id` 的 packet-wave 任务：
+  - 检查 ledger 状态必须为 `DISPATCHABLE`（否则 `ledger_state_blocked`，不出生）；
+  - `already_active / stale_active_roster / active_route_conflict` 均 fail-visible，不静默；
+  - `provider_backoff` 门控在 dry-run 之后（可观察但不出生）；
+  - `opencodex_healthy()` 每第 8 个任务检查一次；
+- `parent_session_id` 和 `manifest_id` 由 `build_commands()` 透传给 `lifecycle_supervisor`，记录进 `exec_roster.json` 的 job 行，用于 observer 聚合和审计。
+- `headless_wave` 本身不验证 parent 是否仍 active（此层在 consumer 已过滤，不重复）。
+
+**注意：** `headless_wave.run()` 对非 packet-id 任务（adhoc prompt 任务）走 `build_commands()` 路径，**不经过** ledger/parent 门禁。但 `refill_consumer_v2` 只生成 `packet_id` 引用的 manifest，adhoc 路径不用于 parent manifest 消费，不构成绕过。
+
+### 5. Dispatch 层（`dispatch_v2.py`，`_spawn`）— 闭合完好
+
+- `parent_enabled=True` 的 packet 强制 `effective_sandbox = "read-only"`，若 `packet.sandbox != "read-only"` → `DispatchBlocked`（不出生）；
+- `capture_report` 对 parent 包强制开启，确保结果被 lifecycle supervisor 捕获；
+- `readonly_cwd_overrides` 确保 parent 包的 cwd 约束被传递到 v1 dispatcher。
+
+### 6. Lifecycle Supervisor 层— 仅记录，无验证
+
+`parent_session_id` 和 `manifest_id` 仅写入 roster 行（`exec_roster.json`），**不做任何验证**。这是正确的分工——到达此层的包已通过上游所有门禁，supervisor 只负责零模型进程管理。
+
+---
+
+## 三、汇总：旧 manifest / 无父身份 / mismatch 是否 fail-closed
+
+| 场景 | 处理层 | 结论 |
+|---|---|---|
+| 旧 manifest（同 parent_session_id + 同 manifest_id）重新导入 | importer: idempotent re-import | ✅ 已有 entry 视为 existing，不覆盖 |
+| 不同 manifest_id 的新 manifest（同 parent） | importer: content mismatch → collision | ✅ 拒绝 |
+| manifest_id 存在但在注册表中不匹配 | controller `queue_sync_ledger` + consumer `select_tasks` | ✅ 双层跳过 |
+| 无 `parent_session_id`（legacy packet） | consumer: 走 `"legacy"` bucket，无 per-parent 约束 | ✅ 正确，legacy 非父身份包按旧逻辑处理 |
+| 有 `parent_session_id` 但 parent 不在注册表 | consumer: `parent is not True` → skip | ✅ fail-closed |
+| parent 已标记 `active=False`（Stop） | consumer: `active is not True` → skip；controller: `parent_reason=parent_inactive`，debt=0 | ✅ fail-closed |
+| 已停止的 parent 重复导入同一 manifest | importer: `prior_parent.active is False and manifest_id==` → `ParentManifestError` | ✅ 拒绝复活 |
+| terminal parent_state（完成/失败/cancelled） | importer `_parent_state()` | ✅ 硬拒绝 |
+| `enabled != true` | importer | ✅ 硬拒绝 |
+| `target_active` 超出 `dialogue_target` | importer | ✅ 硬拒绝 |
+| sandbox 非 read-only | importer（任务级）+ dispatch_v2（spawn 级）| ✅ 双层防御 |
+
+---
+
+## 四、发现的问题（2 项，均低风险）
+
+**F-1 — `manifest_id` 匹配检查存在条件豁口（controller + consumer）**
+
+代码：
+```python
+if (parent.get("manifest_id") and
+        parent.get("manifest_id") != item.get("manifest_id")):
+    continue
+```
+
+若 `parent_sessions.json` 中该 parent 的 `manifest_id` 字段为 `None` 或缺失，mismatch 检查被跳过。importer 写入时总带 `manifest_id`，正常路径不触发；但手动编辑 `parent_sessions.json` 或旧数据迁移可导致绕过。  
+**建议**：改为 `if parent.get("manifest_id") != item.get("manifest_id"): continue`（若均 None 则视为无 manifest 约束，仍可接受；但若 entry 有 manifest_id 而 parent 无则应拒绝）。
+
+**F-2 — controller `recompute` 的 per-parent capacity 与 consumer `select_tasks` 的 parent_sessions 读取无统一锁**
+
+两次读操作之间无持锁保护；但两路竞态均 fail-closed（新 parent 被跳过等下次 wake；inactive parent 在 parent_sessions 层已被先检测），不产生 fail-open 场景。  
+**建议**：可接受现状，或在 `run_once` 的 `.consumer.lock` 持有期间一次性读入两个数据源。
+
+---
+
+**结论：父 manifest 门禁贯通良好，旧 manifest / 无父身份 / mismatch 全部 fail-closed。存在 2 项低风险弱化点（F-1 条件性豁口，F-2 非关键竞态），不构成当前安全威胁，可在下一迭代加固。**

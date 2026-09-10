@@ -1,0 +1,74 @@
+审查与设计已完成，全程只读、未创建任何子代理。以下为结论。
+
+## 一、现状审查（E:\VPS\reports\owner-ceremony-package-20260813）
+
+包结构：MANIFEST.json 列出 9 个工件（README、机器清单、更正说明、O1–O5 五个阶段 JSON、验证脚本），另有 MANIFEST.json 自身与 verification.log 未列入。
+
+1. **原始字节哈希全部一致**：MANIFEST.json 中 9 条 `sha256` 与实际磁盘文件逐一比对全部 OK，`bytes` 也吻合。
+2. **无私钥/签名/晚绑定具体值**：排除字段（owner_signature、signature、delegation_id、registered_at 等）全部为 `null` 或 `<PLACEHOLDER>` 占位符。唯一命中"PRIVATE KEY"字样的地方是 verify_package.py 里正则的源码文本（`PRIVATE KEY-----`），属于检测模式本身，不是密钥材料；且该脚本只对 .json 工件做内容扫描。
+3. **状态**：包级（MANIFEST 与机器清单）均为 `DRAFT_UNSIGNED_UNEXECUTED`；五个阶段工件为 `UNSIGNED_UNEXECUTED`（O1–O3）、`UNSIGNED_UNEXECUTED_DORMANT`（O4）、`UNSIGNED`（O5）。按现有 verifier 的"家族前缀"规则全部通过；若要求每个文件严格等于 `DRAFT_UNSIGNED_UNEXECUTED` 原文，则 O4/O5 不符，需决策者确认口径。
+4. **编码**：所有工件均为 UTF-8 无 BOM、LF 换行、JSON 无重复键。README/CORRECTIONS 之前的乱码只是控制台解码问题。**例外：verification.log 是 UTF-16LE+BOM**（PowerShell 重定向产物），内容仅 "VERIFY: PASS"。它是可再生输出且不在 manifest 内，不影响哈希，建议以后以 UTF-8 重生成或在规范中正式声明排除。
+5. verify_package.py 已具备哈希核对、违禁字段、状态、false-only 键四项检查，当前执行结果为 `VERIFY: PASS`。
+
+## 二、Canonical manifest/package SHA256 方法（设计）
+
+**目标属性**：跨平台确定（与 mtime、目录顺序、缩进、CRLF 无关）；排除字段晚绑定/签名后哈希不变（先签草稿哈希、后填值）；草稿状态门禁；具体值出现时 fail-closed。
+
+**1. 范围**
+- 纳入：MANIFEST.json 列出的 9 个工件。
+- 排除：MANIFEST.json 自身（避免自指）与 verification.log（可再生输出）。
+- 包哈希 = 对 canonical manifest 的 SHA256，即哈希根是 manifest 本身，不是任何文件字节。
+
+**2. 逐工件 canonical 化**
+- JSON 工件：解析 → 删除排除字段（见下）→ 递归按键名字典序排序 → 紧凑序列化（与 RFC 8785 JCS 等价；本数据集无浮点、无代理对/U+2028 等边界字符，直接用 sorted-key compact JSON 即可）→ UTF-8 无 BOM、无尾随换行。
+- 非 JSON（.md/.py）：UTF-8 无 BOM、CRLF→LF，其余字节原样。不剥离空白（代码/文档的空白是语义的一部分）。
+
+**3. 排除字段 schema（DRAFT_SCHEMA_V1）**
+- 签名/执行值：`owner_signature`、`signature`、`signable_bytes_sha256`、`delegation_id`、`registered_at`、`applied_at`、`daemon_ledger_sequence`；
+- owner 晚绑定值：`owner_identity`、`owner_session_id`、`issued_at_verified_external_time`、`expires_at`、`parent_delegation_nonce`、`wave1_wall_time_expiry`、`wall_time_expiry_seconds`；
+- 密钥材料兜底：`private_key`、`secret_key`、`private_key_pem`、`seed_phrase`、`mnemonic`、`passphrase`（本包均不存在）。
+- 规则：排除字段值为 `null` 或 `<PLACEHOLDER>` 时删除；占位符属于 schema 标记、不是晚绑定值，保留含义由字段名表达；**出现具体值必须整体失败**，不能静默丢弃（防"藏值"）。
+- 例外：键名为 `bindings`、且值为全字符串的描述性词汇表原样保留（机器清单中 `bindings.owner_signature = "owner only; agent and daemon cannot create it"` 是文字说明而非签名值，与现有 verifier 的 `.bindings.` 例外一致；建议两处统一成"全字符串 glossary"规则，比路径前缀更严格）。
+
+**4. Canonical manifest 结构**
+```json
+{
+  "canonical_id": "P5_OWNER_CEREMONY_PACKAGE_MANIFEST_V1",
+  "manifest_schema_version": "CANONICAL_V1",
+  "ceremony": "ONE_HUMAN_CEREMONY",
+  "status": "DRAFT_UNSIGNED_UNEXECUTED",
+  "hash_policy": {
+    "encoding": "UTF-8_NO_BOM", "line_endings": "LF",
+    "json": "RFC8785_JCS_EQUIVALENT_SORTED_KEYS",
+    "exclusions": {"key_material": true, "signatures": true, "owner_late_bound_values": true},
+    "excluded_fields_schema": "DRAFT_SCHEMA_V1"
+  },
+  "files": [{"relative_path": "...", "canonical_sha256": "...", "bytes": 123}]
+}
+```
+`files` 按 `relative_path` 字典序排序。建议下一版 manifest 同时保留现有 raw `sha256` 列作篡改检测（任何字节改动都会暴露），`canonical_sha256` 作语义绑定。
+
+**5. 包哈希与签名绑定**
+`package_sha256 = SHA256(上述 canonical manifest 的 UTF-8 字节)`。签名阶段签名的是这个包哈希（连同 canonical_id、status），而不是可变文件；此后晚绑定值/签名字段被填入时哈希不变，草稿承诺依然可验。任何签名/执行事件发生后草稿哈希失效，必须换 canonical_id 与状态，不得复用。
+
+**6. 状态门禁**：哈希仅在 `status == "DRAFT_UNSIGNED_UNEXECUTED"` 时有效（manifest 与机器清单双重声明）；verifier 应同时校验排除字段具体值缺失与状态前缀家族，两个条件缺一即 FAIL。
+
+## 三、试算结果（按上述规则）
+
+| relative_path | canonical_sha256 | bytes |
+|---|---|---|
+| CORRECTIONS_V1.md | ef1623669e06ace6ed14bf1bf19bc9cea6abd022e05303c761bad7990c53de56 | 2539 |
+| O1_admin_cutover/O1_ADMIN_CUTOVER_REQUEST_V1.json | 383e50383670ab330fb8e3ab1a6597ac8be4673479be676ce6a11c222c645879 | 1362 |
+| O2_direct_C/O2_DIRECT_C_APPLY_REQUEST_V1.json | 0423586a0f69069368c38d1ad79b4fbae05cd6e82016ecfadb006823a7d65893 | 792 |
+| O3_direct_D/O3_DIRECT_D_APPLY_REQUEST_V1.json | 2f88fbc82891f976c92f569a446113c08935d8f96cccbe0d78d6bfa5c5446cf4 | 984 |
+| O4_materialize_root/O4_ROOT_MATERIALIZATION_PAYLOAD_V1.json | 5db1f7108b9403f52aa47c3c1baa4cbd615255ccd057ba5a2a1d1db4a27fbb53 | 1605 |
+| O5_owner_sign/O5_OWNER_SIGN_REQUEST_V1.json | 912532b4b3d0b94e25eeb7710fbb66a28b6f5a417e4f2d0ee7444c6a600467d5 | 812 |
+| P5_OWNER_CEREMONY_O1_O5_MACHINE_LIST_V1.json | 19aa2c9425d9f9a1a91d97e2759a5a2173dca475011ee0226803ea3396be4e48 | 2646 |
+| README.md | cdf8a363d93ae4a3af0260279010e8bb5017346578d62953ce2a3f61b0afdf14 | 2766 |
+| verify_package.py | c907375d22dd72f6f27378f1d16dd5770269a7c8fea7309e3b9200bbe032111f | 4625 |
+
+**package_sha256 = `f64d49b52f9f9d753ffa01d4029c04f4c797540e87bd5ce25d510cc4ef7d1ff1`**（当前树）。对比参考：现有 MANIFEST.json 原始字节哈希为 ed1a1238…，二者不可混用。
+
+稳定性已验证：向 O4/O5 填入 owner_signature、delegation_id、wall_time_expiry_seconds 等具体值后，canonical 哈希不变（true/true）——这正是"晚绑定不破坏草稿哈希"的设计意图；同时 verifier 的 fail-closed 规则保证草稿状态下不允许出现这些具体值。
+
+**建议的后续落地**（本次未改任何文件）：把上述 canonical 化逻辑并入 verify_package.py（新增 canonical_sha256 与 package_sha256 校验），并将 verification.log 以 UTF-8 重生成；是否需要 O4/O5 状态字符串严格改为 `DRAFT_UNSIGNED_UNEXECUTED` 请由决策者定夺。

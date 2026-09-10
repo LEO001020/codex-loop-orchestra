@@ -1,0 +1,117 @@
+{
+  "description": "Codex LOOP compatibility hooks; production enforcement is managed by requirements.toml.",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "py -3 \"E:\\codex-LOOP\\codex-loop-s-f2\\hooks\\global_loop_mode.py\" --component context --event SessionStart",
+            "commandWindows": "py -3 \"E:\\codex-LOOP\\codex-loop-s-f2\\hooks\\global_loop_mode.py\" --component context --event SessionStart",
+            "timeout": 30,
+            "additionalContextLimit": 65536,
+            "statusMessage": "Loading active global LOOP discipline"
+          },
+          {
+            "type": "command",
+            "command": "py -3 \"E:\\codex-LOOP\\codex-loop-s-f2\\hooks\\global_loop_mode.py\" --component lifecycle --event SessionStart",
+            "commandWindows": "py -3 \"E:\\codex-LOOP\\codex-loop-s-f2\\hooks\\global_loop_mode.py\" --component lifecycle --event SessionStart",
+            "timeout": 30,
+            "statusMessage": "Reconciling active LOOP lifecycle records"
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "py -3 \"E:\\codex-LOOP\\codex-loop-s-f2\\hooks\\global_loop_mode.py\" --component context --event SubagentStart",
+            "commandWindows": "py -3 \"E:\\codex-LOOP\\codex-loop-s-f2\\hooks\\global_loop_mode.py\" --component context --event SubagentStart",
+            "timeout": 30,
+            "additionalContextLimit": 65536,
+            "statusMessage": "Routing child through active LOOP profile"
+          },
+          {
+            "type": "command",
+            "command": "py -3 \"E:\\codex-LOOP\\codex-loop-s-f2\\hooks\\global_loop_mode.py\" --component lifecycle --event SubagentStart",
+            "commandWindows": "py -3 \"E:\\codex-LOOP\\codex-loop-s-f2\\hooks\\global_loop_mode.py\" --component lifecycle --event SubagentStart",
+            "timeout": 30,
+            "statusMessage": "Recording active LOOP child start"
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "py -3 \"E:\\codex-LOOP\\codex-loop-s-f2\\hooks\\global_loop_mode.py\" --component lifecycle --event SubagentStop",
+            "commandWindows": "py -3 \"E:\\codex-LOOP\\codex-loop-s-f2\\hooks\\global_loop_mode.py\" --component lifecycle --event SubagentStop",
+            "timeout": 30,
+            "statusMessage": "Recording active LOOP child stop"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "^(Bash|shell|shell_command|bash|local_shell|exec_command|functions\\.exec|run_terminal|terminal|web_search|search|grep|glob|mcp__|read_mcp_resource|list_mcp|read_many_files|read_file|list_files|pytest|test)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "py -3 \"E:\\codex-LOOP\\codex-loop-s-f2\\hooks\\global_loop_mode.py\" --component gate",
+            "commandWindows": "py -3 \"E:\\codex-LOOP\\codex-loop-s-f2\\hooks\\global_loop_mode.py\" --component gate",
+            "timeout": 30,
+            "statusMessage": "Applying active global LOOP Sol gate"
+          }
+        ]
+      },
+      {
+        "matcher": "^(Agent|spawnAgent|closeAgent)$|spawn_agent|close_agent|create_thread|fork_thread",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "py -3 \"E:\\codex-LOOP\\codex-loop-s-f2\\hooks\\global_loop_mode.py\" --component leaf-gate",
+            "commandWindows": "py -3 \"E:\\codex-LOOP\\codex-loop-s-f2\\hooks\\global_loop_mode.py\" --component leaf-gate",
+            "timeout": 10,
+            "statusMessage": "Preventing recursive active LOOP births"
+          },
+          {
+            "type": "command",
+            "command": "py -3 \"E:\\codex-LOOP\\codex-loop-s-f2\\hooks\\global_loop_mode.py\" --component spawn-gate",
+            "commandWindows": "py -3 \"E:\\codex-LOOP\\codex-loop-s-f2\\hooks\\global_loop_mode.py\" --component spawn-gate",
+            "timeout": 10,
+            "statusMessage": "Validating active LOOP root birth arguments"
+          },
+          {
+            "type": "command",
+            "command": "py -3 \"E:\\codex-LOOP\\codex-loop-s-f2\\hooks\\global_loop_mode.py\" --component lifecycle --event PreToolUse",
+            "commandWindows": "py -3 \"E:\\codex-LOOP\\codex-loop-s-f2\\hooks\\global_loop_mode.py\" --component lifecycle --event PreToolUse",
+            "timeout": 10,
+            "statusMessage": "Recording active LOOP spawn pending"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "py -3 \"E:\\codex-LOOP\\codex-loop-s-f2\\hooks\\global_loop_mode.py\" --component lifecycle --event Stop",
+            "commandWindows": "py -3 \"E:\\codex-LOOP\\codex-loop-s-f2\\hooks\\global_loop_mode.py\" --component lifecycle --event Stop",
+            "timeout": 30,
+            "statusMessage": "Closing active global LOOP lifecycle records"
+          }
+        ]
+      }
+    ]
+  }
+}

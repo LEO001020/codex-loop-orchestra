@@ -1,0 +1,74 @@
+# AmendmentApplied 状态机：单行不足，需补事件表
+
+## 结论
+
+**不够。** `amendment_registrations` 单行（无论 7 列 schema v2，还是当前 repair-stage 代码里硬编码 `state='APPLIED'` 的 12 列 INSERT）只是"一次性登记即终态"的记录，**不是** PROPOSED→PRECONDITIONS_PASS→HUMAN_OWNER_SIGNED→APPLIED 状态机：无中间态、无机前条件证据、无独立 HUMAN_OWNER_SIGNED/APPLIED 事件、无账本序/事件哈希链。当前修复波次把"注册"与"APPLIED"压缩成一次 INSERT，直接违反 canonical 条款。
+
+## 证据（当前时点 12:54，文件正被并行修改）
+
+| 事实 | 位置 |
+|---|---|
+| v2 schema 无 state 列，`amendment_id IN ('C','A','B')`、ordinal 1..3，且 no_update/no_delete 触发器禁止演进 | [P5_STATISTICAL_EXECUTION_LAYER_SCHEMA_MIGRATION_V1.sql](E:/VPS/pc7_stage/P5_STATISTICAL_EXECUTION_LAYER_SCHEMA_MIGRATION_V1.sql:78) |
+| 委派路径（A/B）一次 INSERT 直接写 `state='APPLIED'`，无 PRECONDITIONS_PASS、无 HUMAN_OWNER_SIGNED 事件 | [authority_store.py](E:/VPS/direct_repair_stage/authority_store.py:163) |
+| 直接路径（C/D）同样一次 INSERT 落 `APPLIED`（仅查 owner uid + session 分离 + hash 格式） | [authority_store.py](E:/VPS/direct_repair_stage/authority_store.py:184) |
+| `register_delegation` 门禁把"行存在且 state='APPLIED'"当作"C/D 已被 owner 直接 APPLIED" | [authority_store.py](E:/VPS/direct_repair_stage/authority_store.py:102) |
+| proposal 有完整 FSM 与事件表，amendment 无任何对应物 | [authority_runtime.py](E:/VPS/direct_repair_stage/authority_runtime.py:17)、[authority_store.py](E:/VPS/direct_repair_stage/authority_store.py:129) |
+| 委派 redeem 会产出 HUMAN_OWNER_SIGNED 事件（`parent_owner_signature_hash`/`preconditions_event_id`/`redemption_event_id`），但 `register_amendment` 从不走 redeem | [conditional_delegation.py](E:/VPS/direct_repair_stage/conditional_delegation.py:163)、[conditional_delegation.py](E:/VPS/direct_repair_stage/conditional_delegation.py:165) |
+| daemon 仅暴露 `amendment-register`，无 amendment 的 preconditions/sign/apply 命令 | [researchctld.py](E:/VPS/direct_repair_stage/app_v2/p5_infra/researchctld.py:85)、[researchctl.py](E:/VPS/direct_repair_stage/app_v2/p5_infra/researchctl.py:102) |
+| 波次内的 v3 迁移草稿重建了 C/D/A/B 行，但**没有 state 列也没有 amendment 事件表**——与代码 12 列 INSERT 直接冲突（STRICT 会报 `no column named state`） | [migration.sql](E:/VPS/reports/direct-repair-migration-draft/migration.sql:118) |
+
+## Canonical 条款对照
+
+canonical 文本：`AMENDMENT_C_exact_text.md`（sha256 `5b1d8116…`，远端 `/data/k3/artifacts/p5_empirical_foundation_v1/amendment_packets/`；本地经 compat 记录引用，[build_final_artifacts.py](E:/VPS/pc7_stage/build_final_artifacts.py:25)）：
+
+- **line 7**：`PROPOSED -> PRECONDITIONS_PASS -> HUMAN_OWNER_SIGNED -> APPLIED; no agent self-grant; session separation`。单行硬编码 APPLIED 跳过了全部中间态，且委派路径没有"赎回预签凭证才产出 HUMAN_OWNER_SIGNED"这一事件语义。
+- **line 9**：machine preconditions 必须验证 artifacts/evaluator/amendments/data，**human sign-off 不能替代**。单行里没有任何机检证据字段（matrix/verdict hash），直接路径只验 uid 与 session，等于用 owner 动作替代了机器前件。
+- 实施 handoff：无跳过迁移、无追溯签名、agent 不得自授（credential 层强制）；daemon 权威时间 + 追加账本序 + 不可变 session 分离。单行只有一个 `daemon_recorded_at`、无全局唯一账本序、无事件哈希，三者都无法证明。
+- 配套文档（signable packets / P1 precondition）：每个 amendment 独立处于 "state PROPOSED prepared-not-signed"，C 先 APPLIED、A 次之、B 最后；"C/A/B PROPOSED not APPLIED；owner authority PENDING"。即**每个 amendment 自身有生命周期**，行存在≠APPLIED。
+
+## 最小建模方案（schema + runtime）
+
+**原则**：`amendment_registrations` 保留为不可变"注册/身份"行（C→D→A→B 顺序、hash、mode 不变），FSM 用一张追加事件表承载——复用已审计的 `authority_proposals`+`authority_transitions` 模式，不发明新机制。
+
+```sql
+-- v3 增量：amendment FSM 事件表（append-only）
+CREATE TABLE amendment_transitions (
+  transition_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  amendment_id TEXT NOT NULL REFERENCES amendment_registrations(amendment_id),
+  from_state TEXT NOT NULL CHECK(from_state IN ('NONE','PROPOSED','PRECONDITIONS_PASS','HUMAN_OWNER_SIGNED')),
+  to_state TEXT NOT NULL CHECK(to_state IN ('PROPOSED','PRECONDITIONS_PASS','HUMAN_OWNER_SIGNED','APPLIED')),
+  daemon_recorded_at TEXT NOT NULL,
+  daemon_ledger_sequence INTEGER NOT NULL UNIQUE,
+  immutable_session_id TEXT NOT NULL,
+  authenticated_peer_uid INTEGER NOT NULL,
+  precondition_matrix_sha256 TEXT,   -- PRECONDITIONS_PASS 行必填（line 9 机检证据，逐 amendment pin）
+  delegation_id TEXT,                -- 委派模式 HUMAN_OWNER_SIGNED 必填
+  redemption_event_id TEXT,          -- 指向 DelegationVerifier.redeem() 事件
+  event_sha256 TEXT NOT NULL UNIQUE CHECK(length(event_sha256)=64),
+  UNIQUE(amendment_id, daemon_ledger_sequence)
+) STRICT;
+
+CREATE TRIGGER amendment_transition_order BEFORE INSERT ON amendment_transitions
+BEGIN
+  SELECT CASE
+    WHEN NEW.to_state='PROPOSED' AND NEW.from_state!='NONE' THEN RAISE(ABORT,'illegal amendment transition')
+    WHEN NEW.to_state='PRECONDITIONS_PASS' AND NEW.from_state!='PROPOSED' THEN RAISE(ABORT,'illegal amendment transition')
+    WHEN NEW.to_state='HUMAN_OWNER_SIGNED' AND NEW.from_state!='PRECONDITIONS_PASS' THEN RAISE(ABORT,'illegal amendment transition')
+    WHEN NEW.to_state='APPLIED' AND NEW.from_state!='HUMAN_OWNER_SIGNED' THEN RAISE(ABORT,'illegal amendment transition')
+  END;
+END;
+-- + no_update/no_delete 触发器；建议补 previous_event_sha256 链式列（可选，沿用 pc7-fsm 报告 C2）
+```
+
+关键取舍：不要"单行加 state 列"方案——append-only 触发器禁止 UPDATE，要表达 4 个状态就得塞 3~4 组（时间戳/session/peer）列，且机检证据仍需额外表；事件表是最小诚实模型，`当前状态 = SELECT to_state FROM amendment_transitions WHERE amendment_id=? ORDER BY transition_id DESC LIMIT 1`。
+
+**runtime 最小改动**：
+
+1. `register_amendment_direct`（C/D）拆成四步事件：`amendment-propose`（记 PROPOSED + producer session）→ `amendment-preconditions-pass`（携带逐 amendment pin 的 `precondition_matrix_sha256`，机检通过才写）→ `amendment-sign`（owner uid + session 分离，写 HUMAN_OWNER_SIGNED）→ `amendment-apply`（写 APPLIED）。不再一次 INSERT 落 `APPLIED`。
+2. 委派路径 `register_amendment`（A/B）在 C/D APPLIED 后：写 PROPOSED → PRECONDITIONS_PASS → 调 `DelegationVerifier.redeem()` 产出 HUMAN_OWNER_SIGNED（把 `delegation_id`/`redemption_event_id`/`parent_owner_signature_hash` 写入事件行，对齐 proposal redeem 的 [L129-131](E:/VPS/direct_repair_stage/authority_store.py:129)）→ 独立 APPLIED 步骤。删掉 `state='APPLIED'` 硬编码。
+3. `register_delegation` 门禁改为按事件断言：每个 C/D 存在 `to_state='APPLIED'` 的事件且其 PRECONDITIONS_PASS 行有 matrix 证据、APPLIED 行 session/peer 合法（与同波次 RootAfterD 门禁包互补，杜绝只查 amendment_id 字符串）。
+4. daemon/CLI：`researchctld` 增加 `amendment-transition` 派发，`researchctl` 增加对应子命令与 `--amendment-id` choices 补 `D`（当前 [researchctl.py](E:/VPS/direct_repair_stage/app_v2/p5_infra/researchctl.py:104) 只有 C/A/B）。
+
+**迁移成本为零**：生产 8 张 authority 表当前 0 行（authority-db-boundary-audit），无需回填；只需把 v3 草稿与代码对齐（草稿补 `state` 列或删代码的 `state` 引用、补本事件表），再走 staging dry-run。
+
+**待办收敛提醒**：当前 12:53 版代码（`state` 列、12 列 INSERT）与 `reports/direct-repair-migration-draft/migration.sql`（无 state 列）已不一致，且二者都缺 amendment 事件表；本包期间 direct_repair_stage 三文件持续被并行修改，合并时需以本报告时点的最新版为基线做一次快照对齐。

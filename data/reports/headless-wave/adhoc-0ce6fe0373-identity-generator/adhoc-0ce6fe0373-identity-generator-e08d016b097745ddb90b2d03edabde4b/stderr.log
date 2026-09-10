@@ -1,0 +1,29 @@
+Reading additional input from stdin...
+2026-08-14T07:41:21.745381Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T07:41:27.860771Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T07:41:46.054274Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T07:42:00.838653Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 3.5 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 75
++ ...  -Path "E:\VPS" -Recurse -Depth 3 | Select-Object FullName | head -80
++                                                                  ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T07:42:30.872696Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T07:42:41.176326Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T07:43:07.456927Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T07:43:27.272900Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T07:43:41.713895Z ERROR codex_core::tools::router: error=unsupported call: glob

@@ -1,0 +1,1 @@
+确认：`harness/headless_wave.py` 的 `build_commands` 默认（仅当 manifest 任务未设 `enable_apps: true`）向 `codex exec` 追加 `features.apps/plugins/recommended_plugins/remote_plugin=false` 四个开关，关闭与源码审计无关的 Apps/plugin 远程平面；同时 `resolve_role_pin(role, …)` 注入的 `-m <model> -c model_reasoning_effort=…`（verifier/reviewer → K3 家族模型）在开关之前独立拼接，互不影响，`--json`、`-o` 及普通文件工具均保留——未修改任何文件。

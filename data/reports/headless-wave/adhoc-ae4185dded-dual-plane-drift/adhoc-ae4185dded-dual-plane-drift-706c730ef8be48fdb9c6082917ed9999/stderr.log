@@ -1,0 +1,36 @@
+Reading additional input from stdin...
+2026-08-12T11:35:52.778982Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-12T11:35:54.651066Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T11:36:06.770659Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T11:39:24.178176Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-12T11:39:26.363130Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 193ms)... turn_id=019ff5c1-e522-7272-a8c7-29ef120d8625 retries=1 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502, url: http://127.0.0.1:10100/v1/responses
+2026-08-12T11:39:32.138022Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T11:39:33.421097Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 414ms)... turn_id=019ff5c1-e522-7272-a8c7-29ef120d8625 retries=2 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502, url: http://127.0.0.1:10100/v1/responses
+2026-08-12T11:39:40.561845Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 799ms)... turn_id=019ff5c1-e522-7272-a8c7-29ef120d8625 retries=3 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502, url: http://127.0.0.1:10100/v1/responses
+2026-08-12T11:39:47.379076Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.448s)... turn_id=019ff5c1-e522-7272-a8c7-29ef120d8625 retries=4 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502, url: http://127.0.0.1:10100/v1/responses
+2026-08-12T11:39:55.039129Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 3.221s)... turn_id=019ff5c1-e522-7272-a8c7-29ef120d8625 retries=5 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502, url: http://127.0.0.1:10100/v1/responses
+2026-08-12T11:40:14.869058Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)

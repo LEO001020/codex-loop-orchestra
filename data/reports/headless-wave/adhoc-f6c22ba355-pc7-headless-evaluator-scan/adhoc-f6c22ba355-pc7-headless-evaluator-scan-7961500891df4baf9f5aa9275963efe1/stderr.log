@@ -1,0 +1,26 @@
+Reading additional input from stdin...
+2026-08-12T20:01:29.732915Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-12T20:01:30.640927Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:01:32.182529Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-12T20:02:30.307182Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 6.2 seconds
+Output:
+p5_track3 not found under E:\VPS\quant
+
+2026-08-12T20:18:44.478373Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 214ms)... turn_id=019ff790-ccf2-75c2-96c3-23df1685747e retries=1 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-12T20:23:56.636778Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 389ms)... turn_id=019ff790-ccf2-75c2-96c3-23df1685747e retries=2 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses

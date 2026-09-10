@@ -1,0 +1,62 @@
+Reading additional input from stdin...
+2026-08-14T20:18:43.060051Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T20:18:44.044148Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T20:18:46.691684Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-14T20:18:56.659279Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.6 seconds
+Output:
+所在位置 行:2 字符: 32
++ cd G:\VPS-K3\extracted\k3\repo && rg --files | head -80
++                                ~~
+标记“&&”不是此版本中的有效语句分隔符。
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : InvalidEndOfLine
+ 
+
+2026-08-14T20:19:03.918959Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T20:19:10.818021Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T20:19:17.946561Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T20:19:24.325533Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T20:19:30.123778Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T20:19:36.680247Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T20:19:47.642619Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T20:19:57.717942Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-14T20:20:06.081530Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T20:28:34.769586Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 196ms)... turn_id=01a001ed-4955-71a0-98c3-6a6341219547 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T20:29:21.655009Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 396ms)... turn_id=01a001ed-4955-71a0-98c3-6a6341219547 retries=2 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T20:30:34.894262Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 199ms)... turn_id=01a001ed-4955-71a0-98c3-6a6341219547 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T20:31:21.421407Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 422ms)... turn_id=01a001ed-4955-71a0-98c3-6a6341219547 retries=2 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T20:32:22.000526Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 217ms)... turn_id=01a001ed-4955-71a0-98c3-6a6341219547 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T20:33:08.655251Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 381ms)... turn_id=01a001ed-4955-71a0-98c3-6a6341219547 retries=2 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T20:33:56.490485Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 732ms)... turn_id=01a001ed-4955-71a0-98c3-6a6341219547 retries=3 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T20:34:45.276708Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.623s)... turn_id=01a001ed-4955-71a0-98c3-6a6341219547 retries=4 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T20:35:32.941326Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 3.147s)... turn_id=01a001ed-4955-71a0-98c3-6a6341219547 retries=5 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T20:36:34.552612Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 191ms)... turn_id=01a001ed-4955-71a0-98c3-6a6341219547 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T20:37:20.713933Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 397ms)... turn_id=01a001ed-4955-71a0-98c3-6a6341219547 retries=2 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T20:38:09.560573Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 739ms)... turn_id=01a001ed-4955-71a0-98c3-6a6341219547 retries=3 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T20:38:56.323700Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.476s)... turn_id=01a001ed-4955-71a0-98c3-6a6341219547 retries=4 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T20:39:45.281070Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 3.29s)... turn_id=01a001ed-4955-71a0-98c3-6a6341219547 retries=5 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-14T20:40:37.621683Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

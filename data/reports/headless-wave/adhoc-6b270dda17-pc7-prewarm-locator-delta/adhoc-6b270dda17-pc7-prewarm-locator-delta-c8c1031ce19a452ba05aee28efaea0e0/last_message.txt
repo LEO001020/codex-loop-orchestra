@@ -1,0 +1,22 @@
+任务名：Locator修复增量 —— 返回：**BLOCKED（SSH 传输不可达，无法完成远端快照与哈希重算）**
+
+## 已核实事实（全部为本次会话实测，非台账字段）
+
+1. 固定目标可达：`ssh k3@136.85.49.91`（端口 22）TCP 握手成功，服务端明确返回 `Permission denied (publickey)` —— 即链路通、但缺少固定身份私钥。
+2. 固定身份位于 WSL：全部既有探针脚本（如 [hub_probe.sh](E:/VPS/home-gpu/evidence/hub_probe.sh)、[p5_pc6_remote_final_gate.sh](E:/VPS/p5_pc6_remote_final_gate.sh)）均使用 `/home/codexloop/.ssh/k3_p5_ed25519` + `k3_p5_known_hosts`。
+3. 本会话（Windows CLI headless 平面，沙箱用户 `codexsandboxoffline`）无法访问该身份：
+   - `wsl -l -v`、`wsl --status`、`wsl -e ...` 全部返回 `Wsl/Service/CreateInstance E_ACCESSDENIED`（WslService 本身 Running）；
+   - `\\wsl.localhost\Ubuntu\home\codexloop\.ssh\k3_p5_ed25519` 返回 UnauthorizedAccess；
+   - 本地全盘检索（E:\VPS、E:\codex-LOOP 文本/脚本/归档清单）未发现 k3_p5 私钥或其 base64 形式（`b3BlbnNzaC1rZXktdjE`）——仅旧文档里有另一把不可用的 P4 钥匙；
+   - Windows ssh-agent 服务 Disabled，无现成身份可借。
+4. 同一平面的既往兄弟任务同样被卡：`adhoc-10a9f01c4d-pc7-h3-*`、`pc7-h3-handoff` 事件日志中 `wsl` 调用均报同一 E_ACCESSDENIED，handoff 代理最终未取得任何远端证据。
+
+## 因阻塞而未执行（不伪造、不采信台账）
+
+- 未取得 P5-ALPHA-ENTRY 的当前 work/version/location 实时快照（本地 `asof_alpha_entry_by_entity.json` 仅为 2026-08-12T10:40Z 旧快照，按任务约束不能当作当前状态）；
+- 未判定旧 `/home/user/workspace` locator 是否已被新 revision supersede（需要 live ledger 的 location/version 全量 + known_at 排序）；
+- 未对新 locator 真实文件重算 sha256（需要远端文件本体）。
+
+## 修复路由（最小动作）
+
+把本包改投 WSL headless 平面（以 codexloop 身份运行，key 随环境可用），或在 Windows CLI 平面注入固定 key/ssh-agent；否则该任务在 Windows CLI 沙箱内从机制上无法满足“只读固定SSH”。未做任何写入、未 spawn、未使用标签访问。

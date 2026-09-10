@@ -1,0 +1,27 @@
+所有核验已完成。以下是完整的比对结果：
+
+---
+
+## 终态核验结果：**PASS**
+
+### 核验维度汇总
+
+**① 物理文件计数**
+- 实际文件数：19（含 `10_MANIFEST.json` 和 `11_SHA256SUMS`）
+- manifest `file_count`：17（仅计 payload 文件，不含自身和 SHA256SUMS，一致）
+
+**② 11_SHA256SUMS 自哈希**
+- 期望：`f1da80801233be0f7f2080f2596c1cb512a0dd377b75cd58e55809c6d09c9e1f`
+- 实测：`f1da80801233be0f7f2080f2596c1cb512a0dd377b75cd58e55809c6d09c9e1f`
+- **✓ 完全匹配**
+
+**③ 10_MANIFEST.json 哈希**
+- 期望：`72bc5db8901d084806eb946479dd0cab4272a713c2e663aff47fbb88fd227de1`
+- 实测：`72bc5db8901d084806eb946479dd0cab4272a713c2e663aff47fbb88fd227de1`
+- **✓ 完全匹配**
+
+**④ 17条 payload 文件哈希（SHA256SUMS ↔ 磁盘实测 ↔ manifest）**
+
+全部17个 payload 文件的实测哈希与 `11_SHA256SUMS` 记录及 `10_MANIFEST.json` 中对应条目逐一吻合，无任何偏差。
+
+**结论：PASS** — fl16包19物理文件完整性、manifest17 payload、11_SHA256SUMS自哈希、manifest hash四项终态核验全部通过，包处于一致终态。

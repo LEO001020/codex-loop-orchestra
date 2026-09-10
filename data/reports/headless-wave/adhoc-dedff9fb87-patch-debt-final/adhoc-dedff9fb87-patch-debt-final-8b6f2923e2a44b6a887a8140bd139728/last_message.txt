@@ -1,0 +1,15 @@
+审计完成，整合证据。以下按参考链给出结论（≤900 字）。
+
+---
+
+**REDO** — 4 项
+
+1. **watchdog 双实现，生产共存** — `statemachine.py:283` 与 `statemachine_v2.py:511` 各有一份 watchdog/timeout 逻辑。生产链：installed hooks → `sol_tool_gate_router.py` 读 `routing.mode`；当前 `orchestration_policy_v2.toml` 为 `cold_start` → README 必经命令 `statemachine.py reconcile` 走 v1 主函数（`:417-422`）执行 v1 watchdog；切到 `layered` 则 `:389` 整表回车到 v2。回滚模式下补丁 never 激活，属设计内，但两份在产代码需收敛。
+
+2. **硬编码 K3/GLM 仍在产** — `dispatch.py:45` `RELEASE_REVIEW_MODEL="weiwu-k3/kimi-k3"`、`:604` 按字面量判 model；`hooks/sol_tool_gate.py:47-50`、`metering/model_token_share.py:38-41` 硬编码 GLM/V4/K3 字面量。生产链：`dispatch_v2.py:515` fallback `import dispatch as dispatch_v1` 调 `dispatch_single`；`l2_consumer.py:615`、`duty_route.py:17` 直接 import v1 dispatch；v1 gate 是 cold_start 强制路径。均为活引用，非死文件。
+
+3. **旧 Fable 入口仍被直接调用** — v1 `dispatch.py`、`statemachine.py`、`trigger_eval.py`、`lifecycle_supervisor.py` 未经 v2 包装即被生产引用：v1 gate 强制（router `cold_start` 分支）、l2_consumer/duty_route 直 import、`headless_wave.py:34/281` 与 `k3-dispatch` 直连 `lifecycle_supervisor.py`。v1 `statemachine.py reconcile`（含 H-02 watchdog）在 cold_start 下就是生产路径。
+
+4. **模型真值源 ≥4 处且可分歧** — `orchestration_policy_v2.toml [models]`（v2 唯一权威）、`config/model_profiles.toml`（active v4f + k3-only 备用）、`agents/*.toml` 各自 pin、`config/roles.yaml`（v1）/dispatch.py 字面量。v2 有 `ModelPinError` agree 检查（dispatch_v2:161-204），但 v1 路径不经该校验，`model_profiles.toml` 与 policy 之间也没有一致性断言，改一处漏一处即静默偏移。
+
+已通过：controller/governor/router 无重复（单一 refill_controller_v2 / root_turn_governor / AgentRouter + gate router 委派）；无不可达补丁（v1 均活引用、solv2 均为回车目标）。建议收敛 watchdog 复用、清退 v1 字面量、给 model_profiles↔policy 加机械一致性检查。

@@ -1,0 +1,24 @@
+{
+  "acceptance": [
+    "说明控制口径与 UI 估算口径的差异",
+    "指出潜在误计路径"
+  ],
+  "authorized_paths": [
+    "harness/",
+    "tests/orchestration_v2/",
+    "data/refill/"
+  ],
+  "constraints": [
+    "read-only"
+  ],
+  "created_by": "parent_manifest_importer",
+  "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+  "goal": "只读复验 refill controller 对 stale native、headless 双 PID 创建时间代际和 initializing/running 的计数语义。不得修改文件。",
+  "manifest_id": "loop-recovery-audit-20260813",
+  "packet_id": "parent-a4abfe36a67065292657b318a522c55577aae37a7de425da",
+  "parent_enabled": true,
+  "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+  "role": "worker",
+  "sandbox": "read-only",
+  "task_name": "双平面真值口径复验"
+}

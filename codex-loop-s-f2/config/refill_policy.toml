@@ -1,0 +1,25 @@
+# Codex LOOP execution-plane safety policy — THE ONLY concurrency authority.
+# (P0-8.3 single-source-of-truth fix: VERSIONS.lock and config.toml.example
+# reference this file instead of copying its numbers; refill_state.json
+# records policy_version+mtime and recomputes on mismatch.)
+
+[meta]
+policy_version = "2026-08-11.v2"
+
+[concurrency]
+# LOOP total target 48; execution preferred 36; K3 preferred 12.
+target_total = 48
+v4_target = 36
+k3_target = 12
+v4_low_water = 27
+k3_low_water = 9
+# Reservations are borrowable: an empty K3 queue leaves K3 slots available
+# to V4; demand-backed K3 work reclaims them via the watermark logic.
+reservations_borrowable = true
+
+[spawn_throttle]
+spawn_interval_ms = 1000
+max_initializing = 8
+health_gate_every = 8
+failure_backoff_seconds = 30
+health_timeout_ms = 2000

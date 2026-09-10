@@ -1,0 +1,44 @@
+Reading additional input from stdin...
+2026-08-14T07:47:09.311857Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T07:47:10.277144Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T07:47:26.055869Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-14T07:47:40.698666Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T07:47:52.227322Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.2 seconds
+Output:
+dir : 第二个路径段不得为驱动器或 UNC 名称。
+参数名: path2
+所在位置 行:2 字符: 1
++ dir "E:\VPS\reports" /b
++ ~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (E:\VPS\reports:String) [Get-ChildItem]，ArgumentException
+    + FullyQualifiedErrorId : DirArgumentError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-14T07:48:05.205593Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T07:48:21.320180Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-14T07:48:32.170510Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T07:48:44.096126Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T07:48:55.682495Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T07:49:03.329591Z ERROR codex_core::tools::router: error=unsupported call: file_search
+2026-08-14T07:49:12.940984Z ERROR codex_core::tools::router: error=unsupported call: grep
+2026-08-14T07:49:40.928558Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T07:49:50.395280Z ERROR codex_core::tools::router: error=unsupported call: codebase_search
+2026-08-14T07:50:19.910127Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-14T07:56:05.976616Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

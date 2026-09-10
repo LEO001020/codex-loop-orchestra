@@ -1,0 +1,31 @@
+复验完成。以下为结论（全部为只读核查，未改任何文件）。
+
+## 结论
+
+控制口径与 UI 估算口径是两套独立语义，在正常"心跳新鲜+进程存活"时数值重合，但在 worker 死/监督者活、代际字段缺失、跨平面波、native 静默窗口和纯 estimated 场景下必然分叉。控制路径内部自洽（`dispatch.py:206-207` 的出生闸门复用同一 `RefillControllerV2.read_roster_counts()`），UI 仅为展示口径、无控制反馈。
+
+## 控制口径 vs UI 估算口径
+
+控制口径 = `harness/refill_controller_v2.py::read_roster_counts`（217-263）+ 出生闸门同源；UI 估算口径 = `E:\codex-LOOP\launchers\loop_monitor_server.py::snapshot`。
+
+| 维度 | 控制口径（refill_controller_v2） | UI 估算口径（8765 snapshot） |
+|---|---|---|
+| native stale | `NATIVE_RUNNING_TTL_SECONDS=1800`（70 行），超时静默剔除（236 行），无 stale 桶、无 rollout 概念 | 30s + 当前代非终态 rollout 证据（564-566 行），超时归 `stale_native` 显式展示（fail-visible） |
+| headless 存活 | 双 PID 创建时间代际：`supervisor_pid+supervisor_proc_start_ticks` 与 `os_pid+worker_proc_start_ticks` 都要与进程当前 creation token 相等，running 行两者都查（255-260 行） | 只看 `heartbeat_at/updated_at` 是否 ≤30s 新鲜（607-611 行），完全不查 PID/代际 |
+| initializing | native `pending_start` + exec `starting`（且 starting 行要求 supervisor 代际存活）；stale pending 由 hook 600s TTL 清理（`hooks/subagent_lifecycle.py:28,469-483`） | 同样两源，但 starting 行只看心跳新鲜；事件停止时残留 pending 在两条口径都永久占位 |
+| 平面范围 | 只读本平面单份 roster（`LoopPaths.data/lifecycle/*`） | 合并 WSL+Windows 两份（`merge_native_rosters:174` / `merge_exec_rosters:202`，按 packet 最新时间戳取代） |
+| deficit | 需求缺口：有 pending 才补、`min(pending, target−running)`、减去 initializing、容量封顶、按池 Hamilton 拆分，另有 `unfulfilled_demand` 保留全额债（310-315 行） | 容量缺口：`max(0, target−running)`（756 行），不封顶 pending、不减 initializing、不分池 |
+| estimated | 完全不读 rollout | rollout 兜底（当前 app-server 代、父会话 ≤600s 新鲜、非终态、波间隔 90s 后当前波）直接 `running+1, estimated+1`（650-665 行）并参与 deficit；仅有 `authoritative_running=running−estimated` 与 `freshness=ESTIMATED` 标注（713/721 行），deficit 不减 estimated |
+
+## 潜在误计路径
+
+1. **代际字段缺失导致控制/传输语义相反**：控制器 `_process_generation_alive(pid, None)` 恒 False → running 行永不计数（高估缺口、持续补生）；而 `headless_wave.process_alive(pid, None)` 对缺失 token 返回"进程在即存活"（headless_wave.py:142-143）→ 传输层判 `already_active`/拒绝重生。同一行两处结论相反，形成"控制器持续补生、传输层持续拒绝"的活锁式误计；若 supervisor 已死而 worker 存活且 token 缺失，则会重生 → 重复执行风险（338-345 行 stale_active_roster 判定依赖同一函数）。
+2. **worker 死、supervisor 活**：UI 在心跳新鲜窗口内计 running（supervisor 每秒心跳，lifecycle_supervisor.py:639-642），控制器经 worker 代际检查立即剔除；PID 复用且心跳仍新鲜时 UI 误计、控制器正确剔除。
+3. **native 静默窗口 [30s, 1800s]**：控制器把已死/静默 native 行计为 running（低估缺口最多 30 分钟）；反向路径是 `updated_at` 缺失仅 fallback `started_at`，长跑 agent 被控制器误剔（高估缺口）。
+4. **双平面合并遮蔽/盲区**：merge 按时间戳取新，某平面异常新时间戳可遮蔽另一平面真实 running 代；控制器只读本平面，另一平面运行中的波完全不可见 → 60 合计口径不一致，可能按本平面缺口继续补生。
+5. **estimated 冒充缺口清偿**：全 Desktop 估算时 UI 可显示 deficit=0 而控制器仍报需求缺口；"估计不冒充权威"只体现在标注，未体现在 deficit 数值。
+
+## 实测对照（同一份当前数据）
+
+- exec roster 141 jobs：15 行 running（心跳 1786567159±，已老化约 8h）→ UI 口径全判 `stale_headless`、有效 running=0；控制器按 PID 代际（进程已死）同样排除 → 当前数值一致为 0，但触发信号完全不同。
+- native roster 182 agents：154 行 running 全部超过 30s/1800s → UI 显示 stale_native=154，控制器静默剔除 154；`refill_state.json` 的 active=25（v4=22/k3=3）全部来自 exec 平面，与 UI 的"running"基准天然不同源。

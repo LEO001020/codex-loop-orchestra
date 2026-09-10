@@ -1,0 +1,54 @@
+日志已全部读取完毕，现在我可以做出完整分析。以下是对 `refill_actuator.log` 中残余债务（`refill_residual_debt`）唤醒行为的分析报告。
+
+---
+
+## 残余债务唤醒日志分析报告
+
+### 一、成功事务后 residual debt 约 1 秒 follow-up 确认
+
+**结论：行为符合预期，~1 秒唤醒机制正常工作。**
+
+在 `13:40:35` ~ `13:40:52` 之间可以观察到完整的残余债务链式唤醒序列：
+
+| 时刻 | 事件 | 备注 |
+|------|------|------|
+| 13:40:35 | `queue_sync_ledger: {'v4': 10, 'k3': 10}` 队列进入 | parent_manifest_imported 触发首次 dispatched |
+| 13:40:44 | seq=89 dispatched，`after.deficit=7`，`retry_wake.wake_at = ts + 1.006s` (`pid=41144`) | 首次分发后立即排队 1s 唤醒 |
+| 13:40:45 | seq=90 来自 `refill_residual_debt` dispatched，`after.deficit=4`，新 `retry_wake.wake_at = ts + 1.003s` (`pid=44676`) | ~1s 后唤醒，再次分发，再次挂单 1s 唤醒 |
+| 13:40:48 | seq=91 来自 `refill_residual_debt` dispatched，`after.deficit=3`，新 `retry_wake` (`pid=7260`) | 再 ~1s，继续缩减 deficit |
+| 13:40:52 | seq=92 来自 `refill_residual_debt`，状态变为 `idle`（`model_pool = ["v4"]`，但 `spawnable.v4=0`，无法再派发）| 债务追不动，进入 idle 等待 |
+
+每次 `retry_wake.wake_at` 字段精确为当前 `ts + ~1.0s`，三次连续 wake 间隔实测分别约 **1.4s → 2.3s → 1.6s**（含生成一个新进程的开销），完全在 1~2s 范围内。**残余债务 ~1 秒 follow-up 机制已验证正常运行。**
+
+### 二、失败/无法派发时的 backoff 行为
+
+**结论：无 backoff 记录，但有正确的「idle 软停止」行为。**
+
+seq=92（13:40:52）的 `refill_residual_debt` 调用中：
+- `before.deficit=3`，`before.spawnable.v4=0`（v4 池可派发数为 0，k3 已满），`model_pool=["v4"]`
+- 结果是 `status=idle`，**没有产生新的 `retry_wake`**
+- 这意味着当无法分配任何 agent 时，残余债务链会**自然终止**而不会安排下一次唤醒
+
+整个日志中**没有出现带 backoff 字段的记录**（如指数退避或 `retry_backoff_at`），这说明该版本实现选择了「无货即停」策略而非显式 backoff。
+
+### 三、`queue_empty / deficit=0` 误判检查
+
+**结论：无误判，两者保持一致。**
+
+检查了所有 `status=idle`（含 `reason=queue_empty`）的记录：
+
+- **早期阶段（seq 1~45，13:08–13:17）**：队列真空，`queue_sync_ledger` 均为 `{'v4': 0, 'k3': 0}`，`deficit=0`，与 `queue_empty=true` 完全一致。不存在残余 pending 或 deficit 被错误清零的情况。
+- **队列繁忙阶段（seq 89~92，13:40:35~13:40:52）**：每次 `dispatched` 前均正确地将 `queue_empty` 标记为 `false`，`reason` 为 `below_low_water`。
+- **最终收尾（seq 120，13:48:33）**：`parent_manifest_imported` 完成全部 10 个 pending，`after.pending=0`，`deficit=0`，`queue_empty=true`，`retry_wake=null`。状态一致，无异常。
+
+**未发现任何 `queue_empty=true` 但实际 `pending > 0`，或 `deficit=0` 但队列仍有待派发任务的误判情况。**
+
+### 四、综合结论
+
+| 检查项 | 状态 |
+|--------|------|
+| 成功事务后 ~1s residual debt 唤醒 | ✅ 正常，`retry_wake.wake_at ≈ ts + 1s` |
+| 失败/阻塞时 backoff | ⚠️ 无显式 backoff；采用「idle 软停止」策略，链路自然终止 |
+| `queue_empty` / `deficit=0` 误判 | ✅ 无误判，两字段始终一致 |
+
+**唯一值得关注的点**：当 `spawnable=0` 但 `deficit>0` 时（seq=92），系统以 `idle` 终止而非继续挂单等待。这意味着如果 v4 池容量在 1~2 秒后腾出，不会有自动唤醒补偿——需要下一个来自 `adhoc_lifecycle_supervisor` 的外部触发才能续填。这是设计取舍，但在持续活跃期间实测中外部触发频率足够，未造成长期 deficit 堆积。

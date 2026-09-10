@@ -1,0 +1,167 @@
+Reading additional input from stdin...
+2026-08-14T08:50:23.602924Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T08:50:33.580133Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T08:50:49.933296Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.7 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 21
++ rg --files E:\VPS | head -60
++                     ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T08:51:02.463675Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+E:\VPS\__pycache__\test_pc6_binance_materializer.cpython-314.pyc
+E:\VPS\__pycache__\pc6_binance_materializer.cpython-314.pyc
+E:\VPS\tmp_probe\hubsrc\quant\p5_infra\tests\test_queue_db.py
+E:\VPS\tmp_probe\hubsrc\quant\p5_infra\schema.sql
+E:\VPS\tmp_probe\hubsrc\quant\p5_infra\queue_db.py
+E:\VPS\tmp_probe\hubsrc\quant\p5_infra\hub_daemon.py
+E:\VPS\tmp_probe\hubsrc\quant\p5_infra\hub_cli.py
+E:\VPS\tmp_probe\help.sh
+E:\VPS\test_pc6_binance_materializer.py
+E:\VPS\build_direct_repair_release.py
+E:\VPS\build_terminalization_v2.py
+E:\VPS\block_auth.sh
+E:\VPS\build_handoff_v2.py
+E:\VPS\line22_veify.sh
+E:\VPS\line18_nig.sh
+E:\VPS\line16_chk.sh
+E:\VPS\k3-p5-startup-20260810T144519Z.sh
+E:\VPS\k3-p5-fastpath-startup-20260810.sh
+E:\VPS\p5_clear_filebrowser_orphan_remote.sh
+E:\VPS\p5_cleanup_cold_canary.sh
+E:\VPS\p5_capture_fastpath_pre_remote.sh
+E:\VPS\p5_capture_fastpath_post_remote.sh
+E:\VPS\p5_capture_fastpath_gcp_pre.sh
+E:\VPS\p5_boot_image_prepare_remote.sh
+E:\VPS\p5_boot_image_prepare_diag_remote.sh
+E:\VPS\headless-wave-v1.err.log
+E:\VPS\p5_boot_image_preflight.sh
+E:\VPS\finalize_handoff_remote.sh
+E:\VPS\p5_bootstrap_idempotency_remote.sh
+E:\VPS\p5_audit_readonly_check.sh
+E:\VPS\headless-wave-v1.out.log
+E:\VPS\p5_live_p0_remote.sh
+E:\VPS\p5_listener_diag_remote.sh
+E:\VPS\p5_install_research_sqlite_runtime_remote.sh
+E:\VPS\p5_install_fastpath_startup_remote.sh
+E:\VPS\p5_gcloud_image_help.sh
+E:\VPS\p5_finalize_hub_research_ready.py
+E:\VPS\p5_filebrowser_tunnel_supervisor.ps1
+E:\VPS\p5_filebrowser_diag_remote.sh
+E:\VPS\p5_fastpath_state_check.sh
+E:\VPS\p5_download_apsw_wheel.sh
+E:\VPS\p5_deploy_source_remote.sh
+E:\VPS\p5_deploy_home_e2e_cli_remote.sh
+E:\VPS\p5_deploy_home_e2e_cli.sh
+E:\VPS\p5_deadlock_exception_guest_preflight_remote.sh
+E:\VPS\p5_deadlock_exception_gcp_preflight.sh
+E:\VPS\p5_data_snapshot_resume_remote.sh
+E:\VPS\p5_pc6_remote_deploy_code.sh
+E:\VPS\p5_pc6_remote_create_materialization_worktree.sh
+E:\VPS\p5_pc6_remote_commit_final_artifacts.sh
+E:\VPS\p5_pc6_remote_code_inventory.sh
+E:\VPS\p5_pack_source.sh
+E:\VPS\p5_p0_diagnose_remote.sh
+E:\VPS\p5_observe_v4_terminal.sh
+E:\VPS\p5_manifest_diag_remote.sh
+E:\VPS\p5_pc6_remote_identity_gate.sh
+E:\VPS\p5_pc6_remote_final_gate.sh
+E:\VPS\p5_pc6_remote_duplicate_detail.sh
+E:\VPS\p5_pc6_remote_deploy_tests.sh
+E:\VPS\p5_pc6_remote_missing_normalization.sh
+E:\VPS\p5_pc6_remote_materialization_preflight.sh
+E:\VPS\p5_pc6_remote_permissions_and_help.sh
+E:\VPS\commit_untracked_schema_test.sh
+E:\VPS\commit_direct_repair_code.sh
+E:\VPS\p5_data_snapshot_prepare_remote.sh
+E:\VPS\p5_pc6_remote_normalization_failure.sh
+E:\VPS\create_direct_repair_worktree.sh
+E:\VPS\direct-repair-headless-wave-v1.json
+E:\VPS\p5_create_boot_image.sh
+E:\VPS\p5_cold_ssh_keys_k3.txt
+E:\VPS\p5_cold_ssh_keys.txt
+E:\VPS\p5_cold_set_k3_key.sh
+E:\VPS\p5_cold_runtime_remote.sh
+E:\VPS\p5_cold_observe.sh
+E:\VPS\p5_create_fastpath_template.sh
+E:\VPS\p5_create_current_data_snapshot.sh
+E:\VPS\p5_create_cold_canary.sh
+E:\VPS\p5_create_fastpath_template_v4_rest.sh
+E:\VPS\p5_create_fastpath_template_v3.sh
+E:\VPS\P5_CURSOR_FABLE_HANDOFF_PROMPT_V1.txt
+
+2026-08-14T08:51:30.277331Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1 seconds
+Output:
+
+E:\VPS\terminalization_v2_build\P5_AUTONOMOUS_ALPHA_LAUNCH_DELEGATION_FROZEN_TEMPLATE_V2.json
+E:\VPS\reports\结构测试总账-20260813\test_resource_policy_negative_apswfix.py
+E:\VPS\reports\dependency-identity-freeze-review-20260813\smoke_wsl_run2.json
+E:\VPS\reports\dependency-identity-freeze-review-20260813\smoke_wsl.json
+E:\VPS\reports\dependency-identity-freeze-review-20260813\smoke_win.json
+E:\VPS\reports\dependency-identity-freeze-review-20260813\README.md
+E:\VPS\reports\dependency-identity-freeze-review-20260813\manifest.schema.json
+E:\VPS\reports\dependency-identity-freeze-review-20260813\example_manifest.json
+E:\VPS\reports\dependency-identity-freeze-review-20260813\collect_identity.sh
+E:\VPS\reports\dependency-identity-freeze-review-20260813\collect_dist_identity.py
+E:\VPS\reports\codex-fl13-qa-isolated-20260814-0445\owner-admin-cutover-final-20260814-recovery-v1\ceremony\P5_ROOT_DEL
+EGATION_FROZEN_TEMPLATE_V3.json
+E:\VPS\reports\codex-fl14-qa-isolated-20260814-0450\owner-admin-cutover-final-20260814-recovery-v1\ceremony\P5_ROOT_DEL
+EGATION_FROZEN_TEMPLATE_V3.json
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\recovery-fixtures\verify_freeze.sh
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\recovery-fixtures\refreeze13.sh
+E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\recovery-fixtures\refreeze10.sh
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\O09_resource_policy.md
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\U19_resource_policy.md
+E:\VPS\reports\P5_FL18_ACTIVE20_REFILL2.json
+E:\VPS\reports\P5_FL18_ACTIVE20_REFILL1.json
+E:\VPS\reports\cursor-fable-takeover-20260813\evidence\U32_resource_policy_suite.md
+E:\VPS\reports\p5-fl18-final-readonly-probe-20260814.sh
+E:\VPS\reports\FreezePackage附件\report.md
+E:\VPS\reports\owner-admin-cutover-final-20260814-recovery-v1\ceremony\P5_ROOT_DELEGATION_FROZEN_TEMPLATE_V3.json
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\01_PRE_CUTOVER_READONLY_PREFLIGHT.sh
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\00_READ_ME_FIRST.md
+E:\VPS\reports\P5_FL18_BINDING_GATE_V1.json
+E:\VPS\reports\P5_FL18_BINDING_GATE_SONNET_RETRY_V1.json
+E:\VPS\reports\P5_FL18_ACTIVE20_WAVE1.json
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\03_AGENT_PRIVILEGE_CUTOVER.sh
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\02_ADMIN_RECOVERY_STAGE.sh
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\04_TERMINATE_AND_REBOOT_GATE.sh
+E:\VPS\reports\release-research-registration-review\probe11_freeze.sh
+E:\VPS\reports\owner-admin-cutover-final-20260813\ceremony\P5_ROOT_DELEGATION_FROZEN_TEMPLATE_V3.json
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tools\verify_tcb.py
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tools\verify_package.py
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tools\sanitize_authorized_keys.py
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tools\generate_root_template_v4.py
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tools\generate_proposals_v6.py
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tools\generate_package_identity.py
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18\tools\generate_ceremony_bundle.py
+
+
+
+2026-08-14T08:51:39.792032Z ERROR codex_core::tools::router: error=unsupported call: read
+2026-08-14T09:00:34.366095Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 184ms)... turn_id=019fff77-1b49-7e30-81f5-b31f7cf22729 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+2026-08-14T09:03:31.728919Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

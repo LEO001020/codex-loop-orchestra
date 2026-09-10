@@ -1,0 +1,65 @@
+Reading additional input from stdin...
+2026-08-14T09:18:46.398826Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T09:18:48.177151Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T09:19:36.013279Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.6 seconds
+Output:
+所在位置 行:2 字符: 63
++ ... "E:\VPS\reports\fl18-pollution-clean-crosscheck-workspace" && git sta ...
++                                                                ~~
+标记“&&”不是此版本中的有效语句分隔符。
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : InvalidEndOfLine
+ 
+
+2026-08-14T09:19:49.066003Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+fatal: not a git repository (or any of the parent directories): .git
+
+2026-08-14T09:20:49.660402Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+Get-Content : 找不到路径“E:\VPS\reports\fl18-pollution-clean-crosscheck-workspace\fl18-reviewer-pollution-quarantine-lib-0.b
+in”，因为该路径不存在。
+所在位置 行:2 字符: 1
++ Get-Content "E:\VPS\reports\fl18-pollution-clean-crosscheck-workspace ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (E:\VPS\reports\...ntine-lib-0.bin:String) [Get-Content], ItemNotFoundEx 
+   ception
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+
+2026-08-14T09:21:18.782919Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.7 seconds
+Output:
+
+
+    目录: E:\VPS\reports
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         2026/8/14     17:10              8 fl18-reviewer-pollution-quarantine-lib-0.bin                         
+
+
+
+2026-08-14T09:22:44.151888Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 201ms)... turn_id=019fff91-16e8-7a11-be0d-365e0f0360f3 retries=1 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游网络连接失败, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T09:22:52.095994Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 389ms)... turn_id=019fff91-16e8-7a11-be0d-365e0f0360f3 retries=2 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游网络连接失败, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T09:26:23.095369Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

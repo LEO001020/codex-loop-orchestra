@@ -1,0 +1,25 @@
+Reading additional input from stdin...
+2026-08-14T14:03:06.926995Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T14:03:08.680678Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T14:03:18.245395Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 184ms)... turn_id=01a00095-6994-7361-afee-a8ade874cdf4 retries=1 max_retries=5 sampling_error=unexpected status 503 Service Unavailable: Provider error 503: No available channel for model deepseek-v4-flash under group catpaw-openai (distributor) (request id: 202608141403181016101418268d9d6ypV5FrYG), url: http://127.0.0.1:10100/v1/responses
+2026-08-14T14:03:23.674524Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 364ms)... turn_id=01a00095-6994-7361-afee-a8ade874cdf4 retries=2 max_retries=5 sampling_error=unexpected status 503 Service Unavailable: Provider error 503: No available channel for model deepseek-v4-flash under group catpaw-openai (distributor) (request id: 202608141403235345511788268d9d65TKOQbCD), url: http://127.0.0.1:10100/v1/responses
+2026-08-14T14:03:29.203456Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 866ms)... turn_id=01a00095-6994-7361-afee-a8ade874cdf4 retries=3 max_retries=5 sampling_error=unexpected status 503 Service Unavailable: Provider error 503: No available channel for model deepseek-v4-flash under group catpaw-openai (distributor) (request id: 202608141403290633027618268d9d6G7pTcD7P), url: http://127.0.0.1:10100/v1/responses
+2026-08-14T14:03:35.901684Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.559s)... turn_id=01a00095-6994-7361-afee-a8ade874cdf4 retries=4 max_retries=5 sampling_error=unexpected status 503 Service Unavailable: Provider error 503: No available channel for model deepseek-v4-flash under group catpaw-openai (distributor) (request id: 202608141403357650238758268d9d6Y97NP98S), url: http://127.0.0.1:10100/v1/responses
+2026-08-14T14:03:42.561144Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 3.348s)... turn_id=01a00095-6994-7361-afee-a8ade874cdf4 retries=5 max_retries=5 sampling_error=unexpected status 503 Service Unavailable: Provider error 503: No available channel for model deepseek-v4-flash under group catpaw-openai (distributor) (request id: 202608141403424265202168268d9d6G7TCe8uF), url: http://127.0.0.1:10100/v1/responses
+2026-08-14T14:03:55.389913Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

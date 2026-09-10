@@ -1,0 +1,22 @@
+{
+  "acceptance": [
+    "区分两条路径",
+    "不得编辑"
+  ],
+  "authorized_paths": [
+    "harness/refill_consumer_v2.py"
+  ],
+  "constraints": [
+    "read-only"
+  ],
+  "created_by": "parent_manifest_importer",
+  "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+  "goal": "只读复核失败时仍使用provider backoff，成功残余不走30秒慢路径。",
+  "manifest_id": "p0-sustained-final-review-20260814",
+  "packet_id": "parent-8c7954e45222e13f11219fc7f90cf885d5a707a9912faf38",
+  "parent_enabled": true,
+  "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+  "role": "worker",
+  "sandbox": "read-only",
+  "task_name": "Backoff唤醒复核"
+}

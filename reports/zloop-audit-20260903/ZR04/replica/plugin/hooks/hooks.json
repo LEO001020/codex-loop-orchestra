@@ -1,0 +1,74 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "process",
+            "command": "${ZCODE_PLUGIN_ROOT}\\zloop-hook.cmd",
+            "args": [
+              "handle"
+            ],
+            "timeoutMs": 8000
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "process",
+            "command": "${ZCODE_PLUGIN_ROOT}\\zloop-hook.cmd",
+            "args": [
+              "handle"
+            ],
+            "timeoutMs": 8000
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "process",
+            "command": "${ZCODE_PLUGIN_ROOT}\\zloop-hook.cmd",
+            "args": [
+              "handle"
+            ],
+            "timeoutMs": 8000
+          }
+        ]
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "hooks": [
+          {
+            "type": "process",
+            "command": "${ZCODE_PLUGIN_ROOT}\\zloop-hook.cmd",
+            "args": [
+              "handle"
+            ],
+            "timeoutMs": 8000
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "process",
+            "command": "${ZCODE_PLUGIN_ROOT}\\zloop-hook.cmd",
+            "args": [
+              "handle"
+            ],
+            "timeoutMs": 8000
+          }
+        ]
+      }
+    ]
+  }
+}

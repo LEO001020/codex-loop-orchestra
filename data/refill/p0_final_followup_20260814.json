@@ -1,0 +1,8 @@
+{
+  "schema": "codex-loop-headless-audit/v1",
+  "tasks": [
+    {"task_id":"z01-live-mismatch-proof","task_name":"实时manifest错配证明","role":"worker","parent_session_id":"019feacd-184e-7472-9f11-ea364c22e595","manifest_id":"p0-final-followup-20260814","cwd":"E:/codex-LOOP/codex-loop-s-f2","prompt":"任务名：实时manifest错配证明。当前 active parent manifest 是 p0-parent-final-backlog-20260814，但 running 列表同时含 p0-readonly-audit-headless、p0-followup-headless、p0-visibility-followup。只读复算8765父running是否把这些不匹配manifest全部相加，并说明如何让真实active backlog的deficit被错误清零。"},
+    {"task_id":"z02-desktop-hidden-proof","task_name":"Desktop隐藏运行证明","role":"worker","parent_session_id":"019feacd-184e-7472-9f11-ea364c22e595","manifest_id":"p0-final-followup-20260814","cwd":"E:/codex-LOOP/codex-loop-s-f2","prompt":"任务名：Desktop隐藏运行证明。多agent运行时仍有未终态Desktop审计agent，但8765 desktop已降为0。只读提出可机械验证的证据顺序：agent runtime状态、rollout terminal、native roster、app-server epoch、semantic去重；判定UI漏算是否会让controller错误过填。"},
+    {"task_id":"z03-p0-release-ruling","task_name":"P0发布裁决反证","role":"worker","parent_session_id":"019feacd-184e-7472-9f11-ea364c22e595","manifest_id":"p0-final-followup-20260814","cwd":"E:/codex-LOOP/codex-loop-s-f2","prompt":"任务名：P0发布裁决反证。根据不变量做独立裁决：有active backlog且global capacity>0时应恢复到20；无backlog时可低于20；父running必须只由匹配active manifest的任务清债；UI需反映两平面。若manifest错配或Desktop漏算存在，判断能否宣布P0已正常修复。返回严格GO/NO-GO与理由。"}
+  ]
+}

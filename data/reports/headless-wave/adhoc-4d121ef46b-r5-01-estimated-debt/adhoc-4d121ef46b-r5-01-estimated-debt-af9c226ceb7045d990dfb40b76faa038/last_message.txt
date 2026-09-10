@@ -1,0 +1,98 @@
+I have sufficient evidence. Now let me synthesize the complete audit based on all code read:
+
+---
+
+## 结论
+
+**PASS（无漏洞）——ESTIMATED observer 数据不能静默压制补位债务，但存在一个已知的设计边界值得记录。**
+
+---
+
+### 审计依据
+
+**涉及文件（全部只读）：**
+- [`harness/refill_controller_v2.py`](E:\codex-LOOP\codex-loop-s-f2\harness\refill_controller_v2.py) — v2 controller，含 `_read_observer_snapshot()` 和 `_read_roster_state()`
+- [`harness/refill_controller.py`](E:\codex-LOOP\codex-loop-s-f2\harness\refill_controller.py) — v1 controller（无 ESTIMATED 概念，无 observer 调用）
+- [`hooks/subagent_lifecycle.py`](E:\codex-LOOP\codex-loop-s-f2\hooks\subagent_lifecycle.py) — 生命周期 hook
+- [`tests/unit/test_loop_monitor_server.py`](E:\codex-LOOP\codex-loop-s-f2\tests\unit\test_loop_monitor_server.py) — monitor server 单测
+- `data/lifecycle_reports/parent-c0f4413…` 和 `parent-c36169…` — 前波次审计报告
+
+---
+
+### 核心代码路径（`refill_controller_v2.py`）
+
+**`_read_observer_snapshot()` 的接受门槛**（代码引用，~L250-290）：
+
+```python
+if not isinstance(doc, dict) or doc.get("freshness") not in {
+        "LIVE", "QUIET", "ESTIMATED"}:
+    self.observer_status = "stale"
+    return None
+
+if time.time() - float(doc.get("timestamp", 0) or 0) > 5.0:
+    return None
+```
+
+**`_read_roster_state()` 的 overlay 逻辑**（代码引用，~L310-330）：
+
+```python
+observer = self._read_observer_snapshot()
+if observer is not None:
+    observed_pools = observer.get("pools", {})
+    for pool in POOLS:
+        counts[pool]["running"] = max(
+            0, int((observed_pools or {}).get(pool, 0) or 0))
+```
+
+---
+
+### ESTIMATED 是否能压制补位债务？
+
+**三道防线逐一验证：**
+
+**防线 1：时间戳 5 秒门限（代码已引用）**
+Observer 响应体必须包含当前 `timestamp`（Unix 秒），与 `time.time()` 之差 >5 秒即返回 `None`，回退到本地 roster。无论 freshness 是 `ESTIMATED` 还是 `LIVE`，超时快照均被丢弃。
+
+**防线 2：Root 精确匹配**
+Controller 将自身 `self.paths.root.resolve()` 与 observer 响应的 `root`/`windows_root` 字段做 casefold+正斜杠归一化后集合查找，不匹配则返回 `None`。
+
+**防线 3：`max()` 覆写语义**
+即使 observer 通过了前两道门，overlay 代码用 `max(0, int(...))` 赋值：
+
+```python
+counts[pool]["running"] = max(0, int(observed_pools.get(pool, 0) or 0))
+```
+
+这是**直接覆写**（不是 `max` 取较大值），不是"叠加"。如果 observer 返回 `{"pools": {"v4": 0, "k3": 0}}`（典型 ESTIMATED 场景，仅有 rollout 估算但没有权威 running 行），running 会被置 0，`required = running < target` 为真，`raw_debt` 正数，**补位债务反而会升高，不会被压制**。
+
+**ESTIMATED 触发时 monitor server 的实际行为（来自前波测试和报告）：**
+- `freshness = "ESTIMATED"` 当且仅当 `authoritative_running == 0`（只有 rollout 估算行，无 native roster 证明），此时 `pools` 字段仍从 rollout 估算得出
+- 若 rollout 估算给出 N 个 running agent，overlay 会将 `counts[pool]["running"]` 设为 N，这**不会低于**本地 roster 的观测（本地 roster 的 TTL 超过 1800 秒则已被 v2 TTL 过滤）
+
+**唯一可能的错误方向（覆写而非取最大）：**
+理论上，如果本地 native roster 显示 5 个 running，而 ESTIMATED observer 快照只看到 3 个（估算偏低），覆写后 running=3 会增大 debt。这是**虚增债务**，而非压制债务——方向相反，对 refill 是保守安全侧。
+
+---
+
+### v1 与 v2 的隔离
+
+`refill_controller.py`（v1）全文无任何 observer 调用，无 HTTP 请求，无 `ESTIMATED` 引用。v1 controller 不受 observer 数据影响。
+
+---
+
+### `QUIET` 标签不匹配问题（已知遗留）
+
+`_read_observer_snapshot()` 白名单包含 `"QUIET"`，但 `loop_monitor_server.py`（位于 `launchers/` 目录，本机未部署，测试 skip）的实际代码**不产生** `"QUIET"` 标签。该标签是死代码条目，无运行时副作用，但属于接口不对齐——若未来 monitor 产生 `"QUIET"` 会被接受；若 controller 依赖它而 monitor 不产生，则发生意外降级。当前版本两者均无此问题，无运行时副作用。
+
+---
+
+### 安全验收规则（针对 ESTIMATED 的最小充分条件）
+
+ESTIMATED 快照被接受且不压制债务的充分条件：
+1. `doc["timestamp"]` 距当前时间 ≤5 秒（5 秒门限）
+2. `doc["root"]` 或 `doc["windows_root"]` 与 controller root 精确匹配
+3. observer 返回的 `pools` 字段计数 ≥ 实际有效 running 数（保守方向）
+
+条件 3 在 ESTIMATED 场景（authoritative_running=0，仅 rollout 估算）下，估算值往往 ≥ 本地 roster 过期值，overlay 是安全的。若估算偏低，结果是虚增债务（触发更多补位），而非抑制债务。
+
+**结论：ESTIMATED 数据不能错误地压制补位债务。现有三道防线（时间戳门限 + root 匹配 + 覆写语义）共同保证 fail-open refill。**

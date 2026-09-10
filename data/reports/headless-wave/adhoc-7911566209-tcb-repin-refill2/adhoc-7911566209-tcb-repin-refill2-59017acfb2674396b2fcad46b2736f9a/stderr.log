@@ -1,0 +1,34 @@
+Reading additional input from stdin...
+2026-08-14T08:07:05.085469Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T08:07:11.782389Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T08:07:21.429817Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-14T08:07:21.429926Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T08:07:32.694799Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T08:07:46.062427Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+dir : 第二个路径段不得为驱动器或 UNC 名称。
+参数名: path2
+所在位置 行:2 字符: 1
++ dir E:\VPS /b
++ ~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (E:\VPS:String) [Get-ChildItem]，ArgumentException
+    + FullyQualifiedErrorId : DirArgumentError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-14T08:08:23.666786Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T08:09:15.600614Z ERROR codex_core::tools::router: error=unsupported call: codebase_search
+2026-08-14T08:09:52.840391Z ERROR codex_core::tools::router: error=unsupported call: grep
+2026-08-14T08:10:07.394369Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T08:10:17.571607Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T08:10:25.040783Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T08:10:46.954749Z ERROR codex_core::tools::router: error=unsupported call: grep
+2026-08-14T08:35:45.769514Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 204ms)... turn_id=019fff4f-74e5-7810-aef4-38a96ae0bd66 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()

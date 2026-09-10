@@ -1,0 +1,15 @@
+交叉核对确认 worker 发现的 P1 句柄截断在三个文件的 `proc_start_ticks`/`process_matches` 副本中均存在（仅 323-338 行的 Job 相关 API 声明了原型）。汇总如下。
+
+任务名：进程生命周期最终审计
+
+**总结论：REDO**（P0×3，集中于 WSL 父死子随缺失与冷兜底收割）
+
+正向（机制存在，证据充分）：
+Windows 侧 CREATE_SUSPENDED→AssignProcessToJobObject→ResumeThread 无竞态建 Job，`KILL_ON_JOB_CLOSE` 提供父死子随（[lifecycle_supervisor.py:397](E:/codex-LOOP/codex-loop-s-f2/harness/lifecycle_supervisor.py:397)）；WSL `start_new_session`+killpg（:231/:248）；PID start token（CreateTime FILETIME / /proc stat 字段 21）双进程持久化并用于恢复判定（:460-483）；roster 代次守卫 + cancel 按 run_id+attempt 匹配消费（:151/:206）；POSIX 真 TERM→KILL+grace 轮询（:539-554）；终态 finally 幂等 `BudgetController.reclaim`（:637）；wave 侧仅认 matching run_id 稳定 running 0.25s 计并发（[headless_wave.py:178](E:/codex-LOOP/codex-loop-s-f2/harness/headless_wave.py:178)）；ipybox reaper (pid,create_time) 校验 TERM→5s→KILL→2s、有界 3 趟（[ipybox_cleanup.py:78](E:/codex-LOOP/codex-loop-s-f2/harness/ipybox_cleanup.py:78)）。
+
+P0：
+1. WSL supervisor 硬死（SIGKILL/OOM）→无 PDEATHSIG，子树无人收割至下次 SessionStart；roster 滞留 `running` 虚占并发，`reclaim` 不执行、冷对账也不补 →预算/槽位双泄漏（[lifecycle_supervisor.py:231](E:/codex-LOOP/codex-loop-s-f2/harness/lifecycle_supervisor.py:231)）。
+2. 冷对账 killpg 失败静默吞异常仍置 `lost`+发 `exec_failed`+释放计数 →进程存活但重派重复执行（[subagent_lifecycle.py:690-707](E:/codex-LOOP/codex-loop-s-f2/hooks/subagent_lifecycle.py:690)）。
+3. leader PID 已退出被复用为新组首时 `killpg` 可能误杀无关进程组，检查与发信号间 TOCTOU（subagent_lifecycle.py:698-700）。
+
+P1（择要）：Windows `terminate==kill==TerminateJobObject` 无优雅期；`ctypes.windll` 未声明 argtypes/restype，HANDLE 截断可致 token 为 None 误判死（三文件同病）；代次推进用 wall-clock `>=`；KILL 后不验证组消亡即写终态；8-handshake 上限未按实际计数实现、健康失败无 30s 退避；ipybox reaper 不覆盖 gateway 先死的孤儿 kernel；SubagentStart 不触发 recompute、running 原生 agent 无 TTL。

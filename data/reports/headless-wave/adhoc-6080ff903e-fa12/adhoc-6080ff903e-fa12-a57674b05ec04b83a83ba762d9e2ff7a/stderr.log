@@ -1,0 +1,21 @@
+Reading additional input from stdin...
+2026-09-03T14:31:29.632869Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-09-03T14:33:08.949260Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+Set-Content: 
+Line |
+   2 |  Set-Content -Path "E:\codex-LOOP\codex-loop-s-f2\reports\zloop-full-a бн
+     |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Could not find a part of the path 'E:\codex-LOOP\codex-loop-s-f2\reports\zloop-full-audit-20260903\FA12\report.md'.
+
+2026-09-03T14:33:25.723713Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1 seconds
+Output:
+New-Item: 
+Line |
+   2 |  New-Item -ItemType Directory -Path "E:\codex-LOOP\codex-loop-s-f2\rep бн
+     |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Access to the path 'E:\codex-LOOP\codex-loop-s-f2\reports\zloop-full-audit-20260903\FA12' is denied.
+
+2026-09-03T14:34:16.905787Z  WARN codex_mcp::rmcp_client: failed to initialize MCP client during shutdown: MCP startup failed: handshaking with MCP server failed: connection closed: initialize response

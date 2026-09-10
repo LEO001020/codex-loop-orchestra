@@ -1,0 +1,787 @@
+Reading additional input from stdin...
+2026-08-15T06:08:19.915857Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-15T06:08:22.637853Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-15T06:08:38.481770Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.5 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 21
++ rg --files E:\VPS | head -60
++                     ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-15T06:08:47.126954Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1 seconds
+Output:
+E:\VPS\p5-source-20260810T153334Z.tar.gz.sha256
+E:\VPS\p5-source-20260810T153334Z.tar.gz
+E:\VPS\p5-source-20260810T152802Z.tar.gz.sha256
+E:\VPS\p5-source-20260810T152802Z.tar.gz
+E:\VPS\p5-source-20260810T143934Z.tar.gz.sha256
+E:\VPS\p5-source-20260810T143934Z.tar.gz
+E:\VPS\p5-source-20260810T142724Z.tar.gz
+E:\VPS\p5-source-20260810T141730Z.tar.gz
+E:\VPS\p5-snapshot-gate-p5-prechange-data-20260810-135948.tar.gz
+E:\VPS\p5-alpha-execution-headless-wave-sonnet-20260814.out.log
+E:\VPS\p5-alpha-execution-headless-wave-sonnet-20260814.err.log
+E:\VPS\p5-alpha-execution-headless-wave-20260814.out.log
+E:\VPS\p5-alpha-execution-headless-wave-20260814.json
+E:\VPS\p5-alpha-execution-headless-wave-20260814.err.log
+E:\VPS\line49_final.sh
+E:\VPS\create_direct_repair_worktree.sh
+E:\VPS\p5_deploy_source_remote.sh
+E:\VPS\commit_untracked_schema_test.sh
+E:\VPS\commit_direct_repair_code.sh
+E:\VPS\p5_deploy_home_e2e_cli_remote.sh
+E:\VPS\p5_deploy_home_e2e_cli.sh
+E:\VPS\p5_deadlock_exception_guest_preflight_remote.sh
+E:\VPS\p5_deadlock_exception_gcp_preflight.sh
+E:\VPS\p5_data_snapshot_resume_remote.sh
+E:\VPS\p5_data_snapshot_prepare_remote.sh
+E:\VPS\P5_CURSOR_FABLE_HANDOFF_PROMPT_V1.txt
+E:\VPS\p5_create_fastpath_template_v4_rest.sh
+E:\VPS\p5_create_fastpath_template_v3.sh
+E:\VPS\p5_create_fastpath_template.sh
+E:\VPS\p5_create_current_data_snapshot.sh
+E:\VPS\p5_create_cold_canary.sh
+E:\VPS\p5_create_boot_image.sh
+E:\VPS\p5_cold_ssh_keys_k3.txt
+E:\VPS\p5_cold_ssh_keys.txt
+E:\VPS\p5_cold_set_k3_key.sh
+E:\VPS\p5_cold_runtime_remote.sh
+E:\VPS\p5_cold_observe.sh
+E:\VPS\p5-alpha-execution-headless-wave2-20260814.json
+E:\VPS\line22_veify.sh
+E:\VPS\line18_nig.sh
+E:\VPS\line16_chk.sh
+E:\VPS\build_direct_repair_release.py
+E:\VPS\block_auth.sh
+E:\VPS\build_handoff_v2.py
+E:\VPS\build_terminalization_v2.py
+E:\VPS\k3-p5-startup-20260810T144519Z.sh
+E:\VPS\finalize_handoff_remote.sh
+E:\VPS\k3-p5-fastpath-startup-20260810.sh
+E:\VPS\__pycache__\test_pc6_binance_materializer.cpython-314.pyc
+E:\VPS\__pycache__\pc6_binance_materializer.cpython-314.pyc
+E:\VPS\p5-fastpath-state-20260810T151305Z\summary.json
+E:\VPS\p5-fastpath-state-20260810T151305Z\SHA256SUMS
+E:\VPS\p5-fastpath-state-20260810T151305Z\mig.json
+E:\VPS\p5-fastpath-state-20260810T151305Z\managed-instances.json
+E:\VPS\p5-fastpath-state-20260810T151305Z\interrupted-snapshot.json
+E:\VPS\p5-fastpath-state-20260810T151305Z\instance.json
+E:\VPS\p5-fastpath-state-20260810T151305Z\data-disk.json
+E:\VPS\p5-fastpath-state-20260810T151305Z\cold-vm.json
+E:\VPS\p5-fastpath-state-20260810T151305Z\cold-disk.json
+E:\VPS\home-gpu\worker-supervisor.sh
+E:\VPS\p5-boot-image-20260810T144519Z\source-boot-disk-after.json
+E:\VPS\p5-boot-image-20260810T144519Z\snapshot.json
+E:\VPS\p5-boot-image-20260810T144519Z\snapshot-create.log
+E:\VPS\p5-boot-image-20260810T144519Z\SHA256SUMS
+E:\VPS\p5-boot-image-20260810T144519Z\production-instance-after.json
+E:\VPS\p5-boot-image-20260810T144519Z\production-data-disk-after.json
+E:\VPS\p5-boot-image-20260810T144519Z\image.json
+E:\VPS\p5-boot-image-20260810T144519Z\image-create.log
+E:\VPS\p5-boot-image-20260810T144519Z\gate.json
+E:\VPS\p5-boot-image-preflight-20260810T144519Z\instance.json
+E:\VPS\p5-boot-image-preflight-20260810T144519Z\image_collision.json
+E:\VPS\p5-boot-image-preflight-20260810T144519Z\boot_disk.json
+E:\VPS\p5-boot-image-preflight-20260810T144519Z\SHA256SUMS
+E:\VPS\p5-boot-image-preflight-20260810T144519Z\preflight.json
+E:\VPS\p5-boot-image-preflight-20260810T144519Z\snapshot_collision.json
+E:\VPS\p5-cold-canary-20260810-150058\serial.latest.log
+E:\VPS\p5-cold-canary-20260810-150058\production-instance.before.json
+E:\VPS\p5-cold-canary-20260810-150058\production-data-disk.before.json
+E:\VPS\p5-cold-canary-20260810-150058\data-disk.latest.json
+E:\VPS\p5-cold-canary-20260810-150058\data-disk.json
+
+2026-08-15T06:08:59.322488Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+E:\VPS\p5-fastpath-template-v4-20260810\insert-operation.json
+E:\VPS\p5-fastpath-template-v4-20260810\gate.json
+E:\VPS\hub-baseline-audit\verify2.sh
+E:\VPS\p5-fastpath-template-v4-20260810\describe.stderr
+E:\VPS\hub-baseline-audit\verify2.log
+E:\VPS\p5-fastpath-template-v4-20260810\body.json
+E:\VPS\hub-baseline-audit\verify.sh
+E:\VPS\hub-baseline-audit\v3.log
+E:\VPS\p5-fastpath-template-v4-20260810\SHA256SUMS
+E:\VPS\hub-baseline-audit\states.py
+E:\VPS\p5-fastpath-template-v4-20260810\new.json
+E:\VPS\hub-baseline-audit\runner_states.sh
+E:\VPS\p5-fastpath-template-v4-20260810\wait.log
+E:\VPS\p5-gcp-prechange-20260810T125030Z.tar.gz
+E:\VPS\hub-baseline-audit\runner_help.sh
+E:\VPS\hub-baseline-audit\runner_counts.sh
+E:\VPS\hub-baseline-audit\runner_a.sh
+E:\VPS\hub-baseline-audit\remote_help.sh
+E:\VPS\hub-baseline-audit\hub_counts.rc
+E:\VPS\hub-baseline-audit\probe_a.sh
+E:\VPS\hub-baseline-audit\probe_a.rc
+E:\VPS\hub-baseline-audit\probe_a.log
+E:\VPS\hub-baseline-audit\hub_counts.log
+E:\VPS\hub-baseline-audit\hub_states.rc
+E:\VPS\hub-baseline-audit\finalclean.sh
+E:\VPS\hub-baseline-audit\hub_states.log
+E:\VPS\hub-baseline-audit\counts.py
+E:\VPS\hub-baseline-audit\hub_result_audit.py
+E:\VPS\hub-baseline-audit\cleanup2.sh
+E:\VPS\hub-baseline-audit\hub_probe2.sh
+E:\VPS\hub-baseline-audit\cleanup.sh
+E:\VPS\hub-baseline-audit\hub_probe.sh
+E:\VPS\hub-baseline-audit\hub_help.rc
+E:\VPS\hub-baseline-audit\hub_help.log
+E:\VPS\p5_python_runtime_diag_remote.sh
+E:\VPS\p5_persistence_diag_remote.sh
+E:\VPS\p5_pc6_remote_schema_samples.sh
+E:\VPS\p5_pc6_remote_run_tests.sh
+E:\VPS\p5_pc6_remote_run_materializer.sh
+E:\VPS\p5_pc6_remote_runtime_check.sh
+E:\VPS\p5_pc6_remote_research_schema.sh
+E:\VPS\p5_pc6_remote_register_agent_run.sh
+E:\VPS\p5_pc6_remote_progress.sh
+E:\VPS\p5_pc6_remote_permissions_and_help.sh
+E:\VPS\p5_pc6_remote_normalization_failure.sh
+E:\VPS\p5_pc6_remote_missing_normalization.sh
+E:\VPS\p5_pc6_remote_materialization_preflight.sh
+E:\VPS\p5_pc6_remote_identity_gate.sh
+E:\VPS\p5_pc6_remote_final_gate.sh
+E:\VPS\p5_pc6_remote_duplicate_detail.sh
+E:\VPS\p5_pc6_remote_deploy_tests.sh
+E:\VPS\p5_pc6_remote_deploy_code.sh
+E:\VPS\p5_pc6_remote_create_materialization_worktree.sh
+E:\VPS\p5_pc6_remote_commit_final_artifacts.sh
+E:\VPS\p5_pc6_remote_code_inventory.sh
+E:\VPS\p5_pack_source.sh
+E:\VPS\p5_p0_diagnose_remote.sh
+E:\VPS\p5_observe_v4_terminal.sh
+E:\VPS\p5_manifest_diag_remote.sh
+E:\VPS\p5_live_p0_remote.sh
+E:\VPS\p5_listener_diag_remote.sh
+E:\VPS\p5_install_research_sqlite_runtime_remote.sh
+E:\VPS\p5_install_fastpath_startup_remote.sh
+E:\VPS\p5_gcloud_image_help.sh
+E:\VPS\p5-fastpath-template-v3-20260810\new.json
+E:\VPS\p5-fastpath-template-v3-20260810\gate.json
+E:\VPS\p5-fastpath-template-v3-20260810\create.log
+E:\VPS\tmp_probe\hubsrc\quant\p5_infra\tests\test_queue_db.py
+E:\VPS\tmp_probe\hubsrc\quant\p5_infra\schema.sql
+E:\VPS\tmp_probe\hubsrc\quant\p5_infra\queue_db.py
+E:\VPS\tmp_probe\hubsrc\quant\p5_infra\hub_daemon.py
+E:\VPS\tmp_probe\hubsrc\quant\p5_infra\hub_cli.py
+E:\VPS\tmp_probe\help.sh
+E:\VPS\test_pc6_binance_materializer.py
+E:\VPS\p5-fastpath-template-20260810\mig-set\template.json
+E:\VPS\p5-fastpath-template-20260810\mig-set\SHA256SUMS
+E:\VPS\p5-fastpath-template-20260810\mig-set\set.log
+E:\VPS\p5-fastpath-template-20260810\mig-set\mig.before.json
+E:\VPS\p5-fastpath-template-20260810\mig-set\mig.after.json
+E:\VPS\p5-fastpath-template-20260810\mig-set\instances.after.json
+
+2026-08-15T06:09:11.533225Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+E:\VPS\p5-cold-canary-20260810-150058\cleanup\production-data-disk.after.json
+E:\VPS\p5-cold-canary-20260810-150058\cleanup\SHA256SUMS
+E:\VPS\p5-cold-canary-20260810-150058\cleanup\disk.before.json
+E:\VPS\p5-cold-canary-20260810-150058\cleanup\result.json
+E:\VPS\p5-cold-canary-20260810-150058\cleanup\disk.after.unexpected.json
+E:\VPS\p5-cold-canary-20260810-150058\cleanup\production-instance.after.json
+E:\VPS\p5-cold-canary-20260810-150058\cleanup\disk.after.stderr
+E:\VPS\p5-cold-canary-20260810-150058\cleanup\disk-delete.log
+E:\VPS\p5_boot_image_prepare_diag_remote.sh
+E:\VPS\p5_boot_image_preflight.sh
+E:\VPS\p5_bootstrap_idempotency_remote.sh
+E:\VPS\p5_audit_readonly_check.sh
+E:\VPS\tmp_probe\hubsrc\quant\p5_infra\tests\test_queue_db.py
+E:\VPS\tmp_probe\hubsrc\quant\p5_infra\schema.sql
+E:\VPS\tmp_probe\hubsrc\quant\p5_infra\queue_db.py
+E:\VPS\tmp_probe\hubsrc\quant\p5_infra\hub_daemon.py
+E:\VPS\tmp_probe\hubsrc\quant\p5_infra\hub_cli.py
+E:\VPS\tmp_probe\help.sh
+E:\VPS\test_pc6_binance_materializer.py
+E:\VPS\home-gpu\evidence\_tmp_fable_chain_ro.py
+E:\VPS\home-gpu\evidence\_run_job_state.sh
+E:\VPS\home-gpu\evidence\_run_isolation_audit.sh
+E:\VPS\home-gpu\evidence\_run_hub_capture.sh
+E:\VPS\home-gpu\evidence\_run_event_outbox.sh
+E:\VPS\home-gpu\evidence\_job_state_ro.py
+E:\VPS\home-gpu\evidence\_hub_ro_read.py
+E:\VPS\home-gpu\evidence\_hub_rc.txt
+E:\VPS\home-gpu\evidence\_hub_out.txt
+E:\VPS\home-gpu\evidence\_hub_isolation_audit_ro.py
+E:\VPS\home-gpu\evidence\_hub_err.txt
+E:\VPS\home-gpu\evidence\_event_outbox_ro.py
+E:\VPS\home-gpu\evidence\wsl_verify.txt
+E:\VPS\home-gpu\evidence\wsl_process_check.txt
+E:\VPS\home-gpu\evidence\wsl_hub_queue_readonly2.json
+E:\VPS\home-gpu\evidence\wsl_hub_queue_readonly.json
+E:\VPS\home-gpu\evidence\wsl_check2.txt
+E:\VPS\home-gpu\evidence\wsl_check1.txt
+E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\wait-stable.log
+E:\VPS\p5-filebrowser-tunnel\supervisor.log
+E:\VPS\p5-filebrowser-tunnel\state.json
+E:\VPS\p5-filebrowser-tunnel\auto_recovery_canary.json
+E:\VPS\p5-fastpath-template-20260810\mig-set\template.json
+E:\VPS\p5-fastpath-template-20260810\mig-set\SHA256SUMS
+E:\VPS\p5-fastpath-template-20260810\mig-set\set.log
+E:\VPS\p5-fastpath-template-20260810\mig-set\mig.before.json
+E:\VPS\p5-fastpath-template-20260810\mig-set\mig.after.json
+E:\VPS\p5-fastpath-template-20260810\mig-set\instances.after.json
+E:\VPS\p5-fastpath-template-20260810\mig-set\gate.json
+E:\VPS\p5-fastpath-template-20260810\gate.json
+E:\VPS\p5-fastpath-template-20260810\create.log
+E:\VPS\p5-source-20260810T153334Z.tar.gz.sha256
+E:\VPS\p5-wheels\apsw-3.53.4.0-cp312-cp312-manylinux_2_28_x86_64.whl
+E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\pre_gcp\managed-instances.json
+E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\pre_gcp\instance.json
+E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\pre_gcp\gate.json
+E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\pre_gcp\data-disk.json
+E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\pre_gcp\address.json
+E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\pre_gcp\SHA256SUMS
+E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\pre_gcp\mig.json
+E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\pre_gcp\snapshot.json
+E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\pre_gcp\template.json
+E:\VPS\home-gpu\task-backups\20260813-020203\process-baseline.csv
+E:\VPS\home-gpu\task-backups\20260813-020203\K3-P5-Home-GPU-Worker.xml
+E:\VPS\home-gpu\task-backups\20260813-020203\K3-P5-Home-GPU-Mechanical-Watchdog.xml
+E:\VPS\home-gpu\Start-HomeGpuWorker.ps1
+E:\VPS\home-gpu\Start-HomeGpuWorker-Hidden.vbs
+E:\VPS\home-gpu\Start-HomeGpuWatchdog-Hidden.vbs
+E:\VPS\direct_repair_stage\conditional_delegation.py
+E:\VPS\direct_repair_stage\authority_store.py
+E:\VPS\direct_repair_stage\authority_runtime.py
+E:\VPS\terminalization_v2_handoff\P5_PC7_AUTONOMOUS_ALPHA_ENTRY_HANDOFF_V2.json
+E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\superseding-recreate-v4-20260810T180415.427680492Z\wait-stable.stdout
+E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\superseding-recreate-v4-20260810T180415.427680492Z\wait-stable.stderr
+E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\superseding-recreate-v4-20260810T180415.427680492Z\wait-stable.exitcode
+E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\superseding-recreate-v4-20260810T180415.427680492Z\terminal-summary.json
+E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\superseding-recreate-v4-20260810T180415.427680492Z\SHA256SUMS
+E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\superseding-recreate-v4-20260810T180415.427680492Z\request_started_at.txt
+E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\superseding-recreate-v4-20260810T180415.427680492Z\request_returned_at.txt
+E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\superseding-recreate-v4-20260810T180415.427680492Z\recreate_request_count.txt
+E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\superseding-recreate-v4-20260810T180415.427680492Z\recreate-request.log
+E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\superseding-recreate-v4-20260810T180415.427680492Z\final-observation.stdout
+E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\superseding-recreate-v4-20260810T180415.427680492Z\authorization.json
+E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T180629Z\zone-operations.json
+E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T180629Z\terminal-summary.json
+E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T180629Z\template-v4.json
+E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T180629Z\SHA256SUMS
+E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T180629Z\per-instance-configs.json
+E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T180629Z\mig.json
+E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T180629Z\managed-instances.json
+E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T180629Z\managed-errors.json
+E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T180629Z\instance.json
+E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T180629Z\data-disk.json
+E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T180629Z\boot-disk.json
+E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\observe-v4-20260810T180629Z\address.json
+E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\recreate.log
+E:\VPS\P5_CODEX_ALPHA_EXECUTION_LAYER_COMPLETION_V1\SOURCES\P5_PRECEREMONY_CLOSURE_TERMINAL_SUMMARY_V1.md
+E:\VPS\P5_CODEX_ALPHA_EXECUTION_LAYER_COMPLETION_V1\SOURCES\P5_FROZEN_VERIFY_SET_20_RESULTS_V1.md
+E:\VPS\P5_CODEX_ALPHA_EXECUTION_LAYER_COMPLETION_V1\SOURCES\P5_FROZEN_SCIENTIFIC_VERIFY_SET_20_V1.json
+E:\VPS\P5_CODEX_ALPHA_EXECUTION_LAYER_COMPLETION_V1\SOURCES\P5_FL18_FINAL_RESUME_HANDOFF_V1.md
+E:\VPS\P5_CODEX_ALPHA_EXECUTION_LAYER_COMPLETION_V1\SOURCES\P5_ALPHA_EXECUTION_WIRING_AUDIT_V1.md
+
+2026-08-15T06:09:21.636202Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+E:\VPS\home-gpu\Arm-HomeGpuRebootCanary.ps1
+E:\VPS\headless-wave-v1.out.log
+E:\VPS\headless-wave-v1.err.log
+E:\VPS\finalize_handoff_remote.sh
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\EVIDENCE_HISTORY\P5_TARGET_COMPATIBILITY_CAPSULE_V1.json
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\EVIDENCE_HISTORY\P5_PRECEREMONY_CLOSURE_TERMINAL_SUMMARY_V1.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\EVIDENCE_HISTORY\P5_FROZEN_VERIFY_SET_20_RESULTS_V1.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\EVIDENCE_HISTORY\P5_FROZEN_SCIENTIFIC_VERIFY_SET_20_V1.json
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\EVIDENCE_HISTORY\P5_FL20_PREDEPLOY_ACTIVATION_AUDIT_V1.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\EVIDENCE_HISTORY\P5_FL19_DATA_PLANE_ADJUDICATION_V1.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\EVIDENCE_HISTORY\P5_ALPHA_EXECUTION_WIRING_AUDIT_V1.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\EVIDENCE_HISTORY\FL20_TARGET_DATA_PLANE_RESULTS.json
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\EVIDENCE_HISTORY\FL20_RELEASE_TERMINAL_V1.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\EVIDENCE_HISTORY\00_EVIDENCE_HISTORY_SCOPE.md
+E:\VPS\home-gpu\task-backups\20260813-020203\process-baseline.csv
+E:\VPS\p5-fastpath-template-20260810\SHA256SUMS
+E:\VPS\home-gpu\task-backups\20260813-020203\K3-P5-Home-GPU-Worker.xml
+E:\VPS\home-gpu\task-backups\20260813-020203\K3-P5-Home-GPU-Mechanical-Watchdog.xml
+E:\VPS\home-gpu\Start-HomeGpuWorker.ps1
+E:\VPS\home-gpu\Start-HomeGpuWorker-Hidden.vbs
+E:\VPS\home-gpu\Start-HomeGpuWatchdog-Hidden.vbs
+E:\VPS\reports\结构测试总账-20260813\schema-replay-out\summary.json
+E:\VPS\reports\结构测试总账-20260813\resource_negative_rerun_shim.log
+E:\VPS\reports\结构测试总账-20260813\resource_negative_rerun_apswfix.log
+E:\VPS\reports\结构测试总账-20260813\resource_negative_rerun.log
+E:\VPS\reports\结构测试总账-20260813\resource_binding_synthetic_rerun.log
+E:\VPS\reports\结构测试总账-20260813\pre_run_stage_snapshot.txt
+E:\VPS\reports\结构测试总账-20260813\pc6_track3_rerun.log
+E:\VPS\reports\结构测试总账-20260813\migration_rehearsal_rerun.log
+E:\VPS\p5-fastpath-template-20260810\new.json
+E:\VPS\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\tools\validate_return_packet.py
+E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\stuck-diag\summary.json
+E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\stuck-diag\SHA256SUMS
+E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\stuck-diag\operations.json
+E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\stuck-diag\mig.json
+E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\stuck-diag\managed-instances.json
+E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\stuck-diag\instance.json
+E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\started_at.txt
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\STAGE_OBJECTIVES\S7_POST_ROOT_ALPHA_EXECUTION_V2.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\STAGE_OBJECTIVES\S6_OWNER_C_D_ROOT_V2.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\STAGE_OBJECTIVES\S5_FRESH_K3_FINAL_VERIFY_V2.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\STAGE_OBJECTIVES\S4_INDEPENDENT_ADMIN_DEPLOY_V2.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\STAGE_OBJECTIVES\S3_OWNER_TCB_SIGNING_REQUEST_V2.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\STAGE_OBJECTIVES\S2_FRESH_K3_PRETRUST_V2.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\STAGE_OBJECTIVES\S1_INDEPENDENT_ADMIN_PHASE_A_V2.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\STAGE_OBJECTIVES\S0_FRESH_SESSION_STATE_RECONSTRUCTION_V2.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\SHA256SUMS.txt
+E:\VPS\pc7_stage\app_v2\p5_infra\__init__.py
+E:\VPS\pc7_stage\app_v2\p5_infra\research_schema.sql
+E:\VPS\pc7_stage\app_v2\p5_infra\research_db.py
+E:\VPS\pc7_stage\app_v2\p5_infra\research_canary.py
+E:\VPS\pc7_stage\app_v2\p5_infra\researchctld.py
+E:\VPS\pc7_stage\app_v2\p5_infra\researchctl.py
+E:\VPS\pc7_stage\app_v2\p5_infra\finalize_research_memory.py
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\CURRENT_STATE\P5_FL20_R1_CEREMONY_EXECUTION_LOG_V1.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\15_HARNESS_DESIGN_RATIONALE_V2.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\14_SEND_THIS_TO_NEW_FABLE.txt
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\13_HUMAN_RETURN_EVIDENCE_PROTOCOL_V2.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\12_ACCEPTANCE_FLOORS_AND_TERMINALS_V2.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\PACKAGE_MANIFEST.json
+E:\VPS\cli-parser-dispatch-tests-20260813\app_v2\p5_infra\__pycache__\__init__.cpython-314.pyc
+E:\VPS\cli-parser-dispatch-tests-20260813\app_v2\p5_infra\__pycache__\research_db.cpython-314.pyc
+E:\VPS\cli-parser-dispatch-tests-20260813\app_v2\p5_infra\__pycache__\researchctld.cpython-314.pyc
+E:\VPS\cli-parser-dispatch-tests-20260813\app_v2\p5_infra\__pycache__\researchctl.cpython-314.pyc
+E:\VPS\cli-parser-dispatch-tests-20260813\app_v2\p5_infra\__pycache__\conditional_delegation.cpython-314.pyc
+E:\VPS\cli-parser-dispatch-tests-20260813\app_v2\p5_infra\__pycache__\authority_store.cpython-314.pyc
+E:\VPS\cli-parser-dispatch-tests-20260813\app_v2\p5_infra\__pycache__\authority_runtime.cpython-314.pyc
+E:\VPS\cli-parser-dispatch-tests-20260813\app_v2\p5_infra\__init__.py
+E:\VPS\cli-parser-dispatch-tests-20260813\app_v2\p5_infra\research_schema.sql
+E:\VPS\cli-parser-dispatch-tests-20260813\app_v2\p5_infra\research_db.py
+E:\VPS\cli-parser-dispatch-tests-20260813\app_v2\p5_infra\researchctld.py
+E:\VPS\cli-parser-dispatch-tests-20260813\app_v2\p5_infra\researchctl.py
+E:\VPS\cli-parser-dispatch-tests-20260813\app_v2\p5_infra\conditional_delegation.py
+E:\VPS\cli-parser-dispatch-tests-20260813\app_v2\p5_infra\authority_store.py
+E:\VPS\cli-parser-dispatch-tests-20260813\app_v2\p5_infra\authority_runtime.py
+E:\VPS\home-gpu\Invoke-WslShutdownResumeCanary.ps1
+E:\VPS\home-gpu\Invoke-HomeGpuWatchdogHidden.ps1
+E:\VPS\home-gpu\Install-HomeGpuWorkerTask.ps1
+E:\VPS\home-gpu\home_worker.py
+E:\VPS\home-gpu\finalize_fable_readiness.py
+E:\VPS\home-gpu\p5_home_watchdog.py
+E:\VPS\home-gpu\observe_codex_repair_canary.py
+E:\VPS\reports\结构测试总账-20260813\materializer_run\test_pc6_binance_materializer.py
+E:\VPS\reports\结构测试总账-20260813\materializer_run\binance_materializer.py
+E:\VPS\reports\结构测试总账-20260813\materializer_default_rerun.log
+E:\VPS\p5-fastpath-template-20260810\mig-set\template.json
+E:\VPS\p5-fastpath-template-20260810\mig-set\SHA256SUMS
+E:\VPS\p5-fastpath-template-20260810\mig-set\set.log
+E:\VPS\p5-fastpath-template-20260810\mig-set\mig.before.json
+E:\VPS\p5-fastpath-template-20260810\mig-set\mig.after.json
+E:\VPS\p5-fastpath-template-20260810\mig-set\instances.after.json
+E:\VPS\p5-fastpath-template-20260810\mig-set\gate.json
+E:\VPS\p5-fastpath-template-20260810\gate.json
+E:\VPS\p5-fastpath-template-20260810\create.log
+E:\VPS\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\SOURCE_V4\S1_INDEPENDENT_ADMIN_PHASE_A_V3.md
+E:\VPS\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\SOURCE_V4\14_HUMAN_RETURN_EVIDENCE_PROTOCOL_V3.md
+E:\VPS\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\SOURCE_V4\13_ACCEPTANCE_FLOORS_AND_TERMINALS_V3.md
+E:\VPS\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\SOURCE_V4\12_FAILURE_RESUME_AND_SESSION_RECOVERY_V3.md
+E:\VPS\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\SOURCE_V4\07_INDEPENDENT_ADMIN_PHASE_A_ACTION_CARD_V3.md
+E:\VPS\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\SOURCE_V4\05_TRUST_DOMAIN_AND_ACTOR_MATRIX_V3.md
+E:\VPS\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\SHA256SUMS.txt
+E:\VPS\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\S1_CODEX_PHASE_A_RETURN.json
+E:\VPS\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\S1_CODEX_PHASE_A_RESULT.md
+E:\VPS\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\PACKAGE_MANIFEST.json
+E:\VPS\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\06_CURRENT_FABLE_RUNTIME_CAVEAT.md
+E:\VPS\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\05_S0_STATE_RECONSTRUCTION_EVIDENCE.md
+E:\VPS\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\04_RETURN_EVIDENCE_TEMPLATE.json
+E:\VPS\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\03_REQUIRED_HUMAN_INPUTS_TEMPLATE.md
+E:\VPS\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\02_HUMAN_SECRET_BOUNDARY.md
+E:\VPS\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\01_CODEX_MASTER_PROMPT.md
+E:\VPS\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1\00_READ_ME_FIRST.md
+E:\VPS\p5_run_remote_root.sh
+E:\VPS\p5_run_remote_k3.sh
+E:\VPS\p5_run_cold_strict.sh
+E:\VPS\p5_retarget_v4_recovery.sh
+E:\VPS\p5_restore_canary_startup.sh
+E:\VPS\p5_recreate_stuck_diag.sh
+E:\VPS\p5_recreate_status.sh
+E:\VPS\p5_recreate_fastpath.sh
+E:\VPS\p5_python_runtime_diag_remote.sh
+
+2026-08-15T06:10:49.843884Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-15T06:14:10.257830Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+E:\VPS\p5_pc6_remote_runtime_check.sh
+E:\VPS\p5_pc6_remote_research_schema.sh
+E:\VPS\p5_pc6_remote_register_agent_run.sh
+E:\VPS\p5_pc6_remote_progress.sh
+E:\VPS\p5_pc6_remote_permissions_and_help.sh
+E:\VPS\p5_pc6_remote_normalization_failure.sh
+E:\VPS\p5_pc6_remote_missing_normalization.sh
+E:\VPS\p5_pc6_remote_materialization_preflight.sh
+E:\VPS\p5_pc6_remote_identity_gate.sh
+E:\VPS\p5_pc6_remote_final_gate.sh
+E:\VPS\p5_pc6_remote_duplicate_detail.sh
+E:\VPS\p5_pc6_remote_deploy_tests.sh
+E:\VPS\p5_pc6_remote_deploy_code.sh
+E:\VPS\p5_pc6_remote_create_materialization_worktree.sh
+E:\VPS\p5_pc6_remote_commit_final_artifacts.sh
+E:\VPS\p5_pc6_remote_code_inventory.sh
+E:\VPS\p5_pack_source.sh
+E:\VPS\pc7-headless-wave-manifest-3.json
+E:\VPS\pc7-headless-wave-manifest-2.json
+E:\VPS\pc7-conditional-prewarm-headless.json
+E:\VPS\pc7-conditional-prewarm-headless-retry.json
+E:\VPS\pc6_binance_materializer.py
+E:\VPS\p5_upload_source.sh
+E:\VPS\p5_upload_fastpath_startup.sh
+E:\VPS\p5_upload_apsw.sh
+E:\VPS\p5_template_help_cleanup.sh
+E:\VPS\p5_superseding_recreate_v4.sh
+E:\VPS\p5_startup_source_diag_remote.sh
+E:\VPS\p5_set_fastpath_template.sh
+E:\VPS\p5_seal_home_e2e_parser_attempt.sh
+E:\VPS\p5_seal_home_e2e_parser_attempt.py
+E:\VPS\cli-parser-dispatch-tests-20260813\app_v2\p5_infra\researchctl.py
+E:\VPS\cli-parser-dispatch-tests-20260813\app_v2\p5_infra\conditional_delegation.py
+E:\VPS\cli-parser-dispatch-tests-20260813\app_v2\p5_infra\authority_store.py
+E:\VPS\cli-parser-dispatch-tests-20260813\app_v2\p5_infra\authority_runtime.py
+E:\VPS\cli-parser-dispatch-tests-20260813\app_v2\p5_infra\research_db.py
+E:\VPS\cli-parser-dispatch-tests-20260813\app_v2\p5_infra\researchctld.py
+E:\VPS\cli-parser-dispatch-tests-20260813\app_v2\p5_infra\research_schema.sql
+E:\VPS\cli-parser-dispatch-tests-20260813\app_v2\p5_infra\__init__.py
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\10_POST_ROOT_ALPHA_EXECUTION_MASTER_PROMPT_V2.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\09_OWNER_C_D_ROOT_ACTION_CARD_V2.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\08_INDEPENDENT_ADMIN_PHASE_B_DEPLOY_ACTION_CARD_V2.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\07_OWNER_TCB_SIGNING_ACTION_CARD_V2.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\06_INDEPENDENT_ADMIN_PHASE_A_ACTION_CARD_V2.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\05_TRUST_DOMAIN_AND_ACTOR_MATRIX_V2.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\04_SOURCE_PRECEDENCE_AND_SUPERSESSION_V2.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\03_CURRENT_STATE_CANONICAL_CHECKPOINT_V2.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\02_P5_FABLE_ALPHA_ACTIVATION_MASTER_PROMPT_V2.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\01_P5_FL20_R1_ALPHA_ACTIVATION_MASTER_PLAN_V2.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\00_READ_ME_FIRST.md
+E:\VPS\p5_download_apsw_wheel.sh
+E:\VPS\p5_deploy_source_remote.sh
+E:\VPS\p5_deploy_home_e2e_cli_remote.sh
+E:\VPS\p5_deploy_home_e2e_cli.sh
+E:\VPS\P5_FL20_PREDEPLOY_ACTIVATION_FIX_V1\MANIFEST.json
+E:\VPS\P5_FL20_PREDEPLOY_ACTIVATION_FIX_V1\01_CODEX_PREDEPLOY_ACTIVATION_CLOSURE_PROMPT_V1.md
+E:\VPS\P5_FL20_PREDEPLOY_ACTIVATION_FIX_V1\00_INDEPENDENT_PREDEPLOY_AUDIT_V1.md
+E:\VPS\p5_fl20_activation_probe_remote.sh
+E:\VPS\p5_finalize_hub_research_ready.py
+E:\VPS\p5_filebrowser_tunnel_supervisor.ps1
+E:\VPS\p5_filebrowser_diag_remote.sh
+E:\VPS\home-gpu\evidence\windows-reboot\20260810T190629Z\armed.json
+E:\VPS\home-gpu\evidence\windows-reboot\20260810T190629Z\result.json
+E:\VPS\cli-parser-dispatch-tests-20260813\app_v2\p5_infra\__pycache__\researchctl.cpython-314.pyc
+E:\VPS\cli-parser-dispatch-tests-20260813\app_v2\p5_infra\__pycache__\conditional_delegation.cpython-314.pyc
+E:\VPS\cli-parser-dispatch-tests-20260813\app_v2\p5_infra\__pycache__\authority_store.cpython-314.pyc
+E:\VPS\cli-parser-dispatch-tests-20260813\app_v2\p5_infra\__pycache__\authority_runtime.cpython-314.pyc
+E:\VPS\cli-parser-dispatch-tests-20260813\app_v2\p5_infra\__pycache__\research_db.cpython-314.pyc
+E:\VPS\cli-parser-dispatch-tests-20260813\app_v2\p5_infra\__pycache__\researchctld.cpython-314.pyc
+E:\VPS\cli-parser-dispatch-tests-20260813\app_v2\p5_infra\__pycache__\__init__.cpython-314.pyc
+E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\retarget-v4\wait-stable.log
+E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\retarget-v4\set.log
+E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z\recreate\retarget-v4\mig.before.json
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\13_HUMAN_RETURN_EVIDENCE_PROTOCOL_V2.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\12_ACCEPTANCE_FLOORS_AND_TERMINALS_V2.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\11_FAILURE_RESUME_AND_SESSION_RECOVERY_V2.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\15_HARNESS_DESIGN_RATIONALE_V2.md
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\14_SEND_THIS_TO_NEW_FABLE.txt
+E:\VPS\p5-filebrowser-tunnel\supervisor.log
+E:\VPS\p5-filebrowser-tunnel\state.json
+
+2026-08-15T06:16:07.190894Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.7 seconds
+Output:
+
+2026-08-15T06:16:40.689211Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.7 seconds
+Output:
+
+2026-08-15T06:17:08.338694Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.6 seconds
+Output:
+
+2026-08-15T06:17:35.690083Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.6 seconds
+Output:
+
+2026-08-15T06:18:36.489122Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.6 seconds
+Output:
+
+2026-08-15T06:19:04.700230Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.5 seconds
+Output:
+
+2026-08-15T06:19:32.316370Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.5 seconds
+Output:
+
+2026-08-15T06:20:14.562214Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.5 seconds
+Output:
+
+2026-08-15T06:20:53.486468Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.5 seconds
+Output:
+
+2026-08-15T06:21:23.832523Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.5 seconds
+Output:
+
+2026-08-15T06:22:45.676749Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 214ms)... turn_id=01a00409-1825-75d3-ab45-392233dd16db retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T06:23:29.335460Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.5 seconds
+Output:
+
+2026-08-15T06:24:03.388945Z  WARN codex_sandboxing::violation: recorded sandbox violation: resource=filesystem backend=windows_sandbox reason=policy_denied path=unknown
+2026-08-15T06:24:03.389282Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+ConvertFrom-Json : ´«ÈëµÄ¶ÔÏóÎÞÐ§£¬Ó¦Îª¡°:¡±»ò¡°}¡±¡£ (483): {
+  "tasks": [
+    {
+      "task_id": "scientific-roots-20",
+      "task_name": "ç§‘å­¦æ ?0å¯¹è±¡æ ¸éªŒ",
+      "role": "worker",
+      "sandbox": "read-only",
+      "cwd": "E:\\VPS",
+      "prompt": "ä»»åŠ¡åï¼šç§‘å­¦æ ?0å¯¹è±¡æ ¸éªŒ\nåªè¯»æ ¸éªŒé™„ä»¶ manifestã€FL18 templateã€æœ¬åœ°ä¸Žå®žé™… VPS ä¸?
+20 ä¸?canonical frozen objects çš„è·¯å¾„ã€å­—èŠ‚ã€SHA256ã€æƒé™ç›®æ ‡ï¼›ä¸å¾—è¯»å–çœŸå®ž P5 labelï¼Œä¸å¾—å†™å…¥ã
+€‚å®Œæˆæ ‡å‡†ï¼šç»™å‡º 20/20 æ˜Žç»†ã€äº”ä¸?PC6 å¯¹è±¡ provenanceã€ç¼ºå¤?æ¼‚ç§»ã€ç»å¯¹è·¯å¾„ä¸Žå‘½ä»¤è¯æ®ã€‚è¿”å›?
+VERIFIED/DRIFT/MISSING/UNCERTAINTYã€?
+    },
+    {
+      "task_id": "cli-daemon-surface",
+      "task_name": "CLIä¸Ždaemonè¡¨é¢è®¾è®¡",
+      "role": "worker",
+      "sandbox": "read-only",
+      "cwd": "E:\\VPS",
+      "prompt": "ä»»åŠ¡åï¼šCLIä¸Ždaemonè¡¨é¢è®¾è®¡\nåªè¯»å®¡é˜… FL18 researchctl.py/researchctld.py/authority_store.py
+ï¼Œç²¾ç¡®è®¾è®?preconditions-evaluateã€trial-executeã€å¯é€?trial-status çš?parserã€socket JSONã€allowlistã€response
+ firewallï¼›ç¦æ­¢ä¿®æ”¹ä¸Žæµ‹è¯•ã€‚ç»™å‡ºæ–‡ä»?ç¬¦å·/è¡Œå·å’Œæœ€å°æ”¹åŠ¨è¡¨ã€?
+    },
+    {
+      "task_id": "output-firewall",
+      "task_name": "è¾“å‡ºé˜²ç«å¢™å¨èƒé¢",
+      "role": "worker",
+      "sandbox": "read-only",
+      "cwd": "E:\\VPS",
+      "prompt": "ä»»åŠ¡åï¼šè¾“å‡ºé˜²ç«å¢™å¨èƒé¢\nåªè¯»è¿½è¸ª daemon responseã€å¼‚å¸¸ã€æ—¥å¿—ã€generic Research M
+emory eventsã€checkpointã€test capture çš„æ‰€æœ‰è¾“å‡ºè·¯å¾„ï¼Œåˆ—ä¸¾å¯æ³„éœ?diagnostics/rank/return/t-stat/mean/p-va
+lue çš„ä½ç½®ä¸Ž negative grep/capture éªŒæ”¶ã€‚ç¦æ­?label access å’Œå†™å…¥ã€?
+    },
+    {
+      "task_id": "resource-clock",
+      "task_name": "W1æ´»åŠ¨æ—¶é’Ÿè®¾è®¡",
+      "role": "worker",
+      "sandbox": "read-only",
+      "cwd": "E:\\VPS",
+      "prompt": "ä»»åŠ¡åï¼šW1æ´»åŠ¨æ—¶é’Ÿè®¾è®¡\nåªè¯»å¯¹ç…§ signed WAVE1_CUMULATIVE_ACTIVE_WALL_TIME_V1 policyã€schem
+a v3 å’ŒçŽ°æœ?runtimeï¼Œè®¾è®?integer monotonic cumulative active attempt timeã€boot-id crash reconciliationã€è·¨ boot
+ fail-closeã€resource exhausted çŠ¶æ€ã€‚ç»™å‡ºå­—æ®µã€äº‹åŠ¡ã€çŠ¶æ€æœºä¸Žæœºæ¢°æµ‹è¯•ã€?
+    },
+    {
+      "task_id": "checkpoint-resume",
+      "task_name": "æ£€æŸ¥ç‚¹æ¢å¤è®¾è®¡",
+      "role": "worker",
+      "sandbox": "read-only",
+      "cwd": "E:\\VPS",
+      "prompt": "ä»»åŠ¡åï¼šæ£€æŸ¥ç‚¹æ¢å¤è®¾è®¡\nåªè¯»å®¡é˜… evaluator checkpoint primitives ä¸?trial_attemptsï¼Œè®¾è®¡åŒ
+ logical waveã€list/order/bindings/completed prefix çš?write-once sealed checkpoint/resumeï¼Œæ¶µç›?corrupted checkpoin
+tã€ATTEMPT_VOIDã€?74 resumeã€‚ç¦æ­¢å†™å…?æ‰§è¡Œ wave/è¯»å– labelsã€?
+    },
+    {
+      "task_id": "trial-concurrency",
+      "task_name": "è¯•éªŒå¹¶å‘ä¸å˜é‡?,
+      "role": "worker",
+      "sandbox": "read-only",
+      "cwd": "E:\\VPS",
+      "prompt": "ä»»åŠ¡åï¼šè¯•éªŒå¹¶å‘ä¸å˜é‡\nåªè¯»å®¡é˜… logical_trials/trial_attempts schemaã€SQLite locking ä¸
+?AuthorityStoreï¼Œè®¾è®¡æ¯ grant å?logical trialã€æœ€å¤šä¸€ä¸?RUNNINGã€ordinal å•è°ƒã€duplicate execute/terminal fa
+il-closeã€retry å?trial çš?SQL/äº‹åŠ¡ä¸?race testsã€?
+    },
+    {
+      "task_id": "migration-replay",
+      "task_name": "Schemaè¿ç§»é‡æ”¾è®¾è®¡",
+      "role": "worker",
+      "sandbox": "read-only",
+      "cwd": "E:\\VPS",
+      "prompt": "ä»»åŠ¡åï¼šSchemaè¿ç§»é‡æ”¾è®¾è®¡\nåªè¯»åˆ†æž schema v3ã€v2->v3 migrationã€migrate/verify/rebuild f
+ixturesï¼Œæå‡ºæœ€å°?append-only schema v4 candidateï¼ˆprecondition evidenceã€label accessã€sealed resultsã€active 
+timeï¼‰ï¼Œæ£€æŸ?replay/idempotence/trigger/æ—§åŽ†å²å…¼å®¹ã€?
+    },
+    {
+      "task_id": "proposal-supersession",
+      "task_name": "V7ææ¡ˆå‰ç¼€ä¸Žèº«ä»?,
+      "role": "worker",
+      "sandbox": "read-only",
+      "cwd": "E:\\VPS",
+      "prompt": "ä»»åŠ¡åï¼šV7ææ¡ˆå‰ç¼€ä¸Žèº«ä»½\nåªè¯»æ ¸éªŒ FL18 T1/W1 V6 ä¸?root V4 bytesï¼Œè®¾è®?V7=V6 byte-exact 
+prefix+engineering identity blockã€root V5 scientific fields byte-identical+engineering identity update çš„æœºæ¢°ç”Ÿæˆ
+?éªŒæ”¶ï¼Œä¸å¾—æ”¹ç§‘å­¦æ–‡æœ¬ã€?
+    },
+    {
+      "task_id": "ceremony-compat",
+      "task_name": "FL19ä»ªå¼å…¼å®¹æ€?,
+      "role": "worker",
+      "sandbox": "read-only",
+      "cwd": "E:\\VPS",
+      "prompt": "ä»»åŠ¡åï¼šFL19ä»ªå¼å…¼å®¹æ€§\nåªè¯»å®¡é˜… FL18 ceremony bundle/runbook/install scripts/TCB manifestï¼Œå
+ˆ—å‡?FL19 éƒ¨ç½²æ–?runtime/schema/scientific-root bundle æ‰€éœ€çš„å·¥ç¨‹èº«ä»½æ›´æ–°ï¼›ç¦æ­¢æ‰§è¡Œ ceremonyã€adminã€dep
+loyã€‚è¿”å›žå…¼å®¹çŸ©é˜µä¸Žå¿…é¡»æ›´æ–°æ–‡ä»¶ã€?
+    },
+    {
+      "task_id": "vps-actual-state",
+      "task_name": "VPSå®žé™…çŠ¶æ€è¯æ?,
+      "role": "worker",
+      "sandbox": "read-only",
+      "cwd": "E:\\VPS",
+      "prompt": "ä»»åŠ¡åï¼šVPSå®žé™…çŠ¶æ€è¯æ®\nä½¿ç”¨å›ºå®š k3 SSH ä¸¥æ ¼åªè¯»æ ¸éªŒ actual VPS FL18 bytesã€repo/w
+orktreesã€æœåŠ?schemaã€å¹¶å?writerã€ç”Ÿäº?pre-ceremony/é›?authority mutation çš?metadataï¼›ç¦æ­?sudoã€å†™å…¥ã€la
+belsã€ceremonyã€‚æ— æ³•å®‰å…¨è®¿é—®å³æŠ¥å‘Šã€?
+    },
+    {
+      "task_id": "production-zero-proof",
+      "task_name": "ç”Ÿäº§é›¶åŠ¨ä½œåè¯?,
+      "role": "worker",
+      "sandbox": "read-only",
+      "cwd": "E:\\VPS",
+      "prompt": "ä»»åŠ¡åï¼šç”Ÿäº§é›¶åŠ¨ä½œåè¯\nåªè¯»è®¾è®¡å¹¶æ‰§è¡Œå®‰å…?metadata probesï¼Œè¯æ˜Žæœ¬ä»»åŠ¡å‰åŽ C/D
+/root/A/B/T1/W1 production authority mutation=0ã€real labels=0ã€cutover=NOï¼›ä¸å¾—æŸ¥è¯¢ä»»ä½?label contentï¼Œä¸å¾—è
+°ƒç”?mutation commandã€‚ç»™å‡?before snapshot å­—æ®µ/å“ˆå¸Œã€?
+    },
+    {
+      "task_id": "security-adversary",
+      "task_name": "æ‰§è¡Œå±‚å®‰å…¨åä¾?,
+      "role": "worker",
+      "sandbox": "read-only",
+      "cwd": "E:\\VPS",
+      "prompt": "ä»»åŠ¡åï¼šæ‰§è¡Œå±‚å®‰å…¨åä¾‹\nåªè¯»å»ºç«‹ digest-echo/direct JSON bypassã€execute-before-APPLIEDã€
+W1-before-T1ã€TEST_VOIDEDã€driftã€duplicate/crash/orphan/corrupt pointer/output leak çš?adversarial matrixï¼Œæ˜ å°
+„åˆ°ä»£ç é—¨ä¸Žæµ‹è¯•ï¼Œä¸æ‰§è¡Œå‰¯ä½œç”¨æµ‹è¯•ã€?
+    },
+    {
+      "task_id": "takeover-writer-gate-sonnet",
+      "task_name": "æŽ¥ç®¡é—¨ä¸Žå¹¶å‘å†™è€?,
+      "role": "worker",
+      "sandbox": "read-only",
+      "cwd": "E:\\VPS",
+      "prompt": "ä»»åŠ¡åï¼šæŽ¥ç®¡é—¨ä¸Žå¹¶å‘å†™è€…\nåªè¯»æ ¸éªŒ E:\\VPS ä¸?actual VPS çš„ç›¸å…³è¿›ç¨‹ã€git/worktreeã€
+é”ã€FL18/local hashesï¼Œåˆ¤æ–?shared-state writer é£Žé™©ã€‚ç¦æ­¢å†™å…¥ã€æµ‹è¯•ã€ceremonyã€deployã€authority mutat
+ionã€labelsã€‚è¿”å›?WRITER_GATE/SNAPSHOTS/RISKSã€?
+    },
+    {
+      "task_id": "fable-gap-repro-sonnet",
+      "task_name": "Fableç¼ºå£æœºæ¢°å¤çŽ°",
+      "role": "worker",
+      "sandbox": "read-only",
+      "cwd": "E:\\VPS",
+      "prompt": "ä»»åŠ¡åï¼šFableç¼ºå£æœºæ¢°å¤çŽ°\nåªè¯»æŒ?audit åœ?actual FL18/live repo æœºæ¢°å¤çŽ° digest echoã€æ
+—  driver/trial writer/seal/meter/checkpoint wiring/firewallã€‚è‹¥å·²å­˜åœ¨ç»™ exact path/hash/CLI/full-chainã€‚ç¦æ­¢å†™
+å…?labelsã€?
+    },
+    {
+      "task_id": "precondition-row-map-sonnet",
+      "task_name": "é¢„æ¡ä»¶çŸ©é˜µé€è¡Œæ˜ å°„",
+      "role": "worker",
+      "sandbox": "read-only",
+      "cwd": "E:\\VPS",
+      "prompt": "ä»»åŠ¡åï¼šé¢„æ¡ä»¶çŸ©é˜µé€è¡Œæ˜ å°„\nåªè¯»å®šä½ exact T1 matrix V4ã€Amendment Dã€owner policyã€f
+rozen T1/W1ï¼Œé€?row è¾“å‡º code predicate/observation/fail code/evidence schemaï¼›ç¦æ­¢æ–°é˜ˆå€¼ä¸Ž labelsã€?
+    },
+    {
+      "task_id": "pc6-adapter-sonnet",
+      "task_name": "ç”Ÿäº§æ•°æ®é€‚é…å™¨è®¾è®?,
+      "role": "worker",
+      "sandbox": "read-only",
+      "cwd": "E:\\VPS",
+      "prompt": "ä»»åŠ¡åï¼šç”Ÿäº§æ•°æ®é€‚é…å™¨è®¾è®¡\nåªè¯»å®šä½ PC6 manifest/lineage/PIT loader/materialization ä¸?e
+valuator inputsï¼Œè®¾è®¡æœ€è–?deterministic adapter å’?TCB bindingï¼Œä¸è¯»å– outcomes/labelsã€‚è¿”å›?REUSE/CONTRACT/DRI
+FT_GATES/TESTSã€?
+    },
+    {
+      "task_id": "seal-crash-sonnet",
+      "task_name": "æŒä¹…å°å°ä¸Žå´©æºƒæ¢å¤?,
+      "role": "worker",
+      "sandbox": "read-only",
+      "cwd": "E:\\VPS",
+      "prompt": "ä»»åŠ¡åï¼šæŒä¹…å°å°ä¸Žå´©æºƒæ¢å¤\nåªè¯»è®¾è®¡ exclusive-create+fsync file/dir+short SQLite transa
+ction+readback çš?seal writerï¼Œè¦†ç›?orphan/pointer corruption/duplicate terminalã€‚ç»™ schema/protocol/crash matrixã€?
+    },
+    {
+      "task_id": "synthetic-e2e-sonnet",
+      "task_name": "Syntheticå…¨é“¾Harness",
+      "role": "worker",
+      "sandbox": "read-only",
+      "cwd": "E:\\VPS",
+      "prompt": "ä»»åŠ¡åï¼šSyntheticå…¨é“¾Harness\nåªè¯»è®¾è®¡ production-intended researchctl/researchctld temp DB/soc
+ket synthetic C->D->root->A->B->T1->seal->W1 174->seal E2E å?mandatory negatives/recoveryã€‚ç¦æ­¢è¿è¡?ä¿®æ”¹ã€?
+    },
+    {
+      "task_id": "fl19-freeze-sonnet",
+      "task_name": "FL19å†»ç»“ç”Ÿæˆè·¯å¾„",
+      "role": "worker",
+      "sandbox": "read-only",
+      "cwd": "E:\\VPS",
+      "prompt": "ä»»åŠ¡åï¼šFL19å†»ç»“ç”Ÿæˆè·¯å¾„\nåªè¯»å®¡é˜… FL18 generators/manifest/TCB/proposal/root/runbookï¼Œç»™
+ FL19 non-circular identitiesã€double regenã€no untracked/pyc çš„ç”Ÿæˆæ­¥éª¤ä¸Žæ–‡ä»¶æ›´æ–°çŸ©é˜µã€?
+    },
+    {
+      "task_id": "research-memory-flow-sonnet",
+      "task_name": "ResearchMemoryç™»è®°æµç¨‹",
+      "role": "worker",
+      "sandbox": "read-only",
+      "cwd": "E:\\VPS",
+      "prompt": "ä»»åŠ¡åï¼šResearchMemoryç™»è®°æµç¨‹\nåªè¯»æ ¸éªŒ NON-EVIDENCE registrationã€verify/rebuild/runtime ga
+teï¼Œè®¾è®?final FL19 åŽä»… version/location/run metadata çš„å®‰å…¨æµç¨‹åŠé›?authority mutation è¯æ˜Žï¼›ç¦æ­¢ç›´å†?SQ
+Lite/çŽ°åœ¨ç™»è®°ã€?
+    }
+  ]
+}
+ËùÔÚÎ»ÖÃ ÐÐ:2 ×Ö·û: 71
++ ... pha-execution-headless-wave-20260814.json" | ConvertFrom-Json | Selec ...
++                                                  ~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [ConvertFrom-Json], ArgumentException
+    + FullyQualifiedErrorId : System.ArgumentException,Microsoft.PowerShell.Commands.ConvertFromJsonCommand
+ 
+
+2026-08-15T06:24:33.100783Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.5 seconds
+Output:
+
+2026-08-15T06:25:23.707661Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 181ms)... turn_id=01a00409-1825-75d3-ab45-392233dd16db retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T06:26:27.167138Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 218ms)... turn_id=01a00409-1825-75d3-ab45-392233dd16db retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T06:27:16.476061Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 398ms)... turn_id=01a00409-1825-75d3-ab45-392233dd16db retries=2 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T06:28:05.870991Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 816ms)... turn_id=01a00409-1825-75d3-ab45-392233dd16db retries=3 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T06:28:14.127917Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.638s)... turn_id=01a00409-1825-75d3-ab45-392233dd16db retries=4 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-15T06:28:24.282788Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 3.172s)... turn_id=01a00409-1825-75d3-ab45-392233dd16db retries=5 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-15T06:28:35.209895Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

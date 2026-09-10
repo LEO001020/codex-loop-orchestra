@@ -1,0 +1,11 @@
+Metadata-Version: 2.4
+Name: zloop
+Version: 0.1.0
+Summary: ZLoop: recoverable evidence, session binding, and isolated parallel execution around ZCode
+Requires-Python: >=3.11
+License-File: LICENSE
+Provides-Extra: codex
+Requires-Dist: openai-codex; extra == "codex"
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
+Dynamic: license-file

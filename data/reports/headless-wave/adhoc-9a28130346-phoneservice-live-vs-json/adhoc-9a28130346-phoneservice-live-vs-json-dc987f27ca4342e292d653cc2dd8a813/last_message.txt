@@ -1,0 +1,117 @@
+文档修补应写「保持 DEFAULT 在跑」，不是把 freeze 的 `enabled=3` 当目标。沙箱只读，无法落盘，全文如下。
+
+结论：freeze JSON 仍把 `com.hihonor.phoneservice` 写成 `enabled="3"`，但 07 现场是 User0 `enabled=0`（DEFAULT）且 pid 5715 在跑；文档应写「保持 DEFAULT 在跑」，禁止为对齐去 `disable-user`。证据：`outputs/audit_20260830/44_phoneservice_doc.md`（下文全文；沙箱只读未落盘）
+
+---
+
+# 44 phoneservice 文档修补：保持 DEFAULT 在跑（不是 enabled=3）
+
+范围：只读对照。未执行 `settings put` / `pm` / `appops set` / rollback / `kill-server`。
+设备：HONOR VER-AN10 `AVNS023705001888`（07 采集 2026-08-30 00:26–00:30）。
+
+**一行结论：** 现行 freeze 的 phoneservice 字段是过时冻结目标（`enforced_disabled` + `enabled="3"`）；07 现场是 DEFAULT 且进程在跑。后续文档/期望态必须写「保持 DEFAULT 在跑」，不得再把 `enabled=3` 写成应对齐的 desired。
+
+---
+
+## 1. freeze JSON（过时目标）
+
+文件：`C:\Users\hzq00\Documents\Codex\2026-08-23\ni-j\outputs\HONOR_DESIRED_STATE.stage3.20260823.json`（32341 B，mtime 2026-08-29 02:56:44）
+
+`enforced_disabled_packages[]` 条目（约 L80–84）：
+
+```json
+{
+  "package": "com.hihonor.phoneservice",
+  "baseline_version_code": 110000480,
+  "version_policy": "review_if_version_changed",
+  "enabled": "3"
+}
+```
+
+同文件其它相关字段：
+
+| 字段 | 值 | 含义 |
+|---|---|---|
+| `enforced_disabled_packages` 含该包 | 是 | 对账脚本会当成「必须 disable-user」 |
+| `baseline_packages` 含该包 | 是（约 L746） | 基线已安装 |
+| `protected_core` / `protected_yoyo` / `protected_pc` / `enforced_reduced` | 均不含 | 不是保护核、也不是 Reduced |
+| `ai_sidebar_note.do_not_enable_phoneservice` | `true`（约 L943） | **只禁止为侧栏去开**；不是「现在必须关掉」 |
+| `ai_sidebar_package` | `com.hihonor.hndockbar` | 侧栏 owner 不是 phoneservice |
+
+Android：`0=DEFAULT`，`2=DISABLED`，`3=DISABLED_USER`。freeze 写 `"3"` = 用户禁用。
+
+`do_not_enable_phoneservice=true` 与 `enforced_disabled enabled=3` 叠在一起，容易被读成「保持禁用、禁止 enable」。正确读法：前者是 08-24 侧栏误诊护栏（不要为侧栏去开它）；后者是 Stage3 冻结清单，**已被现场推翻**。
+
+---
+
+## 2. 07 现场（现行事实）
+
+报告：`outputs/audit_20260830/07_keepalive_and_collateral.md`  
+原始：`reports/07_keepalive_and_collateral/`
+
+| 项 | 现场 | 证据 |
+|---|---|---|
+| User0 `enabled` | **`0`（DEFAULT=开）** | `dumpsys_phoneservice.txt` L521；`01_device_live_state/60_phoneservice_en.out.txt` |
+| User0 进程 | **pid 5715** `u0_a63 S com.hihonor.phoneservice` | `procs.txt`：`pidof ... => 5715` |
+| `pm list packages -d` / `--user 0` | **不含** phoneservice | `pm_list_disabled.txt` 两段均无此包 |
+| `pm -d --user 128` | 仅 `com.hihonor.iaware` | 同上 L41 |
+| `lastDisabledCaller` | `com.android.settings` | 历史痕迹，不是当前 disabled |
+| `stopped` / `iAwareStopped` | 均为 false | dumpsys User0 |
+| 版本 | data 包 `versionCode=110000480` / `11.0.0.480`（与 freeze baseline 相同）；hidden system `/system/priv-app/HwPhoneService` 为 `110000420` | dumpsys L317–329 vs L573 段 |
+| 角色 | 荣耀综合电话/售后，**不是** AI 侧栏 | 07 §2、§3；`ai_sidebar_note` |
+
+07 已写：「冻结想要 3，但现场在跑。**不要为对齐 freeze 去禁**。」这句方向对，但后继文档若继续把 desired 写成 `enabled=3`，对账脚本仍会去 `pm disable-user`。
+
+独立复核（同工作区，非本包 adb）：`reports/phoneservice-freeze-drift/comparison.json` — freeze 16 项相对 08-29 live_verify `pm -d` 的**唯一缺口**就是 phoneservice；22:12 的 `pm_disabled_all.txt` 已无此包，不是当晚 live_verify 新开出来的。
+
+---
+
+## 3. 文档应怎么改
+
+**应写（现行期望）：**
+
+> `com.hihonor.phoneservice`：**保持 DEFAULT 在跑**（User0 `enabled=0`，进程可存在）。不要 `pm disable-user` / `pm disable` 去对齐 freeze 的 `enabled=3`。不要为 AI 侧栏去 `pm enable`（已经是 DEFAULT，enable 无意义）。侧栏 owner 是 `com.hihonor.hndockbar`。
+
+**不应写：**
+
+- desired / 冻结目标 `enabled=3` / DISABLED_USER / 「必须保持冻结」
+- 「对账 freeze → disable-user phoneservice」
+- 把 `do_not_enable_phoneservice` 解释成「现在应保持禁用」
+- 把 Stage3 rollback 的 `pm enable --user 0 com.hihonor.phoneservice` 当修复（`HONOR_VER_AN10_STAGE3_ROLLBACK_20260823.ps1` L6；现场已是 DEFAULT，再 enable 也不是目标定义）
+
+建议替换句（给 07 / 05 / freeze 注释 / 后续 HANDOVER）：
+
+| 旧句 | 替换为 |
+|---|---|
+| phoneservice 冻结要 `enabled=3` | phoneservice **保持 DEFAULT 在跑**（现场 `enabled=0` + pid 在） |
+| 对账脚本应 `pm disable-user com.hihonor.phoneservice` | **禁止**为对齐 freeze 去禁 |
+| `do_not_enable_phoneservice=true` ⇒ 保持禁用 | 该旗标只禁「为侧栏去开」；现行已是 DEFAULT，**不要关掉** |
+| 07 一行结论里的「冻结要 3」 | 改成「freeze 仍写 3（过时）；现场 DEFAULT 在跑，文档以现场为准」 |
+
+05 `stale_desired_state` S2 已判定该字段过时，与本包一致：按 JSON 执行会关掉售后电话进程，且与侧栏无关。
+
+---
+
+## 4. 不要做的写入（本包未做，后继也禁止）
+
+- `pm disable-user --user 0 com.hihonor.phoneservice`
+- `pm disable com.hihonor.phoneservice`
+- `pm enable com.hihonor.phoneservice`（为侧栏或为「回滚 Stage3」）
+- 用 bak 覆盖 freeze 后再按 `enforced_disabled` 回放（bak 仍含 phoneservice `enabled=3`）
+
+本包未改 freeze 文件、未 adb 写入。JSON 仍是历史快照；**文档与执行期望以 07 现场为准。**
+
+---
+
+## 5. 证据路径
+
+| 主张 | 路径 |
+|---|---|
+| freeze `enabled="3"` 原文 | `ni-j\outputs\HONOR_DESIRED_STATE.stage3.20260823.json` L80–84、L746、L943 |
+| 07 结论与对照表 | `outputs/audit_20260830/07_keepalive_and_collateral.md` §2 / §3 / §4.1 |
+| dumpsys User0 `enabled=0` | `reports/07_keepalive_and_collateral/dumpsys_phoneservice.txt` L521；`reports/01_device_live_state/60_phoneservice_en.out.txt` |
+| pid 5715 | `reports/07_keepalive_and_collateral/procs.txt` |
+| `pm -d` 无此包 | 同目录 `pm_list_disabled.txt` |
+| 漂移早于 08-29 23:04 | `reports/phoneservice-freeze-drift/comparison.json` |
+| 过时字段总表 S2 | `outputs/audit_20260830/05_stale_desired_state.md` |
+| Stage3 rollback 会 enable | `ni-j\outputs\HONOR_VER_AN10_STAGE3_ROLLBACK_20260823.ps1` L6 |

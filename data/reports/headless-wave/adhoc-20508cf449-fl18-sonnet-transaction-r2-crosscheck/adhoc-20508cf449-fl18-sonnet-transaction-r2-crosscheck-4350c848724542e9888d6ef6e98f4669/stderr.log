@@ -1,0 +1,81 @@
+Reading additional input from stdin...
+2026-08-14T09:18:45.581135Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T09:18:47.990969Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T09:19:12.435929Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1 seconds
+Output:
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均不匹配。
+所在位置 行:2 字符: 169
++ ... Object FullName, Length, LastWriteTime | Format-Table -AutoSize | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (Microsoft.Power...FormatStartData:PSObject) [Get-Content]，ParameterBin 
+   dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均不匹配。
+所在位置 行:2 字符: 169
++ ... Object FullName, Length, LastWriteTime | Format-Table -AutoSize | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (Microsoft.Power....GroupStartData:PSObject) [Get-Content]，ParameterBin 
+   dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均不匹配。
+所在位置 行:2 字符: 169
++ ... Object FullName, Length, LastWriteTime | Format-Table -AutoSize | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (Microsoft.Power...FormatEntryData:PSObject) [Get-Content]，ParameterBin 
+   dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均不匹配。
+所在位置 行:2 字符: 169
++ ... Object FullName, Length, LastWriteTime | Format-Table -AutoSize | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (Microsoft.Power...at.GroupEndData:PSObject) [Get-Content]，ParameterBin 
+   dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均不匹配。
+所在位置 行:2 字符: 169
++ ... Object FullName, Length, LastWriteTime | Format-Table -AutoSize | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (Microsoft.Power...t.FormatEndData:PSObject) [Get-Content]，ParameterBin 
+   dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+
+2026-08-14T09:19:18.121129Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 206ms)... turn_id=019fff91-13af-7b51-824a-eb7878247a94 retries=1 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游网络连接失败, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T09:19:24.027727Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 432ms)... turn_id=019fff91-13af-7b51-824a-eb7878247a94 retries=2 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游网络连接失败, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T09:20:00.414402Z ERROR codex_core::tools::router: error=unsupported call: read
+2026-08-14T09:22:08.583236Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1 seconds
+Output:
+
+
+2026-08-14T09:22:43.771651Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 185ms)... turn_id=019fff91-13af-7b51-824a-eb7878247a94 retries=1 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游网络连接失败, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T09:22:51.258952Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 435ms)... turn_id=019fff91-13af-7b51-824a-eb7878247a94 retries=2 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游网络连接失败, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T09:23:31.101395Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+
+
+2026-08-14T09:27:36.980619Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.6 seconds
+Output:
+所在位置 行:2 字符: 136
++ ... tent "E:\VPS\reports\fl18-sustain-0$i\README.txt" 2>$null } | Out-Str ...
++                                                                 ~
+不允许使用空管道元素。
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : EmptyPipeElement
+ 
+

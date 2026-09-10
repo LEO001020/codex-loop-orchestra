@@ -1,0 +1,62 @@
+Reading additional input from stdin...
+2026-08-12T20:05:29.680678Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-12T20:05:32.065569Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:05:33.724494Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-12T20:09:59.938701Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.8 seconds
+Output:
+
+2026-08-12T20:11:27.934643Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.4 seconds
+Output:
+
+2026-08-12T20:17:41.333276Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 190ms)... turn_id=019ff794-7644-7ea3-9664-449f6fa6dfa2 retries=1 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-12T20:28:11.203669Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 203ms)... turn_id=019ff794-7644-7ea3-9664-449f6fa6dfa2 retries=1 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-12T20:33:17.702503Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 391ms)... turn_id=019ff794-7644-7ea3-9664-449f6fa6dfa2 retries=2 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-12T20:34:19.924313Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.8 seconds
+Output:
+
+2026-08-12T20:34:20.599175Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.4 seconds
+Output:
+
+2026-08-12T20:35:00.462564Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.9 seconds
+Output:
+E:\VPS\reports\binance-usdm-perp-enumeration\analysis.json
+E:\VPS\reports\edu-conflict-propagation\probe_readonly.py
+E:\VPS\reports\edu-conflict-propagation\report.md
+E:\VPS\reports\binance-usdm-perp-enumeration\spot_klines_symbols.txt
+E:\VPS\reports\binance-usdm-perp-enumeration\um_klines_symbols.txt
+E:\VPS\reports\binance-usdm-perp-enumeration\exchangeInfo_fapi_20260812T151100Z.json
+E:\VPS\reports\binance-usdm-perp-enumeration\um_metrics_symbols.txt
+E:\VPS\reports\binance-usdm-perp-enumeration\um_monthly_klines_symbols.txt
+E:\VPS\reports\final-research-count-baseline\probe_out.txt
+E:\VPS\reports\binance-usdm-perp-enumeration\um_monthly_fundingRate_symbols.txt
+E:\VPS\reports\H0价格成交量可用性\probe_a_out.txt
+E:\VPS\reports\H0价格成交量可用性\probe_b_artifacts.sh
+E:\VPS\reports\H0价格成交量可用性\probe_b_out.txt
+E:\VPS\reports\H0价格成交量可用性\probe_d_coverage.sh
+E:\VPS\reports\H0价格成交量可用性\probe_d_out.txt
+E:\VPS\reports\H0价格成交量可用性\probe_e_adjacency.sh
+E:\VPS\reports\H0价格成交量可用性\report.md
+E:\VPS\reports\H0价格成交量可用性\probe_e_out.txt
+E:\VPS\reports\H0价格成交量可用性\probe_f_gapchars.sh
+E:\VPS\reports\Manifest可复现性审阅\pc6_binance_materializer.snapshot-20260813T0005Z.py
+

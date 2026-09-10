@@ -1,0 +1,326 @@
+Reading additional input from stdin...
+2026-08-19T17:08:54.473190Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-19T17:08:56.871595Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-19T17:08:59.982887Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-19T17:09:11.019911Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.6 seconds
+Output:
+所在位置 行:2 字符: 72
++ ... -LOOP\staging\github-release-headless\candidate-F-minimal" && Get-Chi ...
++                                                                ~~
+标记“&&”不是此版本中的有效语句分隔符。
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : InvalidEndOfLine
+ 
+
+2026-08-19T17:09:22.317780Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.2 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后再试一次。
+所在位置 行:2 字符: 196
++ ... ontainer | Format-Table -AutoSize | Out-String -Width 200 | head -120
++                                                                 ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-19T17:09:47.071604Z  WARN codex_sandboxing::violation: recorded sandbox violation: resource=filesystem backend=windows_sandbox reason=policy_denied path=unknown
+2026-08-19T17:09:47.071962Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+
+Name                                             PSIsContainer
+----                                             -------------
+.codex                                                    True
+.pytest_cache                                             True
+agents                                                    True
+backup-20260811-215706                                    True
+backup-20260811-215927                                    True
+backup-20260813-012318                                    True
+codex-loop-s-f2                                           True
+config                                                    True
+C                                                        True
+data                                                      True
+harness                                                   True
+hooks                                                     True
+metering                                                  True
+reports                                                   True
+schemas                                                   True
+tests                                                     True
+AGENTS.md                                                False
+install.sh                                               False
+install_v2.sh                                            False
+README.md                                                False
+search_log.md                                            False
+SHA256SUMS                                               False
+test_evidence_pytest_output.txt                          False
+VERSIONS.lock                                            False
+work_commencement_certificate.md                         False
+hooks                                                     True
+config.toml                                              False
+hooks.json                                               False
+duty_officer.toml                                        False
+plan_expander.toml                                       False
+reviewer.toml                                            False
+verifier.toml                                            False
+worker.toml                                              False
+config                                                    True
+tests                                                     True
+config                                                    True
+harness                                                   True
+hooks                                                     True
+metering                                                  True
+.pytest_cache                                             True
+config                                                    True
+data                                                      True
+harness                                                   True
+hooks                                                     True
+metering                                                  True
+tests                                                     True
+config.toml.example                                      False
+escalation_ladder.yaml                                   False
+global_hooks.json                                        False
+global_requirements.toml                                 False
+global_working_agreement.md                              False
+ipybox_sandbox.json                                      False
+loop_config_v2.toml                                      False
+managed_files_v2.txt                                     False
+model_profiles.toml                                      False
+orchestration_policy.toml                                False
+orchestration_policy_v2.toml                             False
+refill_policy.toml                                       False
+retry_classes.yaml                                       False
+roles.yaml                                               False
+roles_v2.yaml                                            False
+statemachine_v2_transitions.json                         False
+triggers.yaml                                            False
+triggers_v2.yaml                                         False
+Users                                                     True
+budget                                                    True
+dead_letters                                              True
+duty_review                                               True
+governor                                                  True
+l2_queue                                                  True
+lifecycle                                                 True
+lifecycle_reports                                         True
+orchestration                                             True
+packets                                                   True
+plans                                                     True
+provider_health                                           True
+refill                                                    True
+repairs                                                   True
+reports                                                   True
+router                                                    True
+smoke                                                     True
+sol_wake                                                  True
+usage                                                     True
+validators                                                True
+.breaker.json                                            False
+.sm_cursor                                               False
+escalation_log.jsonl                                     False
+escalation_log.jsonl.lock                                False
+events.ndjson                                            False
+lessons.jsonl                                            False
+progress_ledger.json                                     False
+progress_ledger.lock                                     False
+spawn_times.json                                         False
+timeout_retry_counters.json                              False
+orchestration                                             True
+__pycache__                                               True
+acceptance_replay.sh                                     False
+agent_router.py                                          False
+budget_controller.py                                     False
+csv_reconcile.py                                         False
+dag_assert.py                                            False
+desktop_edge_reconcile.py                                False
+diffvalidator.py                                         False
+dispatch.py                                              False
+dispatch_v2.py                                           False
+dual_plane_hash.py                                       False
+duty_driver.py                                           False
+duty_gate.py                                             False
+duty_route.py                                            False
+global_desktop_mode.py                                   False
+headless_wave.py                                         False
+ipybox_cleanup.py                                        False
+ipybox_lazy.py                                           False
+l2_consumer.py                                           False
+layered_gate.py                                          False
+lifecycle_supervisor.py                                  False
+lifecycle_supervisor_v2.py                               False
+loop_config.py                                           False
+missing_check.sh                                         False
+model_profile.py                                         False
+orchestration_common.py                                  False
+orchestration_epilogue.py                                False
+parent_manifest_importer.py                              False
+plan_consumer.py                                         False
+provider_health.py                                       False
+recover_parent_replay_incident.py                        False
+refill_consumer_v2.py                                    False
+refill_controller.py                                     False
+refill_controller_v2.py                                  False
+repair_parent_ledger_schema.py                           False
+repair_plain_parent_reports.py                           False
+repair_transport_deadletters.py                          False
+result_reducer.py                                        False
+retry.py                                                 False
+root_turn_governor.py                                    False
+routing_mode.py                                          False
+sanitize.py                                              False
+short_result_validator.py                                False
+signals_collect.py                                       False
+smoke_gate.sh                                            False
+statemachine.py                                          False
+statemachine_v2.py                                       False
+summary_synth.py                                         False
+terminal_packet_epilogue.py                              False
+trigger_eval.py                                          False
+trigger_eval_v2.py                                       False
+verdict_aggregate.py                                     False
+verdict_check.py                                         False
+worktree_pool.sh                                         False
+__pycache__                                               True
+global_loop_mode.py                                      False
+hooks.json.example                                       False
+leaf_agent_spawn_gate.py                                 False
+root_agent_spawn_gate.py                                 False
+sol_tool_gate.py                                         False
+sol_tool_gate_router.py                                  False
+sol_tool_gate_v2.py                                      False
+subagent_lifecycle.py                                    False
+subagent_start_meter.sh                                  False
+__pycache__                                               True
+e0_annotate.py                                           False
+model_token_share.py                                     False
+model_token_share_bridge.py                              False
+model_token_share_v2.py                                  False
+oscillation_report.py                                    False
+usage_reconcile.py                                       False
+baseline-restore-final-audit                              True
+cold-start-rollback-audit-20260812                        True
+desktop-concurrency-audit-20260812                        True
+edge-negative-review                                      True
+exec-roster-concurrency-audit-20260812                    True
+f2-sol-token-share-defect                                 True
+fable-audit                                               True
+ghost_audit                                               True
+headless-registration-audit-019feacd                      True
+hooks-policy-entry-audit-20260812                         True
+install-manifest-policy-drift-20260812                    True
+ipybox-final-lifecycle-audit                              True
+limited-retry-release-gate                                True
+node-repl-cleanup-audit                                   True
+Observer父活性R2                                             True
+ParentStop-R2-adversarial                                 True
+plan-producer-wiring-audit                                True
+prespawn-cap-test                                         True
+provider-timeout-closure-audit                            True
+r3-prerelease-priority-ranking                            True
+refill-boundary-review                                    True
+retry-wiring-audit-20260813                               True
+reviewer-sol-misroute-critical                            True
+roster-encoding-final-audit                               True
+sol-share-arch-ruling-20260813                            True
+terminal-request-race-review                              True
+timeout_retry_wiring                                      True
+windows-process-generation-audit                          True
+zhenshi-16wave-count-audit-20260813                       True
+并发路由最终真值审计                                                True
+状态原子方案复核                                                  True
+状态机发布闭环审计                                                 True
+终态runner所有权审阅                                             True
+.report_tmp_8e0777ac-fc88-5298-9e25-96960caca5ac         False
+fable_v2_final_integration_20260812.md                   False
+headless-apps-off-smoke-20260812.json                    False
+headless-wave-smoke-20260812.json                        False
+ipybox-headless-stability-20260810.md                    False
+k3_concurrent_audit_20260812.md                          False
+decision_skeleton.schema.json                            False
+plan_expander.schema.json                                False
+short_result.schema.json                                 False
+.pytest_cache                                             True
+golden                                                    True
+mock_codex                                                True
+orchestration_v2                                          True
+statemachine_paths                                        True
+unit                                                      True
+__pycache__                                               True
+conftest.py                                              False
+ipybox_parent_death_smoke.py                             False
+ipybox_supervisor_smoke.py                               False
+test_agent_router.py                                     False
+test_budget_controller.py                                False
+test_cold_start_rollback.py                              False
+test_dispatch_v2.py                                      False
+test_global_desktop_mode.py                              False
+test_governor_hysteresis.py                              False
+test_l2_consumer.py                                      False
+test_layered_e2e.py                                      False
+test_layered_gate.py                                     False
+test_lifecycle_supervisor_v2.py                          False
+test_refill_controller_v2.py                             False
+test_result_reducer.py                                   False
+test_root_turn_governor.py                               False
+test_short_result_validator.py                           False
+test_smoke_all.py                                        False
+test_sol_tool_gate_v2.py                                 False
+test_statemachine_v2.py                                  False
+test_token_meter_v2.py                                   False
+test_trigger_eval_v2.py                                  False
+test_windows_wsl_paths.py                                False
+
+
+Get-ChildItem : 对路径“E:\codex-LOOP\codex-loop-s-f2\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem "E:\codex-LOOP\codex-loop-s-f2" -Depth 1 | Format-Table ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\codex-LOOP\c...2\.pytest_cache:String) [Get-ChildItem], Unauthoriz 
+   edAccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-19T17:09:54.317531Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-19T17:12:35.401088Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+Get-Content : 找不到路径“E:\codex-LOOP\codex-loop-s-f2\config\hooks.json.example”，因为该路径不存在。
+所在位置 行:2 字符: 1
++ Get-Content "E:\codex-LOOP\codex-loop-s-f2\config\hooks.json.example"
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (E:\codex-LOOP\c...ks.json.example:String) [Get-Content], ItemNotFoundEx 
+   ception
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+
+2026-08-19T17:13:51.633815Z ERROR codex_core::tools::router: error=apply_patch verification failed: invalid patch: The first line of the patch must be '*** Begin Patch'
+2026-08-19T17:14:02.396099Z ERROR codex_core::tools::router: error=apply_patch verification failed: invalid patch: The first line of the patch must be '*** Begin Patch'
+2026-08-19T17:17:58.967608Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 196ms)... turn_id=01a01aff-4eb4-7153-a05b-7b38d16e0721 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-19T17:18:45.224889Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 433ms)... turn_id=01a01aff-4eb4-7153-a05b-7b38d16e0721 retries=2 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-19T17:19:31.956456Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 768ms)... turn_id=01a01aff-4eb4-7153-a05b-7b38d16e0721 retries=3 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-19T17:20:38.839764Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.574s)... turn_id=01a01aff-4eb4-7153-a05b-7b38d16e0721 retries=4 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+2026-08-19T17:21:26.599102Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 3.303s)... turn_id=01a01aff-4eb4-7153-a05b-7b38d16e0721 retries=5 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-19T17:22:18.053485Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

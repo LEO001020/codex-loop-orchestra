@@ -1,0 +1,150 @@
+Reading additional input from stdin...
+2026-08-15T07:17:05.171524Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-15T07:17:09.926913Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-15T07:17:24.417388Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 3.5 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 145
++ ... le | Select-Object FullName, Length | Sort-Object FullName | head -60
++                                                                  ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-15T07:17:56.242209Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 5.1 seconds
+Output:
+python3 : 无法将“python3”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确
+，然后再试一次。
+所在位置 行:2 字符: 111
++ ... ot_v2\P5_PC6_EXECUTABLE_DATA_MANIFEST_V1.json" -Raw | python3 -c "imp ...
++                                                           ~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (python3:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-15T07:20:55.516513Z ERROR codex_core::tools::router: error=Exit code: 124
+Wall time: 10.7 seconds
+Output:
+command timed out after 10731 milliseconds
+Get-ChildItem : 对路径“E:\VPS\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem -Path "E:\VPS" -Recurse -Filter "binance_materializer.p ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\VPS\.pytest_cache:String) [Get-ChildItem], UnauthorizedAccessExcep 
+   tion
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-15T07:24:29.297918Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+Get-Content : 找不到路径“E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot_v2\tcb\bundle\P5_PC6_EXECUTION_ADAPTER_CONTRACT_
+V2.json”，因为该路径不存在。
+所在位置 行:2 字符: 1
++ Get-Content "E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot_v2\tcb\bun ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (E:\VPS\P5_FAST_...ONTRACT_V2.json:String) [Get-Content], ItemNotFoundEx 
+   ception
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+
+2026-08-15T07:24:55.739281Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+Get-Content : 找不到路径“E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot_v2\tcb\bundle\P5_PC6_EXECUTION_ADAPTER_CONTRACT_
+V1.json”，因为该路径不存在。
+所在位置 行:2 字符: 1
++ Get-Content "E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot_v2\tcb\bun ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (E:\VPS\P5_FAST_...ONTRACT_V1.json:String) [Get-Content], ItemNotFoundEx 
+   ception
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+
+2026-08-15T07:25:10.900323Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1 seconds
+Output:
+Get-ChildItem : 找不到路径“E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot_v2\tcb\bundle”，因为该路径不存在。
+所在位置 行:2 字符: 1
++ Get-ChildItem "E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot_v2\tcb\b ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (E:\VPS\P5_FAST_...t_v2\tcb\bundle:String) [Get-ChildItem], ItemNotFound 
+   Exception
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-15T07:25:27.982716Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1 seconds
+Output:
+Get-ChildItem : 找不到路径“E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot_v2\tcb”，因为该路径不存在。
+所在位置 行:2 字符: 1
++ Get-ChildItem "E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot_v2\tcb"  ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (E:\VPS\P5_FAST_...snapshot_v2\tcb:String) [Get-ChildItem], ItemNotFound 
+   Exception
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-15T07:31:41.319494Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 7 seconds
+Output:
+python : 无法将“python”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，
+然后再试一次。
+所在位置 行:2 字符: 120
++ ... _T1_PRECONDITION_V4_IMPLEMENTATION_MAP_V1.json" -Raw | python -c "imp ...
++                                                            ~~~~~~
+    + CategoryInfo          : ObjectNotFound: (python:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-15T07:32:42.435318Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.2 seconds
+Output:
+Get-Content : 找不到路径“E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot_v2\scientific-root-20\P5_P3_PIT_UNIVERSE_EXECUTI
+ON_RULE_V1.md”，因为该路径不存在。
+所在位置 行:2 字符: 1
++ Get-Content "E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot_v2\scienti ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (E:\VPS\P5_FAST_...TION_RULE_V1.md:String) [Get-Content], ItemNotFoundEx 
+   ception
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+
+2026-08-15T07:39:34.571255Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.1 seconds
+Output:
+Select-String : 找不到路径“E:\VPS\P5_FAST_PATH_WORK\live_frozen_snapshot_v2\tests\test_data_plane_repairs.py”，因为该路
+径不存在。
+所在位置 行:2 字符: 1
++ Select-String -Pattern "perp_bars|spot_bars|build_source|alpha-source ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (E:\VPS\P5_FAST_...lane_repairs.py:String) [Select-String], ItemNotFound 
+   Exception
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.SelectStringCommand
+ 
+
+2026-08-15T07:40:35.614848Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 216ms)... turn_id=01a00448-0a7f-7250-92ae-abfebaeeeb4e retries=1 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-15T07:40:49.556945Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 381ms)... turn_id=01a00448-0a7f-7250-92ae-abfebaeeeb4e retries=2 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-15T07:40:59.792497Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 812ms)... turn_id=01a00448-0a7f-7250-92ae-abfebaeeeb4e retries=3 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-15T07:41:10.521107Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.711s)... turn_id=01a00448-0a7f-7250-92ae-abfebaeeeb4e retries=4 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游请求总预算耗尽, url: http://127.0.0.1:10100/v1/responses
+2026-08-15T07:41:24.020649Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 3.483s)... turn_id=01a00448-0a7f-7250-92ae-abfebaeeeb4e retries=5 max_retries=5 sampling_error=stream disconnected before completion: error sending request for url (http://127.0.0.1:10100/v1/responses)
+2026-08-15T07:41:48.667146Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

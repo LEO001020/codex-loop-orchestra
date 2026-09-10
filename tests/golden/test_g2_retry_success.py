@@ -2,7 +2,7 @@
 # test_g2_retry_success.py — Golden case G2 (spec §7)
 # One packet fails transiently (timeout class), the table-driven retry loop
 # re-dispatches it, the second attempt succeeds and passes acceptance.
-# Pass standard: FAILED -> RUNNING -> ... -> ACCEPTED with NO Sol wake
+# Pass standard: FAILED -> DISPATCHABLE -> RUNNING -> ACCEPTED with NO Sol wake
 # (transient failures are absorbed by the harness, never escalated).
 # ============================================================================
 import json
@@ -39,11 +39,16 @@ def test_g2_transient_failure_retries_to_accepted(repo_loop):
     # re-dispatch contract: the failed attempt's report slot is cleared so
     # the reconcile fallback cannot mistake the stale report for attempt 2
     (loop.data / "reports" / pid / "report.json").unlink()
-    rc, states = loop.step()                    # retry_dispatch: FAILED -> RUNNING
-    assert states[pid] == "RUNNING"
+    rc, states = loop.step()                    # retry admitted for physical refill
+    assert states[pid] == "DISPATCHABLE"
     assert loop.ledger()["packets"][pid]["attempts"] == 1
 
     # --- attempt 2: succeeds -------------------------------------------------------
+    # Production always emits `dispatched` before the worker runs (the
+    # dispatcher appends it at the physical birth boundary).  The simulation
+    # must do the same: DISPATCHABLE + subagent_stop is an impossible
+    # production sequence and correctly dead-letters fail-visible.
+    loop.append_event(pid, "dispatched")
     r = loop.mock_spawn(pid, wt)                # scenario: normal
     assert r.returncode == 0
     rc, states = loop.step()
@@ -58,6 +63,6 @@ def test_g2_transient_failure_retries_to_accepted(repo_loop):
 
     # --- pass standard: the full journey is visible in history, Sol never woken --
     path = [h["t"] for h in loop.history(pid)]
-    assert path == [1, 2, 3, 6, 9, 4, 7]        # RUNNING->FAILED->RUNNING->...->ACCEPTED
+    assert path == [1, 2, 3, 6, 9, 3, 4, 7]     # attempt 2 re-enters via t3 (dispatched)
     assert loop.sol_wakes() == []
     assert loop.escalations(level="SOL_WAKE") == []

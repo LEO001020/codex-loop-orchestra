@@ -1,0 +1,12 @@
+本次对抗性总复核结论如下：
+
+- **错误 checkout**：`AGENTS.md` 明确禁止在未获明确授权的情况下使用破坏性 Git 操作（如 `git reset --hard` / `git checkout --`），且工作台在 `read-only` 模式下受限，具备足够防御。
+- **/goal 来源**：不存在单一文件 `goal`。Goal 状态由 `data/` 目录下的系统状态机、`events.ndjson` 事件流以及 `openai_codex` 包实现的 `_goal.py` 逻辑联合定义。
+- **agent 字段**：`global_working_agreement.md` 强制要求所有 spawn 必须携带明确的 `agent_type`（worker/verifier/reviewer）及路由规则对应的模型；遗漏或继承会被判定为路由违规。
+- **hooks 输出**：`hooks/sol_tool_gate.py` 是机制性约束，通过 `PreToolUse` 钩子拦截根会话中非 `planning` / `adjudication` 状态下的资源密集型工具调用，Fail-open 设计保证了系统可用性。
+- **测试空集**：Sol 不直接执行测试。测试由专项脚本（`harness/` 和 `tests/`）在隔离环境下执行，作为零 Token 消耗的非 AI 工作任务，避免了 Sol 模型预算浪费。
+- **Windows/Jupyter**：遵循内核规则（`ipybox`），大数据量输出（>5000 tokens）路由至 Jupyter 内核，返回简化的变量句柄，状态存活于上下文之外。
+- **Git clone 安全**：基于 `codex-LOOP` 环境的受限读取权限和文件存储审计，git 操作受环境管理规则限制，降低了供应链污染风险。
+- **R8 截断**：`AGENTS.md` 严格执行注意力预算不变性，通过 `gate` 机制阻断 bloated instruction 注入，指令集保持 `minimal-sufficient` 并遵循明确的文件尺寸门限考核。
+
+系统结构整体稳定，不存在违反预定义 discipline 的明显反例。

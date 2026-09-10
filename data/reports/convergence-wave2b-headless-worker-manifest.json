@@ -1,0 +1,68 @@
+{
+  "tasks": [
+    {
+      "task_id": "refill-ledger-contract",
+      "task_name": "补位Ledger契约",
+      "prompt": "任务名：补位Ledger契约\n只读审计 E:/codex-LOOP/codex-loop-s-f2/harness/refill_consumer_v2.py 与 refill_controller_v2.py。检查只有真实 DISPATCHABLE/K3 状态 packet 才能进入 bounded manifest，空 ledger 必须零出生。不要修改文件，不要生成子agent。将不超过500字的 PASS/REDO 结论写入最终回答，附文件和行号。",
+      "cwd": "E:/codex-LOOP/codex-loop-s-f2",
+      "role": "worker",
+      "sandbox": "read-only"
+    },
+    {
+      "task_id": "stable-running-debt",
+      "task_name": "StableRunning销债",
+      "prompt": "任务名：StableRunning销债\n只读审计 E:/codex-LOOP/codex-loop-s-f2/harness/headless_wave.py、lifecycle_supervisor.py、refill_controller_v2.py。核对只有匹配run_id且稳定running才算有效并发，starting/失败/旧代不能清债。不要修改或生成子agent。返回<=500字 PASS/REDO 与行号。",
+      "cwd": "E:/codex-LOOP/codex-loop-s-f2",
+      "role": "worker",
+      "sandbox": "read-only"
+    },
+    {
+      "task_id": "role-model-pin",
+      "task_name": "角色模型Pin审计",
+      "prompt": "任务名：角色模型Pin审计\n只读审计 dispatch_v2.py、dispatch.py、model_profiles.toml 与 agents/*.toml。验证普通执行显式V4 worker、验证角色显式K3、无roleless Sol继承，且显式role不会配错prompt。不要修改或生成子agent。返回<=500字 PASS/REDO 与行号。",
+      "cwd": "E:/codex-LOOP/codex-loop-s-f2",
+      "role": "worker",
+      "sandbox": "read-only"
+    },
+    {
+      "task_id": "ipybox-plane",
+      "task_name": "ipybox承载面审计",
+      "prompt": "任务名：ipybox承载面审计\n只读审计 dispatch_v2.py、dispatch.py、orchestration_policy_v2.toml。确认Desktop native关闭ipybox，headless worker启用，K3默认关闭且代码执行例外受控。不要修改或生成子agent。返回<=500字 PASS/REDO 与行号。",
+      "cwd": "E:/codex-LOOP/codex-loop-s-f2",
+      "role": "worker",
+      "sandbox": "read-only"
+    },
+    {
+      "task_id": "budget-before-birth",
+      "task_name": "出生前预算审计",
+      "prompt": "任务名：出生前预算审计\n只读审计 dispatch_v2.py、dispatch.py、budget_controller.py 的 reserve→spawn→commit/failure reclaim 及run_id一致性。找出任何出生后才登记或失败泄漏。不要修改或生成子agent。返回<=500字 PASS/REDO 与行号。",
+      "cwd": "E:/codex-LOOP/codex-loop-s-f2",
+      "role": "worker",
+      "sandbox": "read-only"
+    },
+    {
+      "task_id": "hook-refill-meter",
+      "task_name": "Hook补位计量审计",
+      "prompt": "任务名：Hook补位计量审计\n只读审计 hooks/subagent_lifecycle.py 与 meter bridge。确认hook仅调用v2 refill、先sync ledger再recompute，meter复用锁和60秒debounce且失败可见。不要修改或生成子agent。返回<=500字 PASS/REDO 与行号。",
+      "cwd": "E:/codex-LOOP/codex-loop-s-f2",
+      "role": "worker",
+      "sandbox": "read-only"
+    },
+    {
+      "task_id": "windows-wsl-lifecycle",
+      "task_name": "WindowsWSL生命周期",
+      "prompt": "任务名：WindowsWSL生命周期\n只读审计 lifecycle_supervisor.py、headless_wave.py、subagent_lifecycle.py 的Windows锁、原子替换、Job Object、孤儿回收与双平面roster。不要修改或生成子agent。返回<=500字 PASS/REDO 与行号。",
+      "cwd": "E:/codex-LOOP/codex-loop-s-f2",
+      "role": "worker",
+      "sandbox": "read-only"
+    },
+    {
+      "task_id": "regression-adversarial",
+      "task_name": "第二轮B对抗回归",
+      "prompt": "任务名：第二轮B对抗回归\n只读对抗审计本轮相关diff：hooks/subagent_lifecycle.py、harness/refill_consumer_v2.py、headless_wave.py、dispatch_v2.py、dispatch.py、budget_controller.py及对应测试。重点找架构补丁堆叠、第三controller、空任务填充、并发降低。不要修改或生成子agent。返回<=500字 PASS/REDO 与行号。",
+      "cwd": "E:/codex-LOOP/codex-loop-s-f2",
+      "role": "worker",
+      "sandbox": "read-only"
+    }
+  ]
+}

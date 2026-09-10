@@ -1,0 +1,56 @@
+# Headless PC6 合同映射报告
+
+**适配器定位**：任务要求的 synthetic evaluator adapter 即 `quant/p5_track3` 现有评估基础设施——`engineering_contracts`（fail-closed 谓词）、`temporal_semantics`（时间类型系统）、`golden_vectors`/`null_oracle`（合成金标+端到端 oracle）、`lineage`（sidecar/hash 规范）、`run_track3`（gate：golden+oracle 全过才放行）。PC6 侧源为 [pc6_binance_materializer.py](E:/VPS/pc6_binance_materializer.py:716) 的 `build_artifacts` 产出的 5 类工件。
+
+## 一、可机械映射字段
+
+### Manifest `P5_PC6_EXECUTABLE_DATA_MANIFEST_V1`
+| PC6 字段 | 适配器消费者 | 映射方式 |
+|---|---|---|
+| `status` READY/BLOCKED；`readiness.*` | `run_track3` 的 fail-closed gate（golden+oracle `all_pass`） | 布尔/状态直映 |
+| `raw_manifest_hash`/`normalized_manifest_hash` | 对 lineage 行 `raw_sha256`/`normalized_output_sha256` 排序后重算 | 确定性可复算 |
+| 5 个工件 hash（identity/listing/lineage/qa/views） | artifact JSON 重算 sha256 比对 | 确定性可复算（canonical 形式见阻塞 B4） |
+| `build_code_identity{git_commit,file_sha256,path}` | `lineage.write_lineage_sidecar` 的 producer/code identity 模式 | 键级直映 |
+| `bar_causality` / `funding_event_semantics` / `timestamp_unit` | `bar_closed_before_decision`、`outcome_event_in_interval`、`normalize_binance_timestamp` | 语义直映（单位见 B3） |
+| `pit_universe_input_spec` | `weighting_feasibility(has_pit_membership, has_pit_market_cap=False, has_volume)` | 机械推导 |
+| `non_actions`（`real_return_performance_computed:false` 等） | `null_oracle.run_class=ENGINEERING`、benchmark `real_market_data_read=false` | 不变量一致 |
+| `executable_cells[].normalized_revision_hashes` | lineage 行 `normalized_output_sha256` 交叉 | 键级一致 |
+| `wave1_complete_symbols`/`t1_engineering_window_complete_symbols` | QA 同名数组长度 | 交叉计数 |
+
+### Lineage `P5_PC6_DATA_REVISION_LINEAGE_V3`
+13 个 `REQUIRED_LINEAGE_FIELDS`（[engineering_contracts.py](E:/VPS/.work/pc6-edit/quant/p5_track3/engineering_contracts.py:21)）均可经重命名投影机械映射：`revision_id`、`retrieval_timestamp→retrieved_at`、`raw_sha256`、`raw_byte_size`、`official_checksum_sha256→official_checksum`（nullable→`validate_sha256` 分支）、`raw_storage_locator→raw_locator`（以 `blobs/sha256/<hex>` 结尾，满足 CONTENT_ADDRESSED 规则）、`remote_object_identity→source_identity`、`request_identity→request_parameters`、`transform_code_identity`、`transform_code_sha256`、`normalized_output_locator`、`normalized_output_sha256`。`checksum_status` 值（`VERIFIED_SHA256`/`NOT_PUBLISHED_...`）与 nullable 校验语义一致。
+
+### Identity `P5_P3_PERP_SPOT_IDENTITY_MAP_V1`
+- `status`（`VERIFIED_UNIT_COMPATIBLE` 等）→ admission 谓词，与 QA 计数同源；
+- `contractType=PERPETUAL` → `classify_market_structure` → `STANDARD_PERP`；
+- `perp_symbol`/`venue`/`family` → `instrument_identity` 封闭 token 拼接；
+- `onboardDate_metadata_ms`/`deliveryDate_metadata_ms`（ms、远未来哨兵已处理）→ `reconcile_listing_epoch` 输入；
+- `price_unit_multiplier="1"`/`contract_unit_semantics` → 与 `align_basis_input` 的单位对齐语义一致。
+
+### Listing `P5_P3_LISTING_EPISODE_LEDGER_V1`
+- 各 `*_us` 时间字段 → `reconcile_listing_epoch`/`pit_member` 参数（值机械，单位见 B3）；
+- `disagreement_state=SOURCE_DISAGREEMENT` ↔ `reconcile_listing_epoch().source_disagreement`；
+- `spot_availability` → `weighting_feasibility(has_pit_membership)`；
+- `episode_id`/`archive_months_*`/`*_evidence`/`boundary_status` 无谓词消费，仅透传。
+
+### QA `P5_PC6_BINANCE_STRUCTURAL_QA_V1`
+- `checksum_failures`/`normalization_failures`/`duplicate_keys` → 可作 adapter fail-closed 数值断言；
+- `raw_archive_objects`/`raw_archive_bytes`/`normalized_objects`/`normalized_rows`/`executable_symbol_month_cells`/`archive_gaps` → 与 manifest/lineage 交叉计数机械一致；
+- `identity_mapping_blocked_instruments`/`unit_mapping_blocked_instruments` → 由 identity rows 机械重算；
+- `source_archive_conflicts` 中 `DUPLICATE_KEYS` → `deduplicate_rows` 语义对应。
+
+另注：`test_pc6_binance_materializer.py`（`test_actual_artifact_hashes_and_readiness` 等）已是实际消费上述工件的合成 fixture 适配器，字段 1:1。
+
+## 二、阻塞字段
+
+| # | 字段/边界 | 阻塞原因 |
+|---|---|---|
+| B1 | lineage 行整组键 | `validate_revision_lineage` 是精确集合校验 `set(record) != REQUIRED_LINEAGE_FIELDS` 即抛 `ContractViolation`（[engineering_contracts.py](E:/VPS/.work/pc6-edit/quant/p5_track3/engineering_contracts.py:123)）；PC6 行含 `source_provider`/`source_namespace`/`checksum_status`/`normalization_status`/`conflict` 等额外键且键名不同，直接喂入必然失败——必须投影层 |
+| B2 | `parent_revision_id` | 适配器要求 `parent_revision` 为 64-hex sha256；PC6 存的是 `rev-<ts>-<sha16>` revision id，无 id→sha256 索引即 `ContractViolation` |
+| B3 | 全部 `*_us` 时间字段（listing/QA/manifest 的 `timestamp_unit=epoch_us`） | `require_epoch_ms` 窗口为 [1e12, 4e12) ms（[engineering_contracts.py](E:/VPS/.work/pc6-edit/quant/p5_track3/engineering_contracts.py:50)），epoch-us（~1.7e15）全部越界；适配器无 `require_epoch_us` 变体 |
+| B4 | 所有 artifact/manifest hash 复核 | materializer `canonical_bytes` 是 `json.dumps(..., ensure_ascii=False)+"\n"`（[pc6_binance_materializer.py](E:/VPS/pc6_binance_materializer.py:65)），`lineage.sha256_json` 无尾部换行且 `ensure_ascii` 默认 True（[lineage.py](E:/VPS/.work/pc6-edit/quant/p5_track3/lineage.py:58)）；用 lineage 工具重算必得不同摘要，跨模块 hash 不可互操作 |
+| B5 | identity 行缺 `spec_epoch_id` | `align_basis_input` 要求 mark/index 的 `instrument_id/event_time_ms/spec_epoch_id` 三键对齐（[engineering_contracts.py](E:/VPS/.work/pc6-edit/quant/p5_track3/engineering_contracts.py:161)），PC6 identity 无此键，basis 对齐无法机械验证 |
+| B6 | QA 计数器整体 | `engineering_contracts` 无任何 gaps/conflicts/blocked 计数谓词；若适配器须对 QA 计数 fail-closed，需新增谓词，非机械 |
+| B7 | `manifest.temporal_schema_sha256`（常量 `30b4...`） | 本地无 registry 可核验，只可透传，不可机械验证 |
+
+**结论**：约 80% 字段（含全部 13 个 lineage 必需键）经投影/重命名/单位换算后可机械映射；其余阻塞集中在 4 个硬边界——lineage 精确集合校验（B1）、parent 类型（B2）、ms/us 单位窗口（B3）、hash canonical 形式（B4）。B1–B4 需适配器侧变更（投影层、id 索引、epoch-us 谓词、统一 canonical）后方可闭环。

@@ -1,0 +1,137 @@
+所有关键信息已完整收集。现在汇总完整报告。
+
+---
+
+## 清单确定性核验报告
+
+### 一、清单生成逻辑（`build_manifest.py`）
+
+位置：`E:\VPS\reports\cursor-fable-takeover-20260813\report-sources\build_manifest.py`
+
+**枚举逻辑**：用 `os.walk(root)` 递归遍历候选目录，**剪枝** `__pycache__` 子目录（`dirnames[:] = [d for d in dirnames if d != "__pycache__"]`），**跳过** 所有 `.pyc` 文件，**排除** `10_MANIFEST.json` 与 `11_SHA256SUMS` 自身。
+
+**排序**：收集所有相对路径后执行 `files.sort()` ——即 UTF-8 字节序（Python `str.sort` 默认 lexicographic），与平台无关，输入相同则顺序完全固定。
+
+**序列化**：
+- `10_MANIFEST.json`：`json.dump(..., indent=2, ensure_ascii=False)` + 尾部 `\n`，**无时间戳、无随机字段、无环境字段**（注释中明确说明 `generated_at_utc intentionally OMITTED`），`newline="\n"` 强制 LF。
+- `11_SHA256SUMS`：每行 `{hex}  {rel}\n`，同样 LF，与 entries 顺序完全一致。
+
+**自哈希定义**：`11_SHA256SUMS` 不包含自身，其自哈希由调用方在外部计算（`sha256sum 11_SHA256SUMS | cut -d' ' -f1`），在 `publish_fl13.sh` 中作为硬编码 `expect` 值做身份锁定。当前本地实测值：
+
+```
+SHA256(11_SHA256SUMS) = 88d9c8f99aab0818d378bb0cc77739be07892da7dfcdfdeaa3ae2e19270fd094
+```
+
+与 `publish_fl13.sh` 中 `expect` 完全一致 ✓
+
+---
+
+### 二、17 项集合（现状核验 — 全部 MATCH）
+
+清单列出 17 个相对路径；本地实测 SHA256 逐行与 `11_SHA256SUMS` 完全相同，无任何偏差：
+
+| 路径 | 清单 SHA256（前8位） | 本地计算结果 |
+|------|---------------------|--------------|
+| `00_READ_ME_FIRST.md` | `27d53903` | ✓ |
+| `01_PRE_CUTOVER_READONLY_PREFLIGHT.sh` | `650bea4b` | ✓ |
+| `02_ADMIN_ACCOUNT_AND_KEY_STAGE.sh` | `e2151cfd` | ✓ |
+| `03_DEPLOY_APP_V3_AND_MIGRATE.sh` | `61aaacb4` | ✓ |
+| `04_TRUST_DOMAIN_CUTOVER.sh` | `9e467572` | ✓ |
+| `05_TERMINATE_OLD_K3_PRIVILEGE_CONTEXTS.sh` | `cdf17876` | ✓ |
+| `06_POST_CUTOVER_ADMIN_VERIFY.sh` | `820806ea` | ✓ |
+| `07_FRESH_K3_VERIFY.sh` | `bd8a82e1` | ✓ |
+| `08_ROLLBACK_PRE_AUTHORITY.sh` | `5949eda3` | ✓ |
+| `09_OWNER_CEREMONY_PREREQUISITES.md` | `171f718d` | ✓ |
+| `P5_AUTONOMOUS_ALPHA_LAUNCH_RESUME_HANDOFF_V3.json` | `a6effb4b` | ✓ |
+| `ceremony/P5_OWNER_CEREMONY_O1_O12_MACHINE_LIST_V2.json` | `1ac3ae2d` | ✓ |
+| `ceremony/P5_ROOT_DELEGATION_FROZEN_TEMPLATE_V3.json` | `3736dd99` | ✓ |
+| `ceremony/owner_ceremony_display_and_verify.py` | `eb99ffed` | ✓ |
+| `lib/common.sh` | `77ea0857` | ✓ |
+| `tests/functional_fixtures.sh` | `339ead0c` | ✓ |
+| `tests/test_static_invariants.py` | `e74c1d39` | ✓ |
+
+---
+
+### 三、额外物理文件（清单外，未纳入）
+
+物理目录共 21 个文件，比清单多出 4 个：
+
+| 额外文件 | 说明 |
+|----------|------|
+| `10_MANIFEST.json` | 清单自身，已在生成逻辑中 `EXCLUDE` 排除 |
+| `11_SHA256SUMS` | SHA256SUMS 自身，同上 |
+| `ceremony/__pycache__/owner_ceremony_display_and_verify.cpython-314.pyc` | Python 字节码缓存，`__pycache__` 目录被剪枝 |
+| `tests/__pycache__/test_static_invariants.cpython-314.pyc` | 同上 |
+
+两个 `.pyc` 文件修改时间为 `2026/8/14 02:16:57`（比包的主体内容晚），属于本地执行后产生的缓存，**不是发布包组成部分**。
+
+---
+
+### 四、潜在非确定性分析
+
+**无非确定性风险**，理由如下：
+
+1. **排序**：`files.sort()` 在任意平台对同一集合给出相同顺序；已排除 `__pycache__` 和 `.pyc`，目录扫描顺序不影响最终排序结果。
+2. **JSON 序列化**：`indent=2, ensure_ascii=False` + `newline="\n"` 硬编码；Python 标准库 `json.dump` 对相同输入结果唯一；无 `sort_keys` 需求（manifest 的顶层 key 顺序固定由字典字面量决定，Python 3.7+ 保证插入顺序）。
+3. **哈希函数**：`hashlib.sha256` 为标准库，确定性。
+4. **时间戳**：明确省略，无随机/环境变量字段注入。
+5. **文件大小**：`os.path.getsize` 读字节数，无平台差异。
+6. **换行符**：`newline="\n"` 强制 LF，避免 Windows CRLF 污染。
+
+唯一潜在风险：**`.pyc` 文件若手工添加到包目录根层级（非 `__pycache__`）**，当前生成逻辑会跳过 `*.pyc` 扩展名，不影响清单，但会产生不被校验的物理文件。当前不存在此问题。
+
+---
+
+### 五、双重再生成方法与精确验证命令
+
+**双重再生成**在 `refreeze13.sh` 中定义，在 Linux/WSL 下执行（VPS 只读）：
+
+```bash
+# 在 Linux/WSL 下，不修改候选目录
+B=/mnt/e/VPS/reports/cursor-fable-takeover-20260813/report-sources/build_manifest.py
+C=/mnt/e/VPS/reports/owner-admin-cutover-final-20260814-recovery-v1
+
+rm -rf /tmp/n1 /tmp/n2
+mkdir -p /tmp/n1 /tmp/n2
+
+# 第一次生成 → /tmp/n1
+python3 "$B" "$C" REMEDIATED_FIXLOOP13_LOCALLY_VALIDATED 13 171/171_PASS /tmp/n1
+# 第二次生成 → /tmp/n2
+python3 "$B" "$C" REMEDIATED_FIXLOOP13_LOCALLY_VALIDATED 13 171/171_PASS /tmp/n2
+
+# 字节级对比（两次输出必须完全相同）
+diff /tmp/n1/10_MANIFEST.json /tmp/n2/10_MANIFEST.json && echo "MANIFEST_2X_IDENTICAL=YES"
+diff /tmp/n1/11_SHA256SUMS    /tmp/n2/11_SHA256SUMS    && echo "SHA256SUMS_2X_IDENTICAL=YES"
+
+# 与当前在位清单对比
+diff /tmp/n1/10_MANIFEST.json "$C/10_MANIFEST.json" && echo "MANIFEST_MATCHES_ONDISK=YES"
+diff /tmp/n1/11_SHA256SUMS    "$C/11_SHA256SUMS"    && echo "SHA256SUMS_MATCHES_ONDISK=YES"
+```
+
+**候选目录完整性校验**（在 Linux 下 `cd $C`）：
+
+```bash
+cd /mnt/e/VPS/reports/owner-admin-cutover-final-20260814-recovery-v1
+sha256sum -c 11_SHA256SUMS
+# 期望：17 OK，0 FAILED
+```
+
+**11_SHA256SUMS 自哈希锁定验证**：
+
+```bash
+sha256sum 11_SHA256SUMS
+# 期望：88d9c8f99aab0818d378bb0cc77739be07892da7dfcdfdeaa3ae2e19270fd094
+```
+
+---
+
+### 六、结论
+
+| 检查项 | 结果 |
+|--------|------|
+| 17 项集合哈希一致性 | **PASS** — 本地计算全部 17 项哈希与 `11_SHA256SUMS` 逐行完全一致 |
+| `11_SHA256SUMS` 自哈希 | **PASS** — `88d9c8f9…` 与 `publish_fl13.sh` 硬编码 `expect` 完全一致 |
+| 额外物理文件 | **仅 4 项**：`10_MANIFEST.json`、`11_SHA256SUMS`（按设计排除）、`ceremony/__pycache__/*.pyc`、`tests/__pycache__/*.pyc`（按设计剪枝） |
+| 非确定性风险 | **无**：排序确定、JSON 确定、无时间戳、LF 强制 |
+| 双重再生成可执行性 | **可在 Linux/WSL `mktemp` 隔离目录中执行**，输出写入 `/tmp/n1`、`/tmp/n2`，`cp` 回候选目录前完成对比，不污染候选目录中间状态 |
+| F7-20 `.pyc`/cache fail-closed | **PASS**（`static_fixtures` 172/172 含 `deploy_exact_set` 与 `deploy_manifest_driven`）；两个 `.pyc` 均在 `__pycache__` 子目录且生成逻辑已剪枝，不会被误纳入发布包 |

@@ -1,0 +1,66 @@
+Reading additional input from stdin...
+2026-08-14T05:32:45.193769Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T05:32:49.836613Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T05:33:08.140145Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 5.9 seconds
+Output:
+
+FullName                                                                                      LastWriteTime     
+--------                                                                                      -------------     
+E:\VPS\reports\结构测试总账-20260813\materializer_default_rerun.log                           2026/8/13 14:03:23
+E:\VPS\reports\authority-store-v3-integration-test-20260813\run-3.log                         2026/8/13 13:59:27
+E:\VPS\reports\baseline-pytest-raw.log                                                        2026/8/13 13:55:23
+E:\VPS\reports\authority-store-v3-integration-test-20260813\run-2.log                         2026/8/13 13:54:42
+E:\VPS\reports\direct-repair-final-regressions-20260813\store.log                             2026/8/13 13:54:10
+E:\VPS\reports\direct-repair-final-regressions-20260813\pc7.log                               2026/8/13 13:54:09
+E:\VPS\reports\direct-repair-final-regressions-20260813\migration.log                         2026/8/13 13:54:08
+E:\VPS\reports\结构测试总账-20260813\pc6_track3_rerun.log                                     2026/8/13 13:53:18
+E:\VPS\reports\runtime-identity-freeze-checklist-20260813\run_test_migration_v3_rehearsal.log 2026/8/13 13:53:07
+E:\VPS\reports\结构测试总账-20260813\schema_replay_rerun.log                                  2026/8/13 13:52:18
+E:\VPS\reports\runtime-identity-freeze-checklist-20260813\run_test_authority_store_v3.log     2026/8/13 13:52:10
+E:\VPS\reports\结构测试总账-20260813\migration_rehearsal_rerun.log                            2026/8/13 13:50:54
+E:\VPS\reports\结构测试总账-20260813\store_v3_rerun.log                                       2026/8/13 13:50:03
+E:\VPS\reports\authority-store-v3-integration-test-20260813\run-1.log                         2026/8/13 13:49:52
+E:\VPS\reports\v5-generator-implementation-20260813\pytest_v5_proposal.log                    2026/8/13 13:49:51
+E:\VPS\reports\结构测试总账-20260813\resource_negative_rerun_apswfix.log                      2026/8/13 13:45:56
+E:\VPS\reports\cli-parser-dispatch-tests-20260813\verification.log                            2026/8/13 13:45:18
+E:\VPS\reports\结构测试总账-20260813\resource_negative_rerun_shim.log                         2026/8/13 13:35:24
+E:\VPS\reports\结构测试总账-20260813\resource_negative_rerun.log                              2026/8/13 13:29:23
+E:\VPS\reports\结构测试总账-20260813\resource_binding_synthetic_rerun.log                     2026/8/13 13:28:43
+E:\VPS\reports\owner-ceremony-package-20260813\verification.log                               2026/8/13 13:26:21
+E:\VPS\reports\pc6-frozen-regression-locate\test-runs.log                                     2026/8/13 13:20:04
+E:\VPS\reports\cli-daemon-v3-patch-20260813\verification.log                                  2026/8/13 13:09:09
+E:\VPS\reports\resource-policy-test-design-20260813\run.log                                   2026/8/13 13:01:19
+E:\VPS\reports\resource-policy-test-design-20260813\run-final.log                             2026/8/13 12:55:57
+E:\VPS\reports\resource-policy-test-design-20260813\run-tempdir.log                           2026/8/13 12:53:03
+E:\VPS\headless-wave-v1.out.log                                                               2026/8/13 12:45:39
+E:\VPS\headless-wave-v1.err.log                                                               2026/8/13 12:45:00
+E:\VPS\.gcloud\logs\2026.08.13\12.20.01.609256.log                                            2026/8/13 12:20:25
+E:\VPS\.gcloud\logs\2026.08.13\12.19.36.561056.log                                            2026/8/13 12:19:59
+
+
+Get-ChildItem : 对路径“E:\VPS\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem E:\VPS -Recurse -Filter "*.log" | Select-Object FullNam ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\VPS\.pytest_cache:String) [Get-ChildItem], UnauthorizedAccessExcep 
+   tion
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+Get-ChildItem : 对路径“E:\VPS\direct_repair_stage\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem E:\VPS -Recurse -Filter "*.log" | Select-Object FullNam ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\VPS\direct_repair_stage\.pytest_cache:String) [Get-ChildItem], Una 
+   uthorizedAccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+

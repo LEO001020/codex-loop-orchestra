@@ -1,0 +1,1085 @@
+2026-08-23T19:24:58.0985536Z Current runner version: '2.336.0'
+2026-08-23T19:24:58.1002254Z ##[group]Runner Image Provisioner
+2026-08-23T19:24:58.1002873Z Hosted Compute Agent
+2026-08-23T19:24:58.1003288Z Version: 20260729.566
+2026-08-23T19:24:58.1003719Z Commit: cf7153fe6e25b664e8693c24944bf2b00355d109
+2026-08-23T19:24:58.1004209Z Build Date: 2026-07-29T19:17:02Z
+2026-08-23T19:24:58.1004706Z Worker ID: {9e5a7382-371e-405f-bc2b-1eea701c5809}
+2026-08-23T19:24:58.1005194Z Azure Region: centralus
+2026-08-23T19:24:58.1005573Z ##[endgroup]
+2026-08-23T19:24:58.1006383Z ##[group]Operating System
+2026-08-23T19:24:58.1007011Z Ubuntu
+2026-08-23T19:24:58.1007499Z 24.04.4
+2026-08-23T19:24:58.1007864Z LTS
+2026-08-23T19:24:58.1008198Z ##[endgroup]
+2026-08-23T19:24:58.1008596Z ##[group]Runner Image
+2026-08-23T19:24:58.1008988Z Image: ubuntu-24.04
+2026-08-23T19:24:58.1009458Z Version: 20260816.277.1
+2026-08-23T19:24:58.1010319Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260816.277/images/ubuntu/Ubuntu2404-Readme.md
+2026-08-23T19:24:58.1011353Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260816.277
+2026-08-23T19:24:58.1012017Z ##[endgroup]
+2026-08-23T19:24:58.1013077Z ##[group]GITHUB_TOKEN Permissions
+2026-08-23T19:24:58.1014690Z Contents: read
+2026-08-23T19:24:58.1015092Z Metadata: read
+2026-08-23T19:24:58.1015458Z ##[endgroup]
+2026-08-23T19:24:58.1017047Z Secret source: Actions
+2026-08-23T19:24:58.1017829Z Prepare workflow directory
+2026-08-23T19:24:58.1271571Z Prepare all required actions
+2026-08-23T19:24:58.1306040Z Getting action download info
+2026-08-23T19:24:58.3834417Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-08-23T19:24:58.4897452Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-08-23T19:24:58.7465221Z Complete job name: Python 3.14 · ubuntu-latest
+2026-08-23T19:24:58.7940962Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-08-23T19:24:58.7947118Z ##[group]Run actions/checkout@v4
+2026-08-23T19:24:58.7947672Z with:
+2026-08-23T19:24:58.7948140Z   repository: LEO001020/codex-loop-orchestra
+2026-08-23T19:24:58.7950836Z   token: ***
+2026-08-23T19:24:58.7951192Z   ssh-strict: true
+2026-08-23T19:24:58.7951560Z   ssh-user: git
+2026-08-23T19:24:58.7951921Z   persist-credentials: true
+2026-08-23T19:24:58.7952373Z   clean: true
+2026-08-23T19:24:58.7952731Z   sparse-checkout-cone-mode: true
+2026-08-23T19:24:58.7953142Z   fetch-depth: 1
+2026-08-23T19:24:58.7953504Z   fetch-tags: false
+2026-08-23T19:24:58.7954031Z   show-progress: true
+2026-08-23T19:24:58.7954417Z   lfs: false
+2026-08-23T19:24:58.7954852Z   submodules: false
+2026-08-23T19:24:58.7955222Z   set-safe-directory: true
+2026-08-23T19:24:58.7955613Z   allow-unsafe-pr-checkout: false
+2026-08-23T19:24:58.7956142Z ##[endgroup]
+2026-08-23T19:24:58.8707816Z Syncing repository: LEO001020/codex-loop-orchestra
+2026-08-23T19:24:58.8709971Z ##[group]Getting Git version info
+2026-08-23T19:24:58.8711019Z Working directory is '/home/runner/work/codex-loop-orchestra/codex-loop-orchestra'
+2026-08-23T19:24:58.8712351Z [command]/usr/bin/git version
+2026-08-23T19:24:58.8741520Z git version 2.55.0
+2026-08-23T19:24:58.8763641Z ##[endgroup]
+2026-08-23T19:24:58.8785438Z Temporarily overriding HOME='/home/runner/work/_temp/bf3d47f5-420f-4e8f-b1bd-da0a6da862e5' before making global git config changes
+2026-08-23T19:24:58.8796150Z Adding repository directory to the temporary git global config as a safe directory
+2026-08-23T19:24:58.8798392Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/codex-loop-orchestra/codex-loop-orchestra
+2026-08-23T19:24:58.8824644Z Deleting the contents of '/home/runner/work/codex-loop-orchestra/codex-loop-orchestra'
+2026-08-23T19:24:58.8829372Z ##[group]Initializing the repository
+2026-08-23T19:24:58.8833103Z [command]/usr/bin/git init /home/runner/work/codex-loop-orchestra/codex-loop-orchestra
+2026-08-23T19:24:58.8906929Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-08-23T19:24:58.8907973Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-08-23T19:24:58.8908731Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-08-23T19:24:58.8909484Z hint: call:
+2026-08-23T19:24:58.8909919Z hint:
+2026-08-23T19:24:58.8910432Z hint: 	git config --global init.defaultBranch <name>
+2026-08-23T19:24:58.8910966Z hint:
+2026-08-23T19:24:58.8911460Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-08-23T19:24:58.8912224Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-08-23T19:24:58.8912886Z hint:
+2026-08-23T19:24:58.8913315Z hint: 	git branch -m <name>
+2026-08-23T19:24:58.8913788Z hint:
+2026-08-23T19:24:58.8914330Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-08-23T19:24:58.8915472Z Initialized empty Git repository in /home/runner/work/codex-loop-orchestra/codex-loop-orchestra/.git/
+2026-08-23T19:24:58.8918117Z [command]/usr/bin/git remote add origin https://github.com/LEO001020/codex-loop-orchestra
+2026-08-23T19:24:58.8951890Z ##[endgroup]
+2026-08-23T19:24:58.8952668Z ##[group]Disabling automatic garbage collection
+2026-08-23T19:24:58.8958185Z [command]/usr/bin/git config --local gc.auto 0
+2026-08-23T19:24:58.8998989Z ##[endgroup]
+2026-08-23T19:24:58.8999794Z ##[group]Setting up auth
+2026-08-23T19:24:58.9000598Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-08-23T19:24:58.9024384Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-08-23T19:24:58.9803491Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-08-23T19:24:58.9826180Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-08-23T19:24:58.9961875Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-08-23T19:24:58.9983659Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-08-23T19:24:59.0116234Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-08-23T19:24:59.0138978Z ##[endgroup]
+2026-08-23T19:24:59.0139709Z ##[group]Fetching the repository
+2026-08-23T19:24:59.0194241Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +b806d6f1fb8762d888289a1b4b4028f7a2f6404d:refs/remotes/origin/main
+2026-08-23T19:24:59.8270718Z From https://github.com/LEO001020/codex-loop-orchestra
+2026-08-23T19:24:59.8271676Z  * [new ref]         b806d6f1fb8762d888289a1b4b4028f7a2f6404d -> origin/main
+2026-08-23T19:24:59.8273700Z ##[endgroup]
+2026-08-23T19:24:59.8274531Z ##[group]Determining the checkout info
+2026-08-23T19:24:59.8276766Z ##[endgroup]
+2026-08-23T19:24:59.8282465Z [command]/usr/bin/git sparse-checkout disable
+2026-08-23T19:24:59.8317463Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-08-23T19:24:59.8339113Z ##[group]Checking out the ref
+2026-08-23T19:24:59.8342853Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-08-23T19:24:59.8493908Z Switched to a new branch 'main'
+2026-08-23T19:24:59.8496235Z branch 'main' set up to track 'origin/main'.
+2026-08-23T19:24:59.8507134Z ##[endgroup]
+2026-08-23T19:24:59.8535032Z [command]/usr/bin/git log -1 --format=%H
+2026-08-23T19:24:59.8550541Z b806d6f1fb8762d888289a1b4b4028f7a2f6404d
+2026-08-23T19:24:59.8759753Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-08-23T19:24:59.8761183Z ##[group]Run actions/setup-python@v5
+2026-08-23T19:24:59.8761557Z with:
+2026-08-23T19:24:59.8761888Z   python-version: 3.14
+2026-08-23T19:24:59.8762253Z   cache: pip
+2026-08-23T19:24:59.8762657Z   cache-dependency-path: requirements-dev.txt
+2026-08-23T19:24:59.8763066Z   check-latest: false
+2026-08-23T19:24:59.8765062Z   token: ***
+2026-08-23T19:24:59.8765390Z   update-environment: true
+2026-08-23T19:24:59.8765787Z   allow-prereleases: false
+2026-08-23T19:24:59.8766142Z   freethreaded: false
+2026-08-23T19:24:59.8766484Z ##[endgroup]
+2026-08-23T19:24:59.9701094Z ##[group]Installed versions
+2026-08-23T19:24:59.9763121Z (node:2133) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-08-23T19:24:59.9764107Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-08-23T19:24:59.9764688Z Successfully set up CPython (3.14.7)
+2026-08-23T19:24:59.9765367Z ##[endgroup]
+2026-08-23T19:25:00.0203544Z [command]/opt/hostedtoolcache/Python/3.14.7/x64/bin/pip cache dir
+2026-08-23T19:25:03.0621962Z /home/runner/.cache/pip
+2026-08-23T19:25:03.2207891Z pip cache is not found
+2026-08-23T19:25:03.2299129Z ##[group]Run python -m pip install -r requirements-dev.txt
+2026-08-23T19:25:03.2299661Z [36;1mpython -m pip install -r requirements-dev.txt[0m
+2026-08-23T19:25:03.2324760Z shell: /usr/bin/bash -e {0}
+2026-08-23T19:25:03.2325145Z env:
+2026-08-23T19:25:03.2325446Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.7/x64
+2026-08-23T19:25:03.2325920Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.7/x64/lib/pkgconfig
+2026-08-23T19:25:03.2326315Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.7/x64
+2026-08-23T19:25:03.2326691Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.7/x64
+2026-08-23T19:25:03.2327363Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.7/x64
+2026-08-23T19:25:03.2327741Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.7/x64/lib
+2026-08-23T19:25:03.2328080Z ##[endgroup]
+2026-08-23T19:25:05.9422505Z Collecting pytest>=7.4.0 (from -r requirements-dev.txt (line 4))
+2026-08-23T19:25:06.0134780Z   Downloading pytest-9.1.1-py3-none-any.whl.metadata (7.6 kB)
+2026-08-23T19:25:06.1634622Z Collecting pytest-timeout>=2.1.0 (from -r requirements-dev.txt (line 5))
+2026-08-23T19:25:06.1744820Z   Downloading pytest_timeout-2.4.0-py3-none-any.whl.metadata (20 kB)
+2026-08-23T19:25:06.2230167Z Collecting PyYAML>=6.0.1 (from -r requirements-dev.txt (line 6))
+2026-08-23T19:25:06.2332154Z   Downloading pyyaml-6.0.3-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+2026-08-23T19:25:06.3120780Z Collecting jsonschema>=4.23.0 (from -r requirements-dev.txt (line 7))
+2026-08-23T19:25:06.3220704Z   Downloading jsonschema-4.26.0-py3-none-any.whl.metadata (7.6 kB)
+2026-08-23T19:25:06.3918297Z Collecting psutil>=5.9.0 (from -r requirements-dev.txt (line 8))
+2026-08-23T19:25:06.4021766Z   Downloading psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl.metadata (22 kB)
+2026-08-23T19:25:06.4968853Z Collecting python-dotenv>=1.0.0 (from -r requirements-dev.txt (line 9))
+2026-08-23T19:25:06.5069072Z   Downloading python_dotenv-1.2.3-py3-none-any.whl.metadata (29 kB)
+2026-08-23T19:25:06.7858878Z Collecting mcpygen==0.1.4 (from -r requirements-dev.txt (line 10))
+2026-08-23T19:25:06.7976906Z   Downloading mcpygen-0.1.4-py3-none-any.whl.metadata (2.5 kB)
+2026-08-23T19:25:07.0470339Z Collecting aiofiles>=25.1.0 (from mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:07.0576251Z   Downloading aiofiles-25.1.0-py3-none-any.whl.metadata (6.3 kB)
+2026-08-23T19:25:07.6201627Z Collecting aiohttp>=3.13.2 (from mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:07.6305376Z   Downloading aiohttp-3.14.3-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (8.3 kB)
+2026-08-23T19:25:07.7195934Z Collecting datamodel-code-generator>=0.49.0 (from mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:07.7305530Z   Downloading datamodel_code_generator-0.74.0-py3-none-any.whl.metadata (24 kB)
+2026-08-23T19:25:07.8253044Z Collecting fastapi>=0.121.2 (from mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:07.8353887Z   Downloading fastapi-0.141.1-py3-none-any.whl.metadata (27 kB)
+2026-08-23T19:25:07.8653022Z Collecting mcp>=1.26.0 (from mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:07.8752111Z   Downloading mcp-2.0.0-py3-none-any.whl.metadata (7.7 kB)
+2026-08-23T19:25:08.1108962Z Collecting requests>=2.32.5 (from mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:08.1215315Z   Downloading requests-2.34.2-py3-none-any.whl.metadata (4.8 kB)
+2026-08-23T19:25:08.3469205Z Collecting uvicorn>=0.40.0 (from mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:08.3570916Z   Downloading uvicorn-0.52.4-py3-none-any.whl.metadata (6.6 kB)
+2026-08-23T19:25:08.6144276Z Collecting websockets>=15.0.1 (from mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:08.6246993Z   Downloading websockets-17.0.1-cp314-cp314-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (6.3 kB)
+2026-08-23T19:25:08.6832023Z Collecting wsproto>=1.3.2 (from mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:08.6931371Z   Downloading wsproto-1.3.2-py3-none-any.whl.metadata (5.2 kB)
+2026-08-23T19:25:08.8817754Z Collecting iniconfig>=1.0.1 (from pytest>=7.4.0->-r requirements-dev.txt (line 4))
+2026-08-23T19:25:08.8919289Z   Downloading iniconfig-2.3.0-py3-none-any.whl.metadata (2.5 kB)
+2026-08-23T19:25:08.9161320Z Collecting packaging>=22 (from pytest>=7.4.0->-r requirements-dev.txt (line 4))
+2026-08-23T19:25:08.9260390Z   Downloading packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+2026-08-23T19:25:09.0467582Z Collecting pluggy<2,>=1.5 (from pytest>=7.4.0->-r requirements-dev.txt (line 4))
+2026-08-23T19:25:09.0568532Z   Downloading pluggy-1.6.0-py3-none-any.whl.metadata (4.8 kB)
+2026-08-23T19:25:09.1259310Z Collecting pygments>=2.7.2 (from pytest>=7.4.0->-r requirements-dev.txt (line 4))
+2026-08-23T19:25:09.1361616Z   Downloading pygments-2.21.0-py3-none-any.whl.metadata (2.5 kB)
+2026-08-23T19:25:09.2920378Z Collecting attrs>=22.2.0 (from jsonschema>=4.23.0->-r requirements-dev.txt (line 7))
+2026-08-23T19:25:09.3021491Z   Downloading attrs-26.1.0-py3-none-any.whl.metadata (8.8 kB)
+2026-08-23T19:25:09.4345268Z Collecting jsonschema-specifications>=2023.03.6 (from jsonschema>=4.23.0->-r requirements-dev.txt (line 7))
+2026-08-23T19:25:09.4445204Z   Downloading jsonschema_specifications-2025.9.1-py3-none-any.whl.metadata (2.9 kB)
+2026-08-23T19:25:09.5930634Z Collecting referencing>=0.28.4 (from jsonschema>=4.23.0->-r requirements-dev.txt (line 7))
+2026-08-23T19:25:09.6033952Z   Downloading referencing-0.37.0-py3-none-any.whl.metadata (2.8 kB)
+2026-08-23T19:25:09.7776266Z Collecting rpds-py>=0.25.0 (from jsonschema>=4.23.0->-r requirements-dev.txt (line 7))
+2026-08-23T19:25:09.7876353Z   Downloading rpds_py-2026.6.3-cp314-cp314-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.1 kB)
+2026-08-23T19:25:09.8933785Z Collecting aiohappyeyeballs>=2.5.0 (from aiohttp>=3.13.2->mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:09.9035768Z   Downloading aiohappyeyeballs-2.7.1-py3-none-any.whl.metadata (5.9 kB)
+2026-08-23T19:25:10.0577254Z Collecting aiosignal>=1.4.0 (from aiohttp>=3.13.2->mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:10.0679053Z   Downloading aiosignal-1.4.0-py3-none-any.whl.metadata (3.7 kB)
+2026-08-23T19:25:10.1445478Z Collecting frozenlist>=1.1.1 (from aiohttp>=3.13.2->mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:10.1545194Z   Downloading frozenlist-1.8.0-cp314-cp314-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (20 kB)
+2026-08-23T19:25:10.3204599Z Collecting multidict<7.0,>=4.5 (from aiohttp>=3.13.2->mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:10.3310671Z   Downloading multidict-6.7.1-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (5.3 kB)
+2026-08-23T19:25:10.5857331Z Collecting propcache>=0.2.0 (from aiohttp>=3.13.2->mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:10.5962018Z   Downloading propcache-0.5.2-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (16 kB)
+2026-08-23T19:25:10.9036381Z Collecting yarl<2.0,>=1.17.0 (from aiohttp>=3.13.2->mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:10.9143783Z   Downloading yarl-1.24.5-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (103 kB)
+2026-08-23T19:25:11.0694898Z Collecting idna>=2.0 (from yarl<2.0,>=1.17.0->aiohttp>=3.13.2->mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:11.0796337Z   Downloading idna-3.19-py3-none-any.whl.metadata (9.2 kB)
+2026-08-23T19:25:11.1245280Z Collecting argcomplete<4,>=2.10.1 (from datamodel-code-generator>=0.49.0->mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:11.1346324Z   Downloading argcomplete-3.7.2-py3-none-any.whl.metadata (16 kB)
+2026-08-23T19:25:11.2450033Z Collecting black>=19.10b0 (from datamodel-code-generator>=0.49.0->mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:11.2552196Z   Downloading black-26.5.1-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (95 kB)
+2026-08-23T19:25:11.4634884Z Collecting genson<2,>=1.2.1 (from datamodel-code-generator>=0.49.0->mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:11.4749707Z   Downloading genson-1.4.0-py3-none-any.whl.metadata (34 kB)
+2026-08-23T19:25:11.6122912Z Collecting inflect<8,>=4.1 (from datamodel-code-generator>=0.49.0->mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:11.6226526Z   Downloading inflect-7.5.0-py3-none-any.whl.metadata (24 kB)
+2026-08-23T19:25:11.6538631Z Collecting isort<9,>=4.3.21 (from datamodel-code-generator>=0.49.0->mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:11.6638928Z   Downloading isort-8.0.1-py3-none-any.whl.metadata (11 kB)
+2026-08-23T19:25:11.6883008Z Collecting jinja2<4,>=2.10.1 (from datamodel-code-generator>=0.49.0->mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:11.6982185Z   Downloading jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+2026-08-23T19:25:11.8780610Z Collecting pydantic<3,>=2.12 (from datamodel-code-generator>=0.49.0->mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:11.8883201Z   Downloading pydantic-2.13.4-py3-none-any.whl.metadata (109 kB)
+2026-08-23T19:25:11.9174645Z Collecting more_itertools>=8.5.0 (from inflect<8,>=4.1->datamodel-code-generator>=0.49.0->mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:11.9280559Z   Downloading more_itertools-11.1.0-py3-none-any.whl.metadata (41 kB)
+2026-08-23T19:25:12.0968054Z Collecting typeguard>=4.0.1 (from inflect<8,>=4.1->datamodel-code-generator>=0.49.0->mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:12.1069534Z   Downloading typeguard-4.6.0-py3-none-any.whl.metadata (3.7 kB)
+2026-08-23T19:25:12.1646579Z Collecting MarkupSafe>=2.0 (from jinja2<4,>=2.10.1->datamodel-code-generator>=0.49.0->mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:12.1747748Z   Downloading markupsafe-3.0.3-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+2026-08-23T19:25:12.1969746Z Collecting annotated-types>=0.6.0 (from pydantic<3,>=2.12->datamodel-code-generator>=0.49.0->mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:12.2068948Z   Downloading annotated_types-0.8.0-py3-none-any.whl.metadata (15 kB)
+2026-08-23T19:25:12.6262893Z Collecting pydantic-core==2.46.4 (from pydantic<3,>=2.12->datamodel-code-generator>=0.49.0->mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:12.6370107Z   Downloading pydantic_core-2.46.4-cp314-cp314-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.6 kB)
+2026-08-23T19:25:12.6905509Z Collecting typing-extensions>=4.14.1 (from pydantic<3,>=2.12->datamodel-code-generator>=0.49.0->mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:12.7005248Z   Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+2026-08-23T19:25:12.9220707Z Collecting typing-inspection>=0.4.2 (from pydantic<3,>=2.12->datamodel-code-generator>=0.49.0->mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:12.9320798Z   Downloading typing_inspection-0.4.4-py3-none-any.whl.metadata (2.6 kB)
+2026-08-23T19:25:13.0564676Z Collecting click>=8.0.0 (from black>=19.10b0->datamodel-code-generator>=0.49.0->mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:13.0664641Z   Downloading click-8.4.2-py3-none-any.whl.metadata (2.6 kB)
+2026-08-23T19:25:13.0889742Z Collecting mypy-extensions>=0.4.3 (from black>=19.10b0->datamodel-code-generator>=0.49.0->mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:13.0988793Z   Downloading mypy_extensions-1.1.0-py3-none-any.whl.metadata (1.1 kB)
+2026-08-23T19:25:13.1245300Z Collecting pathspec>=1.0.0 (from black>=19.10b0->datamodel-code-generator>=0.49.0->mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:13.1344994Z   Downloading pathspec-1.1.1-py3-none-any.whl.metadata (14 kB)
+2026-08-23T19:25:13.2793718Z Collecting platformdirs>=2 (from black>=19.10b0->datamodel-code-generator>=0.49.0->mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:13.2896357Z   Downloading platformdirs-4.11.3-py3-none-any.whl.metadata (5.5 kB)
+2026-08-23T19:25:13.4312475Z Collecting pytokens~=0.4.0 (from black>=19.10b0->datamodel-code-generator>=0.49.0->mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:13.4412573Z   Downloading pytokens-0.4.1-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (3.8 kB)
+2026-08-23T19:25:13.4827929Z Collecting starlette>=0.46.0 (from fastapi>=0.121.2->mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:13.4928005Z   Downloading starlette-1.6.0-py3-none-any.whl.metadata (6.4 kB)
+2026-08-23T19:25:13.5461175Z Collecting annotated-doc>=0.0.2 (from fastapi>=0.121.2->mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:13.5563050Z   Downloading annotated_doc-0.0.5-py3-none-any.whl.metadata (6.5 kB)
+2026-08-23T19:25:13.6517296Z Collecting anyio>=4.10 (from mcp>=1.26.0->mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:13.6617995Z   Downloading anyio-4.14.2-py3-none-any.whl.metadata (4.6 kB)
+2026-08-23T19:25:13.6839704Z Collecting httpx2>=2.5.0 (from mcp>=1.26.0->mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:13.6939338Z   Downloading httpx2-2.12.0-py3-none-any.whl.metadata (9.5 kB)
+2026-08-23T19:25:13.7181767Z Collecting mcp-types==2.0.0 (from mcp>=1.26.0->mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:13.7280005Z   Downloading mcp_types-2.0.0-py3-none-any.whl.metadata (1.9 kB)
+2026-08-23T19:25:13.7586039Z Collecting opentelemetry-api>=1.28.0 (from mcp>=1.26.0->mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:13.7686114Z   Downloading opentelemetry_api-1.44.0-py3-none-any.whl.metadata (1.4 kB)
+2026-08-23T19:25:13.7936081Z Collecting pyjwt>=2.10.1 (from pyjwt[crypto]>=2.10.1->mcp>=1.26.0->mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:13.8039275Z   Downloading pyjwt-2.13.0-py3-none-any.whl.metadata (3.4 kB)
+2026-08-23T19:25:13.8877396Z Collecting python-multipart>=0.0.9 (from mcp>=1.26.0->mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:13.8978684Z   Downloading python_multipart-0.0.32-py3-none-any.whl.metadata (2.1 kB)
+2026-08-23T19:25:13.9231454Z Collecting sse-starlette>=3.0.0 (from mcp>=1.26.0->mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:13.9331153Z   Downloading sse_starlette-3.4.8-py3-none-any.whl.metadata (15 kB)
+2026-08-23T19:25:13.9609287Z Collecting httpcore2==2.12.0 (from httpx2>=2.5.0->mcp>=1.26.0->mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:13.9709909Z   Downloading httpcore2-2.12.0-py3-none-any.whl.metadata (25 kB)
+2026-08-23T19:25:13.9941095Z Collecting truststore>=0.10 (from httpx2>=2.5.0->mcp>=1.26.0->mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:14.0039631Z   Downloading truststore-0.10.4-py3-none-any.whl.metadata (4.4 kB)
+2026-08-23T19:25:14.0280654Z Collecting h11>=0.16 (from httpcore2==2.12.0->httpx2>=2.5.0->mcp>=1.26.0->mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:14.0379986Z   Downloading h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+2026-08-23T19:25:14.3067074Z Collecting cryptography>=3.4.0 (from pyjwt[crypto]>=2.10.1->mcp>=1.26.0->mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:14.3170313Z   Downloading cryptography-50.0.0-cp311-abi3-manylinux_2_34_x86_64.whl.metadata (4.3 kB)
+2026-08-23T19:25:14.4141063Z Collecting cffi>=2.0.0 (from cryptography>=3.4.0->pyjwt[crypto]>=2.10.1->mcp>=1.26.0->mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:14.4243471Z   Downloading cffi-2.1.1-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.5 kB)
+2026-08-23T19:25:14.4464777Z Collecting pycparser (from cffi>=2.0.0->cryptography>=3.4.0->pyjwt[crypto]>=2.10.1->mcp>=1.26.0->mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:14.4564641Z   Downloading pycparser-3.0-py3-none-any.whl.metadata (8.2 kB)
+2026-08-23T19:25:14.7335893Z Collecting charset_normalizer<4,>=2 (from requests>=2.32.5->mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:14.7442338Z   Downloading charset_normalizer-3.5.1-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (45 kB)
+2026-08-23T19:25:14.8149816Z Collecting urllib3<3,>=1.26 (from requests>=2.32.5->mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:14.8250531Z   Downloading urllib3-2.7.0-py3-none-any.whl.metadata (6.9 kB)
+2026-08-23T19:25:14.8518917Z Collecting certifi>=2023.5.7 (from requests>=2.32.5->mcpygen==0.1.4->-r requirements-dev.txt (line 10))
+2026-08-23T19:25:14.8625626Z   Downloading certifi-2026.7.22-py3-none-any.whl.metadata (2.5 kB)
+2026-08-23T19:25:14.8899018Z Downloading mcpygen-0.1.4-py3-none-any.whl (21 kB)
+2026-08-23T19:25:14.9023869Z Downloading pytest-9.1.1-py3-none-any.whl (386 kB)
+2026-08-23T19:25:14.9264312Z Downloading pluggy-1.6.0-py3-none-any.whl (20 kB)
+2026-08-23T19:25:14.9389420Z Downloading pytest_timeout-2.4.0-py3-none-any.whl (14 kB)
+2026-08-23T19:25:14.9663359Z Downloading pyyaml-6.0.3-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (794 kB)
+2026-08-23T19:25:14.9823590Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 794.2/794.2 kB 42.8 MB/s  0:00:00
+2026-08-23T19:25:14.9924533Z Downloading jsonschema-4.26.0-py3-none-any.whl (90 kB)
+2026-08-23T19:25:15.1112001Z Downloading psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl (155 kB)
+2026-08-23T19:25:15.1244222Z Downloading python_dotenv-1.2.3-py3-none-any.whl (22 kB)
+2026-08-23T19:25:15.1362227Z Downloading aiofiles-25.1.0-py3-none-any.whl (14 kB)
+2026-08-23T19:25:15.2259075Z Downloading aiohttp-3.14.3-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (1.8 MB)
+2026-08-23T19:25:15.2479865Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.8/1.8 MB 74.1 MB/s  0:00:00
+2026-08-23T19:25:15.2584444Z Downloading multidict-6.7.1-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (248 kB)
+2026-08-23T19:25:15.2711069Z Downloading yarl-1.24.5-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (110 kB)
+2026-08-23T19:25:15.3807871Z Downloading aiohappyeyeballs-2.7.1-py3-none-any.whl (15 kB)
+2026-08-23T19:25:15.3929426Z Downloading aiosignal-1.4.0-py3-none-any.whl (7.5 kB)
+2026-08-23T19:25:15.4064986Z Downloading attrs-26.1.0-py3-none-any.whl (67 kB)
+2026-08-23T19:25:15.4192012Z Downloading datamodel_code_generator-0.74.0-py3-none-any.whl (592 kB)
+2026-08-23T19:25:15.4241858Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 592.3/592.3 kB 104.0 MB/s  0:00:00
+2026-08-23T19:25:15.4340942Z Downloading argcomplete-3.7.2-py3-none-any.whl (43 kB)
+2026-08-23T19:25:15.4463308Z Downloading genson-1.4.0-py3-none-any.whl (24 kB)
+2026-08-23T19:25:15.4585503Z Downloading inflect-7.5.0-py3-none-any.whl (35 kB)
+2026-08-23T19:25:15.5020141Z Downloading isort-8.0.1-py3-none-any.whl (89 kB)
+2026-08-23T19:25:15.5140162Z Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+2026-08-23T19:25:15.5264981Z Downloading pydantic-2.13.4-py3-none-any.whl (472 kB)
+2026-08-23T19:25:15.5397152Z Downloading pydantic_core-2.46.4-cp314-cp314-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+2026-08-23T19:25:15.5612194Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 93.1 MB/s  0:00:00
+2026-08-23T19:25:15.5712087Z Downloading annotated_types-0.8.0-py3-none-any.whl (13 kB)
+2026-08-23T19:25:15.5832317Z Downloading black-26.5.1-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (1.9 MB)
+2026-08-23T19:25:15.5915728Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.9/1.9 MB 241.8 MB/s  0:00:00
+2026-08-23T19:25:15.6016412Z Downloading pytokens-0.4.1-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (268 kB)
+2026-08-23T19:25:15.6140427Z Downloading click-8.4.2-py3-none-any.whl (119 kB)
+2026-08-23T19:25:15.6259171Z Downloading fastapi-0.141.1-py3-none-any.whl (131 kB)
+2026-08-23T19:25:15.6381459Z Downloading annotated_doc-0.0.5-py3-none-any.whl (5.3 kB)
+2026-08-23T19:25:15.6670652Z Downloading frozenlist-1.8.0-cp314-cp314-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (231 kB)
+2026-08-23T19:25:15.6791540Z Downloading idna-3.19-py3-none-any.whl (68 kB)
+2026-08-23T19:25:15.6912141Z Downloading iniconfig-2.3.0-py3-none-any.whl (7.5 kB)
+2026-08-23T19:25:15.7030592Z Downloading jsonschema_specifications-2025.9.1-py3-none-any.whl (18 kB)
+2026-08-23T19:25:15.7150013Z Downloading markupsafe-3.0.3-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (23 kB)
+2026-08-23T19:25:15.7268970Z Downloading mcp-2.0.0-py3-none-any.whl (349 kB)
+2026-08-23T19:25:15.7866385Z Downloading mcp_types-2.0.0-py3-none-any.whl (69 kB)
+2026-08-23T19:25:15.7991596Z Downloading anyio-4.14.2-py3-none-any.whl (125 kB)
+2026-08-23T19:25:15.8114590Z Downloading httpx2-2.12.0-py3-none-any.whl (95 kB)
+2026-08-23T19:25:15.8233952Z Downloading httpcore2-2.12.0-py3-none-any.whl (83 kB)
+2026-08-23T19:25:15.8360788Z Downloading h11-0.16.0-py3-none-any.whl (37 kB)
+2026-08-23T19:25:15.8583439Z Downloading more_itertools-11.1.0-py3-none-any.whl (72 kB)
+2026-08-23T19:25:15.8977957Z Downloading mypy_extensions-1.1.0-py3-none-any.whl (5.0 kB)
+2026-08-23T19:25:15.9095954Z Downloading opentelemetry_api-1.44.0-py3-none-any.whl (60 kB)
+2026-08-23T19:25:15.9216119Z Downloading packaging-26.3-py3-none-any.whl (129 kB)
+2026-08-23T19:25:15.9337703Z Downloading pathspec-1.1.1-py3-none-any.whl (57 kB)
+2026-08-23T19:25:15.9457302Z Downloading platformdirs-4.11.3-py3-none-any.whl (23 kB)
+2026-08-23T19:25:15.9578318Z Downloading propcache-0.5.2-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (61 kB)
+2026-08-23T19:25:15.9799526Z Downloading pygments-2.21.0-py3-none-any.whl (1.3 MB)
+2026-08-23T19:25:16.0185536Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 27.1 MB/s  0:00:00
+2026-08-23T19:25:16.0286717Z Downloading pyjwt-2.13.0-py3-none-any.whl (31 kB)
+2026-08-23T19:25:16.0409766Z Downloading cryptography-50.0.0-cp311-abi3-manylinux_2_34_x86_64.whl (4.7 MB)
+2026-08-23T19:25:16.0769470Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.7/4.7 MB 131.5 MB/s  0:00:00
+2026-08-23T19:25:16.0873220Z Downloading cffi-2.1.1-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (221 kB)
+2026-08-23T19:25:16.0996545Z Downloading python_multipart-0.0.32-py3-none-any.whl (30 kB)
+2026-08-23T19:25:16.1443336Z Downloading referencing-0.37.0-py3-none-any.whl (26 kB)
+2026-08-23T19:25:16.1563488Z Downloading requests-2.34.2-py3-none-any.whl (73 kB)
+2026-08-23T19:25:16.1685707Z Downloading charset_normalizer-3.5.1-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (251 kB)
+2026-08-23T19:25:16.1806102Z Downloading urllib3-2.7.0-py3-none-any.whl (131 kB)
+2026-08-23T19:25:16.1932026Z Downloading certifi-2026.7.22-py3-none-any.whl (136 kB)
+2026-08-23T19:25:16.2385688Z Downloading rpds_py-2026.6.3-cp314-cp314-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (367 kB)
+2026-08-23T19:25:16.2980237Z Downloading sse_starlette-3.4.8-py3-none-any.whl (16 kB)
+2026-08-23T19:25:16.3099104Z Downloading starlette-1.6.0-py3-none-any.whl (75 kB)
+2026-08-23T19:25:16.3516300Z Downloading truststore-0.10.4-py3-none-any.whl (18 kB)
+2026-08-23T19:25:16.3640703Z Downloading typeguard-4.6.0-py3-none-any.whl (36 kB)
+2026-08-23T19:25:16.3851872Z Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+2026-08-23T19:25:16.4103032Z Downloading typing_inspection-0.4.4-py3-none-any.whl (14 kB)
+2026-08-23T19:25:16.4791554Z Downloading uvicorn-0.52.4-py3-none-any.whl (79 kB)
+2026-08-23T19:25:16.4914549Z Downloading websockets-17.0.1-cp314-cp314-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (220 kB)
+2026-08-23T19:25:16.5039761Z Downloading wsproto-1.3.2-py3-none-any.whl (24 kB)
+2026-08-23T19:25:16.5157377Z Downloading pycparser-3.0-py3-none-any.whl (48 kB)
+2026-08-23T19:25:17.0273269Z Installing collected packages: websockets, urllib3, typing-extensions, truststore, rpds-py, PyYAML, pytokens, python-multipart, python-dotenv, pyjwt, pygments, pycparser, psutil, propcache, pluggy, platformdirs, pathspec, packaging, mypy-extensions, multidict, more_itertools, MarkupSafe, isort, iniconfig, idna, h11, genson, frozenlist, click, charset_normalizer, certifi, attrs, argcomplete, annotated-types, annotated-doc, aiohappyeyeballs, aiofiles, yarl, wsproto, uvicorn, typing-inspection, typeguard, requests, referencing, pytest, pydantic-core, opentelemetry-api, jinja2, httpcore2, cffi, black, anyio, aiosignal, starlette, pytest-timeout, pydantic, jsonschema-specifications, inflect, httpx2, cryptography, aiohttp, sse-starlette, mcp-types, jsonschema, fastapi, datamodel-code-generator, mcp, mcpygen
+2026-08-23T19:25:22.2581911Z 
+2026-08-23T19:25:22.2620121Z Successfully installed MarkupSafe-3.0.3 PyYAML-6.0.3 aiofiles-25.1.0 aiohappyeyeballs-2.7.1 aiohttp-3.14.3 aiosignal-1.4.0 annotated-doc-0.0.5 annotated-types-0.8.0 anyio-4.14.2 argcomplete-3.7.2 attrs-26.1.0 black-26.5.1 certifi-2026.7.22 cffi-2.1.1 charset_normalizer-3.5.1 click-8.4.2 cryptography-50.0.0 datamodel-code-generator-0.74.0 fastapi-0.141.1 frozenlist-1.8.0 genson-1.4.0 h11-0.16.0 httpcore2-2.12.0 httpx2-2.12.0 idna-3.19 inflect-7.5.0 iniconfig-2.3.0 isort-8.0.1 jinja2-3.1.6 jsonschema-4.26.0 jsonschema-specifications-2025.9.1 mcp-2.0.0 mcp-types-2.0.0 mcpygen-0.1.4 more_itertools-11.1.0 multidict-6.7.1 mypy-extensions-1.1.0 opentelemetry-api-1.44.0 packaging-26.3 pathspec-1.1.1 platformdirs-4.11.3 pluggy-1.6.0 propcache-0.5.2 psutil-7.2.2 pycparser-3.0 pydantic-2.13.4 pydantic-core-2.46.4 pygments-2.21.0 pyjwt-2.13.0 pytest-9.1.1 pytest-timeout-2.4.0 python-dotenv-1.2.3 python-multipart-0.0.32 pytokens-0.4.1 referencing-0.37.0 requests-2.34.2 rpds-py-2026.6.3 sse-starlette-3.4.8 starlette-1.6.0 truststore-0.10.4 typeguard-4.6.0 typing-extensions-4.16.0 typing-inspection-0.4.4 urllib3-2.7.0 uvicorn-0.52.4 websockets-17.0.1 wsproto-1.3.2 yarl-1.24.5
+2026-08-23T19:25:22.4297424Z ##[group]Run python -m pytest tests -q --timeout=300
+2026-08-23T19:25:22.4297837Z [36;1mpython -m pytest tests -q --timeout=300[0m
+2026-08-23T19:25:22.4320839Z shell: /usr/bin/bash -e {0}
+2026-08-23T19:25:22.4321101Z env:
+2026-08-23T19:25:22.4321344Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.7/x64
+2026-08-23T19:25:22.4321736Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.7/x64/lib/pkgconfig
+2026-08-23T19:25:22.4322205Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.7/x64
+2026-08-23T19:25:22.4322550Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.7/x64
+2026-08-23T19:25:22.4322882Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.7/x64
+2026-08-23T19:25:22.4323213Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.7/x64/lib
+2026-08-23T19:25:22.4323525Z ##[endgroup]
+2026-08-23T19:25:28.9302315Z F....................................................................... [  7%]
+2026-08-23T19:25:33.8915930Z ...........F.F..........F..F............................................ [ 14%]
+2026-08-23T19:25:34.5592023Z ............F........................................................... [ 21%]
+2026-08-23T19:25:35.3012798Z .......................................F................................ [ 28%]
+2026-08-23T19:25:35.5245607Z ........................................................................ [ 35%]
+2026-08-23T19:25:35.6393838Z ........................................................................ [ 42%]
+2026-08-23T19:25:35.8214260Z ........................................................................ [ 49%]
+2026-08-23T19:25:38.5777311Z ........................................................................ [ 57%]
+2026-08-23T19:25:43.3371657Z .............................F.F...FFFFFFFFF....FFF..................... [ 64%]
+2026-08-23T19:25:57.4907226Z ........................FFF...FF............................s........... [ 71%]
+2026-08-23T19:25:59.6464033Z ............................................ss................s......... [ 78%]
+2026-08-23T19:26:05.1340625Z .....................................F.................................. [ 85%]
+2026-08-23T19:26:08.2996565Z ........................................................................ [ 92%]
+2026-08-23T19:26:11.9464313Z ........................................................................ [ 99%]
+2026-08-23T19:26:12.0570838Z .                                                                        [100%]
+2026-08-23T19:26:12.0571481Z =================================== FAILURES ===================================
+2026-08-23T19:26:12.0572077Z _________________ test_g1_two_disjoint_packets_reach_wave_done _________________
+2026-08-23T19:26:12.0572594Z tests/golden/test_g1_two_packet_parallel.py:33: in test_g1_two_disjoint_packets_reach_wave_done
+2026-08-23T19:26:12.0573052Z     assert p.returncode == 0, p.stderr
+2026-08-23T19:26:12.0573476Z E   AssertionError: Traceback (most recent call last):
+2026-08-23T19:26:12.0574081Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 935, in <module>
+2026-08-23T19:26:12.0574639Z E         sys.exit(main())
+2026-08-23T19:26:12.0574941Z E                  ~~~~^^
+2026-08-23T19:26:12.0575420Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 928, in main
+2026-08-23T19:26:12.0576111Z E         dispatch_single(pids, args.dry_run, args.role, args.wave)
+2026-08-23T19:26:12.0576593Z E         ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0577455Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 557, in dispatch_single
+2026-08-23T19:26:12.0578238Z E         cmd = [resolve_codex_binary(), "exec", "--skip-git-repo-check", "--sandbox", sandbox,
+2026-08-23T19:26:12.0578754Z E                ~~~~~~~~~~~~~~~~~~~~^^
+2026-08-23T19:26:12.0579387Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 175, in resolve_codex_binary
+2026-08-23T19:26:12.0580461Z E         raise OSError("headless codex executable not found")
+2026-08-23T19:26:12.0580942Z E     OSError: headless codex executable not found
+2026-08-23T19:26:12.0581301Z E     
+2026-08-23T19:26:12.0581564Z E   assert 1 == 0
+2026-08-23T19:26:12.0582507Z E    +  where 1 = CompletedProcess(args=['/opt/hostedtoolcache/Python/3.14.7/x64/bin/python', '/home/runner/work/codex-loop-orchestra/co...odex_binary\n    raise OSError("headless codex executable not found")\nOSError: headless codex executable not found\n').returncode
+2026-08-23T19:26:12.0583729Z __________ test_explicit_k3_dry_run_remains_observable_during_backoff __________
+2026-08-23T19:26:12.0584246Z tests/orchestration_v2/test_dispatch_v2.py:232: in test_explicit_k3_dry_run_remains_observable_during_backoff
+2026-08-23T19:26:12.0584718Z     assert dispatcher.dispatch(["p1"], role="verifier", dry_run=True) == 0
+2026-08-23T19:26:12.0585066Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0585379Z harness/dispatch_v2.py:471: in dispatch
+2026-08-23T19:26:12.0585704Z     rc = max(rc, self._spawn(pid, chosen_role, route, reason,
+2026-08-23T19:26:12.0586048Z harness/dispatch_v2.py:512: in _spawn
+2026-08-23T19:26:12.0586350Z     cmd, pin = self.build_exec_command(pid, role, prompt, packet,
+2026-08-23T19:26:12.0586669Z harness/dispatch_v2.py:435: in build_exec_command
+2026-08-23T19:26:12.0587199Z     cmd = [resolve_codex_binary(), "exec", "--skip-git-repo-check",
+2026-08-23T19:26:12.0587527Z            ^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0587817Z harness/dispatch.py:175: in resolve_codex_binary
+2026-08-23T19:26:12.0588127Z     raise OSError("headless codex executable not found")
+2026-08-23T19:26:12.0588423Z E   OSError: headless codex executable not found
+2026-08-23T19:26:12.0588804Z __________________ test_dry_run_spawn_records_route_metadata ___________________
+2026-08-23T19:26:12.0589254Z tests/orchestration_v2/test_dispatch_v2.py:250: in test_dry_run_spawn_records_route_metadata
+2026-08-23T19:26:12.0589694Z     rc = dispatcher.dispatch(["p1"], dry_run=True, action="pass")
+2026-08-23T19:26:12.0590006Z          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0590270Z harness/dispatch_v2.py:471: in dispatch
+2026-08-23T19:26:12.0590591Z     rc = max(rc, self._spawn(pid, chosen_role, route, reason,
+2026-08-23T19:26:12.0590903Z harness/dispatch_v2.py:512: in _spawn
+2026-08-23T19:26:12.0591242Z     cmd, pin = self.build_exec_command(pid, role, prompt, packet,
+2026-08-23T19:26:12.0591559Z harness/dispatch_v2.py:435: in build_exec_command
+2026-08-23T19:26:12.0591873Z     cmd = [resolve_codex_binary(), "exec", "--skip-git-repo-check",
+2026-08-23T19:26:12.0592201Z            ^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0592476Z harness/dispatch.py:175: in resolve_codex_binary
+2026-08-23T19:26:12.0592777Z     raise OSError("headless codex executable not found")
+2026-08-23T19:26:12.0593083Z E   OSError: headless codex executable not found
+2026-08-23T19:26:12.0593415Z _____________________ test_build_exec_command_ipybox_flags _____________________
+2026-08-23T19:26:12.0593879Z tests/orchestration_v2/test_dispatch_v2.py:350: in test_build_exec_command_ipybox_flags
+2026-08-23T19:26:12.0594328Z     cmd, _ = dispatcher.build_exec_command("p1", "verifier", "prompt", packet)
+2026-08-23T19:26:12.0594673Z              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0594991Z harness/dispatch_v2.py:435: in build_exec_command
+2026-08-23T19:26:12.0595315Z     cmd = [resolve_codex_binary(), "exec", "--skip-git-repo-check",
+2026-08-23T19:26:12.0595621Z            ^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0595900Z harness/dispatch.py:175: in resolve_codex_binary
+2026-08-23T19:26:12.0596649Z     raise OSError("headless codex executable not found")
+2026-08-23T19:26:12.0597194Z E   OSError: headless codex executable not found
+2026-08-23T19:26:12.0597541Z _________ test_parent_worker_is_forced_readonly_and_propagates_parent __________
+2026-08-23T19:26:12.0598297Z tests/orchestration_v2/test_dispatch_v2.py:394: in test_parent_worker_is_forced_readonly_and_propagates_parent
+2026-08-23T19:26:12.0598854Z     assert dispatcher.dispatch(["parent-p"], role="worker") == 0
+2026-08-23T19:26:12.0599234Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0599619Z harness/dispatch_v2.py:471: in dispatch
+2026-08-23T19:26:12.0600041Z     rc = max(rc, self._spawn(pid, chosen_role, route, reason,
+2026-08-23T19:26:12.0600557Z harness/dispatch_v2.py:512: in _spawn
+2026-08-23T19:26:12.0600862Z     cmd, pin = self.build_exec_command(pid, role, prompt, packet,
+2026-08-23T19:26:12.0601174Z harness/dispatch_v2.py:435: in build_exec_command
+2026-08-23T19:26:12.0601520Z     cmd = [resolve_codex_binary(), "exec", "--skip-git-repo-check",
+2026-08-23T19:26:12.0601817Z            ^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0602086Z harness/dispatch.py:175: in resolve_codex_binary
+2026-08-23T19:26:12.0602586Z     raise OSError("headless codex executable not found")
+2026-08-23T19:26:12.0602902Z E   OSError: headless codex executable not found
+2026-08-23T19:26:12.0603230Z _________________ test_k3_first_dispatch_actually_routes_to_k3 _________________
+2026-08-23T19:26:12.0603662Z tests/orchestration_v2/test_layered_e2e.py:194: in test_k3_first_dispatch_actually_routes_to_k3
+2026-08-23T19:26:12.0604111Z     rc = dispatcher.dispatch(["p1"], dry_run=True, action="pass")
+2026-08-23T19:26:12.0604424Z          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0604696Z harness/dispatch_v2.py:471: in dispatch
+2026-08-23T19:26:12.0605026Z     rc = max(rc, self._spawn(pid, chosen_role, route, reason,
+2026-08-23T19:26:12.0605529Z harness/dispatch_v2.py:512: in _spawn
+2026-08-23T19:26:12.0605940Z     cmd, pin = self.build_exec_command(pid, role, prompt, packet,
+2026-08-23T19:26:12.0606347Z harness/dispatch_v2.py:435: in build_exec_command
+2026-08-23T19:26:12.0606771Z     cmd = [resolve_codex_binary(), "exec", "--skip-git-repo-check",
+2026-08-23T19:26:12.0607287Z            ^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0607578Z harness/dispatch.py:175: in resolve_codex_binary
+2026-08-23T19:26:12.0607906Z     raise OSError("headless codex executable not found")
+2026-08-23T19:26:12.0608206Z E   OSError: headless codex executable not found
+2026-08-23T19:26:12.0608625Z _______________ test_dry_run_preserves_queue_and_uses_dispatcher _______________
+2026-08-23T19:26:12.0609098Z tests/orchestration_v2/test_refill_consumer_v2.py:227: in test_dry_run_preserves_queue_and_uses_dispatcher
+2026-08-23T19:26:12.0609522Z     rc, result = run_once(root, dry_run=True)
+2026-08-23T19:26:12.0609798Z                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0610066Z harness/refill_consumer_v2.py:399: in run_once
+2026-08-23T19:26:12.0610330Z     rc = headless_wave.run(args)
+2026-08-23T19:26:12.0610597Z          ^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0610860Z harness/headless_wave.py:478: in run
+2026-08-23T19:26:12.0611213Z     rc = dispatcher.dispatch([packet_id], role=role, dry_run=True,
+2026-08-23T19:26:12.0611522Z harness/dispatch_v2.py:471: in dispatch
+2026-08-23T19:26:12.0611799Z     rc = max(rc, self._spawn(pid, chosen_role, route, reason,
+2026-08-23T19:26:12.0612117Z harness/dispatch_v2.py:512: in _spawn
+2026-08-23T19:26:12.0612425Z     cmd, pin = self.build_exec_command(pid, role, prompt, packet,
+2026-08-23T19:26:12.0612736Z harness/dispatch_v2.py:435: in build_exec_command
+2026-08-23T19:26:12.0613068Z     cmd = [resolve_codex_binary(), "exec", "--skip-git-repo-check",
+2026-08-23T19:26:12.0613366Z            ^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0613659Z harness/dispatch.py:175: in resolve_codex_binary
+2026-08-23T19:26:12.0613972Z     raise OSError("headless codex executable not found")
+2026-08-23T19:26:12.0614278Z E   OSError: headless codex executable not found
+2026-08-23T19:26:12.0614614Z ____________________ test_single_mode_dry_run_is_audit_only ____________________
+2026-08-23T19:26:12.0614999Z tests/unit/test_dispatch.py:35: in test_single_mode_dry_run_is_audit_only
+2026-08-23T19:26:12.0615713Z     assert p.returncode == 0, p.stderr
+2026-08-23T19:26:12.0616036Z E   AssertionError: Traceback (most recent call last):
+2026-08-23T19:26:12.0616521Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 935, in <module>
+2026-08-23T19:26:12.0617089Z E         sys.exit(main())
+2026-08-23T19:26:12.0617328Z E                  ~~~~^^
+2026-08-23T19:26:12.0617804Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 928, in main
+2026-08-23T19:26:12.0618258Z E         dispatch_single(pids, args.dry_run, args.role, args.wave)
+2026-08-23T19:26:12.0618566Z E         ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0619028Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 557, in dispatch_single
+2026-08-23T19:26:12.0619555Z E         cmd = [resolve_codex_binary(), "exec", "--skip-git-repo-check", "--sandbox", sandbox,
+2026-08-23T19:26:12.0619965Z E                ~~~~~~~~~~~~~~~~~~~~^^
+2026-08-23T19:26:12.0620397Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 175, in resolve_codex_binary
+2026-08-23T19:26:12.0620864Z E         raise OSError("headless codex executable not found")
+2026-08-23T19:26:12.0621198Z E     OSError: headless codex executable not found
+2026-08-23T19:26:12.0621466Z E     
+2026-08-23T19:26:12.0621677Z E   assert 1 == 0
+2026-08-23T19:26:12.0622375Z E    +  where 1 = CompletedProcess(args=['/opt/hostedtoolcache/Python/3.14.7/x64/bin/python', '/home/runner/work/codex-loop-orchestra/co...odex_binary\n    raise OSError("headless codex executable not found")\nOSError: headless codex executable not found\n').returncode
+2026-08-23T19:26:12.0623209Z _________ test_state_filter_skips_non_dispatchable_and_force_overrides _________
+2026-08-23T19:26:12.0623668Z tests/unit/test_dispatch.py:78: in test_state_filter_skips_non_dispatchable_and_force_overrides
+2026-08-23T19:26:12.0624044Z     assert p.returncode == 0
+2026-08-23T19:26:12.0624295Z E   assert 1 == 0
+2026-08-23T19:26:12.0624982Z E    +  where 1 = CompletedProcess(args=['/opt/hostedtoolcache/Python/3.14.7/x64/bin/python', '/home/runner/work/codex-loop-orchestra/co...odex_binary\n    raise OSError("headless codex executable not found")\nOSError: headless codex executable not found\n').returncode
+2026-08-23T19:26:12.0625760Z ________________ test_single_spawn_with_mock_codex_lands_report ________________
+2026-08-23T19:26:12.0626209Z tests/unit/test_dispatch.py:125: in test_single_spawn_with_mock_codex_lands_report
+2026-08-23T19:26:12.0626553Z     assert p.returncode == 0, p.stderr
+2026-08-23T19:26:12.0627837Z E   AssertionError: dispatch throttled: canonical lifecycle counts unavailable: PolicyError: refill policy missing: /tmp/pytest-of-runner/pytest-0/test_single_spawn_with_mock_co0/loop/config/refill_policy.toml — refusing silent defaults (P0-8.3 fail-closed policy reads)
+2026-08-23T19:26:12.0628587Z E     
+2026-08-23T19:26:12.0628796Z E   assert 3 == 0
+2026-08-23T19:26:12.0629642Z E    +  where 3 = CompletedProcess(args=['/opt/hostedtoolcache/Python/3.14.7/x64/bin/python', '/home/runner/work/codex-loop-orchestra/co...gle_spawn_with_mock_co0/loop/config/refill_policy.toml — refusing silent defaults (P0-8.3 fail-closed policy reads)\n').returncode
+2026-08-23T19:26:12.0630446Z ______________ test_cmd_contains_model_flag_matching_worker_toml _______________
+2026-08-23T19:26:12.0630913Z tests/unit/test_dispatch_model_pin.py:54: in test_cmd_contains_model_flag_matching_worker_toml
+2026-08-23T19:26:12.0631290Z     cmd = dry_run_cmd(loop)
+2026-08-23T19:26:12.0631528Z           ^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0631804Z tests/unit/test_dispatch_model_pin.py:46: in dry_run_cmd
+2026-08-23T19:26:12.0632098Z     assert p.returncode == 0, p.stderr
+2026-08-23T19:26:12.0632384Z E   AssertionError: Traceback (most recent call last):
+2026-08-23T19:26:12.0632916Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 935, in <module>
+2026-08-23T19:26:12.0633370Z E         sys.exit(main())
+2026-08-23T19:26:12.0633623Z E                  ~~~~^^
+2026-08-23T19:26:12.0634011Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 928, in main
+2026-08-23T19:26:12.0634451Z E         dispatch_single(pids, args.dry_run, args.role, args.wave)
+2026-08-23T19:26:12.0634845Z E         ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0635286Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 557, in dispatch_single
+2026-08-23T19:26:12.0635812Z E         cmd = [resolve_codex_binary(), "exec", "--skip-git-repo-check", "--sandbox", sandbox,
+2026-08-23T19:26:12.0636216Z E                ~~~~~~~~~~~~~~~~~~~~^^
+2026-08-23T19:26:12.0636628Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 175, in resolve_codex_binary
+2026-08-23T19:26:12.0637318Z E         raise OSError("headless codex executable not found")
+2026-08-23T19:26:12.0637637Z E     OSError: headless codex executable not found
+2026-08-23T19:26:12.0637896Z E     
+2026-08-23T19:26:12.0638118Z E   assert 1 == 0
+2026-08-23T19:26:12.0638795Z E    +  where 1 = CompletedProcess(args=['/opt/hostedtoolcache/Python/3.14.7/x64/bin/python', '/home/runner/work/codex-loop-orchestra/co...odex_binary\n    raise OSError("headless codex executable not found")\nOSError: headless codex executable not found\n').returncode
+2026-08-23T19:26:12.0639690Z ___________ test_cmd_contains_reasoning_effort_matching_worker_toml ____________
+2026-08-23T19:26:12.0640150Z tests/unit/test_dispatch_model_pin.py:60: in test_cmd_contains_reasoning_effort_matching_worker_toml
+2026-08-23T19:26:12.0640546Z     cmd = dry_run_cmd(loop)
+2026-08-23T19:26:12.0640824Z           ^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0641112Z tests/unit/test_dispatch_model_pin.py:46: in dry_run_cmd
+2026-08-23T19:26:12.0641442Z     assert p.returncode == 0, p.stderr
+2026-08-23T19:26:12.0641749Z E   AssertionError: Traceback (most recent call last):
+2026-08-23T19:26:12.0642232Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 935, in <module>
+2026-08-23T19:26:12.0642671Z E         sys.exit(main())
+2026-08-23T19:26:12.0642914Z E                  ~~~~^^
+2026-08-23T19:26:12.0643311Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 928, in main
+2026-08-23T19:26:12.0643776Z E         dispatch_single(pids, args.dry_run, args.role, args.wave)
+2026-08-23T19:26:12.0644097Z E         ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0644698Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 557, in dispatch_single
+2026-08-23T19:26:12.0645239Z E         cmd = [resolve_codex_binary(), "exec", "--skip-git-repo-check", "--sandbox", sandbox,
+2026-08-23T19:26:12.0645671Z E                ~~~~~~~~~~~~~~~~~~~~^^
+2026-08-23T19:26:12.0646114Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 175, in resolve_codex_binary
+2026-08-23T19:26:12.0646592Z E         raise OSError("headless codex executable not found")
+2026-08-23T19:26:12.0647045Z E     OSError: headless codex executable not found
+2026-08-23T19:26:12.0647331Z E     
+2026-08-23T19:26:12.0647549Z E   assert 1 == 0
+2026-08-23T19:26:12.0648262Z E    +  where 1 = CompletedProcess(args=['/opt/hostedtoolcache/Python/3.14.7/x64/bin/python', '/home/runner/work/codex-loop-orchestra/co...odex_binary\n    raise OSError("headless codex executable not found")\nOSError: headless codex executable not found\n').returncode
+2026-08-23T19:26:12.0649084Z ___________ test_cmd_contains_json_flag_for_per_packet_token_capture ___________
+2026-08-23T19:26:12.0649598Z tests/unit/test_dispatch_model_pin.py:67: in test_cmd_contains_json_flag_for_per_packet_token_capture
+2026-08-23T19:26:12.0649988Z     cmd = dry_run_cmd(loop)
+2026-08-23T19:26:12.0650329Z           ^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0650631Z tests/unit/test_dispatch_model_pin.py:46: in dry_run_cmd
+2026-08-23T19:26:12.0650959Z     assert p.returncode == 0, p.stderr
+2026-08-23T19:26:12.0651314Z E   AssertionError: Traceback (most recent call last):
+2026-08-23T19:26:12.0651810Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 935, in <module>
+2026-08-23T19:26:12.0652288Z E         sys.exit(main())
+2026-08-23T19:26:12.0652544Z E                  ~~~~^^
+2026-08-23T19:26:12.0652951Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 928, in main
+2026-08-23T19:26:12.0653489Z E         dispatch_single(pids, args.dry_run, args.role, args.wave)
+2026-08-23T19:26:12.0653829Z E         ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0654291Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 557, in dispatch_single
+2026-08-23T19:26:12.0654852Z E         cmd = [resolve_codex_binary(), "exec", "--skip-git-repo-check", "--sandbox", sandbox,
+2026-08-23T19:26:12.0655232Z E                ~~~~~~~~~~~~~~~~~~~~^^
+2026-08-23T19:26:12.0655693Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 175, in resolve_codex_binary
+2026-08-23T19:26:12.0656219Z E         raise OSError("headless codex executable not found")
+2026-08-23T19:26:12.0656545Z E     OSError: headless codex executable not found
+2026-08-23T19:26:12.0657031Z E     
+2026-08-23T19:26:12.0657254Z E   assert 1 == 0
+2026-08-23T19:26:12.0657968Z E    +  where 1 = CompletedProcess(args=['/opt/hostedtoolcache/Python/3.14.7/x64/bin/python', '/home/runner/work/codex-loop-orchestra/co...odex_binary\n    raise OSError("headless codex executable not found")\nOSError: headless codex executable not found\n').returncode
+2026-08-23T19:26:12.0658777Z __________________ test_worker_ipybox_follows_execution_plane __________________
+2026-08-23T19:26:12.0659188Z tests/unit/test_dispatch_model_pin.py:72: in test_worker_ipybox_follows_execution_plane
+2026-08-23T19:26:12.0659647Z     cmd = dry_run_cmd(loop)
+2026-08-23T19:26:12.0659903Z           ^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0660197Z tests/unit/test_dispatch_model_pin.py:46: in dry_run_cmd
+2026-08-23T19:26:12.0660552Z     assert p.returncode == 0, p.stderr
+2026-08-23T19:26:12.0660829Z E   AssertionError: Traceback (most recent call last):
+2026-08-23T19:26:12.0661302Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 935, in <module>
+2026-08-23T19:26:12.0661705Z E         sys.exit(main())
+2026-08-23T19:26:12.0661928Z E                  ~~~~^^
+2026-08-23T19:26:12.0662306Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 928, in main
+2026-08-23T19:26:12.0662761Z E         dispatch_single(pids, args.dry_run, args.role, args.wave)
+2026-08-23T19:26:12.0663109Z E         ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0663547Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 557, in dispatch_single
+2026-08-23T19:26:12.0664052Z E         cmd = [resolve_codex_binary(), "exec", "--skip-git-repo-check", "--sandbox", sandbox,
+2026-08-23T19:26:12.0664413Z E                ~~~~~~~~~~~~~~~~~~~~^^
+2026-08-23T19:26:12.0664847Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 175, in resolve_codex_binary
+2026-08-23T19:26:12.0665471Z E         raise OSError("headless codex executable not found")
+2026-08-23T19:26:12.0665786Z E     OSError: headless codex executable not found
+2026-08-23T19:26:12.0666052Z E     
+2026-08-23T19:26:12.0666258Z E   assert 1 == 0
+2026-08-23T19:26:12.0667214Z E    +  where 1 = CompletedProcess(args=['/opt/hostedtoolcache/Python/3.14.7/x64/bin/python', '/home/runner/work/codex-loop-orchestra/co...odex_binary\n    raise OSError("headless codex executable not found")\nOSError: headless codex executable not found\n').returncode
+2026-08-23T19:26:12.0668045Z ______ test_non_gpt_roles_carry_catalog_safe_context_and_800k_compaction _______
+2026-08-23T19:26:12.0668512Z tests/unit/test_dispatch_model_pin.py:85: in test_non_gpt_roles_carry_catalog_safe_context_and_800k_compaction
+2026-08-23T19:26:12.0668947Z     cmd = dry_run_cmd(loop, "--role", role)
+2026-08-23T19:26:12.0669269Z           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0669571Z tests/unit/test_dispatch_model_pin.py:46: in dry_run_cmd
+2026-08-23T19:26:12.0669873Z     assert p.returncode == 0, p.stderr
+2026-08-23T19:26:12.0670159Z E   AssertionError: Traceback (most recent call last):
+2026-08-23T19:26:12.0670586Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 935, in <module>
+2026-08-23T19:26:12.0671015Z E         sys.exit(main())
+2026-08-23T19:26:12.0671253Z E                  ~~~~^^
+2026-08-23T19:26:12.0671668Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 928, in main
+2026-08-23T19:26:12.0672112Z E         dispatch_single(pids, args.dry_run, args.role, args.wave)
+2026-08-23T19:26:12.0672416Z E         ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0672894Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 557, in dispatch_single
+2026-08-23T19:26:12.0673416Z E         cmd = [resolve_codex_binary(), "exec", "--skip-git-repo-check", "--sandbox", sandbox,
+2026-08-23T19:26:12.0673762Z E                ~~~~~~~~~~~~~~~~~~~~^^
+2026-08-23T19:26:12.0674194Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 175, in resolve_codex_binary
+2026-08-23T19:26:12.0674681Z E         raise OSError("headless codex executable not found")
+2026-08-23T19:26:12.0675027Z E     OSError: headless codex executable not found
+2026-08-23T19:26:12.0675308Z E     
+2026-08-23T19:26:12.0675506Z E   assert 1 == 0
+2026-08-23T19:26:12.0676192Z E    +  where 1 = CompletedProcess(args=['/opt/hostedtoolcache/Python/3.14.7/x64/bin/python', '/home/runner/work/codex-loop-orchestra/co...odex_binary\n    raise OSError("headless codex executable not found")\nOSError: headless codex executable not found\n').returncode
+2026-08-23T19:26:12.0677103Z ___________________ test_cmd_sandbox_comes_from_worker_toml ____________________
+2026-08-23T19:26:12.0677562Z tests/unit/test_dispatch_model_pin.py:95: in test_cmd_sandbox_comes_from_worker_toml
+2026-08-23T19:26:12.0677924Z     cmd = dry_run_cmd(loop)
+2026-08-23T19:26:12.0678163Z           ^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0678441Z tests/unit/test_dispatch_model_pin.py:46: in dry_run_cmd
+2026-08-23T19:26:12.0678735Z     assert p.returncode == 0, p.stderr
+2026-08-23T19:26:12.0679024Z E   AssertionError: Traceback (most recent call last):
+2026-08-23T19:26:12.0679473Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 935, in <module>
+2026-08-23T19:26:12.0679862Z E         sys.exit(main())
+2026-08-23T19:26:12.0680111Z E                  ~~~~^^
+2026-08-23T19:26:12.0680505Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 928, in main
+2026-08-23T19:26:12.0680962Z E         dispatch_single(pids, args.dry_run, args.role, args.wave)
+2026-08-23T19:26:12.0681303Z E         ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0681779Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 557, in dispatch_single
+2026-08-23T19:26:12.0682336Z E         cmd = [resolve_codex_binary(), "exec", "--skip-git-repo-check", "--sandbox", sandbox,
+2026-08-23T19:26:12.0682701Z E                ~~~~~~~~~~~~~~~~~~~~^^
+2026-08-23T19:26:12.0683196Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 175, in resolve_codex_binary
+2026-08-23T19:26:12.0683765Z E         raise OSError("headless codex executable not found")
+2026-08-23T19:26:12.0684079Z E     OSError: headless codex executable not found
+2026-08-23T19:26:12.0684389Z E     
+2026-08-23T19:26:12.0684607Z E   assert 1 == 0
+2026-08-23T19:26:12.0685305Z E    +  where 1 = CompletedProcess(args=['/opt/hostedtoolcache/Python/3.14.7/x64/bin/python', '/home/runner/work/codex-loop-orchestra/co...odex_binary\n    raise OSError("headless codex executable not found")\nOSError: headless codex executable not found\n').returncode
+2026-08-23T19:26:12.0686192Z ______________________ test_roles_use_their_own_toml_pins ______________________
+2026-08-23T19:26:12.0686622Z tests/unit/test_dispatch_model_pin.py:103: in test_roles_use_their_own_toml_pins
+2026-08-23T19:26:12.0687093Z     cmd = dry_run_cmd(loop, "--role", role)
+2026-08-23T19:26:12.0687371Z           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0687693Z tests/unit/test_dispatch_model_pin.py:46: in dry_run_cmd
+2026-08-23T19:26:12.0688028Z     assert p.returncode == 0, p.stderr
+2026-08-23T19:26:12.0688331Z E   AssertionError: Traceback (most recent call last):
+2026-08-23T19:26:12.0688796Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 935, in <module>
+2026-08-23T19:26:12.0689227Z E         sys.exit(main())
+2026-08-23T19:26:12.0689527Z E                  ~~~~^^
+2026-08-23T19:26:12.0689938Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 928, in main
+2026-08-23T19:26:12.0690414Z E         dispatch_single(pids, args.dry_run, args.role, args.wave)
+2026-08-23T19:26:12.0690778Z E         ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0691232Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 557, in dispatch_single
+2026-08-23T19:26:12.0691761Z E         cmd = [resolve_codex_binary(), "exec", "--skip-git-repo-check", "--sandbox", sandbox,
+2026-08-23T19:26:12.0692157Z E                ~~~~~~~~~~~~~~~~~~~~^^
+2026-08-23T19:26:12.0692637Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 175, in resolve_codex_binary
+2026-08-23T19:26:12.0693160Z E         raise OSError("headless codex executable not found")
+2026-08-23T19:26:12.0693483Z E     OSError: headless codex executable not found
+2026-08-23T19:26:12.0693764Z E     
+2026-08-23T19:26:12.0694018Z E   assert 1 == 0
+2026-08-23T19:26:12.0694714Z E    +  where 1 = CompletedProcess(args=['/opt/hostedtoolcache/Python/3.14.7/x64/bin/python', '/home/runner/work/codex-loop-orchestra/co...odex_binary\n    raise OSError("headless codex executable not found")\nOSError: headless codex executable not found\n').returncode
+2026-08-23T19:26:12.0695521Z _________ test_portable_profile_separates_execution_and_review_models __________
+2026-08-23T19:26:12.0696058Z tests/unit/test_dispatch_model_pin.py:110: in test_portable_profile_separates_execution_and_review_models
+2026-08-23T19:26:12.0696483Z     w = dry_run_cmd(loop, "--role", "worker")
+2026-08-23T19:26:12.0697024Z         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0697341Z tests/unit/test_dispatch_model_pin.py:46: in dry_run_cmd
+2026-08-23T19:26:12.0697658Z     assert p.returncode == 0, p.stderr
+2026-08-23T19:26:12.0697969Z E   AssertionError: Traceback (most recent call last):
+2026-08-23T19:26:12.0698442Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 935, in <module>
+2026-08-23T19:26:12.0698914Z E         sys.exit(main())
+2026-08-23T19:26:12.0699160Z E                  ~~~~^^
+2026-08-23T19:26:12.0699564Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 928, in main
+2026-08-23T19:26:12.0700051Z E         dispatch_single(pids, args.dry_run, args.role, args.wave)
+2026-08-23T19:26:12.0700414Z E         ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0700970Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 557, in dispatch_single
+2026-08-23T19:26:12.0701515Z E         cmd = [resolve_codex_binary(), "exec", "--skip-git-repo-check", "--sandbox", sandbox,
+2026-08-23T19:26:12.0701866Z E                ~~~~~~~~~~~~~~~~~~~~^^
+2026-08-23T19:26:12.0702397Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 175, in resolve_codex_binary
+2026-08-23T19:26:12.0702982Z E         raise OSError("headless codex executable not found")
+2026-08-23T19:26:12.0703300Z E     OSError: headless codex executable not found
+2026-08-23T19:26:12.0703565Z E     
+2026-08-23T19:26:12.0703752Z E   assert 1 == 0
+2026-08-23T19:26:12.0704468Z E    +  where 1 = CompletedProcess(args=['/opt/hostedtoolcache/Python/3.14.7/x64/bin/python', '/home/runner/work/codex-loop-orchestra/co...odex_binary\n    raise OSError("headless codex executable not found")\nOSError: headless codex executable not found\n').returncode
+2026-08-23T19:26:12.0705261Z _________ test_sol_budget_does_not_reclassify_explicit_child_by_model __________
+2026-08-23T19:26:12.0705768Z tests/unit/test_dispatch_model_pin.py:185: in test_sol_budget_does_not_reclassify_explicit_child_by_model
+2026-08-23T19:26:12.0706160Z     assert p.returncode == 0, p.stderr
+2026-08-23T19:26:12.0706431Z E   AssertionError: Traceback (most recent call last):
+2026-08-23T19:26:12.0707021Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 935, in <module>
+2026-08-23T19:26:12.0707462Z E         sys.exit(main())
+2026-08-23T19:26:12.0707694Z E                  ~~~~^^
+2026-08-23T19:26:12.0708080Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 928, in main
+2026-08-23T19:26:12.0708543Z E         dispatch_single(pids, args.dry_run, args.role, args.wave)
+2026-08-23T19:26:12.0708899Z E         ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0709338Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 557, in dispatch_single
+2026-08-23T19:26:12.0709847Z E         cmd = [resolve_codex_binary(), "exec", "--skip-git-repo-check", "--sandbox", sandbox,
+2026-08-23T19:26:12.0710199Z E                ~~~~~~~~~~~~~~~~~~~~^^
+2026-08-23T19:26:12.0710626Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 175, in resolve_codex_binary
+2026-08-23T19:26:12.0711131Z E         raise OSError("headless codex executable not found")
+2026-08-23T19:26:12.0711466Z E     OSError: headless codex executable not found
+2026-08-23T19:26:12.0711724Z E     
+2026-08-23T19:26:12.0711932Z E   assert 1 == 0
+2026-08-23T19:26:12.0712614Z E    +  where 1 = CompletedProcess(args=['/opt/hostedtoolcache/Python/3.14.7/x64/bin/python', '/home/runner/work/codex-loop-orchestra/co...odex_binary\n    raise OSError("headless codex executable not found")\nOSError: headless codex executable not found\n').returncode
+2026-08-23T19:26:12.0713497Z _____________ test_sol_budget_block_keeps_child_dispatch_available _____________
+2026-08-23T19:26:12.0713953Z tests/unit/test_dispatch_model_pin.py:199: in test_sol_budget_block_keeps_child_dispatch_available
+2026-08-23T19:26:12.0714397Z     assert p.returncode == 0, role + p.stderr
+2026-08-23T19:26:12.0714746Z E   AssertionError: workerTraceback (most recent call last):
+2026-08-23T19:26:12.0715213Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 935, in <module>
+2026-08-23T19:26:12.0715676Z E         sys.exit(main())
+2026-08-23T19:26:12.0715927Z E                  ~~~~^^
+2026-08-23T19:26:12.0716303Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 928, in main
+2026-08-23T19:26:12.0716879Z E         dispatch_single(pids, args.dry_run, args.role, args.wave)
+2026-08-23T19:26:12.0717290Z E         ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0717907Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 557, in dispatch_single
+2026-08-23T19:26:12.0718451Z E         cmd = [resolve_codex_binary(), "exec", "--skip-git-repo-check", "--sandbox", sandbox,
+2026-08-23T19:26:12.0718802Z E                ~~~~~~~~~~~~~~~~~~~~^^
+2026-08-23T19:26:12.0719277Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 175, in resolve_codex_binary
+2026-08-23T19:26:12.0719848Z E         raise OSError("headless codex executable not found")
+2026-08-23T19:26:12.0720184Z E     OSError: headless codex executable not found
+2026-08-23T19:26:12.0720486Z E     
+2026-08-23T19:26:12.0720720Z E   assert 1 == 0
+2026-08-23T19:26:12.0721459Z E    +  where 1 = CompletedProcess(args=['/opt/hostedtoolcache/Python/3.14.7/x64/bin/python', '/home/runner/work/codex-loop-orchestra/co...odex_binary\n    raise OSError("headless codex executable not found")\nOSError: headless codex executable not found\n').returncode
+2026-08-23T19:26:12.0722301Z _______ test_sol_budget_block_allows_release_finalize_explicit_sol_role ________
+2026-08-23T19:26:12.0722789Z tests/unit/test_dispatch_model_pin.py:213: in test_sol_budget_block_allows_release_finalize_explicit_sol_role
+2026-08-23T19:26:12.0723225Z     assert p.returncode == 0, p.stderr
+2026-08-23T19:26:12.0723532Z E   AssertionError: Traceback (most recent call last):
+2026-08-23T19:26:12.0724008Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 935, in <module>
+2026-08-23T19:26:12.0724490Z E         sys.exit(main())
+2026-08-23T19:26:12.0724740Z E                  ~~~~^^
+2026-08-23T19:26:12.0725146Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 928, in main
+2026-08-23T19:26:12.0725615Z E         dispatch_single(pids, args.dry_run, args.role, args.wave)
+2026-08-23T19:26:12.0725969Z E         ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0726451Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 557, in dispatch_single
+2026-08-23T19:26:12.0727056Z E         cmd = [resolve_codex_binary(), "exec", "--skip-git-repo-check", "--sandbox", sandbox,
+2026-08-23T19:26:12.0727492Z E                ~~~~~~~~~~~~~~~~~~~~^^
+2026-08-23T19:26:12.0727938Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 175, in resolve_codex_binary
+2026-08-23T19:26:12.0728464Z E         raise OSError("headless codex executable not found")
+2026-08-23T19:26:12.0728814Z E     OSError: headless codex executable not found
+2026-08-23T19:26:12.0729080Z E     
+2026-08-23T19:26:12.0729327Z E   assert 1 == 0
+2026-08-23T19:26:12.0730042Z E    +  where 1 = CompletedProcess(args=['/opt/hostedtoolcache/Python/3.14.7/x64/bin/python', '/home/runner/work/codex-loop-orchestra/co...odex_binary\n    raise OSError("headless codex executable not found")\nOSError: headless codex executable not found\n').returncode
+2026-08-23T19:26:12.0730917Z ______________ test_headless_default_disables_desktop_apps_plane _______________
+2026-08-23T19:26:12.0731366Z tests/unit/test_headless_wave.py:178: in test_headless_default_disables_desktop_apps_plane
+2026-08-23T19:26:12.0731792Z     packet, run_id, supervisor, worker, report_dir = mod.build_commands(
+2026-08-23T19:26:12.0732189Z harness/headless_wave.py:373: in build_commands
+2026-08-23T19:26:12.0732578Z     worker = [resolve_codex_binary(), "exec", "--skip-git-repo-check", "--sandbox", sandbox,
+2026-08-23T19:26:12.0732952Z               ^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0733277Z harness/headless_wave.py:310: in resolve_codex_binary
+2026-08-23T19:26:12.0733642Z     raise WaveError("headless codex executable not found")
+2026-08-23T19:26:12.0734052Z E   harness.headless_wave.WaveError: headless codex executable not found
+2026-08-23T19:26:12.0734469Z ______________ test_headless_worker_uses_active_execution_profile ______________
+2026-08-23T19:26:12.0735021Z tests/unit/test_headless_wave.py:192: in test_headless_worker_uses_active_execution_profile
+2026-08-23T19:26:12.0735432Z     _, _, _, worker, _ = mod.build_commands(
+2026-08-23T19:26:12.0735738Z harness/headless_wave.py:373: in build_commands
+2026-08-23T19:26:12.0736210Z     worker = [resolve_codex_binary(), "exec", "--skip-git-repo-check", "--sandbox", sandbox,
+2026-08-23T19:26:12.0736616Z               ^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0737073Z harness/headless_wave.py:310: in resolve_codex_binary
+2026-08-23T19:26:12.0737431Z     raise WaveError("headless codex executable not found")
+2026-08-23T19:26:12.0737813Z E   harness.headless_wave.WaveError: headless codex executable not found
+2026-08-23T19:26:12.0738242Z __________________ test_headless_propagates_parent_session_id __________________
+2026-08-23T19:26:12.0738672Z tests/unit/test_headless_wave.py:202: in test_headless_propagates_parent_session_id
+2026-08-23T19:26:12.0739059Z     _, _, supervisor, _, _ = mod.build_commands(
+2026-08-23T19:26:12.0739397Z harness/headless_wave.py:373: in build_commands
+2026-08-23T19:26:12.0739823Z     worker = [resolve_codex_binary(), "exec", "--skip-git-repo-check", "--sandbox", sandbox,
+2026-08-23T19:26:12.0740201Z               ^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0740495Z harness/headless_wave.py:310: in resolve_codex_binary
+2026-08-23T19:26:12.0740841Z     raise WaveError("headless codex executable not found")
+2026-08-23T19:26:12.0741242Z E   harness.headless_wave.WaveError: headless codex executable not found
+2026-08-23T19:26:12.0741659Z _____________ test_generic_k3_backoff_blocks_birth_but_not_dry_run _____________
+2026-08-23T19:26:12.0742099Z tests/unit/test_headless_wave.py:291: in test_generic_k3_backoff_blocks_birth_but_not_dry_run
+2026-08-23T19:26:12.0742566Z     assert mod.run(run_args(root, path)) == 3
+2026-08-23T19:26:12.0742839Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0743148Z harness/headless_wave.py:517: in run
+2026-08-23T19:26:12.0743484Z     packet_id, run_id, supervisor, worker, report_dir = build_commands(
+2026-08-23T19:26:12.0743841Z harness/headless_wave.py:373: in build_commands
+2026-08-23T19:26:12.0744240Z     worker = [resolve_codex_binary(), "exec", "--skip-git-repo-check", "--sandbox", sandbox,
+2026-08-23T19:26:12.0744653Z               ^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0744948Z harness/headless_wave.py:310: in resolve_codex_binary
+2026-08-23T19:26:12.0745366Z     raise WaveError("headless codex executable not found")
+2026-08-23T19:26:12.0745837Z E   harness.headless_wave.WaveError: headless codex executable not found
+2026-08-23T19:26:12.0746320Z _________________ test_generic_v4_is_not_blocked_by_k3_backoff _________________
+2026-08-23T19:26:12.0746731Z tests/unit/test_headless_wave.py:314: in test_generic_v4_is_not_blocked_by_k3_backoff
+2026-08-23T19:26:12.0747258Z     assert mod.run(run_args(root, path)) == 0
+2026-08-23T19:26:12.0747524Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0747763Z harness/headless_wave.py:517: in run
+2026-08-23T19:26:12.0748094Z     packet_id, run_id, supervisor, worker, report_dir = build_commands(
+2026-08-23T19:26:12.0748475Z harness/headless_wave.py:373: in build_commands
+2026-08-23T19:26:12.0748846Z     worker = [resolve_codex_binary(), "exec", "--skip-git-repo-check", "--sandbox", sandbox,
+2026-08-23T19:26:12.0749185Z               ^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0749441Z harness/headless_wave.py:310: in resolve_codex_binary
+2026-08-23T19:26:12.0749805Z     raise WaveError("headless codex executable not found")
+2026-08-23T19:26:12.0750151Z E   harness.headless_wave.WaveError: headless codex executable not found
+2026-08-23T19:26:12.0750548Z ____________ test_release_review_dry_run_pins_active_review_profile ____________
+2026-08-23T19:26:12.0751001Z tests/unit/test_release_review_route.py:59: in test_release_review_dry_run_pins_active_review_profile
+2026-08-23T19:26:12.0751440Z     assert p.returncode == 0, p.stderr
+2026-08-23T19:26:12.0751766Z E   AssertionError: Traceback (most recent call last):
+2026-08-23T19:26:12.0752287Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 935, in <module>
+2026-08-23T19:26:12.0752705Z E         sys.exit(main())
+2026-08-23T19:26:12.0752945Z E                  ~~~~^^
+2026-08-23T19:26:12.0753326Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 905, in main
+2026-08-23T19:26:12.0753849Z E         return dispatch_release_review(args.wave, args.dry_run)
+2026-08-23T19:26:12.0754368Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 870, in dispatch_release_review
+2026-08-23T19:26:12.0754924Z E         run_id = dispatch_single([pid], dry_run, role=RELEASE_REVIEW_ROLE,
+2026-08-23T19:26:12.0755263Z E                                  wave_idx=wave_idx,
+2026-08-23T19:26:12.0755522Z E         ...<6 lines>...
+2026-08-23T19:26:12.0755804Z E                                  run_id_overrides=({pid: claimed_run_id}
+2026-08-23T19:26:12.0756119Z E                                                    if not dry_run else None))
+2026-08-23T19:26:12.0756565Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 557, in dispatch_single
+2026-08-23T19:26:12.0757266Z E         cmd = [resolve_codex_binary(), "exec", "--skip-git-repo-check", "--sandbox", sandbox,
+2026-08-23T19:26:12.0757635Z E                ~~~~~~~~~~~~~~~~~~~~^^
+2026-08-23T19:26:12.0758079Z E       File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 175, in resolve_codex_binary
+2026-08-23T19:26:12.0758568Z E         raise OSError("headless codex executable not found")
+2026-08-23T19:26:12.0758865Z E     OSError: headless codex executable not found
+2026-08-23T19:26:12.0759156Z E     
+2026-08-23T19:26:12.0759354Z E   assert 1 == 0
+2026-08-23T19:26:12.0760065Z E    +  where 1 = CompletedProcess(args=['/opt/hostedtoolcache/Python/3.14.7/x64/bin/python', '/home/runner/work/codex-loop-orchestra/co...odex_binary\n    raise OSError("headless codex executable not found")\nOSError: headless codex executable not found\n').returncode
+2026-08-23T19:26:12.0760867Z =========================== short test summary info ============================
+2026-08-23T19:26:12.0761507Z FAILED tests/golden/test_g1_two_packet_parallel.py::test_g1_two_disjoint_packets_reach_wave_done - AssertionError: Traceback (most recent call last):
+2026-08-23T19:26:12.0766610Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 935, in <module>
+2026-08-23T19:26:12.0767297Z       sys.exit(main())
+2026-08-23T19:26:12.0767571Z                ~~~~^^
+2026-08-23T19:26:12.0767979Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 928, in main
+2026-08-23T19:26:12.0768435Z       dispatch_single(pids, args.dry_run, args.role, args.wave)
+2026-08-23T19:26:12.0768782Z       ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0769254Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 557, in dispatch_single
+2026-08-23T19:26:12.0769810Z       cmd = [resolve_codex_binary(), "exec", "--skip-git-repo-check", "--sandbox", sandbox,
+2026-08-23T19:26:12.0770157Z              ~~~~~~~~~~~~~~~~~~~~^^
+2026-08-23T19:26:12.0770617Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 175, in resolve_codex_binary
+2026-08-23T19:26:12.0771136Z       raise OSError("headless codex executable not found")
+2026-08-23T19:26:12.0771442Z   OSError: headless codex executable not found
+2026-08-23T19:26:12.0771715Z   
+2026-08-23T19:26:12.0771918Z assert 1 == 0
+2026-08-23T19:26:12.0772628Z  +  where 1 = CompletedProcess(args=['/opt/hostedtoolcache/Python/3.14.7/x64/bin/python', '/home/runner/work/codex-loop-orchestra/co...odex_binary\n    raise OSError("headless codex executable not found")\nOSError: headless codex executable not found\n').returncode
+2026-08-23T19:26:12.0773778Z FAILED tests/orchestration_v2/test_dispatch_v2.py::test_explicit_k3_dry_run_remains_observable_during_backoff - OSError: headless codex executable not found
+2026-08-23T19:26:12.0774487Z FAILED tests/orchestration_v2/test_dispatch_v2.py::test_dry_run_spawn_records_route_metadata - OSError: headless codex executable not found
+2026-08-23T19:26:12.0775155Z FAILED tests/orchestration_v2/test_dispatch_v2.py::test_build_exec_command_ipybox_flags - OSError: headless codex executable not found
+2026-08-23T19:26:12.0775892Z FAILED tests/orchestration_v2/test_dispatch_v2.py::test_parent_worker_is_forced_readonly_and_propagates_parent - OSError: headless codex executable not found
+2026-08-23T19:26:12.0776646Z FAILED tests/orchestration_v2/test_layered_e2e.py::test_k3_first_dispatch_actually_routes_to_k3 - OSError: headless codex executable not found
+2026-08-23T19:26:12.0777579Z FAILED tests/orchestration_v2/test_refill_consumer_v2.py::test_dry_run_preserves_queue_and_uses_dispatcher - OSError: headless codex executable not found
+2026-08-23T19:26:12.0778245Z FAILED tests/unit/test_dispatch.py::test_single_mode_dry_run_is_audit_only - AssertionError: Traceback (most recent call last):
+2026-08-23T19:26:12.0778865Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 935, in <module>
+2026-08-23T19:26:12.0779286Z       sys.exit(main())
+2026-08-23T19:26:12.0779547Z                ~~~~^^
+2026-08-23T19:26:12.0779936Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 928, in main
+2026-08-23T19:26:12.0780385Z       dispatch_single(pids, args.dry_run, args.role, args.wave)
+2026-08-23T19:26:12.0780712Z       ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0781166Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 557, in dispatch_single
+2026-08-23T19:26:12.0781683Z       cmd = [resolve_codex_binary(), "exec", "--skip-git-repo-check", "--sandbox", sandbox,
+2026-08-23T19:26:12.0782084Z              ~~~~~~~~~~~~~~~~~~~~^^
+2026-08-23T19:26:12.0782520Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 175, in resolve_codex_binary
+2026-08-23T19:26:12.0783021Z       raise OSError("headless codex executable not found")
+2026-08-23T19:26:12.0783363Z   OSError: headless codex executable not found
+2026-08-23T19:26:12.0783626Z   
+2026-08-23T19:26:12.0783842Z assert 1 == 0
+2026-08-23T19:26:12.0784532Z  +  where 1 = CompletedProcess(args=['/opt/hostedtoolcache/Python/3.14.7/x64/bin/python', '/home/runner/work/codex-loop-orchestra/co...odex_binary\n    raise OSError("headless codex executable not found")\nOSError: headless codex executable not found\n').returncode
+2026-08-23T19:26:12.0785434Z FAILED tests/unit/test_dispatch.py::test_state_filter_skips_non_dispatchable_and_force_overrides - assert 1 == 0
+2026-08-23T19:26:12.0786282Z  +  where 1 = CompletedProcess(args=['/opt/hostedtoolcache/Python/3.14.7/x64/bin/python', '/home/runner/work/codex-loop-orchestra/co...odex_binary\n    raise OSError("headless codex executable not found")\nOSError: headless codex executable not found\n').returncode
+2026-08-23T19:26:12.0788144Z FAILED tests/unit/test_dispatch.py::test_single_spawn_with_mock_codex_lands_report - AssertionError: dispatch throttled: canonical lifecycle counts unavailable: PolicyError: refill policy missing: /tmp/pytest-of-runner/pytest-0/test_single_spawn_with_mock_co0/loop/config/refill_policy.toml — refusing silent defaults (P0-8.3 fail-closed policy reads)
+2026-08-23T19:26:12.0789093Z   
+2026-08-23T19:26:12.0789322Z assert 3 == 0
+2026-08-23T19:26:12.0790122Z  +  where 3 = CompletedProcess(args=['/opt/hostedtoolcache/Python/3.14.7/x64/bin/python', '/home/runner/work/codex-loop-orchestra/co...gle_spawn_with_mock_co0/loop/config/refill_policy.toml — refusing silent defaults (P0-8.3 fail-closed policy reads)\n').returncode
+2026-08-23T19:26:12.0791096Z FAILED tests/unit/test_dispatch_model_pin.py::test_cmd_contains_model_flag_matching_worker_toml - AssertionError: Traceback (most recent call last):
+2026-08-23T19:26:12.0791844Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 935, in <module>
+2026-08-23T19:26:12.0792282Z       sys.exit(main())
+2026-08-23T19:26:12.0792539Z                ~~~~^^
+2026-08-23T19:26:12.0792939Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 928, in main
+2026-08-23T19:26:12.0793463Z       dispatch_single(pids, args.dry_run, args.role, args.wave)
+2026-08-23T19:26:12.0793770Z       ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0794247Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 557, in dispatch_single
+2026-08-23T19:26:12.0794757Z       cmd = [resolve_codex_binary(), "exec", "--skip-git-repo-check", "--sandbox", sandbox,
+2026-08-23T19:26:12.0795142Z              ~~~~~~~~~~~~~~~~~~~~^^
+2026-08-23T19:26:12.0795596Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 175, in resolve_codex_binary
+2026-08-23T19:26:12.0796068Z       raise OSError("headless codex executable not found")
+2026-08-23T19:26:12.0796397Z   OSError: headless codex executable not found
+2026-08-23T19:26:12.0796655Z   
+2026-08-23T19:26:12.0796965Z assert 1 == 0
+2026-08-23T19:26:12.0797698Z  +  where 1 = CompletedProcess(args=['/opt/hostedtoolcache/Python/3.14.7/x64/bin/python', '/home/runner/work/codex-loop-orchestra/co...odex_binary\n    raise OSError("headless codex executable not found")\nOSError: headless codex executable not found\n').returncode
+2026-08-23T19:26:12.0798660Z FAILED tests/unit/test_dispatch_model_pin.py::test_cmd_contains_reasoning_effort_matching_worker_toml - AssertionError: Traceback (most recent call last):
+2026-08-23T19:26:12.0799347Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 935, in <module>
+2026-08-23T19:26:12.0799755Z       sys.exit(main())
+2026-08-23T19:26:12.0799975Z                ~~~~^^
+2026-08-23T19:26:12.0800446Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 928, in main
+2026-08-23T19:26:12.0800909Z       dispatch_single(pids, args.dry_run, args.role, args.wave)
+2026-08-23T19:26:12.0801260Z       ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0801713Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 557, in dispatch_single
+2026-08-23T19:26:12.0802228Z       cmd = [resolve_codex_binary(), "exec", "--skip-git-repo-check", "--sandbox", sandbox,
+2026-08-23T19:26:12.0802594Z              ~~~~~~~~~~~~~~~~~~~~^^
+2026-08-23T19:26:12.0803044Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 175, in resolve_codex_binary
+2026-08-23T19:26:12.0803548Z       raise OSError("headless codex executable not found")
+2026-08-23T19:26:12.0803853Z   OSError: headless codex executable not found
+2026-08-23T19:26:12.0804109Z   
+2026-08-23T19:26:12.0804342Z assert 1 == 0
+2026-08-23T19:26:12.0805017Z  +  where 1 = CompletedProcess(args=['/opt/hostedtoolcache/Python/3.14.7/x64/bin/python', '/home/runner/work/codex-loop-orchestra/co...odex_binary\n    raise OSError("headless codex executable not found")\nOSError: headless codex executable not found\n').returncode
+2026-08-23T19:26:12.0806014Z FAILED tests/unit/test_dispatch_model_pin.py::test_cmd_contains_json_flag_for_per_packet_token_capture - AssertionError: Traceback (most recent call last):
+2026-08-23T19:26:12.0806665Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 935, in <module>
+2026-08-23T19:26:12.0807229Z       sys.exit(main())
+2026-08-23T19:26:12.0807486Z                ~~~~^^
+2026-08-23T19:26:12.0807891Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 928, in main
+2026-08-23T19:26:12.0808363Z       dispatch_single(pids, args.dry_run, args.role, args.wave)
+2026-08-23T19:26:12.0808818Z       ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0809307Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 557, in dispatch_single
+2026-08-23T19:26:12.0809849Z       cmd = [resolve_codex_binary(), "exec", "--skip-git-repo-check", "--sandbox", sandbox,
+2026-08-23T19:26:12.0810221Z              ~~~~~~~~~~~~~~~~~~~~^^
+2026-08-23T19:26:12.0810757Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 175, in resolve_codex_binary
+2026-08-23T19:26:12.0811315Z       raise OSError("headless codex executable not found")
+2026-08-23T19:26:12.0811640Z   OSError: headless codex executable not found
+2026-08-23T19:26:12.0811933Z   
+2026-08-23T19:26:12.0812150Z assert 1 == 0
+2026-08-23T19:26:12.0812866Z  +  where 1 = CompletedProcess(args=['/opt/hostedtoolcache/Python/3.14.7/x64/bin/python', '/home/runner/work/codex-loop-orchestra/co...odex_binary\n    raise OSError("headless codex executable not found")\nOSError: headless codex executable not found\n').returncode
+2026-08-23T19:26:12.0813854Z FAILED tests/unit/test_dispatch_model_pin.py::test_worker_ipybox_follows_execution_plane - AssertionError: Traceback (most recent call last):
+2026-08-23T19:26:12.0814558Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 935, in <module>
+2026-08-23T19:26:12.0814989Z       sys.exit(main())
+2026-08-23T19:26:12.0815235Z                ~~~~^^
+2026-08-23T19:26:12.0815649Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 928, in main
+2026-08-23T19:26:12.0816127Z       dispatch_single(pids, args.dry_run, args.role, args.wave)
+2026-08-23T19:26:12.0816541Z       ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0817171Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 557, in dispatch_single
+2026-08-23T19:26:12.0817749Z       cmd = [resolve_codex_binary(), "exec", "--skip-git-repo-check", "--sandbox", sandbox,
+2026-08-23T19:26:12.0818112Z              ~~~~~~~~~~~~~~~~~~~~^^
+2026-08-23T19:26:12.0818661Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 175, in resolve_codex_binary
+2026-08-23T19:26:12.0819127Z       raise OSError("headless codex executable not found")
+2026-08-23T19:26:12.0819466Z   OSError: headless codex executable not found
+2026-08-23T19:26:12.0819752Z   
+2026-08-23T19:26:12.0819968Z assert 1 == 0
+2026-08-23T19:26:12.0820656Z  +  where 1 = CompletedProcess(args=['/opt/hostedtoolcache/Python/3.14.7/x64/bin/python', '/home/runner/work/codex-loop-orchestra/co...odex_binary\n    raise OSError("headless codex executable not found")\nOSError: headless codex executable not found\n').returncode
+2026-08-23T19:26:12.0821603Z FAILED tests/unit/test_dispatch_model_pin.py::test_non_gpt_roles_carry_catalog_safe_context_and_800k_compaction - AssertionError: Traceback (most recent call last):
+2026-08-23T19:26:12.0822292Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 935, in <module>
+2026-08-23T19:26:12.0822697Z       sys.exit(main())
+2026-08-23T19:26:12.0822951Z                ~~~~^^
+2026-08-23T19:26:12.0823335Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 928, in main
+2026-08-23T19:26:12.0823766Z       dispatch_single(pids, args.dry_run, args.role, args.wave)
+2026-08-23T19:26:12.0824099Z       ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0824556Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 557, in dispatch_single
+2026-08-23T19:26:12.0825123Z       cmd = [resolve_codex_binary(), "exec", "--skip-git-repo-check", "--sandbox", sandbox,
+2026-08-23T19:26:12.0825471Z              ~~~~~~~~~~~~~~~~~~~~^^
+2026-08-23T19:26:12.0825892Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 175, in resolve_codex_binary
+2026-08-23T19:26:12.0826458Z       raise OSError("headless codex executable not found")
+2026-08-23T19:26:12.0826846Z   OSError: headless codex executable not found
+2026-08-23T19:26:12.0827201Z   
+2026-08-23T19:26:12.0827414Z assert 1 == 0
+2026-08-23T19:26:12.0828109Z  +  where 1 = CompletedProcess(args=['/opt/hostedtoolcache/Python/3.14.7/x64/bin/python', '/home/runner/work/codex-loop-orchestra/co...odex_binary\n    raise OSError("headless codex executable not found")\nOSError: headless codex executable not found\n').returncode
+2026-08-23T19:26:12.0829145Z FAILED tests/unit/test_dispatch_model_pin.py::test_cmd_sandbox_comes_from_worker_toml - AssertionError: Traceback (most recent call last):
+2026-08-23T19:26:12.0829778Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 935, in <module>
+2026-08-23T19:26:12.0830197Z       sys.exit(main())
+2026-08-23T19:26:12.0830430Z                ~~~~^^
+2026-08-23T19:26:12.0830820Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 928, in main
+2026-08-23T19:26:12.0831288Z       dispatch_single(pids, args.dry_run, args.role, args.wave)
+2026-08-23T19:26:12.0831603Z       ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0832070Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 557, in dispatch_single
+2026-08-23T19:26:12.0832588Z       cmd = [resolve_codex_binary(), "exec", "--skip-git-repo-check", "--sandbox", sandbox,
+2026-08-23T19:26:12.0832932Z              ~~~~~~~~~~~~~~~~~~~~^^
+2026-08-23T19:26:12.0833408Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 175, in resolve_codex_binary
+2026-08-23T19:26:12.0833902Z       raise OSError("headless codex executable not found")
+2026-08-23T19:26:12.0834212Z   OSError: headless codex executable not found
+2026-08-23T19:26:12.0834476Z   
+2026-08-23T19:26:12.0834666Z assert 1 == 0
+2026-08-23T19:26:12.0835353Z  +  where 1 = CompletedProcess(args=['/opt/hostedtoolcache/Python/3.14.7/x64/bin/python', '/home/runner/work/codex-loop-orchestra/co...odex_binary\n    raise OSError("headless codex executable not found")\nOSError: headless codex executable not found\n').returncode
+2026-08-23T19:26:12.0836387Z FAILED tests/unit/test_dispatch_model_pin.py::test_roles_use_their_own_toml_pins - AssertionError: Traceback (most recent call last):
+2026-08-23T19:26:12.0837293Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 935, in <module>
+2026-08-23T19:26:12.0837727Z       sys.exit(main())
+2026-08-23T19:26:12.0837948Z                ~~~~^^
+2026-08-23T19:26:12.0838338Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 928, in main
+2026-08-23T19:26:12.0838796Z       dispatch_single(pids, args.dry_run, args.role, args.wave)
+2026-08-23T19:26:12.0839140Z       ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0839605Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 557, in dispatch_single
+2026-08-23T19:26:12.0840117Z       cmd = [resolve_codex_binary(), "exec", "--skip-git-repo-check", "--sandbox", sandbox,
+2026-08-23T19:26:12.0840471Z              ~~~~~~~~~~~~~~~~~~~~^^
+2026-08-23T19:26:12.0840921Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 175, in resolve_codex_binary
+2026-08-23T19:26:12.0841435Z       raise OSError("headless codex executable not found")
+2026-08-23T19:26:12.0841746Z   OSError: headless codex executable not found
+2026-08-23T19:26:12.0842003Z   
+2026-08-23T19:26:12.0842220Z assert 1 == 0
+2026-08-23T19:26:12.0842903Z  +  where 1 = CompletedProcess(args=['/opt/hostedtoolcache/Python/3.14.7/x64/bin/python', '/home/runner/work/codex-loop-orchestra/co...odex_binary\n    raise OSError("headless codex executable not found")\nOSError: headless codex executable not found\n').returncode
+2026-08-23T19:26:12.0843913Z FAILED tests/unit/test_dispatch_model_pin.py::test_portable_profile_separates_execution_and_review_models - AssertionError: Traceback (most recent call last):
+2026-08-23T19:26:12.0844641Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 935, in <module>
+2026-08-23T19:26:12.0845043Z       sys.exit(main())
+2026-08-23T19:26:12.0845275Z                ~~~~^^
+2026-08-23T19:26:12.0845716Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 928, in main
+2026-08-23T19:26:12.0846142Z       dispatch_single(pids, args.dry_run, args.role, args.wave)
+2026-08-23T19:26:12.0846477Z       ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0847282Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 557, in dispatch_single
+2026-08-23T19:26:12.0847835Z       cmd = [resolve_codex_binary(), "exec", "--skip-git-repo-check", "--sandbox", sandbox,
+2026-08-23T19:26:12.0848183Z              ~~~~~~~~~~~~~~~~~~~~^^
+2026-08-23T19:26:12.0848617Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 175, in resolve_codex_binary
+2026-08-23T19:26:12.0849112Z       raise OSError("headless codex executable not found")
+2026-08-23T19:26:12.0849417Z   OSError: headless codex executable not found
+2026-08-23T19:26:12.0849733Z   
+2026-08-23T19:26:12.0849935Z assert 1 == 0
+2026-08-23T19:26:12.0850594Z  +  where 1 = CompletedProcess(args=['/opt/hostedtoolcache/Python/3.14.7/x64/bin/python', '/home/runner/work/codex-loop-orchestra/co...odex_binary\n    raise OSError("headless codex executable not found")\nOSError: headless codex executable not found\n').returncode
+2026-08-23T19:26:12.0851611Z FAILED tests/unit/test_dispatch_model_pin.py::test_sol_budget_does_not_reclassify_explicit_child_by_model - AssertionError: Traceback (most recent call last):
+2026-08-23T19:26:12.0852291Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 935, in <module>
+2026-08-23T19:26:12.0852752Z       sys.exit(main())
+2026-08-23T19:26:12.0852971Z                ~~~~^^
+2026-08-23T19:26:12.0853326Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 928, in main
+2026-08-23T19:26:12.0853806Z       dispatch_single(pids, args.dry_run, args.role, args.wave)
+2026-08-23T19:26:12.0854114Z       ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0854595Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 557, in dispatch_single
+2026-08-23T19:26:12.0855304Z       cmd = [resolve_codex_binary(), "exec", "--skip-git-repo-check", "--sandbox", sandbox,
+2026-08-23T19:26:12.0855633Z              ~~~~~~~~~~~~~~~~~~~~^^
+2026-08-23T19:26:12.0856086Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 175, in resolve_codex_binary
+2026-08-23T19:26:12.0856565Z       raise OSError("headless codex executable not found")
+2026-08-23T19:26:12.0856961Z   OSError: headless codex executable not found
+2026-08-23T19:26:12.0857235Z   
+2026-08-23T19:26:12.0857430Z assert 1 == 0
+2026-08-23T19:26:12.0858132Z  +  where 1 = CompletedProcess(args=['/opt/hostedtoolcache/Python/3.14.7/x64/bin/python', '/home/runner/work/codex-loop-orchestra/co...odex_binary\n    raise OSError("headless codex executable not found")\nOSError: headless codex executable not found\n').returncode
+2026-08-23T19:26:12.0859076Z FAILED tests/unit/test_dispatch_model_pin.py::test_sol_budget_block_keeps_child_dispatch_available - AssertionError: workerTraceback (most recent call last):
+2026-08-23T19:26:12.0859766Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 935, in <module>
+2026-08-23T19:26:12.0860182Z       sys.exit(main())
+2026-08-23T19:26:12.0860402Z                ~~~~^^
+2026-08-23T19:26:12.0860807Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 928, in main
+2026-08-23T19:26:12.0861321Z       dispatch_single(pids, args.dry_run, args.role, args.wave)
+2026-08-23T19:26:12.0861636Z       ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0862103Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 557, in dispatch_single
+2026-08-23T19:26:12.0862618Z       cmd = [resolve_codex_binary(), "exec", "--skip-git-repo-check", "--sandbox", sandbox,
+2026-08-23T19:26:12.0863015Z              ~~~~~~~~~~~~~~~~~~~~^^
+2026-08-23T19:26:12.0863492Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 175, in resolve_codex_binary
+2026-08-23T19:26:12.0863978Z       raise OSError("headless codex executable not found")
+2026-08-23T19:26:12.0864291Z   OSError: headless codex executable not found
+2026-08-23T19:26:12.0864544Z   
+2026-08-23T19:26:12.0864751Z assert 1 == 0
+2026-08-23T19:26:12.0865432Z  +  where 1 = CompletedProcess(args=['/opt/hostedtoolcache/Python/3.14.7/x64/bin/python', '/home/runner/work/codex-loop-orchestra/co...odex_binary\n    raise OSError("headless codex executable not found")\nOSError: headless codex executable not found\n').returncode
+2026-08-23T19:26:12.0866419Z FAILED tests/unit/test_dispatch_model_pin.py::test_sol_budget_block_allows_release_finalize_explicit_sol_role - AssertionError: Traceback (most recent call last):
+2026-08-23T19:26:12.0867251Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 935, in <module>
+2026-08-23T19:26:12.0867668Z       sys.exit(main())
+2026-08-23T19:26:12.0867896Z                ~~~~^^
+2026-08-23T19:26:12.0868293Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 928, in main
+2026-08-23T19:26:12.0868765Z       dispatch_single(pids, args.dry_run, args.role, args.wave)
+2026-08-23T19:26:12.0869084Z       ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T19:26:12.0869592Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 557, in dispatch_single
+2026-08-23T19:26:12.0870153Z       cmd = [resolve_codex_binary(), "exec", "--skip-git-repo-check", "--sandbox", sandbox,
+2026-08-23T19:26:12.0870514Z              ~~~~~~~~~~~~~~~~~~~~^^
+2026-08-23T19:26:12.0870950Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 175, in resolve_codex_binary
+2026-08-23T19:26:12.0871515Z       raise OSError("headless codex executable not found")
+2026-08-23T19:26:12.0871840Z   OSError: headless codex executable not found
+2026-08-23T19:26:12.0872142Z   
+2026-08-23T19:26:12.0872358Z assert 1 == 0
+2026-08-23T19:26:12.0873026Z  +  where 1 = CompletedProcess(args=['/opt/hostedtoolcache/Python/3.14.7/x64/bin/python', '/home/runner/work/codex-loop-orchestra/co...odex_binary\n    raise OSError("headless codex executable not found")\nOSError: headless codex executable not found\n').returncode
+2026-08-23T19:26:12.0874038Z FAILED tests/unit/test_headless_wave.py::test_headless_default_disables_desktop_apps_plane - harness.headless_wave.WaveError: headless codex executable not found
+2026-08-23T19:26:12.0874849Z FAILED tests/unit/test_headless_wave.py::test_headless_worker_uses_active_execution_profile - harness.headless_wave.WaveError: headless codex executable not found
+2026-08-23T19:26:12.0875777Z FAILED tests/unit/test_headless_wave.py::test_headless_propagates_parent_session_id - harness.headless_wave.WaveError: headless codex executable not found
+2026-08-23T19:26:12.0876546Z FAILED tests/unit/test_headless_wave.py::test_generic_k3_backoff_blocks_birth_but_not_dry_run - harness.headless_wave.WaveError: headless codex executable not found
+2026-08-23T19:26:12.0877419Z FAILED tests/unit/test_headless_wave.py::test_generic_v4_is_not_blocked_by_k3_backoff - harness.headless_wave.WaveError: headless codex executable not found
+2026-08-23T19:26:12.0878267Z FAILED tests/unit/test_release_review_route.py::test_release_review_dry_run_pins_active_review_profile - AssertionError: Traceback (most recent call last):
+2026-08-23T19:26:12.0878983Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 935, in <module>
+2026-08-23T19:26:12.0879445Z       sys.exit(main())
+2026-08-23T19:26:12.0879687Z                ~~~~^^
+2026-08-23T19:26:12.0880075Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 905, in main
+2026-08-23T19:26:12.0880621Z       return dispatch_release_review(args.wave, args.dry_run)
+2026-08-23T19:26:12.0881190Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 870, in dispatch_release_review
+2026-08-23T19:26:12.0881715Z       run_id = dispatch_single([pid], dry_run, role=RELEASE_REVIEW_ROLE,
+2026-08-23T19:26:12.0882059Z                                wave_idx=wave_idx,
+2026-08-23T19:26:12.0882324Z       ...<6 lines>...
+2026-08-23T19:26:12.0882628Z                                run_id_overrides=({pid: claimed_run_id}
+2026-08-23T19:26:12.0882979Z                                                  if not dry_run else None))
+2026-08-23T19:26:12.0883460Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 557, in dispatch_single
+2026-08-23T19:26:12.0884043Z       cmd = [resolve_codex_binary(), "exec", "--skip-git-repo-check", "--sandbox", sandbox,
+2026-08-23T19:26:12.0884384Z              ~~~~~~~~~~~~~~~~~~~~^^
+2026-08-23T19:26:12.0884876Z     File "/home/runner/work/codex-loop-orchestra/codex-loop-orchestra/harness/dispatch.py", line 175, in resolve_codex_binary
+2026-08-23T19:26:12.0885394Z       raise OSError("headless codex executable not found")
+2026-08-23T19:26:12.0885723Z   OSError: headless codex executable not found
+2026-08-23T19:26:12.0886020Z   
+2026-08-23T19:26:12.0886253Z assert 1 == 0
+2026-08-23T19:26:12.0887137Z  +  where 1 = CompletedProcess(args=['/opt/hostedtoolcache/Python/3.14.7/x64/bin/python', '/home/runner/work/codex-loop-orchestra/co...odex_binary\n    raise OSError("headless codex executable not found")\nOSError: headless codex executable not found\n').returncode
+2026-08-23T19:26:12.1576184Z ##[error]Process completed with exit code 1.
+2026-08-23T19:26:12.1695395Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-08-23T19:26:12.1696367Z Post job cleanup.
+2026-08-23T19:26:12.2315101Z [command]/usr/bin/git version
+2026-08-23T19:26:12.2348993Z git version 2.55.0
+2026-08-23T19:26:12.2380140Z Temporarily overriding HOME='/home/runner/work/_temp/9bba49bc-3e72-4f67-a01b-245fa5733414' before making global git config changes
+2026-08-23T19:26:12.2381212Z Adding repository directory to the temporary git global config as a safe directory
+2026-08-23T19:26:12.2383671Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/codex-loop-orchestra/codex-loop-orchestra
+2026-08-23T19:26:12.2417894Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-08-23T19:26:12.2453481Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-08-23T19:26:12.2614319Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-08-23T19:26:12.2632788Z http.https://github.com/.extraheader
+2026-08-23T19:26:12.2640987Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-08-23T19:26:12.2678487Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-08-23T19:26:12.2827821Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-08-23T19:26:12.2860798Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-08-23T19:26:12.3113932Z Cleaning up orphan processes
+2026-08-23T19:26:12.3307044Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

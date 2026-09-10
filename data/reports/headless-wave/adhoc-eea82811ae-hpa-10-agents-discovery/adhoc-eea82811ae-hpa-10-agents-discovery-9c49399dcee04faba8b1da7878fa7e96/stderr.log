@@ -1,0 +1,47 @@
+Reading additional input from stdin...
+2026-08-14T20:18:31.057087Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T20:18:31.883248Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T20:18:34.866159Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-14T20:18:47.926387Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.5 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 62
++ rg --files -g "AGENTS.md" G:\VPS-K3\extracted\k3\repo 2>&1 | head -50
++                                                              ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T20:19:13.660837Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T20:19:21.163589Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-14T20:21:57.559132Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1 seconds
+Output:
+G:\VPS-K3\extracted\k3\repo\AGENTS.md
+
+2026-08-14T20:24:24.494525Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

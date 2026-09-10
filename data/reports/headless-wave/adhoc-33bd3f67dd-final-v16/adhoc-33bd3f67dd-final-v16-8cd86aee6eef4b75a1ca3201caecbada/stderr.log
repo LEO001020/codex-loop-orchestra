@@ -1,0 +1,103 @@
+Reading additional input from stdin...
+2026-08-22T14:50:49.720025Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-22T14:50:49.720090Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-22T14:50:49.726638Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-22T14:50:49.803765Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-22T14:50:49.805536Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-22T14:50:49.806065Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-22T14:50:49.806689Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-22T14:50:49.815619Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-22T14:50:49.876387Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-22T14:50:50.390462Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Encountered invalidated oauth token for user, failing request",
+    "type": null,
+    "code": "token_revoked",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-22T14:50:50.652212Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-22T14:50:51.262485Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-22T14:50:51.263093Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-22T14:50:51.263557Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-22T14:51:08.756249Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-22T14:51:08.756783Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-22T14:51:08.757194Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-22T14:51:32.194794Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-22T14:51:32.195272Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-22T14:51:32.195766Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-22T14:51:55.325894Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-22T14:51:55.326400Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-22T14:51:55.326885Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-22T14:53:59.412025Z  WARN codex_sandboxing::violation: recorded sandbox violation: resource=filesystem backend=windows_sandbox reason=permission_denied path=unknown
+2026-08-22T14:53:59.413513Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.5 seconds
+Output:
+=== adb devices -l ===
+=== get-state ===
+=== model ===
+=== sdk ===
+=== users ===
+=== disabled packages user0 ===
+=== per-package UserState (task A four) ===
+--- com.hihonor.hnstartupguide ---
+--- com.hihonor.mmitest ---
+--- com.hihonor.android.projectmenu ---
+--- com.hihonor.detectrepair ---
+08-22 22:53:58.651 51904 50064 F adb.exe : adb_utils.cpp:315 Cannot mkdir '\.android': Permission denied
+08-22 22:53:58.705 72404 62944 F adb.exe : adb_utils.cpp:315 Cannot mkdir '\.android': Permission denied
+08-22 22:53:58.760 63076 50388 F adb.exe : adb_utils.cpp:315 Cannot mkdir '\.android': Permission denied
+08-22 22:53:58.809 28372 67488 F adb.exe : adb_utils.cpp:315 Cannot mkdir '\.android': Permission denied
+08-22 22:53:58.866 64300 72268 F adb.exe : adb_utils.cpp:315 Cannot mkdir '\.android': Permission denied
+08-22 22:53:58.924 63516 50236 F adb.exe : adb_utils.cpp:315 Cannot mkdir '\.android': Permission denied
+08-22 22:53:59.201 59288 66112 F adb.exe : adb_utils.cpp:315 Cannot mkdir '\.android': Permission denied
+08-22 22:53:59.263 63824 16520 F adb.exe : adb_utils.cpp:315 Cannot mkdir '\.android': Permission denied
+08-22 22:53:59.325 56548 43812 F adb.exe : adb_utils.cpp:315 Cannot mkdir '\.android': Permission denied
+08-22 22:53:59.386 66300 61228 F adb.exe : adb_utils.cpp:315 Cannot mkdir '\.android': Permission denied
+
+2026-08-22T14:53:59.465085Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-22T14:53:59.465708Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-22T14:53:59.466356Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-22T14:55:20.393160Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-22T14:55:20.393551Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-22T14:55:20.393923Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-22T14:55:57.031610Z  WARN codex_sandboxing::violation: recorded sandbox violation: resource=filesystem backend=windows_sandbox reason=permission_denied path=unknown
+2026-08-22T14:55:57.032453Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.5 seconds
+Output:
+=== adb devices -l ===
+=== get-state ===
+=== model ===
+=== sdk ===
+=== users ===
+=== disabled packages user0 ===
+=== per-package UserState (task A four) ===
+--- com.hihonor.hnstartupguide ---
+--- com.hihonor.mmitest ---
+--- com.hihonor.android.projectmenu ---
+--- com.hihonor.detectrepair ---
+08-22 22:55:56.439 12320 65804 F adb.exe : adb_utils.cpp:315 Cannot mkdir '\.android': Permission denied
+08-22 22:55:56.492 51496 54964 F adb.exe : adb_utils.cpp:315 Cannot mkdir '\.android': Permission denied
+08-22 22:55:56.537 65808 62792 F adb.exe : adb_utils.cpp:315 Cannot mkdir '\.android': Permission denied
+08-22 22:55:56.579 52680 39296 F adb.exe : adb_utils.cpp:315 Cannot mkdir '\.android': Permission denied
+08-22 22:55:56.618 25876 61960 F adb.exe : adb_utils.cpp:315 Cannot mkdir '\.android': Permission denied
+08-22 22:55:56.658 65384 62380 F adb.exe : adb_utils.cpp:315 Cannot mkdir '\.android': Permission denied
+08-22 22:55:56.890 54300 58864 F adb.exe : adb_utils.cpp:315 Cannot mkdir '\.android': Permission denied
+08-22 22:55:56.933 66412 73392 F adb.exe : adb_utils.cpp:315 Cannot mkdir '\.android': Permission denied
+08-22 22:55:56.973 40088 29088 F adb.exe : adb_utils.cpp:315 Cannot mkdir '\.android': Permission denied
+08-22 22:55:57.012 67284 25436 F adb.exe : adb_utils.cpp:315 Cannot mkdir '\.android': Permission denied
+
+2026-08-22T14:55:57.054777Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-22T14:55:57.055188Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-22T14:55:57.055569Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-22T14:57:47.343435Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-22T14:57:47.343852Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.
+2026-08-22T14:57:47.344226Z ERROR codex_login::auth::manager: Failed to refresh token: Your access token could not be refreshed because your refresh token was revoked. Please log out and sign in again.

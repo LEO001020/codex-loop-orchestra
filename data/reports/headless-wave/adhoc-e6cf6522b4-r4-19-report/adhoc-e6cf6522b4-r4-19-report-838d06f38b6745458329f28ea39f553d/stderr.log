@@ -1,0 +1,718 @@
+Reading additional input from stdin...
+2026-08-14T11:11:13.552814Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T11:11:18.231251Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T11:11:30.032479Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.1 seconds
+Output:
+所在位置 行:2 字符: 34
++ cd E:\codex-LOOP\codex-loop-s-f2 && Get-ChildItem -Recurse -Name | Wh ...
++                                  ~~
+标记“&&”不是此版本中的有效语句分隔符。
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : InvalidEndOfLine
+ 
+
+2026-08-14T11:11:39.203161Z  WARN codex_sandboxing::violation: recorded sandbox violation: resource=filesystem backend=windows_sandbox reason=policy_denied path=unknown
+2026-08-14T11:11:39.203932Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.1 seconds
+Total output lines: 707
+Output:
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (AGENTS.md:PSObject) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (README.md:PSObject) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (search_log.md:PSObject) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (test_evidence_pytest_output.txt:PSObject) [Get-Content]，ParameterBindi
+    ngException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (work_commencement_certificate.md:PSObject) [Get-Content]，ParameterBind
+    ingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (.codex\config.toml:PSObject) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (.codex\hooks.json:PSObject) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (agents\duty_officer.toml:PSObject) [Get-Content]，ParameterBindingExcep
+    tion
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (agents\plan_expander.toml:PSObject) [Get-Content]，ParameterBindingExce
+    ption
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (agents\reviewer.toml:PSObject) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (agents\verifier.toml:PSObject) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (agents\worker.toml:PSObject) [Get-Content]，ParameterBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (backup-20260811...ion_policy.toml:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (backup-20260811...ill_policy.toml:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (backup-20260813..._config_v2.toml:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (backup-20260813..._policy_v2.toml:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (backup-20260813...ill_policy.toml:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (backup-20260813...g\roles_v2.yaml:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (codex-loop-s-f2..._config_v2.toml:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (codex-loop-s-f2...ion_policy.toml:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (codex-loop-s-f2..._policy_v2.toml:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (codex-loop-s-f2...ill_policy.toml:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (codex-loop-s-f2\config\roles_v2.yaml:PSObject) [Get-Content]，Parameter
+    BindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (codex-loop-s-f2...ransitions.json:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (codex-loop-s-f2\config\triggers_v2.yaml:PSObject) [Get-Content]，Parame
+    terBindingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (config\escalation_ladder.yaml:PSObject) [Get-Content]，ParameterBinding
+    Exception
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (config\ipybox_sandbox.json:PSObject) [Get-Content]，ParameterBindingExc
+    eption
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (config\loop_config_v2.toml:PSObject) [Get-Content]，ParameterBindingExc
+    eption
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (config\managed_files_v2.txt:PSObject) [Get-Content]，ParameterBindingEx
+    ception
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (config\model_profiles.toml:PSObject) [Get-Content]，ParameterBindingExc
+    eption
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (config\orchestration_policy.toml:PSObject) [Get-Content]，ParameterBind
+    ingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (config\orchestration_policy_v2.toml:PSObject) [Get-Content]，ParameterB
+    indingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument…2283 tokens truncated…nt: (data\budget\events.ndjson:PSObject) [Get-Content]，ParameterBindingExce
+    ption
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (data\dead_lette...ction-edge.json:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (data\dead_lette...ttribution.json:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (data\dead_lette...root-cause.json:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (data\dead_lette...oute-check.json:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (data\dead_lette...e3c-compat.json:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (data\dead_lette...c-consumer.json:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (data\dead_lette...controller.json:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (data\dead_lette...-workspace.json:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (data\dead_lette...3c-failure.json:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (data\dead_lette...-hook-stop.json:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (data\dead_lette...3c-install.json:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (data\dead_lette...est-schema.json:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (data\dead_lette...c-observer.json:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (data\dead_lette...-parent-id.json:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (data\dead_lette...6ee3c-race.json:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (data\dead_lette...t-contract.json:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (data\dead_lette...c-security.json:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (data\dead_lette...gle-writer.json:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (data\dead_lette...ee3c-tests.json:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (data\dead_lette...dempotency.json:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (data\dead_lette...6-manifest.json:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (data\dead_lette...1-proposal.json:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (data\dead_lette...tch-review.json:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (data\dead_lette...ifact-hash.json:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (data\dead_lette...u-conflict.json:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (data\dead_lette...2d09-h0-pv.json:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (data\dead_lette...g-physical.json:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (data\dead_lette...emory-plan.json:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (data\dead_lette...lease-gate.json:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (data\dead_lette...-t1-window.json:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (data\dead_lette...sts-review.json:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+cat : 无法将输入对象绑定到命令的任何参数，可能是因为该命令没有采用管道输入，或者输入及其属性与采用管道输入的任何参数均
+不匹配。
+所在位置 行:2 字符: 161
++ ... json|toml|yaml|yml|md|ndjson|txt)$' } | Select-Object -First 80 | cat
++                                                                       ~~~
+    + CategoryInfo          : InvalidArgument: (data\dead_lette...d09-view-a.json:PSObject) [Get-Content]，ParameterBin
+    dingException
+    + FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+
+2026-08-14T11:12:10.426994Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:12:32.225112Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:12:38.343276Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 182ms)... turn_id=019ffff8-0b14-7fd3-8e10-11ce419400d2 retries=1 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游网络连接失败, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T11:12:44.520967Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 362ms)... turn_id=019ffff8-0b14-7fd3-8e10-11ce419400d2 retries=2 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游网络连接失败, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T11:12:58.278755Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:13:00.659685Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-14T11:13:10.418698Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:13:19.090816Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:13:26.982520Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:13:37.262170Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:13:47.922600Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:13:59.037311Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:14:19.848624Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:14:30.191200Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:14:59.682841Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:15:12.401696Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:15:21.754279Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:15:30.619564Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:15:52.036308Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:16:03.247114Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:16:22.567336Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:16:34.265056Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:17:18.087460Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:17:26.126234Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:17:36.376691Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:17:50.359453Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:18:00.608198Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:18:15.489234Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:18:49.066918Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:19:00.885675Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:19:13.785295Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:19:25.513236Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:19:48.790445Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:20:28.390715Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:20:43.212470Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:21:08.306876Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:21:22.429382Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:21:45.051275Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:21:57.081342Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:22:11.966864Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:22:25.658762Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:22:42.288085Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:22:54.231075Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:23:08.615404Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:23:21.963783Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:23:32.143717Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:23:52.281169Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:24:09.309295Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:24:23.641576Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:24:37.987397Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:24:54.581199Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:26:15.521691Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:26:26.850329Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:27:40.626983Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:27:47.814096Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:28:03.476320Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:28:24.273624Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:28:43.349376Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:28:56.492197Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:29:15.385317Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:29:28.019854Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:29:39.669395Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:29:52.011347Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:30:09.975645Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:30:22.428580Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:30:33.918830Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:30:45.601679Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:30:56.867576Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:31:11.272161Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:31:20.407264Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:31:37.722541Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:31:50.670505Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:32:01.948613Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:32:12.200474Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:32:28.238386Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:32:45.066803Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:32:56.751582Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:33:14.653208Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:34:11.518680Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:34:24.502231Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:34:46.903170Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:35:14.216325Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:35:31.571152Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:35:41.985747Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:35:53.896523Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:36:07.881859Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:36:20.988224Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:36:38.512237Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:36:49.174095Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:37:01.990570Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:37:26.880753Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:37:46.671350Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:38:01.785088Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:38:18.262169Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:38:27.368950Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:38:42.674125Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:38:55.154656Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:39:08.553480Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:39:24.673907Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:39:45.402857Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:39:56.814482Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:40:13.806642Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:40:25.148720Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:40:41.972724Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:40:55.013624Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T11:41:10.605704Z ERROR codex_core::tools::router: error=unsupported call: glob

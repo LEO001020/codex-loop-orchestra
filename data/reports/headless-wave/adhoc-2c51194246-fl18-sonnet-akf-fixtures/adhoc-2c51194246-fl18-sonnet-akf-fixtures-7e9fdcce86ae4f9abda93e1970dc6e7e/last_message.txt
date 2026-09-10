@@ -1,0 +1,91 @@
+I have a complete and thorough picture. Here is the closure review:
+
+---
+
+## FL18 AKF 夹具闭包复核报告
+
+**复核范围**：T09–T12（`test_targeted_security_regressions.py`）及 F06–F11（`functional_fixtures.sh`），聚焦四个安全属性：agent key精确移除、admin key保留、Match路径、alias/symlink/unknown token拒绝。
+
+---
+
+### T09–T12 复核（`test_targeted_security_regressions.py` → `akf_fixtures`）
+
+**T09 `ROOT_AGENT_KEY_REMOVED`**
+
+覆盖：✅ 充分。  
+fixture构造了一个含两行的keyfile（`agent-key`、`admin-key`），将`fingerprint`打桩为对`agent`行返回`SHA256:AGENT`，对其他行返回`SHA256:ADMIN`，`--agent-fingerprints`中仅含`SHA256:AGENT`。断言执行后`keyfile`内容精确等于`"admin-key\n"`。这直接覆盖了"agent fingerprint存在时精确移除"。`sanitize_authorized_keys.py`中对应逻辑为：`if fp in agent: removed.append(fp)`（跳过写回），`elif fp in allowed: kept.append(line)`。
+
+**T10 `ADMIN_KEY_PRESERVED`**
+
+覆盖：✅ 充分。  
+同一次运行，断言`report.json`中`before_fingerprints`包含`["SHA256:AGENT","SHA256:ADMIN"]`，且`removed_agent_fingerprints`包含`"SHA256:AGENT"`。admin key未出现在`removed`中，且通过T09可知其仍在文件中，共同确认admin key被保留。
+
+**T11 `DUPLICATE_AKF_REFUSED`**
+
+覆盖：✅ 充分。  
+将`effective_tokens`打桩为返回同一路径两次，断言`module.main()`以`SystemExit`失败退出。`sanitize_authorized_keys.py`的实现路径：`resolved = [str(path.resolve(strict=False)) for path in paths]`，随后`if len(set(resolved)) != len(resolved): raise SystemExit("duplicate/aliased effective AuthorizedKeysFile paths")`——精确命中alias/duplicate被拒绝的行为。
+
+**T12 `SYMLINK_AKF_REFUSED`**
+
+覆盖：✅ 充分。  
+将`effective_tokens`打桩为返回一个指向keyfile的symlink路径，断言`SystemExit`。实现路径：`if path.is_symlink(): raise SystemExit(f"symlink AuthorizedKeysFile rejected: {path}")`。symlink在`path.resolve`前检测，覆盖了"symlink重定向原子替换"这一威胁模型。
+
+**注意点（I2级）**：T09的mock将`effective_tokens`直接打桩为`[str(keyfile)]`，完全绕过了`sshd -T -C`调用。这是正确的隔离测试设计，但也意味着T09-T12中不存在任何真实`sshd`进程行为的覆盖——该部分覆盖由S05（`"sshd -T -C" in COMMON`）和S28（部署脚本中`sshd_effective_akf`出现在owner路径上）的静态断言提供补偿。在纯fixture层面，Match上下文正确性不能从T09-T12单独证明，依赖于S05/S28的静态联合覆盖。
+
+---
+
+### F06–F11 复核（`functional_fixtures.sh` → `common.sh`）
+
+**F06 `EXPAND_RELATIVE_AKF`**
+
+覆盖：✅ 充分。  
+测试`akf_expand_token '.ssh/authorized_keys' alice /srv/alice`，期望输出`/srv/alice/.ssh/authorized_keys`。对应`common.sh`实现：相对token走`$h/$x`路径。
+
+**F07 `EXPAND_ABSOLUTE_AKF`**
+
+覆盖：✅ 充分。  
+测试`/keys/%u`展开为`/keys/alice`。覆盖绝对路径+`%u`替换。
+
+**F08 `EXPAND_HOME_AKF`**
+
+覆盖：✅ 充分。  
+测试`%h/.ssh/ak`展开为`/srv/alice/.ssh/ak`。覆盖`%h`替换。
+
+**F09 `LITERAL_PERCENT_AKF`**
+
+覆盖：✅ 充分。  
+测试`/keys/%%u`展开为`/keys/%u`（`%%`转义为字面`%`）。覆盖双百分号转义语义。
+
+**F10 `REJECT_UNKNOWN_AKF_TOKEN`**
+
+覆盖：✅ 充分。  
+测试`validate_akf_token '/keys/%x'`应以失败退出。`common.sh`实现：移除`%%/%h/%u`后若剩余含`%`则`die`。覆盖"unknown token拒绝"。
+
+**F11 `ACCEPT_SUPPORTED_AKF_TOKENS`**
+
+覆盖：✅ 充分。  
+测试`validate_akf_token '%h/.ssh/%u-%%'`应通过。同时包含三种合法token，确认仅合法token的组合被接受，与F10构成正反双向验证。
+
+**注意点（I1级）**：`akf_expand_token`在`common.sh`中不对未知token调用`die`——展开时只做字符串替换，不进行token枚举验证。unknown token的拒绝完全由`validate_akf_token`负责。F06-F09仅测试合法token展开，**没有对应的展开阶段unknown token拒绝fixture**（F10/F11覆盖了validate函数，但expand函数本身不执行该检查）。这在现行架构下是设计内的，因为调用方应先`validate_akf_token`再`akf_expand_token`，但fixture矩阵中缺少一个"先传入unknown token进行expand，验证其是否因缺少validate步骤而静默通过"的负向用例。这是一个覆盖缺口（I1），不影响当前路径的安全属性，但构成一个潜在的脆弱性文档点。
+
+---
+
+### 汇总
+
+| 测试 | 属性 | 覆盖状态 | 备注 |
+|------|------|---------|------|
+| T09 | agent key存在后精确移除 | ✅ | mock隔离，real sshd覆盖由S05/S28补偿 |
+| T10 | admin key保留 | ✅ | report断言充分 |
+| T11 | duplicate/alias拒绝 | ✅ | 直接命中`len(set(resolved))`守卫 |
+| T12 | symlink拒绝 | ✅ | `is_symlink()`守卫 |
+| F06 | relative token展开 | ✅ | |
+| F07 | absolute+%u展开 | ✅ | |
+| F08 | %h展开 | ✅ | |
+| F09 | %%转义 | ✅ | |
+| F10 | unknown token拒绝 | ✅ | validate层 |
+| F11 | 合法token组合接受 | ✅ | |
+
+**I1（轻微缺口）**：`akf_expand_token`本身不拒绝unknown token，F06-F09无对应负向expand用例；validate/expand的分离依赖调用约定，未在fixture层强制。  
+**I2（设计内限制）**：T09-T12中Match上下文通过mock绕过，真实`sshd -T -C`行为仅由静态断言S05/S28覆盖，不是纯动态覆盖。
+
+两项均属I1/I2级信息性观察，不构成当前release的安全阻断条件。四个核心安全属性（精确移除、admin保留、Match路径、alias/symlink/unknown拒绝）在当前fixture矩阵中均有充分覆盖。

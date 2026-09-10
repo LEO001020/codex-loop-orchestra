@@ -1,0 +1,91 @@
+Reading additional input from stdin...
+2026-08-14T08:26:29.036333Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T08:26:36.473475Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T08:28:53.163655Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 202ms)... turn_id=019fff61-3797-7151-bbd3-425fad718e24 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+2026-08-14T08:32:21.696553Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 424ms)... turn_id=019fff61-3797-7151-bbd3-425fad718e24 retries=2 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+2026-08-14T08:37:47.185998Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+tests\__pycache__\test_refill_controller_v2.cpython-314-pytest-9.1.1.pyc
+tests\test_refill_controller_v2.py
+tests\test_lifecycle_supervisor_v2.py
+tests\unit\__pycache__\test_subagent_lifecycle_hook.cpython-314-pytest-9.1.1.pyc
+tests\unit\__pycache__\test_subagent_lifecycle_hook.cpython-312-pytest-8.4.1.pyc
+tests\unit\test_loop_monitor_server.py
+tests\unit\test_lifecycle_supervisor.py
+tests\unit\test_headless_wave.py
+tests\unit\__pycache__\test_refill_controller.cpython-314-pytest-9.1.1.pyc
+tests\unit\__pycache__\test_refill_controller.cpython-312-pytest-8.4.1.pyc
+tests\unit\__pycache__\test_loop_monitor_server.cpython-314-pytest-9.1.1.pyc
+tests\unit\__pycache__\test_lifecycle_supervisor.cpython-314-pytest-9.1.1.pyc
+tests\unit\__pycache__\test_lifecycle_supervisor.cpython-312-pytest-8.4.1.pyc
+tests\unit\__pycache__\test_headless_wave.cpython-314-pytest-9.1.1.pyc
+tests\unit\test_subagent_lifecycle_hook.py
+tests\unit\test_refill_controller.py
+tests\orchestration_v2\test_lifecycle_supervisor_v2.py
+tests\orchestration_v2\test_refill_controller_v2.py
+tests\orchestration_v2\test_refill_consumer_v2.py
+codex-loop-s-f2\tests\test_refill_controller_v2.py
+codex-loop-s-f2\tests\test_lifecycle_supervisor_v2.py
+codex-loop-s-f2\tests\__pycache__\test_refill_controller_v2.cpython-314-pytest-9.1.1.pyc
+codex-loop-s-f2\tests\__pycache__\test_lifecycle_supervisor_v2.cpython-314-pytest-9.1.1.pyc
+tests\orchestration_v2\__pycache__\test_refill_controller_v2.cpython-314-pytest-9.1.1.pyc
+tests\orchestration_v2\__pycache__\test_refill_consumer_v2.cpython-314-pytest-9.1.1.pyc
+tests\orchestration_v2\__pycache__\test_lifecycle_supervisor_v2.cpython-314-pytest-9.1.1.pyc
+data\dead_letters\adhoc-f6c22ba355-pc7-headless-test-inventory.json
+data\sol_wake\1786565240_adhoc-f6c22ba355-pc7-headless-test-inventory.md
+data\reports\convergence-wave2b-patches\tests__unit__test_subagent_lifecycle_hook.py.patch
+data\reports\convergence-wave2b-patches\tests__unit__test_headless_wave.py.patch
+data\reports\convergence-wave2b-patches\tests__orchestration_v2__test_refill_controller_v2.py.patch
+data\reports\convergence-wave2b-patches\tests__orchestration_v2__test_refill_consumer_v2.py.patch
+rg: ./.pytest_cache: 拒绝访问。 (os error 5)
+rg: ./tests\.pytest_cache: 拒绝访问。 (os error 5)
+
+2026-08-14T08:37:47.344060Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.1 seconds
+Output:
+
+Name                           
+----                           
+.pytest_cache                  
+golden                         
+mock_codex                     
+orchestration_v2               
+statemachine_paths             
+unit                           
+__pycache__                    
+conftest.py                    
+ipybox_parent_death_smoke.py   
+ipybox_supervisor_smoke.py     
+test_agent_router.py           
+test_budget_controller.py      
+test_cold_start_rollback.py    
+test_dispatch_v2.py            
+test_governor_hysteresis.py    
+test_l2_consumer.py            
+test_layered_e2e.py            
+test_layered_gate.py           
+test_lifecycle_supervisor_v2.py
+test_refill_controller_v2.py   
+test_result_reducer.py         
+test_root_turn_governor.py     
+test_short_result_validator.py 
+test_smoke_all.py              
+test_sol_tool_gate_v2.py       
+test_statemachine_v2.py        
+test_token_meter_v2.py         
+test_trigger_eval_v2.py        
+test_windows_wsl_paths.py      
+
+
+
+2026-08-14T08:43:11.244756Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 185ms)... turn_id=019fff61-3797-7151-bbd3-425fad718e24 retries=1 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T08:48:03.694518Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 371ms)... turn_id=019fff61-3797-7151-bbd3-425fad718e24 retries=2 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses

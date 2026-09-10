@@ -1,0 +1,20 @@
+审计完成，全程只读、未派发子agent。
+
+**已验证事实**
+
+- 最短可靠 headless 链已存在且收敛：`harness/dispatch_v2.py:581 main → :433 dispatch()（v2 决策：decide :374 / 预算门 :474 / 路由注解）→ :469 _spawn() → :500 桥接 `import dispatch as dispatch_v1` 调 `dispatch_v1.dispatch_single` → `harness/dispatch.py:501` 组装 `codex exec --skip-git-repo-check --sandbox <pin> -m<model> -c effort=…` → `dispatch.py:436/451 launch_supervisor` → `harness/lifecycle_supervisor.py:175 subprocess.Popen(cwd=worktree, start_new_session)` detached headless 子进程，cwd=worktree_pool 分配的隔离 worktree（`dispatch.py:407/482`），不走 Desktop spawn_agents。模型/effort 强制由 agents/<role>.toml 经 CLI 钉死（`dispatch.py:80-101` 注释：exec 顶进程不加载 toml，缺钉必退出=belt-and-suspenders）。
+- v2 是决策层、v1 仍是物理权威（`dispatch_v2.py:495-499` 明示），layered_gate 的 `check_default_adapter` 正是校验这一桥接（`layered_gate.py:233-256`）。
+
+**主要漏洞**
+
+1. Desktop 会话的 spawn 面与 CLI dispatcher 是两条平行面：native spawn_agents 工具随时长路 IAB，而本机上没有任何 harness 侧机制把“第 9 个 worker”自动改走 `dispatch_v2`。desktop_spawn_guard 只能 hard deny 原生面（仓库内未见其实现、只有引用），≥8 后请求既不降级到 headless 也不转 `DispatcherV2`，有效并发被砍——与“波次16/总48”冲突。
+2. `LOOP_EXECUTION_PLANE`/`detect_plane` 只在 ipybox 上报用（`dispatch_v2.py:213-221`），不影响平面选择；即环境无权重路由。
+3. K3 unavailable 时 v2 会 degrade 回 Sol（`dispatch_v2.py:397-399`），此时不 spawn，但 layer 之外无审计面强制拒绝“role 未显式钉死的 native 出生”。
+
+**最小修复建议**（均不改动文件，仅建议）
+
+- 把 guard 从 hard deny 改为 “guard-redirect”：native>=8 时改成调用 `python harness/dispatch_v2.py --packet <pid> --wave N`，让 v2 decide→_spawn→v1 headless 承担；保留 `agents.max_concurrent_threads_per_session=50` 总闸。如此不降低有效并发。
+- 或更小：guard 仍 deny，但 dispatcher 调配逻辑在 native 计数>=8 时把新增 packet 直接指派给 v2 CLI（桌面只保留 ≤8 原生 observer 代理）。加一条 layered_gate 条件：`dispatch_v2._spawn` 禁止 `dry_run=False` 之外的 native 分支回归。
+- 将 `desktop_spawn_guard.py` 的阈值判定接入 `dispatch_v2` 的可固化“平面预算表”（native_cap=8→headless），而非裸 deny。
+
+**证据**：harness/dispatch_v2.py:433/469/495-519/568-587；harness/dispatch.py:5-15/80-101/436-454/501/526-538；harness/lifecycle_supervisor.py:173-176；harness/layered_gate.py:233-256；harness/l2_consumer.py:615/663（K3 合成包也复用同一 headless dispatch_single）。desktop_spawn_guard 本体未在仓库内，属外部运行时注入，故其行为结论部分为假设，已标注。

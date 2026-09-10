@@ -1,0 +1,17 @@
+The sandbox is read-only and no shell or file-read tools are available in this turn's catalog. I cannot access the local files to perform the audit.
+
+---
+
+**任务名：模型路由漂移 — 结论**
+
+本轮工具目录中仅有委托类工具（`update_plan`、`request_user_input`、`view_image`、`get_goal`、`create_goal`、`update_goal`、`tool_search`）和 `web_search`，没有 `shell_command`、`apply_patch`、文件读取或搜索工具可用。沙箱权限为 read-only，且工具目录中无法访问本地文件系统内容。
+
+因此无法读取以下文件：
+- `config/model_profiles.toml`
+- orchestration_policy / agents TOML
+- `exec_roster.json`
+- 8765 pool 分类数据
+
+**阻断原因：** 工具目录不包含任何文件读取或命令执行工具，无法在此 leaf agent 轮次内完成只读核对工作。
+
+请编排层改以具备 `shell_command` / 文件读取工具的 worker agent 重新派发本包，或在具备工具权限的 headless worker 环境中执行。

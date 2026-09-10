@@ -1,0 +1,47 @@
+Reading additional input from stdin...
+2026-08-12T20:05:27.427589Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-12T20:05:32.278940Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-12T20:07:27.883687Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 10.9 seconds
+Output:
+
+2026-08-12T20:07:32.984995Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-12T20:09:46.833129Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 3.1 seconds
+Output:
+---credential---
+
+2026-08-12T20:11:35.256548Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.6 seconds
+Output:
+
+2026-08-12T20:11:44.898624Z ERROR codex_core::tools::router: error=Exit code: 124
+Wall time: 11.2 seconds
+Output:
+command timed out after 11202 milliseconds
+
+2026-08-12T20:17:43.055959Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 189ms)... turn_id=019ff794-6ebb-7802-a053-aa6f30e97b06 retries=1 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-12T20:22:52.140742Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 394ms)... turn_id=019ff794-6ebb-7802-a053-aa6f30e97b06 retries=2 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-12T20:28:08.386587Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.2 seconds
+Output:
+
+2026-08-12T20:35:02.980973Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.6 seconds
+Output:
+

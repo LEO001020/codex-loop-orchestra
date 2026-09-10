@@ -1,0 +1,249 @@
+Reading additional input from stdin...
+2026-08-14T11:14:50.615667Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T11:14:56.510401Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T11:15:13.626120Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 4.6 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 44
++ rg --files E:\codex-LOOP\codex-loop-s-f2 | head -60
++                                            ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T11:15:28.773529Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.1 seconds
+Output:
+E:\codex-LOOP\codex-loop-s-f2\work_commencement_certificate.md
+E:\codex-LOOP\codex-loop-s-f2\VERSIONS.lock
+E:\codex-LOOP\codex-loop-s-f2\test_evidence_pytest_output.txt
+E:\codex-LOOP\codex-loop-s-f2\README.md
+E:\codex-LOOP\codex-loop-s-f2\tests\test_governor_hysteresis.py
+E:\codex-LOOP\codex-loop-s-f2\metering\model_token_share.py
+E:\codex-LOOP\codex-loop-s-f2\tests\test_dispatch_v2.py
+E:\codex-LOOP\codex-loop-s-f2\metering\e0_annotate.py
+E:\codex-LOOP\codex-loop-s-f2\tests\test_cold_start_rollback.py
+E:\codex-LOOP\codex-loop-s-f2\install_v2.sh
+E:\codex-LOOP\codex-loop-s-f2\tests\test_budget_controller.py
+E:\codex-LOOP\codex-loop-s-f2\install.sh
+E:\codex-LOOP\codex-loop-s-f2\tests\test_agent_router.py
+E:\codex-LOOP\codex-loop-s-f2\harness\model_profile.py
+E:\codex-LOOP\codex-loop-s-f2\harness\missing_check.sh
+E:\codex-LOOP\codex-loop-s-f2\harness\loop_config.py
+E:\codex-LOOP\codex-loop-s-f2\harness\lifecycle_supervisor_v2.py
+E:\codex-LOOP\codex-loop-s-f2\harness\lifecycle_supervisor.py
+E:\codex-LOOP\codex-loop-s-f2\harness\layered_gate.py
+E:\codex-LOOP\codex-loop-s-f2\harness\l2_consumer.py
+E:\codex-LOOP\codex-loop-s-f2\harness\ipybox_lazy.py
+E:\codex-LOOP\codex-loop-s-f2\harness\ipybox_cleanup.py
+E:\codex-LOOP\codex-loop-s-f2\harness\headless_wave.py
+E:\codex-LOOP\codex-loop-s-f2\harness\duty_route.py
+E:\codex-LOOP\codex-loop-s-f2\harness\duty_gate.py
+E:\codex-LOOP\codex-loop-s-f2\harness\duty_driver.py
+E:\codex-LOOP\codex-loop-s-f2\harness\dual_plane_hash.py
+E:\codex-LOOP\codex-loop-s-f2\harness\dispatch_v2.py
+E:\codex-LOOP\codex-loop-s-f2\harness\dispatch.py
+E:\codex-LOOP\codex-loop-s-f2\harness\diffvalidator.py
+E:\codex-LOOP\codex-loop-s-f2\harness\desktop_edge_reconcile.py
+E:\codex-LOOP\codex-loop-s-f2\harness\dag_assert.py
+E:\codex-LOOP\codex-loop-s-f2\harness\csv_reconcile.py
+E:\codex-LOOP\codex-loop-s-f2\harness\budget_controller.py
+E:\codex-LOOP\codex-loop-s-f2\harness\agent_router.py
+E:\codex-LOOP\codex-loop-s-f2\harness\acceptance_replay.sh
+E:\codex-LOOP\codex-loop-s-f2\metering\oscillation_report.py
+E:\codex-LOOP\codex-loop-s-f2\metering\model_token_share_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\test_short_result_validator.py
+E:\codex-LOOP\codex-loop-s-f2\metering\usage_reconcile.py
+E:\codex-LOOP\codex-loop-s-f2\metering\model_token_share_bridge.py
+E:\codex-LOOP\codex-loop-s-f2\tests\test_root_turn_governor.py
+E:\codex-LOOP\codex-loop-s-f2\tests\test_result_reducer.py
+E:\codex-LOOP\codex-loop-s-f2\tests\test_refill_controller_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\conftest.py
+E:\codex-LOOP\codex-loop-s-f2\tests\test_lifecycle_supervisor_v2.py
+E:\codex-LOOP\codex-loop-s-f2\SHA256SUMS
+E:\codex-LOOP\codex-loop-s-f2\tests\test_layered_gate.py
+E:\codex-LOOP\codex-loop-s-f2\search_log.md
+E:\codex-LOOP\codex-loop-s-f2\tests\test_layered_e2e.py
+E:\codex-LOOP\codex-loop-s-f2\tests\ipybox_supervisor_smoke.py
+E:\codex-LOOP\codex-loop-s-f2\tests\test_l2_consumer.py
+E:\codex-LOOP\codex-loop-s-f2\tests\ipybox_parent_death_smoke.py
+E:\codex-LOOP\codex-loop-s-f2\tests\test_token_meter_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\test_statemachine_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\test_sol_tool_gate_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\test_smoke_all.py
+E:\codex-LOOP\codex-loop-s-f2\tests\test_windows_wsl_paths.py
+E:\codex-LOOP\codex-loop-s-f2\tests\test_trigger_eval_v2.py
+E:\codex-LOOP\codex-loop-s-f2\harness\root_turn_governor.py
+E:\codex-LOOP\codex-loop-s-f2\harness\retry.py
+E:\codex-LOOP\codex-loop-s-f2\harness\result_reducer.py
+E:\codex-LOOP\codex-loop-s-f2\harness\repair_transport_deadletters.py
+E:\codex-LOOP\codex-loop-s-f2\harness\repair_plain_parent_reports.py
+E:\codex-LOOP\codex-loop-s-f2\harness\repair_parent_ledger_schema.py
+E:\codex-LOOP\codex-loop-s-f2\harness\refill_controller_v2.py
+E:\codex-LOOP\codex-loop-s-f2\harness\refill_controller.py
+E:\codex-LOOP\codex-loop-s-f2\harness\refill_consumer_v2.py
+E:\codex-LOOP\codex-loop-s-f2\harness\summary_synth.py
+E:\codex-LOOP\codex-loop-s-f2\harness\statemachine_v2.py
+E:\codex-LOOP\codex-loop-s-f2\harness\statemachine.py
+E:\codex-LOOP\codex-loop-s-f2\harness\smoke_gate.sh
+E:\codex-LOOP\codex-loop-s-f2\harness\signals_collect.py
+E:\codex-LOOP\codex-loop-s-f2\harness\short_result_validator.py
+E:\codex-LOOP\codex-loop-s-f2\harness\sanitize.py
+E:\codex-LOOP\codex-loop-s-f2\harness\routing_mode.py
+E:\codex-LOOP\codex-loop-s-f2\harness\verdict_aggregate.py
+E:\codex-LOOP\codex-loop-s-f2\harness\trigger_eval_v2.py
+E:\codex-LOOP\codex-loop-s-f2\harness\trigger_eval.py
+E:\codex-LOOP\codex-loop-s-f2\harness\terminal_packet_epilogue.py
+
+2026-08-14T11:15:45.673792Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.7 seconds
+Output:
+E:\codex-LOOP\codex-loop-s-f2\tests\mock_codex\scenario_control.sh
+E:\codex-LOOP\codex-loop-s-f2\tests\mock_codex\mock_spawn.sh
+E:\codex-LOOP\codex-loop-s-f2\tests\mock_codex\mock_codex_exec.sh
+E:\codex-LOOP\codex-loop-s-f2\tests\statemachine_paths\__pycache__\test_all_transitions.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\statemachine_paths\__pycache__\test_adversarial.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\statemachine_paths\test_all_transitions.py
+E:\codex-LOOP\codex-loop-s-f2\tests\test_root_turn_governor.py
+E:\codex-LOOP\codex-loop-s-f2\tests\test_result_reducer.py
+E:\codex-LOOP\codex-loop-s-f2\tests\test_refill_controller_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\test_lifecycle_supervisor_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\test_layered_gate.py
+E:\codex-LOOP\codex-loop-s-f2\tests\test_layered_e2e.py
+E:\codex-LOOP\codex-loop-s-f2\tests\test_l2_consumer.py
+E:\codex-LOOP\codex-loop-s-f2\tests\test_governor_hysteresis.py
+E:\codex-LOOP\codex-loop-s-f2\tests\test_statemachine_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\test_sol_tool_gate_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\test_smoke_all.py
+E:\codex-LOOP\codex-loop-s-f2\tests\test_short_result_validator.py
+E:\codex-LOOP\codex-loop-s-f2\tests\test_trigger_eval_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\test_token_meter_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\test_windows_wsl_paths.py
+E:\codex-LOOP\codex-loop-s-f2\harness\orchestration_epilogue.py
+E:\codex-LOOP\codex-loop-s-f2\harness\orchestration_common.py
+E:\codex-LOOP\codex-loop-s-f2\schemas\short_result.schema.json
+E:\codex-LOOP\codex-loop-s-f2\schemas\plan_expander.schema.json
+E:\codex-LOOP\codex-loop-s-f2\schemas\decision_skeleton.schema.json
+E:\codex-LOOP\codex-loop-s-f2\tests\golden\test_g3_messy_failure.py
+E:\codex-LOOP\codex-loop-s-f2\tests\golden\test_g2_retry_success.py
+E:\codex-LOOP\codex-loop-s-f2\tests\golden\test_g1_two_packet_parallel.py
+E:\codex-LOOP\codex-loop-s-f2\tests\golden\test_g5_merge_conflict.py
+E:\codex-LOOP\codex-loop-s-f2\tests\golden\test_g4_path_violation.py
+E:\codex-LOOP\codex-loop-s-f2\harness\duty_driver.py
+E:\codex-LOOP\codex-loop-s-f2\harness\dual_plane_hash.py
+E:\codex-LOOP\codex-loop-s-f2\harness\dispatch_v2.py
+E:\codex-LOOP\codex-loop-s-f2\harness\dispatch.py
+E:\codex-LOOP\codex-loop-s-f2\harness\diffvalidator.py
+E:\codex-LOOP\codex-loop-s-f2\harness\desktop_edge_reconcile.py
+E:\codex-LOOP\codex-loop-s-f2\harness\dag_assert.py
+E:\codex-LOOP\codex-loop-s-f2\harness\csv_reconcile.py
+E:\codex-LOOP\codex-loop-s-f2\harness\budget_controller.py
+E:\codex-LOOP\codex-loop-s-f2\harness\agent_router.py
+E:\codex-LOOP\codex-loop-s-f2\harness\acceptance_replay.sh
+E:\codex-LOOP\codex-loop-s-f2\backup-20260811-215927\tests\orchestration_v2\__pycache__\test_windows_wsl_paths.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\backup-20260811-215927\tests\orchestration_v2\__pycache__\test_agent_router.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\backup-20260811-215927\tests\orchestration_v2\__pycache__\conftest.cpython-314-pytest-9.1.1.pyc
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_production_bridges.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_plan_consumer.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_parent_manifest_importer.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_meter_governor_contract.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_lifecycle_supervisor_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_layered_gate.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_layered_e2e.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_l2_consumer.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_install_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_governor_hysteresis.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_dispatch_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_cold_start_rollback.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_budget_controller.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_agent_router.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\conftest.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_sol_tool_gate_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_smoke_all.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_short_result_validator.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_root_turn_governor.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_result_reducer.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_refill_controller_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_refill_consumer_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_provider_health.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_terminal_packet_epilogue.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_statemachine_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_statemachine_v1_retry_contract.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_trigger_eval_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_token_meter_v2.py
+E:\codex-LOOP\codex-loop-s-f2\tests\orchestration_v2\test_windows_wsl_paths.py
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\metering\model_token_share_v2.py
+E:\codex-LOOP\codex-loop-s-f2\metering\__pycache__\usage_reconcile.cpython-314.pyc
+E:\codex-LOOP\codex-loop-s-f2\metering\__pycache__\usage_reconcile.cpython-312.pyc
+E:\codex-LOOP\codex-loop-s-f2\metering\__pycache__\oscillation_report.cpython-314.pyc
+E:\codex-LOOP\codex-loop-s-f2\metering\__pycache__\model_token_share_v2.cpython-314.pyc
+E:\codex-LOOP\codex-loop-s-f2\metering\__pycache__\model_token_share_bridge.cpython-314.pyc
+
+2026-08-14T11:18:53.452790Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.7 seconds
+Output:
+
+2026-08-14T11:19:36.305196Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.6 seconds
+Output:
+
+2026-08-14T11:20:25.143042Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+
+2026-08-14T11:20:49.339387Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.7 seconds
+Output:
+
+2026-08-14T11:22:32.112806Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.7 seconds
+Output:
+
+2026-08-14T11:30:15.427699Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-14T11:30:36.385678Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.5 seconds
+Output:
+
+2026-08-14T11:30:50.568231Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+
+2026-08-14T11:31:04.775431Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.6 seconds
+Output:
+
+2026-08-14T11:36:35.942912Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.6 seconds
+Output:
+
+2026-08-14T11:37:59.075406Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.6 seconds
+Output:
+
+2026-08-14T11:38:28.097351Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.5 seconds
+Output:
+
+2026-08-14T11:39:22.370222Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.5 seconds
+Output:
+rg: missing value for flag -r: missing argument for option '-r'
+
+2026-08-14T11:41:50.275951Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)

@@ -1,0 +1,37 @@
+复验完成。以下为对 H0 log-basis / basis-change / basis-persistence / price-volume 四分支 PIT 因果输入、prior-day volume、EW readiness 的只读复核结论（未运行任何统计试验、未修改任何文件；全部基于本地快照、远端只读探针输出与工件哈希交叉核对）。
+
+## 总体判定
+
+**四项数据层结论全部通过，但对外宣称 ready 前有 3 个必须登记的前置条件**（陈旧 readiness 工件未重生成、统计截止未冻结、CTK/CVC 两个品种窗口内小时缺口）。与 [H0价格成交量可用性报告](</E:/VPS/reports/H0价格成交量可用性/report.md>) 的核心判定一致，并补充 3 处该报告未指出的细节（见 §5）。
+
+## 1. PIT 因果输入（四分支共用）— PASS
+
+代码契约（远端构建代码快照 [pc6_binance_materializer.snapshot-20260813T0005Z.py](/E:/VPS/reports/Manifest可复现性审阅/pc6_binance_materializer.snapshot-20260813T0005Z.py)，sha256 `a7b73050…`，与远端 manifest `build_code_sha256` 完全一致）：
+- 每根 1h bar：`market_event_time_us = close_time_us`，`market_observable_at_us = close_time_us + 1`（收盘后首个微秒）；决策特征资格 = observable ≤ decision_time（[temporal_semantics.py](/E:/VPS/.work/pc6-edit/quant/p5_track3/temporal_semantics.py:51)），`bar_causality = PREVIOUS_FULLY_CLOSED_1H_BAR_ONLY`。
+- 远端全量扫描（24,031 个 parquet，17,355,443 行）：`ev==close`、`obs==close+1`、`ingest≥obs`、`ingest≥event` 违例均为 **0**；null/非有限 close、quote_volume 为 **0**；重复键 0、乱序 0、market/窗口标志违例 0。样本行（BTCUSDT 2023-07 futures）三值自洽：close 1688173199999000 / event 同 / observable +1。
+- 必需输入三项在清单中声明且数据齐备：`VALID_PERP_BAR + VALID_SPOT_BAR + VERIFIED_UNIT_MAPPING`（445 个 verified 品种、unit_mapping_blocked=0）。
+- bar 时长：futures 与 2025 前 spot 为 3,599,999,000 µs（1h−1ms），2025 起 spot 为 3,599,999,999 µs（1h−1µs）——符合 Binance 官方口径与 `normalize_timestamp` 的 ms/µs 切换规则。
+
+## 2. Prior-day volume — 数据层 PASS，规则层为声明未执行
+
+- `quote_volume` 全量（含开发窗口 4,678,795 futures + 5,098,324 spot 行）无空值、无非有限值；波恩覆盖 156 品种 × 3 dataset × 24 月 = 11,232 单元 **0 缺失**，月边界 0 缺口。
+- 清单 `pit_universe_input_spec.liquidity = PRIOR_COMPLETED_UTC_DAY_QUOTE_VOLUME`、`minimum_listing_age = ONE_FULL_DAY`，与 [P5_P3_SOURCE_ENGINEERING_MAPPING_V1](/E:/VPS/.work/pc6-edit/artifacts/pc6_temporal_closure_v2/P5_P3_SOURCE_ENGINEERING_MAPPING_V1.json) 的 “prior-day transacted price volume > USD 1m at each decision” 适配一致。
+- 但需精确限定：`prior_completed_utc_day_quote_volume()` 在构建代码中**定义但无调用点**，`non_actions.p3_h0_discovery_executed=false`——该过滤是声明给未来 H0 discovery 的输入规格，尚未实际构造 PIT universe。数据支撑性 PASS，不等于过滤已执行。
+
+## 3. EW readiness — PASS（语义与工件一致）
+
+- [P5_PC6_BRANCH_READINESS_V1.json](/E:/VPS/.work/pc6-edit/artifacts/pc6_temporal_closure_v2/P5_PC6_BRANCH_READINESS_V1.json)（本地哈希 `4f825eb6…`，与远端两 worktree 实测哈希逐字节一致）：`EW_WEIGHTING_READY=true`、`PIT_MARKET_CAP_WEIGHTING_READY=false`、`VOLUME_RANK_WEIGHTING_IS_DISTINCT_ESTIMAND=true`。
+- 代码语义：`EW_WEIGHTING_READY = bool(has_pit_membership)`，且测试 `test_weighting_paths_do_not_substitute_estimands` 确认 EW 只依赖 PIT 成员资格、不以市值或成交量加权替代。成员资格所需输入（perp/spot bar + 单位映射 + listing + 前日成交量）均已验证齐备，故该 true 成立；市值加权缺 PIT market-cap 数据（false 一致）。
+
+## 4. 覆盖完整性限定（不改变因果结论）
+
+156 品种中 futures 149 / spot 153 为完整 17,520 小时；7 个品种缺口均为上市前缀（PIT 规则可吸收），唯二窗口内中断：CTKUSDT futures 2025-04-30 00:00–09:00Z 缺 10h、CVCUSDT futures 2025-05-16 00:00–07:00Z 缺 8h（对应 spot 完整）——诚实缺失，无伪造 bar。
+
+## 5. 必须声明的三项与两点补充
+
+1. **陈旧工件矛盾（确认）**：`P5_PC6_BRANCH_READINESS_V1.json`（两 worktree 均 15:05Z）仍写四分支 `ready:false`、blocker “complete PIT 1h volume panel … not frozen”，与 16:05Z 可执行清单（`P3_H0_LOG_BASIS_LEVEL/BASIS_CHANGE/BASIS_PERSISTENCE/PRICE_VOLUME_FAMILY=true`，status READY）矛盾；宣称 ready 前必须重生成或作废该工件。
+2. **统计截止未冻结**：`final_statistical_data_cutoff = NOT_FROZEN_BY_ENGINEERING`（治理门，非结构缺口）。
+3. **补充 a**：probe_c 扫描的 delta 检查常量有 1000× 笔误（`3_599_999_000_000`），导致 `delta_bad=全行` 的假警报；以实测 `delta_min/max`（3,599,999,000 / 3,599,999,999 µs）为准，数据本身正确。该探针输出需更正后再作为正式证据。
+4. **补充 b**：扫描未直接验证 `source_published_at_us ≥ market_event_time_us`（列存在且非空，但排序未查）；历史归档发布于收盘之后，风险低，建议在正式证据包中补一行校验。
+
+关键证据：[report.md](</E:/VPS/reports/H0价格成交量可用性/report.md>) · [probe_c_out.txt](</E:/VPS/reports/H0价格成交量可用性/probe_c_out.txt>) · [probe_d/e/f_out.txt](</E:/VPS/reports/H0价格成交量可用性/probe_e_out.txt>) · [remote manifest](</E:/VPS/reports/两种View实物复验/remote_P5_PC6_EXECUTABLE_DATA_MANIFEST_V1.json>) · [最小子集可闭合性验证报告](</E:/VPS/reports/最小子集可闭合性验证/report.md>)。

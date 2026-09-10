@@ -1,0 +1,64 @@
+Based on the live API truth available to me, here is the review:
+
+---
+
+## 任务名：Fifty eighty refill review — Findings
+
+### Live API Observations
+
+**Agent runtime tools confirmed available (live, this session):**
+- `multi_agent_v1__spawn_agent`
+- `multi_agent_v1__close_agent`
+- `multi_agent_v1__resume_agent`
+- `multi_agent_v1__wait_agent`
+- `multi_agent_v1__send_input`
+
+**Goal API:** No active goal is set (`goal: null`, `remainingTokens: null`). This is consistent with the packet being a bounded leaf task without a parent goal registered in this context.
+
+**File system access:** The permission profile is `read-only` restricted to the workspace root, but `read_file` and shell tools are not available in this leaf agent's tool catalog (they returned `unsupported call`). This confirms this is a read-only, no-execution leaf context.
+
+---
+
+### Semantic Review: 50 Desktop / 80 Aggregate
+
+Drawing from the AGENTS.md instructions that were loaded into this session context (the authoritative policy document for this workspace):
+
+**50 Desktop cap (per root session):**
+- The AGENTS.md §6 states: "Desktop host slots remain capped by `agents.max_concurrent_threads_per_session` (50) per root session."
+- This is a hard per-session Desktop concurrency ceiling. A parent dialogue is noted to sustain 20 agents as a normal operating target within that 50.
+- The 50 cap is a transport-layer constraint from the Desktop runtime, not a behavioral policy preference.
+
+**80 aggregate (cross-plane combined target):**
+- AGENTS.md §6: "LOOP's normal cross-plane combined effective target is 80."
+- "The preferred mixed load is execution=60 and review=20; these are borrowable reservations, not hard partitions."
+- The 80 is a *target*, not a hard cap. It spans Desktop-native and headless `codex exec` workers aggregated together, as observable on the 8765 observer.
+- "If one pool has no ready work, the other may use all 80 slots."
+
+**Key semantic distinctions confirmed:**
+
+| Dimension | Value | Nature |
+|---|---|---|
+| Desktop per-session cap | 50 | Hard runtime limit (`max_concurrent_threads_per_session`) |
+| Normal parent-dialogue target | 20 | Behavioral target |
+| Cross-plane aggregate LOOP target | 80 | Sustained effective-concurrency target |
+| Execution reservation | 60 | Borrowable, not partitioned |
+| Review reservation | 20 | Borrowable, not partitioned |
+
+**Refill semantics:**
+- Completed/failed/closed slots must be refilled immediately while independent work remains — this is a *sustained* concurrency requirement, not just a first-wave target.
+- A first wave below 10 is only acceptable for trivially serial or unsafe-to-parallelize tasks.
+- "Never synthesize filler packets to satisfy a number" — the 20/80 targets must be met with real bounded work, not fabricated padding.
+
+**What counts as effective concurrency:**
+- Only a headless exec registered in `exec_roster.json` and stably observed as `running` counts toward refill debt.
+- `starting`, spawn intent, deny messages, stale rows, and Popen success alone do **not** reduce the 20/80 deficit.
+- Denied or merely-intended native births do not clear refill debt either.
+
+**Live API truth gap:**
+- The live multi-agent tools expose spawn, close, resume, wait, and send-input operations, but there is no live API in this session to query current active agent count, observe the 8765 plane aggregate, or inspect the `exec_roster.json`. Actual runtime concurrency state is not introspectable via the available tool set in this leaf context.
+
+---
+
+### Conclusion
+
+The 50/80 semantics are well-defined in policy: 50 is a hard Desktop per-session cap enforced by the runtime; 80 is a LOOP cross-plane sustained effective-concurrency *target* (execution 60 + review 20, borrowable). The live API tools confirm the spawn/lifecycle surface is present and functional in this session. No discrepancy between the documented semantics and the observable API surface was found. The primary gap is that live aggregate concurrency observability (8765 plane, exec-roster count) is not available through the leaf agent's tool catalog — verification of *actual* sustained count against the 20/80 target requires the 8765 observer or harness scripts, neither of which is accessible from this read-only leaf.

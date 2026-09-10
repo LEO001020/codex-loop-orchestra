@@ -1,0 +1,141 @@
+I now have a complete picture of the capacity logic. Let me perform the formal analysis.
+
+---
+
+## 复算结论：K3借位容量与 parent deficit 逻辑分析
+
+### 配置基线（`refill_policy.toml`）
+
+| 参数 | 值 |
+|---|---|
+| `target_total` | 80 |
+| `v4_target` | 60 |
+| `k3_target` | 20 |
+| `v4_low_water` | 45 |
+| `k3_low_water` | 15 |
+| `dialogue_target` | 20 |
+| `reservations_borrowable` | true |
+
+---
+
+### 问题一：K3 running=20、V4 有空闲、父级仍缺槽时能否再 spawn？
+
+**答：不能。**
+
+`recompute()` 的关键路径如下：
+
+```
+running = {v4: x, k3: 20}
+running_total = x + 20
+
+# borrowable=True，但两个池都有 pending，故 active_pools 可能 == 2
+# → targets 保持各自首选值 {v4:60, k3:20}
+
+required["k3"] = not queue_empty and not finalized
+                 and pending["k3"] > 0
+                 and (running["k3"] < targets["k3"]  # 20 < 20 → False
+                      or parent_demand["k3"] > 0)    # 视 parent 计算
+```
+
+第一个条件 `running["k3"] < targets["k3"]` = `20 < 20` = **False**。
+
+`parent_demand["k3"]` 的计算路径：
+
+```python
+parent_debt = min(sum(queued_pools.values()),
+                  max(0, parent_target - parent_running))
+split = self._split_deficit(parent_debt, queued_pools)
+parent_demand[pool] += split[pool]
+```
+
+若父级 running=18，target=20，pending(k3)=2，则 parent_debt=2，parent_demand["k3"]=2。
+
+此时 `required["k3"]` = `True`（因 `parent_demand["k3"] > 0`）。
+
+进入 `raw_debt` 计算：
+
+```python
+raw_debt["k3"] = max(
+    min(pending["k3"], max(0, targets["k3"] - running["k3"])),  # min(x, max(0,0)) = 0
+    parent_demand["k3"]                                          # = 2
+) = 2
+```
+
+然后：
+
+```python
+raw_spawn["k3"] = max(0, raw_debt["k3"] - initializing["k3"]) = 2 (假设initializing=0)
+capacity = max(0, target_total - running_total - initializing_total)
+         = max(0, 80 - (x + 20) - 0)
+         = 60 - x  (若 V4 也有空闲，则 > 0)
+deficit_total = min(sum(raw_spawn.values()), capacity) = min(2+raw_spawn["v4"], 60-x)
+```
+
+**结论**：当 K3 running=20 但 **parent_demand["k3"] > 0** 时，`required["k3"]` 变为 True，raw_debt 来自 parent_demand 而非 `targets-running`。只要全局容量 `capacity > 0`（V4 有空闲），deficit 就会非零，消费者会尝试 spawn。
+
+但 `select_tasks()` 中有一个关键守卫：
+
+```python
+if str(parent_id) not in parent_remaining:
+    continue  # 父级 spawnable 为零的包被跳过
+```
+
+`parent_remaining` 来自 `state_parents[parent_id]["spawnable"]`，而 spawnable 的计算在 `parent_states` 块里：
+
+```python
+parent_spawn_total = min(
+    parent_debt,
+    max(0, parent_target - parent_running - parent_initializing),
+    capacity,       # ← 全局 capacity，此时 = 60-x > 0
+)
+parent_spawn["k3"] = _split_deficit(parent_spawn_total, queued_pools)["k3"]
+```
+
+所以 **如果 V4 有空闲（capacity>0），parent spawnable 为正**，`select_tasks` 会选出对应包，`role_for_entry` 返回 `verifier`/`plan_expander`（K3 角色），`DispatcherV2.dispatch` 会对 K3 池包做 `k3_available()` 检查（backoff），通过后 spawn。
+
+**验证：spawn 可以发生**，守卫路径正确——通过 parent_demand 借用全局空闲 V4 容量为 K3 parent 补位，是设计意图中明文说明的 "K3 parent 缺槽可借 V4 空闲家族容量" 场景。
+
+---
+
+### 问题二：能否越过 global 80？
+
+**答：不能越过。**
+
+`capacity` 的计算：
+
+```python
+capacity = max(0, target_total - running_total - initializing_total)
+         = max(0, 80 - running_total - initializing_total)
+```
+
+`deficit_total = min(sum(raw_spawn.values()), capacity)`
+
+这是一个硬上界：deficit_total ≤ capacity ≤ 80 - running_total - initializing_total。
+
+每次消费者实际 spawn N 个包，需要在 roster 观测到 running 后才从 capacity 中减去（roster 读取在下次 `recompute()` 调用），且 `initializing` 也计入分母，所以初始化中的 born-but-not-running 也消耗容量。
+
+以下两点可能导致短暂超 80 的竞争窗口：
+
+1. **并发消费者**：`refill_consumer_v2.py` 用 `.consumer.lock` 序列化整个事务（sync → recompute → wave → step → sync → recompute），不存在同一根的并发消费者竞争。
+2. **parent_manifest_importer 触发额外 spawn**：importer 只调用 `schedule_run`，是协调同一个 actuator，不新增独立消费者。
+3. **跨平面 observer 失效时**：若 8765 observer 超时（>5s）或为 `foreign_root`，`running` 会回退到 native_roster 本地计数，可能低估已运行 agent 数，从而使 capacity 被高估。但这是 observer 降级场景，不是逻辑错误。
+
+**结论**：正常路径下有且只有 `target_total=80` 这一个上界守卫，逻辑封闭，不存在可以越过 80 的代码路径。唯一的潜在超界是 observer 失活导致 running 低估，这是已知的降级行为，非容量逻辑错误。
+
+---
+
+### 关键路径摘要
+
+```
+K3 running=20, V4 idle, parent deficit>0:
+
+1. required["k3"] = True (parent_demand["k3"] > 0)
+2. raw_debt["k3"] = parent_demand["k3"]  (targets-running项为0)
+3. raw_spawn["k3"] = raw_debt["k3"] - initializing["k3"]
+4. capacity = max(0, 80 - running_total - initializing_total) > 0
+5. deficit_total = min(sum(raw_spawn), capacity)  ≤ capacity ≤ 80-running-initializing
+6. select_tasks() 选 K3 parent 包，通过 parent_remaining 守卫
+7. spawn 发生，model=K3，不会越过 80
+```
+
+**不存在缺陷**：parent deficit 借位逻辑正确，全局 80 上界通过 `capacity` 硬截断保证，不会被 parent_demand 路径绕过。

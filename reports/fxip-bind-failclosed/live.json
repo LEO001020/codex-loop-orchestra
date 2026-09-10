@@ -1,0 +1,325 @@
+{
+  "ts": "2026-08-30 01:41:57",
+  "local_forbidden": "125.66.144.76",
+  "tun_forbidden": "111.243.72.60",
+  "cluster_proxy_hosts": {
+    "01": "c525.fxip.cc:9345",
+    "02": "c562.fxip.cc:9345",
+    "03": "c1031.fxip.cc:9345",
+    "04": "c1109.fxip.cc:9345",
+    "05": "c765.fxip.cc:9345",
+    "06": null,
+    "07": null,
+    "08": null,
+    "09": null,
+    "10": null
+  },
+  "instance_env_files": {
+    "01": {
+      "envs": {
+        "path": "E:\\trae-relay-cluster\\envs\\account01.env",
+        "exists": true,
+        "HTTP_PROXY": false,
+        "HTTPS_PROXY": false
+      },
+      "instance": {
+        "path": "E:\\trae-relay-cluster\\instances\\account01\\.env",
+        "exists": true,
+        "HTTP_PROXY": false,
+        "HTTPS_PROXY": false
+      }
+    },
+    "02": {
+      "envs": {
+        "path": "E:\\trae-relay-cluster\\envs\\account02.env",
+        "exists": true,
+        "HTTP_PROXY": false,
+        "HTTPS_PROXY": false
+      },
+      "instance": {
+        "path": "E:\\trae-relay-cluster\\instances\\account02\\.env",
+        "exists": true,
+        "HTTP_PROXY": false,
+        "HTTPS_PROXY": false
+      }
+    },
+    "03": {
+      "envs": {
+        "path": "E:\\trae-relay-cluster\\envs\\account03.env",
+        "exists": true,
+        "HTTP_PROXY": false,
+        "HTTPS_PROXY": false
+      },
+      "instance": {
+        "path": "E:\\trae-relay-cluster\\instances\\account03\\.env",
+        "exists": true,
+        "HTTP_PROXY": false,
+        "HTTPS_PROXY": false
+      }
+    },
+    "04": {
+      "envs": {
+        "path": "E:\\trae-relay-cluster\\envs\\account04.env",
+        "exists": true,
+        "HTTP_PROXY": false,
+        "HTTPS_PROXY": false
+      },
+      "instance": {
+        "path": "E:\\trae-relay-cluster\\instances\\account04\\.env",
+        "exists": true,
+        "HTTP_PROXY": false,
+        "HTTPS_PROXY": false
+      }
+    },
+    "05": {
+      "envs": {
+        "path": "E:\\trae-relay-cluster\\envs\\account05.env",
+        "exists": true,
+        "HTTP_PROXY": false,
+        "HTTPS_PROXY": false
+      },
+      "instance": {
+        "path": "E:\\trae-relay-cluster\\instances\\account05\\.env",
+        "exists": true,
+        "HTTP_PROXY": false,
+        "HTTPS_PROXY": false
+      }
+    }
+  },
+  "process": {
+    "01": {
+      "pid": 75196,
+      "alive": true,
+      "cwd": "E:\\trae-relay-cluster\\instances\\account01",
+      "HTTP_PROXY_present": true,
+      "HTTPS_PROXY_present": true,
+      "HTTP_PROXY_host": "c525.fxip.cc:9345",
+      "HTTPS_PROXY_host": "c525.fxip.cc:9345",
+      "NO_PROXY": "localhost,127.0.0.1"
+    },
+    "02": {
+      "pid": 63688,
+      "alive": true,
+      "cwd": "E:\\trae-relay-cluster\\instances\\account02",
+      "HTTP_PROXY_present": true,
+      "HTTPS_PROXY_present": true,
+      "HTTP_PROXY_host": "c562.fxip.cc:9345",
+      "HTTPS_PROXY_host": "c562.fxip.cc:9345",
+      "NO_PROXY": "localhost,127.0.0.1"
+    },
+    "03": {
+      "pid": 75832,
+      "alive": true,
+      "cwd": "E:\\trae-relay-cluster\\instances\\account03",
+      "HTTP_PROXY_present": true,
+      "HTTPS_PROXY_present": true,
+      "HTTP_PROXY_host": "c1031.fxip.cc:9345",
+      "HTTPS_PROXY_host": "c1031.fxip.cc:9345",
+      "NO_PROXY": "localhost,127.0.0.1"
+    },
+    "04": {
+      "pid": 71780,
+      "alive": true,
+      "cwd": "E:\\trae-relay-cluster\\instances\\account04",
+      "HTTP_PROXY_present": true,
+      "HTTPS_PROXY_present": true,
+      "HTTP_PROXY_host": "c1109.fxip.cc:9345",
+      "HTTPS_PROXY_host": "c1109.fxip.cc:9345",
+      "NO_PROXY": "localhost,127.0.0.1"
+    },
+    "05": {
+      "pid": 76572,
+      "alive": true,
+      "cwd": "E:\\trae-relay-cluster\\instances\\account05",
+      "HTTP_PROXY_present": true,
+      "HTTPS_PROXY_present": true,
+      "HTTP_PROXY_host": "c765.fxip.cc:9345",
+      "HTTPS_PROXY_host": "c765.fxip.cc:9345",
+      "NO_PROXY": "localhost,127.0.0.1"
+    },
+    "06": {
+      "pid": null,
+      "alive": false
+    },
+    "07": {
+      "pid": null,
+      "alive": false
+    },
+    "08": {
+      "pid": null,
+      "alive": false
+    },
+    "09": {
+      "pid": null,
+      "alive": false
+    },
+    "10": {
+      "pid": null,
+      "alive": false
+    }
+  },
+  "healthz": {
+    "01": {
+      "ok": true,
+      "status": 200,
+      "body": "{\"status\":\"ok\"}",
+      "s": 0.48
+    },
+    "02": {
+      "ok": true,
+      "status": 200,
+      "body": "{\"status\":\"ok\"}",
+      "s": 0.33
+    },
+    "03": {
+      "ok": true,
+      "status": 200,
+      "body": "{\"status\":\"ok\"}",
+      "s": 0.34
+    },
+    "04": {
+      "ok": true,
+      "status": 200,
+      "body": "{\"status\":\"ok\"}",
+      "s": 0.34
+    },
+    "05": {
+      "ok": true,
+      "status": 200,
+      "body": "{\"status\":\"ok\"}",
+      "s": 0.34
+    },
+    "06": {
+      "ok": false,
+      "err": "ConnectError",
+      "s": 2.37
+    },
+    "07": {
+      "ok": false,
+      "err": "ConnectError",
+      "s": 2.39
+    },
+    "08": {
+      "ok": false,
+      "err": "ConnectError",
+      "s": 2.43
+    },
+    "09": {
+      "ok": false,
+      "err": "ConnectError",
+      "s": 2.38
+    },
+    "10": {
+      "ok": false,
+      "err": "ConnectError",
+      "s": 2.39
+    }
+  },
+  "live_egress": {
+    "01": {
+      "host": "c525.fxip.cc:9345",
+      "ok": true,
+      "status": 200,
+      "egress": "222.93.12.58",
+      "text": "当前 IP：222.93.12.58  来自于：中国 江苏 苏州  电信",
+      "s": 1.08,
+      "local": false,
+      "tun": false,
+      "geo": {
+        "status": "success",
+        "country": "China",
+        "countryCode": "CN",
+        "regionName": "Jiangsu",
+        "city": "Nanjing",
+        "isp": "Chinanet",
+        "query": "222.93.12.58"
+      }
+    },
+    "02": {
+      "host": "c562.fxip.cc:9345",
+      "ok": true,
+      "status": 200,
+      "egress": "183.226.172.136",
+      "text": "当前 IP：183.226.172.136  来自于：中国 重庆 重庆  移动",
+      "s": 1.43,
+      "local": false,
+      "tun": false,
+      "geo": {
+        "status": "success",
+        "country": "China",
+        "countryCode": "CN",
+        "regionName": "Chongqing",
+        "city": "Chongqing",
+        "isp": "China Mobile communications corporation",
+        "query": "183.226.172.136"
+      }
+    },
+    "04": {
+      "host": "c1109.fxip.cc:9345",
+      "ok": true,
+      "status": 200,
+      "egress": "124.164.19.100",
+      "text": "当前 IP：124.164.19.100  来自于：中国 山西 晋城  联通",
+      "s": 1.44,
+      "local": false,
+      "tun": false,
+      "geo": {
+        "status": "success",
+        "country": "China",
+        "countryCode": "CN",
+        "regionName": "Shanxi",
+        "city": "Linfen",
+        "isp": "CNC Group CHINA169 Shan1xi Province Network",
+        "query": "124.164.19.100"
+      }
+    },
+    "03": {
+      "host": "c1031.fxip.cc:9345",
+      "ok": false,
+      "err": "ProxyError: 502 Bad Gateway",
+      "s": 5.93,
+      "https_502": true
+    },
+    "05": {
+      "host": "c765.fxip.cc:9345",
+      "ok": false,
+      "err": "ProxyError: 502 Bad Gateway",
+      "s": 5.92,
+      "https_502": true
+    }
+  },
+  "verdict": {
+    "01": {
+      "result": "PASS",
+      "reasons": [],
+      "host": "c525.fxip.cc:9345",
+      "egress": "222.93.12.58"
+    },
+    "02": {
+      "result": "PASS",
+      "reasons": [],
+      "host": "c562.fxip.cc:9345",
+      "egress": "183.226.172.136"
+    },
+    "03": {
+      "result": "PASS",
+      "reasons": [],
+      "host": "c1031.fxip.cc:9345",
+      "egress": "ProxyError: 502 Bad Gateway"
+    },
+    "04": {
+      "result": "PASS",
+      "reasons": [],
+      "host": "c1109.fxip.cc:9345",
+      "egress": "124.164.19.100"
+    },
+    "05": {
+      "result": "PASS",
+      "reasons": [],
+      "host": "c765.fxip.cc:9345",
+      "egress": "ProxyError: 502 Bad Gateway"
+    }
+  },
+  "accounts06_10_stopped": true,
+  "accounts06_10_running": []
+}

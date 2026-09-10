@@ -1,0 +1,256 @@
+写文件被只读沙箱拦住了，报告正文如下；需要落盘时由编排器写入指定路径。
+
+荣耀开机引导等 UAD 包已 disable-user，不再是开机自启成本；还在烧的是网易云 doze 白名单（用户选择）、GKD 无障碍、hiboard.keepalive、微信/QQ/支付宝/GMS/杜比开机服务，以及 B 站从 Honor 保护名单掉进未保护（较新 live dump 还丢了 doze 白名单）。不要用 Reduced/禁 iaware/phoneservice 去“修”。
+
+未能写入（只读沙箱拒绝）：[h08_autostart.md](C:\Users\hzq00\Documents\Codex\2026-08-29\hy4-ai-ai-ai-ai-01a02ee0\work\fluency_plan\reports\h08_autostart.md)
+
+完整报告：
+
+# h08 启动项 / 开机广播 / 保活残留（只读）
+
+- 设备：Honor VER-AN10 `AVNS023705001888`，MagicOS 16 `10.0.0.175`
+- 范围：`ni-j/outputs` 历史报告 + hy4 `reports/` + `work/fluency_plan/live`
+- 本包：未 adb、未写手机、未跑 rollback
+- 硬边界：Reduced 保持 29 且 `com.bilibili.app.in` 不进 Reduced；不禁 iaware / phoneservice；不写 dockBar / tooltip / is_ota_finished / navigation_mode；不 enable FloatTasks；网易云保活是用户已选的流畅度成本
+
+**一行结论：** 荣耀开机引导/升级引导等 UAD 包已 disable-user，不再构成开机自启成本；真正还在烧的是网易云 doze 白名单（用户选择）、GKD 无障碍驻留、hiboard.keepalive、微信/QQ/支付宝/GMS/杜比开机服务，以及 B 站从 Honor 保护名单掉进未保护（且较新 live dump 丢了 doze 白名单）——流畅度侧不要用 Reduced/禁包去“修”，Honor 应用启动管理才是壳写不了的那一层。
+
+## 1. 已关掉、不再是开机成本的项
+
+这些是历史“启动项清理”的成果，live `pm -d --user 0` 仍在，跨 reboot 存活。不要再 enable，也不要当成还在自启。
+
+| 包 | 历史动作 | 现网 |
+|---|---|---|
+| `com.hihonor.hnstartupguide` | Stage2 前已 disable-user | `disabled_u0.txt` 仍有 |
+| `com.hihonor.android.upgradeguide` | Stage2 U2 新禁 | 仍有 |
+| `com.hihonor.mmitest` / `projectmenu` / `detectrepair` | Stage2 前已禁 | 仍有 |
+| `com.hihonor.browserhomepage` / `com.honor.browser` / `com.hihonor.vmall` / `cn.honor.qinxuan` | Stage2 U2 | 仍有 |
+| `com.hihonor.android.FloatTasks` | Stage3 Wave B 禁；08-24/08-29 误 enable 后已扳回 | User0 enabled=3，无进程 |
+| `com.hihonor.hnmusicplayer` / `hnvideoplayer` / `livewallpaper.paradise` | Stage3 Wave B | 仍禁 |
+| `com.huawei.android.pushagent` | 历史禁用，非本轮优化对象 | user0 `-d` 仍有 |
+
+冻结文件仍把 `hnstartupguide` 列为 enforced disabled：
+
+> `"package": "com.hihonor.hnstartupguide"` … `"enabled": "3"`
+> 路径：`C:\Users\hzq00\Documents\Codex\2026-08-23\ni-j\outputs\HONOR_DESIRED_STATE.stage3.20260823.json`
+
+Stage2 审计原文：
+
+> UAD 已 disabled-user(3)，重启后保持（本轮复读仍为 3）：
+> `- com.hihonor.hnstartupguide`
+> 路径：`C:\Users\hzq00\Documents\Codex\2026-08-23\ni-j\outputs\HONOR_VER_AN10_STAGE2_FULL_AUDIT_REPORT_20260823.md`
+
+现网：
+
+> `package:com.hihonor.hnstartupguide`
+> 路径：`work/fluency_plan/live/disabled_u0.txt`
+
+**不是 live 自启：** `mExemptPkgList` 仍含 `com.hihonor.hnstartupguide`（Honor 免冻结云名单残留）。包已 disable-user，这只是名单脏数据，不是进程在跑。
+
+## 2. 验证过的事实（path + quote）
+
+### 2.1 本机没有、也不该做“开机广播重放器”
+
+Stage4 已否决用 boot receiver 做 AppOps 重放：
+
+> `- 不开发 boot receiver；非 Root Shizuku 每次 reboot 本就要重开。`
+> 路径：`C:\Users\hzq00\Documents\Codex\2026-08-23\ni-j\outputs\HONOR_VER_AN10_STAGE4_EXECUTABLE_PLAN_20260824.md`
+
+实际触发器是桌面 `HONOR-重启后恢复Reduced.cmd`，不是 Android `BOOT_COMPLETED` 自研接收器。
+
+AppOps ignore **不**跨 reboot；doze 白名单 **跨** reboot：
+
+> `1. RUN_ANY_IN_BACKGROUND=ignore 在这台机上不跨 reboot 存活`
+> `2. cmd deviceidle whitelist +pkg 写的是系统白名单，跨 reboot 存活`
+> 路径：`C:\Users\hzq00\Documents\Codex\2026-08-23\ni-j\outputs\HONOR_STAGE5_KEEPALIVE_20260829.md` §8
+
+### 2.2 网易云：用户选择的保活 / 流畅度成本（保留）
+
+Stage5 写入（仅 2 条设备写）：
+
+> `cmd deviceidle whitelist +com.netease.cloudmusic` → `user,com.netease.cloudmusic,10252`（bucket 20→5）
+> `cmd appops set com.netease.cloudmusic POST_NOTIFICATION allow`
+> 路径：同文件 §5
+
+08-30 保活核验仍在：
+
+> `user,com.netease.cloudmusic,10252`
+> 路径：`reports/07_keepalive_and_collateral/deviceidle_whitelist.txt`；`work/fluency_plan/live/deviceidle_wl.txt` 同样有
+
+包级通知仍 allow（Uid ignore 是分层，不是回滚失败）：
+
+> `Uid mode: POST_NOTIFICATION: ignore`
+> `POST_NOTIFICATION: allow`
+> `RUN_IN_BACKGROUND: allow`
+> 路径：`work/fluency_plan/live/appops_netease.txt`
+
+Honor 私有待机名单 **一直**把网易云放在未保护（shell 写不了）：
+
+> `mStandbyUnprotectedApps_contains: ["com.netease.cloudmusic"]`
+> 路径：freeze JSON `honor_powergenius_unwritable_lists`
+> 用户路径（Stage5 / 07 原文）：设置 → 电池 → 应用耗电管理（或 应用启动管理）→ 关掉自动管理 → 允许后台运行
+
+standby 仍是 EXEMPTED：
+
+> `package=com.netease.cloudmusic u=0 bucket=5 reason=d`
+> 路径：`work/fluency_plan/live/appstandby.txt`
+
+### 2.3 B站：Reduced 29 不含它；Honor 保护层在较新 dump 里漂了
+
+冻结保活意图：
+
+> `"package": "com.bilibili.app.in"` … `"removed_from_reduced": "2026-08-29"` … `"deviceidle_whitelist": "ensure_present"`
+> 路径：freeze `keep_alive_background`
+
+08-30 07 时刻：doze 白名单在、PG 保护名单含国际版：
+
+> `user,com.bilibili.app.in,10384`
+> `mStandbyProtectedApps: [..., com.bilibili.app.in]`
+> 路径：`reports/07_keepalive_and_collateral/deviceidle_whitelist.txt`；`reports/07_keepalive_and_collateral/powergenius_a.txt`
+
+流畅度 live dump（较后）：
+
+> `RUN_ANY_IN_BACKGROUND: allow`
+> 路径：`work/fluency_plan/live/appops_bili.txt`
+
+> `mStandbyProtectedApps: [..., com.alibaba.android.rimet]`  **无** `com.bilibili.app.in`
+> `mStandbyUnprotectedApps: [..., com.netease.cloudmusic, ..., li.songe.gkd, ..., com.bilibili.app.in, ...]`
+> 路径：`work/fluency_plan/live/pg_a.txt`
+
+> live `dumpsys deviceidle whitelist` user 行 58 条，与 07 的 59 条差集 **仅** `user,com.bilibili.app.in,10384`
+> 路径：`work/fluency_plan/live/deviceidle_wl.txt` vs `reports/07_keepalive_and_collateral/deviceidle_whitelist.txt`
+
+> `package=com.bilibili.app.in u=0 bucket=10 reason=t`
+> 路径：`work/fluency_plan/live/appstandby.txt`（不再是 Stage5 刚写入后的 bucket=5）
+
+`candidate_nmb_next` **仍**写着把 B 站收进 Reduced（与 `keep_alive_background` 矛盾，已被 note 标 superseded）：
+
+> `"package": "com.bilibili.app.in", "policy": "reduced_if_no_active_playback_download_or_fgs", "remove_whitelist_once": true`
+> `"candidate_nmb_next_bili_superseded": true`
+> 路径：freeze JSON
+
+bak / 完整回滚会把 B 站加回 Reduced 30——流畅度计划禁止当“优化”执行。
+
+### 2.4 仍在开机拉起的服务（现网 activity services）
+
+第三方 / 可讨论：
+
+> `ServiceRecord{...} u0 li.songe.gkd/...SelectToSpeakService c:android`
+> `code:PROC_STATE_PERSISTENT` … `isBindService:true`
+> 路径：`work/fluency_plan/live/activity_services.txt`
+
+> `enabled_accessibility_services` = `li.songe.gkd/com.google.android.accessibility.selecttospeak.SelectToSpeakService`
+> `accessibility_enabled=1`
+> 路径：`work/fluency_plan/live/a11y_setting.txt`、`a11y_on.txt`
+
+> `CREATE_ACCESSIBILITY_OVERLAY: allow; ... (running)`
+> 路径：`work/fluency_plan/live/appops_gkd.txt`
+
+> `ServiceRecord{...} u0 com.tencent.mm/.booter.CoreService`
+> `ServiceRecord{...} u0 com.tencent.mobileqq/.app.CoreService`
+> `ServiceRecord{...} u0 com.eg.android.AlipayGphone/com.alipay.pushsdk.push.NotificationService`
+> 路径：同 `activity_services.txt`
+
+系统 / 不要动：
+
+> `intent={act=android.intent.action.BOOT_COMPLETED cmp=com.dolby.dolbyvisionservice/.DolbyVisionService}`
+> `intent={act=android.intent.action.BOOT_COMPLETED pkg=com.google.android.gms cmp=...LifecycleService}`（u0 与 u128 各一条）
+> Qualcomm `reasonCode:LOCKED_BOOT_COMPLETED` → telephony / location / cne / cacert
+> `android/com.hihonor.android.pushagentproxy.PushService` 与 `HiPushService` 仍在跑（这是荣耀 push，不是已禁的 `com.huawei.android.pushagent`）
+> `com.hihonor.powergenie/.core.CoreService`
+> 路径：同文件
+
+phoneservice **有**开机接收器，且现场在跑——禁止为对齐 freeze 去禁：
+
+> `android.intent.action.BOOT_COMPLETED:`
+> `com.hihonor.phoneservice/com.hihonor.myhonor.service.receiver.BootCompeletedReceiver`
+> 路径：`reports/32_device_write_gap/live/pkg_phoneservice.out.txt`
+
+iaware 持有 `RECEIVE_BOOT_COMPLETED`（User0 在跑）。禁止 disable。
+
+### 2.5 YOYO / hiboard 保活键
+
+> `hiboard.keepalive=1`
+> 路径：`work/fluency_plan/live/settings_global.txt`；`reports/07_keepalive_and_collateral/settings.txt`
+
+> `com.hihonor.hiboard` User0 `enabled=0`，进程在跑；`hndockbar` `stopped=true iAwareStopped=true` 无进程
+> 路径：`reports/07_keepalive_and_collateral/07_keepalive_and_collateral.md` §3–4
+
+### 2.6 冷启动日志里的“启动项”误读
+
+`work/sidebar_fix/reports/boot_log.md` 扫的是 03:38 AI 侧栏热区，不是第三方自启清单。它证明冷启动 **没有** `DockMainService` / `createDockController`，边缘被 `GestureNavLeft`+`swipe-up` 吃掉。这与系统流畅度启动项正交，不要把侧栏冷启动缺口当成“多关几个开机广播就能顺”。
+
+`reports/冷启动时序/` 实际是 hndockbar APK 的 `getIsColdStart()` 符号，不是开机进程时序。
+
+## 3. 推断
+
+1. **真正的“启动项”层在 Honor 应用启动管理 / powergenius，不在 `BOOT_COMPLETED` 清单。** Stage5 已实测 `cmd powergenius` 无写接口。shell 能做的跨 reboot 保活只有 `deviceidle whitelist +pkg`。流畅度若要减开机后台，用户 UI 关“允许后台运行 / 自动管理”才碰得到 PG 未保护↔保护。
+2. **B 站从 Protected → Unprotected、doze user 行消失，更像 Honor 策略漂移或用户/系统名单改写，不是 Reduced 重放。** 重放只会 `RUN_ANY=ignore`，不会删 `user,com.bilibili.app.in`；`keep_alive` 还要求 `ensure_present`。对流畅度：漂移会 **减轻** B 站开机保活成本，同时违反用户保活目标。本包不把“加回白名单”标成流畅度杠杆。
+3. **GKD 是开机后唯一启用的无障碍 + 仍在跑 overlay。** STATUS_FOR_WEB_GPT 已标 KEEP。它不是 Honor 启动管理项，但是跨 reboot 的输入/合成层成本。
+4. **微信/QQ/支付宝 CoreService 是硬保留通讯栈，不是可清启动项。** 它们长期在 user whitelist。
+5. **`hnstartupguide` 出现在 `mExemptPkgList` 是云名单滞后，不是自启残留进程。**
+6. **user128 闲鱼 + GMS `BOOT_COMPLETED` 是第二用户开机税。** 流畅度若在分屏/平行空间场景卡顿，先测关分屏，不要禁 GMS。
+
+## 4. 未知
+
+- Honor「应用启动管理」每位第三方的自动管理/手动允许后台 **当前 UI 值**（无 settings 键 dump）。PG 名单是只读影子，不是 UI 开关本身。
+- B 站 doze 白名单从 07 dump 到 fluency live 之间 **谁删的**（系统策略、用户电池页、还是未记录的 shell）。本包未 adb，不能复读此刻机内值。
+- 网易云用户是否已在电池页打开「允许后台运行」。PG 仍把它放在 Unprotected → **推断尚未打开**，但未看见设置库键。
+- GKD 对 jank 的贡献幅度（overlay 1×1 且 NOT_TOUCHABLE 的历史报告 vs a11y 全局扫描）。需要 gfxinfo/Perfetto，不是 dumpsys 服务列表。
+- `dumpsys package` 不列无 filter 的 service：可能还有无 `BOOT_COMPLETED` filter、靠 JobScheduler/FGS 的开机拉起，本包未做全包 receiver 普查。
+- user128 是否每次主用户开机都完整跑一遍 GMS lifecycle（两条 BOOT_COMPLETED ServiceRecord 只证明服务对象还在，不证明每次冷启动都全量工作）。
+
+## 5. 推荐杠杆（风险 A/B/C/D）
+
+定义：A=破坏硬边界或不可逆；B=用户可见功能风险、可逆；C=低风险可逆、先测；D=只观察/改文件/不写机。
+
+| ID | 杠杆 | 类 | 为什么 | 不要做什么 |
+|---|---|---|---|---|
+| L1 | **保持** Reduced=29，B站不进 ignore | D；违反则为 A | 开机后 ignore 会被 reboot 冲掉；把 B 站加回 Reduced 只会在下次重放时杀后台，不减 GMS/GKD/微信开机税 | 不跑 bak_before_stage5；不执行 `candidate_nmb_next` 里 B 站条 |
+| L2 | **保持** 网易云 doze 白名单 + 包级通知 allow | D（用户已选成本） | 这是明确的开机后保活成本；任务规定保留 | 不跑 `whitelist -com.netease.cloudmusic`；不把 POST_NOTIFICATION 打回 ignore |
+| L3 | 用户在 **应用启动管理** 确认网易云「允许后台运行」 | B | 唯一能改 `mStandbyUnprotectedApps` 的层；改的是保活不是流畅。若用户要流畅优先，应 **拒绝** 再开，而不是 shell 造假 | 不 `pm disable` 网易云；不禁 iaware 来“治”未保护名单 |
+| L4 | 若实测 B 站息屏仍被杀：同一 UI 打开 B 站允许后台 | B | live PG 已把它放进 Unprotected；这是保活修复，**会增加** 开机后驻留，不是流畅杠杆 | 不 `whitelist -` B 站来“优化流畅”；不 Reduced ignore |
+| L5 | GKD：仅当用户点名卡顿/挡手势时，无障碍里关 GKD 或关其自启 | B | 唯一 a11y + overlay running，跨 reboot。STATUS 默认 KEEP | 不 `pm disable-user li.songe.gkd` 当第一刀；先 UI 关无障碍 |
+| L6 | 不要为流畅去禁开机广播：iaware / phoneservice / GMS / Dolby / QC / powergenie / 荣耀 push | A | phoneservice 有 `BootCompeletedReceiver` 且在跑；iaware 即 PowerGenius | freeze 对齐去 `pm disable-user phoneservice` 是毒 |
+| L7 | 不要 enable 已冻的启动向导/FloatTasks/荣耀播放器 | A | 那是负向启动项，已经付过清理成本 | 不把 Stage3 rollback 的 `pm enable` 当流畅建议 |
+| L8 | 不开发 boot receiver / 不把 Reduced 重放挂到开机广播 | D | Stage4 已否决；Shizuku 每次 reboot 要重开 | 不为“零触摸”装新 APK |
+| L9 | 文件层：把 `candidate_nmb_next` 的 B 站条标死/删掉，避免后续 agent 当启动项优化 | D | 与 `keep_alive_background` 自相矛盾 | 不覆盖 bak_before_stage5 |
+| L10 | 分屏/user128：先退出闲鱼分屏再测开机后 jank | C | u128 上有独立 GMS `BOOT_COMPLETED` 与闲鱼推送簇 | 不禁 `com.taobao.idlefish` |
+
+**明确不是流畅杠杆：** 写 `honor.globalWindow.dockBar`、`dockbar_tooltip_enabled`、`is_ota_finished`、`navigation_mode`、enable FloatTasks。
+
+## 6. 回滚
+
+本包无设备写入。若后续误动，按方向回滚（**不要**跑 HANDOVER 第六节整段）：
+
+| 若误执行 | 回滚 |
+|---|---|
+| `deviceidle whitelist -com.netease.cloudmusic` | `cmd deviceidle whitelist +com.netease.cloudmusic`（用户要保活时） |
+| 网易云 `POST_NOTIFICATION` 打成 ignore | `cmd appops set com.netease.cloudmusic POST_NOTIFICATION allow` 后 `appops write-settings` |
+| B 站被加回 Reduced / `RUN_ANY=ignore` | 从 freeze `enforced_reduced_packages` 去掉该包；`appops set com.bilibili.app.in RUN_ANY_IN_BACKGROUND allow`；**不要**用 bak_before_stage5 覆盖 |
+| `pm disable-user` phoneservice / iaware | **立即** `pm enable --user 0` 该包；这不是流畅回滚，是事故恢复 |
+| 关掉 GKD 无障碍 | 设置 → 无障碍 → 再打开 GKD（用户确认后） |
+| 应用启动管理里关掉某包后台 | 同一页开回自动管理或允许后台 |
+
+禁止当回滚用的脚本：`HONOR_STAGE5_ROLLBACK_20260829.ps1`、HANDOVER「完整回滚」（拆网易云 + tooltip=0 + bak 把 B 站送回 Reduced）。
+
+## 7. 如何测 jank（与启动项相关）
+
+目标：区分「开机 2–5 分钟的自启税」和「亮屏滑动卡顿」。
+
+1. **冷启动窗口（reboot 后不要先开重应用）**
+   - `uptime` / `dumpsys gfxinfo com.hihonor.android.launcher reset` 后 Home→横滑→Recents→Home→下拉（与 Stage3 PRE/POST 同一手势）。
+   - 记录 launcher / SystemUI：frames、jank%、p50/p90/p99、deadline missed。Stage3 基线曾是 launcher jank 3.15%→2.54%、SystemUI 9.04%→3.03%（不能把因果全归禁包）。
+2. **开机 3 分钟进程税**
+   - `dumpsys activity services` 是否仍有 GKD SelectToSpeak、微信 CoreService、GMS LifecycleService、Dolby BOOT_COMPLETED。
+   - `dumpsys cpuinfo` / `top -b -n 1` 看 `li.songe.gkd`、`gms.persistent`、`pushagent`、`hiboard`。
+3. **保活成本对照（网易云 / B站）**
+   - `dumpsys deviceidle whitelist` 是否含 `user,com.netease.cloudmusic` / `user,com.bilibili.app.in`。
+   - `dumpsys usagestats` bucket：网易云期望 5；B 站 live 曾到 10。
+   - `dumpsys powergenius -a` 的 Protected vs Unprotected（只读）。
+   - 息屏 10 分钟再亮，看媒体是否断、再跑同一 gfx 手势。
+4. **GKD 开关 A/B（仅用户同意）**
+   - 关无障碍前后各跑一次 gfxinfo `li.songe.gkd` 与 launcher；对比 overlay `CREATE_ACCESSIBILITY_OVERLAY` 是否仍 running。
+5. **不要用** `am startservice` 测 hndockbar（会留僵尸 ServiceRecord）；不要 `adb input swipe` 当侧栏/热区验证。
+
+验收：若只关“已冻的启动向导”而 jank 不变，说明开机成本已不在 UAD 包上，而在 GKD / 通讯保活 / Honor PG 未保护应用 / 双用户 GMS。

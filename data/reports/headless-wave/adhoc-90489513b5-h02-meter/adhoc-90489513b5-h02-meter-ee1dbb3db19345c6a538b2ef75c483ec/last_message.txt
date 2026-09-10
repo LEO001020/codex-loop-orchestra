@@ -1,0 +1,98 @@
+I now have a complete picture of the event-driven meter refresh architecture. Here is the full audit:
+
+---
+
+## Audit: Event-Driven Meter Refresh Gap — Long Desktop and Headless Sessions
+
+### Summary
+
+The meter refresh pipeline is event-driven with a ≥0s debounce (policy-configured to 60 s) and a STALE threshold at 7200 s. For typical sessions the design is correct. The audit identifies **two latent gaps** and **one structural risk** relevant specifically to long-running Desktop and headless sessions, plus confirms the bounded scan cost and fail-open properties.
+
+---
+
+### Trigger Chain (as implemented)
+
+```
+SubagentStop / Stop / SessionStart
+    └─▶ hooks/subagent_lifecycle.py :: handle()
+            └─▶ refresh_meter()  [fail-open, per event]
+                    └─▶ metering/model_token_share_bridge.py :: refresh()
+                            ├─ cross-process lock (.meter_bridge.lock, 60 s timeout)
+                            ├─ debounce: skip if age < refresh_debounce_s (60 s)
+                            ├─ legacy collect() with since_mtime=effective_start (7d window)
+                            ├─ _append_v2() → token_ledger.ndjsonl
+                            └─ MeterV2.refresh(force=True) → model_token_share_v2.json
+
+Statemachine step / csv_reconcile / terminal packet
+    └─▶ harness/orchestration_epilogue.py :: run_epilogue()
+            └─▶ refresh_meter(root, sessions, force=False)  [same bridge, debounced]
+
+MeterV2.refresh() (internal):
+    └─ lock (threading.Lock only — no cross-process lock here)
+    └─ debounce check
+    └─ compute_windows() from ledger rows
+    └─ HysteresisController.sample()
+    └─ atomic write to model_token_share_v2.json
+```
+
+The governor (`root_turn_governor.py :: meter_status()`) reads `model_token_share_v2.json` at every PreToolUse call. It marks the report STALE if `age > stale_after_s` (7200 s) and denies non-planning Sol tools when STALE.
+
+---
+
+### Gap 1 — Long Desktop sessions: meter not refreshed between terminal subagent events
+
+**Location:** `hooks/subagent_lifecycle.py`, `handle()`
+
+**Code:** `refresh_meter()` is called only for `SessionStart`, `SubagentStop`, and `Stop` events. It is NOT called for `SubagentStart`, `PreToolUse`, or any intermediate lifecycle event.
+
+**Gap:** In a long Desktop session where many subagents run to completion, `refresh_meter()` is called at `SubagentStop` for each, and the 60 s debounce prevents redundant scans during burst completions. That design is correct. However, if a session runs **no subagents at all for more than 7200 s** (the `stale_after_s` threshold) — e.g. a long Sol planning turn without spawning — no terminal lifecycle edge fires, so the meter report ages past `stale_after_s` and the governor starts denying Sol tool calls as if the report were absent. This is the intended fail-closed behavior for a genuinely stale meter, but for a normal long planning turn it causes a false denial.
+
+**The governor behavior is by design (§2.5) and intentional fail-closed.** The actual gap is: no periodic heartbeat path exists that would refresh the meter report while the Sol root is actively planning. The only intended safety valve is `force=True` via CLI or the planning lease's explicit `renew-lease` command — neither of which is automatic.
+
+**Bounded-scan safety:** The `effective_start` window in the bridge is max(f2_start, now − 7 d), which bounds the `since_mtime` glob scan to ≤7 days of rollout files regardless of session length. This is correct.
+
+---
+
+### Gap 2 — Headless sessions: no lifecycle hook fires for `codex exec` workers
+
+**Location:** `hooks/subagent_lifecycle.py` vs. `harness/lifecycle_supervisor.py` / `harness/headless_wave.py`
+
+**Code:** The `handle()` function in `subagent_lifecycle.py` is registered as a Desktop-native Codex hook. The `codex exec` (headless) plane has a separate `lifecycle_supervisor.py` that records terminal events in `exec_roster.json` and emits `exec_failed`/`dispatched` events, but its terminal path routes through `orchestration_epilogue.run_epilogue()` which calls `refresh_meter(root, sessions, force=False)` — this does reach the bridge.
+
+**The epilogue path is correct.** However: the epilogue is launched by `refill_consumer_v2.schedule_run()` or `terminal_packet_epilogue.run()`. If the epilogue lock (`.epilogue.lock`) is held for an extended period — e.g. a large batch where the StateMachine step takes many seconds — subsequent completions queue behind the lock and their meter refresh calls are serialized. Since the bridge has its own `.meter_bridge.lock` with a 60 s timeout, and the epilogue serializes through `.epilogue.lock`, a burst of completions in a large headless wave may cause multiple epilogue instances to queue. Each will call `refresh_meter(force=False)`, which will then be debounced (60 s) for all but the first. This is intended — the debounce prevents multiplied full-scan cost.
+
+**Risk:** If the epilogue lock (`data/orchestration/.epilogue.lock`) is not released promptly (e.g. StateMachine step hangs), terminal lifecycle events for headless workers do not trigger a meter refresh until the lock clears. The governor would then read a report from before the wave started, potentially under-counting accumulated Sol tokens from the planning phase of the current wave. The governor's fail-closed stance on a STALE report would eventually trigger (after 7200 s), but the window between the last refresh and that threshold is a blind spot.
+
+---
+
+### Gap 3 — Structural: debounce and stale threshold share no proportionality guarantee
+
+**Location:** `config/orchestration_policy_v2.toml` + `metering/model_token_share_bridge.py`
+
+**Current values:** `refresh_debounce_s = 60`, `stale_after_s = 7200`. The ratio is 120:1, which is wide but safe today. The design comment in the policy (`stale_after_s = 7200 # report older than 2x cadence`) implies the intent was `stale_after_s ≈ 2 × typical_refresh_cadence`. With event-driven triggers (not periodic), `typical_refresh_cadence` is not a fixed interval but depends on session activity. For a completely idle session after `SubagentStop`, no trigger fires — so `stale_after_s` is effectively the only watchdog. This is by design (STALE = fail-closed), but there is no policy assertion that `stale_after_s > debounce_s`. A misconfiguration where `stale_after_s ≤ refresh_debounce_s` would cause every refresh call to immediately produce a STALE report, permanently denying Sol non-planning tools. No such guard exists in code.
+
+---
+
+### Confirmed correct properties
+
+| Property | Status |
+|---|---|
+| Debounce is policy-configured (`refresh_debounce_s`), not hardcoded | ✅ Correct |
+| Bridge is fail-open: exceptions are caught, meter degradation is audited, never faked | ✅ Correct (`try/except BaseException` + `audit("meter_refresh_degraded")`) |
+| Scan cost is bounded: `since_mtime = max(f2_start, now − 7d)` skips files older than 7 days | ✅ Correct |
+| Cross-process lock prevents concurrent full scans | ✅ Correct (`.meter_bridge.lock` + 60 s timeout) |
+| Governor treats STALE as fail-closed, not fail-open | ✅ Correct |
+| `MeterV2.refresh()` uses `threading.Lock` for in-process safety; bridge uses file lock for cross-process safety | ✅ Correct, layers are distinct |
+| ipybox is not in this refresh path | ✅ Excluded (ipybox disabled for Desktop; headless workers call `refresh` only via epilogue) |
+| K3 tests: K3 token attribution uses role-based `family_for_row()`, K3 sessions are never in the Sol bucket | ✅ Correct |
+| Hysteresis prevents NORMAL↔HIGH oscillation | ✅ Correct (2-sample enter, 2-sample leave, persisted across processes via `hysteresis.json`) |
+
+---
+
+### Findings summary
+
+**GAP-1** *(medium)* — A Sol root turn lasting >7200 s without spawning any subagent will produce no `SubagentStop` or `Stop` events, so `refresh_meter()` never fires, the report ages past `stale_after_s`, and the governor denies all Sol non-planning gated tools for the remainder of that turn. No automatic periodic refresh exists to prevent this. **Debounce design is correct; the missing piece is a periodic refresh heartbeat for active-but-idle-spawning long sessions.**
+
+**GAP-2** *(low)* — A held `orchestration_epilogue` lock during a large headless wave serializes terminal-event meter refreshes; the governor reads a pre-wave report until the lock clears. The STALE threshold (7200 s) is the fallback watchdog. Risk is bounded but observable in very long waves.
+
+**GAP-3** *(low/structural)* — No policy validation asserts `stale_after_s > refresh_debounce_s`. A misconfiguration with `stale_after_s ≤ 60` would permanently block Sol. Recommend adding a startup assertion in `model_token_share_bridge.refresh()` or `MeterV2.__init__()`.

@@ -1,0 +1,175 @@
+diff --git a/harness/refill_consumer_v2.py b/harness/refill_consumer_v2.py
+new file mode 100644
+index 0000000..3c5e19b
+--- /dev/null
++++ b/harness/refill_consumer_v2.py
+@@ -0,0 +1,169 @@
++#!/usr/bin/env python3
++"""Mechanical actuator for the canonical v2 refill controller.
++
++This module is deliberately not another controller.  It synchronizes demand
++from the packet ledger, asks :class:`RefillControllerV2` for the bounded
++deficit, emits a packet-only manifest, and hands that manifest to the existing
++``headless_wave`` transport.  It never invents work or embeds a free-form
++prompt: every task must resolve to a validated ``data/packets/<id>.json`` and
++is physically dispatched by ``DispatcherV2``.
++"""
++from __future__ import annotations
++
++import argparse
++import json
++import sys
++from pathlib import Path
++from typing import Any, Mapping
++
++try:
++    import headless_wave
++    from dispatch_v2 import validate_packet_id
++    from orchestration_common import (LoopPaths, atomic_write_json, file_lock,
++                                      read_json)
++    from refill_controller_v2 import (K3_ROLES, K3_WORK_STATES,
++                                      RefillControllerV2, pool_for_packet)
++except ImportError:  # pragma: no cover - direct execution
++    sys.path.insert(0, str(Path(__file__).resolve().parent))
++    import headless_wave
++    from dispatch_v2 import validate_packet_id
++    from orchestration_common import (LoopPaths, atomic_write_json, file_lock,
++                                      read_json)
++    from refill_controller_v2 import (K3_ROLES, K3_WORK_STATES,
++                                      RefillControllerV2, pool_for_packet)
++
++
++K3_ROLE_BY_STATE = {
++    "EXPAND_K3": "plan_expander",
++    "L2_VERIFY": "verifier",
++    "L2_VERIFY_PENDING": "verifier",
++    "L2_RANK": "verifier",
++}
++
++
++class RefillConsumerError(RuntimeError):
++    pass
++
++
++def role_for_entry(entry: Mapping[str, Any]) -> str:
++    state = str(entry.get("state") or "")
++    if state in K3_ROLE_BY_STATE:
++        return K3_ROLE_BY_STATE[state]
++    role = str(entry.get("role") or "")
++    if role in {"worker", "verifier", "reviewer", "plan_expander"}:
++        return role
++    raise RefillConsumerError(
++        "DISPATCHABLE packet lacks an explicit LOOP role; refusing inherited/default model")
++
++
++def validate_packet(paths: LoopPaths, packet_id: str) -> dict[str, Any]:
++    validate_packet_id(packet_id)
++    packet = read_json(paths.data / "packets" / (packet_id + ".json"), None)
++    if not isinstance(packet, dict) or packet.get("packet_id") != packet_id:
++        raise RefillConsumerError("packet file missing or id mismatch: %s" % packet_id)
++    for key in ("goal", "authorized_paths", "acceptance"):
++        if key not in packet:
++            raise RefillConsumerError("packet %s missing %s" % (packet_id, key))
++    return packet
++
++
++def select_tasks(paths: LoopPaths, state: Mapping[str, Any]) -> list[dict[str, Any]]:
++    """Select real packets up to the controller's per-pool deficit."""
++    ledger = read_json(paths.ledger, {"packets": {}}) or {"packets": {}}
++    deficits = state.get("deficit") if isinstance(state, Mapping) else {}
++    remaining = {pool: max(0, int((deficits or {}).get(pool, 0) or 0))
++                 for pool in ("v4", "k3")}
++    tasks: list[dict[str, Any]] = []
++    for packet_id in sorted((ledger.get("packets") or {}).keys()):
++        entry = ledger["packets"].get(packet_id)
++        if not isinstance(entry, dict):
++            continue
++        state_name = str(entry.get("state") or "")
++        # Dedicated K3 states are demand signals consumed by L2Consumer or
++        # the plan pipeline; dispatching their source packet here would create
++        # a duplicate verifier/expander.  This generic actuator owns only the
++        # mechanically DISPATCHABLE packet lane.
++        if state_name != "DISPATCHABLE":
++            continue
++        if entry.get("release_review"):
++            # Release reviews have a dedicated once-per-wave hard-pinned
++            # dispatcher and must never be consumed as ordinary refill work.
++            continue
++        pool = pool_for_packet(entry)
++        if remaining[pool] <= 0:
++            continue
++        packet = validate_packet(paths, str(packet_id))
++        role = role_for_entry(entry)
++        role_pool = "k3" if role in K3_ROLES else "v4"
++        if role_pool != pool:
++            raise RefillConsumerError(
++                "packet %s pool/role conflict: %s vs %s" %
++                (packet_id, pool, role))
++        tasks.append({
++            "task_id": str(packet_id),
++            "task_name": str(entry.get("task_name") or packet.get("goal")
++                             or packet_id)[:160],
++            "packet_id": str(packet_id),
++            "role": role,
++        })
++        remaining[pool] -= 1
++    return tasks
++
++
++def build_manifest(paths: LoopPaths, state: Mapping[str, Any]) -> Path | None:
++    tasks = select_tasks(paths, state)
++    if not tasks:
++        return None
++    path = paths.refill_dir / "packet_wave.json"
++    atomic_write_json(path, {
++        "schema": "codex-loop-packet-wave/v1",
++        "policy_version": state.get("policy_version"),
++        "deficit_snapshot": state.get("deficit"),
++        "tasks": tasks,
++    })
++    return path
++
++
++def run_once(root: Path, *, dry_run: bool = False,
++             observe_timeout: float = 5.0) -> tuple[int, dict[str, Any]]:
++    paths = LoopPaths.resolve(root)
++    # One actuator transaction per LOOP root.  The controller has its own
++    # short state lock; this separate lock spans selection through stable
++    # roster observation and closes the pre-roster double-birth race.
++    with file_lock(paths.refill_dir / ".consumer.lock"):
++        controller = RefillControllerV2(paths)
++        controller.queue_sync_ledger()
++        before = controller.recompute()
++        manifest = build_manifest(paths, before)
++        if manifest is None:
++            return 0, {"status": "idle", "state": before, "manifest": None}
++        args = argparse.Namespace(
++            manifest=manifest, root=paths.root, timeout=1800.0,
++            observe_timeout=observe_timeout,
++            spawn_interval_ms=controller.policy.spawn_interval_ms(),
++            health_every=8, dry_run=dry_run,
++        )
++        rc = headless_wave.run(args)
++        after = controller.recompute()
++        return rc, {"status": "dry_run" if dry_run else "dispatched",
++                    "manifest": str(manifest), "before": before, "after": after}
++
++
++def main(argv: list[str] | None = None) -> int:
++    ap = argparse.ArgumentParser(description="Actuate real v2 refill packets once")
++    ap.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[1])
++    ap.add_argument("--observe-timeout", type=float, default=5.0)
++    ap.add_argument("--dry-run", action="store_true")
++    args = ap.parse_args(argv)
++    try:
++        rc, result = run_once(args.root, dry_run=args.dry_run,
++                              observe_timeout=args.observe_timeout)
++    except (OSError, ValueError, RefillConsumerError) as exc:
++        print(json.dumps({"status": "failed", "error": str(exc)}, ensure_ascii=False))
++        return 3
++    print(json.dumps(result, ensure_ascii=False))
++    return rc
++
++
++if __name__ == "__main__":
++    raise SystemExit(main())

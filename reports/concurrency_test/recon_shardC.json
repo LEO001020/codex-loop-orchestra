@@ -1,0 +1,17 @@
+{
+  "schema": "codex-loop-readonly-recon/v1",
+  "generated_utc": "2026-08-31T20:35:02Z",
+  "control_root": "E:\\codex-LOOP\\codex-loop-s-f2",
+  "manifest": "concurrency_test_recon_shardC.json",
+  "plane": "headless",
+  "target_active": 4,
+  "tasks": [
+    {
+      "task_id": "shardC",
+      "role": "worker",
+      "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+      "task_name": "harness调度盘点-分片C-wave_refill链路",
+      "prompt": "任务名：harness调度盘点-分片C-wave_refill链路（只读）\nrole=worker, model=spanagent/glm-5.3-flash, reasoning=max, fork_context=false\n严格只读：禁止修改、创建、删除任何文件；禁止运行有副作用的命令。目标目录：E:\\codex-LOOP\\codex-loop-s-f2\\harness\\\n你的分片文件（逐一阅读源码）：headless_wave.py refill_controller.py refill_controller_v2.py refill_consumer_v2.py parent_manifest_importer.py csv_reconcile.py desktop_edge_reconcile.py dual_plane_hash.py short_result_validator.py result_reducer.py verdict_aggregate.py verdict_check.py\n当前 active profile=glm53f：execution_model=spanagent/glm-5.3-flash，review_model 同，reasoning=max。\n产出（直接在回复里给出，不写文件）：\n1) 每个文件一句话职责（基于源码）；\n2) 本分片链路调用关系：谁调用谁（函数级，给 文件:行号）；\n3) worker/verifier/reviewer 角色的派发方式与模型 pin 来源、注入点；\n4) 至少 3 条代码级问题（bug、竞态、硬编码、死代码、与注释不符等），每条给 文件:行号 与一句依据；\n5) 不确定之处明确标注。\n返回格式：第 1 行一行结论，之后结构化清单。"
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+Looking at the LOOP mission rules for STOP conditions and the FAST_PATH_BLOCKED_SCIENTIFIC_INTEGRITY gate.
+
+The mission defines STOP triggers as:
+
+1. Scientific hash mismatch
+2. Previous outcome exposure
+3. RM failure
+4. Unexplained scientific-state drift
+
+The FAST_PATH_BLOCKED_SCIENTIFIC_INTEGRITY gate is specifically tied to **hash mismatch** — it is the sentinel for when the frozen source/evaluator machinery produces a hash that diverges from the expected frozen reference.
+
+**The scenario you're asking about:** an internally unsatisfiable frozen production source gate where hashes *match*.
+
+**Determination:**
+
+If hashes match, FAST_PATH_BLOCKED_SCIENTIFIC_INTEGRITY does **not** trigger. Here's why:
+
+The gate is a hash-integrity check, not a semantic satisfiability check. If the frozen source gate is internally unsatisfiable (e.g., contradictory constraints, vacuously true/false predicates), but the hash of that gate definition matches the frozen reference hash exactly, the integrity check passes by design. The machinery has no mandate to evaluate whether the frozen artifact is *logically satisfiable* — only whether it is *unmodified*.
+
+An unsatisfiable gate that hashes correctly would instead surface as a **scientific-state drift** event (trigger #4) only if the *outputs* of running that gate diverge unexpectedly from prior recorded outcomes. If the gate consistently produces the same unsatisfiable result across runs, and that result was the frozen expected outcome, no drift is detected either.
+
+**Required terminal:** The adapter should proceed to the next gate in the pipeline. The correct terminal is **CONTINUE** (not STOP), because no STOP condition from the enumerated list is satisfied. The unsatisfiable gate is a semantic/logic defect in the frozen artifact, not a scientific integrity violation under the defined rule set.
+
+**Evidence threshold:** To confirm CONTINUE is correct rather than a STOP being masked, the evidence required is:
+
+- Hash comparison result: observed hash == frozen reference hash ✓
+- RM outcome: no RM failure reported ✓
+- Drift check: no unexplained divergence from prior recorded scientific state ✓
+- Previous outcome exposure: none ✓
+
+All four STOP triggers are absent. The internally unsatisfiable gate is a defect to be flagged in the audit trail, but it does not meet the defined threshold for FAST_PATH_BLOCKED_SCIENTIFIC_INTEGRITY.
+
+**Caveat for the orchestrator:** If the mission's smallest-adapter bypass clause applies, it permits bypassing governance/security gates only — it explicitly requires calling the *exact frozen source/evaluator machinery*. An unsatisfiable gate cannot be bypassed under this clause; the machinery must still be called and its (unsatisfiable) result recorded faithfully. The bypass does not extend to scientific integrity gates under any reading of the rule.
+
+**Summary return:**
+
+- Trigger fires? **No**
+- Required terminal: **CONTINUE**
+- Evidence threshold: all four enumerated STOP conditions must be individually checked and found absent; hash match alone is sufficient to clear FAST_PATH_BLOCKED_SCIENTIFIC_INTEGRITY specifically, but the other three conditions must also be cleared before CONTINUE is confirmed

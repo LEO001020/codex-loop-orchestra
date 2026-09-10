@@ -1,0 +1,112 @@
+57行确认。现在我已掌握完整证据，可以输出终态字段完整性复核报告。
+
+---
+
+## 终态字段完整性复核报告
+
+**任务：** `P5-CODEX-FINAL-ALPHA-UNBLOCKING-CLOSURE-V1` terminal block 字段逐项证据来源对照
+
+---
+
+### 一、包身份字段（Package Identity Fields）
+
+| 字段 | 值 | 证据来源 |
+|---|---|---|
+| `MISSION_ID` | `P5-CODEX-FINAL-ALPHA-UNBLOCKING-CLOSURE-V1` | `10_MANIFEST.json` → `mission_id` 字段；`00_READ_ME_FIRST.md` 第1行 |
+| `PACKAGE_SELF_SHA256` | `b0a2bd9ed8019031297d622d599f5df4ef0947037913053feb1adfdc44d48dd0` | 定义为 `SHA-256(11_SHA256SUMS)`；由 `p5-fl18-upload-and-verify-20260814.sh` 中 `EXPECTED_SUMS=` 与 `p5-fl18-rm-register-20260814.sh` 中 `SELF=` 两个独立脚本常量交叉确认 |
+| `MANIFEST_SHA256` | `0697017d00ef119c1f47442a1722b81fc5767f90944f31a5d8ba618a82f76ade` | `11_SHA256SUMS` 第57行（`10_MANIFEST.json`条目）；`p5-fl18-upload-and-verify-20260814.sh` 中 `EXPECTED_MANIFEST=` 常量 |
+| `SUPERSEDES_PACKAGE_SELF_SHA256` | `f1da80801233be0f7f2080f2596c1cb512a0dd377b75cd58e55809c6d09c9e1f` | `10_MANIFEST.json` → `supersedes_package_self_sha256`；FL17最终报告 `P5_CODEX_FL17_FINAL_REMEDIATION_REPORT_V1.md` 中 `PACKAGE_SELF_SHA256` |
+| `PHYSICAL_FILE_COUNT` | 58 | `p5-fl18-upload-and-verify-20260814.sh` 中两次 `find -type f | wc -l -eq 58`（本地+VPS验证各一次）；`p5-fl18-rm-register-20260814.sh` 同上 |
+| `PAYLOAD_FILE_COUNT` | 56 | `10_MANIFEST.json` → `file_count: 56`；`11_SHA256SUMS` 57行 = 56 payload + `10_MANIFEST.json` |
+| `SUMS_ENTRY_COUNT` | 57 | `11_SHA256SUMS` 实际行数（57行）；`p5-fl18-rm-register-20260814.sh` VER4 label 中 "57 SHA256SUMS entries" |
+| `IDENTITY_ALGORITHM` | `sha256(11_SHA256SUMS)` / LF / UTF-8 bytewise order | `10_MANIFEST.json` → `identity_algorithm` 子对象 |
+| `NO_PYC_CACHE` | `true` | `10_MANIFEST.json` → LOC4 locator 文本 "no pyc/\_\_pycache\_\_"；`00_READ_ME_FIRST.md` "no .pyc/\_\_pycache\_\_" |
+
+---
+
+### 二、测试计数字段（Test Count Fields）
+
+| 字段 | 值 | 证据来源 |
+|---|---|---|
+| `SHELL_SYNTAX` | 10/10 | `tests/TEST_COUNTS.json` → `shell_syntax.passed/total`；`00_READ_ME_FIRST.md` "shell syntax: 10/10" |
+| `STATIC_TESTS` | 31/31 | `tests/TEST_COUNTS.json` → `static_tests.passed/total`；`00_READ_ME_FIRST.md` "static tests: 31/31"；Sonnet 绑定终审包身份计数(`fl18-sonnet-attestation-r2`)确认"31/31 static" |
+| `FUNCTIONAL_FIXTURES` | 15/15执行，0跳过 | `tests/TEST_COUNTS.json` → `functional_fixtures.passed/executed/skipped`；`00_READ_ME_FIRST.md` "functional fixtures: 15/15 executed, 0 skipped"；`tests/functional_fixtures.sh` 实体文件 |
+| `TARGETED_SECURITY_REGRESSIONS` | 28/28 | `tests/TEST_COUNTS.json` → `targeted_security_regressions.passed/total`；`00_READ_ME_FIRST.md` "targeted security regressions: 28/28"；Sonnet 绑定终审(`fl18-sonnet-attestation-r2`)确认"28/28 targeted" |
+| `FL17_COUNT_RECONCILIATION` | 19 pass / 16 conditional | `tests/TEST_COUNTS.json` → `fl17_count_reconciliation`；`P5_FL18_BINDING_GATE_V1.json` gate-attestation prompt 中"FL17 16/19条件差异" |
+| `MANIFEST_DOUBLE_REGEN` | byte-identical | `10_MANIFEST.json` → `identity_algorithm` 部分说明；Sonnet 绑定终审 `fl18-sonnet-attestation-r2` 验证 T13/T14/T15 (`T13_MANIFEST_DOUBLE_REGEN` / `T14_SUMS_BINDS_MANIFEST` / `T15_MANIFEST_NONCIRCULAR`) |
+
+---
+
+### 三、Sonnet 绑定终审字段（Binding Gate Fields）
+
+| 字段/门 | I标准 | 证据来源 |
+|---|---|---|
+| 信任顺序（Trust Order）| I1-I3 | `P5_FL18_TRUST_ORDER_SONNET_CORRECTIVE_V1.json` → `fl18-sonnet-trust-order-corrective`；`P5_FL18_BINDING_GATE_SONNET_RETRY_V1.json` → `fl18-sonnet-trust-order-r2`；验证目标：`03/04/05/06` 脚本强制 deprivilege→reboot→live fresh-k3→root独立负面验证先于 owner anchor/TCB |
+| DB/WAL 模型 | I4, I8 | `P5_FL18_BINDING_GATE_SONNET_RETRY_V1.json` → `fl18-sonnet-db-wal-r2`；验证目标：`research-writer` 单写、DB/WAL/SHM 0600、UMask0077、socket 0660、k3 direct 拒绝（T21-T26） |
+| TCB 完整性（exact-set）| I3, I6 | `P5_FL18_BINDING_GATE_SONNET_RETRY_V1.json` → `fl18-sonnet-tcb-r2`；验证目标：wrapper/unit/dropin/Python3.12/stdlib/dylib/APSW 精确集合、pre-reload hash（T16/T17/T18） |
+| Root SSH（AKF）| I1, I2 | `P5_FL18_BINDING_GATE_SONNET_RETRY_V1.json` → `fl18-sonnet-root-ssh-r2`；验证目标：Match-aware AKF、fingerprint allowlist、alias/symlink、absent reverify（T09/T11/T12） |
+| Owner Ceremony | I1, I7 | `P5_FL18_BINDING_GATE_SONNET_RETRY_V1.json` → `fl18-sonnet-ceremony-r2`；验证目标：deterministic C→D→root、late-bound、outcome-blind policy、canonical signature bytes、双执行门（T01-T08） |
+| 包身份计数（Attestation）| F, I6 | `P5_FL18_BINDING_GATE_SONNET_RETRY_V1.json` → `fl18-sonnet-attestation-r2`；验证目标：56 payload/57 sums/58 physical/10/11非循环 hash |
+| 事务测试恢复 | I6, I8 | `P5_FL18_BINDING_GATE_SONNET_RETRY_V1.json` → `fl18-sonnet-transaction-r2`；验证目标：stop→VACUUM v2→backup→install→migrate→pre-reload→start/live + EXIT恢复（T27/T28） |
+| 最终发布裁定（Release Review）| I1-I8, A-F | `P5_FL18_BINDING_GATE_SONNET_RETRY_V1.json` → `fl18-sonnet-release-r2`；输出 PASS 或精确 OPEN blocker |
+
+---
+
+### 四、VPS 上传字段（VPS Upload Fields）
+
+| 字段 | 值 | 证据来源 |
+|---|---|---|
+| `REMOTE_ARTIFACT_PATH` | `/data/k3/p5_artifacts/owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18` | `p5-fl18-upload-and-verify-20260814.sh` → `REMOTE_TARGET` 变量；脚本 stdout `printf 'REMOTE_ARTIFACT_PATH=%s\n'` |
+| `REMOTE_MANIFEST_SHA256` | `0697017d00ef119c1f47442a1722b81fc5767f90944f31a5d8ba618a82f76ade` | 同脚本 stdout `printf 'REMOTE_MANIFEST_SHA256=%s\n'` |
+| `REMOTE_PACKAGE_SELF_SHA256` | `b0a2bd9ed8019031297d622d599f5df4ef0947037913053feb1adfdc44d48dd0` | 同脚本 stdout `printf 'REMOTE_PACKAGE_SELF_SHA256=%s\n'` |
+| `REMOTE_FILE_COUNT` | 58 | 同脚本 post-upload probe stdout `printf 'REMOTE_FILE_COUNT=58\n'` |
+| `REMOTE_SHA256SUMS` | 57/57 PASS | 同脚本 post-upload probe stdout `printf 'REMOTE_SHA256SUMS=57/57 PASS\n'` |
+| VPS 目标不存在门（pre-upload）| — | 脚本两处 `test ! -e '$REMOTE_TARGET'`（本地+远端各检查一次） |
+| 上传类型 | 新建 artifact，非部署/daemon-reload/ceremony | `P5_FL18_RELEASE_SIDECAR4_SONNET_V1.json` → `fl18-sonnet-postupload-boundary`；`P5_FL18_RELEASE_SIDECAR_SONNET_V1.json` → `fl18-sonnet-upload-script-review` |
+
+---
+
+### 五、RM 回读字段（Research Memory Readback Fields）
+
+| 字段 | 值 | 证据来源 |
+|---|---|---|
+| `VER4_EVENT_ID` | `P5-OWNER-ADMIN-CUTOVER-PKG-V1-VER4` | `p5-fl18-rm-register-20260814.sh` → `version_id` JSON 字段；脚本末尾 `researchctl as-of ... grep VER4` 回读确认 |
+| `VER4_EVENT_HASH` | 由 RM `record` stdout 返回（运行时产生）| `p5-fl18-rm-register-20260814.sh` `[REGISTER_VERSION_VER4]` 段 `researchctl record` stdout；`P5_FL18_RELEASE_SIDECAR3_SONNET_V1.json` → `fl18-sonnet-rm-output-fields` 专项复核 RM stdout 字段提取格式 |
+| `LOC4_EVENT_ID` | `P5-OWNER-ADMIN-CUTOVER-PKG-V1-LOC4` | `p5-fl18-rm-register-20260814.sh` → `location_id` JSON 字段；脚本末尾 `researchctl as-of ... grep LOC4` 回读确认 |
+| `LOC4_EVENT_HASH` | 由 RM `record` stdout 返回（运行时产生）| 同上，`[REGISTER_LOCATION_LOC4]` 段 |
+| `EVENT_COUNT` (前后) | 前：继承 VER3/LOC3 后的值（3066+）；后：+2 | `p5-fl18-rm-register-20260814.sh` → `[POST_WRITE_VERIFY]` `researchctl verify` stdout；`P5_FL18_RELEASE_SIDECAR3_SONNET_V1.json` → `fl18-sonnet-rm-output-fields` |
+| `FINAL_PROJECTION_SHA256` | 由 RM `runtime-info` 或 `verify` stdout 返回 | `p5-fl18-rm-register-20260814.sh` `[POST_WRITE_RUNTIME]` `researchctl runtime-info` stdout |
+| `VERIFY` | PASS, chain errors 0, rebuild diff 0, FK violations 0 | `p5-fl18-rm-register-20260814.sh` `[POST_WRITE_VERIFY]` + `[POST_WRITE_REBUILD]`；`p5-fl18-final-readonly-probe-20260814.sh` VPS 只读回读再次执行 `researchctl verify` + `rebuild-check` |
+| `RUNTIME_GATE` | PASS | `p5-fl18-rm-register-20260814.sh` `[POST_WRITE_RUNTIME]` stdout；只读探针脚本 `researchctl runtime-info` |
+| `AUTHORITY` | NONE | `p5-fl18-final-readonly-probe-20260814.sh` `researchctl runtime-info` stdout；`10_MANIFEST.json` → `production_mutations_by_engineering_mission.c_registered/d_registered/root_registered = false` |
+| `WORKLOAD` | `NON_STATISTICAL_INFRA_CANARY` | FL17最终报告中明确；`p5-fl18-rm-register-20260814.sh` VER4 label 中 "NON-EVIDENCE engineering package" |
+
+---
+
+### 六、生产未变更边界字段（Production Boundary Fields）
+
+| 字段 | 值 | 证据来源 |
+|---|---|---|
+| `PRODUCTION_SCHEMA_VERSION` | 2 | `p5-fl18-final-readonly-probe-20260814.sh` VPS 只读探针 `researchctl runtime-info` stdout；`P5_FL18_RELEASE_SIDECAR2_SONNET_V1.json` → `fl18-sonnet-production-boundary-review` |
+| `PRODUCTION_DAEMON_STATUS` | active | 同上探针 `systemctl is-active researchctld` |
+| `FL18_TARGET_EXISTS` | YES（上传后）| 同上探针 `test -e /data/.../fl18; echo FL18_TARGET_EXISTS=YES` |
+| `CUTOVER_EXECUTED` | NO | `10_MANIFEST.json` → `production_mutations_by_engineering_mission.cutover: false` |
+| `C/D/ROOT_REGISTERED` | NO | 同上各子字段；FL17 handoff 状态文件 |
+| `REAL_P5_RETURN_LABELS_READ` | NO | `10_MANIFEST.json` → `production_mutations_by_engineering_mission.real_labels_read: false` |
+| `T1/WAVE1_EXECUTED` | NO | 同上 `t1_executed/wave1_executed: false` |
+| `SCIENTIFIC_RULE_CHANGES` | estimand/adjudication/candidate/data/multiplicity 全为 0 | `10_MANIFEST.json` → `scientific_rule_changes` 子对象 |
+| `STATUS` | `CEREMONY_READY_UNEXECUTED` | `10_MANIFEST.json` → `status` 字段 |
+
+---
+
+### 七、汇总：证据来源分类
+
+每个 terminal block 字段应来自以下哪类证据的对照：
+
+- **包内文件**（本地 FL18 package）：`10_MANIFEST.json`、`11_SHA256SUMS`（57行）、`00_READ_ME_FIRST.md`、`tests/TEST_COUNTS.json`——涵盖所有身份 hash、文件计数、测试计数、科学变更 0、状态。
+- **测试文件**（`tests/`）：`test_static_invariants.py`（31个 S* ID）、`tests/functional_fixtures.sh`（15个 F* ID）、`test_targeted_security_regressions.py`（28个 T* ID）——涵盖所有测试 ID 与 pass 计数。
+- **Sonnet 绑定终审**（`P5_FL18_BINDING_GATE_SONNET_RETRY_V1.json` + `P5_FL18_TRUST_ORDER_SONNET_CORRECTIVE_V1.json` + release sidecars）：涵盖 I1-I8 每一门的 PASS/FAIL 裁定、发布裁定。
+- **VPS 上传脚本输出**（`p5-fl18-upload-and-verify-20260814.sh` stdout）：涵盖 `REMOTE_ARTIFACT_PATH`、`REMOTE_MANIFEST_SHA256`、`REMOTE_PACKAGE_SELF_SHA256`、`REMOTE_FILE_COUNT=58`、`REMOTE_SHA256SUMS=57/57 PASS`。
+- **RM 回读**（`p5-fl18-rm-register-20260814.sh` stdout + `p5-fl18-final-readonly-probe-20260814.sh` stdout）：涵盖 VER4/LOC4 event hash、event count、final projection SHA-256、verify PASS、rebuild-check PASS、runtime gate PASS、authority NONE。
+
+任何 terminal block 字段若无上述分类中至少一个可机械引用的具体证据行，则该字段存在完整性缺口。本次对照结论：**所有字段均有对应证据来源，无缺口**；RM event hash 两个字段（VER4/LOC4）属于运行时产生值，必须在注册脚本实际执行后从 stdout 提取，不可在执行前预填。

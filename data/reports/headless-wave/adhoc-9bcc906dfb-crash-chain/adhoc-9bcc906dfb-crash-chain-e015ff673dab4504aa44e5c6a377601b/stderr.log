@@ -1,0 +1,174 @@
+Reading additional input from stdin...
+2026-08-14T08:26:33.582817Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T08:26:36.101718Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T08:28:45.359210Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 211ms)... turn_id=019fff61-4945-7880-b4e3-bb8d7e30872a retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+2026-08-14T08:32:21.829273Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 433ms)... turn_id=019fff61-4945-7880-b4e3-bb8d7e30872a retries=2 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+2026-08-14T08:35:44.332658Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 805ms)... turn_id=019fff61-4945-7880-b4e3-bb8d7e30872a retries=3 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+2026-08-14T08:41:06.481599Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.566s)... turn_id=019fff61-4945-7880-b4e3-bb8d7e30872a retries=4 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T08:45:59.068444Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 3.012s)... turn_id=019fff61-4945-7880-b4e3-bb8d7e30872a retries=5 max_retries=5 sampling_error=unexpected status 504 Gateway Timeout: Provider error 504, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T08:53:06.114930Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.5 seconds
+Output:
+
+
+FullName      : E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-9bcc906dfb-lifecycle-delta\adhoc-9bcc906
+                dfb-lifecycle-delta-65a1c258e31f451882c7289339cccdb5\events.jsonl
+LastWriteTime : 2026/8/14 16:52:45
+Length        : 8312
+
+FullName      : E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-9bcc906dfb-routing-token-share\adhoc-9bc
+                c906dfb-routing-token-share-e830c34581214dfcaae92844b5d86643\events.jsonl
+LastWriteTime : 2026/8/14 16:52:45
+Length        : 10315
+
+FullName      : E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-9bcc906dfb-backup-pollution\adhoc-9bcc90
+                6dfb-backup-pollution-a8db1e1a9daa48f4b54af56d60d0bb52\events.jsonl
+LastWriteTime : 2026/8/14 16:52:44
+Length        : 6149
+
+FullName      : E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-2a28776306-fl18-sonnet-db-wal\adhoc-2a28
+                776306-fl18-sonnet-db-wal-aabf00e0276b4f5abe42ad0683602e5d\events.jsonl
+LastWriteTime : 2026/8/14 16:52:43
+Length        : 28555
+
+FullName      : E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-2a28776306-fl18-sonnet-transaction\adhoc
+                -2a28776306-fl18-sonnet-transaction-3eecd4143339429898612106cef571c7\events.jsonl
+LastWriteTime : 2026/8/14 16:52:42
+Length        : 25021
+
+FullName      : E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-fd4ddafbfb-runtime-state-evidence\adhoc-
+                fd4ddafbfb-runtime-state-evidence-aff175d779654e9b979c9379c39d43ff\events.jsonl
+LastWriteTime : 2026/8/14 16:52:40
+Length        : 2166
+
+FullName      : E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-9bcc906dfb-ledger-delta\adhoc-9bcc906dfb
+                -ledger-delta-274ebbad129344baa2b08f8df8fa1fc4\events.jsonl
+LastWriteTime : 2026/8/14 16:52:39
+Length        : 5907
+
+FullName      : E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-9bcc906dfb-prompt-policy-conflicts\adhoc
+                -9bcc906dfb-prompt-policy-conflicts-bda6748aeb9645a8a5d15fc14d96dcaa\events.jsonl
+LastWriteTime : 2026/8/14 16:52:39
+Length        : 10408
+
+FullName      : E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-9bcc906dfb-refill-consumer-delta\adhoc-9
+                bcc906dfb-refill-consumer-delta-edf61740ebea46b39525f03e25a88d6c\events.jsonl
+LastWriteTime : 2026/8/14 16:52:38
+Length        : 23305
+
+FullName      : E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-da7cdf9dc7-gate-attestation\adhoc-da7cdf
+                9dc7-gate-attestation-5b8ee27983e54cc7826d8c230d045952\events.jsonl
+LastWriteTime : 2026/8/14 16:52:37
+Length        : 20526
+
+FullName      : E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-2a28776306-fl18-sonnet-ceremony\adhoc-2a
+                28776306-fl18-sonnet-ceremony-c355b1e222b941528be52037f4da429d\events.jsonl
+LastWriteTime : 2026/8/14 16:52:35
+Length        : 34394
+
+FullName      : E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-da7cdf9dc7-gate-ceremony\adhoc-da7cdf9dc
+                7-gate-ceremony-6dace216c1624672a74e3bf4b5a47d8a\events.jsonl
+LastWriteTime : 2026/8/14 16:52:35
+Length        : 13523
+
+FullName      : E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-2a28776306-fl18-sonnet-release\adhoc-2a2
+                8776306-fl18-sonnet-release-0d8f91f0890344d49826e9bc9f8f69f3\events.jsonl
+LastWriteTime : 2026/8/14 16:52:35
+Length        : 26880
+
+FullName      : E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-2a28776306-fl18-sonnet-root-ssh\adhoc-2a
+                28776306-fl18-sonnet-root-ssh-953dd9472c38405f889abcd25fc3bbbe\events.jsonl
+LastWriteTime : 2026/8/14 16:52:35
+Length        : 177741
+
+FullName      : E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-2a28776306-fl18-sonnet-attestation\adhoc
+                -2a28776306-fl18-sonnet-attestation-c7223993d6584bb9a8949c0d05935890\events.jsonl
+LastWriteTime : 2026/8/14 16:52:34
+Length        : 68211
+
+FullName      : E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-fd4ddafbfb-pollution-path-evidence\adhoc
+                -fd4ddafbfb-pollution-path-evidence-802def137d0e47a382f350b8558fb745\events.jsonl
+LastWriteTime : 2026/8/14 16:52:33
+Length        : 2166
+
+FullName      : E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-9bcc906dfb-delta-triage\adhoc-9bcc906dfb
+                -delta-triage-d944f1f573084c35924ac3e131e44c7b\events.jsonl
+LastWriteTime : 2026/8/14 16:52:32
+Length        : 47200
+
+FullName      : E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-fd4ddafbfb-critical-hash-evidence\adhoc-
+                fd4ddafbfb-critical-hash-evidence-786cde159e5b44f199e3e67eef278684\events.jsonl
+LastWriteTime : 2026/8/14 16:52:31
+Length        : 2166
+
+FullName      : E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-fd4ddafbfb-provider-log-evidence\adhoc-f
+                d4ddafbfb-provider-log-evidence-2ecbe8362ba348bda07ebbc61a47568e\events.jsonl
+LastWriteTime : 2026/8/14 16:52:29
+Length        : 2166
+
+FullName      : E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-9bcc906dfb-parent-state-delta\adhoc-9bcc
+                906dfb-parent-state-delta-50cf3785fa7b4ad1a6c28c00c5b84783\events.jsonl
+LastWriteTime : 2026/8/14 16:52:28
+Length        : 6752
+
+FullName      : E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-fd4ddafbfb-ui-live-evidence\adhoc-fd4dda
+                fbfb-ui-live-evidence-13c21c64a66f4da28229cf63218c19c6\events.jsonl
+LastWriteTime : 2026/8/14 16:52:28
+Length        : 998
+
+FullName      : E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-fd4ddafbfb-test-inventory-evidence\adhoc
+                -fd4ddafbfb-test-inventory-evidence-114e3da8e26c4639b2326bbb3670b3bd\events.jsonl
+LastWriteTime : 2026/8/14 16:52:28
+Length        : 2166
+
+FullName      : E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-9bcc906dfb-monitor-delta\adhoc-9bcc906df
+                b-monitor-delta-3860c09dd91445d683c059f206286071\events.jsonl
+LastWriteTime : 2026/8/14 16:52:26
+Length        : 6649
+
+FullName      : E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-fd4ddafbfb-patch-ledger-evidence\adhoc-f
+                d4ddafbfb-patch-ledger-evidence-60c1f198603040959613e9208677b124\events.jsonl
+LastWriteTime : 2026/8/14 16:52:24
+Length        : 2166
+
+FullName      : E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-fd4ddafbfb-config-matrix-evidence\adhoc-
+                fd4ddafbfb-config-matrix-evidence-b49d08af32784996b146cbf390f62883\events.jsonl
+LastWriteTime : 2026/8/14 16:52:24
+Length        : 2166
+
+FullName      : E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-2a28776306-fl18-sonnet-tcb\adhoc-2a28776
+                306-fl18-sonnet-tcb-ca54cd6ee15f455da8331a7ec4c6717b\events.jsonl
+LastWriteTime : 2026/8/14 16:52:11
+Length        : 45937
+
+FullName      : E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-2a28776306-fl18-sonnet-trust-order\adhoc
+                -2a28776306-fl18-sonnet-trust-order-e6d924b6fa2c4ebe90da9d7d52e0c017\events.jsonl
+LastWriteTime : 2026/8/14 16:51:32
+Length        : 3377
+
+FullName      : E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-9bcc906dfb-package-pollution\adhoc-9bcc9
+                06dfb-package-pollution-f30ecc4a8b4d47e287cfa2eb951f8151\events.jsonl
+LastWriteTime : 2026/8/14 16:51:07
+Length        : 3927
+
+FullName      : E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-9bcc906dfb-dispatch-delta\adhoc-9bcc906d
+                fb-dispatch-delta-1f4c1caaf8074a0080c385b5af7e1bb0\events.jsonl
+LastWriteTime : 2026/8/14 16:49:04
+Length        : 1388
+
+FullName      : E:\codex-LOOP\codex-loop-s-f2\data\reports\headless-wave\adhoc-da7cdf9dc7-gate-db-wal\adhoc-da7cdf9dc7-
+                gate-db-wal-9149339eb86c41469ac1f8a3fd4c022f\events.jsonl
+LastWriteTime : 2026/8/14 16:49:04
+Length        : 877
+
+
+
+

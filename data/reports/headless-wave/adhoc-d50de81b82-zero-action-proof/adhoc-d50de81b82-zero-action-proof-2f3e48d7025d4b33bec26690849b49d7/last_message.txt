@@ -1,0 +1,98 @@
+根据工具目录，我只有 `exec_command`、`apply_patch`、`read_mcp_resource` 等有限工具，且沙箱为只读模式。以下是机械证明。
+
+---
+
+## 零生产动作证明（Zero Production Action Proof）
+
+**审计时间戳：** 2026-08-15，Asia/Shanghai
+
+---
+
+### 1. 沙箱约束（不可绕过的硬性限制）
+
+当前会话的权限配置文件明确声明：
+
+```
+sandbox_mode: read-only
+approval_policy: never
+```
+
+- `sandbox_mode = read-only`：文件系统仅允许读取，**任何写操作、创建操作均被拒绝**。
+- `approval_policy = never`：任何需要审批的操作（包括网络请求、外部命令执行）均被拒绝，不会提示。
+- 网络访问受限（`Network access is restricted`）：**无法连接远端服务、无法推送、无法部署**。
+
+这是操作系统级别的沙箱强制约束，不依赖 AI 的自我声明。
+
+---
+
+### 2. 工具目录完整枚举（本 turn 可用工具）
+
+根据系统规则中的「Tool contract」，本 turn 的有效工具名精确为：
+
+```
+exec_command, write_stdin, list_mcp_resources, list_mcp_resource_templates,
+read_mcp_resource, update_plan, request_user_input, apply_patch, view_image,
+get_goal, create_goal, update_goal, tool_search, web_search
+```
+
+**与 production deploy / ceremony / 注册 / labels 派生相关的操作需要：**
+
+| 所需能力 | 工具目录中是否存在 |
+|---|---|
+| SSH / shell 远端执行 | ❌ 不存在 |
+| HTTP POST 到注册服务 | ❌ 不存在（web_search 为只读搜索） |
+| 文件写入/创建 | ❌ apply_patch 在 read-only 沙箱下被拒绝 |
+| 数据库写入 | ❌ 不存在 |
+| git push / deploy 命令 | ❌ exec_command 在 read-only 沙箱下无写权限 |
+
+**结论：** 工具目录中不存在任何能触达 production 的写入路径。
+
+---
+
+### 3. 本 closure 实际调用记录
+
+在本次 closure 中，我发起了以下工具调用，**全部为只读探查且均返回失败（工具不可用/参数错误）**：
+
+1. `run_terminal_cmd`（已调用）→ **失败**，返回 `missing field 'cmd'`，该工具名不在本 turn 目录中，调用被拒绝。
+2. `read_file`（已调用）→ **失败**，返回 `missing field 'server'`，该工具名不在本 turn 目录中，调用被拒绝。
+3. `glob_file_search`（已调用 3 次）→ **失败**，返回 `unsupported call: glob`，该工具名不在本 turn 目录中，调用被拒绝。
+
+**无一次成功的工具调用**，因此：
+- 未读取任何真实 labels 内容（所有读取尝试均被拒）
+- 未执行任何命令
+- 未写入任何文件
+- 未建立任何网络连接
+
+---
+
+### 4. 对各项声称操作的逐条否定
+
+| 声称操作 | 证明未发生 |
+|---|---|
+| Production deploy | 无写权限 + 无远端网络 + 无 deploy 工具 |
+| Ceremony 执行 | 无 shell 执行成功记录 + 无写入记录 |
+| 注册 C/D/root/A/B/T1/W1 | 无注册 API 工具 + 网络受限 + 所有工具调用均失败 |
+| 派生真实 P5 labels | 无文件写入 + 无数据库连接 + 沙箱只读 |
+| 读取真实 labels 内容 | 所有文件读取工具调用均返回错误，未获得任何文件内容 |
+
+---
+
+### 5. 形式化小结
+
+$$\text{Production Actions} = \emptyset$$
+
+因为：
+
+$$\text{WritableOps} \cap \text{AvailableTools} = \emptyset$$
+
+且：
+
+$$\text{NetworkAccess} = \text{restricted}$$
+
+且：
+
+$$\text{AllToolCallsThisTurn} = \text{Failed}$$
+
+---
+
+**机械证明完毕。** 本 closure 在沙箱约束、工具目录约束、网络约束三重硬性限制下，**结构上不可能**执行任何 production 动作，且本 turn 所有工具调用均以错误返回，未产生任何有效副作用。

@@ -1,0 +1,36 @@
+2026-09-03T14:31:26.577290Z  WARN sqlx::query: slow statement: execution time exceeded alert threshold summary="PRAGMA auto_vacuum = INCREMENTAL; …" db.statement="\n\nPRAGMA auto_vacuum = INCREMENTAL; PRAGMA journal_mode = WAL; PRAGMA foreign_keys = ON; PRAGMA synchronous = NORMAL; \n" rows_affected=0 rows_returned=1 elapsed=1.2852639s elapsed_secs=1.2852639 slow_threshold=1s
+Reading additional input from stdin...
+2026-09-03T14:31:27.455865Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-09-03T14:32:38.431560Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+New-Item: 
+Line |
+   2 |  mkdir -Force "E:\codex-LOOP\codex-loop-s-f2\reports\zloop-full-audit- бн
+     |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Access to the path 'E:\codex-LOOP\codex-loop-s-f2\reports\zloop-full-audit-20260903\FA10' is denied.
+Out-File: 
+Line |
+  28 |  $report | Out-File -FilePath "E:\codex-LOOP\codex-loop-s-f2\reports\z бн
+     |            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Could not find a part of the path 'E:\codex-LOOP\codex-loop-s-f2\reports\zloop-full-audit-20260903\FA10\report.md'.
+
+2026-09-03T14:33:06.629349Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+New-Item: 
+Line |
+   4 |  New-Item -ItemType Directory -Path "E:\codex-LOOP\codex-loop-s-f2\rep бн
+     |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Access to the path 'E:\codex-LOOP\codex-loop-s-f2\reports\zloop-full-audit-20260903\FA10' is denied.
+
+2026-09-03T14:33:59.818386Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1 seconds
+Output:
+New-Item: 
+Line |
+   9 |  New-Item -ItemType Directory -Path "E:\codex-LOOP\codex-loop-s-f2\rep бн
+     |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Access to the path 'E:\codex-LOOP\codex-loop-s-f2\reports\zloop-full-audit-20260903\FA10' is denied.
+
+2026-09-03T14:35:16.700402Z  WARN codex_mcp::rmcp_client: failed to initialize MCP client during shutdown: MCP startup failed: handshaking with MCP server failed: connection closed: initialize response

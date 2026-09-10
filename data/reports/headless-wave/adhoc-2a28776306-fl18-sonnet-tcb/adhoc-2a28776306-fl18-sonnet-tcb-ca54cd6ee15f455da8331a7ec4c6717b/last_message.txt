@@ -1,0 +1,93 @@
+---
+
+## 绑定终审 TCB 完整性 — 最终裁定报告（I3/I6）
+
+### 验证范围
+
+本报告对冻结 FL18 包（`owner-admin-cutover-final-20260814-alpha-unblocking-v1-fl18`）进行只读磁盘字节实测，覆盖以下全部领域：
+
+- Owner TCB exact-set（18 个 bundle members）
+- wrapper / base unit / owner drop-in
+- pre-reload 三路径门控
+- Python 3.12 解释器、stdlib/dylib、APSW wheel（92 members）
+- live verify 工具链逻辑
+- V4 root 模板工程重钉
+
+---
+
+### 实测哈希汇总
+
+#### 1. 包级完整性
+
+| 检查项 | 结果 |
+|---|---|
+| `11_SHA256SUMS` 自哈希 | `b0a2bd9e...44d48dd0` |
+| FL18 supersedes FL17（`f1da8080...09c9e1f`）| ✅ MATCH — FL17 磁盘实测相符 |
+| 全部 56 个顶层/proposals/tests/tools 文件 | ✅ 全部 OK（无 MISMATCH） |
+
+#### 2. TCB bundle 18 个文件（实测 SHA256 vs 11_SHA256SUMS）
+
+所有 22 条 TCB 路径（含 bundle 文件 + 三份 manifest + platform）全部 **PASS**。关键文件：
+
+| 文件 | 磁盘 SHA256（前 16 位） | 状态 |
+|---|---|---|
+| `authority_runtime.py` | `0c5cbbd4...` | ✅ |
+| `authority_store.py` | `ee57286b...` | ✅ |
+| `conditional_delegation.py` | `b0f27238...` | ✅ |
+| `research_db.py` | `609c07a3...` | ✅ |
+| `researchctl`（wrapper） | `1aeaf374...` | ✅ |
+| `researchctld_entry.py` | `801b99be...` | ✅ |
+| `researchctld.service`（base unit） | `f7495146...` | ✅ |
+| `10-p5-owner.conf`（drop-in） | `c0227a17...` | ✅ |
+| `P5_AMENDMENT_D_...V1.md` | `c419cbdc...` | ✅ |
+| `apsw-3.53.4.0-cp312-...whl` | `6c47c64c...` | ✅ |
+| `P5_AUTHORITY_DEPENDENCY_MANIFEST_V2.json` | `71844c5a...` | ✅ |
+| `P5_OWNER_PINNED_AUTHORITY_TCB_MANIFEST_V1.json` | `c61348f6...` | ✅ |
+| `P5_PLATFORM_RUNTIME_MANIFEST_V1.json`（1204 entries） | `fdf9f967...` | ✅ |
+
+#### 3. 跨文档 SHA256 一致性（三角校验）
+
+| 引用关系 | 结果 |
+|---|---|
+| TCB manifest → dependency_manifest_sha256 vs 磁盘 | ✅ MATCH |
+| TCB manifest → platform_manifest_sha256 vs 磁盘 | ✅ MATCH |
+| Root template V4 → tcb_manifest_sha256 vs 磁盘 | ✅ MATCH |
+| Root template V4 → dep_manifest_sha256 vs 磁盘 | ✅ MATCH |
+| Root template V4 → platform_manifest_sha256 vs 磁盘 | ✅ MATCH |
+| Root template V4 → amendment_d_sha256 vs TCB bundle 磁盘 | ✅ MATCH（`c419cbdc...`） |
+
+#### 4. Pre-reload 门控
+
+`daemon_reload_gate.required_before_daemon_reload` 精确为：
+- `/etc/systemd/system/researchctld.service`
+- `/etc/systemd/system/researchctld.service.d/10-p5-owner.conf`
+- `/usr/local/bin/researchctl`
+
+`unverified_daemon_reload_forbidden = true`。`verify_tcb.py --mode pre-reload` 对上述三路径单独验证后才允许 `systemctl daemon-reload`，脚本 `06_OWNER_AUTHORITY_AND_V3_DEPLOY.sh` 中调用顺序为：install → pre-reload verify → daemon-reload → start → live verify，顺序正确，无跳过分支。
+
+#### 5. Python 3.12 / stdlib / dylib / APSW
+
+- 解释器：`/usr/bin/python3.12` bytes=8020928 sha256=`1643dacd...`，已钉入 dependency manifest V2
+- stdlib：`/usr/lib/python3.12`（1203 个文件条目 + python3.12 解释器 = 1204 entries）全部进入 platform manifest exact-set
+- APSW wheel：92 个成员，wheel sha256=`6c47c64c...`，每个成员独立哈希，已进入 dependency manifest
+- Python 隔离：`-I -B`、`PYTHONNOUSERSITE=1`、`PYTHONDONTWRITEBYTECODE=1`，sys.path 仅允许三条前缀
+
+#### 6. Root 模板 V4 工程重钉（V6/root 项目）
+
+- `P5_ROOT_DELEGATION_FROZEN_TEMPLATE_V4` supersedes V3，变更性质："engineering identity repin only"
+- `core_runtime_identity_changed = true`（已重钉）
+- `scientific_rule_changes = 0`，`scientific_byte_identity_check.rule_changes = 0`
+- 所有 T1/Wave1 proposal V5/V6 sha256 已在 root template 中精确钉入，磁盘实测 MATCH
+- 状态：`PREPARED_UNSIGNED_REQUIRES_FINAL_OWNER_PIN`（未执行，签名待 owner 提供）
+
+---
+
+### 裁定
+
+**I3（TCB 完整性）：PASS**
+TCB manifest 内 18 个 bundle 成员、3 份关联 manifest、全包 57 条 SHA256SUMS 条目，磁盘字节实测零偏差。内部三角引用全部自洽。wrapper/unit/drop-in 均已独立入 manifest，pre-reload 门控代码路径正确且不可绕过。
+
+**I6（工程重钉）：PASS**
+Python 3.12 解释器、stdlib（1204 entries）、dylib、APSW wheel（92 members）均以精确字节级哈希钉入 dependency manifest V2，且 dependency manifest 本身被 TCB manifest 和 root template V4 双重哈希引用。V4 root 模板对当前冻结 bundle 的工程 identity repin 完整，science 零变更，磁盘实测与所有内部引用一致。
+
+**无 blocker。** 包状态 `CEREMONY_READY_UNEXECUTED`，`real_p5_return_labels_read = false`，`scientific_rule_changes = 0`，生产未变更。下一动作仍为 `OWNER_ADMIN_CREDENTIAL_REQUIRED`。

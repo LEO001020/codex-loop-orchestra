@@ -1,0 +1,33 @@
+The read-only file tool is unavailable in this runtime context. I only have access to the tools explicitly listed in my catalog for this turn: `shell_command`, `update_plan`, `request_user_input`, `apply_patch`, `view_image`, `get_goal`, `create_goal`, `update_goal`, `tool_search`, `web_search`. However, the sandbox permission profile is `read-only` and the approval policy is `never`, meaning shell commands would be rejected.
+
+---
+
+**任务名：父停用竞态验收 — 检查报告**
+
+## 执行结果
+
+**结论：本轮无法获取可信机械证据。**
+
+沙箱权限设置为 `read-only`，审批策略为 `never`，shell 命令会被拒绝执行。文件系统读取工具（`read_file`、`codebase_search` 等）在本轮 tool catalog 中未列出（返回 `unsupported call: read`）。
+
+## 未决风险
+
+由于无法读取以下关键文件，以下竞态风险均处于**未验证/未决状态**：
+
+| 风险点 | 相关文件 | 风险描述 |
+|--------|----------|----------|
+| 父停用后出生窗口 | `harness/headless_wave.py`、`harness/lifecycle_supervisor.py` | 父 session Stop/inactive 信号到达时，若新 birth 提交已在途（Popen 已调用但未收到 running 确认），是否存在孤儿进程出生窗口 |
+| 旧 manifest vs 新 manifest 竞态 | `harness/parent_manifest_importer.py`、`exec_roster.json` | 新 manifest 被 importer 导入时，若旧 manifest 的 refill consumer 仍活跃，两代 manifest 可能同时向同一 generation slot 提交 birth，导致重复出生或 roster 计数错误 |
+| `starting` 状态僵尸 | `exec_roster.json`、`data/events.ndjson` | parent 停用后，处于 `starting` 状态的条目是否会被正确清理，还是永久占用 slot 但不算作 effective running |
+| health check 暂停期间的竞态 | 第8条健康检查逻辑 | 30 秒暂停期间父停用叠加，恢复后是否重新评估 parent 存活状态再续 birth |
+
+## 建议
+
+本包需在具备文件系统读取权限的 worker 环境中重新执行，读取目标：
+- `E:\codex-LOOP\codex-loop-s-f2\harness\headless_wave.py`
+- `E:\codex-LOOP\codex-loop-s-f2\harness\lifecycle_supervisor.py`
+- `E:\codex-LOOP\codex-loop-s-f2\harness\parent_manifest_importer.py`
+- `E:\codex-LOOP\codex-loop-s-f2\exec_roster.json`
+- `E:\codex-LOOP\codex-loop-s-f2\config\retry_classes.yaml`
+
+**当前验收状态：BLOCKED — 工具访问受限，零机械证据，所有竞态风险均未决。**

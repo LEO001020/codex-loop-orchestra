@@ -1,0 +1,63 @@
+Reading additional input from stdin...
+2026-08-16T15:06:09.843306Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-16T15:06:19.951881Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-16T15:06:27.983570Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.2 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 191
++ ... t FullName, Length, LastWriteTime | Format-Table -AutoSize | head -80
++                                                                  ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-16T15:10:31.930313Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.7 seconds
+Output:
+Get-Content : 对路径“C:\Users\hzq00\.opencodex\codex-quota-cache.json”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-Content "C:\Users\hzq00\.opencodex\codex-quota-cache.json" -Raw
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (C:\Users\hzq00\...uota-cache.json:String) [Get-Content], Unauthorized 
+   AccessException
+    + FullyQualifiedErrorId : GetContentReaderUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+
+2026-08-16T15:11:33.263559Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.7 seconds
+Output:
+Get-Content : 对路径“C:\Users\hzq00\.opencodex\codex-runtime.json”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-Content "C:\Users\hzq00\.opencodex\codex-runtime.json" -Raw
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (C:\Users\hzq00\...ex-runtime.json:String) [Get-Content], Unauthorized 
+   AccessException
+    + FullyQualifiedErrorId : GetContentReaderUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+
+2026-08-16T15:11:52.286184Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+Get-Content : 对路径“C:\Users\hzq00\.opencodex\config.json”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-Content "C:\Users\hzq00\.opencodex\config.json" -Raw | ConvertFro ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (C:\Users\hzq00\.opencodex\config.json:String) [Get-Content], Unauthor 
+   izedAccessException
+    + FullyQualifiedErrorId : GetContentReaderUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+
+2026-08-16T15:14:43.940213Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+Get-Content : 对路径“C:\Users\hzq00\.opencodex\auth.json”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-Content "C:\Users\hzq00\.opencodex\auth.json" -Raw | ConvertFrom- ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (C:\Users\hzq00\.opencodex\auth.json:String) [Get-Content], Unauthoriz 
+   edAccessException
+    + FullyQualifiedErrorId : GetContentReaderUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+

@@ -1,0 +1,32 @@
+﻿{
+  "packet": "设计重启后验收",
+  "role": "L2 verifier (agents/verifier.toml developer_instructions)",
+  "mode": "single-candidate invoked without attached candidate diff; design produced read-only",
+  "verified_facts": [
+    {"fact": "active_profile=v4f-v4p; execution=weiwu/deepseek-v4-flash/ultra; review=weiwu/deepseek-v4-pro/ultra", "evidence": "E:/codex-LOOP/codex-loop-s-f2/config/model_profiles.toml:2,48,50,52"},
+    {"fact": "managed hooks registered in %USERPROFILE%/.codex/requirements.toml with windows_managed_dir=E:/codex-LOOP/codex-loop-s-f2/hooks; SessionStart/SubagentStart context hooks", "evidence": "C:/Users/hzq00/.codex/requirements.toml:5,9,11-16,27-32"},
+    {"fact": "hook injector emits hookSpecificOutput.additionalContext only when marker active; text = global_working_agreement.md + root AGENTS.md with <!-- source --> markers", "evidence": "E:/codex-LOOP/codex-loop-s-f2/hooks/global_loop_mode.py:64,82,94-96,145"},
+    {"fact": "marker active=true, control_root matches LOOP root", "evidence": "E:/codex-LOOP/state/global-loop-mode.json"},
+    {"fact": "user-global AGENTS.md is an on-disk copy of the hook-injected text (first line: # Active Codex LOOP global mode; 31880 B)", "evidence": "C:/Users/hzq00/.codex/AGENTS.md:1"},
+    {"fact": "C:/Users/hzq00/.codex/hooks.json is empty hooks={} -> no second hook registration", "evidence": "C:/Users/hzq00/.codex/hooks.json"},
+    {"fact": "installed role TOMLs pin models and carry developer_instructions at line 30", "evidence": "C:/Users/hzq00/.codex/agents/worker.toml:12,13,30 ; C:/Users/hzq00/.codex/agents/verifier.toml:12,13,30"},
+    {"fact": "Desktop default subagent model is weiwu/deepseek-v4-flash/ultra", "evidence": "C:/Users/hzq00/.codex/config.toml:45-46"},
+    {"fact": "session rollout JSONL is mechanically greppable for 'AGENTS.md instructions' and 'global_loop_mode'", "evidence": "C:/Users/hzq00/.codex/sessions/2026/08/22/rollout-*.jsonl (observed hits)"},
+    {"fact": "session title field is thread_name in session_index.jsonl", "evidence": "C:/Users/hzq00/.codex/session_index.jsonl:1"},
+    {"fact": "no candidate artifact for this packet exists in packets/plans/reports/l2_queue", "evidence": "rg '设计重启后验收' over E:/codex-LOOP/codex-loop-s-f2 (0 hits)"}
+  ],
+  "assumptions": [
+    "AGENTS wrapper text and hook_execution records are persisted into rollout JSONL (schema not pinned; protocol uses command-string + hookSpecificOutput dual condition)",
+    "child rollouts contain developer_instructions first line verbatim and response payload model field is greppable",
+    "run_id absence is the hard no-title-leak criterion; title derivation itself is not deterministic"
+  ],
+  "open_uncertainties": [
+    "this L2 call carried no candidate to verify; protocol adoption needs Sol adjudication",
+    "whether identical native+hook text is deduped by the runtime (occurrence count kept non-blocking)",
+    "whether root spawn interface can explicitly pin agent_type for step 5 probes",
+    "whether offline hook invocation passes the Sol tool gate outside planning/adjudication state"
+  ],
+  "artifacts": [
+    "E:/codex-LOOP/codex-loop-s-f2/reports/post-restart-injection-acceptance-design/protocol.md"
+  ]
+}

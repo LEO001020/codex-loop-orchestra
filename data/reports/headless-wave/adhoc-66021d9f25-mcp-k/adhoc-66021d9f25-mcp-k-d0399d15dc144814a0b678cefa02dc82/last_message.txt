@@ -1,0 +1,17 @@
+系统处于高自治的 `planning` 阶段，通过 `progress_ledger.json` 维持状态真相，重建开销极低。
+
+### MCP/Jupyter/Schema 核验事实
+
+1.  **session/schema cache 事实**：该环境并未依赖全局的 Jupyter 或 MCP schema 缓存，而是通过 `harness/` 目录下的自动化逻辑（如 `lifecycle_supervisor.py`）对 `data/` 下持有的本地记录（ledger/events）进行直接对齐。
+2.  **插件声明**：插件体系依赖 `plugin-creator` 指导，具体 `manifest` 位于各自的 `.codex-plugin/plugin.json`，在启动时由 harness 动态加载。
+
+### R8 目标与缺失依赖
+
+- **R8 目标**：验证当前 `zloop-code` 架构在引入新协议支撑机制时的无损迁移。
+- **缺失依赖**：明确的自动化测试（非手动执行）来验证 `ledger` 在 `planning` -> `adjudication` 临界点对不一致状态的修复鲁棒性。
+
+### 证据要点
+
+- 系统通过 `progress_ledger.json` 和 `events.ndjson` 独立于 Git 版本维持生命周期记录。
+- `DEAD_LETTER` 是机制化的保护，由 `repair` 系列脚本处理，而非故障。
+- 只要 `harness/` 逻辑完整，重建仅为状态机与当前 ledger 的重对齐，无需大量计算。

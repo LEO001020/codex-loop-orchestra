@@ -1,0 +1,49 @@
+Reading additional input from stdin...
+2026-08-14T05:19:35.838408Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T05:19:37.442451Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T05:19:59.551128Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `server`
+2026-08-14T05:20:19.799338Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:20:33.438959Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:20:45.554398Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:21:02.313345Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.2 seconds
+Output:
+dir : 第二个路径段不得为驱动器或 UNC 名称。
+参数名: path2
+所在位置 行:2 字符: 1
++ dir E:\VPS /b
++ ~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (E:\VPS:String) [Get-ChildItem]，ArgumentException
+    + FullyQualifiedErrorId : DirArgumentError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-14T05:21:16.686006Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:21:30.346559Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:21:40.587751Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:22:02.179495Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:22:21.478765Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:22:40.177036Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:22:50.156917Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:22:58.813473Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:23:21.160105Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:23:30.381165Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:23:39.363946Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:23:54.878793Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:24:10.797923Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:24:35.462244Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:24:52.380988Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:25:01.797856Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:25:11.567548Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:25:25.149092Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:25:35.341075Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:25:44.649396Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:25:52.824570Z ERROR codex_core::tools::router: error=unsupported call: glob
+2026-08-14T05:26:08.040309Z ERROR codex_core::tools::router: error=unsupported call: glob

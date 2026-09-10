@@ -1,0 +1,68 @@
+已完成只读盘点（全程未写入任何文件）。以下按 8 个组件列出 content-addressed manifest 结构、事实来源与无循环哈希顺序；所有组件共同遵守同一条无环不变量：**清单/契约不含自身 digest，只引用严格前驱的输入 digest（C-3/U-3），canonical 序列化为 `sort_keys + 紧凑分隔符 + UTF-8 + allow_nan=False`**。
+
+## 1. runtime
+
+结构（[report.md](E:/VPS/reports/runtime-prewarm-inventory/report.md) + 实现契约 §1.1）：
+- 目录布局 `runtime/<run_id>/{cas, db, tmp, candidates, verifier, evidence}`
+- `runtime-info`：contract_version、authority（NONE）、workload/scope、sqlite source id、apsw、authenticated_peer_uid、writer_gateway、runtime_gate
+- `verify`：event_count、integrity_check、event_chain_errors、duplicate_accepted_events、foreign_key_violation_count、scope_errors、event_current_rebuild_diff、**projection_sha256**
+- `rebuild-check`：diff=0、live_projection_sha256 == rebuilt_projection_sha256、transactional_rebuild
+
+无循环顺序：audit_events 为 append-only 链（[research_db.py](E:/VPS/pc7_stage/app_v2/p5_infra/research_db.py:436)）`event_hash = sha256(previous_event_hash|event_key|entity_type|entity_id|known_at|ingested_at|payload_json)`——前一事件 hash 是严格前驱，链为线性 DAG；projection_sha256 由事件链回放派生，故顺序为 **事件链 → 投影 → live/rebuild 对拍**；CAS 内容先入、后被引用。
+
+## 2. schema
+
+结构：`research_schema.sql`（sha256 `3e0b89a6…d676126`，SCHEMA_VERSION=2）含 10 张 DOMAIN_TABLES 与 audit_events 的 append-only 触发器（[research_schema.sql](E:/VPS/pc7_stage/app_v2/p5_infra/research_schema.sql:306)）；另有一套 LOOP 契约 schema（[short_result.schema.json](E:/codex-LOOP/codex-loop-s-f2/schemas/short_result.schema.json)、decision_skeleton、plan_expander），均 JSON Schema 2020-12、`additionalProperties:false`、`schema_version` 单值 const（C-2 一文一版本）。
+
+无循环顺序：schema 字节 → `P5_PRODUCTION_APP_V2_FILE_MANIFEST_V1.json`（[文件清单](E:/VPS/terminalization_v2_build/P5_PRODUCTION_APP_V2_FILE_MANIFEST_V1.json)逐文件 sha256，schema 行 `3e0b89a6…`）→ 外层 `MANIFEST.json`（[terminalization_v2_build](E:/VPS/terminalization_v2_build/MANIFEST.json)，嵌套引用内层清单 hash `ab0bfb09…`）→ 部署侧 `researchctl` wrapper（`7ff11dee…`）校验。`verify()` 强绑定 SCHEMA_VERSION，schema 变更未同步版本号即 FAIL_CLOSED——版本号是防环锚点。
+
+## 3. verifier
+
+结构（[verifier.toml](E:/codex-LOOP/codex-loop-s-f2/agents/verifier.toml)）：L2 跨源验证器，输出机器可解析 verdict 信封 `{"verdict": pass|redo|escalate_l2_5|escalate_l3, "reason", "evidence": ["file:line"], "ranking"}`；子代理结果受 [short_result.schema.json](E:/codex-LOOP/codex-loop-s-f2/schemas/short_result.schema.json) 约束（packet_id/control_packet_id/control_packet_revision/status/conclusion/artifact_paths/finding_ids/needs_decision）。
+
+无循环顺序：candidate diff + L0/L1 机械信号（已先行跑完，verifier 不重跑）→ verdict JSON → 报告落盘 `reports/<packet_id>/`。verdict 引用 evidence 的 file:line，不含自身 digest；多候选排序发生在位置随机化之后，排序不参与 hash。
+
+## 4. evaluator
+
+结构（[t1_wave1_evaluator.py](E:/VPS/pc7_stage/t1_wave1_evaluator.py)）：`canonical_bytes`/`digest` 统一；候选去重 `DUPLICATE_CANDIDATE_HASH`（候选 canonical hash）与 `DUPLICATE_WEIGHT_PATH`（weight_path_sha256）；checkpoint **write-once（`xb`+fsync）+ sha256**，`read_checkpoint` 校验 digest 且 state∈{ATTEMPT_VOID, TERMINAL}；VOID_RULES I1–I12 覆盖 DATASET/REVISION/PREREG/EVALUATOR hash mismatch 等；输出含 `canonical_output_sha256`。
+
+无循环顺序：冻结输入（dataset manifest → revision lineage → prereg → evaluator hash → authority scope）→ candidate_list canonical bytes → 逐候选 digest → checkpoint → canonical 输出 digest。I3/I4/I11 保证输入 hash 全部先于输出计算，输出 digest 只引用输入。
+
+## 5. D（delegation）
+
+结构（[delegation-resource-binding-design](E:/VPS/reports/delegation-resource-binding-design-20260813/REPORT.md)）：签名 preimage = `canonical_json(unsigned_payload())`；scope_hash、binding digest；事件统一 `event_sha256 = sha256(canonical_json(EVENT_FIELDS))`；`daemon_ledger_sequence` 由 DB `MAX+1` 全局单调分配；strict_payload/strict_loads 拒绝未知/重复键；trial checkpoint 固定键集 + write-once + hash。
+
+无循环顺序：payload 字段（**不含签名**）→ canonical preimage → 签名 → proposal 注册 → transition 链（previous event hash/seq 递增）→ redeem（child 自报字段被 canonical binding 覆盖）→ trial open/checkpoint/complete。签名不进 preimage、event hash 只引用前驱事件，均为无自引用的 DAG 边。
+
+## 6. V5
+
+结构（[v5_common.py](E:/VPS/reports/v5-prefix-generator-20260813/v5_common.py)）：`V5 = V4 canonical 字节（永不改写）|| LF+BEGIN+LF+envelope_json+LF+END+LF`；信封严格白名单：schema_version=`v5-prefix-1`、mode、document_id（`^P5_P3_[A-Z0-9_]+_V5$`）、body_prefix{`document_id,sha256,bytes,locator`}、supersedes{`document_id,sha256`}、scientific_rule_changes=0、identity_only、generator、generated_at、run_id、body_pending_placeholders；禁键子串 rule/clause/bound/scientific/fsm/formula/evaluator 等。
+
+无循环顺序：**V4 body 字节先行且字节恒定**（占位符 PC7_FREEZE_CAPTURE_ON_K3 等保留不填）→ 计算 body_prefix.sha256 → 拼装 suffix 信封（引用已算出的 body hash）→ 全文件 digest 覆盖拼接结果。body 物理上不含 suffix，suffix 只回指 body → 天然无环。
+
+## 7. ceremony
+
+结构（[owner-ceremony-draft](E:/VPS/reports/owner-ceremony-draft/README.md)）：`MANIFEST.json` = {canonical_id, status(DRAFT), ceremony, generated_at_utc, files[{relative_path, sha256, bytes}]}；机器清单 orders O1–O5 带 binding 类型：O1 C=direct、O2 D=direct、**O3 root=after D（requires_applied C,D）**、O4 A/B=group A/B/T1/W1、O5 T1/W1=同 group；exclusions：key_material/signatures/owner_default_resource_values。
+
+无循环顺序：内容文件（机器清单 JSON，1542 B）先哈希 → MANIFEST.json 后哈希（files 数组引用已算 sha256）；身份应用顺序是显式 DAG **C,D → root → A/B/T1/W1**（group 内并行、无相互依赖）。draft 不含签名，故无签名自引用问题；签名与密钥被显式排除在清单外。
+
+## 8. hardening
+
+结构（[hardening-script-draft](E:/VPS/reports/hardening-script-draft/README.md)）：静态检查（shellcheck -x、bash -n）→ SHA-256 记入 REPORT.md；`--apply` 把每个被改文件先复制进 backup dir 并记录 **manifest.tsv**（内容/模式/属主），rollback 按 manifest 恢复；verify_fresh_login 做基线漂移比对；威胁模型要求每阶段前后校验 manifest/unit/key hash，并将 systemctl cat 的 sha256 与 `P5_PRODUCTION_APP_V2_FILE_MANIFEST_V1` 对拍。
+
+无循环顺序：目标文件 → backup 副本 → manifest.tsv（**先文件后清单**）；脚本 → REPORT.md 哈希表；部署文件 → 文件清单 → 逐阶段校验。清单始终引用已存在的先前文件，不回指自身。
+
+## 汇总：跨组件全局哈希 DAG
+
+```
+叶子字节(文件/脚本/schema/JSON)
+   → 组件文件清单 P5_PRODUCTION_APP_V2_FILE_MANIFEST_V1  (逐文件 sha256)
+   → 外层 MANIFEST.json / SHA256SUMS                     (嵌套引用内层清单 hash)
+   → V5 信封                                            (body_prefix.sha256 回指 body)
+   → 签名/仪式顺序                                      (preimage 不含签名；O3 root after D)
+   → runtime 消费                                        (event 链 → projection → verify/rebuild)
+```
+
+无环保证来自四处强制：清单不含自身 digest（C-3/U-3）；所有引用指向严格前驱（event 链、supersedes、body_prefix、after-D）；append-only/write-once 触发器和 checkpoint 禁止改写已哈希内容；版本号（schema_version/SCHEMA_VERSION/v5-prefix-1）作为语义防环锚点，任何变更必须换版本使 digest 变化而非原地改写。
+
+补充说明：组件名 "D" 在 ceremony 机器清单里同时指 O2 机器 D，与 delegation 组件同名不同物，本盘点按 delegation 设计解读 D，ceremony 内部 "D" 按其 binding 字段原样保留。

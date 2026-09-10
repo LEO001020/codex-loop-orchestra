@@ -1,0 +1,23 @@
+{
+  "acceptance": [
+    "给出父A/B选择顺序",
+    "不得编辑"
+  ],
+  "authorized_paths": [
+    "harness/refill_consumer_v2.py",
+    "tests/orchestration_v2/test_refill_consumer_v2.py"
+  ],
+  "constraints": [
+    "read-only"
+  ],
+  "created_by": "parent_manifest_importer",
+  "cwd": "E:\\codex-LOOP\\codex-loop-s-f2",
+  "goal": "只读复核父桶round-robin、pool交集和空桶隔离。",
+  "manifest_id": "p0-sustained-final-review-20260814",
+  "packet_id": "parent-6cb0f5dd7378e5f8695d85399aeffddc4cbe38c3e7bd332d",
+  "parent_enabled": true,
+  "parent_session_id": "019feacd-184e-7472-9f11-ea364c22e595",
+  "role": "verifier",
+  "sandbox": "read-only",
+  "task_name": "Consumer公平复核"
+}

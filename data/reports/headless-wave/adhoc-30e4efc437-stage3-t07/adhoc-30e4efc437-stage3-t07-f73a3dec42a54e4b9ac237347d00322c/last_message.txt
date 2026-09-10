@@ -1,0 +1,5 @@
+复核完成，证据与交付文件已校验（appops 逐字块与原始抓取完全一致）。未执行任何卸载/变更操作。
+
+关键结果：360（com.qihoo.cleandroid_lite，v102.6.8/63，uid 10402，installer=com.hihonor.appmarket，2026-08-22 安装）当前 enabled=0 已停用；无 DeviceAdmin（未声明 BIND_DEVICE_ADMIN、无活动管理员）；a11y 未启用（仅 GKD/SelectToSpeak）；NLS 未启用（仅 AndPods，360 声明了 NotifyBlockerService 但未授权绑定）；user 128（分身应用）未安装；AppOps 当前 45 项 ignore（Reduced 状态）——与 ZIP 中 stage2 审计及决策矩阵（UNINSTALL_USER0）全部一致。另：指定的 platform-tools adb 37.0.1 在本沙箱启动即崩溃（`\.android` 建目录被拒，0xC0000409），已改用 adb 35.0.2 完成全部只读采集。
+
+结论：com.qihoo.cleandroid_lite 卸载前置条件全部满足，可执行 `pm uninstall --user 0 com.qihoo.cleandroid_lite`（本包未卸载）。交付：C:\Users\hzq00\Documents\Codex\2026-08-23\ni-j\work\stage3_exec\T07_qihoo_uninstall_pre\qihoo_pre.md（摘要）、同目录 report.md（完整证据）+ 17 个 ev_*.txt 原始抓取。

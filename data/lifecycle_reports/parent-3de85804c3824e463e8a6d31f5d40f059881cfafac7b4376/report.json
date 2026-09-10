@@ -1,0 +1,52 @@
+I now have all three files. Let me compile the evidence.
+
+---
+
+**结论**
+
+**所有四个终态均可唤醒 actuator，且不存在第二个 scheduler。**
+
+---
+
+### finally 证据（`lifecycle_supervisor.py`）
+
+`run()` 函数末尾有一个无条件的 `finally` 块（第 ~760 行起），在 `terminal = True` 时执行以下分支判断：
+
+```python
+finally:
+    if boundary is not None:
+        boundary.close()
+    if terminal:
+        try:
+            packet_file = root / "data" / "packets" / (args.packet + ".json")
+            if packet_file.is_file():
+                schedule_epilogue(root, "lifecycle_supervisor")        # ① 规范包 → 走完整 epilogue
+            else:
+                from refill_consumer_v2 import schedule_run
+                schedule_run(root, source="adhoc_lifecycle_supervisor")  # ② adhoc 包 → 直接 refill
+        except Exception as exc:
+            print("terminal epilogue scheduling degraded: %s" % exc, file=sys.stderr)
+```
+
+`terminal = True` 在以下四个路径都被设置：
+
+| 终态 | 代码路径 |
+|---|---|
+| `completed` | `rc == 0` 且 report 存在 → `store.update(…, state="completed", …)` → `terminal = True; return 0` |
+| `failed` | `rc != 0` 或 `missing_report` → `store.update(…, state="failed", …)` → `terminal = True; return rc` |
+| `timed_out` | `reason == "timeout"` → `store.update(…, state="timed_out", …)` → `terminal = True; return 124` |
+| `cancelled` | `reason != "timeout"` 且有 cancel → `store.update(…, state="cancelled", …)` → `terminal = True; return 124` |
+
+`spawn_failed` 时 `boundary is None`，`terminal` 保持 False，不触发 epilogue（合理：进程连 worker 都没起，调度毫无意义）。
+
+---
+
+### 无第二 scheduler 证据
+
+1. **`lifecycle_supervisor.py`** 只有 `schedule_epilogue`（`terminal_packet_epilogue.py`）和 `schedule_run`（`refill_consumer_v2`）两条路径，均在同一个 `finally` 块内互斥执行，由 `packet_file.is_file()` 分支区分。没有第二处独立调度。
+
+2. **`refill_consumer_v2.py`** 中的 `schedule_run()` 在写入 `refill_requests.json` 后，通过 `_process_generation_alive` 检测已有 PID/ticks，若 actuator 进程仍存活则 **coalesced 返回**（不再起第二个进程）。`schedule_delayed_run()` 同理用 `refill_backoff_wake.json` 做合并控制，同一时刻只有一个唤醒者。
+
+3. **`orchestration_epilogue.py`** 的 `run_epilogue()` 依赖 `.epilogue.lock` 跨进程序列化整个事务，内部调用 `run_refill_once()`（单次 actuator 事务）。epilogue 本身是被 `terminal_packet_epilogue.py` 调用的，不是第二个独立 scheduler。
+
+综合以上：**`finally` 块覆盖全部四个终态，actuator 唤醒路径唯一，refill_consumer_v2 通过 PID+ticks 合并确保无重复进程，不存在第二 scheduler。**

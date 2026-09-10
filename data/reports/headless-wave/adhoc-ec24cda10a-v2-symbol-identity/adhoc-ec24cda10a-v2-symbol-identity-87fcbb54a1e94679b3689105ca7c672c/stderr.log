@@ -1,0 +1,102 @@
+Reading additional input from stdin...
+2026-08-15T07:12:33.176658Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-15T07:12:34.586651Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-15T07:12:36.812628Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-15T07:12:53.679095Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.9 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 134
++ ... bol|manifest|perp|spot|futures" } | Select-Object FullName | head -40
++                                                                  ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-15T07:13:16.959946Z ERROR codex_core::tools::router: error=Exit code: 124
+Wall time: 10.8 seconds
+Output:
+command timed out after 10767 milliseconds
+
+FullName                                                                                             
+--------                                                                                             
+E:\VPS\p5_manifest_diag_remote.sh                                                                    
+E:\VPS\pc7-headless-wave-manifest-2.json                                                             
+E:\VPS\pc7-headless-wave-manifest-3.json                                                             
+E:\VPS\pc7-headless-wave-manifest.json                                                               
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\.install\beta.manifest                                
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\.install\core-win.manifest                            
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\.install\core.manifest                                
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\.install\gcloud-deps-windows-x86_64.manifest          
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\.install\gcloud-deps.manifest                         
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\.install\ssh-tools-windows.manifest                   
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\.install\ssh-tools.manifest                           
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\command_lib\deploy\manifest_util.py
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\command_lib\deploy\__pycache__\m...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\command_lib\storage\manifest_uti...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\command_lib\storage\__pycache__\...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\container\attached\clusters\generate_in...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\container\attached\clusters\generate_in...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface\container\attached\clusters\__pycache__...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\cloudsdk\google\protobuf\symbol_dat...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\cloudsdk\google\protobuf\__pycache_...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\cloudsdk\google\protobuf\__pycache_...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\google\cloud\pubsub_v1\futures.py     
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\google\cloud\pubsub_v1\publisher\fu...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\google\cloud\pubsub_v1\publisher\__...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\google\cloud\pubsub_v1\subscriber\f...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\google\cloud\pubsub_v1\subscriber\_...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\google\cloud\pubsub_v1\__pycache__\...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\ml_sdk\pkg\MANIFEST.in                
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\orchestration_pipelines_models\mani...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\orchestration_pipelines_models\mani...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\orchestration_pipelines_models\mani...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\orchestration_pipelines_models\mani...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\orchestration_pipelines_models\mani...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\s3transfer\futures.py                 
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\s3transfer\__pycache__\futures.cpyt...
+E:\VPS\.tools\google-cloud-sdk\.install\core.manifest                                                
+E:\VPS\.tools\google-cloud-sdk\.install\gcloud-deps.manifest                                         
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\command_lib\deploy\manifest_util.py                
+Get-ChildItem : 对路径“E:\VPS\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem E:\VPS -Recurse -File | Where-Object { $_.Name -match " ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\VPS\.pytest_cache:String) [Get-ChildItem], UnauthorizedAccessExcep 
+   tion
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-15T07:13:36.041484Z ERROR codex_core::tools::router: error=Exit code: 124
+Wall time: 10.6 seconds
+Output:
+command timed out after 10637 milliseconds
+
+2026-08-15T07:14:45.616492Z ERROR codex_core::tools::router: error=unsupported call: read
+2026-08-15T07:15:32.153010Z ERROR codex_core::tools::router: error=Exit code: 124
+Wall time: 20.4 seconds
+Output:
+command timed out after 20408 milliseconds
+
+2026-08-15T07:21:01.548836Z ERROR codex_core::tools::router: error=Exit code: 124
+Wall time: 10.9 seconds
+Output:
+command timed out after 10893 milliseconds
+
+2026-08-15T07:23:53.755930Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)

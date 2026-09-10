@@ -1,0 +1,102 @@
+现在我有足够的信息进行完整的六字段终态核验分析。以下是固定字段报告：
+
+---
+
+## SOsetE终态核验报告
+
+**审计目标：** `common.sh`（最新版本：`fl17`，与 `fl15`/`fl16`/`recovery-v1` 完全一致）
+
+---
+
+### 字段1：`set -e` 残余
+
+**结论：✅ 无问题**
+
+文件中 `set -e` 仅出现于：
+- 第 33 行：`strict_mode() { set -euo pipefail; }` — 函数声明，未在 source 时自动执行
+- 注释中引用（第 2 行 header）
+
+`set -euo pipefail` 被封装在 `strict_mode()` 函数内，**不在 source 阶段自动触发**，符合规范（phase 脚本显式调用 `strict_mode` 才生效）。无裸 `set -e` 污染顶层。
+
+---
+
+### 字段2：`_agrps`
+
+**结论：✅ 正确、无滥用**
+
+- 声明位置：第 172 行 `assert_owner_anchor_trustworthy()` 内部局部变量（`local … _agrps`）
+- 赋值：第 174 行 `_agrps=" $(id -nG "$AGENT_USER" 2>/dev/null) "`
+- 仅用于第 192 行：`printf '%s' "$_agrps" | grep -q " $pgrp "` — 判断某祖先目录的组是否属于 agent 的组，触发 `die`（fail-closed）
+- **不向外泄露、不影响特权流程、局部作用域**
+
+---
+
+### 字段3：`id -nG`
+
+**结论：✅ 正确使用，无特权推断**
+
+唯一调用在第 174 行，`id -nG "$AGENT_USER"` — 取 **固定参数 `$AGENT_USER`** 的组列表，用于 F-B 组写权限检查（fail-closed）。**不使用裸 `id -nG`（无参数形式），不用于推断执行者身份或特权**。
+
+---
+
+### 字段4：fail-closed
+
+**结论：✅ 全面覆盖，无 false-clean 路径**
+
+共 7 处 fail-closed 注释/实现，关键路径均符合：
+
+| 路径 | 机制 |
+|------|------|
+| `agent_fps` 为空 | `die "agent fingerprint indeterminate (fail-closed)"` |
+| 目标 AK 文件有 key 但无法解析指纹 | `die "cannot fingerprint … fail-closed"` |
+| `sshd_effective_akf` 无法确定 | `return 1`（合同要求调用方 fail-closed，注释标注 R-1） |
+| anchor 为符号链接 | `die … F10-4 fail-closed` |
+| anchor/pubkey 非 root 所有 | `die` |
+| 祖先 agent 所有/世界可写/组可写 | `die` |
+
+**`|| true` 均有正当理由：**
+- 第 110 行：`agent_fps` — 紧跟 `[ -n "$agent_fps" ] || die`（空则 die，仅防止 set -e 提前打断赋值）
+- 第 112 行：`tfps` — 注释明确："unparseable die 是 fail-closed 路径"；紧跟 keylines 判断
+- 第 138 行：`out` — 紧跟 `[ -n "$out" ] || return 1`（空则失败返回）
+- 第 188/191 行：`stat` 失败 — `owner_u`/`pgrp` 置空；空值**不会绕过**检查（`[ "$owner_u" = "$AGENT_USER" ]` 为 false，`[ -n "$pgrp" ]` 为 false → 跳过组检查，保守但可接受）
+
+**潜在轻微风险（非阻断）：** 第 188/191 行 `stat` 失败时 `owner_u=""` 和 `pgrp=""`，会跳过 agent-owned 和 group-writable 判断而非 die。但此路径仅在 `stat` 工具本身不可用时发生，实际环境中极罕见，且 world-writable (`-0002`) 检查仍正常执行。
+
+---
+
+### 字段5：false clean / bypass
+
+**结论：✅ 无 bypass 路径**
+
+无以下模式：
+- 无 `return 0` 提前成功返回绕过检查
+- 无 `|| :` / `|| true` 吞掉应该失败的操作
+- `require_ceremony_confirmation()` 要求 phase token + `--yes` 双验证，无条件绕过
+- `assert_executor_is_not_agent()` 使用 `id -un` 和 `$SUDO_USER` 双路检查，仅用于诊断/防误用，目标仍为固定的 `$AGENT_USER`
+
+---
+
+### 字段6：privilege / authority / unverified root code
+
+**结论：✅ 无未验证特权代码**
+
+- `require_root()` 检查 `id -u = 0`，不可绕过
+- `AGENT_USER` 固定默认值 `k3`，不从执行环境推断
+- "owner authority" 仅出现于注释（第 83 行），描述 RFC-8032 公钥用途，无代码层面越权
+- `ROOT_EQUIVALENT_GROUPS` 数组为待清除对象，非授权对象
+- 无 `sudo`/`su` 调用，无 SUID 操作，无写系统文件操作（source 时零副作用）
+
+---
+
+### 总结
+
+| 字段 | 状态 | 备注 |
+|------|------|------|
+| `set -e` 残余 | ✅ PASS | 封装于 `strict_mode()`，不自动触发 |
+| `_agrps` | ✅ PASS | 局部变量，仅用于 F-B 组写检查 |
+| `id -nG` | ✅ PASS | 固定参数 `$AGENT_USER`，非执行者推断 |
+| fail-closed | ✅ PASS | 7 处覆盖，`|| true` 均有后置 die/return 1 守卫 |
+| false clean / bypass | ✅ PASS | 无绕过路径 |
+| privilege / unverified root | ✅ PASS | 无越权代码，root 检查不可绕过 |
+
+**最终判定：通过。无 false-clean、无 bypass、无未验证特权代码残余。**

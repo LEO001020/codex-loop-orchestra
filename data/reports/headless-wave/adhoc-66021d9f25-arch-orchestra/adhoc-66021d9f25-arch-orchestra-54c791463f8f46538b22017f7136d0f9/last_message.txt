@@ -1,0 +1,21 @@
+现在的 Orchestra 架构（基于 `E:\zcode\zcode-loop-orchestra` 目录结构的分析）主要集中在 `src/zloop` 核心模块，其各组件分工如下：
+
+### 核心架构要点
+
+1. **Orchestration / Control (src/zloop/)**
+   - **`supervisor.py`**: 负责任务的流控制与 orchestrator 生命周期的管理。它是整个 orchestra 的执行中枢，负责监督任务包（packet）从计划、分配到状态流转的全过程。
+   - **`worker_env.py`**: 定义了子 agent 的执行环境边界，规定了它们可以访问的资源和隔离手段，确保其遵循 `AGENTS.md` 中的安全规范。
+   - **`workspace.py`**: 管理本地工作空间，负责挂载、环境感知，并确保 `LOOP` 控制器与实际执行层的数据一致性。
+   - **`backend/`**: 包含对系统底层和不同运行平面的接口封装，负责任务在 Desktop 或 headless 执行平面间的调度。
+   - **`hook.py`**: 实现了 `PreToolUse` 和其他关键生命周期钩子，是实现 `Sol` 机械纪律（如防滥用检查）的核心机制。
+   - **`db.py`**: 处理任务状态的持久化存储，将 orchestator 的活动记录在磁盘而非内存中。
+
+2. **插件生态 (plugin/)**
+   - 该目录与 `src/zloop` 并列，采用模块化设计。通过 `.codex-plugin/` 结构承载用户的自定义逻辑，由 orchestrator 支持动态安装或卸载。
+
+### 与 R8 目标的比较
+- **持久性目标**：当前架构通过 `db.py` 和磁盘化的 `ledger` (在 data 目录下) 满足了对状态持久化和审计的需求，与 R8 关于所有 mutations 均需留痕的设计相符。
+- **Agent 分离**：当前已从单体结构转为明确的 worker/supervisor 分离，符合 Orchestra 对于高吞吐和并行委托的要求。
+- **安全性**：`hook.py` 原生支持强隔离的控制点，对于满足 `AGENTS.md` 对非法行为的拦截至关重要。
+
+该架构在设计上高度耦合于 `data/` 目录的 ledger 状态，符合 "Reality Wins" 原则，所有改动均需以 ledger 中的 event 为准，不建议直接操作二进制层面的 cache 文件。如有具体的接口或代码行号定位需求，请告知，我将进一步深入特定文件读取。

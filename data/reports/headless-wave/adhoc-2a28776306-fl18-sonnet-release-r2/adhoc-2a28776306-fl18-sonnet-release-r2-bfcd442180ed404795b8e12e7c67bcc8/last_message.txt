@@ -1,0 +1,44 @@
+모든 검증이 완료되었다. 종합 판정을 내린다.
+
+---
+
+## FL18 Release Falsification — 최종 판정
+
+**결과: PASS**
+
+### 검증 항목별 결과
+
+**I1 — 패키지 파일 해시 무결성**
+56개 payload 파일 전체의 SHA256을 11_SHA256SUMS 및 10_MANIFEST.json과 대조 — 전원 일치. 불일치 없음.
+
+**I2 — 패키지 자기 해시(self-hash)**
+SHA256(11_SHA256SUMS) = `b0a2bd9ed8019031297d622d599f5df4ef0947037913053feb1adfdc44d48dd0`. 10_MANIFEST.json의 `package_self_sha256` 알고리즘 선언(`sha256(11_SHA256SUMS)`)과 구조적으로 일치하며, 10_MANIFEST.json 자체 해시도 11_SHA256SUMS 내 기재값과 일치.
+
+**I3 — 생산 변경 없음**
+`production_mutations_by_engineering_mission` 8개 필드 전원 `false`: c_registered, cutover, d_registered, real_labels_read, root_registered, schema_migration, t1_executed, wave1_executed.
+
+**I4 — science 변경 제로**
+매니페스트 `scientific_rule_changes` 5개 카운터(adjudication, candidate, data, estimand, multiplicity) 전원 0. 위임 템플릿(P5_ROOT_DELEGATION_FROZEN_TEMPLATE_V4.json) 내 5개 대응 필드 전원 0. TCB 매니페스트 `scientific_rule_changes` = 0.
+
+**I5 — 스키마 현황**
+현재 프로덕션=schema 2(migration 미실행 확인). 번들 내 authority_schema_v3.sql은 8개 테이블 + 완전한 트리거 세트를 포함하며 ceremony 이후 v2→v3 migration을 위한 파일(P5_AUTHORITY_SCHEMA_V2_TO_V3.sql)이 번들에 존재. dependency manifest schema = `p5-authority-dependency-manifest/v2` (예상값).
+
+**I6 — 패키지 해시 비순환성**
+11_SHA256SUMS이 10_MANIFEST.json을 포함하되 자기 자신은 포함하지 않음 — 순환 없음. package_self_sha256 = SHA256(11_SHA256SUMS)로 선언됨.
+
+**I7 — TCB 번들 무결성**
+TCB 매니페스트 내 18개 bundle_member 해시 전원 실제 파일과 일치. dep manifest → platform manifest, dep manifest → apsw wheel 교차 참조 해시 모두 일치. TCB 매니페스트 → dep/platform 매니페스트 교차 참조 모두 일치.
+
+**I8 — 상태 플래그**
+패키지 status = `CEREMONY_READY_UNEXECUTED`. TCB 매니페스트 status = `PREPARED_OWNER_SIGNATURE_REQUIRED_UNEXECUTED`. 템플릿 status = `PREPARED_UNSIGNED_REQUIRES_FINAL_OWNER_PIN`. 모두 미실행(unexecuted) 상태 일치.
+
+**A — shell syntax 10/10 ✓**
+**B — static invariants 31/31 ✓**
+**C — functional fixtures 15/15 executed, 0 skipped ✓**
+**D — targeted security regressions 28/28 ✓**
+**E — TEST_COUNTS.json ↔ manifest 내장 test_counts 전원 일치 ✓**
+**F — S25_NO_SCIENCE_CHANGES, T19, T20 케이스 ID 존재 확인 ✓**
+
+### OPEN blocker: 없음
+
+모든 I1-I8, A-F 체크포인트가 통과되었다. 패키지는 ceremony 준비 완료 상태이며 엔지니어링 미션이 생산 변경이나 과학적 규칙 변경을 일체 수행하지 않았음이 내부 증거로 확인된다. 남은 작업은 런타임 전제조건(소유자 자격증명, 지문, TCB 서명, 명시적 실행 게이트)이며 이는 엔지니어링 블로커가 아니다.

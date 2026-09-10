@@ -1,0 +1,80 @@
+# RootAfterD 门禁 — 只读定义（leaf 包）
+
+## 结论
+
+RootAfterD 门禁 = `delegation-register` 在写入 `owner_conditional_delegations` 之前，必须在**同一 BEGIN IMMEDIATE 事务内**观察 `amendment_registrations` 前两行的**完整 C/D APPLIED 身份**：`amendment_id` + `amendment_sha256`（钉死值）+ `authorization_mode='INTERACTIVE_OWNER_SIGN'` + `state='APPLIED'`，且要求**恰好两行**（全等比较，不是前缀容忍）。仅比较 `amendment_id` 字符串（旧版 `observed[:2]!=['C','D']`）是明确禁止的弱断言。
+
+当前 `direct_repair_stage` 顶层新版 [authority_store.py](E:/VPS/direct_repair_stage/authority_store.py:97)（12:53 更新）已按此定义实现；但部署副本 `app_v2\p5_infra\`（5:38 旧版）、daemon/CLI、测试与 v3 迁移 SQL 均未同步，见文末落地状态。
+
+## 1. 最小字段（门禁必须观察的 identity）
+
+**DB 行（`amendment_registrations`，按 `registration_ordinal` 排序取前 2 行）**
+
+| 字段 | 期望值 | 意义 |
+|---|---|---|
+| `amendment_id` | `'C'`（ordinal 1）、`'D'`（ordinal 2） | 身份标签（**不够**，须与下列字段联合） |
+| `amendment_sha256` | C = `5b1d8116aa8ed30b407c4804dae191af34a9e4fcc1b9ec292a73b5eeb7c47c83`（代码钉死）；D = env `P5_AMENDMENT_D_SHA256`（64-hex，未钉死即 `AMENDMENT_D_HASH_NOT_PINNED` fail closed） | 内容身份，必须来自钉死值而非 delegation 载荷 |
+| `authorization_mode` | `'INTERACTIVE_OWNER_SIGN'` | 必须是 owner 直接应用，非 delegation 生成 |
+| `state` | `'APPLIED'` | v3 新增列；直接注册时由 `register_amendment_direct` 写入 `'APPLIED'` |
+
+**推荐加强字段（当前 v3 已落库，可纳入审计查询）**：`delegation_id IS NULL`（配合 schema CHECK）、`authenticated_owner_uid == P5_OWNER_PEER_UID`、`producer_session_id != owner_session_id` 且均非空（session 分离）。
+
+**Delegation 载荷（应用层断言）**：`amendment_a_sha256/amendment_b_sha256/amendment_c_sha256/amendment_d_sha256` 必须分别等于钉死值；`allowed_amendment_hashes` 必须恰为 `{A,B}`（C/D 不可被授权）。
+
+**调用上下文**：`ctx.peer_uid >= 0`、`ctx.session_id` 非空、`ledger_sequence` 递增、`recorded_at` 为 RFC3339 UTC；owner 公钥文件已配置。
+
+## 2. 查询
+
+**Q1（门禁主查询，位于 `BEGIN IMMEDIATE` 内，与 INSERT 同事务）**
+
+```sql
+SELECT amendment_id, amendment_sha256, authorization_mode, state
+FROM amendment_registrations ORDER BY registration_ordinal;
+```
+
+期望结果**全等**：
+
+```
+[('C', AMENDMENT_C_SHA256, 'INTERACTIVE_OWNER_SIGN', 'APPLIED'),
+ ('D', <P5_AMENDMENT_D_SHA256>, 'INTERACTIVE_OWNER_SIGN', 'APPLIED')]
+```
+
+任何偏差（缺行、多行、顺序错、hash 错、模式错、状态非 APPLIED）→ `EXACT_C_AND_D_DIRECT_OWNER_APPLIED_REQUIRED`。**不用** `observed[:2]` 前缀比较——C,D,A 已存在时也必须拒绝。
+
+**Q2（可选加固，同事务）**：`SELECT delegation_id FROM amendment_registrations WHERE registration_ordinal IN (1,2)` → 必须全为 NULL。
+
+**Q3（审计/报告用）**：追加 `daemon_recorded_at, daemon_ledger_sequence, authenticated_owner_uid, producer_session_id, owner_session_id`，作为 C/D 身份完整证据行。
+
+**应用层断言（先于 Q1）**：
+1. `ctx.validate()`；
+2. `DelegationVerifier(owner_key).verify_signature(delegation)`：Ed25519 有效 + resource policy 合法 + `allowed_amendment_hashes == {A,B}`（`ONLY_EXACT_A_B_MAY_BE_DELEGATED`）+ C/D 不在授权集（`D_MUST_BE_DIRECT_OWNER_APPLIED` / `D_CAN_AUTHORIZE_C=NO`）；
+3. delegation 四个 amendment hash 与钉死值逐一相等 → 否则 `ROOT_AMENDMENT_BINDING_MISMATCH`（防止“delegation 绑定与 owner 直接登记不同的 D hash”）。
+
+## 3. 负测（用例 → 期望 error_code）
+
+| # | 预置/输入 | 期望 |
+|---|---|---|
+| 1 | 表为空 | `EXACT_C_AND_D_DIRECT_OWNER_APPLIED_REQUIRED` |
+| 2 | 仅 C（ordinal 1） | 同上 |
+| 3 | C 行 hash = `0`*64 或 = D hash（id 字符串正确） | 同上（**id-only 检查的典型假阳性**） |
+| 4 | D 行 hash ≠ env `P5_AMENDMENT_D_SHA256`；或 env 未设置 | 同上 / `AMENDMENT_D_HASH_NOT_PINNED` |
+| 5 | C/D 行 `authorization_mode='PREAUTHORIZED_CONDITIONAL_DELEGATION'`（delegation_id 非空） | 同上（委托生成的行不算 owner 直接应用） |
+| 6 | C/D 行 `state='PROPOSED'/'HUMAN_OWNER_SIGNED'/NULL` | 同上（未 APPLIED） |
+| 7 | 顺序 D,C | 同上 |
+| 8 | C,D,A 三行（旧前缀检查会放行） | 同上（全等比较必须拒绝） |
+| 9 | delegation 载荷 `amendment_c_sha256`/`amendment_d_sha256` ≠ 钉死值（签名有效） | `ROOT_AMENDMENT_BINDING_MISMATCH` |
+| 10 | `allowed_amendment_hashes` 含 C 或 D | `D_MUST_BE_DIRECT_OWNER_APPLIED` / `D_CAN_AUTHORIZE_C=NO` |
+| 11 | `allowed_amendment_hashes` ≠ 精确 {A,B} | `ONLY_EXACT_A_B_MAY_BE_DELEGATED` |
+| 12 | C/D 直接登记时 `producer_session_id==ctx.session_id` 或为空 | 写入侧即 `OWNER_SESSION_SEPARATION_FAILED`（门禁侧再以 mode/session 字段复核） |
+| 13 | 先登记 D 再 C | 写入侧 `C_FIRST_D_SECOND_REQUIRED`；门禁同样拒绝 |
+| 14 | 重复 amendment_id / ordinal | schema `UNIQUE(amendment_id)` / `UNIQUE(registration_ordinal)` 拒绝 |
+| 15 | 未配置 owner 公钥 / `P5_OWNER_PEER_UID=-1` | `OWNER_PUBLIC_KEY_NOT_CONFIGURED` / `OWNER_CREDENTIAL_REQUIRED`（fail closed） |
+
+## 4. 正测
+
+精确两行 C（钉死 C hash）/ D（env hash）、`INTERACTIVE_OWNER_SIGN`、`delegation_id NULL`、`state='APPLIED'`、session 分离 → `delegation-register` PASS，delegation 以 `state='ACTIVE'` + `resource_policy_sha256` 写入；随后 delegation 只能依次注册 A、B（`C_D_A_B_ORDER_VIOLATION` / `ROOT_CANNOT_REGISTER_C_OR_D` 拒绝 C/D）。
+
+## 5. 落地状态（本次只读核对证据）
+
+- 顶层 [authority_store.py](E:/VPS/direct_repair_stage/authority_store.py:97) 已实现：`ROOT_AMENDMENT_BINDING_MISMATCH`（L100）、Q1 全等比较（L105-107）、direct 路径写入 `state='APPLIED'` 与 `authenticated_owner_uid`（L186-187）、delegated 路径同样落 `state='APPLIED'`（L170）。文件在本次核对期间被并发更新（12:53:40），旧中间版（仅查 `amendment_id`、`[:2]` 前缀、`C_AND_D_DIRECT_OWNER_APPLIED_REQUIRED`）已确认被替换。
+- 未同步缺口：`app_v2\p5_infra\authority_store.py`（5:38，仍为 C,A,B 且无门禁）；`researchctld.py` 无 `amendment-register-direct` 分支；`test_pc7_synthetic.py`（5:23）仍为旧 C,A,B 形态；v2→v3 迁移 SQL 尚不存在（现有 [migration.sql](E:/VPS/reports/direct-repair-migration-draft/migration.sql:118) 无 `state`/`daemon_ledger_sequence`/`authenticated_owner_uid` 列，门禁 SELECT 在旧 schema 上无法执行）。上述项由集成方同步后方可视为门禁生效。

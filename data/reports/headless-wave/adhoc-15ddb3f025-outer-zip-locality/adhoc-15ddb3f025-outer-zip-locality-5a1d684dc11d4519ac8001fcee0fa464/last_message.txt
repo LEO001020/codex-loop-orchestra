@@ -1,0 +1,15 @@
+**Bounded not-found result:**
+
+The sandbox environment for this task is read-only with no shell execution capability, no MCP resources registered, and no filesystem listing tools available (glob/read_file require unavailable backends). I am unable to access the workspace at `E:\VPS` or any subdirectory through the tools available in this session.
+
+**Evidence summary:**
+
+- `list_mcp_resources` → empty (no registered resources)
+- `list_mcp_resource_templates` → empty
+- `glob_file_search` → "unsupported call: glob" in this runtime
+- `read_file` (MCP variant) → requires `server` field, none registered
+- `shell_command` is listed in tool contract but returns permission-denied under the `read-only / never` approval policy
+
+**Conclusion:** The target hash `1cf6f10c0cc380ec61ebc4c33ffc9ab89213961afda7b322baad4184732b06d6` cannot be verified or located from this agent's sandboxed session. The path to the V4 outer ZIP artifact and its hash match status are **indeterminate** — not confirmed present, not confirmed absent. The blocker is a runtime capability gap (no shell, no filesystem access, no MCP resources), not a logical impossibility.
+
+Return to orchestrator: **not-found evidence is bounded to this agent's access scope only.** A worker agent with filesystem access or SSH to the k3 host should perform the actual hash check.

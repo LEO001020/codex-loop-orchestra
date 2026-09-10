@@ -1,0 +1,26 @@
+{
+  "packet_id": "P02",
+  "goal": "任务名:P02\n实现 scripts/windows/setup.ps1，把已克隆仓库后的 Windows 首次本地 setup 脚本化：环境检查、cloudflared 无交互获取、按 package.json 固定 pnpm 版本安装依赖并构建、安装 Codex Skill、强制选择 Quick Tunnel、运行 c2c setup --json，并最终输出单个机器可解析 JSON；同时提供无副作用的 -Plan 和 -CheckOnly 模式。",
+  "authorized_paths": "workspace:/scripts/windows/",
+  "acceptance": "- 运行：powershell.exe -NoProfile -NonInteractive -Command \"$e=$null;$t=$null;[System.Management.Automation.Language.Parser]::ParseFile((Resolve-Path './scripts/windows/setup.ps1'),[ref]$t,[ref]$e) | Out-Null; if ($e.Count -gt 0) { $e | ForEach-Object { Write-Error $.Message }; exit 1 }\"；PowerShell AST 解析错误数必须为 0。\n- 运行：powershell.exe -NoProfile -NonInteractive -Command \"$raw=& './scripts/windows/setup.ps1' -Plan; $o=$raw | ConvertFrom-Json; if (!$o.ok -or $o.mode -ne 'plan' -or $null -eq $o.steps -or $o.steps.Count -lt 5) { exit 1 }\"；退出码必须为 0，且 -Plan 不得创建 dist、node_modules、用户级 cloudflared、Codex Skill 或 C2C 状态文件。\n- 运行：powershell.exe -NoProfile -NonInteractive -Command \"$raw=& './scripts/windows/setup.ps1' -CheckOnly; $o=$raw | ConvertFrom-Json; if ($null -eq $o.checks -or $null -eq $o.checks.node -or $null -eq $o.checks.cloudflared -or $null -eq $o.checks.pnpm) { exit 1 }\"；无论环境是否满足要求，都必须返回合法 JSON 而不是进入交互提示。\n- 运行：powershell.exe -NoProfile -NonInteractive -Command \"$p='./scripts/windows/setup.ps1'; @('Cloudflare.cloudflared','--disable-interactivity','releases/latest/download/cloudflared-windows-amd64.exe','packageManager','tunnel','choose','--mode','quick','setup','--json','skill/SKILL.md') | ForEach-Object { if (!(Select-String -Path $p -SimpleMatch $_ -Quiet)) { Write-Error ('missing: '+$); exit 1 } }\"；退出码必须为 0。\n- 运行：powershell.exe -NoProfile -NonInteractive -Command \"$p='./scripts/windows/setup.ps1'; if (Select-String -Path $p -Pattern 'Read-Host|PromptForChoice|Start-Process\\s+.*-Verb\\s+RunAs|cloudflared\\s+tunnel\\s+login|--mode\\s+named' -Quiet) { exit 1 }\"；退出码必须为 0。\n- 默认执行成功时最后一条标准输出必须能被 ConvertFrom-Json 解析，并至少包含 ok=true、workspace、connectorName、mcpUrl、pairingCode、cloudflaredVersion、pnpmVersion；失败时也必须输出结构化 JSON 并返回非零退出码。",
+  "constraints": "- 只修改 workspace:/scripts/windows/；不得修改 src、tests、README、package.json、skill/SKILL.md 本体或其他工作区文件。\n- 不得修改当前已存在未提交变更的 workspace:/src/auth/oauth.ts。\n- 不得调用浏览器、cloudflared tunnel login、named tunnel、Cloudflare Dashboard、ChatGPT 登录、验证码或任何人工审批流程。\n- 不得使用 Start-Process -Verb RunAs 或其他主动触发 UAC 的方式；如果 winget 安装因权限失败，必须自动尝试官方 GitHub latest 的用户级 cloudflared 可执行文件回退，仍失败则结构化报错。\n- Node.js <20 或 Node.js 缺失时必须结构化失败，不在本包中自动安装 Node，以避免把系统级安装和 UAC 引入首次 setup 脚本。\n- 不得假设 Corepack 一定存在：Node.js 官方已说明从 Node.js 25 起不再随发行版提供 Corepack；脚本必须从 package.json 读取 pnpm@11.24.0，并在 Corepack 不可用时采用非交互的 npm/npx 路径运行固定 pnpm 版本。\n- 首次 setup 必须先执行 c2c tunnel choose --mode quick --json，再执行 c2c setup --json，从而利用现有 CLI 而不是在 PowerShell 中复制 Tunnel、OAuth 或 pairing 实现。\n- 脚本不得覆盖用户已有 Codex Skill 文件而不做可恢复处理；重复运行必须幂等。",
+  "risk_tags": [
+    "high-risk",
+    "windows",
+    "local-install",
+    "network-download",
+    "writes-user-profile",
+    "process-spawn"
+  ],
+  "evidence_refs": [
+    "workspace:/package.json",
+    "workspace:/bin/c2c.js",
+    "workspace:/src/cli/index.ts",
+    "workspace:/src/tunnel/detect.ts",
+    "workspace:/README.md",
+    "https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/downloads/",
+    "https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/do-more-with-tunnels/trycloudflare/",
+    "https://learn.microsoft.com/en-us/windows/package-manager/winget/install",
+    "https://nodejs.org/download/release/v25.8.0/docs/api/corepack.html"
+  ]
+}

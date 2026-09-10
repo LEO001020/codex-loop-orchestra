@@ -1,0 +1,6 @@
+{
+  "schema": "codex-loop-headless-audit/v1",
+  "tasks": [
+    {"task_id":"c01-terminal-cleanup","task_name":"终态回收与UI登记审计","role":"worker","parent_session_id":"019feacd-184e-7472-9f11-ea364c22e595","manifest_id":"p0-cleanup-audit-20260814","cwd":"E:/codex-LOOP/codex-loop-s-f2","prompt":"任务名：终态回收与UI登记审计。只读审计多agent完成通知、close_agent、native roster终态与8765 current running之间的时序；判断未close的已完成agent会不会被错误显示运行，或未终态agent会不会因rollout过滤消失。返回生命周期不变量与P0/P1。"}
+  ]
+}

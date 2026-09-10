@@ -1,0 +1,63 @@
+四个示例扩展 (`with-deps`、`custom-provider-anthropic`、`custom-provider-gitlab-duo`、`sandbox`) 作为 npm workspace 成员参与构建，但这仅是为了让它们在开发时可以使用 workspace 依赖。这**不等于**它们被作为 K3 产品默认值加载。
+
+现在我有足够的信息来给出完整的审计报告。
+
+---
+
+## 审计结论：`examples/extensions` 哪些是纯上游示例、不应成为 K3 产品默认值
+
+### 总体判断
+
+`packages/coding-agent/examples/extensions/` 下的**所有文件都是纯上游文档示例**，没有任何一个被 `src/` 产品代码引用或注册为默认加载。它们通过 `--extension` CLI 标志或用户手动拷贝到 `~/.prime/agent/extensions/` 来使用，属于用户自选的可选功能。
+
+---
+
+### 逐项详细判断
+
+#### `prompt-customizer.ts`
+**结论：纯示例，不应成为 K3 默认值。**
+
+- 功能：在 `before_agent_start` 事件里根据活跃工具动态追加工具使用指南和技能列表。
+- 问题：它向系统提示词追加一段通用的 `## Tool Guidance` 和 `## Extension-Added Context` 章节，内容是针对通用 `ipython/bash/edit` 工具的泛泛建议，与 K3 特定的 ARM/RLM 架构无关。K3 的系统提示词已由 `src/core/system-prompt.ts`、`src/core/prompts/rlm.ts` 等文件精确构建，引入这个示例会重复甚至干扰 K3 的提示词结构。
+- 代码库中零引用。文件头注释写明"Copy this file to `~/.pi/agent/extensions/`"，是显式的用户侧可选安装。
+
+#### `system-prompt-header.ts`
+**结论：纯示例，不应成为 K3 默认值。**
+
+- 功能：在状态栏显示当前系统提示词的字符数（`System: N chars`）。
+- 问题：这是一个纯调试/演示性 UI 小部件，对产品用户无实际价值，且 K3 的 UI 状态栏有自己的指标体系（turn progress、token stats 等）。
+- 代码库中零引用。
+
+#### `subagent/`（含 `index.ts`、`agents.ts`、`agents/*.md`、`prompts/*.md`）
+**结论：纯示例，不应成为 K3 默认值。**
+
+- 功能：注册一个 `subagent` 工具，通过 spawn 独立 `pi` 子进程来实现 single/parallel/chain 三种委派模式。内置 `scout`、`planner`、`reviewer`、`worker` 四个示例 agent 角色。
+- 与 K3 内置 subagent 机制的关系：K3 在 `src/` 里有自己的 `AgentSessionRuntime`（subagentRuntimes map）、RLM 递归协议（`rlm.call()`/`rlm.run_async()`）、ARM-C 配置（`subagents: true`）。**这个示例扩展是一套完全独立的进程级委派实现**，绕过了 K3 内置的 token ledger、effort contract、stage-gate review、GUID sentinel 等安全与度量机制。README 本身也明确说明："Prime Agent also provides native recursive delegation through `rlm.call()` and `rlm.run_async()`. This extension is a separate example..."
+- 将其设为默认值的风险：子进程子代理不受 K3 effort-contract 和 arms 度量约束，会破坏 K3 的 `obs2`（subagent tokens / total tokens）等可观测性计算；`agentScope: "both"` 启用后会执行 repo 控制的 prompt，存在安全边界问题（README 自己也警告了）；示例里硬编码的模型是 `claude-haiku-4-5` / `claude-sonnet-4-5`，与 K3 的 ARM 模型路由完全独立。
+- 代码库中零 `src` 引用，仅出现在一个测试文件的路径字符串里。
+
+---
+
+### 其他相关示例的快速定性
+
+以下示例同属"不应成为 K3 产品默认值"的类别，理由相同（全部无 `src` 引用，均为演示 API 用法）：
+
+| 文件 | 性质 |
+|---|---|
+| `pirate.ts` | 趣味演示，`before_agent_start` 追加海盗风格指令 |
+| `claude-rules.ts` | 扫描 `.claude/rules/` 并追加到提示词，依赖 Claude-specific 目录约定 |
+| `auto-commit-on-exit.ts` | git 自动提交，副作用明显，属用户自选行为 |
+| `git-checkpoint.ts` | 每个 turn 创建 git stash，副作用明显 |
+| `permission-gate.ts` | 交互式确认危险命令，产品已有自己的安全机制 |
+| `sandbox/` | 调用 `@anthropic-ai/sandbox-runtime`，作为 workspace 成员仅为开发时解析依赖 |
+| `doom-overlay/` | DOOM 游戏覆盖层，纯娱乐演示 |
+
+---
+
+### 核心结论
+
+`examples/extensions/` 下所有内容均为**上游 API 演示代码**，设计意图是教用户如何使用 Extension API，不是 K3 产品行为规范的一部分。特别地：
+
+1. **`prompt-customizer.ts`** 与 K3 自己精心设计的 `buildSystemPrompt` / RLM 提示词体系冲突，不能成为默认值。
+2. **`system-prompt-header.ts`** 是调试 UI，不是产品功能。
+3. **`subagent/`** 实现的是进程级委派，与 K3 内置的 RLM 子代理机制平行存在但完全独立，将其设为默认值会绕过 K3 的安全边界、effort accounting 和可观测性管道。

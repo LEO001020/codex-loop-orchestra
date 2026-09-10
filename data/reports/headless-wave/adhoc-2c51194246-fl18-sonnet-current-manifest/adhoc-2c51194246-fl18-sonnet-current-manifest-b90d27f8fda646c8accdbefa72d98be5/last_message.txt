@@ -1,0 +1,33 @@
+FL18 当前 Manifest 复核结果如下：
+
+---
+
+## FL18 Manifest 机械复核结果
+
+**包标识：** `P5_OWNER_ADMIN_CUTOVER_ALPHA_UNBLOCKING_FL18`  
+**包身份哈希（SHA256(11_SHA256SUMS)）：** `b0a2bd9ed8019031297d622d599f5df4ef0947037913053feb1adfdc44d48dd0`  
+**包状态：** `CEREMONY_READY_UNEXECUTED`
+
+### 所有绑定检查：全部通过，零漂移
+
+| 检查项 | 结果 |
+|--------|------|
+| 56 个 payload 文件 vs `10_MANIFEST.json` | 56/56 通过 |
+| `10_MANIFEST.json` 记录于 `11_SHA256SUMS` | 哈希匹配（`0697017d...`） |
+| `11_SHA256SUMS` 全部 57 行 vs 实际文件 | 57/57 通过 |
+| TCB manifest 18 个 bundle_members vs manifest | 18/18 通过 |
+| TCB `core_runtime_identities` 6 项 vs manifest | 6/6 通过 |
+| TCB `dependency_manifest_sha256`（三方一致） | 通过 |
+| TCB `platform_manifest_sha256`（三方一致） | 通过 |
+| Ceremony bundle 5 个成员 vs manifest | 5/5 通过 |
+| 磁盘上未被 manifest 跟踪的额外文件 | 0 个 |
+| 生产变更标志位 | 全部为 `false`（未执行） |
+
+### 结构完整性
+
+- **非循环性（T15）**：`10_MANIFEST.json` 正确出现于 `11_SHA256SUMS` 但不出现在 manifest 的 `files` 数组中。
+- **包自绑定（T14/S24）**：`identity_algorithm.package_self_sha256 = sha256(11_SHA256SUMS)` 约定已满足。
+- **`supersedes_package_self_sha256`**：`f1da80801233be0f7f2080f2596c1cb512a0dd377b75cd58e55809c6d09c9e1f`，系前序包（FL17）的身份哈希，已记录于链式托管，本次不可在此环境中反向验证。
+- **文件计数**：`file_count` 字段（56）与 `files` 数组实际长度（56）一致。
+
+**结论：review 期间无任何漂移。`10_MANIFEST.json`、`11_SHA256SUMS`、TCB manifest 及 ceremony bundle 四者完全互锁，与磁盘实体文件逐字节吻合。**

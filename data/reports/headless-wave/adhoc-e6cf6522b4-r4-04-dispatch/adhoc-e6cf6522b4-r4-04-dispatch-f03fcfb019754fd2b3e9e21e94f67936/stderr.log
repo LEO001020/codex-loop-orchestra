@@ -1,0 +1,122 @@
+Reading additional input from stdin...
+2026-08-14T11:10:47.004182Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-14T11:10:55.364114Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-14T11:11:05.364983Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 3.4 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 81
++ ... codex-LOOP\codex-loop-s-f2 --files-with-matches -l 2>$null | head -30
++                                                                  ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-14T11:11:18.847495Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.2 seconds
+Output:
+
+2026-08-14T11:11:36.877713Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 1.2 seconds
+Output:
+E:\codex-LOOP\codex-loop-s-f2\backup-20260811-215706\config\refill_policy.toml
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\config\loop_config_v2.toml
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\config\orchestration_policy_v2.toml
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\config\refill_policy.toml
+E:\codex-LOOP\codex-loop-s-f2\harness\budget_controller.py
+E:\codex-LOOP\codex-loop-s-f2\harness\dispatch.py
+E:\codex-LOOP\codex-loop-s-f2\harness\dispatch_v2.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\config\refill_policy.toml
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\config\orchestration_policy_v2.toml
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\config\orchestration_policy.toml
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\config\loop_config_v2.toml
+E:\codex-LOOP\codex-loop-s-f2\config\orchestration_policy.toml
+E:\codex-LOOP\codex-loop-s-f2\config\loop_config_v2.toml
+E:\codex-LOOP\codex-loop-s-f2\config\orchestration_policy_v2.toml
+E:\codex-LOOP\codex-loop-s-f2\config\refill_policy.toml
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\orchestration_common.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\dispatch_v2.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\harness\budget_controller.py
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\harness\orchestration_common.py
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\harness\budget_controller.py
+E:\codex-LOOP\codex-loop-s-f2\backup-20260813-012318\harness\dispatch_v2.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\test_layered_e2e.py
+E:\codex-LOOP\codex-loop-s-f2\codex-loop-s-f2\tests\test_budget_controller.py
+E:\codex-LOOP\codex-loop-s-f2\data\events.ndjson
+E:\codex-LOOP\codex-loop-s-f2\reports\ipybox-headless-stability-20260810.md
+E:\codex-LOOP\codex-loop-s-f2\data\lifecycle\exec_roster.json
+E:\codex-LOOP\codex-loop-s-f2\reports\并发路由最终真值审计\verification_report.md
+E:\codex-LOOP\codex-loop-s-f2\reports\timeout_retry_wiring\report.md
+E:\codex-LOOP\codex-loop-s-f2\harness\orchestration_common.py
+E:\codex-LOOP\codex-loop-s-f2\harness\refill_controller.py
+
+2026-08-14T11:12:03.918093Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 191ms)... turn_id=019ffff7-a33a-7f82-ac3f-737813c87e9c retries=1 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游网络连接失败, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T11:12:09.605876Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 386ms)... turn_id=019ffff7-a33a-7f82-ac3f-737813c87e9c retries=2 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游网络连接失败, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T11:12:22.674276Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.9 seconds
+Output:
+
+2026-08-14T11:12:44.870842Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 202ms)... turn_id=019ffff7-a33a-7f82-ac3f-737813c87e9c retries=1 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游网络连接失败, url: http://127.0.0.1:10100/v1/responses
+2026-08-14T11:12:57.108546Z ERROR codex_core::tools::router: error=unsupported call: read
+2026-08-14T11:15:33.748625Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.6 seconds
+Output:
+
+2026-08-14T11:20:24.197989Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.6 seconds
+Output:
+
+2026-08-14T11:21:16.611604Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.7 seconds
+Output:
+
+2026-08-14T11:21:52.309569Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.8 seconds
+Output:
+
+2026-08-14T11:22:25.055888Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.6 seconds
+Output:
+
+2026-08-14T11:22:43.093393Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.6 seconds
+Output:
+
+2026-08-14T11:24:15.245606Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.6 seconds
+Output:
+
+2026-08-14T11:25:25.260359Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {
+  "error": {
+    "message": "Your session has ended. Please log in again.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "refresh_token_invalidated"
+  }
+}
+2026-08-14T11:28:22.441556Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.5 seconds
+Output:
+
+2026-08-14T11:28:59.794008Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 0.6 seconds
+Output:
+
+2026-08-14T11:30:25.943618Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}

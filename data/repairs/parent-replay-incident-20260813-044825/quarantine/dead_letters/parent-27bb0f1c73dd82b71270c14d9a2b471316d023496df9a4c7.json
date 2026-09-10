@@ -1,0 +1,49 @@
+{
+  "detail": {
+    "event": "dispatched",
+    "from_state": "DEAD_LETTER"
+  },
+  "packet_id": "parent-27bb0f1c73dd82b71270c14d9a2b471316d023496df9a4c7",
+  "prior_history": [
+    {
+      "attempt": 0,
+      "run_id": "parent-27bb0f1c73dd82b71270c14d9a2b471316d023496df9a4c7-a0-d0ca0784448243db955795521ff62b77",
+      "to": "RUNNING",
+      "ts": 1786567419.0020514,
+      "via": "repair_live_roster_generation"
+    },
+    {
+      "current_run_id": "parent-27bb0f1c73dd82b71270c14d9a2b471316d023496df9a4c7-a0-d0ca0784448243db955795521ff62b77",
+      "event": "exec_failed",
+      "event_run_id": "parent-27bb0f1c73dd82b71270c14d9a2b471316d023496df9a4c7-a0-a0e18a330647490f87420025d3ebe784",
+      "to": "RUNNING",
+      "ts": 1786567432.8925695,
+      "via": "stale_run_id_ignored"
+    },
+    {
+      "to": "DEAD_LETTER",
+      "ts": 1786567432.8925922,
+      "via": "off_table_event"
+    },
+    {
+      "to": "DEAD_LETTER",
+      "ts": 1786567432.9685884,
+      "via": "off_table_event"
+    },
+    {
+      "current_run_id": "parent-27bb0f1c73dd82b71270c14d9a2b471316d023496df9a4c7-a0-d0ca0784448243db955795521ff62b77",
+      "event": "exec_failed",
+      "event_run_id": "parent-27bb0f1c73dd82b71270c14d9a2b471316d023496df9a4c7-a0-f744ba880f4a4de9a58a692e5c296fe3",
+      "to": "DEAD_LETTER",
+      "ts": 1786567432.973528,
+      "via": "stale_run_id_ignored"
+    },
+    {
+      "to": "DEAD_LETTER",
+      "ts": 1786567433.3873732,
+      "via": "off_table_event"
+    }
+  ],
+  "reason": "off_table_event",
+  "ts": 1786567433.3874958
+}

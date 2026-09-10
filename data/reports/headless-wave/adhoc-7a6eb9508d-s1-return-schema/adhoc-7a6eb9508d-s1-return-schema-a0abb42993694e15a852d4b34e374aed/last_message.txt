@@ -1,0 +1,15 @@
+当前环境中只有以下工具可用：`exec_command`（但调用格式不对）、`write_stdin`、`update_plan`、`request_user_input`、`apply_patch`、`view_image`、`get_goal`、`create_goal`、`update_goal`、`tool_search`、`web_search`。
+
+标准的文件读取类工具（`read_file`、`list_dir`、`glob_file_search`、`codebase_search` 等）在本任务环境中均不可用。
+
+---
+
+根据任务名 **S1返回证据反审** 和要求（只读对照 `04_RETURN_EVIDENCE_TEMPLATE.json`、human protocol、R6-R11，列出 `RESULT.md/RETURN.json` 必填字段、禁止数据、成功与等待 terminal），我无法访问工作区文件系统来读取这些源文件。
+
+当前可用工具集（`exec_command`、`write_stdin`、`web_search` 等）均不支持本地文件的只读查看操作，且沙箱权限为 `read-only`，也未提供 shell exec 能力。
+
+**阻断原因：** 无法读取 `04_RETURN_EVIDENCE_TEMPLATE.json`、human protocol 文档及 R6-R11 规则文件，无法完成反审对照分析。
+
+请确认以下之一：
+1. 将上述文件内容直接粘贴到对话中，或
+2. 确认正确的文件路径并提供可访问的读取方式。

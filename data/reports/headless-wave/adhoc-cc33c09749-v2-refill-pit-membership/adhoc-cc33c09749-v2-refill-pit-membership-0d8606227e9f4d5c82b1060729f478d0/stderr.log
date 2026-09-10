@@ -1,0 +1,1224 @@
+Reading additional input from stdin...
+2026-08-15T07:17:10.365225Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-08-15T07:17:15.142196Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
+2026-08-15T07:17:28.938466Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 4.4 seconds
+Output:
+head : 无法将“head”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后
+再试一次。
+所在位置 行:2 字符: 64
++ ... t-ChildItem E:\VPS -Recurse -File | Select-Object FullName | head -80
++                                                                  ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-15T07:18:12.899073Z ERROR codex_core::tools::router: error=Exit code: 124
+Wall time: 11.2 seconds
+Total output lines: 7809
+Output:
+command timed out after 11195 milliseconds
+
+FullName                                                                                                               
+--------                                                                                                               
+E:\VPS\.gcloud                                                                                                         
+E:\VPS\.pytest_cache                                                                                                   
+E:\VPS\.tools                                                                                                          
+E:\VPS\.work                                                                                                           
+E:\VPS\cli-parser-dispatch-tests-20260813                                                                              
+E:\VPS\direct_repair_stage                                                                                             
+E:\VPS\home-gpu                                                                                                        
+E:\VPS\hub-baseline-audit                                                                                              
+E:\VPS\p5-boot-image-20260810T144519Z                                                                                  
+E:\VPS\p5-boot-image-preflight-20260810T144519Z                                                                        
+E:\VPS\p5-cold-canary-20260810-150058                                                                                  
+E:\VPS\p5-data-snapshot-20260810-151108                                                                                
+E:\VPS\p5-fastpath-state-20260810T151305Z                                                                              
+E:\VPS\p5-fastpath-template-20260810                                                                                   
+E:\VPS\p5-fastpath-template-v3-20260810                                                                                
+E:\VPS\p5-fastpath-template-v4-20260810                                                                                
+E:\VPS\p5-filebrowser-tunnel                                                                                           
+E:\VPS\p5-hub-research-ready-p5-fastpath-20260810T161639Z                                                              
+E:\VPS\p5-wheels                                                                                                       
+E:\VPS\P5_CODEX_ALPHA_EXECUTION_LAYER_COMPLETION_V1                                                                    
+E:\VPS\P5_CODEX_RESEARCH_ALPHA_FAST_PATH_V1                                                                            
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3                                                            
+E:\VPS\P5_FAST_PATH_WORK                                                                                               
+E:\VPS\P5_FL20_PREDEPLOY_ACTIVATION_FIX_V1                                                                             
+E:\VPS\P5_S1_LOCAL_CODEX_INDEPENDENT_ADMIN_HANDOFF_V1                                                                  
+E:\VPS\pc7_stage                                                                                                       
+E:\VPS\reports                                                                                                         
+E:\VPS\terminalization_v2_build                                                                                        
+E:\VPS\terminalization_v2_handoff                                                                                      
+E:\VPS\tmp_probe                                                                                                       
+E:\VPS\__pycache__                                                                                                     
+E:\VPS\.gcloud\cache                                                                                                   
+E:\VPS\.gcloud\configurations                                                                                          
+E:\VPS\.gcloud\legacy_credentials                                                                                      
+E:\VPS\.gcloud\logs                                                                                                    
+E:\VPS\.gcloud\cache\hzq001020i@gmail.com                                                                              
+E:\VPS\.gcloud\legacy_credentials\hzq001020i@gmail.com                                                                 
+E:\VPS\.gcloud\logs\2026.08.10                                                                                         
+E:\VPS\.gcloud\logs\2026.08.11                                                                                         
+E:\VPS\.gcloud\logs\2026.08.12                                                                                         
+E:\VPS\.gcloud\logs\2026.08.13                                                                                         
+E:\VPS\.gcloud\logs\2026.08.14                                                                                         
+E:\VPS\.gcloud\logs\2026.08.15                                                                                         
+E:\VPS\.tools\gcloud-portable                                                                                          
+E:\VPS\.tools\google-cloud-sdk                                                                                         
+E:\VPS\.tools\p5_src_audit_134519Z                                                                                     
+E:\VPS\.tools\p5_src_audit_153334Z                                                                                     
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk                                                                         
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\.install                                                                
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\bin                                                                     
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\data                                                                    
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\deb                                                                     
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib                                                                     
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\platform                                                                
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\rpm                                                                     
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\.install\.download                                                      
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\bin\bootstrapping                                                       
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\bin\sdk                                                                 
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\bin\bootstrapping\__pycache__                                           
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\data\cli                                                                
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\data\cli\__pycache__                                                    
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\deb\mapping                                                             
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk                                                      
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\surface                                                             
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party                                                         
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\__pycache__                                                         
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib                                              
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\appengine                                            
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\calliope                                             
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\command_lib                                          
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\core                                                 
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\generated_clients                                    
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\schemas                                              
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\third_party                                          
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\__pycache__                                          
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\accesscontextmanager                         
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\access_approval                              
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\active_directory                             
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\agentic_applications                         
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\ai                                           
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\alloydb                                      
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\apigee                                       
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\api_gateway                                  
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\api_registry                                 
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\app                                          
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\apphub                                       
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\artifacts                                    
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\asset                                        
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\assured                                      
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\audit_manager                                
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\auth                                         
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\authz_toolkit                                
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\backupdr                                     
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\batch                                        
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\beyondcorp                                   
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\biglake                                      
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\bigtable                                     
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\billing                                      
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\bms                                          
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\bq                                           
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\certificate_manager                          
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\cloudbuild                                   
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\clouddeploy                                  
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\cloudkms                                     
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\cloudresourcemanager                         
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\colab_enterprise                             
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\commerce_procurement                         
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\composer                                     
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\compute                                      
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\container                                    
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\containeranalysis                            
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\database_migration                           
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\dataflow                                     
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\datapipelines                                
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\dataplex                                     
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\dataproc                                     
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\dataproc_gdc                                 
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\datastore                                    
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\datastream                                   
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\data_catalog                                 
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\data_fusion                                  
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\deployment_manager                           
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\design_center                                
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\developer_connect                            
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\device_run                                   
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\dns                                          
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\domains                                      
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\edge                                         
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\edgecontainer                                
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\edgeml                                       
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\edge_cloud                                   
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\endpoints                                    
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\error_reporting                              
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\essential_contacts                           
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\eventarc                                     
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\fault_injection                              
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\filestore                                    
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\firebase                                     
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\firestore                                    
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\functions                                    
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\gemini_cloud_assist                          
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\genomics                                     
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\hypercomputecluster                          
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\iam                                          
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\iamcredentials                               
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\iap                                          
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\identity                                     
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\ids                                          
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\immersive_stream                             
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\infra_manager                                
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\kmsinventory                                 
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\krmapihosting                                
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\logging                                      
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\looker                                       
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\managed_flink                                
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\memcache                                     
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\meta                                         
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\metastore                                    
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\microservices                                
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\ml                                           
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\ml_engine                                    
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\model_armor                                  
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\monitoring                           …226046 tokens truncated…ty\botocore\data\connect-contact-lens\2020-08-21           
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\connectcampaigns\2021-01-30               
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\connectcases\2022-10-03                   
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\connectparticipant\2018-09-07             
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\controltower\2018-05-10                   
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\cost-optimization-hub\2022-07-26          
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\cur\2017-01-06                            
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\customer-profiles\2020-08-15              
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\databrew\2017-07-25                       
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\dataexchange\2017-07-25                   
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\datapipeline\2012-10-29                   
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\datasync\2018-11-09                       
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\datazone\2018-05-10                       
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\dax\2017-04-19                            
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\detective\2018-10-26                      
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\devicefarm\2015-06-23                     
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\devops-guru\2020-12-01                    
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\directconnect\2012-10-25                  
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\discovery\2015-11-01                      
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\dlm\2018-01-12                            
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\dms\2016-01-01                            
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\docdb\2014-10-31                          
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\docdb-elastic\2022-11-28                  
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\drs\2020-02-26                            
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\ds\2015-04-16                             
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\dynamodb\2011-12-05                       
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\dynamodb\2012-08-10                       
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\dynamodbstreams\2012-08-10                
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\ebs\2019-11-02                            
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\ec2\2014-09-01                            
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\ec2\2014-10-01                            
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\ec2\2015-03-01                            
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\ec2\2015-04-15                            
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\ec2\2015-10-01                            
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\ec2\2016-04-01                            
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\ec2\2016-09-15                            
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\ec2\2016-11-15                            
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\ec2-instance-connect\2018-04-02           
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\ecr\2015-09-21                            
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\ecr-public\2020-10-30                     
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\ecs\2014-11-13                            
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\efs\2015-02-01                            
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\eks\2017-11-01                            
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\eks-auth\2023-11-26                       
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\elastic-inference\2017-07-25              
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\elasticache\2014-09-30                    
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\elasticache\2015-02-02                    
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\elasticbeanstalk\2010-12-01               
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\elastictranscoder\2012-09-25              
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\elb\2012-06-01                            
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\elbv2\2015-12-01                          
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\emr\2009-03-31                            
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\emr-containers\2020-10-01                 
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\emr-serverless\2021-07-13                 
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\entityresolution\2018-05-10               
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\es\2015-01-01                             
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\events\2014-02-03                         
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\events\2015-10-07                         
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\evidently\2021-02-01                      
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\finspace\2021-03-12                       
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\finspace-data\2020-07-13                  
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\firehose\2015-08-04                       
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\fis\2020-12-01                            
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\fms\2018-01-01                            
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\forecast\2018-06-26                       
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\forecastquery\2018-06-26                  
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\frauddetector\2019-11-15                  
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\freetier\2023-09-07                       
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\fsx\2018-03-01                            
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\gamelift\2015-10-01                       
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\glacier\2012-06-01                        
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\globalaccelerator\2018-08-08              
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\glue\2017-03-31                           
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\grafana\2020-08-18                        
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\greengrass\2017-06-07                     
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\greengrassv2\2020-11-30                   
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\groundstation\2019-05-23                  
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\guardduty\2017-11-28                      
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\health\2016-08-04                         
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\healthlake\2017-07-01                     
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\honeycode\2020-03-01                      
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\iam\2010-05-08                            
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\identitystore\2020-06-15                  
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\imagebuilder\2019-12-02                   
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\importexport\2010-06-01                   
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\inspector\2015-08-18                      
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\inspector\2016-02-16                      
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\inspector-scan\2023-08-08                 
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\inspector2\2020-06-08                     
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\internetmonitor\2021-06-03                
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\iot\2015-05-28                            
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\iot-data\2015-05-28                       
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\iot-jobs-data\2017-09-29                  
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\iot-roborunner\2018-05-10                 
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\iot1click-devices\2018-05-14              
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\iot1click-projects\2018-05-14             
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\iotanalytics\2017-11-27                   
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\iotdeviceadvisor\2020-09-18               
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\iotevents\2018-07-27                      
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\iotevents-data\2018-10-23                 
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\iotfleethub\2020-11-03                    
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\iotfleetwise\2021-06-17                   
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\iotsecuretunneling\2018-10-05             
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\iotsitewise\2019-12-02                    
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\iotthingsgraph\2018-09-06                 
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\iottwinmaker\2021-11-29                   
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\iotwireless\2020-11-22                    
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\ivs\2020-07-14                            
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\ivs-realtime\2020-07-14                   
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\ivschat\2020-07-14                        
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\kafka\2018-11-14                          
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\kafkaconnect\2021-09-14                   
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\kendra\2019-02-03                         
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\kendra-ranking\2022-10-19                 
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\keyspaces\2022-02-10                      
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\kinesis\2013-12-02                        
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\kinesis-video-archived-media\2017-09-30   
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\kinesis-video-media\2017-09-30            
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\kinesis-video-signaling\2019-12-04        
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\kinesis-video-webrtc-storage\2018-05-10   
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\kinesisanalytics\2015-08-14               
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\kinesisanalyticsv2\2018-05-23             
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\kinesisvideo\2017-09-30                   
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\kms\2014-11-01                            
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\lakeformation\2017-03-31                  
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\lambda\2014-11-11                         
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\lambda\2015-03-31                         
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\launch-wizard\2018-05-10                  
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\lex-models\2017-04-19                     
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\lex-runtime\2016-11-28                    
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\lexv2-models\2020-08-07                   
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\lexv2-runtime\2020-08-07                  
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\license-manager\2018-08-01                
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\license-manager-linux-subscriptions\201...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\license-manager-user-subscriptions\2018...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\lightsail\2016-11-28                      
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\location\2020-11-19                       
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\logs\2014-03-28                           
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\lookoutequipment\2020-12-15               
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\lookoutmetrics\2017-07-25                 
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\lookoutvision\2020-11-20                  
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\m2\2021-04-28                             
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\machinelearning\2014-12-12                
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\macie2\2020-01-01                         
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\managedblockchain\2018-09-24              
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\managedblockchain-query\2023-05-04        
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\marketplace-agreement\2020-03-01          
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\marketplace-catalog\2018-09-17            
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\marketplace-deployment\2023-01-25         
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\marketplace-entitlement\2017-01-11        
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\marketplacecommerceanalytics\2015-07-01   
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\mediaconnect\2018-11-14                   
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\mediaconvert\2017-08-29                   
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\medialive\2017-10-14                      
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\mediapackage\2017-10-12                   
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\mediapackage-vod\2018-11-07               
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\mediapackagev2\2022-12-25                 
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\mediastore\2017-09-01                     
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\mediastore-data\2017-09-01                
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\mediatailor\2018-04-23                    
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\medical-imaging\2023-07-19                
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\botocore\data\memorydb\2021-01-01                       
+Get-ChildItem : 对路径“E:\VPS\.pytest_cache”的访问被拒绝。
+所在位置 行:2 字符: 1
++ Get-ChildItem E:\VPS -Recurse -Directory | Select-Object FullName
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (E:\VPS\.pytest_cache:String) [Get-ChildItem], UnauthorizedAccessExcep 
+   tion
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+2026-08-15T07:19:07.868706Z ERROR codex_core::tools::router: error=Exit code: 124
+Wall time: 10.7 seconds
+Output:
+command timed out after 10656 milliseconds
+
+FullName                                                                                                               
+--------                                                                                                               
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\storage\gcs_json\patch_apitools_messages.py  
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\storage\gcs_json\__pycache__\patch_apitool...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\command_lib\transfer\jobs_apitools_util.py           
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\command_lib\transfer\__pycache__\jobs_apitools_uti...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\third_party\pytz\zoneinfo\Pacific\Pitcairn                          
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\api_lib\storage\gcs_json\patch_apitools_messages.py                  
+E:\VPS\.tools\google-cloud-sdk\lib\googlecloudsdk\command_lib\transfer\jobs_apitools_util.py                           
+E:\VPS\.work\fl20_activation_closure_v1\owner-admin-cutover-final-20260815-alpha-data-plane-v1-fl20\tcb\bundle\scien...
+E:\VPS\.work\fl20_activation_closure_v1\owner-admin-cutover-final-20260815-alpha-data-plane-v1-fl20-r1\tcb\bundle\sc...
+E:\VPS\P5_FABLE_FL20_R1_ALPHA_ACTIVATION_COMPLETE_BUNDLE_V3\FROZEN_REFERENCE\FROZEN_P3\P5_P3_PIT_UNIVERSE_EXECUTION_...
+E:\VPS\P5_FAST_PATH_WORK\v2_classification_evidence\P5_P3_PIT_UNIVERSE_EXECUTION_RULE_V1.md                            
+E:\VPS\reports\owner-admin-cutover-final-20260814-alpha-execution-v1-fl19\tcb\bundle\scientific-root-20\P5_P3_PIT_UN...
+E:\VPS\reports\pc6-input-map-t1w1\probe8_fetch_pit.sh                                                                  
+E:\VPS\reports\pc6-input-map-t1w1\fetched\build_pit_universe.py                                                        
+E:\VPS\reports\pc6-input-map-t1w1\fetched\PIT_UNIVERSE_V1.json                                                         
+E:\VPS\reports\pc7-bound-object-gate-rerun-20260813\remote_fetch\P5_P3_PIT_UNIVERSE_EXECUTION_RULE_V1.md               
+E:\VPS\reports\pit-volume-causality-review\fetch_pit_code.sh                                                           
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\storage\gcs_json\patch_apitools_messages.py  
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\api_lib\storage\gcs_json\__pycache__\patch_apitool...
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\command_lib\transfer\jobs_apitools_util.py           
+E:\VPS\.tools\gcloud-portable\google-cloud-sdk\lib\googlecloudsdk\command_lib\transfer\__pycache__\jobs_apitools_uti...
+
+2026-08-15T07:22:45.908662Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 3.8 seconds
+Output:
+python3 : 无法将“python3”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确
+，然后再试一次。
+所在位置 行:2 字符: 1
++ python3 -c "
++ ~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (python3:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-15T07:23:09.220280Z ERROR codex_core::tools::router: error=Exit code: 1
+Wall time: 2.8 seconds
+Output:
+python : 无法将“python”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，
+然后再试一次。
+所在位置 行:2 字符: 1
++ python -c "
++ ~~~~~~
+    + CategoryInfo          : ObjectNotFound: (python:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+2026-08-15T07:25:26.506119Z ERROR codex_core::tools::router: error=Exit code: 124
+Wall time: 10.4 seconds
+Total output lines: 21910
+Output:
+command timed out after 10405 milliseconds
+Manifest executable cells: 10995 (should equal 10995 per QA doc)
+无法创建类型。此语言模式仅支持核心类型。
+所在位置 行:7 字符: 1
++ $manifestSymbols = [System.Collections.Generic.HashSet[string]]::new( ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : CannotCreateTypeConstrainedLanguage
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : Inv…267807 tokens truncated…     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+不能对 Null 值表达式调用方法。
+所在位置 行:9 字符: 28
++ ... ($m in $matches) { $null = $manifestSymbols.Add($m.Groups[1].Value) }
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) []，RuntimeE
+2026-08-15T07:27:06.523058Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 219ms)... turn_id=01a00448-1ec3-7010-a34e-0142fead0720 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T07:27:52.712451Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 407ms)... turn_id=01a00448-1ec3-7010-a34e-0142fead0720 retries=2 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T07:28:40.386337Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 757ms)... turn_id=01a00448-1ec3-7010-a34e-0142fead0720 retries=3 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T07:32:41.109217Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 182ms)... turn_id=01a00448-1ec3-7010-a34e-0142fead0720 retries=1 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T07:33:27.117681Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 427ms)... turn_id=01a00448-1ec3-7010-a34e-0142fead0720 retries=2 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T07:34:13.328553Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 864ms)... turn_id=01a00448-1ec3-7010-a34e-0142fead0720 retries=3 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T07:35:00.078450Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.739s)... turn_id=01a00448-1ec3-7010-a34e-0142fead0720 retries=4 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T07:35:48.430830Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 3.052s)... turn_id=01a00448-1ec3-7010-a34e-0142fead0720 retries=5 max_retries=5 sampling_error=stream disconnected before completion: Provider stream error: 上游请求总预算耗尽
+2026-08-15T07:36:08.679459Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Your authentication token has been invalidated. Please try signing in again.",
+    "type": "invalid_request_error",
+    "code": "token_invalidated",
+    "param": null
+  },
+  "status": 401
+}
