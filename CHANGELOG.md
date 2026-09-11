@@ -28,9 +28,10 @@ uses semantic versioning where practical.
 - Restored test fixtures no longer shadow the current root test configuration;
   metering tests use the public hook source, and the release allowlist includes
   the current JavaScript probe.
-- Cross-platform CI installs the pinned Codex executable used by resolver
-  tests, preserves executable modes for shell fixtures, uses a hermetic Codex
-  config fixture, and bounds each real provider smoke probe to 45 seconds.
+- Cross-platform CI uses repository-local Linux and Windows Codex shims for
+  resolver tests, preserves executable modes for shell fixtures, uses a
+  hermetic Codex config fixture, and bounds each real provider smoke probe to
+  45 seconds.
 - Text files previously carrying mixed CRLF/LF bytes are normalized to the
   repository's LF policy so release checksums reproduce on Windows and Linux.
 - Generated runtime ledgers, reports, backups, nested workspace copies, and

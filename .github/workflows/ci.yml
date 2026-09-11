@@ -24,16 +24,21 @@ jobs:
         python: ["3.11", "3.14"]
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-      - name: Install the pinned Codex CLI for executable-resolution tests
-        run: npm install --global @openai/codex@0.147.0
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
           cache: pip
           cache-dependency-path: requirements-dev.txt
+      - name: Configure the hermetic Codex executable
+        shell: python
+        run: |
+          import os
+          from pathlib import Path
+          root = Path(os.environ["GITHUB_WORKSPACE"])
+          name = "codex.cmd" if os.name == "nt" else "codex"
+          executable = root / "tests" / "mock_codex" / "bin" / name
+          with open(os.environ["GITHUB_ENV"], "a", encoding="utf-8") as env:
+              env.write(f"CODEX_HEADLESS_BIN={executable}\n")
       - run: python -m pip install -r requirements-dev.txt
       - run: python -m pytest tests -q --timeout=300
 
