@@ -113,7 +113,8 @@ def test_install_merges_unrelated_hooks_and_restore_is_exact(tmp_path):
     assert "windows_managed_dir" in requirements
     assert "--component spawn-gate" in requirements
     assert 'matcher = "^(Bash|' in requirements
-    assert 'matcher = "^(Agent|spawnAgent)$|spawn_agent|' in requirements
+    assert ('matcher = "^(Agent|spawnAgent|closeAgent)$|spawn_agent|close_agent|'
+            in requirements)
     system_path = desktop_mode.system_requirements_path()
     assert system_path.exists()
     assert system_path.read_bytes() == (codex_home / "requirements.toml").read_bytes()

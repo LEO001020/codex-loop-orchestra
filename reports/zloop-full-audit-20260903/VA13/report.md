@@ -1,1 +1,0 @@
-Promotion一致性复核报告. 故障窗口: VOL-11 §4定义了crash window，即原子记账前的物理状态不一致。恢复能力: Git作为物理oracle (reconcile_dangling)。测试覆盖: test_promote.py 覆盖了各种冲突情况(DIRTY_OR_DRIFT, HEAD_DRIFT, NOT_DESCENDANT)。 Evidence: -promote.py: 89, 137, 186; -test_promote.py: 300, 360

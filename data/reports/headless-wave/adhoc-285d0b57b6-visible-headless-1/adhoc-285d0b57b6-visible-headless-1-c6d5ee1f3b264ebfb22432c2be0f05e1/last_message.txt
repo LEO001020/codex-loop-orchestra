@@ -1,9 +1,0 @@
-结论：当前版本**不满足**“starting/running 任一即计为成功”——出生确认比要求更严格：仅当 exec_roster 中 `run_id` 匹配且状态为 **`running`**（并持续 0.25s）才计为成功，`starting` 被刻意排除（文件头注释仍写 starting/running，与实际逻辑不符）。
-
-证据：
-- 头注释声称 starting/running：[headless_wave.py:5-8](E:/codex-LOOP/codex-loop-s-f2/harness/headless_wave.py#L5)
-- `observed()` 仅认 `running`，注释明确 "`starting` merely reserves an initializing slot... may be followed by spawn_failed"：[headless_wave.py:110-115](E:/codex-LOOP/codex-loop-s-f2/harness/headless_wave.py#L110)
-- `wait_observed()` 要求 `run_id` 匹配且 `state == "running"` 持续 `stable_for=0.25s` 才返回 True，终态（completed/failed/spawn_failed 等）立即 False：[headless_wave.py:118-135](E:/codex-LOOP/codex-loop-s-f2/harness/headless_wave.py#L118)
-- 只有 `wait_observed` 成功才记录 `status: "running"`，否则记为 unobserved/终态且不算成功 handoff：[headless_wave.py:235-252](E:/codex-LOOP/codex-loop-s-f2/harness/headless_wave.py#L235)
-
-倾向建议：若 AGENTS 口径是“starting 即可占位防重复派生”，需放宽 `wait_observed`；但按现注释的 anti-duplicate 设计（starting 可能毫秒后退化为 spawn_failed），维持 only-running 更安全——建议改文件头注释以消除不一致。

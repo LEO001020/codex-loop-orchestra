@@ -1,0 +1,193 @@
+<svg width="1600" height="1220" id="architecture" class="theme-light" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1220" role="img" aria-labelledby="title desc">
+        <title id="title">Codex LOOP Orchestra simplified architecture</title>
+        <desc id="desc">A simplified keynote-style architecture diagram showing the human task, root agent, deterministic control, Desktop and WSL execution, layered acceptance, human release, and Agent Monitoring Web UI.</desc>
+        <defs>
+          <linearGradient id="pageGlow" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="var(--glow-a)"/>
+            <stop offset="1" stop-color="var(--glow-b)"/>
+          </linearGradient>
+          <linearGradient id="blueWash" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="var(--blue-wash-a)"/>
+            <stop offset="1" stop-color="var(--blue-wash-b)"/>
+          </linearGradient>
+          <linearGradient id="violetWash" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="var(--violet-wash-a)"/>
+            <stop offset="1" stop-color="var(--violet-wash-b)"/>
+          </linearGradient>
+          <filter id="shadow" x="-20%" y="-20%" width="140%" height="160%">
+            <feDropShadow dx="0" dy="14" stdDeviation="22" flood-color="var(--shadow)" flood-opacity="0.16"/>
+          </filter>
+          <filter id="shadowSoft" x="-20%" y="-20%" width="140%" height="150%">
+            <feDropShadow dx="0" dy="8" stdDeviation="14" flood-color="var(--shadow)" flood-opacity="0.10"/>
+          </filter>
+          <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L10,5 L0,10 z" fill="var(--line-strong)"/>
+          </marker>
+        </defs>
+        <style>
+          #architecture{
+            --bg:#f7f7f5;--surface:#ffffff;--surface-2:#f0f1ef;--ink:#151619;--muted:#666a73;--faint:#989da6;
+            --line:#d9dce1;--line-strong:#8f98a5;--shadow:#7a8492;
+            --blue:#3e7df2;--blue-soft:#dfeafe;--blue-stroke:#b6c9ea;--blue-wash-a:#dfeafe;--blue-wash-b:#dfeafe;
+            --green:#3f8a67;--green-soft:#d7e8de;--green-stroke:#b7cfbf;
+            --violet:#8d6cb1;--violet-soft:#e6ddf1;--violet-stroke:#cab8de;--violet-wash-a:#e6ddf1;--violet-wash-b:#e6ddf1;
+            --amber:#9b7346;--amber-soft:#ecdfd1;--amber-stroke:#d7bda1;
+            --entry-fill:#dce8fb;--entry-stroke:#b8cae7;
+            --control-fill:#ecdfd1;--control-stroke:#d6bca3;
+            --execute-fill:#d9e9df;--execute-stroke:#b7cfbf;
+            --verify-fill:#e7def0;--verify-stroke:#cbb8df;
+            --observe-fill:#dfe6f2;--observe-stroke:#c0cbe0;
+            --glow-a:#ffffff;--glow-b:#eef1f5;
+            font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text",Inter,"Microsoft YaHei","Noto Sans CJK SC","Segoe UI",Roboto,Arial,sans-serif;
+          }
+          #architecture.theme-dark{
+            --bg:#08090b;--surface:#111317;--surface-2:#171a1f;--ink:#f6f7f8;--muted:#a8aeb8;--faint:#737a86;
+            --line:#2a2f37;--line-strong:#737e8e;--shadow:#000000;
+            --blue:#86b1ea;--blue-soft:#1a2434;--blue-stroke:#425a7f;--blue-wash-a:#1a2434;--blue-wash-b:#1a2434;
+            --green:#7db995;--green-soft:#1b2b22;--green-stroke:#3b644b;
+            --violet:#b89ad6;--violet-soft:#2a2130;--violet-stroke:#664f79;--violet-wash-a:#2a2130;--violet-wash-b:#2a2130;
+            --amber:#d0ae82;--amber-soft:#2d241b;--amber-stroke:#6a543e;
+            --entry-fill:#1e2939;--entry-stroke:#445c82;
+            --control-fill:#31261d;--control-stroke:#73583d;
+            --execute-fill:#1d2b23;--execute-stroke:#426a52;
+            --verify-fill:#2b2231;--verify-stroke:#6a537a;
+            --observe-fill:#222837;--observe-stroke:#4d5d78;
+            --glow-a:#0d1118;--glow-b:#090a0c;
+          }
+          .page{fill:var(--bg)} .decor{fill:url(#pageGlow)}
+          .title{fill:var(--ink);font-size:42px;font-weight:710;letter-spacing:-1.3px}
+          .subtitle{fill:var(--muted);font-size:17px;font-weight:430;letter-spacing:-0.15px}
+          .eyebrow{fill:var(--faint);font-size:12px;font-weight:700;letter-spacing:1.8px}
+          .stage{fill:var(--faint);font-size:14px;font-weight:760;letter-spacing:1.5px}
+          .node-title{fill:var(--ink);font-size:18px;font-weight:690;letter-spacing:-0.3px}
+          .node-sub{fill:var(--muted);font-size:12.2px;font-weight:460}
+          .node-note{fill:var(--faint);font-size:11px;font-weight:520}
+          .section-note{fill:var(--muted);font-size:14px;font-weight:650;letter-spacing:-0.2px}
+          .foot{fill:var(--faint);font-size:10.8px;font-weight:500}
+          .box{fill:var(--surface);stroke:var(--line);stroke-width:1}
+          .entry-card{fill:var(--entry-fill);stroke:var(--entry-stroke);stroke-width:1.1}
+          .control-card{fill:var(--control-fill);stroke:var(--control-stroke);stroke-width:1.1}
+          .execute-card{fill:var(--execute-fill);stroke:var(--execute-stroke);stroke-width:1.1}
+          .verify-card{fill:var(--verify-fill);stroke:var(--verify-stroke);stroke-width:1.1}
+          .observe-card{fill:var(--observe-fill);stroke:var(--observe-stroke);stroke-width:1.1}
+          .blue-card{fill:var(--entry-fill);stroke:var(--entry-stroke);stroke-width:1.1}
+          .green-card{fill:var(--execute-fill);stroke:var(--execute-stroke);stroke-width:1.1}
+          .violet-card{fill:var(--verify-fill);stroke:var(--verify-stroke);stroke-width:1.1}
+          .amber-card{fill:var(--control-fill);stroke:var(--control-stroke);stroke-width:1.1}
+          .flow-pill{fill:var(--bg);stroke:var(--line);stroke-width:1}
+          .connector{fill:none;stroke:var(--line-strong);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;marker-end:url(#arrow)}
+          .connector-soft{fill:none;stroke:var(--line);stroke-width:1.25;stroke-linecap:round;stroke-linejoin:round}
+          .hairline{stroke:var(--line);stroke-width:1}
+          .chip{font-size:10px;font-weight:760;letter-spacing:.35px}
+          .raised{filter:url(#shadowSoft)} .hero{filter:url(#shadow)}
+        </style>
+
+        <rect class="page" width="1600" height="1220"/>
+        <circle class="decor" cx="1502" cy="22" r="252" opacity=".65"/>
+        <circle class="decor" cx="110" cy="1160" r="210" opacity=".45"/>
+
+        <text class="eyebrow" x="72" y="54">SYSTEM ARCHITECTURE / SIMPLIFIED VIEW</text>
+        <text class="title" x="72" y="96">Codex LOOP Orchestra</text>
+        <text class="subtitle" x="72" y="127">Simplified architecture · a compact view consistent with the full keynote design.</text>
+
+        <rect x="228" y="154" width="1144" height="120" rx="32" fill="var(--entry-fill)" opacity=".18"/>
+        <rect x="228" y="341" width="1144" height="146" rx="32" fill="var(--control-fill)" opacity=".16"/>
+        <rect x="228" y="559" width="1144" height="138" rx="32" fill="var(--execute-fill)" opacity=".16"/>
+        <rect x="228" y="767" width="1144" height="154" rx="32" fill="var(--verify-fill)" opacity=".14"/>
+        <rect x="228" y="978" width="1144" height="154" rx="32" fill="var(--observe-fill)" opacity=".18"/>
+
+        <line class="hairline" x1="165" y1="198" x2="165" y2="1116" opacity=".9"/>
+        <circle cx="165" cy="212" r="5" fill="var(--blue)"/>
+        <circle cx="165" cy="399" r="5" fill="var(--amber)"/>
+        <circle cx="165" cy="618" r="5" fill="var(--green)"/>
+        <circle cx="165" cy="841" r="5" fill="var(--violet)"/>
+        <circle cx="165" cy="1050" r="5" fill="#8a96b0"/>
+        <text class="stage" x="78" y="218" fill="var(--blue)">INPUT</text>
+        <text class="stage" x="78" y="405" fill="var(--amber)">CONTROL</text>
+        <text class="stage" x="78" y="624" fill="var(--green)">EXECUTE</text>
+        <text class="stage" x="78" y="847" fill="var(--violet)">ACCEPT</text>
+        <text class="stage" x="78" y="1056" fill="#8a96b0">MONITOR</text>
+
+        <g class="hero">
+          <rect class="entry-card" x="250" y="168" rx="24" ry="24" width="575" height="92"/>
+          <text class="node-title" x="278" y="210">Human task</text>
+          <text class="node-sub" x="278" y="238">Objective, workspace, constraints, and acceptance criteria</text>
+        </g>
+        <g class="hero">
+          <rect class="entry-card" x="858" y="168" rx="24" ry="24" width="492" height="92"/>
+          <text class="node-title" x="886" y="210">Sol root agent</text>
+          <text class="node-sub" x="886" y="238">Plans, adjudicates exceptions, and integrates the final result</text>
+        </g>
+
+        <g class="raised">
+          <rect class="flow-pill" x="500" y="282" rx="16" ry="16" width="600" height="34"/>
+          <text class="section-note" x="800" y="304" text-anchor="middle">Plan once, then produce self-contained task packets</text>
+        </g>
+        <path class="connector" d="M800 320 V342"/>
+
+        <g class="raised">
+          <rect class="control-card" x="250" y="355" rx="24" ry="24" width="350" height="118"/>
+          <text class="node-title" x="278" y="405">Packet DAG</text>
+          <text class="node-sub" x="278" y="434">Task packets, dependencies, and authorized paths</text>
+        </g>
+        <g class="raised">
+          <rect class="control-card" x="625" y="355" rx="24" ry="24" width="350" height="118"/>
+          <text class="node-title" x="653" y="405">State machine</text>
+          <text class="node-sub" x="653" y="434">Plan, dispatch, report, audit, and complete</text>
+        </g>
+        <g class="raised">
+          <rect class="control-card" x="1000" y="355" rx="24" ry="24" width="350" height="118"/>
+          <text class="node-title" x="1028" y="405">Dispatch and refill</text>
+          <text class="node-sub" x="1028" y="434">Sustain concurrency; retry failures by policy</text>
+        </g>
+
+        <g class="raised">
+          <rect class="flow-pill" x="440" y="498" rx="16" ry="16" width="720" height="34"/>
+          <text class="section-note" x="800" y="520" text-anchor="middle">Pin model, role, and reasoning effort; never inherit the root model</text>
+        </g>
+        <path class="connector" d="M800 536 V560"/>
+
+        <g class="hero">
+          <rect class="execute-card" x="250" y="573" rx="24" ry="24" width="538" height="110"/>
+          <text class="node-title" x="278" y="623">Native Desktop execution</text>
+          <text class="node-sub" x="278" y="652">A small visible agent set for interaction and short tasks</text>
+        </g>
+        <g class="hero">
+          <rect class="execute-card" x="812" y="573" rx="24" ry="24" width="538" height="110"/>
+          <text class="node-title" x="840" y="623">WSL / CLI headless execution</text>
+          <text class="node-sub" x="840" y="652">Wide execution waves registered and supervised by lifecycle control</text>
+        </g>
+
+        <g class="raised">
+          <rect class="flow-pill" x="430" y="706" rx="16" ry="16" width="740" height="34"/>
+          <text class="section-note" x="800" y="728" text-anchor="middle">Execution agents produce reports and diffs; audit agents verify read-only</text>
+        </g>
+        <path class="connector" d="M800 744 V768"/>
+
+        <g class="raised">
+          <rect class="verify-card" x="250" y="781" rx="24" ry="24" width="350" height="126"/>
+          <text class="node-title" x="278" y="831">Mechanical acceptance L0/L1</text>
+          <text class="node-sub" x="278" y="860">Tests, hashes, paths, schemas, and diff checks</text>
+        </g>
+        <g class="raised">
+          <rect class="verify-card" x="625" y="781" rx="24" ry="24" width="350" height="126"/>
+          <text class="node-title" x="653" y="831">Cross-model audit L2/L3</text>
+          <text class="node-sub" x="653" y="860">Can block or escalate; only exceptions return to Sol</text>
+        </g>
+        <g class="raised">
+          <rect class="verify-card" x="1000" y="781" rx="24" ry="24" width="350" height="126"/>
+          <text class="node-title" x="1028" y="831">Human release L4</text>
+          <text class="node-sub" x="1028" y="860">Final merge and publication remain human-triggered</text>
+        </g>
+
+        <path class="connector" d="M800 924 V974"/>
+
+        <g class="hero">
+          <rect class="blue-card" x="250" y="992" rx="26" ry="26" width="1100" height="126"/>
+          <text class="node-title" x="280" y="1042">Agent Monitoring Web UI · 127.0.0.1:8765</text>
+          <text class="node-sub" x="280" y="1071">Read-only view of Desktop and CLI tasks, models, health, progress, token usage, and 20/80 refill gaps; never schedules or adjudicates.</text>
+        </g>
+
+        <line class="hairline" x1="72" y1="1158" x2="1528" y2="1158" opacity=".75"/>
+        <text class="foot" x="72" y="1186">Core rule: LLMs handle judgment; scripts and state machines handle waiting, polling, counting, retries, refill, and lifecycle transitions.</text>
+      </svg>

@@ -21,7 +21,10 @@ def profile_env(tmp_path):
     source = Path(__file__).resolve().parents[2]
     root = tmp_path / "loop"
     home = tmp_path / "codex-home"
-    for rel in ("config", "agents", ".codex"):
+    # Project-local .codex files are machine-specific deployment state and are
+    # intentionally excluded from the public release. Profile switching must
+    # still work from the canonical public config and agent templates.
+    for rel in ("config", "agents"):
         shutil.copytree(source / rel, root / rel)
     (home / "agents").mkdir(parents=True)
     shutil.copy2(Path.home() / ".codex" / "config.toml", home / "config.toml")

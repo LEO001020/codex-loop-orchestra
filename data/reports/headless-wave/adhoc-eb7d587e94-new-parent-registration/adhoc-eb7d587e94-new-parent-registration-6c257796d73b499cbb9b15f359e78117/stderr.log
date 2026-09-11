@@ -1,7 +1,0 @@
-Reading additional input from stdin...
-2026-08-14T07:20:46.500675Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
-2026-08-14T07:20:56.597558Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
-2026-08-14T07:21:15.828321Z ERROR codex_core::tools::router: error=unsupported call: read
-2026-08-14T07:21:15.828379Z ERROR codex_core::tools::router: error=unsupported call: glob
-2026-08-14T07:21:36.971174Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 215ms)... turn_id=019fff25-0f01-7d13-bd04-4c25b7cf0e02 retries=1 max_retries=5 sampling_error=unexpected status 502 Bad Gateway: Provider error 502: 上游 SSE 读取超时, url: http://127.0.0.1:10100/v1/responses
-2026-08-14T07:22:28.217552Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)

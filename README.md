@@ -1,385 +1,250 @@
-# codex-loop-s-f2 — Codex LOOP Orchestration Environment (F2 Cold Start Form)
-<!-- size-justified: repository README; documents architecture overview, harness layout, and operational notes. -->
+<!-- size-justified: project landing page; raw logs and generated state are excluded. -->
+<div align="center">
 
-Multi-agent orchestration harness for the OpenAI Codex CLI: Sol (high tier) plans and
-adjudicates; a zero-token deterministic script layer runs the state machine, acceptance,
-retry, worktree isolation, and escalation routing; low-tier subagents execute. Files are
-the single source of truth; Sol is only ever invoked on **planning** and **adjudication**
-events.
+# Codex LOOP Orchestra
 
-- Package version pins: see `VERSIONS.lock` (codex-cli 0.147.0, Node v22.23.2, gpt-5.6 family).
-- Integrity: `sha256sum -c SHA256SUMS` from the package root.
-- Third-party model providers: LOOP is gateway-agnostic and needs no gateway to run.
-  To route through an operator-managed external sidecar, see `docs/OPENCODEX.md`
-  (one optional variable, `CODEX_LOOP_EXTERNAL_READY_URL`).
-- Delivery verification level: **B-level** — built and tested against the `tests/mock_codex/`
-  layer; no authenticated Codex session was available in the build environment (401).
-  You MUST run the First Deployment Verification Checklist (below) on your machine.
+**The control loop that keeps an engineering team of 100+ Codex agents running.**
 
----
+[![CI](https://github.com/LEO001020/codex-loop-orchestra/actions/workflows/ci.yml/badge.svg)](https://github.com/LEO001020/codex-loop-orchestra/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB.svg)](https://www.python.org/)
+[![Codex](https://img.shields.io/badge/Codex-multi--agent-111.svg)](https://learn.chatgpt.com/docs/agent-configuration/subagents)
 
-## 1. 5-Minute Deployment Path
+[Highlights](#highlights) · [Control loop](#the-control-loop-is-the-product) · [Quickstart](#quickstart) · [Why LOOP](#why-loop-exists) · [Architecture](#how-loop-works) · [中文](README.zh-CN.md) · [Docs](INSTALL.md)
 
-Prerequisites: Node 22+, Codex CLI installed and authenticated (`codex login`), git repo to work in.
+</div>
 
-```bash
-# 1. Unpack and install (~1 min). Installer is idempotent — safe to re-run.
-tar -xzf codex-loop-s-f2-20260808.tar.gz
-cd codex-loop-s-f2
-./install.sh --repo /path/to/your/git/repo
-#   ① checks Node 22+ / codex (prints install commands if missing, never auto-installs)
-#   ② copies agents/*.toml -> $CODEX_HOME/agents/   (CODEX_HOME respected, default ~/.codex)
-#   ③ merges config.toml.example keys into your config.toml (your keys never overwritten; diff printed)
-#   ④ creates data/ skeleton + mounts the SubagentStart metering hook in your repo
-#   ⑤ runs harness/smoke_gate.sh automatically (skip with --skip-smoke)
+Codex can launch subagents in parallel. LOOP adds the scheduling, isolation, independent audit, and observability needed to turn a one-shot batch into a self-replenishing engineering system.
 
-# 2. Smoke gate must be ALL PASS (~2 min). Re-run it after EVERY codex upgrade.
-harness/smoke_gate.sh "$(pwd)"
+Give LOOP a goal and a concurrency target. It breaks the work into tasks, dispatches them, and fills each newly available slot until the backlog is empty. Small workloads can remain visible in Codex Desktop; larger waves can run through supervised WSL headless workers. The root, execution, and audit stages can use models from different providers, while one dashboard shows what every agent is doing. You no longer have to keep asking the system to continue, and you retain final control over every merge.
 
-# 3. First G1-level small task (~2 min): two parallel packets, disjoint paths.
-#    Sol (your main Codex session) writes data/packets/w1-p01.json, w1-p02.json + dag.json
-#    (4-field packet schema: packet_id / goal / authorized_paths / acceptance / constraints), then:
-python3 harness/dag_assert.py                      # acyclic + non-intersecting paths gate
-python3 harness/dispatch.py --mode single          # spawn executors in isolated worktrees
-python3 harness/statemachine.py reconcile          # advance states from events + report files
-python3 harness/diffvalidator.py ...               # L0 mechanical acceptance per packet
-harness/worktree_pool.sh merge-queue               # serial merge under lockfile
-python3 harness/statemachine.py wave-check         # missing-item check -> WAVE_DONE
-```
+## Highlights
 
-For a homogeneous CSV wave, `dispatch.py --mode csv` writes both
-`data/dispatch/batch_w<N>.csv` and `batch_w<N>.call.json`. Invoke the
-`spawn_agents_on_csv` call first. After its `output_csv_path` exists, execute
-the call pack's `required_postprocess.argv`, followed by
-`required_postprocess.then_argv`. These are mandatory production steps:
-`csv_reconcile.py` copies each worktree-local report into LOOP root and emits
-generation-aware terminal events, then `statemachine.py reconcile` consumes
-them. Any nonzero postprocess exit stops wave advancement.
+- **Tested at 100+ concurrent agents:** LOOP delivers stable, hundred-agent concurrency on the widely used Codex harness by combining Desktop agents with supervised WSL/CLI workers.
+- **Set the target once; LOOP keeps it filled:** LOOP measures the agents actually running and refills open slots until the bounded backlog is empty—no repeated “continue” prompts required.
+- **Independent model choice at all three stages:** The root agent orchestrates, execution agents implement, and audit agents review. Each stage can use a different model provider, including third-party models exposed through a Codex-compatible gateway such as OpenCodex.
+- **Root-agent orchestration with a DAG gate:** The root plans and adjudicates. Dependency and write-scope checks run before tasks enter isolated Git worktrees.
+- **About 75% lower root-agent token use:** The root model no longer performs search, bulk execution, waiting, or routine retries. It spends its tokens on planning and adjudication instead.
+- **WSL with an IPython/IPybox-style persistent compute container:** An on-demand Python kernel preserves DataFrames, indexes, and counters across calls and processes large files, datasets, and intermediate results outside the model context.
+- **Desktop launches and supervises CLI concurrency:** Keep the root conversation and a small visible agent set in Desktop while supervised `codex exec` processes expand larger execution waves into the WSL headless runtime.
+- **Agent Monitoring Web UI:** See every Desktop and CLI agent in one browser view, including its task name, observed model, runtime, health, refill deficit, and remaining capacity.
+- **Durable replay and lifecycle supervision:** Typed append-only events, generation-aware rosters, process-tree supervision, and deterministic reconciliation let an interrupted control loop resume from files instead of reconstructing state from chat memory.
+- **Stable present/past evidence views:** `run_view.py` summarizes the live run; `run_evidence.py` builds a compact index over completed packets, decisions, reports, and terminal lifecycle evidence.
 
-Golden case `tests/golden/test_g1_two_packet_parallel.py` is an executable end-to-end
-example of exactly this flow (mock-backed).
+![Codex LOOP live dashboard in English, showing active agents, runtimes, observed models, and task names](docs/assets/dashboard.en.png)
 
-### Desktop-wide LOOP mode (arbitrary target workspaces)
+<p align="center"><sub>One live view of every Desktop and headless agent: task, model, runtime, health, and available capacity.</sub></p>
 
-Codex Desktop binds each task to its own working directory, while user-level
-hooks load for every project.  A LOOP launcher must therefore select an
-application-wide orchestration mode; merely opening this package as a Desktop
-project does not make tasks under other projects part of LOOP.
+![Codex LOOP Orchestra simplified architecture: human task, root agent, DAG and state machine, Desktop and WSL execution, layered acceptance, human release, and Agent Monitoring Web UI](docs/assets/architecture-simplified.en.svg)
 
-On this Windows deployment, activate the managed global mode with:
+<p align="center"><sub>At a glance: the root agent judges, code sustains concurrency and state, independent models audit, and humans release.</sub></p>
 
-```powershell
-E:\codex-LOOP\launchers\Set-Codex-LOOP-Mode.ps1 -Mode Activate
-# Or open any target workspace and activate in one step:
-E:\codex-LOOP\launchers\Start-Codex-LOOP-Desktop.ps1 -TargetWorkspace E:\VPS
-```
+## The control loop is the product
 
-Activation performs a one-time, hash-recorded backup of the existing global
-`AGENTS.md` and `hooks.json`, installs conditional user-level hooks, and writes
-`E:\codex-LOOP\state\global-loop-mode.json`.  While the marker is active:
+Many agent harnesses can start a batch of agents. LOOP solves the harder problem: keeping the requested concurrency level filled for as long as useful parallel work remains, while isolating writes, making acceptance reproducible, and reserving release authority for a human.
 
-- `SessionStart` and `SubagentStart` inject the global working agreement plus
-  this package's complete LOOP discipline into every task, regardless of cwd;
-- lifecycle and PreToolUse hooks use this package as `LOOP_CONTROL_ROOT`;
-- the target repository remains only the task workspace; F2 state, reports,
-  packets, model routing, and the 8765 observer remain anchored here.
+> **In plain language:** Set the goal and concurrency once. LOOP handles decomposition, dispatch, refill, and verification. When one agent finishes, another takes the open slot. Scripts handle routine waiting and retries; only exceptions that require judgment are escalated to the root agent.
+>
+> **What that means for you:** No more repeatedly typing “continue” or “start more agents.” Parallel execution reduces elapsed time, isolated worktrees prevent agents from overwriting one another, and an independent model audit helps catch shared blind spots.
 
-Switch ordinary Desktop work back to non-LOOP behavior with:
+The control loop enforces these rules:
 
-```powershell
-E:\codex-LOOP\launchers\Set-Codex-LOOP-Mode.ps1 -Mode Deactivate
-```
+1. The root agent produces a bounded plan and does not perform bulk execution itself.
+2. Every task packet declares its goal, authorized paths, acceptance commands, and constraints.
+3. A DAG gate rejects cyclic dependencies and overlapping write scopes before dispatch.
+4. Desktop agents and headless workers run in isolated Git worktrees with an explicit role, model, and reasoning effort.
+5. Scripts rerun acceptance commands, verify diff boundaries, and record typed lifecycle events.
+6. The independent L2 audit stage may approve, request rework, rank alternatives, or escalate; it cannot publish.
+7. Only exceptions that cannot be handled by policy return to the root agent. A human must trigger the final merge and release.
+8. Scripts and state machines handle waiting, status checks, counts, routine retries, and state transitions without consuming additional root-model turns.
 
-`Deactivate` keeps the conditional hooks installed but makes them no-ops.
-`-Mode Restore` verifies and restores the exact pre-install global files for a
-full rollback.  Start or resume a task after changing modes so its
-`SessionStart` context reflects the selected mode.
+**Models make judgments. Code manages state. Independent models audit the work. Humans release it.**
 
----
+## Quickstart
 
-## 2. F2 Switch-to-Production Toggles (all OFF as shipped)
-
-The package ships in the **F2 cold start form** — semantically identical to the pure
-subtraction stack F1 for safety and quality. All three production switches are
-**single-key flips, no code changes**.
-
-| # | Toggle | Where | Shipped state | Semantics when OFF (cold start) | Semantics when ON (production) | Switch condition (§9) |
-|---|--------|-------|---------------|--------------------------------|-------------------------------|----------------------|
-| 1 | `escalation.passthrough_enabled` | `~/.codex/config.toml` `[escalation]` | `false` | Every packet goes through L3; Sol per-packet/wave review NOT reduced; `escalation_log.jsonl` still records every trigger evaluation (free calibration data) | L0 all-green + no trigger hit → straight to serial merge queue, exempt from Sol per-packet review. Mechanical acceptance + human release gate STILL apply — L1/L2 can never release | Trigger-threshold calibration complete: enough escalation-log data from the cold-start period to confirm trigger table hit/miss rates (§10 S5) |
-| 2 | `duty_officer.enforce` | `~/.codex/config.toml` `[duty_officer]` | `false` | Duty-officer triggers fire and are LOGGED ONLY; failures continue down the original dead-letter path to Sol | Duty rulings routed through the whitelist gate (`harness/duty_gate.py`): retryable/fixable with confidence ≥ θ re-dispatch; terminal/low-confidence → DEAD_LETTER | Recorded rulings during cold start show misclassification ≤ 5%; if it later exceeds 5%, narrow the whitelist (§10 S6) |
-| 3 | ipybox block | `~/.codex/config.toml` `[mcp_servers.ipybox]` | Desktop default `enabled=false`; headless workers pass an explicit `enabled=true` override | Desktop stays a light control plane and does not pre-spawn one WSL/SRT sidecar per native agent | Headless workers retain the isolated persistent kernel for >5,000-token outputs and cross-call state | A real workload need (large-output digestion / cross-call state); guardrails in §3 below must hold. Kernel deadlock >1/30 runs → ops re-evaluation (§10 S7) |
-
-**Deployment path summary (§9): cold start → calibration → production.**
-
-1. **Cold start (as shipped):** all three toggles off. Full Sol review on every packet;
-   escalation and duty-officer logs accumulate at zero risk delta vs F1.
-2. **Calibration:** periodically review `data/escalation_log.jsonl` (trigger hit rates,
-   raw_action vs upgraded action) and duty-officer recorded rulings (would-have-been
-   accuracy). Run `metering/e0_annotate.py` + `metering/usage_reconcile.py` weekly.
-3. **Production:** flip toggle 1 when trigger thresholds are calibrated; flip toggle 2
-   when duty misclassification ≤5%; enable ipybox only on demonstrated need. Each flip
-   is independent and reversible.
-
----
-
-## 3. ipybox: Enable Steps and Security Guardrails
-
-Disabled by default. Enable only when a workload needs >5,000-token output digestion or
-compression-immune cross-call state.
-
-**Dependency constraint (critical, VERSION_BOUND):** ipybox 0.9.2 is incompatible with
-`mcp 2.0.0` — its dependency `mcpygen 0.1.4` imports `streamablehttp_client`, which was
-removed in mcp 2.x, so an unconstrained install crashes on startup with an `ImportError`.
-Always install/run with the constraint **`mcp<2`** (resolves to mcp 1.x). The pin may be
-dropped once a future ipybox/mcpygen release fixes this.
-
-**Enable steps — Option 1, pip form (preferred; verified in the install test):**
-1. `pip install ipybox "mcp<2"` (installs ipybox 0.9.2 + mcp 1.x; pin per `VERSIONS.lock`).
-2. Keep the Desktop-global block disabled and let `harness/dispatch.py` enable it
-   explicitly for headless workers. For a dedicated non-Desktop CLI session,
-   override `mcp_servers.ipybox.enabled=true` on that invocation. Do not enable
-   the block globally for a wide Desktop-native wave: every native agent would
-   otherwise pre-spawn a separate WSL/SRT MCP sidecar before its first cell.
-   The pip-form command and arguments remain documented in
-   `config/config.toml.example`.
-3. Restart the Codex session (config is read at session start).
-
-**Enable steps — Option 2, uvx form (alternative; no persistent pip install):**
-1. Ensure `uv`/`uvx` is installed.
-2. Uncomment the uvx-form block instead (`command = "uvx"`,
-   `args = ["--with", "mcp<2", "ipybox", "--workspace", "./data"]` — the `--with` pin
-   applies the `mcp<2` constraint on every run).
-3. Restart the Codex session.
-
-**Docker image note (fallback form only):** `ghcr.io/gradion-ai/ipybox:latest` is a
-**kernel runtime container** (jupyter kernelgateway + resource server) managed by the
-ipybox Python library's container-execution API — the image does NOT contain the ipybox
-module and is NOT a stdio MCP server. Do not wire `command = "docker"` directly into
-`[mcp_servers.ipybox]`; the Docker form requires an extra MCP bridge (the pip/uvx-installed
-ipybox host process).
-
-**Security guardrails (§10 S7 — do not relax):**
-- ipybox is a **second execution boundary**; it does NOT inherit Codex `sandbox_mode`
-  (0.9.2's `--sandbox` option uses Anthropic sandbox-runtime for kernel isolation;
-  Docker isolation applies only to the kernel-runtime-container fallback form).
-- **No network**: default deny egress from the kernel.
-- **Credentials never mounted**: `~/.aws`, `~/.ssh`, `.env` files must never be mounted or
-  copied into the workspace. The shipped blocks point `--workspace` at `./data` only.
-- mcpygen external tool calls stay disabled in phase 1.
-- Cell code enters the session log and is locally readable — no secrets in cells.
-- Discipline (AGENTS.md): print ≤ 50 lines; return variable-name handles, not data bodies.
-- Ops failure condition: kernel deadlock >1/30 runs triggers re-evaluation.
-
----
-
-## 4. Five-layer lifecycle reclamation
-
-Lifecycle truth is split deliberately. A green or stale Desktop activity row
-is never accepted as proof that an agent or process is still running.
-
-| Layer | Owner and trigger | Mechanical action | Durable evidence |
-|---|---|---|---|
-| 1. Logical task | `SubagentStop`, worker exit, or terminal rollout event | Mark the semantic task terminal; repeated terminal signals are idempotent | `data/lifecycle/native_roster.json`, `exec_roster.json` |
-| 2. Native Codex slot | Host runtime after a terminal native-agent signal | `subagent_lifecycle.py` emits one `host_close_agent_required` request; the orchestrating host consumes it with `close_agent` | `data/lifecycle/close_requests.ndjson` and `close_request_emitted` |
-| 3. Worker process tree | `lifecycle_supervisor.py` owns every single-mode `codex exec` handle | Wait; on non-zero exit emit `exec_failed`; on timeout/parent Stop terminate the Windows Job Object or POSIX process group | bounded stderr, exit code, timeout event, roster history |
-| 4. Persistent reconciliation | Parent `Stop` and `SessionStart(startup/resume/clear/compact)` | Session-scoped generation cancellation, recover terminal rollouts, reap lost POSIX groups, and classify stale records without an LLM round | lifecycle event log and cold-start roster update |
-| 5. Desktop-derived edge/UI | Offline maintenance only | Default dry-run; require strong terminal evidence; offline, create a SQLite API backup and update only `open -> closed` by exact child id | edge plan, backup hash, changed-row count |
-
-The project never edits a live `state_5.sqlite`. Run the read-only plan first:
+Give this repository to Codex or another coding agent and paste:
 
 ```text
-python harness/desktop_edge_reconcile.py --state-db <CODEX_HOME>/state_5.sqlite \
-  --roster data/lifecycle/native_roster.json --out data/lifecycle/desktop-edge-plan.json
+Install Codex LOOP Orchestra from https://github.com/LEO001020/codex-loop-orchestra.
+Read AGENT_INSTALL.md first. Inspect my environment, show the dry-run and backups,
+wait for my approval, then activate LOOP and verify the installation.
+Never read, print, or change my API credentials.
 ```
 
-`--apply --backup-dir <dir>` is an explicit offline repair operation and
-fails closed if Desktop is running, the schema changed, or the database hash
-differs from the dry-run snapshot.
+Prefer to install manually? Jump to [Installation details](#installation-details), or read the complete [Windows/Linux/WSL guide](INSTALL.md).
 
-The host-only native slot close is the one remaining platform boundary: a
-normal hook process cannot invoke Codex's in-memory `close_agent` tool. The
-request queue makes this visible and idempotent; it is not represented as an
-already-released slot.
+## Why LOOP exists
 
-Claude Code's official lifecycle documentation informed this separation:
-background sessions use a separate supervisor, agent-team shutdown uses an
-explicit request/approve-or-reject exchange, SIGTERM terminates Bash process
-trees, and completed background subagents may remain listed until the session
-cleans its task list. The completed-task-list behavior is version-scoped to
-Claude Code v2.1.208+. These are design references, not claims about Codex.
-Sources (accessed 2026-08-10): [sub-agents](https://code.claude.com/docs/en/sub-agents),
-[agent view](https://code.claude.com/docs/en/agent-view),
-[agent teams](https://code.claude.com/docs/en/agent-teams), and
-[headless mode](https://docs.anthropic.com/en/docs/claude-code/headless).
+LOOP is not simply a way to start more agents. Each part of the system addresses a failure mode that appears when a native agent harness is used for sustained, high-concurrency, multi-model engineering:
 
-The configured open-slot ceiling is 50 (excluding the primary agent). V4 and
-K3 are independent pools: each targets 16 with a low-water mark of 12 whenever
-that pool has queued work, so both pools may sustain 32 active agents together.
-`harness/refill_controller.py` counts only `running` agents as effective
-concurrency. Idle/completed/shutdown-pending agents are reused when possible,
-otherwise they generate `idle_reclaim_required`, `host_close_agent_required`,
-and persistent refill debt. A spawn intent never clears that debt; only an
-observed running agent does. Queue exhaustion or explicit `release_finalize`
-is the only normal way to clear refill demand. The aggregate remains bounded
-by the 50-slot ceiling, leaving capacity for retries and replacements.
+| Limitation in the native harness | What LOOP changes | Practical benefit |
+|---|---|---|
+| A batch shrinks as agents finish; prompting alone does not reliably refill it. | Measure the agents actually running across Desktop and headless runtimes, then refill open slots from a bounded backlog. | **Sustain high concurrency** without repeated user intervention. |
+| Execution and self-review by the same model family can preserve the same blind spots. | Treat the root, execution, and audit stages as independent model-routing decisions. Third-party models can connect through a Codex-compatible gateway such as OpenCodex. | **Cross-check work with different model families** and reduce correlated failures. |
+| In the maintainer's environment, the Codex Desktop conversation layer became unstable and sometimes crashed with roughly 10–20 busy native subagents. | Keep a smaller visible set of Desktop agents and send larger execution waves to supervised WSL headless workers. | **Avoid the Desktop conversation-layer bottleneck** while preserving native root-to-subagent messaging. |
+| Ordinary tool calls repeatedly reload files, parse data, and rebuild intermediate results. | Give headless workers an optional IPybox-backed Python kernel that starts on demand and persists for the session. | **Preserve computation across calls**, including DataFrames, indexes, and counters. |
+| A high-capability coordinator can waste expensive turns on search, tests, waiting, polling, and retries. | Let the root agent plan and adjudicate while scripts handle deterministic lifecycle operations. | **Reserve the strongest model for decisions and reduce elapsed time.** Dozens of execution agents can raise aggregate throughput, particularly with Flash or diffusion- and draft-accelerated worker models, while policy keeps the root model's production-token share at or below 25%. |
+| Native random nicknames and separate headless processes provide no unified operational view. | Assign ordered numeric IDs and map them to task names, models, runtimes, health, and remaining capacity. | **See every agent in real time** and diagnose refill gaps from the Agent Monitoring Web UI. |
 
----
+LOOP has been tested with more than 100 concurrent agents. The public package ships with a more conservative default of 20 active agents per parent task and 80 across the Desktop and headless runtimes on one machine; users can raise those values to match the workload, model-provider capacity, and local hardware.
 
-## 5. Known Platform Bugs and Mitigations
+The 10–20 range is a maintainer observation from one environment that motivated the dual-plane design, not a published benchmark or an official Codex limit.
 
-All verified OPEN/current as of 2026-08-08 (research phase 2C/2D). Re-check before upgrades.
+## How LOOP works
 
-| Issue | Problem | Mitigation shipped in this package |
-|-------|---------|-----------------------------------|
-| [#28058](https://github.com/openai/codex/issues/28058) (OPEN) | MultiAgentV2 encrypts delegated prompts (`spawn_agent`/`send_message`) — your OWN session logs lose the readable audit trail | **Report-landing secondary channel**: executors land full reports in `data/reports/<pid>/` and the dispatcher logs every packet it dispatches to `events.ndjson`; the audit trail never depends on Codex rollouts. Alternative: pin codex < 0.137.0. (Also a reason `multi_agent_v2` is left unset — V1 is unaffected.) |
-| [#35541](https://codexissues.com/issue/35541-root-agent-gets-stuck-emitting-wait-instead-of-a-requested-second-spawn-agent-ca) (OPEN) | Root agent perseverates on `wait` instead of issuing a second `spawn_agent`; in-session retries do NOT recover (related: [#34653](https://codexissues.com/issue/34653-bug-spawn-agent-hangs-indefinitely-without-returning-control) — spawn can hang >5 h) | **Session restart is the recovery path.** The file-based data plane makes this cheap: state lives in `progress_ledger.json`/`events.ndjson`, so a fresh session resumes exactly where the old one stopped (`statemachine.py reconcile`). `retry_classes.yaml` carries a `spawn_hang_or_lost` class; wrap spawns in `job_max_runtime_seconds`. |
-| [#12862](https://github.com/openai/codex/issues/12862) (OPEN, enhancement) | No native `--worktree` flag — CLI offers no built-in write-parallel isolation (note: this is a feature request, not a leftover-worktree bug) | **`harness/worktree_pool.sh`** provides the worktree pool: per-packet `git worktree add` off a frozen base SHA, branch exclusivity, serial merge under a single `flock` lockfile, rebase-per-merge. |
-| [#32031](https://codexissues.com/issue/32031-critical-ux-regression-multi-agent-v2-spawn-agent-hides-model-overrides-and-reje) (OPEN) | V2 `spawn_agent` hides model overrides (`hide_spawn_agent_metadata` defaults true) and full-history forks reject model overrides | **Config workaround**: this package pins models in the agent TOML files (highest-priority static guarantee) and leaves `multi_agent_v2` unset (V1 semantics). If you must use V2: set `[features.multi_agent_v2] hide_spawn_agent_metadata = false` and always spawn with `fork_turns: "none"` + explicit model/effort. |
+![Codex LOOP Orchestra architecture: root coordination, deterministic control, Desktop and headless execution, independent audit, human release, and live observation](docs/assets/architecture-overview.en.svg)
 
----
+LOOP separates planning, execution, audit, state management, and release authority. The root agent plans and adjudicates; execution agents work in Desktop or WSL headless environments; audit agents review the results independently; scripts and state machines manage routine lifecycle state; and the Agent Monitoring Web UI combines both runtimes into one operational view. No agent can publish a release by itself.
 
-## 6. First Deployment Verification Checklist (B-level delivery — you MUST run this)
+### Current F2 control-plane additions
 
-This package was verified at **B-level**: the build environment had codex-cli 0.147.0
-installed but no credentials (401 Unauthorized), so all executor behavior was proven
-against `tests/mock_codex/`. Before trusting the harness with real work, verify on your
-authenticated machine:
+The current control plane extends the original product loop without changing that division of responsibility:
 
-- [ ] `./install.sh` completed with no FAIL lines; re-run once to confirm idempotency (all SKIP).
-- [ ] **Smoke gate against real codex**: `harness/smoke_gate.sh "$(pwd)"` → `SMOKE GATE: ALL
-      ASSERTIONS PASS` (① all 4 roles spawnable, ② Codex event stream/rollout model matches each TOML pin,
-      ③ write outside worktree rejected). Version line matches `VERSIONS.lock` (0.147.0) —
-      on drift, re-run the gate after reading the changelog.
-- [ ] **TOML loading**: `ls $CODEX_HOME/agents/` shows worker/reviewer/verifier/duty_officer;
-      in a Codex session, spawning each by name uses the pinned model
-      (worker/duty_officer → DeepSeek V4 Flash ultra; verifier/reviewer → Kimi K3 max;
-      Sol remains the root orchestrator and final fallback).
-- [ ] **Role spawning test**: `codex exec --skip-git-repo-check "reply OK"` returns rc=0; spawn a
-      worker on a trivial packet and confirm `data/events.ndjson` gains a `SubagentStart` metering
-      line (hook trusted via `/hooks` or `--dangerously-bypass-hook-trust`).
-- [ ] **Lifecycle test**: complete one semantic-name child and verify exactly
-      one native close request; timeout one test worker and confirm its
-      descendant tree is gone; run Desktop edge reconciliation in dry-run
-      mode and never use `--apply` while Desktop is online.
-- [x] **Test suite** (mock-backed): WSL authority run with bytecode/cache disabled → 289 passed
-      in 47.33s; raw log archived as lifecycle evidence.
-- [ ] Run one real G1-level task (§1 step 3) and check: both packets MERGED, `wave-check` reports
-      WAVE_DONE, Sol was woken ≤3 times (plan + finale + final review).
-- [ ] Weekly: `python3 metering/e0_annotate.py` then `python3 metering/usage_reconcile.py`
-      (exit 1 = discrepancy = investigate; the 25× price differential makes mis-routing visible).
+- **Observed-running refill:** a spawn request does not count as capacity. LOOP reduces refill debt only after the matching Desktop or headless worker is observed as running, and continues refilling until the bounded parent backlog is empty.
+- **Generation-aware recovery:** lifecycle records distinguish current workers from stale processes after restart, resume, or compaction. Supervisors own headless process trees; native-slot close requests remain explicit and auditable.
+- **Replayable operational state:** packet transitions and lifecycle facts are appended to NDJSON ledgers and consumed through durable cursors. This is loss-resistant operational evidence, not a cryptographic tamper-proof log.
+- **Attention-budget enforcement:** instruction artifacts are mechanically checked for size, duplicated policy, and accidentally inlined logs so generated state stays outside model-facing documentation.
 
----
+Inspect the present run or rebuild the index over historical evidence without asking the root model to reread raw ledgers:
 
-## 7. Security Semantics Change Declaration (§10, S1–S9)
-
-| # | Change | Direction | Content / failure condition |
-|---|--------|-----------|------------------------------|
-| S1 | Audit chain | fail-closed crypto → **fail-visible observation** (weakened — the only weakening) | Hash chain/dual-implementation voided; replaced by report-file secondary channel + SubagentStart single-line JSON + usage diff. **Failure condition:** multi-tenant/compliance scenario requires re-evaluation. |
-| S2 | Audit threat model | anti-tamper → **anti-loss** (explicit restatement) | `reports/` + git history = loss prevention, not tamper prevention; while #28058 is unresolved the report-landing secondary channel must remain. |
-| S3 | Execution semantics | Sol judges-then-acts → **script acts per predetermined table** (delegation) | Scripts execute only Sol-planning-authorized transitions; off-table events fail-visible to DEAD_LETTER (never silent). |
-| S4 | Hook function | observation + lifecycle control plane | Hooks meter routes, enforce the Sol model-family tool gate, and write generation-scoped cancellation/close requests. They still cannot release native slots themselves; synchronous acceptance and offline DB repair remain fail-closed. |
-| S5 | EK power semantics | **not weakened** | L1/L2 can only block or escalate, NEVER release; "pass" only exempts Sol per-packet review; high-risk classes deterministically direct to L3+L4 (hardcoded, non-overridable — verified against a doctored trigger table); passthrough stays closed until threshold calibration completes. |
-| S6 | Duty officer | Tier 1 → **Tier 2 controlled expansion** (the only expansion, scope nailed) | Scope = whitelist retry/feed-back (two reversible actions); read-only, zero write tools, no spawn power; ruling ≠ authorization; ruling inputs appended to `events.ndjson`. **Failure condition:** misclassification >5% narrows the whitelist. |
-| S7 | ipybox | **new second execution boundary** (explicit fence) | Docker isolation outside Codex sandbox_mode; default deny egress; credentials never mounted; mcpygen disabled phase 1; cell code locally readable. **Failure condition:** kernel deadlock >1/30 runs → ops re-evaluation. |
-| S8 | Release gate | **unchanged** | Sol final review + human-triggered merge preserved; unattended release permanently out of bounds. |
-| S9 | Injection surface | **narrowed + new surfaces declared** | Hook de-load-bearing removes a dynamic injection channel. New surfaces: failure reports → duty officer (mitigated: read-only role + enum-output whitelist gate) and report content → Sol summaries (mitigated: `sanitize.py` desensitization + instruction/data channel separation). |
-
----
-
-## 8. Directory Structure
-
-```
-codex-loop-s-f2/
-├── install.sh                 # idempotent installer (this file’s §1; --skip-smoke supported)
-├── README.md                  # this file
-├── VERSIONS.lock              # codex/node/model/ipybox(0.9.2, mcp<2) pins + verification level
-├── SHA256SUMS                 # sha256sum -c verifiable full-file checksums
-├── AGENTS.md                  # Sol discipline: single-pass planning, anti-polling, return
-│                              #   convention, recoverable compression, kernel trigger rules
-├── search_log.md              # 118 merged research searches (floor evidence)
-├── work_commencement_certificate.md   # first-tool-call-was-search attestation
-├── agents/                    # 4 role TOMLs (worker, reviewer, verifier, duty_officer)
-├── config/
-│   ├── config.toml.example    # [agents] knobs + 3 F2 toggles + commented ipybox blocks (pip/uvx)
-│   ├── triggers.yaml          # L1 trigger table: EK partition (31) + duty partition (4)
-│   ├── escalation_ladder.yaml # L0–L4 ladder + power semantics
-│   ├── roles.yaml             # role quadruple table (model/effort/sandbox/tier)
-│   └── retry_classes.yaml     # 14 regex retry classes + budgets + jitter params
-├── harness/                   # zero-token deterministic layer (15 scripts):
-│   │                          #   statemachine.py (23 transitions), dag_assert.py,
-│   │                          #   dispatch.py, diffvalidator.py, acceptance_replay.sh,
-│   │                          #   retry.py, worktree_pool.sh, missing_check.sh,
-│   │                          #   verdict_check.py, sanitize.py, trigger_eval.py,
-│   │                          #   verdict_aggregate.py, duty_gate.py, summary_synth.py,
-│   └── smoke_gate.sh          #   smoke gate (3 assertions + version check)
-├── hooks/subagent_start_meter.sh      # SubagentStart metering hook (fail-open, 1-line JSON)
-├── metering/                  # e0_annotate.py (per-turn T1–T10 annotation),
-│                              # usage_reconcile.py (weekly 4-check reconciliation)
-├── data/                      # runtime skeleton: packets/ reports/ dead_letters/,
-│                              # events.ndjson, escalation_log.jsonl, progress_ledger.json,
-│                              # lessons.jsonl (install.sh replicates this in your repo)
-└── tests/                     # 154 tests: unit (119) + 23 transitions & adversarial (28)
-                               # + golden G1–G5 (7); mock_codex/ = B-level codex stand-in
+```bash
+python harness/run_view.py
+python harness/run_evidence.py build
+python harness/run_evidence.py show
 ```
 
-## 9. Operating Rules That Must Hold (endpoint invariants, §13)
+### Persistent Python compute for headless workers
 
-- Sol is invoked ONLY for planning and adjudication; waiting/polling/tallying/retry
-  decisions/state recaps are script work (AGENTS.md negative discipline).
-- L1/L2 can never release an artifact; release merge is human-triggered, always.
-- Any off-table event → DEAD_LETTER + Sol wake summary. No silent discard path exists.
-- Report files are the second truth source; hooks are fail-open and never load-bearing.
-- Re-run the smoke gate after every Codex CLI upgrade (near-daily upstream releases).
+WSL also provides LOOP's persistent compute layer. The optional IPybox integration starts a Python kernel on demand and preserves DataFrames, parsed indexes, counters, and other state across calls. Headless workers can process large files, datasets, and intermediate results outside the model context instead of rebuilding them on every turn, while Codex Desktop remains a lightweight control and observation surface.
 
-### 9.1 Current Run View and Run Evidence Entry (PRESENT / PAST)
+> [!NOTE]
+> Codex LOOP Orchestra is an independent community project, not an OpenAI product. It installs configuration, custom agents, lifecycle hooks, and `codex exec` tooling; it does not distribute or patch Codex binaries. The harness is gateway-agnostic, while each selected third-party model profile requires an operator-configured compatible provider. Credentials remain outside the repository.
 
-Two zero-LLM, read-only modules make the logical run outlive every model
-context; the ledger remains the only execution authority:
+## Installation details
 
-- `python harness/run_view.py` — deterministic Current Run View derived from
-  `data/progress_ledger.json` (+ exec-roster liveness): active/awaiting-root/
-  recent-terminal packets with task, scope, worktree, attempt, dead-letter
-  reason, and the `event_cursor` provenance. Injected once per task boundary
-  (worker spawn prompts, SubagentStart) and as a small pointer at Root
-  SessionStart — never per turn.
-- `python harness/run_evidence.py build|show` — rebuildable index at
-  `data/evidence/index.json` linking each packet to its reports (including
-  archived prior attempts under `previous/`), exec-roster runs, dead letters,
-  duty tickets, sol wakes, and recorded Root decisions. It is derived data,
-  never a second task authority.
-- `python harness/run_evidence.py record-decision --packet P --decision
-  accept --ref reports/P/report.json` — durable provenance for a Root
-  external decision that would otherwise exist only in the transcript
-  (append-only `data/decisions/decisions.ndjsonl`; drives no transition).
-- `worktree_pool.sh release` refuses dirty worktrees without a recoverable
-  representation (`worktree_dirty_preserved`); `--save-patch` archives the
-  exact tracked diff plus untracked content before removal. `merged` events
-  record the post-merge integration commit SHA.
+The recommended installation is **agent-guided and script-executed**. [AGENT_INSTALL.md](AGENT_INSTALL.md) instructs the agent to inspect the environment, show the proposed changes and backup plan, wait for approval, and then invoke the same deterministic installer documented below. PowerShell, Python, and Bash—not ad hoc model-generated commands—perform the actual installation and restoration.
 
-Historical conclusions may have been superseded: before relying on an old
-report or decision, inspect that packet's later history (ledger history or
-evidence-index disposition).
+### Requirements
 
----
+- Codex CLI with subagents and hooks support; authenticate with `codex login`
+- Python 3.11+
+- Node.js 22+
+- Git 2.40+
+- PowerShell on Windows, or Bash on Linux/WSL
 
-## 10. Runtime Success Closure (2026-08-10)
+### Windows
 
-- Live four-role routing passed in one Codex Desktop task: worker and duty
-  officer use the configured execution pin (currently `weiwu/glm-5.2`) at `ultra`; verifier and release
-  reviewer used `weiwu-k3/kimi-k3` at `max`. Sol remains the root
-  orchestrator, final adjudicator, and fallback.
-- Release review is permanently pinned to K3 max in a read-only sandbox. It
-  cannot release directly; both approval and rejection return to
-  `SOL_ADJUDICATE` with per-wave provenance and idempotency checks.
-- V4 and K3 use independent sustained pools, each target 16 with low-water
-  12. Only agents observed as `running` count toward effective concurrency.
-  `idle`, `completed`, and `shutdown_pending` agents do not count: pending
-  work first reuses an idle agent; an agent that cannot be reused is closed,
-  and the per-pool refill debt remains until a replacement is actually
-  observed running. The shared spawned-agent ceiling is 50.
-- The latest model-token-share report remains honestly blocked: cumulative
-  `0.5682`, rolling 24 hours `0.3493`, and rolling 7 days `0.4461`, all above
-  the 25 percent scheduling threshold. This confirms that the BLOCK signal is
-  active; it is not converted to PASS merely because live routing succeeded.
-- Codex Desktop was not restarted because both live provider routes returned
-  successful responses with their exact configured model and effort.
+```powershell
+git clone https://github.com/LEO001020/codex-loop-orchestra.git
+cd codex-loop-orchestra
+./launchers/Set-Codex-LOOP-Mode.ps1 -Mode Activate
+```
+
+Activation installs the portable custom agents, merges only supported Codex multi-agent settings, backs up managed files, renders absolute hook paths, and activates global LOOP mode. Fully restart Codex Desktop and create a new task.
+
+```powershell
+# Optional: start a workspace and the Agent Monitoring Web UI
+./launchers/Start-Codex-LOOP-Desktop.ps1 -TargetWorkspace C:\path\to\repo
+./launchers/Start-Codex-LOOP-Monitor.ps1
+
+# Pause without removing the verified backup
+./launchers/Set-Codex-LOOP-Mode.ps1 -Mode Deactivate
+
+# Restore the pre-install managed files
+./launchers/Set-Codex-LOOP-Mode.ps1 -Mode Restore
+```
+
+### Linux / WSL
+
+```bash
+git clone https://github.com/LEO001020/codex-loop-orchestra.git
+cd codex-loop-orchestra
+./install.sh --repo "$PWD"
+```
+
+Restart Codex and create a new task. Restore the pre-activation managed files with:
+
+```bash
+./uninstall.sh
+```
+
+See [INSTALL.md](INSTALL.md) and [INSTALL.zh-CN.md](INSTALL.zh-CN.md) for isolated test installs, explicit `CODEX_HOME` handling, model profiles, headless prerequisites, and troubleshooting.
+
+## Configuration and model routing
+
+The installer merges only documented Codex settings from `config/config.toml.example`:
+
+```toml
+[features]
+multi_agent = true
+
+[agents]
+enabled = true
+max_concurrent_threads_per_session = 50
+default_subagent_model = "antigravity/gemini3.8flash"
+default_subagent_reasoning_effort = "max"
+```
+
+Official references: [Subagents](https://learn.chatgpt.com/docs/agent-configuration/subagents), [Hooks](https://learn.chatgpt.com/docs/hooks), and [Configuration Reference](https://learn.chatgpt.com/docs/config-file/config-reference).
+
+| File | Purpose |
+|---|---|
+| `config/model_profiles.toml` | Models and reasoning effort for execution and audit agents |
+| `config/refill_policy.toml` | Per-task and cross-runtime concurrency targets, launch pacing, and refill thresholds |
+| `config/orchestration_policy_v2.toml` | Model routing, budgets, concurrency control, and model-family constraints |
+| `config/retry_classes.yaml` | Deterministic retry rules and dead-letter classification |
+| `config/triggers_v2.yaml` | Deterministic escalation conditions |
+| `agents/*.toml` | Custom-agent instructions, sandbox permissions, and ordered numeric-name candidates |
+
+Inspect or switch a package-local profile without touching user credentials:
+
+```bash
+python harness/model_profile.py list --root .
+python harness/model_profile.py set gemini38f --root . --no-global --no-wsl
+```
+
+The checked-in `gemini38f` profile routes execution to Gemini 3.8 Flash and review to GLM 5.3 Flash through the operator's configured gateways; other checked-in profiles cover additional provider combinations. Profile names and pins are versioned policy, so run `list` before selecting one. The root, execution, and audit stages do not have to use the same model family. The profile switcher never creates provider accounts, edits provider catalogs, or writes credentials.
+
+## Repository layout
+
+```text
+agents/      custom Codex roles and ordered nickname candidates
+config/      routing, concurrency, retry, trigger, and managed-hook policy
+harness/     dispatch, state machine, refill, lifecycle, gates, and recovery
+hooks/       Codex lifecycle enforcement and context injection
+launchers/   Windows activation, Desktop startup, and Agent Monitoring Web UI
+metering/    per-role/model token attribution and budget signals
+schemas/     packet and report contracts
+scripts/     release packaging and integrity helpers
+tests/       unit, state-path, installer, security, and orchestration tests
+```
+
+Runtime state belongs under `data/` and reports under `reports/`; both are ignored and must never be committed.
+
+## Verification
+
+```bash
+python -m pytest tests -q
+python scripts/gen_filelist.py .
+python scripts/gen_sha256sums.py . --output SHA256SUMS
+sha256sum -c SHA256SUMS
+```
+
+CI validates source and configuration syntax, instruction-file attention budgets, PowerShell parsing, isolated installation, the completeness of the managed-file boundary, and accidental secret exposure. Live model-provider routing remains an explicit local smoke test because public CI has no user credentials.
+
+## Security and limitations
+
+- Hooks run as the current user and do not elevate privileges.
+- Provider credentials remain in the user's authenticated Codex or gateway setup.
+- Tool and spawn gates deny operations; they do not grant privileges.
+- L1/L2 may block or escalate; only a human can publish.
+- The 100+ agent concurrency and roughly 75% reduction in root-agent token use have both been tested. The public package ships with a more conservative 20/80 concurrency policy that users can adjust.
+- The current implementation is a single-machine control plane, not a distributed scheduler.
+
+Report vulnerabilities privately as described in [SECURITY.md](SECURITY.md).
+
+## History and license
+
+The original LOOP design predates the public release of the current Codex agent-harness implementation. This open-source version uses documented Codex extension points and does not maintain a fork of the Codex binary.
+
+MIT © 2026 [LEO001020](https://github.com/LEO001020). See [LICENSE](LICENSE), [CONTRIBUTING.md](CONTRIBUTING.md), and [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).

@@ -1,7 +1,0 @@
-只读核查完成，结论如下（未编辑、未测试、未派生子agent）：
-
-1. 唯一policy路径：`config/orchestration_policy_v2.toml`，由 `canonical_policy_path()` 硬编码、不可被环境变量覆盖；旧 `orchestration_policy.toml` 已不在 `config/`，仅存于 backup 目录，所有消费者（dispatch/statemachine/layered_gate/hooks/metering）均只引用 v2。
-
-2. Store锁：`Store.update()` 的 exec_roster 读改写由 `data/lifecycle/.exec_roster.lock` 持久单字节咨询锁串行化（Windows msvcrt LK_NBLCK / POSIX flock，10s 获取超时+退避），锁文件在位且协议一致。
-
-3. 原子写：`atomic_json()` 为 `<pid>.tmp` 写入 → flush+fsync → `os.replace`（5s 有界重试容忍 Windows 瞬态占用），绝不原地改写，finally 清理临时文件；仅发现 `data/lifecycle/` 下 4 个历史遗留 `.tmp` 残片（进程中断残留，非协议违规）。

@@ -1,0 +1,292 @@
+<svg width="1600" height="1320" id="architecture" class="theme-light" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1320" role="img" aria-labelledby="title desc">
+  <title id="title">Codex LOOP Orchestra 完整架构</title>
+  <desc id="desc">采用发布会视觉风格的 Codex LOOP Orchestra 完整架构图，展示任务入口、根协调、规划、确定性生命周期控制、双执行环境、机械验收、独立审计、串行集成、人工发布与 Agent 监测 Web UI。</desc>
+  <defs>
+    <linearGradient id="pageGlow" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="var(--glow-a)"/>
+      <stop offset="1" stop-color="var(--glow-b)"/>
+    </linearGradient>
+    <linearGradient id="blueWash" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="var(--blue-wash-a)"/>
+      <stop offset="1" stop-color="var(--blue-wash-b)"/>
+    </linearGradient>
+    <linearGradient id="violetWash" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="var(--violet-wash-a)"/>
+      <stop offset="1" stop-color="var(--violet-wash-b)"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="14" stdDeviation="22" flood-color="var(--shadow)" flood-opacity="0.16"/>
+    </filter>
+    <filter id="shadowSoft" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="8" stdDeviation="14" flood-color="var(--shadow)" flood-opacity="0.10"/>
+    </filter>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--line-strong)"/>
+    </marker>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--blue)"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--green)"/>
+    </marker>
+    <marker id="arrowRed" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--red)"/>
+    </marker>
+  </defs>
+  <style>
+    #architecture{
+      --bg:#f7f7f5;--surface:#ffffff;--surface-2:#f0f1ef;--ink:#151619;--muted:#666a73;--faint:#989da6;
+      --line:#d9dce1;--line-strong:#8f98a5;--shadow:#7a8492;
+      --blue:#1267e5;--blue-soft:#eaf3ff;--blue-stroke:#b9d6ff;--blue-wash-a:#ffffff;--blue-wash-b:#eef5ff;
+      --green:#168a50;--green-soft:#ebf8f0;--green-stroke:#c3e9d2;
+      --violet:#7651c9;--violet-soft:#f2edff;--violet-stroke:#d6c8fa;--violet-wash-a:#ffffff;--violet-wash-b:#f4f0ff;
+      --amber:#a86d00;--amber-soft:#fff6de;--amber-stroke:#edd49a;
+      --red:#c5413a;--red-soft:#fff0ef;--red-stroke:#f0beb9;
+      --glow-a:#ffffff;--glow-b:#eef1f5;
+      font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text",Inter,"Microsoft YaHei","Noto Sans CJK SC","Segoe UI",Roboto,Arial,sans-serif;
+    }
+    #architecture.theme-dark{
+      --bg:#08090b;--surface:#111317;--surface-2:#171a1f;--ink:#f6f7f8;--muted:#a8aeb8;--faint:#737a86;
+      --line:#2a2f37;--line-strong:#737e8e;--shadow:#000000;
+      --blue:#66a6ff;--blue-soft:#0d1b2f;--blue-stroke:#234b7f;--blue-wash-a:#111722;--blue-wash-b:#0c1522;
+      --green:#55c983;--green-soft:#0f2118;--green-stroke:#24583a;
+      --violet:#ae8bff;--violet-soft:#1e1830;--violet-stroke:#523b7e;--violet-wash-a:#171421;--violet-wash-b:#12101b;
+      --amber:#e4ad45;--amber-soft:#251d0d;--amber-stroke:#624c1e;
+      --red:#ff7e74;--red-soft:#2b1515;--red-stroke:#71302e;
+      --glow-a:#0d1118;--glow-b:#090a0c;
+    }
+    .page{fill:var(--bg)} .decor{fill:url(#pageGlow)}
+    .title{fill:var(--ink);font-size:42px;font-weight:710;letter-spacing:-1.6px}
+    .subtitle{fill:var(--muted);font-size:17px;font-weight:430;letter-spacing:-0.15px}
+    .eyebrow{fill:var(--faint);font-size:12px;font-weight:700;letter-spacing:1.8px}
+    .metric-value{fill:var(--ink);font-size:26px;font-weight:720;letter-spacing:-0.8px}
+    .metric-label{fill:var(--muted);font-size:12px;font-weight:610}
+    .metric-sub{fill:var(--faint);font-size:11px;font-weight:460}
+    .stage{fill:var(--faint);font-size:11px;font-weight:760;letter-spacing:1.8px}
+    .node-title{fill:var(--ink);font-size:18px;font-weight:690;letter-spacing:-0.3px}
+    .node-sub{fill:var(--muted);font-size:12.2px;font-weight:460}
+    .node-note{fill:var(--faint);font-size:11px;font-weight:500}
+    .chip-text{font-size:10px;font-weight:750;letter-spacing:.35px}
+    .small{fill:var(--muted);font-size:10.5px;font-weight:500}
+    .foot{fill:var(--faint);font-size:10.5px;font-weight:500}
+    .box{fill:var(--surface);stroke:var(--line);stroke-width:1}
+    .box-soft{fill:var(--surface-2);stroke:var(--line);stroke-width:1}
+    .blue-card{fill:url(#blueWash);stroke:var(--blue-stroke);stroke-width:1.2}
+    .green-card{fill:var(--surface);stroke:var(--green-stroke);stroke-width:1.2}
+    .violet-card{fill:url(#violetWash);stroke:var(--violet-stroke);stroke-width:1.2}
+    .amber-card{fill:var(--surface);stroke:var(--amber-stroke);stroke-width:1.2}
+    .red-card{fill:var(--surface);stroke:var(--red-stroke);stroke-width:1.2}
+    .connector{fill:none;stroke:var(--line-strong);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;marker-end:url(#arrow)}
+    .connector-soft{fill:none;stroke:var(--line);stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
+    .connector-blue{fill:none;stroke:var(--blue);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;marker-end:url(#arrowBlue)}
+    .connector-green{fill:none;stroke:var(--green);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;marker-end:url(#arrowGreen)}
+    .connector-red{fill:none;stroke:var(--red);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;marker-end:url(#arrowRed);stroke-dasharray:6 7}
+    .hairline{stroke:var(--line);stroke-width:1}
+    .dot-blue{fill:var(--blue)} .dot-green{fill:var(--green)} .dot-violet{fill:var(--violet)} .dot-ink{fill:var(--ink)}
+    .metric,.raised{filter:url(#shadowSoft)} .hero{filter:url(#shadow)}
+    .blue-text{fill:var(--blue)} .green-text{fill:var(--green)} .violet-text{fill:var(--violet)} .amber-text{fill:var(--amber)} .red-text{fill:var(--red)}
+  </style>
+
+  <rect class="page" width="1600" height="1320"/>
+  <circle class="decor" cx="1492" cy="8" r="260" opacity=".65"/>
+  <circle class="decor" cx="94" cy="1260" r="220" opacity=".5"/>
+
+  <!-- Header -->
+  <text class="eyebrow" x="72" y="54">系统架构 / 控制平面</text>
+  <text class="title" x="72" y="96">Codex LOOP Orchestra</text>
+  <text class="subtitle" x="72" y="127">为 Codex 提供持续补位、独立审计和人工发布控制的多智能体控制层。</text>
+
+  <!-- Metrics -->
+  <g class="metric raised">
+    <rect class="box" x="72" y="160" rx="20" ry="20" width="330" height="84"/>
+    <text class="metric-value" x="96" y="199">20</text>
+    <text class="metric-label" x="143" y="197">活跃智能体</text>
+    <text class="metric-sub" x="96" y="221">单个父任务的持续补位默认值</text>
+    <rect x="72" y="160" width="4" height="84" rx="2" fill="var(--blue)"/>
+  </g>
+  <g class="metric raised">
+    <rect class="box" x="418" y="160" rx="20" ry="20" width="330" height="84"/>
+    <text class="metric-value" x="442" y="199">80</text>
+    <text class="metric-label" x="489" y="197">跨执行环境并发</text>
+    <text class="metric-sub" x="442" y="221">Desktop + 受监督的无界面执行进程</text>
+    <rect x="418" y="160" width="4" height="84" rx="2" fill="var(--blue)"/>
+  </g>
+  <g class="metric raised">
+    <rect class="box" x="764" y="160" rx="20" ry="20" width="330" height="84"/>
+    <text class="metric-value" x="788" y="199">25%</text>
+    <text class="metric-label" x="865" y="197">根智能体 token 目标</text>
+    <text class="metric-sub" x="788" y="221">有效生产 token 占比控制上限</text>
+    <rect x="764" y="160" width="4" height="84" rx="2" fill="var(--amber)"/>
+  </g>
+  <g class="metric raised">
+    <rect class="box" x="1110" y="160" rx="20" ry="20" width="418" height="84"/>
+    <text class="metric-value" x="1134" y="199">50</text>
+    <text class="metric-label" x="1181" y="197">单任务会话上限</text>
+    <text class="metric-sub" x="1134" y="221">20/80 是 LOOP 目标，并非 Codex 官方限制</text>
+    <rect x="1110" y="160" width="4" height="84" rx="2" fill="var(--line-strong)"/>
+  </g>
+
+  <!-- Stage rail -->
+  <line class="hairline" x1="160" y1="286" x2="160" y2="1254" opacity=".9"/>
+  <circle cx="160" cy="299" r="4" fill="var(--line-strong)"/>
+  <text class="stage" x="72" y="304">任务入口</text>
+  <text class="stage" x="72" y="400">根协调</text>
+  <text class="stage" x="72" y="502">规划</text>
+  <text class="stage" x="72" y="611">控制</text>
+  <text class="stage" x="72" y="728">执行</text>
+  <text class="stage" x="72" y="840">证据</text>
+  <text class="stage" x="72" y="948">审计</text>
+  <text class="stage" x="72" y="1041">集成</text>
+  <text class="stage" x="72" y="1124">发布</text>
+  <text class="stage" x="72" y="1226">监测</text>
+
+  <!-- Core vertical spine -->
+  <path class="connector" d="M800 338 L800 356"/>
+  <path class="connector" d="M800 431 L800 454"/>
+  <path class="connector" d="M800 555 L800 575"/>
+  <path class="connector" d="M800 681 L800 702"/>
+  <path class="connector" d="M800 786 L800 810"/>
+  <path class="connector" d="M800 890 L800 914"/>
+
+  <!-- 人类任务 -->
+  <g class="raised">
+    <rect class="box" x="220" y="268" rx="22" ry="22" width="1160" height="70"/>
+    <text class="node-title" x="800" y="296" text-anchor="middle">人类任务</text>
+    <text class="node-sub" x="800" y="319" text-anchor="middle">一个目标进入系统；最终合并与发布始终由人触发。</text>
+  </g>
+
+  <!-- Coordinator -->
+  <g class="hero">
+    <rect class="blue-card" x="220" y="356" rx="24" ry="24" width="1160" height="75"/>
+    <rect x="242" y="371" rx="10" ry="10" width="146" height="23" fill="var(--blue-soft)" stroke="var(--blue-stroke)"/>
+    <text class="chip-text blue-text" x="315" y="386.5" text-anchor="middle">协调模型</text>
+    <text class="node-title" x="800" y="384" text-anchor="middle">Sol 根协调器</text>
+    <text class="node-sub" x="800" y="409" text-anchor="middle">单次规划 · 派发有界任务 · 裁决真正异常 · 综合最终结果</text>
+  </g>
+
+  <!-- Plan row -->
+  <g class="raised">
+    <rect class="box" x="220" y="454" rx="21" ry="21" width="558" height="101"/>
+    <text class="eyebrow" x="244" y="480">决策模型</text>
+    <text class="node-title" x="244" y="510">决策骨架</text>
+    <text class="node-sub" x="244" y="535">依赖关系、修改边界与验收证据。</text>
+  </g>
+  <g class="raised">
+    <rect class="box" x="822" y="454" rx="21" ry="21" width="558" height="101"/>
+    <text class="eyebrow" x="846" y="480">执行中间表示</text>
+    <text class="node-title" x="846" y="510">Packet DAG</text>
+    <text class="node-sub" x="846" y="535">自包含任务，并显式声明路径所有权。</text>
+  </g>
+  <path class="connector-soft" d="M778 504 H822"/>
+
+  <!-- Control -->
+  <g class="raised">
+    <rect class="amber-card" x="220" y="575" rx="24" ry="24" width="1160" height="106"/>
+    <text class="node-title" x="800" y="603" text-anchor="middle">确定性生命周期控制</text>
+    <text class="node-sub" x="800" y="626" text-anchor="middle">程序负责计数、等待和状态迁移；模型只负责判断。</text>
+    <g>
+      <rect x="247" y="643" width="255" height="23" rx="11.5" fill="var(--amber-soft)" stroke="var(--amber-stroke)"/>
+      <text class="small" x="374.5" y="658" text-anchor="middle">状态机</text>
+      <rect x="520" y="643" width="255" height="23" rx="11.5" fill="var(--amber-soft)" stroke="var(--amber-stroke)"/>
+      <text class="small" x="647.5" y="658" text-anchor="middle">预算 + 持续补位</text>
+      <rect x="793" y="643" width="255" height="23" rx="11.5" fill="var(--amber-soft)" stroke="var(--amber-stroke)"/>
+      <text class="small" x="920.5" y="658" text-anchor="middle">重试 + 死信</text>
+      <rect x="1066" y="643" width="287" height="23" rx="11.5" fill="var(--amber-soft)" stroke="var(--amber-stroke)"/>
+      <text class="small" x="1209.5" y="658" text-anchor="middle">显式固定角色 / 模型</text>
+    </g>
+  </g>
+
+  <!-- Execution row -->
+  <g class="hero">
+    <rect class="green-card" x="220" y="702" rx="24" ry="24" width="558" height="84"/>
+    <rect x="242" y="717" rx="10" ry="10" width="121" height="23" fill="var(--green-soft)" stroke="var(--green-stroke)"/>
+    <text class="chip-text green-text" x="302.5" y="732.5" text-anchor="middle">执行模型</text>
+    <text class="node-title" x="499" y="742" text-anchor="middle">Codex Desktop 执行环境</text>
+    <text class="node-sub" x="499" y="765" text-anchor="middle">可见原生子智能体 + 根对话通信</text>
+  </g>
+  <g class="hero">
+    <rect class="green-card" x="822" y="702" rx="24" ry="24" width="558" height="84"/>
+    <rect x="844" y="717" rx="10" ry="10" width="121" height="23" fill="var(--green-soft)" stroke="var(--green-stroke)"/>
+    <text class="chip-text green-text" x="904.5" y="732.5" text-anchor="middle">执行模型</text>
+    <text class="node-title" x="1101" y="742" text-anchor="middle">受监督的无界面执行环境</text>
+    <text class="node-sub" x="1101" y="765" text-anchor="middle">codex exec + 隔离工作树 + 生命周期名册</text>
+  </g>
+  <path class="connector-soft" d="M499 786 V810 H800"/>
+  <path class="connector-soft" d="M1101 786 V810 H800"/>
+
+  <!-- Evidence -->
+  <g class="raised">
+    <rect class="box" x="220" y="810" rx="22" ry="22" width="1160" height="80"/>
+    <text class="node-title" x="800" y="838" text-anchor="middle">L0 / L1 机械验收证据</text>
+    <text class="node-sub" x="800" y="862" text-anchor="middle">产物 + 测试 + diff 边界 + schema + 生命周期证据——智能体自报 PASS 不具备效力</text>
+  </g>
+
+  <!-- Verify -->
+  <g class="hero">
+    <rect class="violet-card" x="420" y="914" rx="24" ry="24" width="710" height="76"/>
+    <rect x="442" y="929" rx="10" ry="10" width="110" height="23" fill="var(--violet-soft)" stroke="var(--violet-stroke)"/>
+    <text class="chip-text violet-text" x="497" y="944.5" text-anchor="middle">审计模型</text>
+    <text class="node-title" x="775" y="943" text-anchor="middle">L2 独立审计</text>
+    <text class="node-sub" x="775" y="968" text-anchor="middle">PASS · 进入集成  |  重做 · 返回执行  |  升级 · 进入有界 L3 裁决</text>
+  </g>
+  <g class="raised">
+    <rect class="red-card" x="1162" y="909" rx="22" ry="22" width="218" height="86"/>
+    <text class="node-title" x="1271" y="940" text-anchor="middle">L3 异常裁决</text>
+    <text class="node-sub" x="1271" y="962" text-anchor="middle">仅处理重大不确定性</text>
+    <text class="node-note" x="1271" y="979" text-anchor="middle">有界返回 Sol</text>
+  </g>
+  <path class="connector-red" d="M1130 951 H1162"/>
+  <text class="small red-text" x="1146" y="938" text-anchor="middle">升级</text>
+  <path class="connector-red" d="M420 952 H264 V744 H220"/>
+  <text class="small red-text" x="276" y="937">重做</text>
+  <path class="connector-red" d="M1380 950 H1454 V393 H1380"/>
+
+  <!-- Integrate row -->
+  <path class="connector-green" d="M775 990 V1011"/>
+  <g class="raised">
+    <rect class="green-card" x="220" y="1011" rx="22" ry="22" width="558" height="72"/>
+    <text class="node-title" x="499" y="1040" text-anchor="middle">串行集成队列</text>
+    <text class="node-sub" x="499" y="1063" text-anchor="middle">由单一受控写入者合并已验收产物</text>
+  </g>
+  <g class="raised">
+    <rect class="violet-card" x="822" y="1011" rx="22" ry="22" width="558" height="72"/>
+    <text class="node-title" x="1101" y="1040" text-anchor="middle">发布复审</text>
+    <text class="node-sub" x="1101" y="1063" text-anchor="middle">反证式检查；没有发布权限</text>
+  </g>
+  <path class="connector-green" d="M778 1047 H822"/>
+
+  <!-- Release / human -->
+  <path class="connector-green" d="M1101 1083 V1098 H800"/>
+  <g class="raised">
+    <rect class="box" x="420" y="1098" rx="24" ry="24" width="710" height="66"/>
+    <text class="node-title" x="775" y="1125" text-anchor="middle">L4 人类维护者</text>
+    <text class="node-sub" x="775" y="1148" text-anchor="middle">唯一可以触发合并或发布的角色</text>
+  </g>
+
+  <!-- Observe -->
+  <g class="raised">
+    <rect class="box" x="220" y="1190" rx="22" ry="22" width="558" height="82"/>
+    <text class="node-title" x="499" y="1218" text-anchor="middle">证据存储</text>
+    <text class="node-sub" x="499" y="1242" text-anchor="middle">事件 · 台账 · 报告 · Desktop/CLI 任务名册</text>
+    <text class="node-note" x="499" y="1261" text-anchor="middle">实际模型 + token 计量 + 语义任务名称映射</text>
+  </g>
+  <g class="raised">
+    <rect class="violet-card" x="822" y="1190" rx="22" ry="22" width="558" height="82"/>
+    <text class="node-title" x="1101" y="1218" text-anchor="middle">Agent 监测 Web UI :8765</text>
+    <text class="node-sub" x="1101" y="1242" text-anchor="middle">任务 · 模型 · 执行环境 · 健康状态 · 补位缺口</text>
+    <text class="node-note" x="1101" y="1261" text-anchor="middle">不参与调度、裁决，也不授予发布权限</text>
+  </g>
+  <path class="connector-soft" d="M778 1231 H822"/>
+
+  <!-- Footer -->
+  <line class="hairline" x1="72" y1="1293" x2="1528" y2="1293" opacity=".75"/>
+  <text class="foot" x="72" y="1310">LLM 负责规划、独立审计与有界裁决；脚本和状态机负责等待、轮询、计数、补位与生命周期迁移。</text>
+
+  <!-- Semantic legend -->
+  <g transform="translate(1212,1307)">
+    <circle class="dot-blue" cx="0" cy="0" r="4"/><text class="foot" x="10" y="3.5">协调</text>
+    <circle class="dot-green" cx="86" cy="0" r="4"/><text class="foot" x="96" y="3.5">执行</text>
+    <circle class="dot-violet" cx="164" cy="0" r="4"/><text class="foot" x="174" y="3.5">审计</text>
+    <circle class="dot-ink" cx="238" cy="0" r="4"/><text class="foot" x="248" y="3.5">人工发布权</text>
+  </g>
+</svg>

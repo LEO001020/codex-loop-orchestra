@@ -1,9 +1,0 @@
-复审结论：
-
-**PASS**
-
-证据包与源码三处关键主张逐条吻合：
-1. 出生前预留：`dispatch_v2.py:509-514` 在物理出生前 `register_agent(reservation_id, role)`（reservation_id 与 run_id 同源），消除"先活子后记账"竞态。
-2. Popen 边界：`dispatch_v2.py:525-533` 仅对向 v1 桥接抛出的 `OSError/RuntimeError/SystemExit/ValueError` 做 reclaim；`dispatch.py:451` Popen 为物理边界，其后 `dispatch.py:539-556` 记账异常只降级为 `post_spawn_accounting_degraded` 事件，不冒泡为 spawn 失败；`dispatch_v2.py:543-551` `record_run_role` 失败同样不 reclaim 活子。
-3. Terminal reclaim：`lifecycle_supervisor.py:637-651` finally 中按 `args.run_id` 幂等 best-effort reclaim，异常只打 stderr，生命周期事实不被预算遥测改写；`budget_controller.py` `register_agent`/`reclaim` 幂等持锁。
-evidence 包（convergence-wave2b）对应条目均有源码落点。已知 ipybox MCP 缺 `mcp` 依赖属后续 WSL/安装轮项，不计本轮 B 失败。

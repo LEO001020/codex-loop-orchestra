@@ -1,1 +1,0 @@
-{"packet_id":"ZA14","goal":"任务名：Git 现场审计\n检查仓库当前分支、HEAD、状态、工作树、最近相关提交与未提交变更，判断交接描述对应哪一版代码。","authorized_paths":"E:/zcode/zloop-gen8/.git/; E:/codex-LOOP/codex-loop-s-f2/reports/zloop-audit-20260903/ZA14/","acceptance":"记录只读 git 命令、HEAD、dirty 状态、相关变更归属及版本漂移风险。","constraints":"只允许 git status/log/show/diff/worktree list 等只读命令；不得 fetch/checkout/reset/clean；报告写入授权报告目录。"}

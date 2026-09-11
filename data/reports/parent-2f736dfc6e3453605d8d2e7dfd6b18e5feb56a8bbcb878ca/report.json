@@ -1,6 +1,0 @@
-{
-  "packet_id": "parent-2f736dfc6e3453605d8d2e7dfd6b18e5feb56a8bbcb878ca",
-  "status": "done",
-  "run_id": "parent-2f736dfc6e3453605d8d2e7dfd6b18e5feb56a8bbcb878ca-a0-800555f20d364dc69123c203289ce1a8",
-  "summary": "**结论（BLOCK）：**\n\n本轮工具目录中不含 `shell_command`（或任何执行类工具）、文件读取工具，权限配置为 `read-only` 且 `approval_policy = never`，无法执行命令或发起 HTTP 请求。`web_search` 同样无法访问 `localhost:8765`。\n\n任务要求\"只读请求8765 API和HTML，确认父表运行/目标、待补/可出生、reason均显示\"——这需要向本地服务发起 HTTP GET，或读取 `launchers/loop_monitor_server.py` 源码。上述两种操作均因工具缺失而无法执行。\n\n**BLOCK 理由：** 当前运行环境中缺少执行/HTTP/文件读取工具，无法完成对 `localhost:8765` API 及 HTML 页面的只读验证。需要在拥有 `shell_command` 或等效执行工具的上下文中重新分发此包。"
-}

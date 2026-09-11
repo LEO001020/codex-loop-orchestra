@@ -1,1 +1,0 @@
-PASS：CORRECTED 回滚脚本对 29 个 Reduced 全覆盖（与 ledger/ignore/审计报告/ZIP 决策矩阵集合 0 差异），且不含任何 `deviceidle whitelist +`（仅 29 条 appops default + 6 条 pm default-state + 只读机型守卫）；BROKEN/原始脚本含 9 条 `whitelist +` 缺陷命令（审计 §9.2 确认执行前 9 包不在白名单、执行会越改越差），已全部移除——完整证据见 [report.md](C:/Users/hzq00/Documents/Codex/2026-08-23/ni-j/work/stage3_exec/T01_rollback_repair/report.md)。

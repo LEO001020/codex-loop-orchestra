@@ -1,1 +1,0 @@
-# WSL / Clash TUN / Hotspot diagnosis 2026-08-29\nRead-only. Do not change adapters, TUN, ICS, IP, or WSL distros.\n

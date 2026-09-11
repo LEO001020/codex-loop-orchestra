@@ -1,9 +1,0 @@
-复验结论：PASS — 两个验收点均成立。
-
-选择条件与修复范围（[repair_transport_deadletters.py](E:/codex-LOOP/codex-loop-s-f2/harness/repair_transport_deadletters.py:27)）：`qualifies()` 要求同时满足——id 为 `adhoc-*` 或 `lifecycle-gate-probe`、state 为 `DEAD_LETTER`、history 非空且每行 `via == "off_table_event"`、`data/packets/{id}.json` 不存在。对备份账本全部 93 条记录逐条重放该谓词，0 条不满足；manifest 中 `selected` 与备份账本条目逐字节一致（0 差异）。修复前账本恰有 93 条，全部命中，修复后为 0，`extra_removed=0 / modified=0`，即删除集合与命中集合完全重合，不匹配记录不会被移除。
-
-工件保留（验收点 1）：脚本全文无 unlink/rmtree/remove 类删除调用，唯一写入是 `del packets[pid]`（内存）+ `atomic_write_json`（经 `os.replace` 原子替换，见 [orchestration_common.py](E:/codex-LOOP/codex-loop-s-f2/harness/orchestration_common.py:278)）。manifest 记录的 186 个工件路径（93 个 `data/dead_letters/*.json` + 93 个 `data/sol_wake/*_*.md`）当前全部存在于磁盘，0 缺失；93 个被移除 id 全部有死信与唤醒文件留存。
-
-备份与可恢复性：备份目录 [transport-deadletters-20260813-042738](E:/codex-LOOP/codex-loop-s-f2/data/repairs/transport-deadletters-20260813-042738) 含 `progress_ledger.before.json`（完整 93 条，24638 字节）、`progress_ledger.after.json`、`repair_manifest.json`（schema v1，含每条被删记录全文与工件路径）。回滚只需将 before 副本拷回账本即可精确还原。
-
-当前状态补充：修复后（04:27）账本又新增 16 条 `parent-*` DISPATCHABLE 记录（本次事故账本修复复验包即其一），相对 after 快照为纯增量（0 修改、0 删除），且这 16 条均不满足修复谓词、原样保留。

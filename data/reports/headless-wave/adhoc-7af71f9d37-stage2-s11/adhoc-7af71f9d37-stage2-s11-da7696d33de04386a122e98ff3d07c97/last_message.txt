@@ -1,1 +1,0 @@
-Perfetto配置审计完成：pbtx含3数据源（ftrace 4事件+9 atrace类别、process_stats仅启动快照、frametimeline）、20s、64MiB环形缓冲、无需root，主要问题为pbtx未被playbook引用且playbook命令缺frametimeline、process_stats无周期采样、高负载下缓冲可能回绕；未录制未写操作，报告：C:\Users\hzq00\Documents\Codex\2026-08-22\c-program-files-x86-honorsuite\work\stage2_20260823-000955\S11\report.md

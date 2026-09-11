@@ -1,7 +1,0 @@
-结论：通过 — Windows 与 WSL 两份 exec_roster 按"最新状态"合并且不会重复计数，文件未作任何修改。
-
-证据（E:\codex-LOOP\launchers\loop_monitor_server.py）：
-
-- 双源合并入口：`snapshot()` 同时读取 WSL 侧（LOOP root `data/lifecycle/exec_roster.json`）与 Windows 侧（`windows_root/data/lifecycle/exec_roster.json`）两个 roster 并交给 `merge_exec_rosters`（L396–L399）。
-- 按最新状态合并：`merge_exec_rosters` 按 `packet_id` 对齐同一任务，用 `max(updated_at, heartbeat_at, started_at)` 比较新旧时间戳，仅当新行 `row_ts >= old_ts` 时覆盖（L148–L177，键去重 L162/L165，时间戳比较 L166–L173），因此同一 packet 在双侧 roster 同时出现时只保留最新一行。
-- 不重复计数：计数循环直接遍历合并后唯一的 `merged["jobs"].values()`（L462），每个 packet_id 仅出现一次；跨来源去重另有 rollout 回退的 `known_native_ids`（L498–L501）与 `semantic_task_key`/`authoritative_task_keys` 栅栏（L422–L425、L508–L511）兜底。

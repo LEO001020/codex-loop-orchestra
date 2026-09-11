@@ -1,5 +1,0 @@
-只读核验完成，无编辑、无测试、无子agent。
-
-1. 唯一policy路径成立：`config/orchestration_policy_v2.toml` 由 `canonical_policy_path()` 固定（[orchestration_common.py:86](E:/codex-LOOP/codex-loop-s-f2/harness/orchestration_common.py:86)），不可环境变量覆盖；并发唯一权威为 `config/refill_policy.toml`（经 `refill_policy_ref` 引用），config 下无 v1 残留。
-2. Store 锁：`locked()` 用持久单字节 advisory 锁文件（`data/lifecycle/.events.lock`、`.exec_roster.lock` 等均在位），Windows 走 msvcrt LK_NBLCK、10s 超时 + 5ms→100ms 退避，POSIX 走 flock（[lifecycle_supervisor.py:44](E:/codex-LOOP/codex-loop-s-f2/harness/lifecycle_supervisor.py:44)）。
-3. 原子写协议：同目录 tmp + flush + fsync 后 `os.replace`，Windows WinError 5 视为瞬时、5s 有界重试且绝不原地改写（[lifecycle_supervisor.py:83](E:/codex-LOOP/codex-loop-s-f2/harness/lifecycle_supervisor.py:83)）；仅注意到 `data/lifecycle` 留有若干旧 `.tmp` 残留，属良性观察。

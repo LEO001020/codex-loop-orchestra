@@ -1,7 +1,0 @@
-{
-  "packet_id": "Q19",
-  "goal": "任务名：Reduce候选B组\n审计 REDUCE_ELIGIBLE 中间三分之一包的系统属性、UID、状态、特殊角色和runtime证据。",
-  "authorized_paths": "C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\NMB_HONOR_AUDIT_20260822-222255\\research\\agents\\Q19\\",
-  "acceptance": "写入：reduce_b.tsv, report.md。每项结论必须可由命令/来源复核；未知一律 KEEP/SKIP。",
-  "constraints": "严格遵守 C:\\Users\\hzq00\\.codex\\attachments\\5cc0ecca-1d9e-4979-83f0-e0281ec312eb\\pasted-text.txt。设备侧只读；先验证恰好一台 authorized 设备，固定 adb -s SERIAL，并获取 TARGET_USER。禁止 appops set、deviceidle whitelist +/-、netpolicy mutation、disable/uninstall/clear/force-stop、settings/device_config/setprop、权限修改和重启。不得创建子代理。敏感标识脱敏。"
-}

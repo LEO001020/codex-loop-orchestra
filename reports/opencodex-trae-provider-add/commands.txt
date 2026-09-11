@@ -1,9 +1,0 @@
-# Exact OpenCodex 2.10.0 add/test commands. Placeholders only. Do not run if config mutation is forbidden.
-# Omit --force and --set-default. Do not put ${VAR} in --base-url.
-
-ocx provider add trae01 --adapter openai-responses --base-url http://127.0.0.1:18001/v1 --api-key <RELAY_API_KEY> --default-model <TRAE_POOL_MODEL> --allow-private-network
-ocx provider add trae02 --adapter openai-responses --base-url http://127.0.0.1:18002/v1 --api-key <RELAY_API_KEY> --default-model <TRAE_POOL_MODEL> --allow-private-network
-ocx provider add trae04 --adapter openai-responses --base-url http://127.0.0.1:18004/v1 --api-key <RELAY_API_KEY> --default-model <TRAE_POOL_MODEL> --allow-private-network
-ocx provider test trae01
-ocx provider test trae02
-ocx provider test trae04

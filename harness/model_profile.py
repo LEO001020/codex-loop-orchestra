@@ -150,8 +150,12 @@ def project_updates(root: Path, profile_path: Path, name: str,
     def defaults(text: str) -> str:
         text = set_toml_key(text, "agents", "default_subagent_model", model)
         return set_toml_key(text, "agents", "default_subagent_reasoning_effort", effort)
-    for rel in (".codex/config.toml", "config/config.toml.example"):
-        edit(rel, defaults)
+    edit("config/config.toml.example", defaults)
+    # A project-local .codex/config.toml is optional deployment state. Update
+    # it when present, but do not require the public release to ship a
+    # machine-local .codex tree (which may contain absolute hook paths).
+    if (root / ".codex" / "config.toml").is_file():
+        edit(".codex/config.toml", defaults)
 
     def roles(text: str) -> str:
         for role in ("executor", "scout", "duty_officer"):

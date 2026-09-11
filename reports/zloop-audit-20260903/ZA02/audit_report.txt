@@ -1,8 +1,0 @@
-Audit Report for ZA02: CLI Control Flow Audit
-Goal: Audit cli.py startup, wave, promote, exception handling, and C2C.
-Findings:
-1. PREPARED status (found in cli.py lines 742 and 1194) is explicitly included in the
-   allowlist for automated C2C plan audit results, permitting dispatch.
-2. The control flow in cli.py utilizes 'zloop.c2c_runner' for automated C2C audits 
-   before wave startup in EXECUTING stage.
-Evidence: cli.py lines 742, 1194 indicate PREPARED is a valid, allowed verdict.

@@ -1,7 +1,0 @@
-{
-  "packet_id": "Q33",
-  "goal": "任务名：NMB事务小批执行\n仅执行主流程批准清单，先journal和rollback；每批最多5，AUTO_CAP仅Unrestricted->Auto，Reduce按合同；严禁netpolicy和其他mutation。",
-  "authorized_paths": "C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\NMB_HONOR_AUDIT_20260822-222255\\journal\\; C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\NMB_HONOR_AUDIT_20260822-222255\\rollback\\; C:\\Users\\hzq00\\Documents\\Codex\\2026-08-22\\c-program-files-x86-honorsuite\\outputs\\NMB_HONOR_AUDIT_20260822-222255\\plan\\",
-  "acceptance": "写入：actions.jsonl, rollback.ps1, rollback.sh, mutation_report.md。每项结论必须可由命令/来源复核；未知一律 KEEP/SKIP。",
-  "constraints": "严格遵守 C:\\Users\\hzq00\\.codex\\attachments\\5cc0ecca-1d9e-4979-83f0-e0281ec312eb\\pasted-text.txt；只允许合同明确的 RUN_ANY_IN_BACKGROUND 与 DeviceIdle user whitelist 变更及精确回滚；严禁任何 netpolicy、disable/uninstall/clear/force-stop、系统/HONOR/特殊角色修改；所有 adb 显式 -s SERIAL；不得创建子代理。"
-}

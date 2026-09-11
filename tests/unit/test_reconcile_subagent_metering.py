@@ -4,7 +4,7 @@ from pathlib import Path
 
 
 PKG = Path(__file__).resolve().parents[2]
-SCRIPT = PKG / ".codex" / "hooks" / "reconcile_subagent_metering.py"
+SCRIPT = PKG / "hooks" / "reconcile_subagent_metering.py"
 SPEC = importlib.util.spec_from_file_location("reconcile_subagent_metering", SCRIPT)
 MOD = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(MOD)

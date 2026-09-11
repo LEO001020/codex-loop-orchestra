@@ -1,5 +1,0 @@
-结论（3行）：
-
-1. 唯一policy路径成立：`config/refill_policy.toml` 是唯一并发权威（`loop_config.policy_path`/`RefillPolicy.load` 均指向它且 fail-closed），`config/orchestration_policy_v2.toml` 是唯一编排策略路径并仅以 ref 引用前者，无其他生产 policy 路径。
-2. Store 锁与原子写协议正确：`Store.update` 全程持 `data/lifecycle/.exec_roster.lock` 字节级跨进程锁，`atomic_json` 采用 tmp+fsync+os.replace、对 WinError 5 有界退避重试、finally 清理；当前 `exec_roster.json` 有效（22 jobs，18:18 仍在活跃更新）。
-3. 唯一发现：`data/lifecycle` 下残留 4 个陈旧 tmp（PID 15248/22616/38772/49424 均已退出，内容为完整旧 JSON，不污染主文件），协议在进程被强杀时无下次启动清理机制——纯垃圾残留，不影响正确性。

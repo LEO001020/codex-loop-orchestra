@@ -1,9 +1,0 @@
-**RED0**（3 P0 / 2 P1，复核于 install_v2.sh:1-176、install.sh:1-308、test_install_v2.py；manifest 实际无尾空格，该行排除）
-
-- **P0 并发安装**：`<file>.tmp.$$` 同 PID 同路径，A 跑死循环、B 起步即 `mv -f` 掉 A 刚写的源包字节；A 后轮再 mv 得到裁剪文件——cmp 闸门（v2:115）已过、无防御。且 rollback trap 仍在挂时，已 cp 完的文件被 B 覆盖后，A 用首跑备份回滚 B 的新字节=交叉写。**复现**：后台 bash 注入 fake `cp`（对固定 rel sleep 30）跑实例A，前台 B 正常 install，diff B 安装的文件与源。
-- **P0 信号中断**：trap 捕获 INT/TERM/HUP 转成 rollback exit 130/143/129——信号**无法终止进程**（必需 kill -9）。shell 等 cp/mv 完成后才跑 rollback，长 cp 下 terminal/timeout 挂断不回。**复现**：大文件 + `timeout -s TERM 2 bash install_v2.sh`，echo $?=124 非 143，pgrep 仍见进程；TERM 期间 strace 无 rollback 写。
-- **P0 cp/mv 失败**：备份 mv 失败后 rollback `cp -p backup/rel target/rel`——目标目录若已变目录/权限只读，cp 失败，rollback 因 set -e 静默 abort，后续记录不回滚。test 仅注入单点 cp exit 73 且 mv 全成功，half-rolled-back 无覆盖。**复现**：failure 点提前 chmod -w target/config 再 fault 在第3文件，前2个 rollback cp 失败即停，原文件丢失。
-- **P1 用户阶段失败**：v2:166 直调 `"$TARGET/install.sh"`，install.sh 步骤1-4 无 rc 检查流；smoke gate fail exit 1 时 v2 顶部仍打 SUCCESS 之前半截已改 CODEX_HOME/项目 hooks，不回滚且终止码冒泡依赖外层。**复现**：无 node/codex 的干净 PATH 跑 install_v2.sh --target X，x/install.sh abort exit 1、包文件已替换、备份留、无提示 rollback 边界。
-- **P1 坏 TOML/JSON 半应用**：install.sh:75 preflight 在 --skip-smoke 路径下于步骤2 agents/*.toml 已 atomic_copy 完成后，步骤4 hooks.json 合并 Python（`json.load(open(target_path))` 于文件存在但坏时抛JSONDecodeError）才炸——agents 已改、hook 备份未做、无 trap、冒烟被跳过清零兜底。**复现**：CODEX_HOME/config.toml 合法、.codex/hooks.json 写 `{bad`，跑 `install.sh --skip-smoke`，对比 agents/ mtime 已更新、hooks.json 无 .bak。
-
-未复现 P0：manifest 校验（绝对/`..`/CRLF/缺失逐一拒，缺 `&` 类行 sed 透传但 `-f` 兜底）；目标=源 cmp 全等零写无备份正确；备份时间戳+PID+ns 唯一。综合 3 个 P0 直接判定 REDO。

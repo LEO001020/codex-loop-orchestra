@@ -1,6 +1,0 @@
-{
-  "packet_id": "parent-9b8227fed1e820b9d22994fec750d0394cedf8dce3e50af2",
-  "status": "done",
-  "run_id": "parent-9b8227fed1e820b9d22994fec750d0394cedf8dce3e50af2-a0-925cedb70fd04481aa2ecc915dfefb9e",
-  "summary": "现在我已有完整的证据。以下是复核结论：\n\n---\n\n**结论：真实 backlog 上限 = 80，超过 80 拒绝，经代码与测试双重验证。**\n\n**importer 源码（`harness/parent_manifest_importer.py`）**\n\n关键验证逻辑在 `validate_manifest` 函数，约第 159–165 行：\n\n```python\nmax_backlog = refill_policy.target_total()   # 取自 RefillPolicy，默认 80\n...\nif len(tasks) > max_backlog:\n    raise ParentManifestError(\n        f\"manifest may contain at most {max_backlog} tasks\")\n```\n\n上限通过 `RefillPolicy.target_total()` 动态读取（而非硬编码），但默认值为 80。`target_active`（对话目标）的上限则由 `refill_policy.dialogue_target()`（默认 20）独立控制，二者明确分离。\n\n**测试（`tests/orchestration_v2/test_parent_manifest_importer.py`）**\n\n测试函数 `test_import_separates_dialogue_target_from_bounded_backlog`，第 **95–109 行**：\n\n- 第 101–103 行：构造 40 个任务 → `validate_manifest` 通过（≤ 80 合法）\n- 第 104–106 行：构造 **81** 个任务\n- 第 107–109 行：断言 `pytest.raises(ParentManifestError, match=\"at most 80\")` → 拒绝（> 80 非法）\n\n即：`tasks` 列表长度 1–80 合法，≥ 81 触发 `ParentManifestError`，错误消息包含 `\"at most 80\"`。测试行号：**第 95 行**（函数定义）和 **第 109 行**（`pytest.raises` 断言）。约束：只读，未做任何修改。"
-}

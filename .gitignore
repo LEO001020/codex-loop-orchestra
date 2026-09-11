@@ -1,0 +1,85 @@
+# ============================================================
+# .gitignore — Codex LOOP open-source release
+# Runtime state, credentials, secrets, caches: NEVER committed
+# ============================================================
+
+# --- Runtime data (per-task state; not source) ---
+data/
+**/data/
+
+# --- Reports and logs ---
+reports/
+**/reports/
+logs/
+**/logs/
+*.log
+*.log.*
+
+# --- Sessions and lifecycle state ---
+sessions/
+state/
+**/sessions/
+**/state/
+*.monitor.json
+
+# --- Backups ---
+backup/
+backups/
+backup-*/
+**/backup/
+**/backups/
+
+# --- Credentials and secrets (NEVER commit) ---
+.env
+.env.*
+secrets/
+credentials/
+**/secrets/
+**/credentials/
+*.pem
+*.key
+*.p12
+*.pfx
+
+# --- Python ---
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+**/.pytest_cache/
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+**/venv/
+**/.venv/
+
+# --- Node ---
+node_modules/
+**/node_modules/
+
+# --- Temp / staging ---
+tmp/
+temp/
+*.tmp
+*.bak
+staging/
+
+# --- Codex home (user config, auth tokens) ---
+.codex/
+**/.codex/
+
+# --- Local developer/editor state ---
+config/config.toml
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+*.swp

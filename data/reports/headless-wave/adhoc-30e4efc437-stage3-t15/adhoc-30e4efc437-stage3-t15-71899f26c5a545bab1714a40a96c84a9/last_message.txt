@@ -1,1 +1,0 @@
-com.openai.chatgpt：user0/user128 均已安装且默认启用（未被禁用/隐藏），采集时刻两用户均无活跃 FGS（进程未运行、无服务/Job/Alarm）、RUN_ANY_IN_BACKGROUND 等后台 AppOps 均为默认 allow（未 ignore、不在 29 项 ignore 名单）、DeviceIdle/Power 白名单均无条目（standby bucket 当前 40=NEVER），满足主控“user0 无活跃 FGS 可置 RUN_ANY_IN_BACKGROUND=ignore、未白名单则不动 DeviceIdle”的前置判定；全程只读未改任何状态，产物：chatgpt.md + report.md（含 29 份原始证据于 evidence/raw/）。

@@ -1,7 +1,0 @@
-只读核验完成（未编辑、未跑测试、未建子agent）：
-
-1. 唯一 policy 路径：`config/orchestration_policy_v2.toml`（`canonical_policy_path` 强制唯一、不可被 env 覆盖）；并发权威另为 `config/refill_policy.toml`，`LOOP_REFILL_POLICY` 当前未设置，走默认路径。
-2. Store 锁：`data/lifecycle/.exec_roster.lock`（另 `.events.lock`）为持久 1 字节跨进程建议锁，Windows `msvcrt` 非阻塞 +10s 退避、POSIX `flock`，v1/v2 同协议互操作；锁文件实测存在。
-3. 原子写：同目录临时文件 + flush/fsync + `os.replace`，v1 `atomic_json` 对 WinError 5 有界重试（5s 指数退避）且失败清理 tmp、绝不原地改写；v2 `_atomic_write_json`（mkstemp+replace，无 fsync/重试）不参与 roster 写入，仅 v1 写 `exec_roster.json`。
-
-结论：三条路径均符合预期，roster 写入路径唯一且协议自洽。

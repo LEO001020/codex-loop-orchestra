@@ -1,5 +1,0 @@
-结论（≤3行）：
-
-1. 唯一policy路径确认：`config/orchestration_policy_v2.toml`（`canonical_policy_path`，声明为唯一生产策略且不可被环境变量覆盖，gate/router/审计均走此路径）；`config/refill_policy.toml` 是另一独立"唯一并发权威"，但其路径可被 `LOOP_REFILL_POLICY` 覆盖。
-2. Store锁：`data/lifecycle/.exec_roster.lock` 持久单字节advisory锁（Windows `msvcrt` LK_NBLCK 10s退避超时、POSIX `flock` EX），roster读改写全程持锁，roster不可读时拒绝覆写；事件追加另用 `.events.lock`。
-3. 原子写：`atomic_json` = 同目录`.<pid>.tmp` + fsync + `os.replace`（5s内对WinError 5退避重试，超时抛LifecycleError），成功后清理tmp、绝不原地改写；当前`data/lifecycle`有4个遗留tmp文件（崩溃残留），不影响主JSON完整性。
