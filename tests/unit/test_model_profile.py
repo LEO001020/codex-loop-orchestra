@@ -27,7 +27,8 @@ def profile_env(tmp_path):
     for rel in ("config", "agents"):
         shutil.copytree(source / rel, root / rel)
     (home / "agents").mkdir(parents=True)
-    shutil.copy2(Path.home() / ".codex" / "config.toml", home / "config.toml")
+    shutil.copy2(source / "config" / "config.toml.example",
+                 home / "config.toml")
     for name in ("worker", "duty_officer"):
         shutil.copy2(source / "agents" / f"{name}.toml",
                      home / "agents" / f"{name}.toml")

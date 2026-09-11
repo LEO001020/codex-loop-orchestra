@@ -38,7 +38,7 @@ CODEX_BIN="${CODEX_BIN:-codex}"
 CODEX_HOME="${CODEX_HOME:-$HOME/.codex}"
 ROLES=(worker reviewer verifier duty_officer)
 FAILURES=0
-ROLE_TIMEOUT_SECONDS="${SMOKE_ROLE_TIMEOUT_SECONDS:-90}"
+ROLE_TIMEOUT_SECONDS="${SMOKE_ROLE_TIMEOUT_SECONDS:-45}"
 
 say()  { printf '%s\n' "$*"; }
 pass() { say "PASS  $*"; }

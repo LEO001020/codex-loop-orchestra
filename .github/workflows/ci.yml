@@ -24,6 +24,11 @@ jobs:
         python: ["3.11", "3.14"]
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install the pinned Codex CLI for executable-resolution tests
+        run: npm install --global @openai/codex@0.147.0
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
